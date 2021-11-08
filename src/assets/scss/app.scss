@@ -1,0 +1,166 @@
+@mixin bg-color-orange {
+    background-color: #F9A01B;
+}
+
+@mixin bg-color-dark-blue {
+    background-color: #0F426A;
+}
+
+@mixin bg-color-darkest-blue {
+    background-color: #053254;
+}
+
+@mixin bg-color-blue {
+    background-color: #005188;
+}
+
+@mixin bg-color-skyblue {
+    background-color: #00AEEF;
+}
+
+@mixin bg-color-light-gray {
+    background-color: #B3B3B3;
+}
+
+@mixin font-aero {
+    font-family: "../../assets/fonts/Aero.ttf";
+    font-size: 1.8rem;
+    font-weight: 750;
+    text-align: center;
+    @media (max-width: 800px) {
+        font-size: 1.5rem;
+    }
+}
+
+@mixin font-info {
+    font-size: 0.8rem;
+    font-weight: 550;
+    text-align: center;
+}
+
+.head {
+    &__logo {
+        height: 30vh;
+        background-image: url("../../assets/images/inra/img_bankap_fondo.png");
+        background-repeat: no-repeat;
+        background-size: cover;
+        background-position: center;
+    }
+    &__img {
+        margin: 3vh 3vw;
+        height: 50%;
+        width: 10%;
+        margin-top: 3%;
+    }
+    &__info {
+        height: 25px;
+
+        @include bg-color-darkest-blue;
+        display: flex;
+        
+        justify-content: flex-end;
+        flex-direction: row;
+        color: white;
+        
+        &__date{
+            display: flex;
+            margin-top: 2px;
+            width: 150px;
+
+            color: white;
+            @include font-info;
+        }
+        &__user {
+            display: flex;
+            margin-top: 2px;
+            padding-right: 1%;
+            
+            color: white;
+            @include font-info;
+        }
+        &__user__icon {
+            margin-left: 3%;
+            margin-right: 1%;
+            margin-top: 5px;
+        }
+        &__date__icon {
+
+            margin-left: 3%;
+            margin-top: 5px;
+        }
+        &__user__icon:hover {
+            cursor: pointer;
+            color: #F9A01B;
+        }
+        &__date__icon:hover {
+            cursor: pointer;
+            color: #F9A01B;
+        }
+    }
+}
+
+.title {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-evenly;
+    background: linear-gradient(#00AEEF 1%, #005188, #053254 90%);
+
+    &__description {
+        color: white;
+        display: flex;
+        padding-top: 1%;
+        @include font-aero;
+    }
+
+    &__deco--left {
+        height: 13%;
+        width: 13%;
+        padding-left: 1%;
+    }
+
+    &__deco--right {
+        height: 13%;
+        width: 13%;
+        padding-right: 1%;
+    }
+}
+
+.footer {
+
+    position: fixed;
+    bottom: 0px;
+    left: 0px;
+
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-evenly;
+    display: flex;
+
+    width: 100%;
+    height: 3%;
+
+    padding-left: 20%;
+    padding-right: 20%;
+
+    @include bg-color-darkest-blue;
+
+    &__compra{
+        margin-top: 2.1%;
+        @include font-info;
+        color: white;
+    }
+
+    &__venta{
+        margin-top: 2.1%;
+        @include font-info;
+        color: white;
+    }
+}
+
+.styleLayout{
+    margin-top: 1%;
+    padding-bottom: 3%;
+    margin-left: 2%;
+    margin-right: 1%;
+}

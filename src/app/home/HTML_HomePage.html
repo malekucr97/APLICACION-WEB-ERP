@@ -1,0 +1,18 @@
+<div class="card text-center" style="position: absolute; width: 45%; position: absolute; left: 50%; top: 35%; transform: translate(-50%, -35%);">
+    <div class="card-header">
+      <h4>Selección de Empresa o Sociedad</h4>
+    </div>
+
+    <div class="card-body" style="margin-bottom: 5%; margin-top: 5%;">
+        <div class="card" *ngFor="let business of listBusiness">
+            <ul class="list-group list-group-flush">
+              <li class="list-group-item" > <h5>{{business.nombre}}</h5></li>
+              <button class="btn-selected-business" (click)="seleccionarEmpresa(business.id)">Seleccionar</button>
+            </ul>
+        </div><br>
+    </div>
+      
+    <div class="card-footer text-muted">
+      Derechos Reservados Soluciones INRA S.A
+    </div>
+  </div>

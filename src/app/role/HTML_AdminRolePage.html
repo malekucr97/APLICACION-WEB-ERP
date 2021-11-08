@@ -1,0 +1,39 @@
+<h1>Administración de Roles <h3 style="color:#1A5276">{{user.empresa}}</h3></h1>
+<a routerLink="/_RoleModule/AdministracionRoles/RegistrarRoles/{{user.empresa}}" class="btn btn-light mb-2 float-right">Registrar Rol</a>
+<table class="table table-striped">
+    <thead>
+        <tr>
+            <th style="width: 15%">Identificacion</th>
+            <th style="width: 10%">Nombre</th>
+            <th style="width: 15%" style="text-align: center;">¿Administrador?</th>
+            <th style="width: 50%">Descripción</th>
+            <th style="width: 10%">Estado</th>
+            <th style="width: 10%"></th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr *ngFor="let role of roles">
+            <td>{{role.id}}</td>
+            <td>{{role.nombre}}</td>
+            <td *ngIf="role.administrador==0" style="text-align: center;">No</td>
+            <td *ngIf="role.administrador==1" style="text-align: center;">Sí</td>
+            <td>{{role.descripcion}}</td>
+            <td>{{role.estado}}</td>
+            <td style="white-space: nowrap">
+
+                <a routerLink="" class="btn btn-sm btn-info mr-1">Actualizar</a>
+
+                <button class="btn btn-sm btn-danger mr-1" [disabled]="role.isDeleting">
+                    <span *ngIf="role.isDeleting" class="spinner-border spinner-border-sm"></span>
+                    <span *ngIf="!role.isDeleting">Eliminar</span>
+                </button>
+
+            </td>
+        </tr>
+        <tr *ngIf="!roles">
+            <td colspan="4" class="text-center">
+                <span class="spinner-border spinner-border-lg align-center"></span>
+            </td>
+        </tr>
+    </tbody>
+</table>

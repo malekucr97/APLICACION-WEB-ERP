@@ -1,0 +1,25 @@
+<main>
+    <article>
+        <section class="menu" >
+            <div class="menu__item" *ngFor="let module of listModulesInfo">
+
+            <a routerLink="/">
+                <img class="menu__item__logo" src="{{module.path}}" title="{{module.descripcion}}" (click)="selectedModule(module)">
+            </a>
+            <p class="menu__item__titulo">{{module.descripcion}}</p>
+            </div>
+        </section>
+
+    </article>
+    
+    <table class="table">
+        <tbody>
+            <tr *ngIf="!listActModules">
+                <td colspan="4" class="text-center">
+                    <span class="spinner-border spinner-border-lg align-center"></span>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+
+</main>

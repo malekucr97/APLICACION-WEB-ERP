@@ -1,0 +1,42 @@
+﻿<h1>Modificar Usuario</h1>
+<form [formGroup]="form" (ngSubmit)="onSubmit()">
+    <div class="form-row">
+        <div class="form-group col">
+            <label for="nombre">Nombre Completo</label>
+            <input type="text" formControlName="nombre" class="form-control" [ngClass]="{ 'is-invalid': submitted && f.nombre.errors }" />
+            <div *ngIf="submitted && f.nombre.errors" class="invalid-feedback">
+                <div *ngIf="f.nombre.errors.required">Por favor ingrese el nombre de la persona</div>
+            </div>
+        </div>
+        <div class="form-group col">
+            <label for="email">Correo electrónico</label>
+            <input type="text" formControlName="email" class="form-control" [ngClass]="{ 'is-invalid': submitted && f.email.errors }" />
+            <div *ngIf="submitted && f.email.errors" class="invalid-feedback">
+                <div *ngIf="f.email.errors.required">Por favor ingrese el correo electrónico</div>
+            </div>
+        </div>
+        <div class="form-group col">
+            <label for="numeroTelefono">Número teléfono</label>
+            <input type="text" formControlName="numeroTelefono" class="form-control" />
+        </div>
+    </div>
+    <div class="form-row">
+        <div class="form-group col">
+            <label for="password">
+                Password
+                <em>(Mantener en blanco si no desea actualizar la contraseña)</em>
+            </label>
+            <input type="password" formControlName="password" class="form-control" [ngClass]="{ 'is-invalid': submitted && f.password.errors }" />
+            <div *ngIf="submitted && f.password.errors" class="invalid-feedback">
+                <div *ngIf="f.password.errors.minlength">Password must be at least 6 characters</div>
+            </div>
+        </div>
+    </div>
+    <div class="form-group">
+        <button [disabled]="loading" class="btn btn-primary">
+            <span *ngIf="loading" class="spinner-border spinner-border-sm mr-1"></span>
+            Guardar
+        </button>
+        <a routerLink="/users" class="btn btn-link">Cancelar</a>
+    </div>
+</form>

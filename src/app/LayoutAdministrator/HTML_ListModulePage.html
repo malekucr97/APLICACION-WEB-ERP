@@ -1,0 +1,40 @@
+<h1>Listado de Módulos de la Empresa o Sociedad</h1>
+<a routerLink="/_AdminModule/AdminUserPage/" class="btn btn-sm btn-light mb-3 mr-3 float-left">Volver</a>
+<table class="table table-striped">
+    <thead>
+        <tr>
+            <th style="width: 15%">Identificador</th>
+            <th style="width: 20%">Empresa o Sociedad</th>
+            <th style="width: 15%">Nombre</th>
+            <th style="width: 25%">Descripción</th>
+            <th style="width: 10%">Estado</th>
+            <th style="width: 20%"></th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr *ngFor="let module of listModules">
+            <td>{{module.identificador}}</td>
+            <td>{{module.idSociedad}}</td>
+            <td>{{module.nombre}}</td>
+            <td>{{module.descripcion}}</td>
+            <td>{{module.estado}}</td>
+            <td style="white-space: nowrap">
+
+                <button *ngIf="module.estado!='Activo'"  (click)="activateModule(module.id, module.identificador, module.idSociedad)" class="btn btn-sm btn-success mr-1" [disabled]="isActivating" >
+                    <span *ngIf="isActivating" class="spinner-border spinner-border-sm"></span>
+                    <span *ngIf="!isActivating">Activar módulo</span>
+                </button>
+                <button *ngIf="module.estado=='Activo'"  (click)="inActivateModule(module.id, module.identificador, module.idSociedad)" class="btn btn-sm btn-warning mr-1" [disabled]="isActivating" >
+                    <span *ngIf="isActivating" class="spinner-border spinner-border-sm"></span>
+                    <span *ngIf="!isActivating">Inactiv módulo</span>
+                </button>
+
+            </td>
+        </tr>
+        <tr *ngIf="!listModules">
+            <td colspan="4" class="text-center">
+                <span class="spinner-border spinner-border-lg align-center"></span>
+            </td>
+        </tr>
+    </tbody>
+</table>

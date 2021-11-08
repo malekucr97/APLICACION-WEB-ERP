@@ -1,0 +1,115 @@
+@mixin bg-color-orange {
+    background-color: #F9A01B;
+}
+
+@mixin bg-color-dark-blue {
+    background-color: #0F426A;
+}
+
+@mixin bg-color-darkest-blue {
+    background-color: #053254;
+}
+
+@mixin bg-color-blue {
+    background-color: #005188;
+}
+
+@mixin bg-color-skyblue {
+    background-color: #00AEEF;
+}
+
+@mixin bg-color-light-gray {
+    background-color: #B3B3B3;
+}
+
+@mixin font-aero {
+    font-family: "../../assets/fonts/Aero.ttf";
+    font-size: 1.8rem;
+    font-weight: 750;
+    text-align: center;
+    @media (max-width: 800px) {
+        font-size: 1.5rem;
+    }
+}
+
+@mixin font-info {
+    font-size: 0.8rem;
+    font-weight: 600;
+    text-align: center;
+    @media (max-width: 600px) {
+        font-size: 0.7rem;
+    }
+}
+
+
+
+.menu {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    flex-wrap: wrap;
+
+    &__item {
+
+        padding-right: 3%;
+        padding-left: 3%;
+
+        padding-top: 1%;
+        padding-bottom: 1%;
+        text-align: center;
+
+        &__logo {
+
+            // width: 50%;
+            // height: 50%;
+
+            transition: opacity 0.5s ease-in-out;
+            cursor: pointer;
+        }
+        &__titulo {
+            
+            color: #005188;
+            font-size: 1rem;
+            font-weight: 700;
+            transition: color 0.2s ease-in-out;
+
+            @media (min-width: 1500px) {
+                font-size: 1rem;
+            }
+
+            &:hover {
+                color: #00AEEF;
+                cursor: pointer;
+            }
+        }
+    }
+}
+
+.footer {
+    
+    position: fixed;
+    bottom: 0px;
+    left: 0px;
+
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-evenly;
+    display: flex;
+
+    width: 100%;
+    height: 1px;
+
+    padding-left: 20%;
+    padding-right: 20%;
+
+    &__compra{
+        padding-top: 15%;
+        @include font-info;
+    }
+
+    &__venta{
+        padding-top: 15%;
+        @include font-info;
+    }
+}

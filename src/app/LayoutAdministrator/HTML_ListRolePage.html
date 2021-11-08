@@ -1,0 +1,52 @@
+<h1>Listado de Roles del Sistema !</h1>
+<a routerLink="{{URLAdministratorPage}}" class="btn btn-light mb-2">Atrás</a><br>
+<table class="table table-striped">
+    <thead>
+        <tr>
+            <th style="width: 40%">Descripción</th>
+            <th style="width: 10%">Estado</th>
+            <th style="width: 10%">Tipo</th>
+            <th style="width: 20%"></th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr *ngFor="let rol of listRoles">
+            <td>{{rol.descripcion}}</td>
+            <td>{{rol.estado}}</td>
+            <td>{{rol.tipo}}</td>
+            <td style="white-space: nowrap">
+
+                <button *ngIf="rol.estado!='Activo'"  (click)="activateRole(rol.id)" class="btn btn-sm btn-light mr-1" [disabled]="isActivating" >
+                    <span *ngIf="isActivating" class="spinner-border spinner-border-sm"></span>
+                    <span *ngIf="!isActivating">Activar rol</span>
+                </button>
+                <button *ngIf="rol.estado=='Activo'"  (click)="inActivateRole(rol.id)" class="btn btn-sm btn-info mr-1" [disabled]="isActivating" >
+                    <span *ngIf="isActivating" class="spinner-border spinner-border-sm"></span>
+                    <span *ngIf="!isActivating">Inactiv rol</span>
+                </button>
+
+                <button *ngIf="rol.tipo!='Lectura'"  (click)="lectura(rol.id)" class="btn btn-sm btn-light mr-1" [disabled]="isActivating" >
+                    <span *ngIf="isActivating" class="spinner-border spinner-border-sm"></span>
+                    <span *ngIf="!isActivating">Lectura</span>
+                </button>
+                <button *ngIf="rol.tipo=='Lectura'"  (click)="escritura(rol.id)" class="btn btn-sm btn-dark mr-1" [disabled]="isActivating" >
+                    <span *ngIf="isActivating" class="spinner-border spinner-border-sm"></span>
+                    <span *ngIf="!isActivating">Escritura</span>
+                </button>
+
+                <a routerLink="{{URLAddModuleRolPage}}{{rol.id}}/{{rol.nombre}}/{{rol.descripcion}}/{{rol.esAdministrador}}" class="btn btn-sm btn-dark mr-1"> Módulo </a>
+
+
+
+                <!-- <a (click)="lectura(rol.id)" *ngIf="rol.tipo=='Escritura'" routerLink="" class="btn btn-sm btn-dark mr-1"> Lectura :</a>
+                <a (click)="escritura(rol.id)" *ngIf="rol.tipo=='Lectura'" routerLink="" class="btn btn-sm btn-dark mr-1"> Escritura </a> -->
+
+            </td>
+        </tr>
+        <tr *ngIf="!listRoles">
+            <td colspan="4" class="text-center">
+                <span class="spinner-border spinner-border-lg align-center"></span>
+            </td>
+        </tr>
+    </tbody>
+</table>

@@ -1,0 +1,54 @@
+<h1>Listado de usuarios del Sistema</h1>
+<a routerLink="{{URLAddEditUsertPage}}" class="btn btn-sm btn-success mb-3 mr-3 float-right">Registrar Usuario</a>
+<table class="table table-striped">
+    <thead>
+        <tr>
+            <th style="width: 5%">Id</th>
+            <th style="width: 30%">Nombre</th>
+            <th style="width: 15%">Email</th>
+            <th style="width: 10%">Rol</th>
+            <th style="width: 10%">Estado</th>
+            <th style="width: 20%"></th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr *ngFor="let us of listUsers">
+            <td>{{us.identificacion}}</td>
+            <td>{{us.nombreCompleto}}</td>
+            <td>{{us.email}}</td>
+            <td>{{us.idRol}}</td>
+            <td>{{us.estado}}</td>
+            <td style="white-space: nowrap">
+
+                <a *ngIf="adminBoss" routerLink="{{URLAddBusinessUsertPage}}{{us.identificacion}}" class="btn btn-sm btn-dark mr-1">
+                    Empresa
+                </a>
+                <a *ngIf="adminBusiness || adminBoss" routerLink="{{URLAddRoleUsertPage}}{{us.identificacion}}" class="btn btn-sm btn-dark mr-1">
+                    Rol
+                </a>
+
+                <button *ngIf="us.estado!='Activo'"  (click)="activateUser(us.identificacion)" class="btn btn-sm btn-light mr-1" [disabled]="isActivating" >
+                    <span *ngIf="isActivating" class="spinner-border spinner-border-sm"></span>
+                    <span *ngIf="!isActivating">Activar cuenta</span>
+                </button>
+                <button *ngIf="us.estado=='Activo'"  (click)="inActivateUser(us.identificacion)" class="btn btn-sm btn-info mr-1" [disabled]="isActivating" >
+                    <span *ngIf="isActivating" class="spinner-border spinner-border-sm"></span>
+                    <span *ngIf="!isActivating">Inactiv cuenta</span>
+                </button>
+
+                <a routerLink="{{URLAddEditUsertPage}}{{us.identificacion}}" class="btn btn-sm btn-warning mr-1">Actualizar</a>
+
+                <button (click)="deleteUser(us.identificacion)" class="btn btn-sm btn-danger mr-1" [disabled]="isDeleting">
+                    <span *ngIf="isDeleting" class="spinner-border spinner-border-sm"></span>
+                    <span *ngIf="!isDeleting">Eliminar</span>
+                </button>
+
+            </td>
+        </tr>
+        <tr *ngIf="!listUsers">
+            <td colspan="4" class="text-center">
+                <span class="spinner-border spinner-border-lg align-center"></span>
+            </td>
+        </tr>
+    </tbody>
+</table>
