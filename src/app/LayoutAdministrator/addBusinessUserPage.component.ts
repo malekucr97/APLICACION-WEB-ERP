@@ -1,5 +1,3 @@
-
-// cambios
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Component, OnInit } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
@@ -39,9 +37,7 @@ export class AddBusinessUserComponent implements OnInit {
     public listAllBusiness: Business[] = [];
     public listBusinessUser: Business[] = [];
 
-// hola cambio
-
-    constructor(
+    constructor (
         private route: ActivatedRoute,
         private accountService: AccountService,
         private alertService: AlertService,
