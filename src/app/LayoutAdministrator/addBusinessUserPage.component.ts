@@ -39,6 +39,7 @@ export class AddBusinessUserComponent implements OnInit {
     public listAllBusiness: Business[] = [];
     public listBusinessUser: Business[] = [];
 
+// hola cambio
 
     constructor(
         private route: ActivatedRoute,
