@@ -59,16 +59,16 @@
                 </div>
             </div>
             <div class="form-group">
-                <button *ngIf="updateUser" [disabled]="loading" class="btn btn-outline-warning mb-2 float-right">
+                <button *ngIf="updateUser" [disabled]="loading" class="btn btn-warning mb-2 float-right">
                     <span *ngIf="loading" class="spinner-border spinner-border-sm mr-1"></span>
                     Actualizar
                 </button>
-                <button *ngIf="addUser" [disabled]="loading" class="btn btn-outline-success mb-2 float-right">
+                <button *ngIf="addUser" [disabled]="loading" class="btn btn-success mb-2 float-right">
                     <span *ngIf="loading" class="spinner-border spinner-border-sm mr-1"></span>
                     Registrar
                 </button>
 
-                <a routerLink="{{URLRedirectPage}}" class="btn btn-outline-secondary mb-2">Atrás</a>
+                <a routerLink="{{URLRedirectPage}}" class="btn btn-light mb-2">Atrás</a>
             </div>
         </form>
     </div>

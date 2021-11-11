@@ -13,18 +13,20 @@ import { ResponseMessage } from '@app/_models/response';
 
 import { administrator } from '@environments/environment';
 
+import { httpAccessPage } from '@environments/environment';
+
 @Component({ templateUrl: 'HTML_AddBusinessUserPage.html' })
 export class AddBusinessUserComponent implements OnInit {
     form: FormGroup;
 
-    public userBusiness: User;
+    userBusiness: User;
 
-    public isAsignBusiness: boolean;
+    isAsignBusiness: boolean;
 
-    public existeRol: boolean;
-    public asignarEmrpesa: boolean;
+    existeRol: boolean;
+    asignarEmrpesa: boolean;
 
-    public isDesAsignBusiness: boolean;
+    isDesAsignBusiness: boolean;
 
     pUserId: string;
 
@@ -34,10 +36,12 @@ export class AddBusinessUserComponent implements OnInit {
     user: User;
     role: Role;
 
-    public listAllBusiness: Business[] = [];
-    public listBusinessUser: Business[] = [];
+    listAllBusiness: Business[] = [];
+    listBusinessUser: Business[] = [];
 
-    constructor (
+    URLListUsersPage: string;
+
+    constructor(
         private route: ActivatedRoute,
         private accountService: AccountService,
         private alertService: AlertService,
@@ -55,6 +59,8 @@ export class AddBusinessUserComponent implements OnInit {
 
         this.userBusiness = new User();
         this.role = new Role();
+
+        this.URLListUsersPage = httpAccessPage.urlPageListUsers;
 
         if (this.pUserId !== administrator.id) {
 

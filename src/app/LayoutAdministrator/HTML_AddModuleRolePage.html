@@ -1,6 +1,5 @@
 <h1>Acceso de Roles a Módulos del Sistema</h1>
 <h4 *ngIf="!seleccionEmpresa">Debe Seleccionar la Empresa o Sociedad en donde se verá actualizado la reasignación de permisos</h4>
-
 <div *ngIf="seleccionEmpresa" class="card">
     <div  class="card-body">
         <a routerLink="/_AdminModule/AdminListRolePage" class="btn btn-light mb-2">Atrás</a><br>
@@ -11,7 +10,6 @@
         <div *ngIf="!administrador">
 
             <div *ngIf="listModulesRol">
-                <!-- <h5 style="color:green">tiene acceso a los Módulos : </h5><br> -->
                 <small><b style="color:yellowgreen">tiene acceso a los siguientes módulos :</b></small>
                 <table class="table table-striped">
                     <thead>
