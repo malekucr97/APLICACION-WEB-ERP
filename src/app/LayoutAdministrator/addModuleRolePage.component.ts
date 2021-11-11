@@ -138,36 +138,47 @@ export class AddModuleRoleComponent implements OnInit {
         this.module.descripcion = descModulo;
         this.module.estado = 'Activo';
 
-        // CONSULTAR MODULO ID
-
-        this.accountService.addModuleRol(this.module)
+        this.accountService.getModulesIdIdBusiness(this.module.identificador, this.module.idSociedad)
             .pipe(first())
-            .subscribe( moduleResponse => {
+            .subscribe( exist => {
 
-                this.accountService.accessModule(this.pRoleId, moduleResponse.id)
+                if (!exist) {
+
+                    this.accountService.addModuleRol(this.module)
                     .pipe(first())
-                    .subscribe( response => {
+                    .subscribe( moduleResponse => {
 
-                        if (response.exito) {
+                        this.accountService.accessModule(this.pRoleId, moduleResponse.id)
+                            .pipe(first())
+                            .subscribe( response => {
 
-                            this.alertService.success(response.responseMesagge, { keepAfterRouteChange: true });
+                                if (response.exito) {
 
-                        } else { this.alertService.error(response.responseMesagge, { keepAfterRouteChange: true }); }
+                                    this.alertService.success(response.responseMesagge, { keepAfterRouteChange: true });
 
-                        this.access = false;
-                        this.ngOnInit();
-                    },
-                    error => {
-                        console.log(error);
-                        this.alertService.error(error);
-                        this.loading = false;
-                    });
-                },
-                error => {
-                    console.log(error);
-                    this.alertService.error(error);
-                    this.loading = false;
-                });
+                                } else { this.alertService.error(response.responseMesagge, { keepAfterRouteChange: true }); }
+
+                                this.access = false;
+                                this.ngOnInit();
+                            },
+                            error => {
+                                console.log(error);
+                                this.alertService.error(error);
+                                this.loading = false;
+                            });
+                        },
+                        error => {
+                            console.log(error);
+                            this.alertService.error(error);
+                            this.loading = false;
+                        });
+                }
+        },
+        error => {
+            console.log(error);
+            this.alertService.error(error);
+            this.loading = false;
+        });
     }
     eliminarAcceso(idMod: number){
 
@@ -175,13 +186,27 @@ export class AddModuleRoleComponent implements OnInit {
 
         this.accountService.deleteAccessModule(this.pRoleId, idMod)
             .pipe(first())
-            .subscribe( responseDelete => {
+            .subscribe( responseDeleteAccess => {
 
-                if (responseDelete.exito){
+                if (responseDeleteAccess.exito) {
 
-                    this.alertService.success('Se eliminó el acceso al Módulo seleccionado.', { keepAfterRouteChange: true });
+                    this.accountService.deleteModule(idMod)
+                        .pipe(first())
+                        .subscribe( responseDeleteModule => {
 
-                } else { this.alertService.error('Problemas al eliminar el acceso.', { keepAfterRouteChange: true }); }
+                            if (responseDeleteModule.exito) {
+
+                                this.alertService.success(responseDeleteAccess.responseMesagge, { keepAfterRouteChange: true });
+
+                            } else { this.alertService.error(responseDeleteModule.responseMesagge, { keepAfterRouteChange: true }); }
+                        },
+                        error => {
+                            console.log(error);
+                            this.alertService.error(error);
+                            this.loading = false;
+                        });
+
+                } else { this.alertService.error(responseDeleteAccess.responseMesagge, { keepAfterRouteChange: true }); }
 
                 this.access = false;
                 this.ngOnInit();
@@ -191,14 +216,5 @@ export class AddModuleRoleComponent implements OnInit {
                 this.alertService.error(error);
                 this.loading = false;
             });
-                // }
-                // this.access = false;
-                // this.ngOnInit();
-            // },
-            // error => {
-            //     console.log(error);
-            //     this.alertService.error(error);
-            //     this.loading = false;
-            // });
     }
 }

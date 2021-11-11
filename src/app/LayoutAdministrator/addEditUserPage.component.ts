@@ -71,7 +71,7 @@ export class AddEditUserComponent implements OnInit {
                 identificacion: ['', Validators.required],
                 nombre: ['', Validators.required],
                 primerApellido: ['', Validators.required],
-                segundoApellido: ['', Validators.required],
+                segundoApellido: [''],
                 email: ['', Validators.required],
                 numeroTelefono: ['', Validators.required],
                 role: [''],
@@ -89,7 +89,7 @@ export class AddEditUserComponent implements OnInit {
                 identificacion: ['', Validators.required],
                 nombre: ['', Validators.required],
                 primerApellido: ['', Validators.required],
-                segundoApellido: ['', Validators.required],
+                segundoApellido: [''],
                 email: ['', Validators.required],
                 numeroTelefono: ['', Validators.required],
                 role: [''],
@@ -108,6 +108,7 @@ export class AddEditUserComponent implements OnInit {
                     this.f.identificacion.setValue(responseUser.identificacion);
 
                     const arrayNombre = responseUser.nombreCompleto.split(' ');
+
                     this.f.nombre.setValue(arrayNombre[0]);
                     this.f.primerApellido.setValue(arrayNombre[1]);
                     this.f.segundoApellido.setValue(arrayNombre[2]);
@@ -160,7 +161,7 @@ export class AddEditUserComponent implements OnInit {
 
         this.userForm.password = this.form.get('password').value;
 
-        if (this.addUser){
+        if (this.addUser) {
             this.accountService.addUser(this.userForm)
             .pipe(first())
             .subscribe(
@@ -175,7 +176,7 @@ export class AddEditUserComponent implements OnInit {
                 });
         }
 
-        if (this.updateUser){
+        if (this.updateUser) {
             this.accountService.updateUser(this.id, this.userForm)
             .pipe(first())
             .subscribe(
