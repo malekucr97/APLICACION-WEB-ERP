@@ -3,7 +3,6 @@ import { Component, OnInit } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
 
 import { first } from 'rxjs/operators';
-
 import { AccountService, AlertService } from '@app/_services';
 
 import { User } from '../_models';
@@ -95,7 +94,7 @@ export class AddBusinessUserComponent implements OnInit {
                     .pipe(first())
                     .subscribe(responseListBusiness => {
 
-                        if (responseListBusiness.length > 0){
+                        if (responseListBusiness.length > 0) {
 
                             this.listAllBusiness = responseListBusiness;
 
@@ -174,11 +173,10 @@ export class AddBusinessUserComponent implements OnInit {
 
                     this.isDesAsignBusiness = false;
 
-                    if (response.exito){
+                    if (response.exito) {
 
                         this.alertService.success(response.responseMesagge, { keepAfterRouteChange: true });
-                    }
-                    else{
+                    } else {
                         this.alertService.error(response.responseMesagge, { keepAfterRouteChange: true });
                     }
 

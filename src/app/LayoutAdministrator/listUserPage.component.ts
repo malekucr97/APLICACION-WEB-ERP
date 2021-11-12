@@ -76,39 +76,35 @@ export class ListUserComponent implements OnInit {
 
             this.accountService.dessAssignAllBusinessUser(identificacionUsuario)
                 .pipe(first())
-                .subscribe(
-                    responseDessA => {
+                .subscribe( responseDessA => {
 
-                        if (responseDessA.exito) {
+                    if (responseDessA.exito) {
 
-                            this.accountService.deleteUser(identificacionUsuario)
-                                .pipe(first())
-                                .subscribe( responseObj => {
+                        this.accountService.deleteUser(identificacionUsuario)
+                            .pipe(first())
+                            .subscribe( responseObj => {
 
-                                    if (responseObj.exito) {
-                                        this.alertService.success(responseObj.responseMesagge, { keepAfterRouteChange: true });
-                                    } else {
-                                        this.alertService.error(responseObj.responseMesagge, { keepAfterRouteChange: true });
-                                    }
-                                    this.isDeleting = false;
-                                    this.ngOnInit();
-                                },
-                                (error) => {
-                                    console.log(error);
-                                    this.isActivating = false;
-                                    this.alertService.error(error, { keepAfterRouteChange: true });
-                                    this.ngOnInit();
-                                });
-                        } else {
-                            this.alertService.error(responseDessA.responseMesagge, { keepAfterRouteChange: true });
-                        }
-                    },
-                    error => {
-                        console.log(error);
-                        this.isActivating = false;
-                        this.alertService.error(error, { keepAfterRouteChange: true });
-                        this.ngOnInit();
-                    });
+                                if (responseObj.exito) {
+                                    this.alertService.success(responseObj.responseMesagge, { keepAfterRouteChange: true });
+                                } else {
+                                    this.alertService.error(responseObj.responseMesagge, { keepAfterRouteChange: true });
+                                }
+                                this.ngOnInit();
+                            },
+                            (error) => {
+                                console.log(error);
+                                this.alertService.error(error, { keepAfterRouteChange: true });
+                                this.ngOnInit();
+                            });
+                    } else {
+                        this.alertService.error(responseDessA.responseMesagge, { keepAfterRouteChange: true });
+                    }
+                },
+                error => {
+                    console.log(error);
+                    this.alertService.error(error, { keepAfterRouteChange: true });
+                    this.ngOnInit();
+                });
         } else {
             this.response.responseMesagge = 'No se puede eliminar la cuenta administradora del sistema';
             this.alertService.info(this.response.responseMesagge, { keepAfterRouteChange: true });
@@ -128,12 +124,10 @@ export class ListUserComponent implements OnInit {
                 .pipe(first())
                 .subscribe( responseActivate => {
                     this.alertService.success(responseActivate.responseMesagge, { keepAfterRouteChange: true });
-                    this.isActivating = false;
                     this.ngOnInit();
                 },
                 (error) => {
                     console.log(error);
-                    this.isActivating = false;
                     this.alertService.error(error, { keepAfterRouteChange: true });
                     this.ngOnInit();
                 });
@@ -155,12 +149,10 @@ export class ListUserComponent implements OnInit {
                 .pipe(first())
                 .subscribe( responseInActivate => {
                     this.alertService.success(responseInActivate.responseMesagge, { keepAfterRouteChange: true });
-                    this.isActivating = false;
                     this.ngOnInit();
                 },
                 (error) => {
                     console.log(error);
-                    this.isActivating = false;
                     this.alertService.error(error, { keepAfterRouteChange: true });
                     this.ngOnInit();
                 });
