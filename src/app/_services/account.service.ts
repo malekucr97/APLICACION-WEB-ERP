@@ -135,7 +135,7 @@ export class AccountService {
         return this.http.get<Module[]>(`${environment.apiUrl}/users/modulossociedad?idEmpresa=${idEmpresa}`);
     }
     getModulesIdIdBusiness(identificador: string, idEmpresa: string) {
-        return this.http.get<Module[]>(`${environment.apiUrl}/users/modulosidentifempresa?identificador=${identificador}&idEmpresa=${idEmpresa}`);
+        return this.http.get<Module>(`${environment.apiUrl}/users/modididempresa?identificador=${identificador}&idEmpresa=${idEmpresa}`);
     }
     getModulesActiveBusiness(idEmpresa: string) {
         return this.http.get<Module[]>(`${environment.apiUrl}/users/modulosactsociedad?idEmpresa=${idEmpresa}`);

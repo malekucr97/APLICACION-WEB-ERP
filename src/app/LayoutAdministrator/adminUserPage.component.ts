@@ -31,7 +31,6 @@ export class AdminUserComponent implements OnInit { user: User;
         this.URLListUserPage = httpAccessPage.urlPageListUsers;
         this.URLListBusinessPage = httpAccessPage.urlPageListBusiness;
         this.URLListRolePage = httpAccessPage.urlPageListRole;
-        
 
 
         if (this.user.estado === usAuth.us_inactive) { this.router.navigate([httpAccessPage.urlPageInactiveUser]); return; }
@@ -40,8 +39,8 @@ export class AdminUserComponent implements OnInit { user: User;
 
         this.adminSistema = false; this.adminEmpresa = false;
 
-        if (this.user.esAdmin) this.adminSistema = true;
-        if (this.user.idRol === amdinBusiness.adminSociedad) this.adminEmpresa = true;
+        if (this.user.esAdmin) { this.adminSistema = true; }
+        if (this.user.idRol === amdinBusiness.adminSociedad) {this.adminEmpresa = true; }
 
         // -- >> en caso de que el usuario no sea administrador
         // -- >> redirecciona al usuario activo a la página de actualización del usuario

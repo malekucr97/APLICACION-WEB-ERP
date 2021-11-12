@@ -1,6 +1,87 @@
-<h1>Acceso de Roles a Módulos del Sistema</h1>
-<h4 *ngIf="!seleccionEmpresa">Debe Seleccionar la Empresa o Sociedad en donde se verá actualizado la reasignación de permisos</h4>
+<h1 style="display: inline; color:#1A5276">Acceso de Roles </h1>
+<h1 style="display: inline;">a Módulos del Sistema</h1><br><br>
+<h4 *ngIf="!seleccionEmpresa">Debe Seleccionar la Empresa o Sociedad en donde se verá actualizada la reasignación de permisos</h4>
+<a routerLink="/_AdminModule/AdminListRolePage" class="btn btn-light mb-2 mr-3">Atrás</a><br>
 <div *ngIf="seleccionEmpresa" class="card">
+    <div class="card-body">
+
+        <h5 style="display: inline; color:#1A5276">El {{pDescRole}}</h5>
+        <h4 style="display: inline;"> en {{business.nombre}}</h4><br><br>
+        <h5 *ngIf="administrador" style="color:yellowgreen">tiene acceso a TODOS los Módulos de la Empresa o Sociedad</h5>
+
+        <div *ngIf="!administrador">
+
+            <div *ngIf="listModulesRol">
+                <small><b style="color:yellowgreen">tiene acceso a los siguientes módulos :</b></small>
+                <table class="table table-striped">
+                    <thead>
+                        <tr>
+                            <th style="width: 10%">Id</th>
+                            <th style="width: 20%">Nombre</th>
+                            <th style="width: 50%">Descripción</th>
+                            <th style="width: 20%"></th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr *ngFor="let modAss of listModulesRol">
+                            <td>{{modAss.id}}</td>
+                            <td>{{modAss.nombre}}</td>
+                            <td>{{modAss.descripcion}}</td>
+
+                            <td style="white-space: nowrap">
+                                <button (click)="eliminarAcceso(modAss.id)" class="btn btn-sm btn-danger mr-1">
+                                    <span *ngIf="access" class="spinner-border spinner-border-sm"></span>
+                                    <span *ngIf="!access">Elimnar Acceso a Módulo</span>
+                                </button>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+    
+            <div *ngIf="listModulesActive">
+                <br>
+                <h4>Listado de Módulos Activos del Sistema</h4>
+                <small><b style="color:yellowgreen">asigne los módulos que desee otorgar permisos de acceso al rol seleccionado</b></small>
+                <table class="table table-striped">
+                    <thead>
+                        <tr>
+                            <th style="width: 10%">Id</th>
+                            <th style="width: 20%">Nombre</th>
+                            <th style="width: 50%">Descripción</th>
+                            <th style="width: 20%"></th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr *ngFor="let modRol of listModulesActive">
+                            <td>{{modRol.id}}</td>
+                            <td>{{modRol.nombre}}</td>
+                            <td>{{modRol.descripcion}}</td>
+                            
+                            <td style="white-space: nowrap">
+                                <button (click)="acceso(modRol.identificador, modRol.nombre, modRol.descripcion)"  class="btn btn-sm btn-success mr-1">
+                                    <span *ngIf="access" class="spinner-border spinner-border-sm"></span>
+                                    <span *ngIf="!access">Registrar Acceso a Módulo</span>
+                                </button>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+        
+    </div>
+</div>
+
+
+
+
+
+<!-- 
+
+<div *ngIf="seleccionEmpresa">
+    
+
     <div  class="card-body">
         <a routerLink="/_AdminModule/AdminListRolePage" class="btn btn-light mb-2">Atrás</a><br>
         <h5 style="display: inline; color:#1A5276">El {{pDescRole}}</h5>
@@ -68,4 +149,4 @@
             </div>
         </div>
     </div>
-</div>
+</div> -->
