@@ -17,8 +17,8 @@ import { localVariables } from '@environments/environment';
     styleUrls: ['../../assets/scss/HTML_BusinessPage.scss']
 })
 export class BusinessPageComponent implements OnInit {
-    // tslint:disable-next-line: new-parens
-    user = new User;
+
+    user: User;
 
     propertiesMod: ModulesProperties;
 
@@ -32,14 +32,14 @@ export class BusinessPageComponent implements OnInit {
 
     ngOnInit() {
 
-        // LISTA TODOS LOS MÓDULOS ACTIVOS EN LA EMPRESA PARA LOS ADMINISTRADORES DEL SISTEMA
+        // lista los módulos activos de cada empresa
         if (this.user.esAdmin || this.user.idRol === amdinBusiness.adminSociedad) {
 
             this.accountService.getModulesActiveBusiness(this.user.empresa)
             .pipe(first())
             .subscribe(responseList => {
 
-                if (responseList){
+                if (responseList) {
 
                     this.listActModules = responseList;
 
@@ -53,12 +53,10 @@ export class BusinessPageComponent implements OnInit {
                         this.propertiesMod.descripcion =  mod.descripcion;
 
                         this.listModulesInfo.push(this.propertiesMod);
-
                     });
                 }
             });
-
-        // CONSULTA LOS MÓDULOS ACTIVOS DE UN USUARIO CON PRIVILEGIOS
+        // lista los módulos de un usuario
         } else {
 
             this.accountService.getModulesActiveUser(this.user.empresa, this.user.idRol)
@@ -79,7 +77,6 @@ export class BusinessPageComponent implements OnInit {
                         this.propertiesMod.descripcion =  mod.descripcion;
 
                         this.listModulesInfo.push(this.propertiesMod);
-
                     });
                 }
             });

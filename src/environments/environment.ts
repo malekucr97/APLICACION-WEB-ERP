@@ -9,7 +9,7 @@ export const environment = {
 
 export const administrator = {
     production: false,
-    flag: 1,
+    esAdministrador: 1,
     id: 'adminboss',
     state: 'admin',
     urlRedirect: '/_AdminModule/AdminUserPage/'
@@ -34,6 +34,7 @@ export const httpAccessPage = {
     urlPageNotRol: '/_LandingModule/NotRolPage/',
     urlPageInactiveUser: '/_LandingModule/InactiveUserPage/',
     urlPageInactiveRol: '/_LandingModule/InactiveRolPage/',
+    urlPageBusinessIndex: '_LandingModule/BusinessPage',
     // -- >> Admin Pages Sistem
     urlPageConfigUser: '/_AdminModule/AddEditUserPage/',
     urlPageAddEditUser: '/_AdminModule/AddEditUserPage/',

@@ -17,7 +17,7 @@ export class HomeComponent implements OnInit {
     user: User;
     businesss = Business;
 
-    public listBusiness: Business[] = [];
+    listBusiness: Business[] = [];
 
     constructor(private accountService: AccountService, private router: Router) {
         this.user = this.accountService.userValue;
@@ -25,24 +25,27 @@ export class HomeComponent implements OnInit {
 
     ngOnInit() {
 
-        if (this.user.estado === usAuth.us_inactive) { this.router.navigate([httpAccessPage.urlPageInactiveUser]); return; }
-        if (this.user.estado === usAuth.us_pending) { this.router.navigate([httpAccessPage.urlPagePending]); return; }
-        if (!this.user.idRol) { this.router.navigate([httpAccessPage.urlPageNotRol]); return; }
+        if (this.user) {
 
-        if (this.user.esAdmin) {
+            if (this.user.estado === usAuth.us_inactive) { this.router.navigate([httpAccessPage.urlPageInactiveUser]); return; }
+            if (this.user.estado === usAuth.us_pending) { this.router.navigate([httpAccessPage.urlPagePending]); return; }
+            if (!this.user.idRol) { this.router.navigate([httpAccessPage.urlPageNotRol]); return; }
 
-            this.accountService.getAllBusiness()
-            .pipe(first())
-            .subscribe(lstBusinessResponse => {
-                this.listBusiness = lstBusinessResponse;
-            }); return;
+            // consulta las empresas activas para el usuario que esté iniciando sesión
+            if (this.user.esAdmin) {
+                this.accountService.getAllBusiness()
+                .pipe(first())
+                .subscribe(lstBusinessResponse => {
+                    this.listBusiness = lstBusinessResponse;
+                });
+            } else {
+                this.accountService.getBusinessActiveUser(this.user.identificacion)
+                .pipe(first())
+                .subscribe(lstBusinessResponse => {
+                    this.listBusiness = lstBusinessResponse;
+                });
+            }
         }
-
-        this.accountService.getBusinessActiveUser(this.user.identificacion)
-        .pipe(first())
-        .subscribe(lstBusinessResponse => {
-            this.listBusiness = lstBusinessResponse;
-        });
     }
 
     seleccionarEmpresa(businessId: string) {
@@ -50,6 +53,6 @@ export class HomeComponent implements OnInit {
         this.user.empresa = businessId;
         this.accountService.updateLocalUser(this.user);
 
-        this.router.navigate(['_LandingModule/BusinessPage']);
+        this.router.navigate([httpAccessPage.urlPageBusinessIndex]);
     }
 }

@@ -1,15 +1,15 @@
 <main>
     <article>
-        <section class="menu" >
+        <section class="menu">
+
             <div class="menu__item" *ngFor="let module of listModulesInfo">
-
-            <a routerLink="/">
-                <img class="menu__item__logo" src="{{module.path}}" title="{{module.descripcion}}" (click)="selectedModule(module)">
-            </a>
-            <p class="menu__item__titulo">{{module.descripcion}}</p>
+                <a routerLink="/">
+                    <img class="menu__item__logo" src="{{module.path}}" title="{{module.descripcion}}" (click)="selectedModule(module)">
+                </a>    
+                <p class="menu__item__titulo">{{module.descripcion}}</p>    
             </div>
-        </section>
 
+        </section>
     </article>
     
     <table class="table">
