@@ -37,7 +37,7 @@ export class AlertComponent implements OnInit, OnDestroy {
                 if (alert.autoClose) {
                     setTimeout(() => this.removeAlert(alert), 3000);
                 }
-           });
+        });
 
         // clear alerts on location change
         this.routeSubscription = this.router.events.subscribe(event => {

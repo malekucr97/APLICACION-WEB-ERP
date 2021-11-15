@@ -5,18 +5,9 @@
             <img routerLink="/" class="head__img" src="./assets/images/inra/img_bankap_logo.png" alt="Logo principal Bankapp">
         </a>
     </div>
-
-    <div class="head__info" *ngIf="user">
-        <p class="head__info__user">{{user.email}}
-            <i routerLink="/_AdminModule/AdminUserPage" class="head__info__user__icon fa fa-cog"></i>
-        </p>
-        <p class="head__info__date">{{user.identificacion}}
-            <i class="head__info__date__icon fa fa-sign-out fa-lg" (click)="logout()"></i>
-        </p>
-    </div>
 </header>
 
-<main *ngIf="user">
+<!-- <main *ngIf="user">
     <article>
         <section class="title">
             <img class="title__deco--left" src="./assets/images/inra/img_bankap_left.png ">
@@ -24,8 +15,7 @@
             <img class="title__deco--right" src="./assets/images/inra/img_bankap_rigth.png ">
         </section>
     </article>
-</main>
-
+</main> -->
 <!-- ====================== -->
 <!-- ====================== -->
 

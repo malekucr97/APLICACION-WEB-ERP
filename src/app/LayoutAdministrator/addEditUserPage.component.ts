@@ -18,25 +18,25 @@ import { ResponseMessage } from '@app/_models/response';
 export class AddEditUserComponent implements OnInit {
     form: FormGroup;
 
-    public updateUser: boolean;
-    public addUser: boolean;
+    response: ResponseMessage;
 
     URLRedirectPage: string;
-    response: ResponseMessage;
+    id: string;
 
     loading = false;
     submitted = false;
+
     user: User;
     role: Role;
 
-    id: string;
+    esAdmin: boolean;
+    listRoles: boolean;
+    updateUser: boolean;
+    addUser: boolean;
 
-    public esAdmin: boolean;
-    public listRoles: boolean;
+    business: Business;
 
-    public business: Business;
-
-    public listRolesBusiness: Role[] = [];
+    listRolesBusiness: Role[] = [];
 
     userForm = new User();
 

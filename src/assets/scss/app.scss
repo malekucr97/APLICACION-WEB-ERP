@@ -99,32 +99,32 @@
     }
 }
 
-.title {
-    display: flex;
-    flex-direction: row;
-    align-items: center;
-    justify-content: space-evenly;
-    background: linear-gradient(#00AEEF 1%, #005188, #053254 90%);
+// .title {
+//     display: flex;
+//     flex-direction: row;
+//     align-items: center;
+//     justify-content: space-evenly;
+//     background: linear-gradient(#00AEEF 1%, #005188, #053254 90%);
 
-    &__description {
-        color: white;
-        display: flex;
-        padding-top: 1%;
-        @include font-aero;
-    }
+//     &__description {
+//         color: white;
+//         display: flex;
+//         padding-top: 1%;
+//         @include font-aero;
+//     }
 
-    &__deco--left {
-        height: 13%;
-        width: 13%;
-        padding-left: 1%;
-    }
+//     &__deco--left {
+//         height: 13%;
+//         width: 13%;
+//         padding-left: 1%;
+//     }
 
-    &__deco--right {
-        height: 13%;
-        width: 13%;
-        padding-right: 1%;
-    }
-}
+//     &__deco--right {
+//         height: 13%;
+//         width: 13%;
+//         padding-right: 1%;
+//     }
+// }
 
 .footer {
 
@@ -164,3 +164,82 @@
     margin-left: 2%;
     margin-right: 1%;
 }
+
+// -- >> CAMBIOS DEL MENÚ HAMBURGUESA 15 11 2021
+mat-toolbar {
+    background-color: #053254;
+    color: white;
+}
+
+mat-sidenav {
+    margin: 16px;
+    width: 200px;
+    border-right: none;
+    background: #005188;
+    color: white;
+    border-radius: 10px;
+    padding: 16px;
+    text-align: center;
+}
+
+.a-menu {
+    color: white;
+    text-decoration: none;
+}  
+
+.content {
+    //height: 645px;
+    height: calc(100vh - 98px);
+    margin: 16px;
+    margin-left: 32px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    font-size: 2rem;
+    color: lightsteelblue;
+
+    border-radius: 10px;
+}
+
+mat-sidenav-container {
+    //height: 680px;
+    height: calc(100vh - 65px);
+}
+
+.menu-button {
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+    font-size: 1rem;
+
+    mat-icon{
+        margin-right: 8px;
+    }
+}
+
+.avatar {
+    margin-top: 16px;
+    width: 100px;
+    height: 100px;
+    border-radius: 50%;
+}
+
+.name {
+    margin-top: 8px;
+    font-weight: normal;
+}
+
+.designation {
+    margin-top: 2px;
+    font-size: 0.7rem;
+    color: lightgrey;
+}
+
+mat-divider {
+    margin-top: 16px;
+    margin-bottom: 16px;
+    background-color: rgba(255, 255, 255, 0.5);
+}
+// -- >> FIN CAMBIOS DEL MENÚ HAMBURGUESA

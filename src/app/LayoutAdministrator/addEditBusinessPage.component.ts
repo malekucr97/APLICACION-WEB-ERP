@@ -5,7 +5,7 @@ import { first } from 'rxjs/operators';
 
 import { AccountService, AlertService } from '@app/_services';
 
-import { User } from '../_models';
+// import { User } from '../_models';
 import { Business } from '@app/_models/business';
 
 @Component({ templateUrl: 'HTML_AddEditBusinessPage.html' })
@@ -13,8 +13,8 @@ export class AddEditBusinessComponent implements OnInit {
     form: FormGroup;
     loading = false;
     submitted = false;
-    user = new User;
-    business = new Business;
+    // user = new User;
+    business: Business;
 
     pidBusiness: string;
 
@@ -36,8 +36,8 @@ export class AddEditBusinessComponent implements OnInit {
         this.updateBusiness = false;
         this.addBusiness = false;
 
-        if (this.route.snapshot.params.pidBusiness){ 
-            this.pidBusiness = this.route.snapshot.params.pidBusiness
+        if (this.route.snapshot.params.pidBusiness){
+            this.pidBusiness = this.route.snapshot.params.pidBusiness;
             this.updateBusiness = true;
 
         } else { this.addBusiness = true; }
@@ -73,7 +73,8 @@ export class AddEditBusinessComponent implements OnInit {
         }
         this.loading = true;
 
-        
+        this.business = new Business();
+
         this.business.nombre = this.form.get('nombre').value;
         this.business.cedulaJuridica = this.form.get('cedulajuridica').value;
 

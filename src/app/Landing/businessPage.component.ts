@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { first } from 'rxjs/operators';
 
 import { AccountService } from '@app/_services';
@@ -11,12 +11,24 @@ import { ModulesProperties } from '../_models/module';
 import { amdinBusiness } from '@environments/environment';
 import { localVariables } from '@environments/environment';
 
+// -- >> importaciones menú
+import { MatSidenav } from '@angular/material/sidenav';
+import { CommonModule } from '@angular/common';
+import { MatToolbarModule } from '@angular/material/toolbar';
+import { MatSidenavModule } from '@angular/material/sidenav';
+import { MatButtonModule } from '@angular/material/button';
+import { MatIconModule } from '@angular/material/icon';
+import { MatDividerModule } from '@angular/material/divider';
+
 
 @Component({
     templateUrl: 'HTML_BusinessPage.html',
     styleUrls: ['../../assets/scss/HTML_BusinessPage.scss']
 })
 export class BusinessPageComponent implements OnInit {
+
+    @ViewChild(MatSidenav)
+    sidenav !: MatSidenav;
 
     user: User;
 
@@ -25,6 +37,13 @@ export class BusinessPageComponent implements OnInit {
     public listActModules: Module[] = [];
 
     public listModulesInfo: ModulesProperties[] = [];
+
+    menuArray = [
+        { menuLink: '/',        menuIcon: 'home',    menuName: 'submenu 1'},
+        { menuLink: '/profile', menuIcon: 'person',  menuName: 'submenu 2'},
+        { menuLink: '/android', menuIcon: 'android', menuName: 'submenu 3'},
+        { menuLink: '/about',   menuIcon: 'info',    menuName: 'submenu 4'}
+    ];
 
     constructor(private accountService: AccountService) {
         this.user = this.accountService.userValue;
@@ -85,5 +104,9 @@ export class BusinessPageComponent implements OnInit {
 
     selectedModule(module: Module){
         var mod = module;
+    }
+
+    logout() {
+        this.accountService.logout();
     }
 }
