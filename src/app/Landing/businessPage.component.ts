@@ -13,13 +13,6 @@ import { localVariables } from '@environments/environment';
 
 // -- >> importaciones menú
 import { MatSidenav } from '@angular/material/sidenav';
-import { CommonModule } from '@angular/common';
-import { MatToolbarModule } from '@angular/material/toolbar';
-import { MatSidenavModule } from '@angular/material/sidenav';
-import { MatButtonModule } from '@angular/material/button';
-import { MatIconModule } from '@angular/material/icon';
-import { MatDividerModule } from '@angular/material/divider';
-
 
 @Component({
     templateUrl: 'HTML_BusinessPage.html',
@@ -41,8 +34,7 @@ export class BusinessPageComponent implements OnInit {
     menuArray = [
         { menuLink: '/',        menuIcon: 'home',    menuName: 'submenu 1'},
         { menuLink: '/profile', menuIcon: 'person',  menuName: 'submenu 2'},
-        { menuLink: '/android', menuIcon: 'android', menuName: 'submenu 3'},
-        { menuLink: '/about',   menuIcon: 'info',    menuName: 'submenu 4'}
+        { menuLink: '/android', menuIcon: 'android', menuName: 'submenu 3'}
     ];
 
     constructor(private accountService: AccountService) {

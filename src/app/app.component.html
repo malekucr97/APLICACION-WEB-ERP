@@ -1,5 +1,4 @@
-﻿<!-- header -->
-<header class="head">
+﻿<header class="head">
     <div class="head__logo">
         <a routerLink="/">
             <img routerLink="/" class="head__img" src="./assets/images/inra/img_bankap_logo.png" alt="Logo principal Bankapp">
@@ -7,29 +6,15 @@
     </div>
 </header>
 
-<!-- <main *ngIf="user">
-    <article>
-        <section class="title">
-            <img class="title__deco--left" src="./assets/images/inra/img_bankap_left.png ">
-            <p class="title__description">SISTEMA DE GESTIÓN ADMINISTRATIVO FINANCIERO</p>
-            <img class="title__deco--right" src="./assets/images/inra/img_bankap_rigth.png ">
-        </section>
-    </article>
-</main> -->
 <!-- ====================== -->
-<!-- ====================== -->
-
-<!-- main app container -->
+<!-- Contenedor de la aplicación -->
 <div class="app-container" [ngClass]="{ 'bg-light': user }">
     <alert></alert>
     <router-outlet></router-outlet>
 </div>
-<!-- main app container -->
-
 <!-- ====================== -->
 <!-- ====================== -->
 
-<!-- footer -->
 <footer class="footer">
     <p class="footer__compra">Compra: $ 615.00</p>
     <p class="footer__venta">Venta: $ 620.00</p>

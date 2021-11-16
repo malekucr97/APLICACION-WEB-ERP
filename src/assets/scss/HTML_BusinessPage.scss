@@ -41,46 +41,87 @@
     }
 }
 
+// .menu {
+//     display: flex;
+//     flex-direction: row;
+//     justify-content: center;
+//     align-items: center;
+//     flex-wrap: wrap;
+
+//     &__item {
+//         padding-right: 3%;
+//         padding-left: 3%;
+
+//         padding-top: 1%;
+//         padding-bottom: 1%;
+//         text-align: center;
+
+//         &__logo {
+//             transition: opacity 0.5s ease-in-out;
+//             cursor: pointer;
+//         }
+//         &__titulo {
+//             color: #005188;
+//             font-size: 1rem;
+//             font-weight: 700;
+//             transition: color 0.2s ease-in-out;
+
+//             @media (min-width: 1500px) {
+//                 font-size: 1.5rem;
+//             }
+
+//             &:hover {
+//                 color: #00AEEF;
+//                 cursor: pointer;
+//             }
+//         }
+//     }
+// }
 
 
-.menu {
+.content {
+    height: calc(80vh - 50px);
+    margin: 16px;
+    margin-left: 32px;
     display: flex;
-    flex-direction: row;
     justify-content: center;
     align-items: center;
-    flex-wrap: wrap;
 
-    &__item {
+    border-radius: 10px;
 
-        padding-right: 3%;
-        padding-left: 3%;
-
-        padding-top: 1%;
-        padding-bottom: 1%;
-        text-align: center;
-
-        &__logo {
-
-            // width: 50%;
-            // height: 50%;
-
-            transition: opacity 0.5s ease-in-out;
-            cursor: pointer;
-        }
-        &__titulo {
-            
-            color: #005188;
-            font-size: 1rem;
-            font-weight: 700;
-            transition: color 0.2s ease-in-out;
-
-            @media (min-width: 1500px) {
-                font-size: 1.5rem;
-            }
-
-            &:hover {
-                color: #00AEEF;
+    &__menu{
+        display: flex;
+        flex-direction: row;
+        justify-content: center;
+        align-items: center;
+        flex-wrap: wrap;
+    
+        &__item {
+            padding-right: 3%;
+            padding-left: 3%;
+    
+            padding-top: 1%;
+            padding-bottom: 1%;
+            text-align: center;
+    
+            &__logo {
+                transition: opacity 0.5s ease-in-out;
                 cursor: pointer;
+            }
+            &__titulo {
+                color: #005188;
+                font-size: 1rem;
+                font-weight: 700;
+                transition: color 0.2s ease-in-out;
+    
+                @media (min-width: 1500px) {
+                    font-size: 1.5rem;
+                }
+    
+                &:hover {
+                    color: #00AEEF;
+                    cursor: pointer;
+                }
             }
         }
     }
@@ -137,12 +178,10 @@
 
 
 .title {
-    // width: 100%;
     display: flex;
     flex-direction: row;
     align-items: center;
     justify-content: space-evenly;
-    // background: linear-gradient(#00AEEF 1%, #005188, #053254 40%);
 
     &__description {
         color: white;
@@ -154,13 +193,13 @@
     &__deco--left {
         height: 13%;
         width: 13%;
-        padding-left: 1%;
+        // padding-left: 1%;
     }
 
     &__deco--right {
         height: 13%;
         width: 13%;
-        padding-right: 1%;
+        // padding-right: 1%;
     }
 }
 
@@ -196,43 +235,33 @@
 mat-toolbar {
     background: linear-gradient(#00AEEF 1%, #005188, #053254 40%);
     color: white;
-
 }
 
 mat-sidenav {
-    margin: 16px;
-    width: 200px;
+    width: 25%;
+
+    margin-top: 16px;
+    margin-left: 16px;
+    margin-bottom: 16px;
+
     border-right: none;
     background: #005188;
     color: white;
     border-radius: 10px;
-    padding: 16px;
+    // padding: 16px;
     text-align: center;
 }
 
 .a-menu {
     color: white;
     text-decoration: none;
-}  
-
-.content {
-    //height: 645px;
-    height: calc(100vh - 98px);
-    margin: 16px;
-    margin-left: 32px;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-
-    font-size: 2rem;
-    color: lightsteelblue;
-
-    border-radius: 10px;
 }
 
 mat-sidenav-container {
-    //height: 680px;
-    height: calc(100vh - 65px);
+    width: 100%;
+    height: 100%;
+    // height: 680px;
+    // height: calc(100vh - 65px);
 }
 
 .menu-button {
@@ -249,8 +278,8 @@ mat-sidenav-container {
 
 .avatar {
     margin-top: 16px;
-    width: 100px;
-    height: 100px;
+    width: 30%;
+    height: 15%;
     border-radius: 50%;
 }
 
