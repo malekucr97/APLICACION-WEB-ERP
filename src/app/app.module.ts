@@ -13,6 +13,9 @@ import { AlertComponent } from './_components';
 import { HomeComponent } from './home';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
+// menu-tree
+import {MatTreeModule} from '@angular/material/tree';
+
 @NgModule({
     imports: [
         BrowserModule,
@@ -20,7 +23,8 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
         FormsModule,
         HttpClientModule,
         AppRoutingModule,
-        BrowserAnimationsModule
+        BrowserAnimationsModule,
+        MatTreeModule
     ],
     declarations: [
         AppComponent,

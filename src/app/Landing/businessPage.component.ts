@@ -101,4 +101,6 @@ export class BusinessPageComponent implements OnInit {
     logout() {
         this.accountService.logout();
     }
+
+   
 }
