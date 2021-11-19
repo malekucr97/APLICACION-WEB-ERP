@@ -1,11 +1,11 @@
-import { Module } from "./module";
+// import { Module } from "./module";
 
 export class Business {
     id: string;
     nombre: string;
     cedulaJuridica: string;
 
-    listModules: Module[];
+    // listModules: Module[];
 }
 export class BusinessUser {
     IdUsuario: number;

@@ -7,8 +7,7 @@ import { AccountService, AlertService } from '@app/_services';
 
 import { administrator } from '@environments/environment';
 
-import { usAuth } from '@environments/environment';
-import { rolAuth } from '@environments/environment';
+import { AuthApp } from '@environments/environment';
 
 import { httpAccessPage } from '@environments/environment';
 import { User } from '@app/_models';
@@ -25,7 +24,7 @@ export class LoginComponent implements OnInit {
 
     userName: string; password: string;
 
-    nologin: boolean;
+    login: boolean;
     messageNoLogin: string;
 
     constructor(
@@ -60,6 +59,8 @@ export class LoginComponent implements OnInit {
         this.userName = this.f.username.value;
         this.password = this.f.password.value;
 
+        this.login = false;
+
         this.accountService.login(this.userName, this.password)
             .pipe(first())
             .subscribe( responseObjectLogin => {
@@ -67,11 +68,10 @@ export class LoginComponent implements OnInit {
                 if (responseObjectLogin) {
 
                     this.user = responseObjectLogin;
-                    this.nologin = false;
 
                     // -- >> valida que el estado del usuario sea válido
-                    if (usAuth.us_inactive === this.user.estado) { this.router.navigate([httpAccessPage.urlPageInactiveUser]); return; }
-                    if (usAuth.us_pending === this.user.estado) { this.router.navigate([httpAccessPage.urlPagePending]); return; }
+                    if (AuthApp.inactive === this.user.estado) { this.router.navigate([httpAccessPage.urlPageInactiveUser]); return; }
+                    if (AuthApp.pending === this.user.estado) { this.router.navigate([httpAccessPage.urlPagePending]); return; }
                     if (!this.user.idRol) { this.router.navigate( [httpAccessPage.urlPageNotRol] ); return; }
 
                     this.user.esAdmin = false;
@@ -80,9 +80,12 @@ export class LoginComponent implements OnInit {
                         .subscribe( responseObjectRol => {
 
                             // -- >> valida que el rol del usuario esté activo
-                            if (rolAuth.rol_inactive === responseObjectRol.estado) {
+                            if (AuthApp.inactive === responseObjectRol.estado) {
                                 this.router.navigate([httpAccessPage.urlPageInactiveRol]); return;
                             }
+
+                            // -- >> sesión iniciada con éxito
+                            this.login = true;
 
                             // valida si el usuario que inicia sesión es administrador
                             if (administrator.esAdministrador === responseObjectRol.esAdministrador) {
@@ -96,20 +99,20 @@ export class LoginComponent implements OnInit {
                                 return;
 
                             } else {
-                                this.accountService.updateLocalUser(this.user);
+                                // this.accountService.updateLocalUser(this.user);
                                 this.router.navigate([this.UrlHome]);
-                                return;
                             }
                         });
                     // -- >> si el usuario no está registrado en el sistema
                     } else {
-                        this.nologin = true;
-                        this.loading = false;
                         this.messageNoLogin = 'Usuario o contraseña incorrectos';
+                        this.loading = false;
                     }
                 },
                 error => {
-                    this.alertService.error(error);
+                    console.log(error);
+                    this.messageNoLogin = 'Se ha producido un error entre la comunicación con el servidor de respuesta.';
+                    this.alertService.error(this.messageNoLogin);
                     this.loading = false;
                 });
     }

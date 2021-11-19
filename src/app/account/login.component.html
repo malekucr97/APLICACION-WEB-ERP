@@ -7,7 +7,7 @@
 
     <div class="card-body">
 
-        <p *ngIf="nologin" style="height: 1%; color:red; text-align: center;">{{messageNoLogin}}</p>
+        <p *ngIf="!login" style="height: 1%; color:red; text-align: center;">{{messageNoLogin}}</p>
 
         <form [formGroup]="form" (ngSubmit)="onSubmit()" class="login100-form validate-form">
 

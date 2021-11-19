@@ -7,6 +7,7 @@ import { BusinessPageComponent } from './businessPage.component';
 import { NotRolPageComponent } from './notRolPage.component';
 import { InactiveUserPageComponent } from './inactiveUserPage.component';
 import { InactiveRolPageComponent } from './inactiveRolPage.component';
+import { NotBusinessPageComponent } from './notBusinessPage.component';
 
 const routes: Routes = [
     {
@@ -18,6 +19,7 @@ const routes: Routes = [
             { path: 'NotRolPage', component: NotRolPageComponent },
             { path: 'InactiveUserPage', component: InactiveUserPageComponent },
             { path: 'InactiveRolPage', component: InactiveRolPageComponent },
+            { path: 'NotBusinessPage', component: NotBusinessPageComponent },
         ]
     }
 ];

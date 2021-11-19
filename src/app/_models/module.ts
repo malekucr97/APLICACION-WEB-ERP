@@ -5,6 +5,8 @@ export class Module {
     nombre: string;
     descripcion: string;
     estado: string;
+
+    pathIco: string;
 }
 
 export class ModulesProperties {

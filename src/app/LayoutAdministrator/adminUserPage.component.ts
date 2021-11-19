@@ -5,7 +5,7 @@ import { AccountService } from '@app/_services';
 
 import { amdinBusiness } from '@environments/environment';
 import { httpAccessPage } from '@environments/environment';
-import { usAuth } from '@environments/environment';
+import { AuthApp } from '@environments/environment';
 
 import { Router, ActivatedRoute } from '@angular/router';
 import { stringify } from 'querystring';
@@ -33,8 +33,8 @@ export class AdminUserComponent implements OnInit { user: User;
         this.URLListRolePage = httpAccessPage.urlPageListRole;
 
 
-        if (this.user.estado === usAuth.us_inactive) { this.router.navigate([httpAccessPage.urlPageInactiveUser]); return; }
-        if (this.user.estado === usAuth.us_pending) { this.router.navigate([httpAccessPage.urlPagePending]); return; }
+        if (this.user.estado === AuthApp.inactive) { this.router.navigate([httpAccessPage.urlPageInactiveUser]); return; }
+        if (this.user.estado === AuthApp.pending) { this.router.navigate([httpAccessPage.urlPagePending]); return; }
         if (!this.user.idRol) { this.router.navigate([httpAccessPage.urlPageNotRol]); return; }
 
         this.adminSistema = false; this.adminEmpresa = false;
@@ -44,7 +44,7 @@ export class AdminUserComponent implements OnInit { user: User;
 
         // -- >> en caso de que el usuario no sea administrador
         // -- >> redirecciona al usuario activo a la página de actualización del usuario
-        if (usAuth.us_active === this.user.estado && !this.adminEmpresa && !this.adminSistema) {
+        if (AuthApp.active === this.user.estado && !this.adminEmpresa && !this.adminSistema) {
             this.router.navigate([httpAccessPage.urlPageConfigUser + this.user.identificacion]); return;
         }
     }

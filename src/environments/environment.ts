@@ -15,18 +15,16 @@ export const administrator = {
     urlRedirect: '/_AdminModule/AdminUserPage/'
 };
 
-export const usAuth = {
-    us_active: 'Activo',
-    us_inactive: 'Inactivo',
-    us_pending: 'Pendiente'
+export const AuthApp = {
+    active: 'Activo',
+    inactive: 'Inactivo',
+    pending: 'Pendiente'
 };
-export const rolAuth = {
-    rol_inactive: 'Inactivo',
-    rol_active: 'Activo'
-};
-
 
 export const httpAccessPage = {
+    URLPageAccount: '/account/login/',
+
+
     urlPageAdministrator: '/_AdminModule/AdminUserPage/',
 
     // -- >> Langing Pages Sistem
@@ -35,6 +33,8 @@ export const httpAccessPage = {
     urlPageInactiveUser: '/_LandingModule/InactiveUserPage/',
     urlPageInactiveRol: '/_LandingModule/InactiveRolPage/',
     urlPageBusinessIndex: '_LandingModule/BusinessPage',
+    urlPageNotBusiness: '/_LandingModule/NotBusinessPage/',
+
     // -- >> Admin Pages Sistem
     urlPageConfigUser: '/_AdminModule/AddEditUserPage/',
     urlPageAddEditUser: '/_AdminModule/AddEditUserPage/',
@@ -47,6 +47,9 @@ export const httpAccessPage = {
     urlPageListRole: '/_AdminModule/AdminListRolePage/',
 
     urlPageAddModuleRol: '/_AdminModule/AddModuleRolePage/',
+
+    // -- >> MODULO DE GENERALES
+    urlIndexGenerales: '/_GeneralesModule/IndexGeneralesPage/'
 };
 
 export const amdinBusiness = {

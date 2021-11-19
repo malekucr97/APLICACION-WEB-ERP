@@ -1,52 +1,41 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { first } from 'rxjs/operators';
-
+import { Router } from '@angular/router';
 import { AccountService } from '@app/_services';
-
-import { User } from '../_models';
-import { Module } from '@app/_models/module';
-
-import { ModulesProperties } from '../_models/module';
-
-import { amdinBusiness } from '@environments/environment';
-import { localVariables } from '@environments/environment';
-
-// -- >> importaciones menú
+import { User, Module, Business, ModulesProperties } from '../_models';
+import { amdinBusiness, localVariables, httpAccessPage } from '@environments/environment';
 import { MatSidenav } from '@angular/material/sidenav';
 
 @Component({
     templateUrl: 'HTML_BusinessPage.html',
-    styleUrls: ['../../assets/scss/HTML_BusinessPage.scss']
+    styleUrls: ['../../assets/scss/landing/app.scss']
 })
 export class BusinessPageComponent implements OnInit {
 
     @ViewChild(MatSidenav)
     sidenav !: MatSidenav;
 
-    user: User;
+    userObservable: User;
+    businessObservable: Business;
 
     propertiesMod: ModulesProperties;
 
     public listActModules: Module[] = [];
-
     public listModulesInfo: ModulesProperties[] = [];
 
-    menuArray = [
-        { menuLink: '/',        menuIcon: 'home',    menuName: 'submenu 1'},
-        { menuLink: '/profile', menuIcon: 'person',  menuName: 'submenu 2'},
-        { menuLink: '/android', menuIcon: 'android', menuName: 'submenu 3'}
-    ];
+    constructor(private accountService: AccountService,
+                private router: Router) {
 
-    constructor(private accountService: AccountService) {
-        this.user = this.accountService.userValue;
+        this.userObservable = this.accountService.userValue;
+        this.businessObservable = this.accountService.businessValue;
     }
 
     ngOnInit() {
 
         // lista los módulos activos de cada empresa
-        if (this.user.esAdmin || this.user.idRol === amdinBusiness.adminSociedad) {
+        if (this.userObservable.esAdmin || this.userObservable.idRol === amdinBusiness.adminSociedad) {
 
-            this.accountService.getModulesActiveBusiness(this.user.empresa)
+            this.accountService.getModulesActiveBusiness(this.businessObservable.id)
             .pipe(first())
             .subscribe(responseList => {
 
@@ -70,7 +59,7 @@ export class BusinessPageComponent implements OnInit {
         // lista los módulos de un usuario
         } else {
 
-            this.accountService.getModulesActiveUser(this.user.empresa, this.user.idRol)
+            this.accountService.getModulesActiveUser(this.userObservable.empresa, this.userObservable.idRol)
             .pipe(first())
             .subscribe(responseList => {
 
@@ -94,13 +83,18 @@ export class BusinessPageComponent implements OnInit {
         }
     }
 
-    selectedModule(module: Module){
-        var mod = module;
+    selectedModule(module: ModulesProperties) {
+
+        this.accountService.getModulesIdIdBusiness(module.id, this.businessObservable.id)
+            .pipe(first())
+            .subscribe(responseModule => {
+
+                responseModule.pathIco = module.path;
+
+                this.accountService.loadModuleAsObservable(responseModule);
+                this.router.navigate([httpAccessPage.urlIndexGenerales]);
+            });
     }
 
-    logout() {
-        this.accountService.logout();
-    }
-
-   
+    logout() { this.accountService.logout(); }
 }

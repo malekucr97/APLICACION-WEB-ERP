@@ -1,13 +1,13 @@
-﻿import { Component, ViewChild } from '@angular/core';
-
+﻿import { Component } from '@angular/core';
 import { AccountService } from './_services';
+
 import { User } from './_models';
 
 @Component({
     // tslint:disable-next-line: component-selector
     selector: 'app',
-    templateUrl: 'app.component.html',
-    styleUrls: ['../assets/scss/app.scss']
+    templateUrl: 'app.component.html'
+    , styleUrls: ['../assets/scss/app.scss']
 })
 export class AppComponent {
     user: User;

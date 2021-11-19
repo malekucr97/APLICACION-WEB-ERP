@@ -1,17 +1,19 @@
-﻿<header class="head">
-    <div class="head__logo">
+﻿<header class="header">
+    <div class="header__logo">
         <a routerLink="/">
-            <img routerLink="/" class="head__img" src="./assets/images/inra/img_bankap_logo.png" alt="Logo principal Bankapp">
+            <img class="header__img" src="./assets/images/inra/img_bankap_logo.png" alt="Bankapp - Selección Compañía">
         </a>
+        <alert class="alertMessage"></alert>
     </div>
 </header>
 
 <!-- ====================== -->
 <!-- Contenedor de la aplicación -->
 <div class="app-container" [ngClass]="{ 'bg-light': user }">
-    <alert></alert>
     <router-outlet></router-outlet>
 </div>
+
+
 <!-- ====================== -->
 <!-- ====================== -->
 

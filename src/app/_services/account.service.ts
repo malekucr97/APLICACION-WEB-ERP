@@ -1,22 +1,25 @@
 ﻿import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
-import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { HttpClient } from '@angular/common/http';
 import { BehaviorSubject, Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
 
 import { environment } from '@environments/environment';
 import { User } from '@app/_models';
 
-import { Business } from '@app/_models/business';
-import { Module } from '@app/_models/module';
-import { BusinessUser } from '@app/_models/business';
+import { Business, Module, BusinessUser, ResponseMessage } from '@app/_models/';
 import { AssignRoleObject, ModuleRol, Role } from '@app/_models/role';
-import { ResponseMessage } from '@app/_models/response';
 
 @Injectable({ providedIn: 'root' })
 export class AccountService {
     private userSubject: BehaviorSubject<User>;
     public user: Observable<User>;
+
+    private moduleSubject: BehaviorSubject<Module>;
+    public moduleObservable: Observable<Module>;
+
+    private businessSubject: BehaviorSubject<Business>;
+    public businessObservable: Observable<Business>;
 
     constructor(
         private router: Router,
@@ -24,10 +27,35 @@ export class AccountService {
     ) {
         this.userSubject = new BehaviorSubject<User>(JSON.parse(localStorage.getItem('user')));
         this.user = this.userSubject.asObservable();
+
+        this.businessSubject = new BehaviorSubject<Business>(JSON.parse(localStorage.getItem('Obusiness')));
+        this.businessObservable = this.businessSubject.asObservable();
+
+        this.moduleSubject = new BehaviorSubject<Module>(JSON.parse(localStorage.getItem('Omodule')));
+        this.moduleObservable = this.moduleSubject.asObservable();
     }
 
-    public get userValue(): User {
-        return this.userSubject.value;
+    public get userValue(): User { return this.userSubject.value; }
+    public get businessValue(): Business { return this.businessSubject.value; }
+    public get moduleValue(): Module { return this.moduleSubject.value; }
+
+    public loadBusinessAsObservable(bus: Business) {
+        localStorage.removeItem('Obusiness');
+
+        localStorage.setItem('Obusiness', JSON.stringify(bus));
+        this.businessSubject.next(bus);
+    }
+    public loadModuleAsObservable(mod: Module) {
+        localStorage.removeItem('Omodule');
+
+        localStorage.setItem('Omodule', JSON.stringify(mod));
+        this.moduleSubject.next(mod);
+    }
+
+    // -- >> ACTUALIZA EL USUARIO EN LA MEMORIA LOCAL
+    updateLocalUser(user: User) {
+        localStorage.removeItem('user');
+        localStorage.setItem('user', JSON.stringify(user));
     }
 
     // -- >> ADMINISTRACIÓN DE ACCESO
@@ -47,11 +75,6 @@ export class AccountService {
         this.router.navigate(['account/login']);
     }
     // -- >> FIN
-
-    // -- >> ACTUALIZA EL USUARIO EN LA MEMORIA LOCAL
-    updateLocalUser(user: User) {
-        localStorage.setItem('user', JSON.stringify(user));
-    }
 
 
 

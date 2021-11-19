@@ -1,0 +1,138 @@
+// -- >> importaciones
+
+@mixin font-aero {
+    font-family: "../../assets/fonts/Aero.ttf";
+    font-size: 1.8rem;
+    font-weight: 750;
+    text-align: center;
+    @media (max-width: 800px) {
+        font-size: 1.5rem;
+    }
+}
+
+// -- >> estilos SCSS
+.title {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-evenly;
+
+    &__description {
+        color: white;
+        display: flex;
+        padding-top: 1%;
+        @include font-aero;
+    }
+
+    &__deco--left {
+        height: 13%;
+        width: 13%;
+    }
+
+    &__deco--right {
+        height: 13%;
+        width: 13%;
+    }
+}
+.btn_hamburguesa{
+    position: absolute;
+    left: 2%; 
+}
+.content {
+    height: calc(80vh - 50px);
+    margin: 16px;
+    margin-left: 32px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    border-radius: 10px;
+
+    &__menu{
+        display: flex;
+        flex-direction: row;
+        justify-content: center;
+        align-items: center;
+        flex-wrap: wrap;
+    
+        &__item {
+            padding-right: 3%;
+            padding-left: 3%;
+    
+            padding-top: 1%;
+            padding-bottom: 1%;
+            text-align: center;
+    
+            &__logo {
+                transition: opacity 0.5s ease-in-out;
+                cursor: pointer;
+            }
+            &__titulo {
+                color: #005188;
+                font-size: 1rem;
+                font-weight: 700;
+                transition: color 0.2s ease-in-out;
+    
+                @media (min-width: 1500px) {
+                    font-size: 1.5rem;
+                }
+    
+                &:hover {
+                    color: #00AEEF;
+                    cursor: pointer;
+                }
+            }
+        }
+    }
+}
+
+// -- >> CAMBIOS DEL MENÚ HAMBURGUESA 15 11 2021
+mat-toolbar {
+    background: linear-gradient(#00AEEF 1%, #005188, #053254 40%);
+    color: white;
+}
+mat-sidenav {
+    width: 20%;
+    margin-top: 1%;
+    margin-left: 1%;
+    margin-bottom: 1%;
+    border-right: none;
+    background: #005188;
+    color: white;
+    border-radius: 10px;
+    text-align: center;
+}
+.a-menu {
+    color: white;
+    text-decoration: none;
+}
+.menu-button {
+    width: 100%;
+    display: flex;
+    justify-content: flex-start;
+    font-size: 1rem;
+
+    mat-icon{
+        margin-right: 10%;
+    }
+}
+.avatar {
+    margin-top: 16px;
+    width: 30%;
+    height: 15%;
+    border-radius: 50%;
+}
+.name {
+    margin-top: 5%;
+}
+// .designation {
+//     margin-top: 1%;
+//     font-size: 0.8rem;
+//     color: lightgrey;
+    
+// }
+mat-divider {
+    margin-top: 16px;
+    margin-bottom: 16px;
+    background-color: rgba(255, 255, 255, 0.5);
+}

@@ -46,7 +46,7 @@
                 <label for="numeroTelefono">Número de teléfono</label>
                 <input type="text" formControlName="numeroTelefono" class="form-control" />
             </div>
-            <div class="form-group" *ngIf="this.role">
+            <div class="form-group" *ngIf="role && !addUser">
                 <label for="role">Rol asignado al usuario</label>
                 <input type="text" formControlName="role" class="form-control" placeholder="{{role.nombre}}"/>
             </div>
