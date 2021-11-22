@@ -2,14 +2,11 @@
 import { first } from 'rxjs/operators';
 import { Router } from '@angular/router';
 
-import { User } from '@app/_models';
+import { User, Business } from '@app/_models';
 import { AccountService } from '@app/_services';
 
-import { Business } from '../_models/business';
+import { httpAccessPage, AuthApp } from '@environments/environment';
 
-import { httpAccessPage } from '@environments/environment';
-
-import { AuthApp } from '@environments/environment';
 @Component({
     templateUrl: 'HTML_HomePage.html'
 })

@@ -1,4 +1,9 @@
-// -- >> importaciones
+@mixin bg-color-orange { background-color: #F9A01B; }
+@mixin bg-color-dark-blue { background-color: #0F426A; }
+@mixin bg-color-darkest-blue { background-color: #053254; }
+@mixin bg-color-blue { background-color: #005188; }
+@mixin bg-color-skyblue { background-color: #00AEEF; }
+@mixin bg-color-light-gray { background-color: #B3B3B3; }
 
 @mixin font-aero {
     font-family: "../../assets/fonts/Aero.ttf";
@@ -10,7 +15,43 @@
     }
 }
 
-// -- >> estilos SCSS
+.info {
+    height: 25px;
+
+    @include bg-color-darkest-blue;
+    display: flex;
+    
+    justify-content: flex-end;
+    flex-direction: row;
+    
+    &__logout {
+        margin-top: 1px;
+        margin-right: 2%;
+        color: white;
+    }
+    &__user {
+        display: flex;
+        padding-right: 1%;
+        
+        color: white;
+    }
+    &__user__icon {
+        margin-right: 2%;
+        margin-top: 5px;
+    }
+    &__logout__icon {
+        margin-left: 2%;
+        margin-top: 5px;
+    }
+    &__user__icon:hover {
+        cursor: pointer;
+        color: #F9A01B;
+    }
+    &__logout__icon:hover {
+        cursor: pointer;
+        color: #F9A01B;
+    }
+}
 .title {
     display: flex;
     flex-direction: row;
@@ -38,64 +79,18 @@
     position: absolute;
     left: 2%; 
 }
-.content {
-    height: calc(80vh - 50px);
-    margin: 16px;
-    margin-left: 32px;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-
-    border-radius: 10px;
-
-    &__menu{
-        display: flex;
-        flex-direction: row;
-        justify-content: center;
-        align-items: center;
-        flex-wrap: wrap;
-    
-        &__item {
-            padding-right: 3%;
-            padding-left: 3%;
-    
-            padding-top: 1%;
-            padding-bottom: 1%;
-            text-align: center;
-    
-            &__logo {
-                transition: opacity 0.5s ease-in-out;
-                cursor: pointer;
-            }
-            &__titulo {
-                color: #005188;
-                font-size: 1rem;
-                font-weight: 700;
-                transition: color 0.2s ease-in-out;
-    
-                @media (min-width: 1500px) {
-                    font-size: 1.5rem;
-                }
-    
-                &:hover {
-                    color: #00AEEF;
-                    cursor: pointer;
-                }
-            }
-        }
-    }
-}
-
-// -- >> CAMBIOS DEL MENÚ HAMBURGUESA 15 11 2021
 mat-toolbar {
     background: linear-gradient(#00AEEF 1%, #005188, #053254 40%);
     color: white;
+    article {
+        width: 100%;
+    }
 }
 mat-sidenav {
     width: 20%;
-    margin-top: 1%;
-    margin-left: 1%;
-    margin-bottom: 1%;
+
+    margin: 1%;
+
     border-right: none;
     background: #005188;
     color: white;
@@ -125,12 +120,6 @@ mat-sidenav {
 .name {
     margin-top: 5%;
 }
-// .designation {
-//     margin-top: 1%;
-//     font-size: 0.8rem;
-//     color: lightgrey;
-    
-// }
 mat-divider {
     margin-top: 16px;
     margin-bottom: 16px;
