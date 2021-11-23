@@ -19,10 +19,7 @@ export class MenuGeneralesComponent {
 
     menuArray = [
         { menuLink: '/',        menuIcon: 'home',    menuName: 'submenu 1'},
-        { menuLink: '/',        menuIcon: 'home',    menuName: 'submenu 2'},
-        { menuLink: '/',        menuIcon: 'home',    menuName: 'submenu 3'},
-        { menuLink: '/',        menuIcon: 'home',    menuName: 'submenu 4'},
-        { menuLink: '/',        menuIcon: 'home',    menuName: 'submenu 5'}
+        { menuLink: '/',        menuIcon: 'home',    menuName: 'submenu 2'}
     ];
 
     constructor(private accountService: AccountService) {

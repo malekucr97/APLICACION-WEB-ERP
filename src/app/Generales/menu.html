@@ -20,39 +20,37 @@
     </article>
 </mat-toolbar>
 
-<mat-sidenav-container>
+<mat-sidenav mode="over">
 
-    <mat-sidenav mode="over">
+    <mat-divider></mat-divider>
 
+    <button *ngFor="let menu of menuArray" mat-button class="menu-button-submodulo">
+        <mat-icon>{{menu.menuIcon}}</mat-icon>
+        <a class="a-menu" routerLink="{{menu.menuLink}}">{{menu.menuName}}</a>
+    </button>
+    <button class="menu-button-submodulo" mat-button (click)="sidenav.toggle()">
+        <mat-icon>menu</mat-icon>
+        <a class="a-menu">Cerrar Submenú</a>
+    </button>
+
+    <mat-divider></mat-divider>
+
+    <div class="info-modulo">
+        <img class="avatar mat-elevation-z8" src="{{moduleObservable.pathIco}}">
+        <hr>
+        <h4 class="name">{{moduleObservable.descripcion}}</h4>
+        <h4 class="name">{{businessObservable.nombre}} - núm.céd {{businessObservable.cedulaJuridica}}</h4>
+        <h4 class="name">{{userObservable.email}}</h4>
+        
         <mat-divider></mat-divider>
 
-        <button *ngFor="let menu of menuArray" mat-button class="menu-button-submodulo">
-            <mat-icon>{{menu.menuIcon}}</mat-icon>
-            <a class="a-menu" routerLink="{{menu.menuLink}}">{{menu.menuName}}</a>
+        <button mat-button class="menu-button-back">
+            <mat-icon>reply</mat-icon>
+            <span routerLink="/_LandingModule/BusinessPage/">Seleccionar Módulo</span>
         </button>
-        <button class="menu-button-submodulo" mat-button (click)="sidenav.toggle()">
-            <mat-icon>menu</mat-icon>
-            <a class="a-menu">Cerrar Submenú</a>
-        </button>
+    </div>
 
-        <mat-divider></mat-divider>
-
-        <div class="info-modulo">
-            <img class="avatar mat-elevation-z8" src="{{moduleObservable.pathIco}}">
-            <hr>
-            <h4 class="name">{{moduleObservable.descripcion}}</h4>
-            <h4 class="name">{{businessObservable.nombre}} - núm.céd {{businessObservable.cedulaJuridica}}</h4>
-            <h4 class="name">{{userObservable.email}}</h4>
-            
-            <mat-divider></mat-divider>
-
-            <button mat-button class="menu-button-back">
-                <mat-icon>reply</mat-icon>
-                <span routerLink="/_LandingModule/BusinessPage/">Seleccionar Módulo</span>
-            </button>
-        </div>
-
-    </mat-sidenav>
+</mat-sidenav>
 
 <div class="styleLayout"> 
     <router-outlet></router-outlet> 
