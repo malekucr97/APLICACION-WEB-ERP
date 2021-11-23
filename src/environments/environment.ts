@@ -58,28 +58,28 @@ export const localVariables = {
 
 export const ModulesSistem = {
     ActivosFijos: 'ID-BANKAP-ACT-FIJ',
-    ActivosFijosURL: '/',
+    ActivosFijosURL: '/_ActivosFijosModule/Index/',
 
     Bancos: 'ID-BANKAP-BANCOS',
-    BancosURL: '/',
+    BancosURL: '/_BancosModule/Index/',
 
     Contabilidad: 'ID-BANKAP-CONTA',
-    ContabilidadURL: '/',
+    ContabilidadURL: '/ContabilidadModule/Index/',
 
     CuentasCobrar: 'ID-BANKAP-CXC',
-    CuentasCobrarURL: '/',
+    CuentasCobrarURL: '/_CuentasCobrarModule/Index/',
 
     CuentasPagar: 'ID-BANKAP-CXP',
-    CuentasPagarURL: '/',
+    CuentasPagarURL: '/_CuentasPagarModule/Index/',
 
     FacturaElectronica: 'ID-BANKAP-FACTURA-E',
-    FacturaElectronicaURL: '/',
+    FacturaElectronicaURL: '/_FacturaElectronicaModule/Index/',
 
     Generales: 'ID-BANKAP-GENERAL',
     GeneralesURL: '/_GeneralesModule/Index/',
 
     Inventario: 'ID-BANKAP-INVENTARIO',
-    InventarioURL: '/'
+    InventarioURL: '/_InventarioModule/Index/'
 };
 
 /*
