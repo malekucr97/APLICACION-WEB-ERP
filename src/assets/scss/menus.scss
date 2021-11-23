@@ -87,7 +87,9 @@ mat-toolbar {
     }
 }
 mat-sidenav {
-    width: 20%;
+    position: fixed;
+    
+    width: 25%;
 
     margin: 1%;
 
@@ -101,7 +103,7 @@ mat-sidenav {
     color: white;
     text-decoration: none;
 }
-.menu-button {
+.menu-button-submodulo {
     width: 100%;
     display: flex;
     justify-content: flex-start;
@@ -111,14 +113,26 @@ mat-sidenav {
         margin-right: 10%;
     }
 }
+.menu-button-back {
+    width: 100%;
+    display: flex;
+    justify-content: flex-start;
+    font-size: 1rem;
+
+    mat-icon{
+        margin-right: 10%;
+    }
+}
+.info-modulo {
+    margin-top: 1%;
+    width: 100%;
+}
 .avatar {
-    margin-top: 16px;
-    width: 30%;
-    height: 15%;
+    margin-top: 5%;
     border-radius: 50%;
 }
 .name {
-    margin-top: 5%;
+    margin-top: 1%;
 }
 mat-divider {
     margin-top: 16px;

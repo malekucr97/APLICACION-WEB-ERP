@@ -7,7 +7,7 @@
         <div class="card" *ngFor="let business of listBusiness">
             <ul class="list-group list-group-flush">
               <li class="list-group-item" > <h5>{{business.nombre}}</h5></li>
-              <button class="btn-selected-business" (click)="seleccionarEmpresa(business.id)">Seleccionar</button>
+              <button class="btn-selected-business" (click)="selectBusiness(business)">Seleccionar</button>
             </ul>
         </div><br>
     </div>

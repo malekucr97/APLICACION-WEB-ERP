@@ -3,7 +3,8 @@ import { first } from 'rxjs/operators';
 import { Router } from '@angular/router';
 import { AccountService } from '@app/_services';
 import { User, Module, Business, ModulesProperties } from '../_models';
-import { amdinBusiness, localVariables, httpAccessPage } from '@environments/environment';
+import { amdinBusiness, localVariables,
+        httpAccessPage, ModulesSistem } from '@environments/environment';
 import { MatSidenav } from '@angular/material/sidenav';
 
 @Component({
@@ -11,6 +12,13 @@ import { MatSidenav } from '@angular/material/sidenav';
     styleUrls: ['../../assets/scss/landing/app.scss']
 })
 export class BusinessPageComponent implements OnInit {
+
+    constructor(private accountService: AccountService,
+                private router: Router) {
+
+        this.userObservable = this.accountService.userValue;
+        this.businessObservable = this.accountService.businessValue;
+    }
 
     @ViewChild(MatSidenav)
     sidenav !: MatSidenav;
@@ -23,17 +31,11 @@ export class BusinessPageComponent implements OnInit {
     public listActModules: Module[] = [];
     public listModulesInfo: ModulesProperties[] = [];
 
-    constructor(private accountService: AccountService,
-                private router: Router) {
-
-        this.userObservable = this.accountService.userValue;
-        this.businessObservable = this.accountService.businessValue;
-    }
-
     ngOnInit() {
 
         // lista los módulos activos de cada empresa
-        if (this.userObservable.esAdmin || this.userObservable.idRol === amdinBusiness.adminSociedad) {
+        if (this.userObservable.esAdmin ||
+            this.userObservable.idRol   === amdinBusiness.adminSociedad) {
 
             this.accountService.getModulesActiveBusiness(this.businessObservable.id)
             .pipe(first())
@@ -49,7 +51,7 @@ export class BusinessPageComponent implements OnInit {
 
                         this.propertiesMod.id = mod.identificador;
                         this.propertiesMod.nombre = mod.nombre;
-                        this.propertiesMod.path =  localVariables.dir_img_modules + mod.identificador + '.png';
+                        this.propertiesMod.pathIco =  localVariables.dir_img_modules + mod.identificador + '.png';
                         this.propertiesMod.descripcion =  mod.descripcion;
 
                         this.listModulesInfo.push(this.propertiesMod);
@@ -59,7 +61,7 @@ export class BusinessPageComponent implements OnInit {
         // lista los módulos de un usuario
         } else {
 
-            this.accountService.getModulesActiveUser(this.userObservable.empresa, this.userObservable.idRol)
+            this.accountService.getModulesActiveUser(this.businessObservable.id, this.userObservable.idRol)
             .pipe(first())
             .subscribe(responseList => {
 
@@ -73,7 +75,7 @@ export class BusinessPageComponent implements OnInit {
 
                         this.propertiesMod.id = mod.identificador;
                         this.propertiesMod.nombre = mod.nombre;
-                        this.propertiesMod.path =  localVariables.dir_img_modules + mod.identificador + '.png';
+                        this.propertiesMod.pathIco =  localVariables.dir_img_modules + mod.identificador + '.png';
                         this.propertiesMod.descripcion =  mod.descripcion;
 
                         this.listModulesInfo.push(this.propertiesMod);
@@ -83,16 +85,35 @@ export class BusinessPageComponent implements OnInit {
         }
     }
 
-    selectedModule(module: ModulesProperties) {
+    asignarRedireccionamientoHttp(propertiesMod: ModulesProperties, modIdentificador: string){
 
-        this.accountService.getModulesIdIdBusiness(module.id, this.businessObservable.id)
+        switch (modIdentificador) {
+
+            case ModulesSistem.ActivosFijos: propertiesMod.urlRedirect = ModulesSistem.ActivosFijosURL; break;
+            case ModulesSistem.Bancos: propertiesMod.urlRedirect = ModulesSistem.BancosURL; break;
+            case ModulesSistem.Contabilidad: propertiesMod.urlRedirect = ModulesSistem.ContabilidadURL; break;
+            case ModulesSistem.CuentasCobrar: propertiesMod.urlRedirect = ModulesSistem.CuentasCobrarURL; break;
+            case ModulesSistem.CuentasPagar: propertiesMod.urlRedirect = ModulesSistem.CuentasPagarURL; break;
+            case ModulesSistem.FacturaElectronica: propertiesMod.urlRedirect = ModulesSistem.FacturaElectronicaURL; break;
+            case ModulesSistem.Generales: propertiesMod.urlRedirect = ModulesSistem.GeneralesURL; break;
+            case ModulesSistem.Inventario: propertiesMod.urlRedirect = ModulesSistem.InventarioURL; break;
+
+            default: propertiesMod.urlRedirect = '/';
+        }
+        return propertiesMod;
+    }
+
+    selectModule(pmodule: ModulesProperties) {
+
+        this.accountService.getModulesIdIdBusiness(pmodule.id, this.businessObservable.id)
             .pipe(first())
             .subscribe(responseModule => {
+                pmodule = this.asignarRedireccionamientoHttp(pmodule, responseModule.identificador);
 
-                responseModule.pathIco = module.path;
-
+                responseModule.pathIco = pmodule.pathIco;
                 this.accountService.loadModuleAsObservable(responseModule);
-                this.router.navigate([httpAccessPage.urlIndexGenerales]);
+
+                this.router.navigate([pmodule.urlRedirect]);
             });
     }
 

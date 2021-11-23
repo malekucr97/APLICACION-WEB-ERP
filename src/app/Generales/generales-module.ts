@@ -3,9 +3,8 @@ import { ReactiveFormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
 import { GeneralesRoutingModule } from './generales-routing.module';
 
-import { LayoutGeneralesComponent } from './layout.component';
-
-import { IndexGeneralesComponent } from './indexGeneralesPage.component';
+import { IndexGeneralesComponent } from './index.component';
+import { MenuGeneralesComponent } from './menu.component';
 
 import { MatToolbarModule } from '@angular/material/toolbar';
 import { MatSidenavModule } from '@angular/material/sidenav';
@@ -27,8 +26,8 @@ import { MatDividerModule } from '@angular/material/divider';
         MatDividerModule
     ],
     declarations: [
-        LayoutGeneralesComponent,
-        IndexGeneralesComponent
+        IndexGeneralesComponent,
+        MenuGeneralesComponent
     ]
 })
 export class GeneralesModule { }

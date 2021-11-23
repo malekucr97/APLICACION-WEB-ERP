@@ -1,6 +1,6 @@
 <div *ngIf="userObservable">
 
-    <div class="info" *ngIf="userObservable">
+    <div class="info">
         <p class="info__user">
             <i routerLink="/_AdminModule/AdminUserPage" class="info__user__icon fa fa-cog"></i>
         </p>
@@ -16,7 +16,7 @@
                 <p class="title__description">SISTEMA DE GESTIÓN ADMINISTRATIVO FINANCIERO</p>
                 <img class="title__deco--right" src="./assets/images/inra/img_bankap_rigth.png ">
             </section>
-    </article>
+        </article>
     </mat-toolbar>
 
     <mat-sidenav-container>
@@ -26,24 +26,14 @@
                     <section class="content__menu">
             
                         <div class="content__menu__item" *ngFor="let module of listModulesInfo">
-                            <a> <img class="content__menu__item__logo" src="{{module.path}}" title="{{module.descripcion}}" 
-                                (click)="selectedModule(module)"> </a>
+                            <a> <img class="content__menu__item__logo" src="{{module.pathIco}}" title="{{module.descripcion}}" 
+                                (click)="selectModule(module)"> </a>
                             <p class="content__menu__item__titulo">{{module.nombre}}</p>    
                         </div>
             
                     </section>
                 </article>
-                
-                <table class="table">
-                    <tbody>
-                        <tr *ngIf="!listActModules">
-                            <td colspan="4" class="text-center">
-                                <span class="spinner-border spinner-border-lg align-center"></span>
-                            </td>
-                        </tr>
-                    </tbody>
-                </table>
             </main>
         </div>
-        </mat-sidenav-container>
+    </mat-sidenav-container>
 </div>

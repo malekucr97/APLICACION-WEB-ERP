@@ -50,16 +50,12 @@ export class HomeComponent implements OnInit {
         }
     }
 
-    seleccionarEmpresa(businessId: string) {
+    selectBusiness(business: Business) {
 
-        this.user.empresa = businessId;
+        this.user.empresa = business.id;
         this.accountService.updateLocalUser(this.user);
 
-        this.accountService.getBusinessById(businessId)
-            .pipe(first())
-            .subscribe(responseBusiness => {
-                this.accountService.loadBusinessAsObservable(responseBusiness);
-                this.router.navigate([httpAccessPage.urlPageBusinessIndex]);
-            });
+        this.accountService.loadBusinessAsObservable(business);
+        this.router.navigate([httpAccessPage.urlPageBusinessIndex]);
     }
 }

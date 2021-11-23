@@ -4,7 +4,7 @@ import { AccountService } from '@app/_services';
 import { ActivatedRoute } from '@angular/router';
 
 @Component({
-    templateUrl: 'HTML_IndexGeneralesPage.html',
+    templateUrl: 'index.html',
     styleUrls: ['../../assets/scss/generales/app.scss'],
 })
 export class IndexGeneralesComponent implements OnInit {

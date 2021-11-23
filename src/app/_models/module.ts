@@ -12,6 +12,8 @@ export class Module {
 export class ModulesProperties {
     id: string;
     nombre: string;
-    path: string;
+    pathIco: string;
     descripcion: string;
+
+    urlRedirect: string;
 }

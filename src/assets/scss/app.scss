@@ -14,48 +14,43 @@
         font-size: 1.5rem;
     }
 }
-
-.header {
-    width: 100%;
-    &__logo {
-        background-image: url("../../assets/images/inra/img_bankap_fondo.png");
-        background-repeat: no-repeat;
-        background-size: cover;
-        background-position: center;
-    }
-    &__img {
-        margin: 1% 1% 1% 2%;
-        height: 50%;
-        width: 10%;
-    }
-}
-// .footer {
-//     position: fixed;
-//     bottom: 0px;
-
-//     flex-direction: row;
-//     align-items: center;
-//     justify-content: space-evenly;
-//     display: flex;
-
-//     width: 100%;
-//     // height: 2%;
-
-//     // padding-left: 20%;
-//     // padding-right: 20%;
-
-//     @include bg-color-darkest-blue;
-
-//     &__compra{
-//         color: white;
-//     }
-
-//     &__venta{
-//         color: white;
-//     }
-// }
-.alertMessage {
+.alert-message {
     width: 75%;
     padding: 2% 1% 5% 1% ;
     position: absolute;
+}
+.info {
+    height: 25px;
+
+    @include bg-color-darkest-blue;
+    display: flex;
+    
+    justify-content: flex-end;
+    
+    &__logout {
+        margin-top: 1px;
+        margin-right: 2%;
+        color: white;
+    }
+    &__user {
+        padding-right: 1%;
+        
+        color: white;
+    }
+    &__user__icon {
+        margin-right: 2%;
+        margin-top: 5px;
+    }
+    &__logout__icon {
+        margin-left: 2%;
+        margin-top: 5px;
+    }
+    &__user__icon:hover {
+        cursor: pointer;
+        color: #F9A01B;
+    }
+    &__logout__icon:hover {
+        cursor: pointer;
+        color: #F9A01B;
+    }
 }

@@ -1,15 +1,15 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 
-import { LayoutGeneralesComponent } from './layout.component';
-import { IndexGeneralesComponent } from './indexGeneralesPage.component';
+import { IndexGeneralesComponent } from './index.component';
+import { MenuGeneralesComponent } from './menu.component';
 
 const routes: Routes = [
     {
-        path: '', component: LayoutGeneralesComponent,
+        path: '', component: MenuGeneralesComponent,
         children: [
-            { path: '', component: LayoutGeneralesComponent },
-            { path: 'IndexGeneralesPage', component: IndexGeneralesComponent },
+            { path: '', component: MenuGeneralesComponent },
+            { path: 'Index', component: IndexGeneralesComponent },
         ]
     }
 ];

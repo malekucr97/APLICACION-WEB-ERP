@@ -22,34 +22,27 @@ export const AuthApp = {
 };
 
 export const httpAccessPage = {
+    // -- >> Acceso
     URLPageAccount: '/account/login/',
 
-
+    // -- >> Administración
     urlPageAdministrator: '/_AdminModule/AdminUserPage/',
-
-    // -- >> Langing Pages Sistem
-    urlPagePending: '/_LandingModule/PendingPage/',
-    urlPageNotRol: '/_LandingModule/NotRolPage/',
-    urlPageInactiveUser: '/_LandingModule/InactiveUserPage/',
-    urlPageInactiveRol: '/_LandingModule/InactiveRolPage/',
-    urlPageBusinessIndex: '_LandingModule/BusinessPage',
-    urlPageNotBusiness: '/_LandingModule/NotBusinessPage/',
-
-    // -- >> Admin Pages Sistem
     urlPageConfigUser: '/_AdminModule/AddEditUserPage/',
     urlPageAddEditUser: '/_AdminModule/AddEditUserPage/',
     urlPageListUsers: '/_AdminModule/AdminListUserPage/',
     urlPageAddBUser: '/_AdminModule/AddBusinessUserPage/',
     urlPageAddRUser: '/_AdminModule/AddRoleUserPage/',
-
     urlPageListBusiness: '/_AdminModule/AdminListBusinessPage/',
-
     urlPageListRole: '/_AdminModule/AdminListRolePage/',
-
     urlPageAddModuleRol: '/_AdminModule/AddModuleRolePage/',
 
-    // -- >> MODULO DE GENERALES
-    urlIndexGenerales: '/_GeneralesModule/IndexGeneralesPage/'
+    // -- >> Langing Pages
+    urlPagePending: '/_LandingModule/PendingPage/',
+    urlPageNotRol: '/_LandingModule/NotRolPage/',
+    urlPageInactiveUser: '/_LandingModule/InactiveUserPage/',
+    urlPageInactiveRol: '/_LandingModule/InactiveRolPage/',
+    urlPageBusinessIndex: '_LandingModule/BusinessPage',
+    urlPageNotBusiness: '/_LandingModule/NotBusinessPage/'
 };
 
 export const amdinBusiness = {
@@ -61,6 +54,32 @@ export const amdinBusiness = {
 
 export const localVariables = {
     dir_img_modules: '/assets/images/inra/ModulosBankap/'
+};
+
+export const ModulesSistem = {
+    ActivosFijos: 'ID-BANKAP-ACT-FIJ',
+    ActivosFijosURL: '/',
+
+    Bancos: 'ID-BANKAP-BANCOS',
+    BancosURL: '/',
+
+    Contabilidad: 'ID-BANKAP-CONTA',
+    ContabilidadURL: '/',
+
+    CuentasCobrar: 'ID-BANKAP-CXC',
+    CuentasCobrarURL: '/',
+
+    CuentasPagar: 'ID-BANKAP-CXP',
+    CuentasPagarURL: '/',
+
+    FacturaElectronica: 'ID-BANKAP-FACTURA-E',
+    FacturaElectronicaURL: '/',
+
+    Generales: 'ID-BANKAP-GENERAL',
+    GeneralesURL: '/_GeneralesModule/Index/',
+
+    Inventario: 'ID-BANKAP-INVENTARIO',
+    InventarioURL: '/'
 };
 
 /*
