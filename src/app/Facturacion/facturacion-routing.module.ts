@@ -9,7 +9,7 @@ const routes: Routes = [
         path: '', component: MenuFacturacionComponent,
         children: [
             { path: '', component: MenuFacturacionComponent },
-            { path: 'Index', component: IndexFacturacionComponent },
+            { path: 'Index.html', component: IndexFacturacionComponent },
         ]
     }
 ];

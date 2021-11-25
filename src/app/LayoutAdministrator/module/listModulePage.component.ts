@@ -1,57 +1,39 @@
 import { Component, OnInit } from '@angular/core';
 import { first } from 'rxjs/operators';
-
 import { Router, ActivatedRoute } from '@angular/router';
 import { AccountService, AlertService } from '@app/_services';
 import { User, Module, Business } from '@app/_models';
 
-import { AddBusinessUserComponent } from '../business/addBusinessUserPage.component';
-
 @Component({ templateUrl: 'HTML_ListModulePage.html' })
 export class ListModuleComponent implements OnInit {
     user: User;
-    public listModules: Module[] = [];
-    public listBusiness: Business[] = [];
+    moduleList: Module;
+    businessMod: Business;
 
-    public listAllModules: Module[] = [];
+    listModules: Module[] = [];
+    listBusiness: Business[] = [];
+    listAllModules: Module[] = [];
 
-
-    public isActivating: boolean;
-    public isDeleting: boolean;
+    isActivating: boolean;
+    isDeleting: boolean;
+    adminBoss: boolean;
+    adminBusiness: boolean;
 
     URLAddEditUsertPage: string;
     URLAddBusinessUsertPage: string;
     URLAddRoleUsertPage: string;
-
-    moduleList: Module;
-    businessMod: Business;
-
-    ABUC: AddBusinessUserComponent;
-
-    loading = false;
-
     idBusiness: string;
     pidBusiness: string;
-
-    public adminBoss: boolean;
-    public adminBusiness: boolean;
 
     constructor(private accountService: AccountService,
                 private route: ActivatedRoute,
                 private router: Router,
-                private alertService: AlertService) {
-
-            this.user = this.accountService.userValue;
-        }
+                private alertService: AlertService) { this.user = this.accountService.userValue; }
 
     ngOnInit() {
 
         this.isActivating   = false;
         this.isDeleting     = false;
-
-        // this. URLAddEditUsertPage      = httpAccessPage.urlPageAddEditUser;
-        // this.URLAddBusinessUsertPage   = httpAccessPage.urlPageAddBUser;
-        // this.URLAddRoleUsertPage       = httpAccessPage.urlPageAddRUser;
 
         this.alertService.clear();
 
@@ -94,10 +76,10 @@ export class ListModuleComponent implements OnInit {
         this.accountService.activateModule(this.moduleList)
             .pipe(first())
             .subscribe( response => {
-                this.isActivating = false;
 
                 if ( response.exito ){ this.alertService.success(response.responseMesagge, { keepAfterRouteChange: true });
                 } else { this.alertService.error(response.responseMesagge, { keepAfterRouteChange: true }); }
+                this.isActivating = false;
 
                 this.ngOnInit();
             },
@@ -115,10 +97,10 @@ export class ListModuleComponent implements OnInit {
         this.accountService.inActivateModule(this.moduleList)
             .pipe(first())
             .subscribe( response => {
-                this.isActivating = false;
 
                 if ( response.exito ){ this.alertService.success(response.responseMesagge, { keepAfterRouteChange: true });
                 } else { this.alertService.error(response.responseMesagge, { keepAfterRouteChange: true }); }
+                this.isActivating = false;
 
                 this.ngOnInit();
             },

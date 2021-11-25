@@ -1,6 +1,5 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
-
 // -- core principal
 import { LayoutAdministratorComponent } from './layout.component';
 // -- usuarios

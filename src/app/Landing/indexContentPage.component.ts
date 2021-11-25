@@ -3,7 +3,8 @@ import { first } from 'rxjs/operators';
 import { Router } from '@angular/router';
 import { AccountService } from '@app/_services';
 import { User, Module, Business, ModulesProperties } from '@app/_models';
-import { amdinBusiness, localVariables, ModulesSistem } from '@environments/environment';
+import { localVariables, ModulesSistem } from '@environments/environment';
+import { amdinBusiness } from '@environments/environment-access-admin';
 import { MatSidenav } from '@angular/material/sidenav';
 
 @Component({

@@ -9,7 +9,7 @@ const routes: Routes = [
         path: '', component: MenuContabilidadComponent,
         children: [
             { path: '', component: MenuContabilidadComponent },
-            { path: 'Index', component: IndexContabilidadComponent },
+            { path: 'Index.html', component: IndexContabilidadComponent },
         ]
     }
 ];

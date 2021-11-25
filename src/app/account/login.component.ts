@@ -2,15 +2,10 @@
 import { Router, ActivatedRoute } from '@angular/router';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { first } from 'rxjs/operators';
-
 import { AccountService, AlertService } from '@app/_services';
-
-import { administrator } from '@environments/environment';
-
-import { AuthApp } from '@environments/environment';
-
-import { httpAccessPage } from '@environments/environment';
 import { User } from '@app/_models';
+import { administrator, httpAccessAdminPage, AuthStatesApp } from '@environments/environment-access-admin';
+import { httpAccessPage } from '@environments/environment';
 
 @Component({ templateUrl: 'login.component.html' })
 export class LoginComponent implements OnInit {
@@ -70,8 +65,8 @@ export class LoginComponent implements OnInit {
                     this.user = responseObjectLogin;
 
                     // -- >> valida que el estado del usuario sea válido
-                    if (AuthApp.inactive === this.user.estado) { this.router.navigate([httpAccessPage.urlPageInactiveUser]); return; }
-                    if (AuthApp.pending === this.user.estado) { this.router.navigate([httpAccessPage.urlPagePending]); return; }
+                    if (AuthStatesApp.inactive === this.user.estado) { this.router.navigate([httpAccessPage.urlPageInactiveUser]); return; }
+                    if (AuthStatesApp.pending === this.user.estado) { this.router.navigate([httpAccessPage.urlPagePending]); return; }
                     if (!this.user.idRol) { this.router.navigate( [httpAccessPage.urlPageNotRol] ); return; }
 
                     this.user.esAdmin = false;
@@ -80,7 +75,7 @@ export class LoginComponent implements OnInit {
                         .subscribe( responseObjectRol => {
 
                             // -- >> valida que el rol del usuario esté activo
-                            if (AuthApp.inactive === responseObjectRol.estado) {
+                            if (AuthStatesApp.inactive === responseObjectRol.estado) {
                                 this.router.navigate([httpAccessPage.urlPageInactiveRol]); return;
                             }
 
@@ -95,7 +90,7 @@ export class LoginComponent implements OnInit {
 
                                 this.accountService.updateLocalUser(this.user);
 
-                                this.router.navigate([administrator.urlRedirect]);
+                                this.router.navigate([httpAccessAdminPage.urlPageAdministrator]);
                                 return;
 
                             } else {

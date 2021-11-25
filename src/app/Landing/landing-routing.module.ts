@@ -17,7 +17,7 @@ const routes: Routes = [
         children: [
             { path: '', component: LayoutComponent },
             // -- contenido de la aplicación
-            { path: 'IndexContentPage', component: IndexContentPageComponent },
+            { path: 'IndexContentPage.html', component: IndexContentPageComponent },
             // -- landing no application
             { path: 'PendingPage/NoLogin/Index.html', component: PendingUserPageComponent },
             { path: 'NotRolPage/NoLogin/Index.html', component: NotRolPageComponent },

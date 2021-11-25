@@ -9,7 +9,7 @@ const routes: Routes = [
         path: '', component: MenuCuentasCobrarComponent,
         children: [
             { path: '', component: MenuCuentasCobrarComponent },
-            { path: 'Index', component: IndexCuentasCobrarComponent },
+            { path: 'Index.html', component: IndexCuentasCobrarComponent },
         ]
     }
 ];

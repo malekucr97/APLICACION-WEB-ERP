@@ -1,45 +1,34 @@
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { FormGroup } from '@angular/forms';
 import { Component, OnInit } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
-
 import { first } from 'rxjs/operators';
-
 import { AccountService, AlertService } from '@app/_services';
-
 import { User, Business, Role, ResponseMessage } from '@app/_models';
-
-import { administrator } from '@environments/environment';
+import { administrator, httpAccessAdminPage } from '@environments/environment-access-admin';
 
 @Component({ templateUrl: 'HTML_AddRoleUserPage.html' })
 export class AddRoleUserComponent implements OnInit {
     form: FormGroup;
 
-    public userRole: User;
-    public listAllRoles: Role[] = [];
-
-    public role: Role;
-    public existeRol: boolean;
-    public isDesAsignRoles: boolean;
-
-    public isAsignRole: boolean;
-    pUserId: string;
-
+    user: User;
+    userRole: User;
+    role: Role;
     response: ResponseMessage;
 
-    loading = false;
-    user: User;
+    listAllRoles: Role[] = [];
+    listBusinessUser: Business[] = [];
 
-    public listBusinessUser: Business[] = [];
+    existeRol: boolean;
+    isDesAsignRoles: boolean;
+    isAsignRole: boolean;
 
+    pUserId: string;
 
     constructor(
-        private route: ActivatedRoute,
-        private accountService: AccountService,
-        private alertService: AlertService,
-        private router: Router,
-    ) {
-        this.user = this.accountService.userValue;
-    }
+            private route: ActivatedRoute,
+            private accountService: AccountService,
+            private alertService: AlertService,
+            private router: Router) { this.user = this.accountService.userValue; }
 
     ngOnInit() {
 
@@ -59,15 +48,12 @@ export class AddRoleUserComponent implements OnInit {
                 .subscribe(responseListRole => {
                     this.listAllRoles = responseListRole;
 
-                    // -- >> elimina el rol administrador del listado que se muetsra para la asignación de roles
+                    // -- >> elimina el rol administrador del listado que se muestra para la asignación de roles
                     this.listAllRoles.forEach((element, index) => {
                         if (element.id === administrator.id) { this.listAllRoles.splice(index, 1) ; }
                     });
                 },
-                error => {
-                    this.alertService.error(error);
-                    this.loading = false;
-                });
+                error => { this.alertService.error(error); });
 
             this.accountService.getUserById(this.pUserId)
                 .pipe(first())
@@ -81,16 +67,14 @@ export class AddRoleUserComponent implements OnInit {
 
                         this.accountService.getRoleById(responseUser.idRol)
                             .pipe(first())
-                            .subscribe(responseRole => {
-
-                                this.role = responseRole;
-                            });
+                            .subscribe(responseRole => { this.role = responseRole; });
                     }
                 });
 
         } else {
-            this.router.navigate(['/_AdminModule/AdminListUserPage'], { relativeTo: this.route });
-            this.alertService.info('No es posible actualizar el rol del administrador.', { keepAfterRouteChange: true });
+            this.router.navigate([httpAccessAdminPage.urlPageListUsers], { relativeTo: this.route });
+            this.response.responseMesagge = 'No es posible actualizar el rol del administrador.';
+            this.alertService.info(this.response.responseMesagge, { keepAfterRouteChange: true });
         }
     }
 
@@ -107,11 +91,7 @@ export class AddRoleUserComponent implements OnInit {
 
                     this.ngOnInit();
                 },
-                error => {
-                    console.log(error);
-                    this.alertService.error(error);
-                    this.loading = false;
-                });
+                error => { console.log(error); this.alertService.error(error); });
     }
 
     desAsignAllRolesUser(identificacionUsuario: string){
@@ -131,16 +111,12 @@ export class AddRoleUserComponent implements OnInit {
 
                         this.alertService.success(response.responseMesagge, { keepAfterRouteChange: true });
                     }
-                    else{
+                    else {
                         this.alertService.error(response.responseMesagge, { keepAfterRouteChange: true });
                     }
 
                     this.ngOnInit();
                 },
-                error => {
-                    console.log(error);
-                    this.alertService.error(error);
-                    this.loading = false;
-                });
+                error => { console.log(error); this.alertService.error(error); });
     }
 }

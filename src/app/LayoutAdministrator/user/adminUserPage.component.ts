@@ -1,25 +1,21 @@
 import { Component, OnInit } from '@angular/core';
-
 import { User } from '@app/_models';
 import { AccountService } from '@app/_services';
-
-import { amdinBusiness } from '@environments/environment';
+import { amdinBusiness, httpAccessAdminPage, AuthStatesApp } from '@environments/environment-access-admin';
 import { httpAccessPage } from '@environments/environment';
-import { AuthApp } from '@environments/environment';
-
-import { Router, ActivatedRoute } from '@angular/router';
-import { stringify } from 'querystring';
+import { Router } from '@angular/router';
 
 @Component({ templateUrl: 'HTML_AdminUserPage.html' })
-export class AdminUserComponent implements OnInit { user: User;
+export class AdminUserComponent implements OnInit {
+    user: User;
 
     URLConfigureUserPage: string;
     URLListUserPage: string;
     URLListBusinessPage: string;
     URLListRolePage: string;
 
-    public adminSistema: boolean;
-    public adminEmpresa: boolean;
+    adminSistema: boolean;
+    adminEmpresa: boolean;
 
     constructor(private accountService: AccountService, private router: Router) {
         this.user = this.accountService.userValue;
@@ -27,14 +23,13 @@ export class AdminUserComponent implements OnInit { user: User;
 
     ngOnInit() {
 
-        this.URLConfigureUserPage = httpAccessPage.urlPageConfigUser;
-        this.URLListUserPage = httpAccessPage.urlPageListUsers;
-        this.URLListBusinessPage = httpAccessPage.urlPageListBusiness;
-        this.URLListRolePage = httpAccessPage.urlPageListRole;
+        this.URLConfigureUserPage = httpAccessAdminPage.urlPageConfigUser;
+        this.URLListUserPage = httpAccessAdminPage.urlPageListUsers;
+        this.URLListBusinessPage = httpAccessAdminPage.urlPageListBusiness;
+        this.URLListRolePage = httpAccessAdminPage.urlPageListRole;
 
-
-        if (this.user.estado === AuthApp.inactive) { this.router.navigate([httpAccessPage.urlPageInactiveUser]); return; }
-        if (this.user.estado === AuthApp.pending) { this.router.navigate([httpAccessPage.urlPagePending]); return; }
+        if (this.user.estado === AuthStatesApp.inactive) { this.router.navigate([httpAccessPage.urlPageInactiveUser]); return; }
+        if (this.user.estado === AuthStatesApp.pending) { this.router.navigate([httpAccessPage.urlPagePending]); return; }
         if (!this.user.idRol) { this.router.navigate([httpAccessPage.urlPageNotRol]); return; }
 
         this.adminSistema = false; this.adminEmpresa = false;
@@ -44,8 +39,8 @@ export class AdminUserComponent implements OnInit { user: User;
 
         // -- >> en caso de que el usuario no sea administrador
         // -- >> redirecciona al usuario activo a la página de actualización del usuario
-        if (AuthApp.active === this.user.estado && !this.adminEmpresa && !this.adminSistema) {
-            this.router.navigate([httpAccessPage.urlPageConfigUser + this.user.identificacion]); return;
+        if (AuthStatesApp.active === this.user.estado && !this.adminEmpresa && !this.adminSistema) {
+            this.router.navigate([this.URLConfigureUserPage + this.user.identificacion]); return;
         }
     }
 }

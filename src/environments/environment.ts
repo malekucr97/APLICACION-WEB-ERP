@@ -7,38 +7,24 @@ export const environment = {
     apiUrl: 'http://localhost:4000'
 };
 
-export const administrator = {
-    production: false,
-    esAdministrador: 1,
-    id: 'adminboss',
-    state: 'admin',
-    urlRedirect: '/_AdminModule/AdminUserPage/'
-};
+// export const administrator = {
+//     // production: false,
+//     esAdministrador: 1,
+//     id: 'adminboss',
+//     // state: 'admin',
+//     urlRedirect: '/_AdminModule/AdminUserPage/'
+// };
 
-export const AuthApp = {
-    active: 'Activo',
-    inactive: 'Inactivo',
-    pending: 'Pendiente'
-};
+// export const AuthApp = {
+//     active: 'Activo',
+//     inactive: 'Inactivo',
+//     pending: 'Pendiente'
+// };
 
 export const httpAccessPage = {
-    // -- >> Acceso
-    URLPageAccount: '/account/login/',
-
-    // -- >> Administración
-    urlPageAdministrator: '/_AdminModule/AdminUserPage/',
-    urlPageConfigUser: '/_AdminModule/AddEditUserPage/',
-    urlPageAddEditUser: '/_AdminModule/AddEditUserPage/',
-    urlPageListUsers: '/_AdminModule/AdminListUserPage/',
-    urlPageAddBUser: '/_AdminModule/AddBusinessUserPage/',
-    urlPageAddRUser: '/_AdminModule/AddRoleUserPage/',
-    urlPageListBusiness: '/_AdminModule/AdminListBusinessPage/',
-    urlPageListRole: '/_AdminModule/AdminListRolePage/',
-    urlPageAddModuleRol: '/_AdminModule/AddModuleRolePage/',
-
     // -- >> Langing Pages Index Application
-    urlContentIndex: '/_LandingModule/IndexContentPage/',
-    // -- >> Langing No Application
+    urlContentIndex: '/_LandingModule/IndexContentPage.html',
+    // -- >> Langing No Login Application
     urlPagePending: '/_LandingModule/PendingPage/NoLogin/Index.html',
     urlPageNotRol: '/_LandingModule/NotRolPage/NoLogin/Index.html',
     urlPageInactiveUser: '/_LandingModule/InactiveUserPage/NoLogin/Index.html',
@@ -46,12 +32,13 @@ export const httpAccessPage = {
     urlPageNotBusiness: '/_LandingModule/NotBusinessPage/NoLogin/Index.html'
 };
 
-export const amdinBusiness = {
-    production: false,
-    adminSociedad: 'admin-e',
-    state: 'Activo',
-    urlRedirect: ''
-};
+// export const amdinBusiness = {
+//     production: false,
+//     adminSociedad: 'admin-e'
+//     // ,
+//     // state: 'Activo',
+//     // urlRedirect: ''
+// };
 
 export const localVariables = {
     dir_img_modules: '/assets/images/inra/ModulosBankap/'
@@ -59,28 +46,28 @@ export const localVariables = {
 
 export const ModulesSistem = {
     ActivosFijos: 'ID-BANKAP-ACT-FIJ',
-    ActivosFijosURL: '/_ActivosFijosModule/Index/',
+    ActivosFijosURL: '/_ActivosFijosModule/Index.html',
 
     Bancos: 'ID-BANKAP-BANCOS',
-    BancosURL: '/_BancosModule/Index/',
+    BancosURL: '/_BancosModule/Index.html',
 
     Contabilidad: 'ID-BANKAP-CONTA',
-    ContabilidadURL: '/_ContabilidadModule/Index/',
+    ContabilidadURL: '/_ContabilidadModule/Index.html',
 
     CuentasCobrar: 'ID-BANKAP-CXC',
-    CuentasCobrarURL: '/_CuentasCobrarModule/Index/',
+    CuentasCobrarURL: '/_CuentasCobrarModule/Index.html',
 
     CuentasPagar: 'ID-BANKAP-CXP',
-    CuentasPagarURL: '/_CuentasPagarModule/Index/',
+    CuentasPagarURL: '/_CuentasPagarModule/Index.html',
 
     Facturacion: 'ID-BANKAP-FACTURA-E',
-    FacturacionURL: '/_FacturacionModule/Index/',
+    FacturacionURL: '/_FacturacionModule/Index.html',
 
     Generales: 'ID-BANKAP-GENERAL',
-    GeneralesURL: '/_GeneralesModule/Index/',
+    GeneralesURL: '/_GeneralesModule/Index.html',
 
     Inventario: 'ID-BANKAP-INVENTARIO',
-    InventarioURL: '/_InventarioModule/Index/'
+    InventarioURL: '/_InventarioModule/Index.html'
 };
 
 /*
