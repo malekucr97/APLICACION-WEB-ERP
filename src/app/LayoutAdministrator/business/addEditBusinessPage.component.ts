@@ -2,21 +2,19 @@ import { Component, OnInit } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { first } from 'rxjs/operators';
-
 import { AccountService, AlertService } from '@app/_services';
-
-// import { User } from '../_models';
 import { Business } from '@app/_models/business';
 
 @Component({ templateUrl: 'HTML_AddEditBusinessPage.html' })
 export class AddEditBusinessComponent implements OnInit {
     form: FormGroup;
-    loading = false;
-    submitted = false;
-    // user = new User;
+
     business: Business;
 
     pidBusiness: string;
+
+    loading = false;
+    submitted = false;
 
     updateBusiness: boolean;
     addBusiness: boolean;
@@ -58,7 +56,6 @@ export class AddEditBusinessComponent implements OnInit {
             },
             error => {
                 this.alertService.error(error);
-                this.loading = false;
             });
         }
     }
@@ -94,6 +91,7 @@ export class AddEditBusinessComponent implements OnInit {
                     } else {
                         this.alertService.error(response.responseMesagge, { keepAfterRouteChange: true });
                     }
+                    this.loading = false;
                 },
                 error => {
                     this.alertService.error(error);
@@ -117,6 +115,7 @@ export class AddEditBusinessComponent implements OnInit {
                     } else {
                         this.alertService.error(response.responseMesagge, { keepAfterRouteChange: true });
                     }
+                    this.loading = false;
                 },
                 error => {
                     this.alertService.error(error);

@@ -1,48 +1,38 @@
 import { Component, OnInit } from '@angular/core';
 import { first } from 'rxjs/operators';
 import { AccountService, AlertService } from '@app/_services';
-
-import { User } from '@app/_models';
-import { ResponseMessage } from '@app/_models/response';
-
-import { amdinBusiness } from '@environments/environment';
-import { administrator } from '@environments/environment';
-import { httpAccessPage } from '@environments/environment';
+import { User, ResponseMessage } from '@app/_models';
+import { administrator, amdinBusiness, httpAccessAdminPage } from '@environments/environment-access-admin';
 
 @Component({ templateUrl: 'HTML_ListUserPage.html' })
 export class ListUserComponent implements OnInit {
     user: User;
+    userList: User;
+    response: ResponseMessage;
+
     listUsers: User[] = [];
 
     isActivating: boolean;
     isDeleting: boolean;
+    adminBoss: boolean;
+    adminBusiness: boolean;
 
     URLAddEditUsertPage: string;
     URLAddBusinessUsertPage: string;
     URLAddRoleUsertPage: string;
     URLAdministratorPage: string;
 
-    userList: User;
-
-    adminBoss: boolean;
-    adminBusiness: boolean;
-
-    response: ResponseMessage;
-
     constructor(private accountService: AccountService,
-                private alertService: AlertService) {
-
-            this.user = this.accountService.userValue;
-        }
+                private alertService: AlertService) { this.user = this.accountService.userValue; }
 
     ngOnInit() {
         this.isActivating   = false;
         this.isDeleting     = false;
 
-        this.URLAddEditUsertPage        = httpAccessPage.urlPageAddEditUser;
-        this.URLAddBusinessUsertPage    = httpAccessPage.urlPageAddBUser;
-        this.URLAddRoleUsertPage        = httpAccessPage.urlPageAddRUser;
-        this.URLAdministratorPage       = httpAccessPage.urlPageAdministrator;
+        this.URLAddEditUsertPage        = httpAccessAdminPage.urlPageAddEditUser;
+        this.URLAddBusinessUsertPage    = httpAccessAdminPage.urlPageAddBUser;
+        this.URLAddRoleUsertPage        = httpAccessAdminPage.urlPageAddRUser;
+        this.URLAdministratorPage       = httpAccessAdminPage.urlPageAdministrator;
 
         this.alertService.clear();
 
@@ -91,20 +81,12 @@ export class ListUserComponent implements OnInit {
                                 }
                                 this.ngOnInit();
                             },
-                            (error) => {
-                                console.log(error);
-                                this.alertService.error(error, { keepAfterRouteChange: true });
-                                this.ngOnInit();
-                            });
+                            (error) => { console.log(error); this.alertService.error(error); this.ngOnInit(); });
                     } else {
                         this.alertService.error(responseDessA.responseMesagge, { keepAfterRouteChange: true });
                     }
                 },
-                error => {
-                    console.log(error);
-                    this.alertService.error(error, { keepAfterRouteChange: true });
-                    this.ngOnInit();
-                });
+                error => { console.log(error); this.alertService.error(error); this.ngOnInit(); });
         } else {
             this.response.responseMesagge = 'No se puede eliminar la cuenta administradora del sistema';
             this.alertService.info(this.response.responseMesagge, { keepAfterRouteChange: true });
@@ -126,10 +108,7 @@ export class ListUserComponent implements OnInit {
                     this.alertService.success(responseActivate.responseMesagge, { keepAfterRouteChange: true });
                     this.ngOnInit();
                 },
-                (error) => {
-                    console.log(error);
-                    this.alertService.error(error, { keepAfterRouteChange: true });
-                    this.ngOnInit();
+                (error) => { console.log(error); this.alertService.error(error); this.ngOnInit();
                 });
         } else {
             this.response.responseMesagge = 'No se puede modificar el estado de la cuenta administradora del sistema';
@@ -151,10 +130,7 @@ export class ListUserComponent implements OnInit {
                     this.alertService.success(responseInActivate.responseMesagge, { keepAfterRouteChange: true });
                     this.ngOnInit();
                 },
-                (error) => {
-                    console.log(error);
-                    this.alertService.error(error, { keepAfterRouteChange: true });
-                    this.ngOnInit();
+                (error) => { console.log(error); this.alertService.error(error); this.ngOnInit();
                 });
         } else {
             this.response.responseMesagge = 'No se puede modificar el estado de la cuenta administradora del sistema';

@@ -1,39 +1,30 @@
 import { FormGroup } from '@angular/forms';
 import { Component, OnInit } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
-
 import { first } from 'rxjs/operators';
 import { AccountService, AlertService } from '@app/_services';
-
 import { User, Business, Role, ResponseMessage } from '@app/_models';
-
-import { administrator, httpAccessPage } from '@environments/environment';
+import { administrator, httpAccessAdminPage } from '@environments/environment-access-admin';
 
 @Component({ templateUrl: 'HTML_AddBusinessUserPage.html' })
 export class AddBusinessUserComponent implements OnInit {
     form: FormGroup;
 
+    user: User;
     userBusiness: User;
+    role: Role;
+    response: ResponseMessage;
 
     isAsignBusiness: boolean;
-
     existeRol: boolean;
     asignarEmrpesa: boolean;
-
     isDesAsignBusiness: boolean;
 
     pUserId: string;
-
-    response: ResponseMessage;
-
-    loading = false;
-    user: User;
-    role: Role;
+    URLListUsersPage: string;
 
     listAllBusiness: Business[] = [];
     listBusinessUser: Business[] = [];
-
-    URLListUsersPage: string;
 
     constructor(
         private route: ActivatedRoute,
@@ -54,7 +45,7 @@ export class AddBusinessUserComponent implements OnInit {
         this.userBusiness = new User();
         this.role = new Role();
 
-        this.URLListUsersPage = httpAccessPage.urlPageListUsers;
+        this.URLListUsersPage = httpAccessAdminPage.urlPageListUsers;
 
         if (this.pUserId !== administrator.id) {
 
@@ -70,35 +61,23 @@ export class AddBusinessUserComponent implements OnInit {
 
                     this.accountService.getRoleById(responseUser.idRol)
                     .pipe(first())
-                    .subscribe(responseRole => {
+                    .subscribe(responseRole => { this.role = responseRole; },
+                    error => { this.alertService.error(error); });
 
-                        this.role = responseRole;
-                    },
-                    error => {
-                        this.alertService.error(error);
-                        this.loading = false;
-                    });
                 } else { this.role = null; }
             },
-            error => {
-                this.alertService.error(error);
-                this.loading = false;
-            });
+            error => { this.alertService.error(error); });
 
             this.accountService.getAllBusiness()
                     .pipe(first())
                     .subscribe(responseListBusiness => {
-
-                        if (responseListBusiness.length > 0) {
-
+                        if (responseListBusiness) {
                             this.listAllBusiness = responseListBusiness;
 
                             this.accountService.getBusinessActiveUser(this.pUserId)
                             .pipe(first())
                             .subscribe(responseListBusinessUser => {
-
-                                if (responseListBusinessUser.length > 0) {
-
+                                if (responseListBusinessUser) {
                                     this.listBusinessUser = responseListBusinessUser;
 
                                     if (this.listBusinessUser.length === this.listAllBusiness.length) {
@@ -115,11 +94,15 @@ export class AddBusinessUserComponent implements OnInit {
                                     }
                                 } else { this.listBusinessUser = null; }
                             });
-                        } else { this.alertService.info('No hay registro de empresas registradas por el momento.'); }
+                        } else {
+                            this.response.responseMesagge = 'No hay registro de empresas registradas por el momento.';
+                            this.alertService.info(this.response.responseMesagge);
+                        }
                     });
         } else {
-            this.router.navigate(['/_AdminModule/AdminListUserPage'], { relativeTo: this.route });
-            this.alertService.info('No es necesario asignar empresas al usuario administrador.', { keepAfterRouteChange: true });
+            this.router.navigate([httpAccessAdminPage.urlPageListUsers], { relativeTo: this.route });
+            this.response.responseMesagge = 'El usuario Administrador tiene acceso a todas las Empresas.';
+            this.alertService.info(this.response.responseMesagge, { keepAfterRouteChange: true });
         }
     }
 
@@ -149,11 +132,7 @@ export class AddBusinessUserComponent implements OnInit {
 
                     this.ngOnInit();
                 },
-                error => {
-                    console.log(error);
-                    this.alertService.error(error);
-                    this.loading = false;
-                });
+                error => { console.log(error); this.alertService.error(error); });
         } else { this.alertService.info('Esta emrpesa ya está asignada al usuario.', { keepAfterRouteChange: true }); }
     }
 
@@ -177,11 +156,7 @@ export class AddBusinessUserComponent implements OnInit {
 
                     this.ngOnInit();
                 },
-                error => {
-                    console.log(error);
-                    this.alertService.error(error);
-                    this.loading = false;
-                });
+                error => { console.log(error); this.alertService.error(error); this.isDesAsignBusiness = false; });
     }
 
     dessAssignBusinessUser(identificacionUsuario: string, idBusiness: string){
@@ -197,10 +172,6 @@ export class AddBusinessUserComponent implements OnInit {
 
                     this.ngOnInit();
                 },
-                error => {
-                    console.log(error);
-                    this.alertService.error(error);
-                    this.loading = false;
-                });
+                error => { console.log(error); this.alertService.error(error); this.isAsignBusiness = false; });
     }
 }

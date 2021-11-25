@@ -1,38 +1,30 @@
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { FormGroup } from '@angular/forms';
 import { Component, OnInit } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
-
 import { first } from 'rxjs/operators';
-
 import { AccountService, AlertService } from '@app/_services';
-
 import { User, Business, Role, Module, ResponseMessage } from '@app/_models';
-
-import { administrator } from '@environments/environment';
+import { administrator } from '@environments/environment-access-admin';
 
 @Component({ templateUrl: 'HTML_AddModuleRolePage.html' })
 export class AddModuleRoleComponent implements OnInit {
     form: FormGroup;
 
     access: boolean;
-
-    module: Module;
-
     administrador: boolean;
 
     pRoleId: string; pNomRole: string; pDescRole: string; pEsAdmin: number;
 
     response: ResponseMessage;
-
+    module: Module;
     user: User;
     role: Role;
-
     business: Business;
 
-    public listModulesRol: Module[] = [];
-    public listModulesActive: Module[] = [];
+    listModulesRol: Module[] = [];
+    listModulesActive: Module[] = [];
 
-    public seleccionEmpresa: boolean;
+    seleccionEmpresa: boolean;
 
     constructor(
         private route: ActivatedRoute,

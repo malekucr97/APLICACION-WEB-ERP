@@ -1,40 +1,30 @@
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Component, OnInit } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
-
 import { first } from 'rxjs/operators';
-
 import { AccountService, AlertService } from '@app/_services';
-
-import { amdinBusiness } from '@environments/environment';
-import { httpAccessPage } from '@environments/environment';
-
-import { User } from '../../_models';
-import { Business } from '@app/_models/business';
-import { Role } from '@app/_models/role';
-import { ResponseMessage } from '@app/_models/response';
+import { amdinBusiness, httpAccessAdminPage } from '@environments/environment-access-admin';
+import { User, Business, Role, ResponseMessage } from '@app/_models';
 
 @Component({ templateUrl: 'HTML_AddEditUserPage.html' })
 export class AddEditUserComponent implements OnInit {
     form: FormGroup;
 
+    user: User;
+    role: Role;
     response: ResponseMessage;
-
-    URLRedirectPage: string;
-    id: string;
+    business: Business;
 
     loading = false;
     submitted = false;
 
-    user: User;
-    role: Role;
+    id: string;
+    URLRedirectPage: string;
 
     esAdmin: boolean;
     listRoles: boolean;
     updateUser: boolean;
     addUser: boolean;
-
-    business: Business;
 
     listRolesBusiness: Role[] = [];
 
@@ -62,10 +52,10 @@ export class AddEditUserComponent implements OnInit {
         if (this.route.snapshot.params.id){ this.updateUser = true; } else { this.addUser = true; }
 
         if (this.user.esAdmin || this.user.idRol === amdinBusiness.adminSociedad) {
-            this.URLRedirectPage = httpAccessPage.urlPageListUsers;
+            this.URLRedirectPage = httpAccessAdminPage.urlPageListUsers;
         } else { this.URLRedirectPage = '/'; }
 
-        if (this.addUser){
+        if (this.addUser) {
 
             this.form = this.formBuilder.group({
                 identificacion: ['', Validators.required],
@@ -81,7 +71,7 @@ export class AddEditUserComponent implements OnInit {
             });
         }
 
-        if (this.updateUser){
+        if (this.updateUser) {
 
             this.id = this.route.snapshot.params.id;
 
@@ -125,16 +115,10 @@ export class AddEditUserComponent implements OnInit {
                                 this.role = responseRole;
                                 this.f.role.setValue(this.role.nombre);
                             },
-                            error => {
-                                this.alertService.error(error);
-                                this.loading = false;
-                            });
+                            error => { this.alertService.error(error); this.loading = false; });
                     } else { this.role = null; }
                 },
-                error => {
-                    this.alertService.error(error);
-                    this.loading = false;
-                });
+                error => { this.alertService.error(error); this.loading = false; });
         }
     }
 
@@ -166,14 +150,11 @@ export class AddEditUserComponent implements OnInit {
             .pipe(first())
             .subscribe(
                 response => {
-                    this.router.navigate(['/_AdminModule/AdminListUserPage'], { relativeTo: this.route });
+                    this.router.navigate([this.URLRedirectPage], { relativeTo: this.route });
                     this.alertService.success(response.responseMesagge, { keepAfterRouteChange: true });
-                },
-                error => {
-                    console.log(error);
-                    this.alertService.error(error);
                     this.loading = false;
-                });
+                },
+                error => { console.log(error); this.alertService.error(error); this.loading = false; });
         }
 
         if (this.updateUser) {
@@ -181,13 +162,11 @@ export class AddEditUserComponent implements OnInit {
             .pipe(first())
             .subscribe(
                 response => {
-                    this.router.navigate(['/_AdminModule/AdminListUserPage', { relativeTo: this.route }]);
+                    this.router.navigate([this.URLRedirectPage], { relativeTo: this.route });
                     this.alertService.success(response.responseMesagge, { keepAfterRouteChange: true });
-                },
-                error => {
-                    this.alertService.error(error);
                     this.loading = false;
-                });
+                },
+                error => { console.log(error); this.alertService.error(error); this.loading = false; });
         }
     }
 }

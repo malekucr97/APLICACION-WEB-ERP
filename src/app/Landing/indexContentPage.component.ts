@@ -2,8 +2,9 @@ import { Component, OnInit, ViewChild } from '@angular/core';
 import { first } from 'rxjs/operators';
 import { Router } from '@angular/router';
 import { AccountService } from '@app/_services';
-import { User, Module, Business, ModulesProperties } from '../_models';
-import { amdinBusiness, localVariables, ModulesSistem } from '@environments/environment';
+import { User, Module, Business, ModulesProperties } from '@app/_models';
+import { localVariables, ModulesSistem } from '@environments/environment';
+import { amdinBusiness } from '@environments/environment-access-admin';
 import { MatSidenav } from '@angular/material/sidenav';
 
 @Component({
@@ -93,7 +94,7 @@ export class IndexContentPageComponent implements OnInit {
             case ModulesSistem.Contabilidad: propertiesMod.urlRedirect = ModulesSistem.ContabilidadURL; break;
             case ModulesSistem.CuentasCobrar: propertiesMod.urlRedirect = ModulesSistem.CuentasCobrarURL; break;
             case ModulesSistem.CuentasPagar: propertiesMod.urlRedirect = ModulesSistem.CuentasPagarURL; break;
-            case ModulesSistem.FacturaElectronica: propertiesMod.urlRedirect = ModulesSistem.FacturaElectronicaURL; break;
+            case ModulesSistem.Facturacion: propertiesMod.urlRedirect = ModulesSistem.FacturacionURL; break;
             case ModulesSistem.Generales: propertiesMod.urlRedirect = ModulesSistem.GeneralesURL; break;
             case ModulesSistem.Inventario: propertiesMod.urlRedirect = ModulesSistem.InventarioURL; break;
 

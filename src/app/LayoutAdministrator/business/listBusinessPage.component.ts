@@ -1,10 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { first } from 'rxjs/operators';
-
 import { AccountService } from '@app/_services';
 import { Business } from '@app/_models/business';
-
-import { httpAccessPage } from '@environments/environment';
+import { httpAccessAdminPage } from '@environments/environment-access-admin';
 
 @Component({ templateUrl: 'HTML_ListBusinessPage.html' })
 export class ListBusinessComponent implements OnInit {
@@ -12,19 +10,16 @@ export class ListBusinessComponent implements OnInit {
 
     URLAdministratorPage: string;
 
-    public listBusiness: Business[] = [];
+    listBusiness: Business[] = [];
 
     constructor(private accountService: AccountService) {}
 
     ngOnInit() {
-
-        this.URLAdministratorPage = httpAccessPage.urlPageAdministrator;
+        this.URLAdministratorPage = httpAccessAdminPage.urlPageAdministrator;
 
         this.accountService.getAllBusiness()
             .pipe(first())
-            .subscribe(response =>
-                this.listBusiness = response
-            );
+            .subscribe(response => this.listBusiness = response );
     }
 
     deleteBusiness(id: string) {
@@ -32,8 +27,6 @@ export class ListBusinessComponent implements OnInit {
         business.isDeleting = true;
         this.accountService.deleteUser(id)
             .pipe(first())
-            .subscribe(() => {
-                this.businesss = this.businesss.filter(x => x.id !== id);
-            });
+            .subscribe(() => { this.businesss = this.businesss.filter(x => x.id !== id); });
     }
 }

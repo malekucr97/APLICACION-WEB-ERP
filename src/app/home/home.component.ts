@@ -1,11 +1,10 @@
 ﻿import { Component, OnInit } from '@angular/core';
 import { first } from 'rxjs/operators';
 import { Router } from '@angular/router';
-
 import { User, Business } from '@app/_models';
 import { AccountService } from '@app/_services';
-
-import { httpAccessPage, AuthApp } from '@environments/environment';
+import { AuthStatesApp } from '@environments/environment-access-admin';
+import { httpAccessPage } from '@environments/environment';
 
 @Component({
     templateUrl: 'HTML_HomePage.html'
@@ -13,7 +12,6 @@ import { httpAccessPage, AuthApp } from '@environments/environment';
 export class HomeComponent implements OnInit {
 
     user: User;
-    businesss = Business;
 
     listBusiness: Business[] = [];
 
@@ -25,8 +23,8 @@ export class HomeComponent implements OnInit {
 
         if (this.user) {
 
-            if (this.user.estado === AuthApp.inactive) { this.router.navigate([httpAccessPage.urlPageInactiveUser]); return; }
-            if (this.user.estado === AuthApp.pending) { this.router.navigate([httpAccessPage.urlPagePending]); return; }
+            if (AuthStatesApp.inactive === this.user.estado) { this.router.navigate([httpAccessPage.urlPageInactiveUser]); return; }
+            if (AuthStatesApp.pending === this.user.estado) { this.router.navigate([httpAccessPage.urlPagePending]); return; }
             if (!this.user.idRol) { this.router.navigate([httpAccessPage.urlPageNotRol]); return; }
 
             // consulta las empresas activas para el usuario que esté iniciando sesión

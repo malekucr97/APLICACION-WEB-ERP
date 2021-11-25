@@ -1,41 +1,27 @@
 import { Component, OnInit } from '@angular/core';
 import { first } from 'rxjs/operators';
-
-import { Router, ActivatedRoute } from '@angular/router';
 import { AccountService, AlertService } from '@app/_services';
 import { User, Role } from '@app/_models';
-
-import { amdinBusiness, administrator, httpAccessPage } from '@environments/environment';
-
-import {AddBusinessUserComponent} from '../business/addBusinessUserPage.component';
+import { amdinBusiness, administrator, httpAccessAdminPage } from '@environments/environment-access-admin';
 
 @Component({ templateUrl: 'HTML_ListRolePage.html' })
 export class ListRoleComponent implements OnInit {
     user: User;
-    public listRoles: Role[] = [];
+    rolList: Role;
 
-    public isActivating: boolean;
-    public isDeleting: boolean;
+    listRoles: Role[] = [];
+
+    isActivating: boolean;
+    isDeleting: boolean;
+    adminBoss: boolean;
+    adminBusiness: boolean;
 
     URLAddModuleRolPage: string;
     URLAdministratorPage: string;
-
-    rolList: Role;
-
-    ABUC: AddBusinessUserComponent;
-
-    loading = false;
-
     idBusiness: string;
-
     message: string;
 
-    public adminBoss: boolean;
-    public adminBusiness: boolean;
-
     constructor(private accountService: AccountService,
-                private route: ActivatedRoute,
-                private router: Router,
                 private alertService: AlertService) {
 
             this.user = this.accountService.userValue;
@@ -45,10 +31,8 @@ export class ListRoleComponent implements OnInit {
         this.isActivating   = false;
         this.isDeleting     = false;
 
-        this.URLAddModuleRolPage      = httpAccessPage.urlPageAddModuleRol;
-        this.URLAdministratorPage = httpAccessPage.urlPageAdministrator;
-        // this.URLAddBusinessUsertPage   = httpAccessPage.urlPageAddBUser;
-        // this.URLAddRoleUsertPage       = httpAccessPage.urlPageAddRUser;
+        this.URLAddModuleRolPage = httpAccessAdminPage.urlPageAddModuleRol;
+        this.URLAdministratorPage = httpAccessAdminPage.urlPageAdministrator;
 
         this.alertService.clear();
 
@@ -78,10 +62,7 @@ export class ListRoleComponent implements OnInit {
                     this.isActivating = false;
                     this.ngOnInit();
                 },
-                (error) => {
-                    console.log(error);
-                    this.isActivating = false;
-                });
+                (error) => { console.log(error); this.isActivating = false; });
         } else {
             this.message = 'No se puede modificar el estado de la cuenta administradora del sistema';
             this.alertService.info(this.message, { keepAfterRouteChange: true });
@@ -105,10 +86,7 @@ export class ListRoleComponent implements OnInit {
                     this.isActivating = false;
                     this.ngOnInit();
                 },
-                (error) => {
-                    console.log(error);
-                    this.isActivating = false;
-                });
+                (error) => { console.log(error); this.isActivating = false; });
         } else {
             this.message = 'No se puede modificar el estado de la cuenta administradora del sistema';
             this.alertService.info(this.message, { keepAfterRouteChange: true });
@@ -132,10 +110,7 @@ export class ListRoleComponent implements OnInit {
                     this.isActivating = false;
                     this.ngOnInit();
                 },
-                (error) => {
-                    console.log(error);
-                    this.isActivating = false;
-                });
+                (error) => { console.log(error); this.isActivating = false; });
         } else {
             this.message = 'La cuenta administradora tiene permisos de escritura y lectura sobre los modulos de la empresa.';
             this.alertService.info(this.message, { keepAfterRouteChange: true });
@@ -159,10 +134,7 @@ export class ListRoleComponent implements OnInit {
                     this.isActivating = false;
                     this.ngOnInit();
                 },
-                (error) => {
-                    console.log(error);
-                    this.isActivating = false;
-                });
+                (error) => { console.log(error); this.isActivating = false; });
         } else {
             this.message = 'La cuenta administradora tiene permisos de escritura y lectura sobre los modulos de la empresa.';
             this.alertService.info(this.message, { keepAfterRouteChange: true });
