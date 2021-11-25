@@ -127,6 +127,18 @@
         }
     }
 }
+.btn-redirect-login {
+    margin-top: 10%;
+    padding: 0 2%;
+    min-width: 150px;
+    height: 40px;
+    background-color: #b1b846;
+    border-radius: 25px;  
+    font-family: Poppins-Regular;
+    font-size: 16px;
+    color: #fff;
+    line-height: 1.2;
+}
 mat-toolbar {
     background: linear-gradient(#00AEEF 1%, #005188, #053254 40%);
     color: white;

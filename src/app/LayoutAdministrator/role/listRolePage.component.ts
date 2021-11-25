@@ -3,15 +3,11 @@ import { first } from 'rxjs/operators';
 
 import { Router, ActivatedRoute } from '@angular/router';
 import { AccountService, AlertService } from '@app/_services';
-import { User } from '@app/_models';
+import { User, Role } from '@app/_models';
 
-import { amdinBusiness } from '@environments/environment';
-import { administrator } from '@environments/environment';
-import { httpAccessPage } from '@environments/environment';
+import { amdinBusiness, administrator, httpAccessPage } from '@environments/environment';
 
-import {AddBusinessUserComponent} from './addBusinessUserPage.component';
-import { Role } from '@app/_models/role';
-import { stringify } from 'querystring';
+import {AddBusinessUserComponent} from '../business/addBusinessUserPage.component';
 
 @Component({ templateUrl: 'HTML_ListRolePage.html' })
 export class ListRoleComponent implements OnInit {
@@ -23,8 +19,6 @@ export class ListRoleComponent implements OnInit {
 
     URLAddModuleRolPage: string;
     URLAdministratorPage: string;
-    // URLAddBusinessUsertPage: string;
-    // URLAddRoleUsertPage: string;
 
     rolList: Role;
 

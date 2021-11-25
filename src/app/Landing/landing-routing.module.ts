@@ -2,24 +2,28 @@ import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 
 import { LayoutComponent } from './layout.component';
-import { PendingPageComponent } from './pendingPage.component';
-import { BusinessPageComponent } from './businessPage.component';
-import { NotRolPageComponent } from './notRolPage.component';
-import { InactiveUserPageComponent } from './inactiveUserPage.component';
-import { InactiveRolPageComponent } from './inactiveRolPage.component';
-import { NotBusinessPageComponent } from './notBusinessPage.component';
+
+import { IndexContentPageComponent } from './indexContentPage.component';
+
+import { PendingUserPageComponent } from './nouser/pendingPage.component';
+import { NotRolPageComponent } from './nouser/notRolPage.component';
+import { InactiveUserPageComponent } from './nouser/inactiveUserPage.component';
+import { InactiveRolPageComponent } from './nouser/inactiveRolPage.component';
+import { NotBusinessUserPageComponent } from './nouser/notBusinessUserPage.component';
 
 const routes: Routes = [
     {
         path: '', component: LayoutComponent,
         children: [
             { path: '', component: LayoutComponent },
-            { path: 'PendingPage', component: PendingPageComponent },
-            { path: 'BusinessPage', component: BusinessPageComponent },
-            { path: 'NotRolPage', component: NotRolPageComponent },
-            { path: 'InactiveUserPage', component: InactiveUserPageComponent },
-            { path: 'InactiveRolPage', component: InactiveRolPageComponent },
-            { path: 'NotBusinessPage', component: NotBusinessPageComponent },
+            // -- contenido de la aplicación
+            { path: 'IndexContentPage', component: IndexContentPageComponent },
+            // -- landing no application
+            { path: 'PendingPage/NoLogin/Index.html', component: PendingUserPageComponent },
+            { path: 'NotRolPage/NoLogin/Index.html', component: NotRolPageComponent },
+            { path: 'InactiveUserPage/NoLogin/Index.html', component: InactiveUserPageComponent },
+            { path: 'InactiveRolPage/NoLogin/Index.html', component: InactiveRolPageComponent },
+            { path: 'NotBusinessPage/NoLogin/Index.html', component: NotBusinessUserPageComponent },
         ]
     }
 ];

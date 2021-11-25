@@ -8,7 +8,7 @@ import { httpAccessPage } from '../../environments/environment';
     templateUrl: 'menu.html',
     styleUrls: ['../../assets/scss/menus.scss'],
 })
-export class MenuGeneralesComponent {
+export class MenuCuentasCobrarComponent {
     @ViewChild(MatSidenav)
     sidenav !: MatSidenav;
 
@@ -17,6 +17,7 @@ export class MenuGeneralesComponent {
     businessObservable: Business;
 
     URLRedirectIndexContent: string;
+
 
     menuArray = [
         { menuLink: '/',        menuIcon: 'home',    menuName: 'submenu 1'},

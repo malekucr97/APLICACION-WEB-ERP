@@ -1,22 +1,27 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 
+// -- core principal
 import { LayoutAdministratorComponent } from './layout.component';
 
-import { AdminUserComponent } from './adminUserPage.component';
-import { AdminBusinessComponent } from './adminBusinessPage.component';
-import { ListUserComponent } from './listUserPage.component';
-import { ListBusinessComponent } from './listBusinessPage.component';
-import { AddEditUserComponent } from './addEditUserPage.component';
-import { AddBusinessUserComponent } from './addBusinessUserPage.component';
-import { AddRoleUserComponent } from './addRoleUserPage.component';
-import { ConfigureBusinessComponent } from './configureBusinessPage.component';
+// -- usuarios
+import { AdminUserComponent } from './user/adminUserPage.component';
+import { ListUserComponent } from './user/listUserPage.component';
+import { AddEditUserComponent } from './user/addEditUserPage.component';
 
-import { AddEditBusinessComponent } from './addEditBusinessPage.component';
-import { ListRoleComponent } from './listRolePage.component';
+// -- empresa
+import { AdminBusinessComponent } from './business/adminBusinessPage.component';
+import { AddEditBusinessComponent } from './business/addEditBusinessPage.component';
+import { ListBusinessComponent } from './business/listBusinessPage.component';
+import { AddBusinessUserComponent } from './business/addBusinessUserPage.component';
 
-import { ListModuleComponent } from './listModulePage.component';
-import { AddModuleRoleComponent } from './addModuleRolePage.component';
+// -- roles
+import { AddRoleUserComponent } from './role/addRoleUserPage.component';
+import { ListRoleComponent } from './role/listRolePage.component';
+
+// -- modulos
+import { ListModuleComponent } from './module/listModulePage.component';
+import { AddModuleRoleComponent } from './module/addModuleRolePage.component';
 
 const routes: Routes = [
     {
@@ -33,7 +38,6 @@ const routes: Routes = [
             { path: 'AddRoleUserPage/:id', component: AddRoleUserComponent },
             { path: 'AddEditBusinessPage', component: AddEditBusinessComponent },
             { path: 'AddEditBusinessPage/:pidBusiness', component: AddEditBusinessComponent },
-            { path: 'ConfigureBusinessPage/:pidBusiness', component: ConfigureBusinessComponent },
             { path: 'AdminListRolePage', component: ListRoleComponent },
             { path: 'AdminListModulePage/:pidBusiness', component: ListModuleComponent },
             { path: 'AdminListModulePage', component: ListModuleComponent },

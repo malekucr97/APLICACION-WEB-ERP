@@ -9,7 +9,7 @@ import { AccountService, AlertService } from '@app/_services';
 import { amdinBusiness } from '@environments/environment';
 import { httpAccessPage } from '@environments/environment';
 
-import { User } from '../_models';
+import { User } from '../../_models';
 import { Business } from '@app/_models/business';
 import { Role } from '@app/_models/role';
 import { ResponseMessage } from '@app/_models/response';

@@ -11,6 +11,9 @@ const LandingModule = () => import('./Landing/landing-module').then(x => x.Landi
 const GeneralesModule = () => import('./Generales/generales-module').then(x => x.GeneralesModule);
 const ActivosFijosModule = () => import('./ActivosFijos/activos-module').then(x => x.ActivosFijosModule);
 const BancosModule = () => import('./Bancos/bancos-module').then(x => x.BancosModule);
+const ContabilidadModule = () => import('./Contabilidad/contabilidad-module').then(x => x.ContabilidadModule);
+const CuentasCobrarModule = () => import('./CuentasCobrar/cuentascobrar-module').then(x => x.CuentasCobrarModule);
+
 
 const routes: Routes = [
     { path: '', component: HomeComponent, canActivate: [AuthGuard] },
@@ -21,7 +24,8 @@ const routes: Routes = [
     { path: '_GeneralesModule', loadChildren: GeneralesModule, canActivate: [AuthGuard] },
     { path: '_ActivosFijosModule', loadChildren: ActivosFijosModule, canActivate: [AuthGuard] },
     { path: '_BancosModule', loadChildren: BancosModule, canActivate: [AuthGuard] },
-    
+    { path: '_ContabilidadModule', loadChildren: ContabilidadModule, canActivate: [AuthGuard] },
+    { path: '_CuentasCobrarModule', loadChildren: CuentasCobrarModule, canActivate: [AuthGuard] },
 
     // redirección a Home
     { path: '**', redirectTo: '' }

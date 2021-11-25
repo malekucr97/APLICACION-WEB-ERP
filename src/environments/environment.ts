@@ -36,13 +36,14 @@ export const httpAccessPage = {
     urlPageListRole: '/_AdminModule/AdminListRolePage/',
     urlPageAddModuleRol: '/_AdminModule/AddModuleRolePage/',
 
-    // -- >> Langing Pages
-    urlPagePending: '/_LandingModule/PendingPage/',
-    urlPageNotRol: '/_LandingModule/NotRolPage/',
-    urlPageInactiveUser: '/_LandingModule/InactiveUserPage/',
-    urlPageInactiveRol: '/_LandingModule/InactiveRolPage/',
-    urlPageBusinessIndex: '_LandingModule/BusinessPage',
-    urlPageNotBusiness: '/_LandingModule/NotBusinessPage/'
+    // -- >> Langing Pages Index Application
+    urlContentIndex: '/_LandingModule/IndexContentPage/',
+    // -- >> Langing No Application
+    urlPagePending: '/_LandingModule/PendingPage/NoLogin/Index.html',
+    urlPageNotRol: '/_LandingModule/NotRolPage/NoLogin/Index.html',
+    urlPageInactiveUser: '/_LandingModule/InactiveUserPage/NoLogin/Index.html',
+    urlPageInactiveRol: '/_LandingModule/InactiveRolPage/NoLogin/Index.html',
+    urlPageNotBusiness: '/_LandingModule/NotBusinessPage/NoLogin/Index.html'
 };
 
 export const amdinBusiness = {
@@ -64,7 +65,7 @@ export const ModulesSistem = {
     BancosURL: '/_BancosModule/Index/',
 
     Contabilidad: 'ID-BANKAP-CONTA',
-    ContabilidadURL: '/ContabilidadModule/Index/',
+    ContabilidadURL: '/_ContabilidadModule/Index/',
 
     CuentasCobrar: 'ID-BANKAP-CXC',
     CuentasCobrarURL: '/_CuentasCobrarModule/Index/',

@@ -6,13 +6,8 @@ import { first } from 'rxjs/operators';
 
 import { AccountService, AlertService } from '@app/_services';
 
-import { User } from '../_models';
-import { Business } from '@app/_models/business';
-import { Role } from '@app/_models/role';
-import { Module } from '@app/_models/module';
-import { ResponseMessage } from '@app/_models/response';
+import { User, Business, Role, Module, ResponseMessage } from '@app/_models';
 
-import { amdinBusiness } from '@environments/environment';
 import { administrator } from '@environments/environment';
 
 @Component({ templateUrl: 'HTML_AddModuleRolePage.html' })
@@ -38,7 +33,6 @@ export class AddModuleRoleComponent implements OnInit {
     public listModulesActive: Module[] = [];
 
     public seleccionEmpresa: boolean;
-
 
     constructor(
         private route: ActivatedRoute,

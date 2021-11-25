@@ -8,7 +8,7 @@ import { httpAccessPage } from '../../environments/environment';
     templateUrl: 'menu.html',
     styleUrls: ['../../assets/scss/menus.scss'],
 })
-export class MenuGeneralesComponent {
+export class MenuContabilidadComponent {
     @ViewChild(MatSidenav)
     sidenav !: MatSidenav;
 

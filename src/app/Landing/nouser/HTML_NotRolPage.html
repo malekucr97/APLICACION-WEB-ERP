@@ -1,0 +1,24 @@
+
+
+<mat-sidenav-container>
+    <div class="content mat-elevation-z4">
+        <main>
+            <article>
+                <section class="content__menu">
+        
+                    <div class="content__menu__item" >
+                        <h1>Hi {{user.nombreCompleto}}!</h1>
+                        <h4>Usuario Pendiente de Asignación de Rol</h4>
+                        <br>
+                        <p>Por favor contacte al administrador para solicitar la asignación del rol respectivo en el sistema.</p>
+                        
+                        <button (click)="redirect()" class="btn-redirect-login" >
+                            Volver a Inicio de Sesión
+                        </button>
+                    </div>
+        
+                </section>
+            </article>
+        </main>
+    </div>
+</mat-sidenav-container>

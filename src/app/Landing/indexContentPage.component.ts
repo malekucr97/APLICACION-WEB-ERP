@@ -3,15 +3,14 @@ import { first } from 'rxjs/operators';
 import { Router } from '@angular/router';
 import { AccountService } from '@app/_services';
 import { User, Module, Business, ModulesProperties } from '../_models';
-import { amdinBusiness, localVariables,
-        httpAccessPage, ModulesSistem } from '@environments/environment';
+import { amdinBusiness, localVariables, ModulesSistem } from '@environments/environment';
 import { MatSidenav } from '@angular/material/sidenav';
 
 @Component({
-    templateUrl: 'HTML_BusinessPage.html',
+    templateUrl: 'IndexContentPage.html',
     styleUrls: ['../../assets/scss/landing/app.scss']
 })
-export class BusinessPageComponent implements OnInit {
+export class IndexContentPageComponent implements OnInit {
 
     constructor(private accountService: AccountService,
                 private router: Router) {

@@ -56,6 +56,6 @@ export class HomeComponent implements OnInit {
         this.accountService.updateLocalUser(this.user);
 
         this.accountService.loadBusinessAsObservable(business);
-        this.router.navigate([httpAccessPage.urlPageBusinessIndex]);
+        this.router.navigate([httpAccessPage.urlContentIndex]);
     }
 }

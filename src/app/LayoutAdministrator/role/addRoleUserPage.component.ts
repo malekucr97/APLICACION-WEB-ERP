@@ -6,10 +6,7 @@ import { first } from 'rxjs/operators';
 
 import { AccountService, AlertService } from '@app/_services';
 
-import { User } from '../_models';
-import { Business } from '@app/_models/business';
-import { Role } from '@app/_models/role';
-import { ResponseMessage } from '@app/_models/response';
+import { User, Business, Role, ResponseMessage } from '@app/_models';
 
 import { administrator } from '@environments/environment';
 
@@ -26,8 +23,6 @@ export class AddRoleUserComponent implements OnInit {
 
     public isAsignRole: boolean;
     pUserId: string;
-
-
 
     response: ResponseMessage;
 

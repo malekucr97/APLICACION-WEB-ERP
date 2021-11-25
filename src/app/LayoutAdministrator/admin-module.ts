@@ -1,23 +1,29 @@
 import { NgModule } from '@angular/core';
 import { ReactiveFormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
+
+// -- core principal
 import { AdminRoutingModule } from './admin-routing.module';
-
 import { LayoutAdministratorComponent } from './layout.component';
-import { AdminUserComponent } from './adminUserPage.component';
-import { AdminBusinessComponent } from './adminBusinessPage.component';
-import { AddEditUserComponent } from './addEditUserPage.component';
-import { ListUserComponent } from './listUserPage.component';
-import { ListBusinessComponent } from './listBusinessPage.component';
-import { AddBusinessUserComponent } from './addBusinessUserPage.component';
-import { AddRoleUserComponent } from './addRoleUserPage.component';
-import { ConfigureBusinessComponent } from './configureBusinessPage.component';
-import { AddEditBusinessComponent } from './addEditBusinessPage.component';
-import { ListRoleComponent } from './listRolePage.component';
-import { ListModuleComponent } from './listModulePage.component';
-import { AddModuleRoleComponent } from './addModuleRolePage.component';
 
+// -- usuarios
+import { AdminUserComponent } from './user/adminUserPage.component';
+import { AddEditUserComponent } from './user/addEditUserPage.component';
+import { ListUserComponent } from './user/listUserPage.component';
 
+// -- empresa
+import { AdminBusinessComponent } from './business/adminBusinessPage.component';
+import { ListBusinessComponent } from './business/listBusinessPage.component';
+import { AddEditBusinessComponent } from './business/addEditBusinessPage.component';
+import { AddBusinessUserComponent } from './business/addBusinessUserPage.component';
+
+// -- roles
+import { ListRoleComponent } from './role/listRolePage.component';
+import { AddRoleUserComponent } from './role/addRoleUserPage.component';
+
+// -- modulos
+import { ListModuleComponent } from './module/listModulePage.component';
+import { AddModuleRoleComponent } from './module/addModuleRolePage.component';
 
 @NgModule({
     imports: [
@@ -34,7 +40,6 @@ import { AddModuleRoleComponent } from './addModuleRolePage.component';
         ListBusinessComponent,
         AddBusinessUserComponent,
         AddRoleUserComponent,
-        ConfigureBusinessComponent,
         AddEditBusinessComponent,
         ListRoleComponent,
         ListModuleComponent,
