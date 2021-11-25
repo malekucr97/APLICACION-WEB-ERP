@@ -73,8 +73,8 @@ export const ModulesSistem = {
     CuentasPagar: 'ID-BANKAP-CXP',
     CuentasPagarURL: '/_CuentasPagarModule/Index/',
 
-    FacturaElectronica: 'ID-BANKAP-FACTURA-E',
-    FacturaElectronicaURL: '/_FacturaElectronicaModule/Index/',
+    Facturacion: 'ID-BANKAP-FACTURA-E',
+    FacturacionURL: '/_FacturacionModule/Index/',
 
     Generales: 'ID-BANKAP-GENERAL',
     GeneralesURL: '/_GeneralesModule/Index/',

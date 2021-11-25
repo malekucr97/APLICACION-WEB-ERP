@@ -93,7 +93,7 @@ export class IndexContentPageComponent implements OnInit {
             case ModulesSistem.Contabilidad: propertiesMod.urlRedirect = ModulesSistem.ContabilidadURL; break;
             case ModulesSistem.CuentasCobrar: propertiesMod.urlRedirect = ModulesSistem.CuentasCobrarURL; break;
             case ModulesSistem.CuentasPagar: propertiesMod.urlRedirect = ModulesSistem.CuentasPagarURL; break;
-            case ModulesSistem.FacturaElectronica: propertiesMod.urlRedirect = ModulesSistem.FacturaElectronicaURL; break;
+            case ModulesSistem.Facturacion: propertiesMod.urlRedirect = ModulesSistem.FacturacionURL; break;
             case ModulesSistem.Generales: propertiesMod.urlRedirect = ModulesSistem.GeneralesURL; break;
             case ModulesSistem.Inventario: propertiesMod.urlRedirect = ModulesSistem.InventarioURL; break;
 

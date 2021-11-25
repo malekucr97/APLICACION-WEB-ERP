@@ -1,0 +1,57 @@
+<div class="info">
+    <p class="info__user">
+        <i routerLink="/_AdminModule/AdminUserPage" class="info__user__icon fa fa-cog"></i>
+    </p>
+    <p class="info__logout">
+        <i class="info__logout__icon fa fa-sign-out fa-lg" (click)="logout()"></i>
+    </p>
+</div>
+
+<mat-toolbar>
+    <article>
+        <section class="title">
+            <button class="btn_hamburguesa" mat-icon-button (click)="sidenav.toggle()">
+                    <mat-icon>menu</mat-icon>
+            </button>
+            <img class="title__deco--left" src="./assets/images/inra/img_bankap_left.png ">
+            <p class="title__description">{{businessObservable.nombre}}</p>
+            <img class="title__deco--right" src="./assets/images/inra/img_bankap_rigth.png ">
+        </section>
+    </article>
+</mat-toolbar>
+
+<mat-sidenav mode="over">
+
+    <mat-divider></mat-divider>
+
+    <button *ngFor="let menu of menuArray" mat-button class="menu-button-submodulo">
+        <mat-icon>{{menu.menuIcon}}</mat-icon>
+        <a class="a-menu" routerLink="{{menu.menuLink}}">{{menu.menuName}}</a>
+    </button>
+    <button class="menu-button-submodulo" mat-button (click)="sidenav.toggle()">
+        <mat-icon>menu</mat-icon>
+        <a class="a-menu">Cerrar Submenú</a>
+    </button>
+
+    <mat-divider></mat-divider>
+
+    <div class="info-modulo">
+        <img class="avatar mat-elevation-z8" src="{{moduleObservable.pathIco}}">
+        <hr>
+        <h4 class="name">{{moduleObservable.descripcion}}</h4>
+        <h4 class="name">{{businessObservable.nombre}} - núm.céd {{businessObservable.cedulaJuridica}}</h4>
+        <h4 class="name">{{userObservable.email}}</h4>
+        
+        <mat-divider></mat-divider>
+
+        <button mat-button class="menu-button-back">
+            <mat-icon>reply</mat-icon>
+            <span routerLink="{{URLRedirectIndexContent}}">Seleccionar Módulo</span>
+        </button>
+    </div>
+
+</mat-sidenav>
+
+<div class="styleLayout"> 
+    <router-outlet></router-outlet> 
+</div>
