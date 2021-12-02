@@ -1,29 +1,35 @@
 <div *ngIf="adminSistema">
-    <h1>Administración Interna del Sistema</h1>
-    <h5>Bienvenido {{user.nombreCompleto}} !</h5>
-    <br>
+    <br><br>
 
-    <h5 style="color:#1A5276">Configuración de Usuario</h5>
+    <h1 style="display: inline;">Administración Interna del Sistema</h1>
+    <br><br>
+    <h1 style="display: inline;">Bienvenido</h1>
+    <h1 style="display: inline; color:#1A5276"> {{user.nombreCompleto}} !</h1><br><br>
+    <hr><br>
+
+    <h1 style="color:#1A5276">Configuración de Usuario</h1>
+    <br>
     <a routerLink="{{URLConfigureUserPage}}{{user.identificacion}}" class="btn btn-outline-dark mb-2">Parámetros de Usuario</a>
-    
-    <h5 style="color:#1A5276">Configuraciones Internas del Sistema</h5>
+    <br><hr><br>
+    <h1 style="color:#1A5276">Configuraciones Internas del Sistema</h1>
+    <br>
     <a style="margin-right: 1%;" routerLink="{{URLListUserPage}}" class="btn btn-outline-dark mb-2">Administración de Usuarios</a>
     <a style="margin-right: 1%;" routerLink="{{URLListBusinessPage}}" class="btn btn-outline-dark mb-2">Administración de Empresas</a>
     <a style="margin-right: 1%;" routerLink="{{URLListRolePage}}" class="btn btn-outline-dark mb-2">Administración de Roles</a>
-    <a style="margin-right: 1%;" routerLink="/_AdminModule/AdminListModulePage" class="btn btn-outline-dark mb-2">Administración de Módulos</a>
 </div>
 
 <div *ngIf="adminEmpresa">
+    <br><br>
     <h1>Administración Interna de Empresas</h1>
-    <h5>Bienvenido {{user.nombreCompleto}} !</h5>
+    <h2>Bienvenido {{user.nombreCompleto}} !</h2>
+    <br><hr><br>
+
+    <h1 style="color:#1A5276;">Configuración de Usuario</h1>
     <br>
-
-    <h5 style="color:#1A5276">Configuración de Usuario</h5>
     <a routerLink="{{URLConfigureUserPage}}{{user.identificacion}}" class="btn btn-outline-dark mb-2">Parámetros de Usuario</a>
-
-    <h5 style="color:#1A5276">Configuraciones Internas del Sistema</h5>
-    <h6 *ngIf="!user.empresa">Para acceder a la configuración de parámetros del sistema debe seleccionar una Empresa o Sociedad</h6>
-    <p><a *ngIf="user.empresa" routerLink="/_AdminModule/ConfigureBusinessPage/{{user.empresa}}">Parámetros Generales de la Empresa</a></p><!-- ./business/business-module -->
-    <p><a *ngIf="user.empresa" routerLink="/_AdminModule/AdminListUserPage">Administración de Usuarios</a></p><!-- ./users/users.module -->
-    <p><a *ngIf="user.empresa" routerLink="/_AdminModule/AdminListModulePage">Administración de Módulos</a></p><!-- ./business/business-module -->
+    <br><hr><br>
+    <h1 style="color:#1A5276">Configuraciones Internas del Sistema</h1>
+    <br>
+    <h3 *ngIf="!user.empresa">Para acceder a la configuración de parámetros del sistema debe seleccionar una Empresa o Sociedad</h3>
+    <a *ngIf="user.empresa" style="margin-right: 1%;" routerLink="{{URLListUserPage}}" class="btn btn-outline-dark mb-2">Administración de Usuarios</a>
 </div>

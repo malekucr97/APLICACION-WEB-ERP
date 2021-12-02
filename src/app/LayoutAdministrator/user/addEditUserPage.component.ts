@@ -148,13 +148,17 @@ export class AddEditUserComponent implements OnInit {
         if (this.addUser) {
             this.accountService.addUser(this.userForm)
             .pipe(first())
-            .subscribe(
-                response => {
+            .subscribe( responseAddUser => {
+
+                if (responseAddUser.exito) {
                     this.router.navigate([this.URLRedirectPage], { relativeTo: this.route });
-                    this.alertService.success(response.responseMesagge, { keepAfterRouteChange: true });
-                    this.loading = false;
-                },
-                error => { console.log(error); this.alertService.error(error); this.loading = false; });
+                    this.alertService.success(responseAddUser.responseMesagge, { keepAfterRouteChange: true });
+                }else{
+                    this.alertService.error(responseAddUser.responseMesagge, { keepAfterRouteChange: true });
+                }
+                this.loading = false;
+            },
+            error => { console.log(error); this.alertService.error(error); this.loading = false; });
         }
 
         if (this.updateUser) {

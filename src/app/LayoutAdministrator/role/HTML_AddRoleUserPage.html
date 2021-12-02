@@ -8,12 +8,12 @@
         <br>
         <h6 *ngIf="existeRol" style="display: inline;">Rol de usuario: </h6><h6 *ngIf="role" style="display:inline; color:#1A5276">{{role.nombre}}</h6>
         <h6 *ngIf="!existeRol" style="display: inline;">Rol de usuario no asignado</h6>
-        <br><br>
-
-        <button (click)="desAsignAllRolesUser(userRole.identificacion)" class="btn btn-outline-secondary mb-2">
+        <br>
+        <button (click)="desAsignAllRolesUser(userRole.identificacion)" class="btn btn-outline-danger mb-2 float-right">
             <span *ngIf="isDesAsignRoles" class="spinner-border spinner-border-sm"></span>
-            <span *ngIf="!isDesAsignRoles">Des-Asignar Rol a Usuario Seleccionado</span>
+            <b><span *ngIf="!isDesAsignRoles">Eliminar Rol de Usuario</span></b>
         </button>
+        <br>
 
         <div *ngIf="listAllRoles">
             <br><hr>
