@@ -12,6 +12,8 @@ import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
 import { MatDividerModule } from '@angular/material/divider';
 
+import {MatTreeModule} from '@angular/material/tree';
+
 
 @NgModule({
     imports: [
@@ -23,7 +25,9 @@ import { MatDividerModule } from '@angular/material/divider';
         MatSidenavModule,
         MatButtonModule,
         MatIconModule,
-        MatDividerModule
+        MatDividerModule,
+
+        MatTreeModule
     ],
     declarations: [
         IndexBancosComponent,

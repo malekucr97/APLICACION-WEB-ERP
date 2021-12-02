@@ -99,10 +99,36 @@ mat-sidenav {
     border-radius: 10px;
     text-align: center;
 }
+
 .a-menu {
     color: white;
     text-decoration: none;
 }
+
+// Tree
+mat-tree {
+    background: #005188;
+    color: white;
+}
+
+mat-icon{
+    color: white;
+}
+
+span{
+    color: white;
+}
+
+.div-back-bottons{
+    background: #005188;
+    color: white;
+
+    width: 100%;
+    position: absolute;
+    bottom: 1%;
+}
+// Tree
+
 .menu-button-submodulo {
     width: 100%;
     display: flex;
@@ -113,6 +139,7 @@ mat-sidenav {
         margin-right: 10%;
     }
 }
+
 .menu-button-back {
     width: 100%;
     display: flex;
@@ -123,17 +150,29 @@ mat-sidenav {
         margin-right: 10%;
     }
 }
+
 .info-modulo {
     margin-top: 1%;
     width: 100%;
 }
+
+.menu-scroll{
+    height: 50vh;
+    position: relative;
+    overflow: scroll;
+    scrollbar-color: #005188;
+   
+}
+
 .avatar {
     margin-top: 5%;
     border-radius: 50%;
 }
+
 .name {
     margin-top: 1%;
 }
+
 mat-divider {
     margin-top: 16px;
     margin-bottom: 16px;

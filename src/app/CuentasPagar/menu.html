@@ -22,19 +22,6 @@
 
 <mat-sidenav mode="over">
 
-    <mat-divider></mat-divider>
-
-    <button *ngFor="let menu of menuArray" mat-button class="menu-button-submodulo">
-        <mat-icon>{{menu.menuIcon}}</mat-icon>
-        <a class="a-menu" routerLink="{{menu.menuLink}}">{{menu.menuName}}</a>
-    </button>
-    <button class="menu-button-submodulo" mat-button (click)="sidenav.toggle()">
-        <mat-icon>menu</mat-icon>
-        <a class="a-menu">Cerrar Submenú</a>
-    </button>
-
-    <mat-divider></mat-divider>
-
     <div class="info-modulo">
         <img class="avatar mat-elevation-z8" src="{{moduleObservable.pathIco}}">
         <hr>
@@ -43,6 +30,44 @@
         <h4 class="name">{{userObservable.email}}</h4>
         
         <mat-divider></mat-divider>
+
+        <div class="info-modulo menu-scroll">
+
+            <mat-tree [dataSource]="dataSource" [treeControl]="treeControl">
+                <!-- This is the tree node template for leaf nodes -->
+                <mat-tree-node *matTreeNodeDef="let node" matTreeNodePadding>
+        
+                <button mat-button class="menu-button-submodulo" >
+                    <mat-icon>{{node.icon}}</mat-icon>
+                    <span routerLink="{{node.link}}">{{node.name}}</span>
+                </button>
+                
+                </mat-tree-node>
+                <!-- This is the tree node template for expandable nodes -->
+                <mat-tree-node *matTreeNodeDef="let node;when: hasChild" matTreeNodePadding>
+        
+                <button class="menu-button-submodulo" mat-button matTreeNodeToggle
+                        [attr.aria-label]="'Toggle ' + node.name">
+                    <mat-icon class="mat-icon-rtl-mirror">
+                    {{treeControl.isExpanded(node) ? 'expand_more' : 'chevron_right'}}
+                    </mat-icon>
+                    <span>{{node.name}}</span>
+                </button>
+                
+                </mat-tree-node>
+            </mat-tree>
+        </div>
+        
+    </div>
+
+    <div class="div-back-bottons">
+        
+        <mat-divider></mat-divider>
+        
+        <button class="menu-button-submodulo" mat-button (click)="sidenav.toggle()">
+            <mat-icon>menu</mat-icon>
+            <span class="a-menu">Cerrar Submenú</span>
+        </button>
 
         <button mat-button class="menu-button-back">
             <mat-icon>reply</mat-icon>
