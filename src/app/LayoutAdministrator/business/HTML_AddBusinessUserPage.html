@@ -1,17 +1,17 @@
-<h1 style="display: inline; color:#1A5276">Asignación de Empresas</h1>
-<h1 style="display: inline;"> a Usuarios</h1><br><br>
+<h1 style="display: inline; color:#1A5276">Dar o Eliminar acceso</h1>
+<h1 style="display: inline;"> a Usuarios en Empresas</h1><br><br>
 
 <div class="card">
     <div class="card-body">
 
-        <h4 style="display: inline;">Identificación de Usuario: </h4><h5 style="display: inline; color:#1A5276">{{userBusiness.identificacion}}</h5>
+        <h2 style="display: inline;">Usuario Seleccionado: </h2><h3 style="display: inline; color:#1A5276">{{userBusiness.identificacion}}</h3>
         <br>
-        <h4 style="display: inline;">Nombre: </h4><h5 style="display:inline; color:#1A5276">{{userBusiness.nombreCompleto}}</h5>
+        <h2 style="display: inline;">Nombre: </h2><h3 style="display:inline; color:#1A5276">{{userBusiness.nombreCompleto}}</h3>
         <br><br>
-        <h6 *ngIf="existeRol" style="display: inline;">Rol: </h6><h6 *ngIf="role" style="display:inline; color:#1A5276">{{role.nombre}}</h6>
-        <h6 *ngIf="!existeRol" style="display: inline;">Rol de usuario no asignado</h6>
+        <h4 *ngIf="existeRol" style="display: inline;">Rol: </h4><h4 *ngIf="role" style="display:inline; color:#1A5276">{{role.nombre}}</h4>
+        <h4 *ngIf="!existeRol" style="display: inline;">Rol de usuario no asignado</h4>
 
-        <button (click)="desAsignAllBusinessUser(userBusiness.identificacion)" class="btn btn-outline-danger mb-2 float-right">
+        <button *ngIf="listBusinessUser" (click)="desAsignAllBusinessUser(userBusiness.identificacion)" class="btn btn-outline-danger mb-2 float-right">
             <span *ngIf="isDesAsignBusiness" class="spinner-border spinner-border-sm"></span>
             <span *ngIf="!isDesAsignBusiness">Eliminar Acceso de <b>TODAS</b> las Empresas</span>
         </button>
@@ -19,8 +19,8 @@
         <br><br>
         
         <div *ngIf="listBusinessUser">
-            <br><hr>
-            <h5>El usuario tiene acceso a las siguientes empresas</h5><br>
+            <hr>
+            <h2 style="color:#1A5276">El usuario tiene acceso a las siguientes empresas</h2>
             <table class="table table-striped">
             
                 <thead>
@@ -47,8 +47,8 @@
         </div>
         
         <div *ngIf="listAllBusiness">
-            <br><hr>
-            <h5 style="color:green">Empresas del Sistema</h5><br>
+            <br>
+            <h2 style="color:#1A5276">Empresas del Sistema</h2>
             <table class="table table-striped">
                 <thead>
                     <tr>

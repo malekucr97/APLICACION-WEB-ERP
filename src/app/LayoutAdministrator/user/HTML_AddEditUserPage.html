@@ -1,12 +1,6 @@
 <h2 *ngIf="updateUser">Actualizar Información de Usuario</h2>
 <h2 *ngIf="addUser">Registro de Usuarios</h2>
 
-<!-- <div *ngIf="user.empresa">
-    <h4 style="color:#1A5276">{{business.nombre}}</h4>
-    <h5 style="color:#1A5276">{{business.cedulaJuridica}}</h5>
-    <br>
-</div> -->
-
 <div class="card">
     <div class="card-body">
         <form [formGroup]="form" (ngSubmit)="onSubmit()">

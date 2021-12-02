@@ -94,7 +94,7 @@ export class AddRoleUserComponent implements OnInit {
                 error => { console.log(error); this.alertService.error(error); });
     }
 
-    desAsignAllRolesUser(identificacionUsuario: string){
+    desAsignAllRolesUser(identificacionUsuario: string) {
 
         this.isDesAsignRoles = true;
 
@@ -112,7 +112,7 @@ export class AddRoleUserComponent implements OnInit {
                         this.alertService.success(response.responseMesagge, { keepAfterRouteChange: true });
                     }
                     else {
-                        this.alertService.error(response.responseMesagge, { keepAfterRouteChange: true });
+                        this.alertService.info(response.responseMesagge, { keepAfterRouteChange: true });
                     }
 
                     this.ngOnInit();

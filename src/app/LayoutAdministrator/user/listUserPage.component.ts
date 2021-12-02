@@ -22,8 +22,8 @@ export class ListUserComponent implements OnInit {
     URLAddRoleUsertPage: string;
     URLAdministratorPage: string;
 
-    constructor(private accountService: AccountService,
-                private alertService: AlertService) { this.user = this.accountService.userValue; }
+    constructor(private accountService: AccountService, private alertService: AlertService) {
+                this.user = this.accountService.userValue;  }
 
     ngOnInit() {
         this.isActivating   = false;
@@ -48,7 +48,7 @@ export class ListUserComponent implements OnInit {
             .subscribe(users => this.listUsers = users );
         }
 
-        if (this.user.idRol === amdinBusiness.adminSociedad){
+        if (this.user.idRol === amdinBusiness.adminSociedad && this.user.empresa) {
 
             this.adminBusiness = true;
 

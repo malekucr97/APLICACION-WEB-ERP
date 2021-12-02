@@ -11,24 +11,20 @@ import { httpAccessPage } from '@environments/environment';
 export class LoginComponent implements OnInit {
 
     form: FormGroup;
-    loading = false;
-    submitted = false;
-
-    UrlHome: string;
     user: User;
 
-    userName: string; password: string;
-
+    loading = false;
+    submitted = false;
     login: boolean;
-    messageNoLogin: string;
+
+    userName: string; password: string; UrlHome: string; messageNoLogin: string;
 
     constructor(
         private formBuilder: FormBuilder,
         private route: ActivatedRoute,
         private router: Router,
         private accountService: AccountService,
-        private alertService: AlertService
-    ) { }
+        private alertService: AlertService ) { }
 
     ngOnInit() {
 
@@ -101,6 +97,7 @@ export class LoginComponent implements OnInit {
                     // -- >> si el usuario no está registrado en el sistema
                     } else {
                         this.messageNoLogin = 'Usuario o contraseña incorrectos';
+                        this.alertService.info(this.messageNoLogin);
                         this.loading = false;
                     }
                 },

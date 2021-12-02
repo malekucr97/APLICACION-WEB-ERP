@@ -3,12 +3,9 @@ import { Router } from '@angular/router';
 import { HttpClient } from '@angular/common/http';
 import { BehaviorSubject, Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
-
 import { environment } from '@environments/environment';
 import { User } from '@app/_models';
-
-import { Business, Module, BusinessUser, ResponseMessage } from '@app/_models/';
-import { AssignRoleObject, ModuleRol, Role } from '@app/_models/role';
+import { Business, Module, BusinessUser, Role, ModuleRol, ResponseMessage, AssignRoleObject } from '@app/_models/';
 
 @Injectable({ providedIn: 'root' })
 export class AccountService {
@@ -72,35 +69,18 @@ export class AccountService {
     logout() {
         localStorage.removeItem('user');
         this.userSubject.next(null);
+
+        localStorage.removeItem('Obusiness');
+        localStorage.removeItem('Omodule');
+
         this.router.navigate(['account/login']);
     }
     // -- >> FIN
 
 
-
-
-
-
-
-
-
-
     registerRole(role: Role) {
         return this.http.post(`${environment.apiUrl}/users/registrarrol`, role);
     }
-    // getRoleUser(idUsuario: string, idEmpresa: string) {
-    //     return this.http.get<BusinessUser>(`${environment.apiUrl}/users/rolusuario?idUsuario=${idUsuario}&idEmpresa=${idEmpresa}`);
-    // }
-
-
-
-
-
-
-
-
-
-
 
     // -- >> Procedimientos Empresas
     getAllBusiness() {
@@ -139,8 +119,7 @@ export class AccountService {
         const desAssignBusinessUObject = new BusinessUser();
         desAssignBusinessUObject.IdentificacionUsuario = identificacionUsuario;
 
-        return this.http.post<ResponseMessage>(`${environment.apiUrl}/users/desasignallsociedu`, desAssignBusinessUObject);
-    }
+        return this.http.post<ResponseMessage>(`${environment.apiUrl}/users/desasignallsociedu`, desAssignBusinessUObject); }
     // -- >> fin
 
 
@@ -195,9 +174,8 @@ export class AccountService {
     // -- >> fin
 
     // -- >> Procedimientos de Usuarios
-    addUser(user: User) {
-        return this.http.post<ResponseMessage>(`${environment.apiUrl}/users/registrarusuario`, user);
-    }
+    addUser(user: User) { return this.http.post<ResponseMessage>(`${environment.apiUrl}/users/registrarusuario`, user); }
+
     removeRoleUser(user: User) {
         return this.http.put<ResponseMessage>(`${environment.apiUrl}/users/removerrolusuario`, user);
     }
@@ -215,8 +193,8 @@ export class AccountService {
     getAllUsers() {
         return this.http.get<User[]>(`${environment.apiUrl}/users/getallusers`);
     }
-    getUser(id: string) {
-        return this.http.get<User>(`${environment.apiUrl}/users/${id}`);
+    getUser(usuarioid: string) {
+        return this.http.get<User>(`${environment.apiUrl}/users/${usuarioid}`);
     }
     getUserById(id: string) {
         return this.http.get<User>(`${environment.apiUrl}/users/usuarioid?idUsuario=${id}`);
@@ -233,9 +211,8 @@ export class AccountService {
     deleteUser(identificationuser: string) {
         return this.http.delete<ResponseMessage>(`${environment.apiUrl}/users/${identificationuser}`)
             .pipe(map(x => {
-                if (identificationuser === this.userValue.identificacion) {
-                    this.logout();
-                }
+                // -- >> si se elimina el usuario de la sesión se cierra sesión
+                if (identificationuser === this.userValue.identificacion) { this.logout(); }
                 return x;
             }));
     }
