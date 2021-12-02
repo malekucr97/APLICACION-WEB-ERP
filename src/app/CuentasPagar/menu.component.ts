@@ -4,6 +4,82 @@ import { MatSidenav } from '@angular/material/sidenav';
 import { Business, Module, User } from '@app/_models';
 import { httpAccessPage } from '../../environments/environment';
 
+import {FlatTreeControl} from '@angular/cdk/tree';
+import {MatTreeFlatDataSource, MatTreeFlattener} from '@angular/material/tree';
+
+
+/** menu - tree
+ * Interfaz o estructura del arbol 
+ */
+ interface FoodNode {
+    name: string;
+    link: string;
+    icon: string;
+    children?: FoodNode[];
+  }
+  
+  // Datos del Arbol
+  const TREE_DATA: FoodNode[] = [
+    {
+      name: 'Parámetros',
+      link: '',
+      icon: '',
+      children: [{name: 'Cuentas por Pagar', link: '/', icon: ''},//settings 
+                {name: 'Tipos de Pagos',link: '/', icon: ''}//store
+      ],
+    },
+    {
+      name: 'Proveedores',
+      link: '',
+      icon: ''
+    },
+    {
+      name: 'Movimientos',
+      link: '',
+      icon: '',
+      children: [{name: 'Recibo de Facturas', link: '/', icon: ''},//settings 
+                {name: 'Registro de Movimientos',link: '/', icon: ''},//store
+                {name: 'Reversión de Facturas',link: '/', icon: ''},
+                {name: 'Registro de Pagos',link: '/', icon: ''},
+                {name: 'Anulación de Pagos',link: '/', icon: ''}
+      ],
+    },
+    {
+      name: 'Consultas',
+      link: '',
+      icon: '',
+      children: [{name: 'Cuentas por Pagar', link: '/', icon: ''},//settings 
+                {name: 'Movimientos',link: '/', icon: ''},//store
+                {name: 'Saldos',link: '/', icon: ''},
+                {name: 'Cuentas por Fecha Vencimiento',link: '/', icon: ''},
+                {name: 'Movimientos Contables',link: '/', icon: ''}
+      ],
+    },
+    {
+      name: 'Traslado Contable',
+      link: '/',
+      icon: ''//folder
+    },
+    {
+      name: 'Reportes',
+      link: '',
+      icon: '',
+      children: [{name: 'Antiguedad de Saldos',link: '/', icon: ''},
+                {name: 'Cuentas por Pagar', link: '/', icon: ''},//settings 
+                {name: 'Documentos Aplicados',link: '/', icon: ''}//store
+      ],
+    },
+  ];
+  
+  /** Flat node with expandable and level information */
+  interface ExampleFlatNode {
+    expandable: boolean;
+    name: string;
+    link?: string;
+    icon?: string;
+    level: number;
+  }
+
 @Component({
     templateUrl: 'menu.html',
     styleUrls: ['../../assets/scss/menus.scss'],
@@ -30,7 +106,36 @@ export class MenuCuentasPagarComponent {
         this.businessObservable = this.accountService.businessValue;
 
         this.URLRedirectIndexContent = httpAccessPage.urlContentIndex;
+
+        this.dataSource.data = TREE_DATA;
     }
 
     logout() { this.accountService.logout(); }
+
+    /* Menu-Tree */
+    private _transformer = (node: FoodNode, level: number) => {
+        return {
+        expandable: !!node.children && node.children.length > 0,
+        name: node.name,
+        level: level,
+        link: node.link,
+        icon: node.icon
+        };
+    };
+
+    treeControl = new FlatTreeControl<ExampleFlatNode>(
+        node => node.level,
+        node => node.expandable,
+    );
+
+    treeFlattener = new MatTreeFlattener(
+        this._transformer,
+        node => node.level,
+        node => node.expandable,
+        node => node.children,
+    );
+
+    dataSource = new MatTreeFlatDataSource(this.treeControl, this.treeFlattener);
+
+    hasChild = (_: number, node: ExampleFlatNode) => node.expandable;
 }
