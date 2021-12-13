@@ -11,6 +11,10 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 import {MatTreeModule} from '@angular/material/tree';
 
+import {MatTooltipModule} from '@angular/material/tooltip';
+import {MatNativeDateModule} from '@angular/material/core';
+
+
 @NgModule({
     imports: [
         BrowserModule,
@@ -19,7 +23,10 @@ import {MatTreeModule} from '@angular/material/tree';
         HttpClientModule,
         AppRoutingModule,
         BrowserAnimationsModule,
-        MatTreeModule
+        MatTreeModule,
+
+        MatNativeDateModule,
+        MatTooltipModule
     ],
     declarations: [
         AppComponent,
