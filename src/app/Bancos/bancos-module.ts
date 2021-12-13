@@ -13,6 +13,7 @@ import { MatIconModule } from '@angular/material/icon';
 import { MatDividerModule } from '@angular/material/divider';
 
 import {MatTreeModule} from '@angular/material/tree';
+import {MatTooltipModule} from '@angular/material/tooltip';
 
 
 @NgModule({
@@ -27,7 +28,8 @@ import {MatTreeModule} from '@angular/material/tree';
         MatIconModule,
         MatDividerModule,
 
-        MatTreeModule
+        MatTreeModule,
+        MatTooltipModule
     ],
     declarations: [
         IndexBancosComponent,

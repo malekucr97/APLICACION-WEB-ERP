@@ -1,4 +1,4 @@
-import { Component, ViewChild } from '@angular/core';
+import { Component, ViewChild, } from '@angular/core';
 import { AccountService } from '@app/_services';
 import { MatSidenav } from '@angular/material/sidenav';
 import { Business, Module, User } from '@app/_models';
@@ -73,6 +73,7 @@ import {MatTreeFlatDataSource, MatTreeFlattener} from '@angular/material/tree';
 @Component({
     templateUrl: 'menu.html',
     styleUrls: ['../../assets/scss/menus.scss'],
+    
 })
 export class MenuBancosComponent {
     @ViewChild(MatSidenav)
