@@ -1,11 +1,12 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { first } from 'rxjs/operators';
 import { Router } from '@angular/router';
-import { AccountService } from '@app/_services';
+import { AccountService, GeneralesService } from '@app/_services';
 import { User, Module, Business, ModulesProperties } from '@app/_models';
 import { localVariables, ModulesSistem } from '@environments/environment';
 import { amdinBusiness } from '@environments/environment-access-admin';
 import { MatSidenav } from '@angular/material/sidenav';
+import { Compania } from '@app/_models/modules/compania';
 
 @Component({
     templateUrl: 'IndexContentPage.html',
@@ -14,6 +15,7 @@ import { MatSidenav } from '@angular/material/sidenav';
 export class IndexContentPageComponent implements OnInit {
 
     constructor(private accountService: AccountService,
+                private generalesService: GeneralesService,
                 private router: Router) {
 
         this.userObservable = this.accountService.userValue;
@@ -25,6 +27,8 @@ export class IndexContentPageComponent implements OnInit {
 
     userObservable: User;
     businessObservable: Business;
+
+    compania: Compania;
 
     propertiesMod: ModulesProperties;
 
@@ -118,4 +122,19 @@ export class IndexContentPageComponent implements OnInit {
     }
 
     logout() { this.accountService.logout(); }
+
+
+    registrarcompania(){
+
+        this.compania = new Compania;
+        this.compania.identificacion = '12123123';
+
+        this.generalesService.registerCompania(this.compania)
+            .pipe(first())
+            .subscribe(responseModule => {
+                
+                var response = responseModule;
+            });
+        
+    }
 }
