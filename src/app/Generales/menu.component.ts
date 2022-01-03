@@ -25,7 +25,7 @@ import {MatTreeFlatDataSource, MatTreeFlattener} from '@angular/material/tree';
       link: '',
       icon: '',
       children: [{name: 'Generales', link: '/', icon: ''},//settings 
-                {name: 'Compañías',link: '/bancos/index', icon: ''}//store
+                {name: 'Compañías',link: '/_GeneralesModule/ConfiguracionCompania.html', icon: ''}//store
       ],
     },
     {

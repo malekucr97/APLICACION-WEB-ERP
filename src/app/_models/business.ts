@@ -1,14 +1,10 @@
-// import { Module } from "./module";
-
 export class Business {
-    id: string;
+    id: number;
     nombre: string;
     cedulaJuridica: string;
-
-    // listModules: Module[];
 }
 export class BusinessUser {
     IdUsuario: number;
     IdentificacionUsuario: string;
-    IdEmpresa: string;
+    IdEmpresa: number;
 }

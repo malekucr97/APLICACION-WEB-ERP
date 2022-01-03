@@ -11,7 +11,7 @@ export class AddEditBusinessComponent implements OnInit {
 
     business: Business;
 
-    pidBusiness: string;
+    pidBusiness: number;
 
     loading = false;
     submitted = false;
@@ -76,8 +76,6 @@ export class AddEditBusinessComponent implements OnInit {
         this.business.cedulaJuridica = this.form.get('cedulajuridica').value;
 
         if (this.addBusiness) {
-
-            this.business.id = 'ID-' + this.form.get('cedulajuridica').value;
 
             this.accountService.addBusiness(this.business)
             .pipe(first())

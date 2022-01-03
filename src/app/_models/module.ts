@@ -1,7 +1,7 @@
 export class Module {
     id: number;
     identificador: string;
-    idSociedad: string;
+    idSociedad: number;
     nombre: string;
     descripcion: string;
     estado: string;

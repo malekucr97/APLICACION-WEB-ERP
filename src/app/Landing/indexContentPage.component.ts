@@ -122,19 +122,4 @@ export class IndexContentPageComponent implements OnInit {
     }
 
     logout() { this.accountService.logout(); }
-
-
-    registrarcompania(){
-
-        this.compania = new Compania;
-        this.compania.identificacion = '12123123';
-
-        this.generalesService.registerCompania(this.compania)
-            .pipe(first())
-            .subscribe(responseModule => {
-                
-                var response = responseModule;
-            });
-        
-    }
 }

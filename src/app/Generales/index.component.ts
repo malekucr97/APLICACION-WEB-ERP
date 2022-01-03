@@ -1,7 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { User, Module } from '@app/_models';
 import { AccountService } from '@app/_services';
-import { ActivatedRoute } from '@angular/router';
 
 @Component({
     templateUrl: 'index.html',
@@ -18,7 +17,7 @@ export class IndexGeneralesComponent implements OnInit {
     public adminSistema: boolean;
     public adminEmpresa: boolean;
 
-    constructor(private accountService: AccountService, private route: ActivatedRoute) {
+    constructor(private accountService: AccountService) {
         this.userObservable = this.accountService.userValue;
         this.moduleObservable = this.accountService.moduleValue;
     }
