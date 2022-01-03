@@ -23,7 +23,7 @@ export class ListModuleComponent implements OnInit {
     URLAddBusinessUsertPage: string;
     URLAddRoleUsertPage: string;
     idBusiness: string;
-    pidBusiness: string;
+    pidBusiness: number;
 
     constructor(private accountService: AccountService,
                 private route: ActivatedRoute,
@@ -68,7 +68,7 @@ export class ListModuleComponent implements OnInit {
     }
 
 
-    activateModule(idModule: number, identificador: string, idBusiness: string) {
+    activateModule(idModule: number, identificador: string, idBusiness: number) {
 
         this.moduleList = this.listModules.find(x => x.id === idModule && x.idSociedad === idBusiness && x.identificador === identificador);
         this.isActivating = true;
@@ -89,7 +89,7 @@ export class ListModuleComponent implements OnInit {
             });
     }
 
-    inActivateModule(idModule: number, identificador: string, idBusiness: string) {
+    inActivateModule(idModule: number, identificador: string, idBusiness: number) {
 
         this.moduleList = this.listModules.find(x => x.id === idModule && x.idSociedad === idBusiness && x.identificador === identificador);
         this.isActivating = true;

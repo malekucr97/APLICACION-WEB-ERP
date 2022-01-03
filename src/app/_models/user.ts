@@ -8,6 +8,6 @@
     token: string;
     password: string;
     idRol: string;
-    empresa: string;
+    empresa: number;
     esAdmin: boolean;
 }

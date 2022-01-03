@@ -89,7 +89,7 @@ export class AccountService {
     getBusinessActiveUser(idUsuario: string) {
         return this.http.get<Business[]>(`${environment.apiUrl}/users/empresasusuarioactivas?idUsuario=${idUsuario}`);
     }
-    getBusinessById(idEmpresa: string) {
+    getBusinessById(idEmpresa: number) {
         return this.http.get<Business>(`${environment.apiUrl}/users/empresaid?idEmpresa=${idEmpresa}`);
     }
     addBusiness(business: Business) {
@@ -98,7 +98,7 @@ export class AccountService {
     updateBusiness(business: Business) {
         return this.http.put<ResponseMessage>(`${environment.apiUrl}/users/actualizarempresa`, business);
     }
-    assignBusinessUser(identificacionUsuario: string, idBusiness: string) {
+    assignBusinessUser(identificacionUsuario: string, idBusiness: number) {
 
         const assignBusinessUObject = new BusinessUser();
         assignBusinessUObject.IdentificacionUsuario = identificacionUsuario;
@@ -106,7 +106,7 @@ export class AccountService {
 
         return this.http.post<ResponseMessage>(`${environment.apiUrl}/users/asignarsociedadusuario`, assignBusinessUObject);
     }
-    dessAssignBusinessUser(identificacionUsuario: string, idBusiness: string) {
+    dessAssignBusinessUser(identificacionUsuario: string, idBusiness: number) {
 
         const desAssignBusinessUObject = new BusinessUser();
         desAssignBusinessUObject.IdentificacionUsuario = identificacionUsuario;
@@ -133,16 +133,16 @@ export class AccountService {
     getAllModules() {
         return this.http.get<Module[]>(`${environment.apiUrl}/users/listadomodulos`);
     }
-    getModulesBusiness(idEmpresa: string) {
+    getModulesBusiness(idEmpresa: number) {
         return this.http.get<Module[]>(`${environment.apiUrl}/users/modulossociedad?idEmpresa=${idEmpresa}`);
     }
-    getModulesIdIdBusiness(identificador: string, idEmpresa: string) {
+    getModulesIdIdBusiness(identificador: string, idEmpresa: number) {
         return this.http.get<Module>(`${environment.apiUrl}/users/modididempresa?identificador=${identificador}&idEmpresa=${idEmpresa}`);
     }
-    getModulesActiveBusiness(idEmpresa: string) {
+    getModulesActiveBusiness(idEmpresa: number) {
         return this.http.get<Module[]>(`${environment.apiUrl}/users/modulosactsociedad?idEmpresa=${idEmpresa}`);
     }
-    getModulesActiveUser(idEmpresa: string, idRol: string) {
+    getModulesActiveUser(idEmpresa: number, idRol: string) {
         return this.http.get<Module[]>(`${environment.apiUrl}/users/modulosactusuario?idEmpresa=${idEmpresa}&idRol=${idRol}`);
     }
     getModulesActive() {
@@ -151,7 +151,7 @@ export class AccountService {
     getModulesRol(idRol: string) {
         return this.http.get<Module[]>(`${environment.apiUrl}/users/modulosactrol?idRol=${idRol}`);
     }
-    getModulesRolBusiness(idRol: string, idEmpresa: string) {
+    getModulesRolBusiness(idRol: string, idEmpresa: number) {
         return this.http.get<Module[]>(`${environment.apiUrl}/users/modulosactrolempresa?idEmpresa=${idEmpresa}&idRol=${idRol}`);
     }
     addModuleRol(module: Module) {
@@ -199,7 +199,7 @@ export class AccountService {
     getUserById(id: string) {
         return this.http.get<User>(`${environment.apiUrl}/users/usuarioid?idUsuario=${id}`);
     }
-    getUsersBusiness(idEmpresa: string) {
+    getUsersBusiness(idEmpresa: number) {
         return this.http.get<User[]>(`${environment.apiUrl}/users/usuariosempresa?idEmpresa=${idEmpresa}`);
     }
     activateUser(user: User) {
@@ -223,7 +223,7 @@ export class AccountService {
     getAllRoles() {
         return this.http.get<Role[]>(`${environment.apiUrl}/users/getallroles`);
     }
-    getRolesBusiness(idEmpresa: string) {
+    getRolesBusiness(idEmpresa: number) {
         return this.http.get<Role[]>(`${environment.apiUrl}/users/rolesempresa?idEmpresa=${idEmpresa}`);
     }
     assignRoleUser(idRole: string, idUser: string) {

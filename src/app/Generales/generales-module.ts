@@ -5,6 +5,8 @@ import { GeneralesRoutingModule } from './generales-routing.module';
 
 import { IndexGeneralesComponent } from './index.component';
 import { MenuGeneralesComponent } from './menu.component';
+import { AddEditCompaniaComponent } from './parametros/addEditCompania-component';
+
 
 import { MatToolbarModule } from '@angular/material/toolbar';
 import { MatSidenavModule } from '@angular/material/sidenav';
@@ -33,7 +35,8 @@ import {MatTooltipModule} from '@angular/material/tooltip';
     ],
     declarations: [
         IndexGeneralesComponent,
-        MenuGeneralesComponent
+        MenuGeneralesComponent,
+        AddEditCompaniaComponent
     ]
 })
 export class GeneralesModule { }

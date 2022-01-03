@@ -106,7 +106,7 @@ export class AddBusinessUserComponent implements OnInit {
         }
     }
 
-    assignBusinessUser(identificacionUsuario: string, idBusiness: string){
+    assignBusinessUser(identificacionUsuario: string, idBusiness: number){
         this.isAsignBusiness = true;
         this.asignarEmrpesa = true;
 
@@ -159,7 +159,7 @@ export class AddBusinessUserComponent implements OnInit {
                 error => { console.log(error); this.alertService.error(error); this.isDesAsignBusiness = false; });
     }
 
-    dessAssignBusinessUser(identificacionUsuario: string, idBusiness: string){
+    dessAssignBusinessUser(identificacionUsuario: string, idBusiness: number){
         this.isAsignBusiness = true;
 
         this.accountService.dessAssignBusinessUser(identificacionUsuario, idBusiness)
