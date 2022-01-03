@@ -21,57 +21,57 @@
 </mat-toolbar>
 
 <mat-sidenav mode="over">
+    <mat-sidenav-container>
 
-    <div class="info-modulo">
-        
-        <button class="menu-button-submodulo"
-                matTooltip="Cerrar Menú"
-                aria-label="Button that displays a tooltip when focused or hovered over" mat-button (click)="sidenav.toggle()">
-            <mat-icon>menu</mat-icon>
-            <!--<span class="a-menu">Cerrar Submenú</span>-->
-        </button>
+        <div class="info-modulo">
+            
+            <button class="menu-button-submodulo"
+                    matTooltip="Cerrar Menú"
+                    aria-label="Button that displays a tooltip when focused or hovered over" mat-button (click)="sidenav.toggle()">
+                <mat-icon>menu</mat-icon>
+                <!--<span class="a-menu">Cerrar Submenú</span>-->
+            </button>
 
-        <button class="menu-button-submodulo"
-                matTooltip="Seleccionar Módulo"
-                aria-label="Button that displays a tooltip when focused or hovered over" mat-button class="menu-button-back" routerLink="{{URLRedirectIndexContent}}">
-            <mat-icon>reply</mat-icon>
-            <!--<span routerLink="{{URLRedirectIndexContent}}"></span>-->
-        </button>
+            <button class="menu-button-submodulo"
+                    matTooltip="Seleccionar Módulo"
+                    aria-label="Button that displays a tooltip when focused or hovered over" mat-button class="menu-button-back" routerLink="{{URLRedirectIndexContent}}">
+                <mat-icon>reply</mat-icon>
+                <!--<span routerLink="{{URLRedirectIndexContent}}"></span>-->
+            </button>
 
-        <img class="avatar mat-elevation-z8" src="{{moduleObservable.pathIco}}">
-        <hr>
-        <h4 class="name">{{moduleObservable.descripcion}}</h4>
-        <h4 class="name">{{businessObservable.nombre}} - núm.céd {{businessObservable.cedulaJuridica}}</h4>
-        <h4 class="name">{{userObservable.email}}</h4>
-        
-        <mat-divider></mat-divider>
-        
+            <img class="avatar mat-elevation-z8" src="{{moduleObservable.pathIco}}">
+            <hr>
+            <h4 class="name">{{moduleObservable.descripcion}}</h4>
+            <h4 class="name">{{businessObservable.nombre}} - núm.céd {{businessObservable.cedulaJuridica}}</h4>
+            <h4 class="name">{{userObservable.email}}</h4>
+            
+            <mat-divider></mat-divider>
+            
             <mat-tree [dataSource]="dataSource" [treeControl]="treeControl">
                 <!-- This is the tree node template for leaf nodes -->
                 <mat-tree-node *matTreeNodeDef="let node" matTreeNodePadding>
         
-                <button mat-button class="menu-button-submodulo" >
-                    <mat-icon>{{node.icon}}</mat-icon>
-                    <span routerLink="{{node.link}}">{{node.name}}</span>
-                </button>
+                    <button mat-button class="menu-button-submodulo" >
+                        <mat-icon>{{node.icon}}</mat-icon>
+                        <span routerLink="{{node.link}}">{{node.name}}</span>
+                    </button>
                 
                 </mat-tree-node>
                 <!-- This is the tree node template for expandable nodes -->
                 <mat-tree-node *matTreeNodeDef="let node;when: hasChild" matTreeNodePadding>
         
-                <button class="menu-button-submodulo" mat-button matTreeNodeToggle
-                        [attr.aria-label]="'Toggle ' + node.name">
-                    <mat-icon class="mat-icon-rtl-mirror">
-                    {{treeControl.isExpanded(node) ? 'expand_more' : 'chevron_right'}}
-                    </mat-icon>
-                    <span>{{node.name}}</span>
-                </button>
+                    <button class="menu-button-submodulo" mat-button matTreeNodeToggle
+                            [attr.aria-label]="'Toggle ' + node.name">
+                        <mat-icon class="mat-icon-rtl-mirror">
+                        {{treeControl.isExpanded(node) ? 'expand_more' : 'chevron_right'}}
+                        </mat-icon>
+                        <span>{{node.name}}</span>
+                    </button>
                 
                 </mat-tree-node>
             </mat-tree>
-        
-    </div>
-
+        </div>
+    </mat-sidenav-container>
 
 </mat-sidenav>
 
