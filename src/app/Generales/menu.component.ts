@@ -3,24 +3,16 @@ import { AccountService } from '@app/_services';
 import { MatSidenav } from '@angular/material/sidenav';
 import { Business, Module, User } from '@app/_models';
 import { httpAccessPage } from '../../environments/environment';
+import { Router } from '@angular/router';
 
 import {FlatTreeControl} from '@angular/cdk/tree';
 import {MatTreeFlatDataSource, MatTreeFlattener} from '@angular/material/tree';
 
-
-/** menu - tree
- * Interfaz o estructura del arbol 
- */
- interface FoodNode {
-    name: string;
-    link: string;
-    icon: string;
-    children?: FoodNode[];
-  }
+ interface FoodNode { name: string; link: string; icon: string; children?: FoodNode[]; }
+ interface ExampleFlatNode { expandable: boolean; name: string; link?: string; icon?: string; level: number; }
   
   // Datos del Arbol
-  const TREE_DATA: FoodNode[] = [
-    {
+  const TREE_DATA: FoodNode[] = [{
       name: 'Parámetros',
       link: '',
       icon: '',
@@ -48,14 +40,6 @@ import {MatTreeFlatDataSource, MatTreeFlattener} from '@angular/material/tree';
     },
   ];
   
-  /** Flat node with expandable and level information */
-  interface ExampleFlatNode {
-    expandable: boolean;
-    name: string;
-    link?: string;
-    icon?: string;
-    level: number;
-  }
 
 
 
@@ -73,12 +57,9 @@ export class MenuGeneralesComponent {
 
     URLRedirectIndexContent: string;
 
-    menuArray = [
-        { menuLink: '/',        menuIcon: 'home',    menuName: 'submenu 1'},
-        { menuLink: '/',        menuIcon: 'home',    menuName: 'submenu 2'}
-    ];
+    constructor(private accountService: AccountService,
+      private router: Router) {
 
-    constructor(private accountService: AccountService) {
         this.userObservable = this.accountService.userValue;
         this.moduleObservable = this.accountService.moduleValue;
         this.businessObservable = this.accountService.businessValue;
@@ -88,12 +69,6 @@ export class MenuGeneralesComponent {
         this.dataSource.data = TREE_DATA;
     }
 
-    logout() { this.accountService.logout(); }
-
-
-
-
-    /* Menu-Tree */
   private _transformer = (node: FoodNode, level: number) => {
     return {
       expandable: !!node.children && node.children.length > 0,
@@ -119,4 +94,23 @@ export class MenuGeneralesComponent {
   dataSource = new MatTreeFlatDataSource(this.treeControl, this.treeFlattener);
 
   hasChild = (_: number, node: ExampleFlatNode) => node.expandable;
+
+
+  ngOnInit() {
+
+    // this.sidenav.toggle();
+  }
+
+
+
+
+  redireccionamientoMenu(linkRedireccionMenu: string) {
+
+    // this.ngOnInit();
+    this.router.navigate([linkRedireccionMenu]);
+
+    
+  }
+
+  logout() { this.accountService.logout(); }
 }
