@@ -13,14 +13,14 @@
             <button class="btn_hamburguesa" mat-icon-button (click)="sidenav.toggle()">
                     <mat-icon>menu</mat-icon>
             </button>
-            <img class="title__deco--left" src="./assets/images/inra/img_bankap_left.png ">
+            <img class="title__deco--left" src="../../assets/images/inra/img_bankap_left.png ">
             <p class="title__description">{{businessObservable.nombre}}</p>
-            <img class="title__deco--right" src="./assets/images/inra/img_bankap_rigth.png ">
+            <img class="title__deco--right" src="../../assets/images/inra/img_bankap_rigth.png ">
         </section>
     </article>
 </mat-toolbar>
 
-<mat-sidenav >
+<mat-sidenav>
     <mat-sidenav-container>
       <div class="info-modulo">
 
@@ -50,9 +50,9 @@
            
             <mat-tree-node *matTreeNodeDef="let node" matTreeNodePadding>
       
-              <button mat-button class="menu-button-submodulo" >
-                <mat-icon>{{node.icon}}</mat-icon>
-                <span routerLink="{{node.link}}">{{node.name}}</span>
+              <button mat-button class="menu-button-submodulo" (click)="redireccionamientoMenu(node.link)">
+                <mat-icon>{{node.icon}}</mat-icon><span (click)="sidenav.toggle()">{{node.name}}</span>
+                <!-- <span routerLink="{{node.link}}">{{node.name}}</span> -->
               </button>
               
             </mat-tree-node>

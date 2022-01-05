@@ -1,16 +1,21 @@
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
 import { first } from 'rxjs/operators';
 import { AccountService, AlertService } from '@app/_services';
 import { amdinBusiness, httpAccessAdminPage } from '@environments/environment-access-admin';
 import { User, Module, Role, ResponseMessage } from '@app/_models';
 
+import { MatSidenav } from '@angular/material/sidenav';
+
 @Component({
     templateUrl: 'HTML_AddEditCompania.html',
     styleUrls: ['../../../assets/scss/generales/app.scss'],
 })
 export class AddEditCompaniaComponent implements OnInit {
+    @ViewChild(MatSidenav)
+    sidenav !: MatSidenav;
+
     form: FormGroup;
 
     userObservable: User;
@@ -25,8 +30,8 @@ export class AddEditCompaniaComponent implements OnInit {
     URLRedirectPage: string;
 
     esAdmin: boolean;
-    updateUser: boolean;
-    addUser: boolean;
+    updateCompania: boolean;
+    addCompania: boolean;
 
     listRolesBusiness: Role[] = [];
 
@@ -45,15 +50,19 @@ export class AddEditCompaniaComponent implements OnInit {
 
     ngOnInit() {
 
-        this.updateUser = false;
-        this.addUser = true;
+        // 
+
+        this.updateCompania = false;
+        this.addCompania = true;
+
+        this.sidenav.toggle();
 
         // this.router.navigate(['_GeneralesModule/Index.html'], { relativeTo: this.route });
 
-        // this.updateUser = false;
-        // this.addUser = false;
+        // this.updateCompania = false;
+        // this.addCompania = false;
 
-        // if (this.addUser) {
+        // if (this.addCompania) {
 
         //     this.form = this.formBuilder.group({
         //         identificacion: ['', Validators.required],
@@ -66,7 +75,7 @@ export class AddEditCompaniaComponent implements OnInit {
         //     });
         // }
 
-        // if (this.updateUser) {
+        // if (this.updateCompania) {
 
         //     this.id = this.route.snapshot.params.id;
 
@@ -119,32 +128,32 @@ export class AddEditCompaniaComponent implements OnInit {
         // this.companiaForm. = this.form.get('email').value;
         // this.companiaForm. = this.form.get('numeroTelefono').value;
 
-        if (this.addUser) {
-            this.accountService.addUser(this.companiaForm)
-            .pipe(first())
-            .subscribe( responseAddUser => {
+        if (this.addCompania) {
+            // this.accountService.addCompania(this.companiaForm)
+            // .pipe(first())
+            // .subscribe( responseaddCompania => {
 
-                if (responseAddUser.exito) {
-                    this.router.navigate([this.URLRedirectPage], { relativeTo: this.route });
-                    this.alertService.success(responseAddUser.responseMesagge, { keepAfterRouteChange: true });
-                }else{
-                    this.alertService.error(responseAddUser.responseMesagge, { keepAfterRouteChange: true });
-                }
-                this.loading = false;
-            },
-            error => { console.log(error); this.alertService.error(error); this.loading = false; });
+            //     if (responseaddCompania.exito) {
+            //         this.router.navigate([this.URLRedirectPage], { relativeTo: this.route });
+            //         this.alertService.success(responseaddCompania.responseMesagge, { keepAfterRouteChange: true });
+            //     }else{
+            //         this.alertService.error(responseaddCompania.responseMesagge, { keepAfterRouteChange: true });
+            //     }
+            //     this.loading = false;
+            // },
+            // error => { console.log(error); this.alertService.error(error); this.loading = false; });
         }
 
-        if (this.updateUser) {
-            this.accountService.updateUser(this.id, this.companiaForm)
-            .pipe(first())
-            .subscribe(
-                response => {
-                    this.router.navigate([this.URLRedirectPage], { relativeTo: this.route });
-                    this.alertService.success(response.responseMesagge, { keepAfterRouteChange: true });
-                    this.loading = false;
-                },
-                error => { console.log(error); this.alertService.error(error); this.loading = false; });
+        if (this.updateCompania) {
+            // this.accountService.updateCompania(this.id, this.companiaForm)
+            // .pipe(first())
+            // .subscribe(
+            //     response => {
+            //         this.router.navigate([this.URLRedirectPage], { relativeTo: this.route });
+            //         this.alertService.success(response.responseMesagge, { keepAfterRouteChange: true });
+            //         this.loading = false;
+            //     },
+            //     error => { console.log(error); this.alertService.error(error); this.loading = false; });
         }
     }
 }
