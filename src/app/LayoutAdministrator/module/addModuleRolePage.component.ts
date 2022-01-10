@@ -3,8 +3,9 @@ import { Component, OnInit } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
 import { first } from 'rxjs/operators';
 import { AccountService, AlertService } from '@app/_services';
-import { User, Business, Role, Module, ResponseMessage } from '@app/_models';
+import { User, Role, Module, ResponseMessage } from '@app/_models';
 import { administrator } from '@environments/environment-access-admin';
+import { Compania } from '../../_models/modules/compania';
 
 @Component({ templateUrl: 'HTML_AddModuleRolePage.html' })
 export class AddModuleRoleComponent implements OnInit {
@@ -19,7 +20,7 @@ export class AddModuleRoleComponent implements OnInit {
     module: Module;
     user: User;
     role: Role;
-    business: Business;
+    business: Compania;
 
     listModulesRol: Module[] = [];
     listModulesActive: Module[] = [];
@@ -46,7 +47,7 @@ export class AddModuleRoleComponent implements OnInit {
         this.listModulesActive = null;
 
         this.role = new Role();
-        this.business = new Business();
+        this.business = new Compania();
 
         if (this.user.empresa) {
 

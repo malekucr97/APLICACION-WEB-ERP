@@ -1,12 +1,13 @@
 import { Component, ViewChild } from '@angular/core';
 import { AccountService } from '@app/_services';
 import { MatSidenav } from '@angular/material/sidenav';
-import { Business, Module, User } from '@app/_models';
+import { Module, User } from '@app/_models';
 import { httpAccessPage } from '../../environments/environment';
 
 import {FlatTreeControl} from '@angular/cdk/tree';
 import {MatTreeFlatDataSource, MatTreeFlattener} from '@angular/material/tree';
 
+import { Compania } from '../_models/modules/compania';
 
 /** menu - tree
  * Interfaz o estructura del arbol 
@@ -79,7 +80,7 @@ export class MenuActivosFijosComponent {
 
     userObservable: User;
     moduleObservable: Module;
-    businessObservable: Business;
+    businessObservable: Compania;
 
     URLRedirectIndexContent: string;
 

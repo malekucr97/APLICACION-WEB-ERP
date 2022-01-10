@@ -2,16 +2,17 @@ import { Component, OnInit } from '@angular/core';
 import { first } from 'rxjs/operators';
 import { Router, ActivatedRoute } from '@angular/router';
 import { AccountService, AlertService } from '@app/_services';
-import { User, Module, Business } from '@app/_models';
+import { User, Module } from '@app/_models';
+import { Compania } from '../../_models/modules/compania';
 
 @Component({ templateUrl: 'HTML_ListModulePage.html' })
 export class ListModuleComponent implements OnInit {
     user: User;
     moduleList: Module;
-    businessMod: Business;
+    businessMod: Compania;
 
     listModules: Module[] = [];
-    listBusiness: Business[] = [];
+    listBusiness: Compania[] = [];
     listAllModules: Module[] = [];
 
     isActivating: boolean;
@@ -39,7 +40,7 @@ export class ListModuleComponent implements OnInit {
 
         if (this.route.snapshot.params.pidBusiness) {
 
-            this.businessMod = new Business();
+            this.businessMod = new Compania();
 
             this.pidBusiness = this.route.snapshot.params.pidBusiness;
 

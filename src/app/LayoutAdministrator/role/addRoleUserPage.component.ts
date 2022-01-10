@@ -3,8 +3,9 @@ import { Component, OnInit } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
 import { first } from 'rxjs/operators';
 import { AccountService, AlertService } from '@app/_services';
-import { User, Business, Role, ResponseMessage } from '@app/_models';
+import { User, Role, ResponseMessage } from '@app/_models';
 import { administrator, httpAccessAdminPage } from '@environments/environment-access-admin';
+import { Compania } from '../../_models/modules/compania';
 
 @Component({ templateUrl: 'HTML_AddRoleUserPage.html' })
 export class AddRoleUserComponent implements OnInit {
@@ -16,7 +17,7 @@ export class AddRoleUserComponent implements OnInit {
     response: ResponseMessage;
 
     listAllRoles: Role[] = [];
-    listBusinessUser: Business[] = [];
+    listBusinessUser: Compania[] = [];
 
     existeRol: boolean;
     isDesAsignRoles: boolean;

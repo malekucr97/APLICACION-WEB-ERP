@@ -1,12 +1,14 @@
 import { Component, ViewChild } from '@angular/core';
 import { AccountService } from '@app/_services';
 import { MatSidenav } from '@angular/material/sidenav';
-import { Business, Module, User } from '@app/_models';
+import { Module, User } from '@app/_models';
 import { httpAccessPage } from '../../environments/environment';
 import { Router } from '@angular/router';
 
 import {FlatTreeControl} from '@angular/cdk/tree';
 import {MatTreeFlatDataSource, MatTreeFlattener} from '@angular/material/tree';
+
+import { Compania } from '../_models/modules/compania';
 
  interface FoodNode { name: string; link: string; icon: string; children?: FoodNode[]; }
  interface ExampleFlatNode { expandable: boolean; name: string; link?: string; icon?: string; level: number; }
@@ -53,7 +55,7 @@ export class MenuGeneralesComponent {
 
     userObservable: User;
     moduleObservable: Module;
-    businessObservable: Business;
+    businessObservable: Compania;
 
     URLRedirectIndexContent: string;
 
@@ -95,22 +97,8 @@ export class MenuGeneralesComponent {
 
   hasChild = (_: number, node: ExampleFlatNode) => node.expandable;
 
-
-  ngOnInit() {
-
-    // this.sidenav.toggle();
-  }
-
-
-
-
-  redireccionamientoMenu(linkRedireccionMenu: string) {
-
-    // this.ngOnInit();
-    this.router.navigate([linkRedireccionMenu]);
-
-    
-  }
+  // -- >> Redireccionamiento a página dentro de menú de Generales
+  redireccionamientoMenu(linkRedireccionMenu: string) { this.router.navigate([linkRedireccionMenu]); }
 
   logout() { this.accountService.logout(); }
 }

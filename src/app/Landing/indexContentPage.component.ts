@@ -2,7 +2,7 @@ import { Component, OnInit, ViewChild } from '@angular/core';
 import { first } from 'rxjs/operators';
 import { Router } from '@angular/router';
 import { AccountService, GeneralesService } from '@app/_services';
-import { User, Module, Business, ModulesProperties } from '@app/_models';
+import { User, Module, ModulesProperties } from '@app/_models';
 import { localVariables, ModulesSistem } from '@environments/environment';
 import { amdinBusiness } from '@environments/environment-access-admin';
 import { MatSidenav } from '@angular/material/sidenav';
@@ -26,7 +26,7 @@ export class IndexContentPageComponent implements OnInit {
     sidenav !: MatSidenav;
 
     userObservable: User;
-    businessObservable: Business;
+    businessObservable: Compania;
 
     compania: Compania;
 

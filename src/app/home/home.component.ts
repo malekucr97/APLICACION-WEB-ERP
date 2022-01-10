@@ -1,7 +1,8 @@
 ﻿import { Component, OnInit } from '@angular/core';
 import { first } from 'rxjs/operators';
 import { Router } from '@angular/router';
-import { User, Business } from '@app/_models';
+import { User } from '@app/_models';
+import { Compania } from '../_models/modules/compania';
 import { AccountService } from '@app/_services';
 import { AuthStatesApp } from '@environments/environment-access-admin';
 import { httpAccessPage } from '@environments/environment';
@@ -13,7 +14,7 @@ export class HomeComponent implements OnInit {
 
     user: User;
 
-    listBusiness: Business[] = [];
+    listBusiness: Compania[] = [];
 
     constructor(private accountService: AccountService, private router: Router) {
         this.user = this.accountService.userValue;
@@ -48,7 +49,7 @@ export class HomeComponent implements OnInit {
         }
     }
 
-    selectBusiness(business: Business) {
+    selectBusiness(business: Compania) {
 
         this.user.empresa = business.id;
         this.accountService.updateLocalUser(this.user);

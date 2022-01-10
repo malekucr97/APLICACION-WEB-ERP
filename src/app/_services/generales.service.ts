@@ -1,29 +1,24 @@
 import { Injectable } from '@angular/core';
-import { Router } from '@angular/router';
 import { HttpClient } from '@angular/common/http';
-import { BehaviorSubject, Observable } from 'rxjs';
 import { environment } from '@environments/environment';
 import { Compania } from '../_models/modules/compania';
-import { User } from '@app/_models/';
-import { Business, Module } from '@app/_models/';
+import { ResponseMessage } from '@app/_models/';
 
 @Injectable({ providedIn: 'root' })
 export class GeneralesService {
-    private userSubject: BehaviorSubject<User>;
-    public user: Observable<User>;
 
-    private moduleSubject: BehaviorSubject<Module>;
-    public moduleObservable: Observable<Module>;
+    constructor( private http: HttpClient ) { }
 
-    private businessSubject: BehaviorSubject<Business>;
-    public businessObservable: Observable<Business>;
+    obtenerFechaActual() {
+        let today = new Date(); 
+        return today.getFullYear() + '/' + (today.getMonth()+1) + '/' + today.getDate() + today.getHours() + ":" + today.getMinutes() + ":" + today.getSeconds();
+    }
 
-    constructor(
-        private router: Router,
-        private http: HttpClient
-    ) { }
+    getCompaniaPorIdentificacion(identificacion: string) {
+        return this.http.get<Compania>(`${environment.apiUrl}/users/empresaidentificacion?identificacion=${identificacion}`);
+    }
 
-    registerCompania(compania: Compania) {
-        return this.http.post(`${environment.apiUrl}/generales/registrarcompania`, compania);
+    postRegistrarCompania(compania: Compania) {
+        return this.http.post<ResponseMessage>(`${environment.apiUrl}/generales/registrarcompania`, compania);
     }
 }

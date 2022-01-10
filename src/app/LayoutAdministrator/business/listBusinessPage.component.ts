@@ -1,8 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { first } from 'rxjs/operators';
 import { AccountService } from '@app/_services';
-import { Business } from '@app/_models/business';
 import { httpAccessAdminPage } from '@environments/environment-access-admin';
+import { Compania } from '../../_models/modules/compania';
 
 @Component({ templateUrl: 'HTML_ListBusinessPage.html' })
 export class ListBusinessComponent implements OnInit {
@@ -10,7 +10,7 @@ export class ListBusinessComponent implements OnInit {
 
     URLAdministratorPage: string;
 
-    listBusiness: Business[] = [];
+    listBusiness: Compania[] = [];
 
     constructor(private accountService: AccountService) {}
 

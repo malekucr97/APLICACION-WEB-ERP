@@ -15,14 +15,20 @@ export class Compania {
     barrio: string;
     detalleDireccion: string;
     codigoTelefono: string;
-    telefon: string;
+    telefono: string;
 
     claveCorreo: string;
     hostCorreo: string;
     puertoCorreo: string;
 
     adicionadoPor: string;
-    fechaAdicion: Date;
+    fechaAdicion: string;
     modificadoPor: string;
-    fechaModificacion: Date;
+    fechaModificacion: string;
+}
+
+export class CompaniaUsuario {
+    IdUsuario: number;
+    IdentificacionUsuario: string;
+    IdEmpresa: number;
 }

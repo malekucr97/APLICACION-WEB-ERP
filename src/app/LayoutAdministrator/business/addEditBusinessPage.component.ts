@@ -3,13 +3,13 @@ import { Router, ActivatedRoute } from '@angular/router';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { first } from 'rxjs/operators';
 import { AccountService, AlertService } from '@app/_services';
-import { Business } from '@app/_models/business';
+import { Compania } from '../../_models/modules/compania';
 
 @Component({ templateUrl: 'HTML_AddEditBusinessPage.html' })
 export class AddEditBusinessComponent implements OnInit {
     form: FormGroup;
 
-    business: Business;
+    business: Compania;
 
     pidBusiness: number;
 
@@ -34,7 +34,7 @@ export class AddEditBusinessComponent implements OnInit {
         this.updateBusiness = false;
         this.addBusiness = false;
 
-        if (this.route.snapshot.params.pidBusiness){
+        if (this.route.snapshot.params.pidBusiness) {
             this.pidBusiness = this.route.snapshot.params.pidBusiness;
             this.updateBusiness = true;
 
@@ -70,7 +70,7 @@ export class AddEditBusinessComponent implements OnInit {
         }
         this.loading = true;
 
-        this.business = new Business();
+        this.business = new Compania();
 
         this.business.nombre = this.form.get('nombre').value;
         this.business.cedulaJuridica = this.form.get('cedulajuridica').value;

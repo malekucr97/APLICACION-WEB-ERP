@@ -4,7 +4,8 @@ import { Router, ActivatedRoute } from '@angular/router';
 import { first } from 'rxjs/operators';
 import { AccountService, AlertService } from '@app/_services';
 import { amdinBusiness, httpAccessAdminPage } from '@environments/environment-access-admin';
-import { User, Business, Role, ResponseMessage } from '@app/_models';
+import { User, Role, ResponseMessage } from '@app/_models';
+import { Compania } from '../../_models/modules/compania';
 
 @Component({ templateUrl: 'HTML_AddEditUserPage.html' })
 export class AddEditUserComponent implements OnInit {
@@ -13,7 +14,7 @@ export class AddEditUserComponent implements OnInit {
     user: User;
     role: Role;
     response: ResponseMessage;
-    business: Business;
+    business: Compania;
 
     loading = false;
     submitted = false;

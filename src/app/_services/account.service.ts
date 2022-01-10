@@ -5,7 +5,8 @@ import { BehaviorSubject, Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
 import { environment } from '@environments/environment';
 import { User } from '@app/_models';
-import { Business, Module, BusinessUser, Role, ModuleRol, ResponseMessage, AssignRoleObject } from '@app/_models/';
+import { Module, Role, ModuleRol, ResponseMessage, AssignRoleObject } from '@app/_models/';
+import { Compania, CompaniaUsuario } from '@app/_models/modules/compania';
 
 @Injectable({ providedIn: 'root' })
 export class AccountService {
@@ -15,8 +16,8 @@ export class AccountService {
     private moduleSubject: BehaviorSubject<Module>;
     public moduleObservable: Observable<Module>;
 
-    private businessSubject: BehaviorSubject<Business>;
-    public businessObservable: Observable<Business>;
+    private businessSubject: BehaviorSubject<Compania>;
+    public businessObservable: Observable<Compania>;
 
     constructor(
         private router: Router,
@@ -25,7 +26,7 @@ export class AccountService {
         this.userSubject = new BehaviorSubject<User>(JSON.parse(localStorage.getItem('user')));
         this.user = this.userSubject.asObservable();
 
-        this.businessSubject = new BehaviorSubject<Business>(JSON.parse(localStorage.getItem('Obusiness')));
+        this.businessSubject = new BehaviorSubject<Compania>(JSON.parse(localStorage.getItem('Obusiness')));
         this.businessObservable = this.businessSubject.asObservable();
 
         this.moduleSubject = new BehaviorSubject<Module>(JSON.parse(localStorage.getItem('Omodule')));
@@ -33,10 +34,10 @@ export class AccountService {
     }
 
     public get userValue(): User { return this.userSubject.value; }
-    public get businessValue(): Business { return this.businessSubject.value; }
+    public get businessValue(): Compania { return this.businessSubject.value; }
     public get moduleValue(): Module { return this.moduleSubject.value; }
 
-    public loadBusinessAsObservable(bus: Business) {
+    public loadBusinessAsObservable(bus: Compania) {
         localStorage.removeItem('Obusiness');
 
         localStorage.setItem('Obusiness', JSON.stringify(bus));
@@ -84,23 +85,24 @@ export class AccountService {
 
     // -- >> Procedimientos Empresas
     getAllBusiness() {
-        return this.http.get<Business[]>(`${environment.apiUrl}/users/listadoempresas`);
+        return this.http.get<Compania[]>(`${environment.apiUrl}/users/listadoempresas`);
     }
     getBusinessActiveUser(idUsuario: string) {
-        return this.http.get<Business[]>(`${environment.apiUrl}/users/empresasusuarioactivas?idUsuario=${idUsuario}`);
+        return this.http.get<Compania[]>(`${environment.apiUrl}/users/empresasusuarioactivas?idUsuario=${idUsuario}`);
     }
     getBusinessById(idEmpresa: number) {
-        return this.http.get<Business>(`${environment.apiUrl}/users/empresaid?idEmpresa=${idEmpresa}`);
+        return this.http.get<Compania>(`${environment.apiUrl}/users/empresaid?idEmpresa=${idEmpresa}`);
     }
-    addBusiness(business: Business) {
+    
+    addBusiness(business: Compania) {
         return this.http.post<ResponseMessage>(`${environment.apiUrl}/users/registrarempresa`, business);
     }
-    updateBusiness(business: Business) {
+    updateBusiness(business: Compania) {
         return this.http.put<ResponseMessage>(`${environment.apiUrl}/users/actualizarempresa`, business);
     }
     assignBusinessUser(identificacionUsuario: string, idBusiness: number) {
 
-        const assignBusinessUObject = new BusinessUser();
+        const assignBusinessUObject = new CompaniaUsuario();
         assignBusinessUObject.IdentificacionUsuario = identificacionUsuario;
         assignBusinessUObject.IdEmpresa = idBusiness;
 
@@ -108,7 +110,7 @@ export class AccountService {
     }
     dessAssignBusinessUser(identificacionUsuario: string, idBusiness: number) {
 
-        const desAssignBusinessUObject = new BusinessUser();
+        const desAssignBusinessUObject = new CompaniaUsuario();
         desAssignBusinessUObject.IdentificacionUsuario = identificacionUsuario;
         desAssignBusinessUObject.IdEmpresa = idBusiness;
 
@@ -116,7 +118,7 @@ export class AccountService {
     }
     dessAssignAllBusinessUser(identificacionUsuario: string) {
 
-        const desAssignBusinessUObject = new BusinessUser();
+        const desAssignBusinessUObject = new CompaniaUsuario();
         desAssignBusinessUObject.IdentificacionUsuario = identificacionUsuario;
 
         return this.http.post<ResponseMessage>(`${environment.apiUrl}/users/desasignallsociedu`, desAssignBusinessUObject); }

@@ -28,14 +28,12 @@
                 matTooltip="Cerrar Menú"
                 aria-label="Button that displays a tooltip when focused or hovered over" mat-button (click)="sidenav.toggle()">
             <mat-icon>menu</mat-icon>
-            <!--<span class="a-menu">Cerrar Submenú</span>-->
         </button>
 
         <button class="menu-button-submodulo"
                 matTooltip="Seleccionar Módulo"
                 aria-label="Button that displays a tooltip when focused or hovered over" mat-button class="menu-button-back" routerLink="{{URLRedirectIndexContent}}">
             <mat-icon>reply</mat-icon>
-            <!--<span routerLink="{{URLRedirectIndexContent}}"></span>-->
         </button>
 
         <img class="avatar mat-elevation-z8" src="{{moduleObservable.pathIco}}">
@@ -52,12 +50,10 @@
       
               <button mat-button class="menu-button-submodulo" (click)="redireccionamientoMenu(node.link)">
                 <mat-icon>{{node.icon}}</mat-icon><span (click)="sidenav.toggle()">{{node.name}}</span>
-                <!-- <span routerLink="{{node.link}}">{{node.name}}</span> -->
               </button>
               
             </mat-tree-node>
               
-              <!-- This is the tree node template for expandable nodes -->
               <mat-tree-node *matTreeNodeDef="let node;when: hasChild" matTreeNodePadding>
         
                 <button class="menu-button-submodulo" mat-button matTreeNodeToggle
