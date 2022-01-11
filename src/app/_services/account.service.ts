@@ -55,6 +55,11 @@ export class AccountService {
         localStorage.removeItem('user');
         localStorage.setItem('user', JSON.stringify(user));
     }
+    // -- >> ACTUALIZA LA COMPAÑÍA EN LA MEMORIA LOCAL
+    updateLocalCompania(compania: Compania) {
+        localStorage.removeItem('Obusiness');
+        localStorage.setItem('Obusiness', JSON.stringify(compania));
+    }
 
     // -- >> ADMINISTRACIÓN DE ACCESO
     login(username, password) {

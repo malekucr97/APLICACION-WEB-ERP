@@ -5,10 +5,14 @@
 @mixin bg-color-skyblue { background-color: #00AEEF; }
 @mixin bg-color-light-gray { background-color: #B3B3B3; }
 
+// .btn-close{
+//     background-color: red;
+// }
+
 .content {
     // eliminar height cuando se agregue contenido a la pantalla
     height: calc(52vh - 1px);
-    margin: 16px;
+    margin: 20px;
     display: flex;
     justify-content: center;
     align-items: center;
@@ -42,4 +46,18 @@
             }
         }
     }
+}
+
+.content-form {
+    height: calc(70vh - 30px);
+    margin: 20px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    border-radius: 10px;
+}
+
+.modal {
+    margin-top: 213px;
 }

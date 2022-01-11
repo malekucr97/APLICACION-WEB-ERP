@@ -45,138 +45,142 @@
 
 
 <!-- Modal -->
-<div class="modal" id="loginModal" >
-    <div class="modal-dialog modal-dialog-centered modal-lg">
-      <div class="modal-content">
-        <div class="modal-header">
-          <h5 class="modal-title">Parametrización</h5>
-          <button type="button" class="close" data-dismiss="modal">&times;</button>
-        </div>
-        <div class="modal-body">
-          <form [formGroup]="addEditForm" (ngSubmit)="addEditFormSubmit" class="row g-3">
-          
-              <div class="col-md-2">
-                  <label for="tipoIdentificacion" class="form-label">Tipo de Identificación</label>
-                  <input formControlName="tipoIdentificacion" class="form-control" type="text" id="id_tidentificacion"  [ngClass]="{ 'is-invalid': submitted && f.tipoIdentificacion.errors }" />
-                  <div *ngIf="submitted && f.tipoIdentificacion.errors" class="invalid-feedback">
-                      <div *ngIf="f.tipoIdentificacion.errors.required">El tipo de identificación es requerido</div>
-                  </div>
-              </div>
-              <div class="col-md-4">
-                  <label for="cedulaJuridica" class="form-label">Número de Identificación - Cédula Jurídica</label>
-                  <input formControlName="cedulaJuridica" class="form-control" type="text" id="id_tidentificacion"  [ngClass]="{ 'is-invalid': submitted && f.cedulaJuridica.errors }" />
-                  <div *ngIf="submitted && f.cedulaJuridica.errors" class="invalid-feedback">
-                      <div *ngIf="f.cedulaJuridica.errors.required">El número de identificación de la compañía es requerido</div>
-                  </div>
-              </div>
-              <div class="col-md-6">
-                  <label for="nombre" class="form-label">Nombre de la Compañía</label>
-                  <input formControlName="nombre" class="form-control" type="text" id="id_nombre"  [ngClass]="{ 'is-invalid': submitted && f.nombre.errors }" />
-                  <div *ngIf="submitted && f.nombre.errors" class="invalid-feedback">
-                      <div *ngIf="f.nombre.errors.required">El nombre de la compañia es requerido</div>
-                  </div>
-              </div>
+<div class="modal" id="loginModal">
+    <mat-sidenav-container>
+        <div class="content-form mat-elevation-z4">
             
+            <main class="main-form"> 
+                <h1 style="color:#1A5276">Parametrización</h1><button style="color:red" type="button" class="close btn-close" data-dismiss="modal" (click)="refrescar()">&times;</button>
+                
+                
+                <div class="modal-dialog modal-dialog-centered modal-xl">
+                    
+        
+                    <div class="modal-content">
+                        <div class="modal-body">
+                            <form [formGroup]="addEditForm" (ngSubmit)="addEditFormSubmit()" class="row g-3">
             
-              <!-- ====================== -->
-              <!-- INFORMACIÓN GEOGRÁFICA -->
-              <div class="col-md-2">
-                  <label for="codigoPaisUbicacion" class="form-label">Código de País</label>
-                  <input formControlName="codigoPaisUbicacion" class="form-control" type="text" id="id_tidentificacion"  [ngClass]="{ 'is-invalid': submitted && f.codigoPaisUbicacion.errors }" />
-                  <div *ngIf="submitted && f.codigoPaisUbicacion.errors" class="invalid-feedback">
-                      <div *ngIf="f.codigoPaisUbicacion.errors.required">El código de área es requerido</div>
-                  </div>
-              </div>
-              <div class="col-md-2">
-                  <label for="provincia">Provincia</label>
-                  <input type="text" formControlName="provincia" class="form-control" [ngClass]="{ 'is-invalid': submitted && f.provincia.errors }" />
-                  <div *ngIf="submitted && f.provincia.errors" class="invalid-feedback">
-                      <div *ngIf="f.provincia.errors.required">La provincia es requerido</div>
-                  </div>
-              </div>
-              <div class="col-md-2">
-                  <label for="canton">Cantón</label>
-                  <input type="text" formControlName="canton" class="form-control" [ngClass]="{ 'is-invalid': submitted && f.canton.errors }" />
-                  <div *ngIf="submitted && f.canton.errors" class="invalid-feedback">
-                      <div *ngIf="f.canton.errors.required">El cantón es requerido</div>
-                  </div>
-              </div>
-              <div class="col-md-2">
-                  <label for="distrito">Distrito</label>
-                  <input type="text" formControlName="distrito" class="form-control" [ngClass]="{ 'is-invalid': submitted && f.distrito.errors }" />
-                  <div *ngIf="submitted && f.distrito.errors" class="invalid-feedback">
-                      <div *ngIf="f.distrito.errors.required">El distrito es requerido</div>
-                  </div>
-              </div>
-              <div class="col-md-2">
-                  <label for="barrio">Barrio</label>
-                  <input type="text" formControlName="barrio" class="form-control" />
-              </div>
-              
-              
-              <div class="col-md-12">
-                  <label for="detalleDireccion">Detalle de Dirección</label>
-                  <input type="text" formControlName="detalleDireccion" class="form-control" [ngClass]="{ 'is-invalid': submitted && f.detalleDireccion.errors }" />
-                  <div *ngIf="submitted && f.detalleDireccion.errors" class="invalid-feedback">
-                      <div *ngIf="f.detalleDireccion.errors.required">La dirección exacta es requerida</div>
-                  </div>
-              </div>
-              <div class="col-md-2">
-                  <label for="codigoTelefono">Código de Teléfono</label>
-                  <input type="text" formControlName="codigoTelefono" class="form-control" [ngClass]="{ 'is-invalid': submitted && f.codigoTelefono.errors }" />
-                  <div *ngIf="submitted && f.codigoTelefono.errors" class="invalid-feedback">
-                      <div *ngIf="f.codigoTelefono.errors.required">El código del teléfono es requerido</div>
-                  </div>
-              </div>
-              <div class="col-md-4">
-                  <label for="telefono">Teléfono</label>
-                  <input type="text" formControlName="telefono" class="form-control" [ngClass]="{ 'is-invalid': submitted && f.telefono.errors }" />
-                  <div *ngIf="submitted && f.telefono.errors" class="invalid-feedback">
-                      <div *ngIf="f.telefono.errors.required">El teléfono es requerido</div>
-                  </div>
-              </div>
-              
-              <!-- ============================== -->
-              <!-- INFORMACIÓN CORREO ELECTRÓNICO -->
-              <div class="col-md-3">
-                  <label for="correoElectronico">Correo Electrónico</label>
-                  <input type="text" formControlName="correoElectronico" class="form-control" [ngClass]="{ 'is-invalid': submitted && f.correoElectronico.errors }" />
-                  <div *ngIf="submitted && f.correoElectronico.errors" class="invalid-feedback">
-                      <div *ngIf="f.correoElectronico.errors.required">El correo electrónico de la compañía es requerido</div>
-                  </div>
-              </div>
-              <div class="col-md-3">
-                  <label for="claveCorreo">Clave de Correo</label>
-                  <input type="password" formControlName="claveCorreo" class="form-control" [ngClass]="{ 'is-invalid': submitted && f.claveCorreo.errors }" />
-                  <div *ngIf="submitted && f.claveCorreo.errors" class="invalid-feedback">
-                      <div *ngIf="f.claveCorreo.errors.required">La contraseña del correo es requerida</div>
-                  </div>
-              </div>
-              <div class="col-md-3">
-                  <label for="hostCorreo">Host Correo Electrónico</label>
-                  <input type="text" formControlName="hostCorreo" class="form-control" [ngClass]="{ 'is-invalid': submitted && f.hostCorreo.errors }" />
-                  <div *ngIf="submitted && f.hostCorreo.errors" class="invalid-feedback">
-                      <div *ngIf="f.hostCorreo.errors.required">El host del correo electrónico es requerido</div>
-                  </div>
-              </div>
-              <div class="col-md-3">
-                  <label for="puertoCorreo">Puerto Correo Electrónico</label>
-                  <input type="text" formControlName="puertoCorreo" class="form-control" [ngClass]="{ 'is-invalid': submitted && f.puertoCorreo.errors }" />
-                  <div *ngIf="submitted && f.puertoCorreo.errors" class="invalid-feedback">
-                      <div *ngIf="f.puertoCorreo.errors.required">El puerto del correo electrónico es requerido</div>
-                  </div>
-              </div>
-              
-              
-              
-              
-                <div class="col-md-6 mt-4">
-                  <button [disabled]="addEditForm.invalid" type="submit" class="btn btn-primary px-5">Submit</button>
-                  <button type="button" class="btn btn-secondary px-3 ms-2" data-dismiss="modal">Cancel</button>
+                                <div class="form-group col-md-2">
+                                    <label for="tipoIdentificacion" class="form-label">Tipo de Identificación</label>
+                                    <input formControlName="tipoIdentificacion" class="form-control" type="text" id="id_tidentificacion"  [ngClass]="{ 'is-invalid': submitted && f.tipoIdentificacion.errors }" />
+                                    <div *ngIf="submitted && f.tipoIdentificacion.errors" class="invalid-feedback">
+                                        <div *ngIf="f.tipoIdentificacion.errors.required">El tipo de identificación es requerido</div>
+                                    </div>
+                                </div>
+                                <div class="form-group col-md-4">
+                                    <label for="cedulaJuridica" class="form-label">Número de Identificación - Cédula Jurídica</label>
+                                    <input formControlName="cedulaJuridica" class="form-control" type="text" id="id_cedjuridica"  [ngClass]="{ 'is-invalid': submitted && f.cedulaJuridica.errors }" />
+                                    <div *ngIf="submitted && f.cedulaJuridica.errors" class="invalid-feedback">
+                                        <div *ngIf="f.cedulaJuridica.errors.required">El número de identificación de la compañía es requerido</div>
+                                    </div>
+                                </div>
+                                <div class="form-group col-md-6">
+                                    <label for="nombre" class="form-label">Nombre de la Compañía</label>
+                                    <input formControlName="nombre" class="form-control" type="text" id="id_nombre"  [ngClass]="{ 'is-invalid': submitted && f.nombre.errors }" />
+                                    <div *ngIf="submitted && f.nombre.errors" class="invalid-feedback">
+                                        <div *ngIf="f.nombre.errors.required">El nombre de la compañia es requerido</div>
+                                    </div>
+                                </div>
+                
+                
+                                <!-- ====================== -->
+                                <!-- INFORMACIÓN GEOGRÁFICA -->
+                                <div class="form-group col-md-2">
+                                    <label for="codigoPaisUbicacion" class="form-label">Código de País</label>
+                                    <input formControlName="codigoPaisUbicacion" class="form-control" type="text" id="id_codpaisubicacion"  [ngClass]="{ 'is-invalid': submitted && f.codigoPaisUbicacion.errors }" />
+                                    <div *ngIf="submitted && f.codigoPaisUbicacion.errors" class="invalid-feedback">
+                                        <div *ngIf="f.codigoPaisUbicacion.errors.required">El código de área es requerido</div>
+                                    </div>
+                                </div>
+                                <div class="form-group col-md-2">
+                                    <label for="provincia">Provincia</label>
+                                    <input type="text" formControlName="provincia" class="form-control" id="id_provincia" [ngClass]="{ 'is-invalid': submitted && f.provincia.errors }" />
+                                    <div *ngIf="submitted && f.provincia.errors" class="invalid-feedback">
+                                        <div *ngIf="f.provincia.errors.required">La provincia es requerido</div>
+                                    </div>
+                                </div>
+                                <div class="form-group col-md-2">
+                                    <label for="canton">Cantón</label>
+                                    <input type="text" formControlName="canton" class="form-control" id="id_canton" [ngClass]="{ 'is-invalid': submitted && f.canton.errors }" />
+                                    <div *ngIf="submitted && f.canton.errors" class="invalid-feedback">
+                                        <div *ngIf="f.canton.errors.required">El cantón es requerido</div>
+                                    </div>
+                                </div>
+                                <div class="form-group col-md-2">
+                                    <label for="distrito">Distrito</label>
+                                    <input type="text" formControlName="distrito" class="form-control" id="id_distrito" [ngClass]="{ 'is-invalid': submitted && f.distrito.errors }" />
+                                    <div *ngIf="submitted && f.distrito.errors" class="invalid-feedback">
+                                        <div *ngIf="f.distrito.errors.required">El distrito es requerido</div>
+                                    </div>
+                                </div>
+                                <div class="form-group col-md-2">
+                                    <label for="barrio">Barrio</label>
+                                    <input type="text" formControlName="barrio" class="form-control" id="id_barrio"/>
+                                </div>
+                
+                
+                                <div class="form-group col-md-12">
+                                    <label for="detalleDireccion">Detalle de Dirección</label>
+                                    <input type="text" formControlName="detalleDireccion" class="form-control" id="id_detalleDireccion" [ngClass]="{ 'is-invalid': submitted && f.detalleDireccion.errors }" />
+                                    <div *ngIf="submitted && f.detalleDireccion.errors" class="invalid-feedback">
+                                        <div *ngIf="f.detalleDireccion.errors.required">La dirección exacta es requerida</div>
+                                    </div>
+                                </div>
+                                <div class="form-group col-md-2">
+                                    <label for="codigoTelefono">Código de Teléfono</label>
+                                    <input type="text" formControlName="codigoTelefono" class="form-control" id="id_codigoTelefono" [ngClass]="{ 'is-invalid': submitted && f.codigoTelefono.errors }" />
+                                    <div *ngIf="submitted && f.codigoTelefono.errors" class="invalid-feedback">
+                                        <div *ngIf="f.codigoTelefono.errors.required">El código del teléfono es requerido</div>
+                                    </div>
+                                </div>
+                                <div class="form-group col-md-4">
+                                    <label for="telefono">Teléfono</label>
+                                    <input type="text" formControlName="telefono" class="form-control" id="id_telefono" [ngClass]="{ 'is-invalid': submitted && f.telefono.errors }" />
+                                    <div *ngIf="submitted && f.telefono.errors" class="invalid-feedback">
+                                        <div *ngIf="f.telefono.errors.required">El teléfono es requerido</div>
+                                    </div>
+                                </div>
+                
+                                <!-- ============================== -->
+                                <!-- INFORMACIÓN CORREO ELECTRÓNICO -->
+                                <div class="form-group col-md-3">
+                                    <label for="correoElectronico">Correo Electrónico</label>
+                                    <input type="text" formControlName="correoElectronico" class="form-control" id="id_correoElectronico" [ngClass]="{ 'is-invalid': submitted && f.correoElectronico.errors }" />
+                                    <div *ngIf="submitted && f.correoElectronico.errors" class="invalid-feedback">
+                                        <div *ngIf="f.correoElectronico.errors.required">El correo electrónico de la compañía es requerido</div>
+                                    </div>
+                                </div>
+                                <div class="form-group col-md-3">
+                                    <label for="claveCorreo">Clave de Correo</label>
+                                    <input type="password" formControlName="claveCorreo" class="form-control" id="id_claveCorreo" [ngClass]="{ 'is-invalid': submitted && f.claveCorreo.errors }" />
+                                    <div *ngIf="submitted && f.claveCorreo.errors" class="invalid-feedback">
+                                        <div *ngIf="f.claveCorreo.errors.required">La contraseña del correo es requerida</div>
+                                    </div>
+                                </div>
+                                <div class="form-group col-md-3">
+                                    <label for="hostCorreo">Host Correo Electrónico</label>
+                                    <input type="text" formControlName="hostCorreo" class="form-control" id="id_hostCorreo" [ngClass]="{ 'is-invalid': submitted && f.hostCorreo.errors }" />
+                                    <div *ngIf="submitted && f.hostCorreo.errors" class="invalid-feedback">
+                                        <div *ngIf="f.hostCorreo.errors.required">El host del correo electrónico es requerido</div>
+                                    </div>
+                                </div>
+                                <div class="form-group col-md-3">
+                                    <label for="puertoCorreo">Puerto Correo Electrónico</label>
+                                    <input type="text" formControlName="puertoCorreo" class="form-control" id="id_puertoCorreo" [ngClass]="{ 'is-invalid': submitted && f.puertoCorreo.errors }" />
+                                    <div *ngIf="submitted && f.puertoCorreo.errors" class="invalid-feedback">
+                                        <div *ngIf="f.puertoCorreo.errors.required">El puerto del correo electrónico es requerido</div>
+                                    </div>
+                                </div>
+                
+                                <div class="col-md-6 mt-4">
+                                    <button type="submit" class="btn btn-primary px-5">Actualizar</button>
+                                </div>
+                
+                            </form>
+                        </div>
+                    </div>
                 </div>
-            
-          </form>
+            </main>
         </div>
-      </div>
-    </div>
-  </div>
+    </mat-sidenav-container>
+</div>

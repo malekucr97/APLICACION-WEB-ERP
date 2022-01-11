@@ -22,9 +22,9 @@ export class Compania {
     puertoCorreo: string;
 
     adicionadoPor: string;
-    fechaAdicion: string;
+    fechaAdicion: Date;
     modificadoPor: string;
-    fechaModificacion: string;
+    fechaModificacion: Date;
 }
 
 export class CompaniaUsuario {

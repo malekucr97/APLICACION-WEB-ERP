@@ -11,14 +11,14 @@ export class GeneralesService {
 
     obtenerFechaActual() {
         let today = new Date(); 
-        return today.getFullYear() + '/' + (today.getMonth()+1) + '/' + today.getDate() + today.getHours() + ":" + today.getMinutes() + ":" + today.getSeconds();
+        return today.getFullYear() + '-' + (today.getMonth()+1) + '-' + today.getDate() + 'T' + today.getHours() + ":" + today.getMinutes() + ":" + today.getSeconds();
     }
 
     getCompaniaPorIdentificacion(identificacion: string) {
-        return this.http.get<Compania>(`${environment.apiUrl}/users/empresaidentificacion?identificacion=${identificacion}`);
+        return this.http.get<Compania>(`${environment.apiUrl}/generales/empresaidentificacion?identificacion=${identificacion}`);
     }
 
-    postRegistrarCompania(compania: Compania) {
-        return this.http.post<ResponseMessage>(`${environment.apiUrl}/generales/registrarcompania`, compania);
+    putCompania(compania: Compania) {
+        return this.http.put<ResponseMessage>(`${environment.apiUrl}/generales/putcompania`, compania);
     }
 }
