@@ -28,7 +28,7 @@
                                 <td>{{companiaObservable.puertoCorreo}}</td>
                                 <td style="white-space: nowrap">
 
-                                    <button class="btn btn-sm btn-info" data-toggle="modal" data-target="#loginModal">
+                                    <button class="btn btn-sm btn-info" data-toggle="modal" data-target="#updateModal">
                                         <span>Actualizar</span>
                                     </button>
 
@@ -42,26 +42,26 @@
     </div>
 </mat-sidenav-container>
 
-
-
 <!-- Modal -->
-<div class="modal" id="loginModal">
+<div class="modal" id="updateModal">
     <mat-sidenav-container>
+        
         <div class="content-form mat-elevation-z4">
             
             <main class="main-form"> 
-                <h1 style="color:#1A5276">Parametrización</h1><button style="color:red" type="button" class="close btn-close" data-dismiss="modal" (click)="refrescar()">&times;</button>
-                
                 
                 <div class="modal-dialog modal-dialog-centered modal-xl">
                     
-        
                     <div class="modal-content">
                         <div class="modal-body">
-                            <form [formGroup]="addEditForm" (ngSubmit)="addEditFormSubmit()" class="row g-3">
+                            <button style="color:red" type="button" class="close btn-close" data-dismiss="modal" (click)="refrescar()">&times;</button>
+                            <h1 style="color:#1A5276">Parametrización</h1>
+                            
+                            <form [formGroup]="addEditForm" (ngSubmit)="updateSubmit()" class="row g-3">
             
                                 <div class="form-group col-md-2">
                                     <label for="tipoIdentificacion" class="form-label">Tipo de Identificación</label>
+                                    <!-- <input formControlName="tipoIdentificacion" class="form-control" type="text" id="id_tidentificacion" /> -->
                                     <input formControlName="tipoIdentificacion" class="form-control" type="text" id="id_tidentificacion"  [ngClass]="{ 'is-invalid': submitted && f.tipoIdentificacion.errors }" />
                                     <div *ngIf="submitted && f.tipoIdentificacion.errors" class="invalid-feedback">
                                         <div *ngIf="f.tipoIdentificacion.errors.required">El tipo de identificación es requerido</div>
@@ -82,11 +82,10 @@
                                     </div>
                                 </div>
                 
-                
                                 <!-- ====================== -->
                                 <!-- INFORMACIÓN GEOGRÁFICA -->
                                 <div class="form-group col-md-2">
-                                    <label for="codigoPaisUbicacion" class="form-label">Código de País</label>
+                                    <label for="codigoPaisUbicacion" class="form-label">Cód. País</label>
                                     <input formControlName="codigoPaisUbicacion" class="form-control" type="text" id="id_codpaisubicacion"  [ngClass]="{ 'is-invalid': submitted && f.codigoPaisUbicacion.errors }" />
                                     <div *ngIf="submitted && f.codigoPaisUbicacion.errors" class="invalid-feedback">
                                         <div *ngIf="f.codigoPaisUbicacion.errors.required">El código de área es requerido</div>
@@ -127,7 +126,7 @@
                                     </div>
                                 </div>
                                 <div class="form-group col-md-2">
-                                    <label for="codigoTelefono">Código de Teléfono</label>
+                                    <label for="codigoTelefono">Cód. Teléfono</label>
                                     <input type="text" formControlName="codigoTelefono" class="form-control" id="id_codigoTelefono" [ngClass]="{ 'is-invalid': submitted && f.codigoTelefono.errors }" />
                                     <div *ngIf="submitted && f.codigoTelefono.errors" class="invalid-feedback">
                                         <div *ngIf="f.codigoTelefono.errors.required">El código del teléfono es requerido</div>
@@ -173,7 +172,7 @@
                                 </div>
                 
                                 <div class="col-md-6 mt-4">
-                                    <button type="submit" class="btn btn-primary px-5">Actualizar</button>
+                                    <button type="submit" class="btn btn-info px-5">Actualizar</button>
                                 </div>
                 
                             </form>

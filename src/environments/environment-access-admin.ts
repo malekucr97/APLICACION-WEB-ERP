@@ -28,3 +28,11 @@ export const httpAccessAdminPage = {
     urlPageListRole: '/_AdminModule/AdminListRolePage/',
     urlPageAddModuleRol: '/_AdminModule/AddModuleRolePage/'
 };
+
+export const Procedimientos = {
+
+    // ---------------------
+    // PROCEDIMIENTOS DE MODULOS DE GENERALES
+    _MOD_GENERALES: 'GENERALES',
+    _actualizarInformacionCompania: 'ActualizarInformacionCompania'
+};

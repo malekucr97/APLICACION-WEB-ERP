@@ -19,10 +19,8 @@ export class AccountService {
     private businessSubject: BehaviorSubject<Compania>;
     public businessObservable: Observable<Compania>;
 
-    constructor(
-        private router: Router,
-        private http: HttpClient
-    ) {
+    constructor( private router: Router, private http: HttpClient ) {
+
         this.userSubject = new BehaviorSubject<User>(JSON.parse(localStorage.getItem('user')));
         this.user = this.userSubject.asObservable();
 
@@ -38,24 +36,26 @@ export class AccountService {
     public get moduleValue(): Module { return this.moduleSubject.value; }
 
     public loadBusinessAsObservable(bus: Compania) {
+
         localStorage.removeItem('Obusiness');
 
         localStorage.setItem('Obusiness', JSON.stringify(bus));
         this.businessSubject.next(bus);
     }
     public loadModuleAsObservable(mod: Module) {
+
         localStorage.removeItem('Omodule');
 
         localStorage.setItem('Omodule', JSON.stringify(mod));
         this.moduleSubject.next(mod);
     }
 
-    // -- >> ACTUALIZA EL USUARIO EN LA MEMORIA LOCAL
+    // -- >> ACTUALIZA USUARIO EN MEMORIA LOCAL
     updateLocalUser(user: User) {
         localStorage.removeItem('user');
         localStorage.setItem('user', JSON.stringify(user));
     }
-    // -- >> ACTUALIZA LA COMPAÑÍA EN LA MEMORIA LOCAL
+    // -- >> ACTUALIZA COMPAÑÍA EN MEMORIA LOCAL
     updateLocalCompania(compania: Compania) {
         localStorage.removeItem('Obusiness');
         localStorage.setItem('Obusiness', JSON.stringify(compania));
@@ -80,12 +80,6 @@ export class AccountService {
         localStorage.removeItem('Omodule');
 
         this.router.navigate(['account/login']);
-    }
-    // -- >> FIN
-
-
-    registerRole(role: Role) {
-        return this.http.post(`${environment.apiUrl}/users/registrarrol`, role);
     }
 
     // -- >> Procedimientos Empresas
@@ -126,8 +120,8 @@ export class AccountService {
         const desAssignBusinessUObject = new CompaniaUsuario();
         desAssignBusinessUObject.IdentificacionUsuario = identificacionUsuario;
 
-        return this.http.post<ResponseMessage>(`${environment.apiUrl}/users/desasignallsociedu`, desAssignBusinessUObject); }
-    // -- >> fin
+        return this.http.post<ResponseMessage>(`${environment.apiUrl}/users/desasignallsociedu`, desAssignBusinessUObject); 
+    }
 
 
     // -- >> Procedientos Modulos
@@ -178,10 +172,11 @@ export class AccountService {
     deleteAccessModule(idRol: string, idModulo: number, ) {
         return this.http.delete<ResponseMessage>(`${environment.apiUrl}/users/eliminaraccesomodulo?idRol=${idRol}&idModulo=${idModulo}`);
     }
-    // -- >> fin
 
     // -- >> Procedimientos de Usuarios
-    addUser(user: User) { return this.http.post<ResponseMessage>(`${environment.apiUrl}/users/registrarusuario`, user); }
+    addUser(user: User) { 
+        return this.http.post<ResponseMessage>(`${environment.apiUrl}/users/registrarusuario`, user); 
+    }
 
     removeRoleUser(user: User) {
         return this.http.put<ResponseMessage>(`${environment.apiUrl}/users/removerrolusuario`, user);
@@ -223,10 +218,11 @@ export class AccountService {
                 return x;
             }));
     }
-    // -- >> fin
 
     // -- >> Procedimientos de Roles
-    getRoleById(idRol: string) { return this.http.get<Role>(`${environment.apiUrl}/users/roleid?idRol=${idRol}`); }
+    getRoleById(idRol: string) { 
+        return this.http.get<Role>(`${environment.apiUrl}/users/roleid?idRol=${idRol}`); 
+    }
     getAllRoles() {
         return this.http.get<Role[]>(`${environment.apiUrl}/users/getallroles`);
     }
@@ -244,5 +240,7 @@ export class AccountService {
     updateRol(rol: Role) {
         return this.http.put<ResponseMessage>(`${environment.apiUrl}/users/actualizarrol`, rol);
     }
-    // -- >> fin
+    registerRole(role: Role) {
+        return this.http.post(`${environment.apiUrl}/users/registrarrol`, role);
+    }
 }

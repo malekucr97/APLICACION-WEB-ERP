@@ -3,10 +3,11 @@ import { Component, OnInit, ViewChild, ElementRef } from '@angular/core';
 import { AccountService, AlertService, GeneralesService } from '@app/_services';
 import { User, Module, Role, ResponseMessage } from '@app/_models';
 import { first } from 'rxjs/operators';
-import { Router, ActivatedRoute } from '@angular/router';
-import { httpAccessPage } from '../../../environments/environment';
 import { MatSidenav } from '@angular/material/sidenav';
 import { Compania } from '../../_models/modules/compania';
+import { adnObject } from '@app/_models/adnObject';
+import { Procedimientos } from '@environments/environment-access-admin';
+import { AttributeEntity } from '@app/_models/baseEntity';
 
 @Component({
     templateUrl: 'HTML_AddEditCompania.html',
@@ -15,50 +16,22 @@ import { Compania } from '../../_models/modules/compania';
 export class AddEditCompaniaComponent implements OnInit {
     @ViewChild(MatSidenav) sidenav !: MatSidenav;
     
-
     userObservable: User;
     moduleObservable: Module;
     companiaObservable: Compania;
 
-    response: ResponseMessage;
-
-    loading = false;
     submitted = false;
-
-    id: string;
-
-    esAdmin: boolean;
-
-    listRolesBusiness: Role[] = [];
-
-    compania = new Compania();;
-
-    URLRedirectIndexContent: string;
 
     addEditForm: FormGroup;
 
-    constructor (
-        private formBuilder: FormBuilder,
-        private accountService: AccountService,
-        private generalesSerice: GeneralesService,
-        private alertService: AlertService,
-        private router: Router,
-        private route: ActivatedRoute
-    ) {
+    constructor ( private formBuilder: FormBuilder, private accountService: AccountService, private generalesSerice: GeneralesService, private alertService: AlertService ) {
         this.userObservable = this.accountService.userValue;
         this.moduleObservable = this.accountService.moduleValue;
         this.companiaObservable = this.accountService.businessValue;
     }
 
     ngOnInit() {
-        this.URLRedirectIndexContent = httpAccessPage.urlContentIndex;
 
-        // if(this.route.snapshot.params.exito){
-        //     this.alertService.success(this.route.snapshot.params.message, { keepAfterRouteChange: true });
-        // } else {
-        //     this.alertService.error(this.route.snapshot.params.message, { keepAfterRouteChange: true });
-        // }
-        
         this.addEditForm = this.formBuilder.group({
             nombre: [this.companiaObservable.nombre, Validators.required],
             tipoIdentificacion: [this.companiaObservable.tipoIdentificacion, Validators.required],
@@ -80,25 +53,31 @@ export class AddEditCompaniaComponent implements OnInit {
             hostCorreo: [this.companiaObservable.hostCorreo, Validators.required],
             puertoCorreo: [this.companiaObservable.puertoCorreo, Validators.required]
         });
+
+        // this.generalesSerice.getCompaniaPorIdentificacion(this.companiaObservable.cedulaJuridica)
+        //     .pipe(first())
+        //     .subscribe(responseCompania => { this.compania = responseCompania; });
     }
 
     get f() { return this.addEditForm.controls; }
 
-    addEditFormSubmit() : void {
+    updateSubmit() : void {
+
+        let operationName : string = Procedimientos._actualizarInformacionCompania;
+        let module : string = Procedimientos._MOD_GENERALES;
+        let entityName : string = 'MOD_Compania';
 
         this.alertService.clear();
 
         this.submitted = true;
 
-        let today = new Date();
+        var today = new Date();
 
-        if (this.addEditForm.invalid) {
+        if (this.addEditForm.invalid)
             return;
-        }
-        this.loading = true;
-
+        
         let companiaForm = new Compania();
-
+            
         companiaForm.id = this.companiaObservable.id;
         companiaForm.nombre = this.addEditForm.get('nombre').value;
         companiaForm.tipoIdentificacion = this.addEditForm.get('tipoIdentificacion').value;
@@ -119,11 +98,14 @@ export class AddEditCompaniaComponent implements OnInit {
         companiaForm.puertoCorreo = this.addEditForm.get('puertoCorreo').value;
 
         companiaForm.modificadoPor = this.userObservable.identificacion;
-        companiaForm.fechaModificacion = today;
+        companiaForm.fechaModificacion = today.toLocaleDateString();
+
+        let adn = createObjectADNCompania(companiaForm, operationName, module, entityName);
 
         this.generalesSerice.putCompania(companiaForm)
         .pipe(first())
         .subscribe( responseAddCompania => {
+            this.alertService.clear();
 
             if (responseAddCompania.exito) {
                 this.accountService.updateLocalCompania(companiaForm);
@@ -131,13 +113,144 @@ export class AddEditCompaniaComponent implements OnInit {
             }else{
                 this.alertService.error(responseAddCompania.responseMesagge, { keepAfterRouteChange: true });
             }
-            this.loading = false;
         },
-        error => { console.log(error); this.alertService.error(error); this.loading = false; });
-
+        error => { console.log(error); this.alertService.error(error); });
     }
 
     refrescar() {
         window.location.reload();
     }
 }
+
+// function padTo2Digits(num: number) {
+//     return num.toString().padStart(2, '0');
+//   }
+
+// function formatDate(date: Date) {
+//     return (
+//       [
+//         date.getFullYear(),
+//         padTo2Digits(date.getMonth() + 1),
+//         padTo2Digits(date.getDate()),
+//       ].join('-') +
+//       ' ' +
+//       [
+//         padTo2Digits(date.getHours()),
+//         padTo2Digits(date.getMinutes()),
+//         padTo2Digits(date.getSeconds()),
+//       ].join(':')
+//     );
+//   }
+
+function createObjectADNCompania(companiaForm: Compania, operationName:string, module:string, entityName:string) : string {
+    
+    let req : string = `{
+                    "OperationName":"${ operationName }",
+                    "Module":"${ module }",
+                    "ObjectToProcess":[{
+                            "EntityName":"${entityName}",
+                            "Attributes":[
+                            {
+                                "Name":"ID",
+                                "Type":1,
+                                "ObjectValue":"${companiaForm.id}"
+                            },
+                            {
+                                "Name":"NOMBRE",
+                                "Type":0,
+                                "ObjectValue":"${companiaForm.nombre}"
+                            },
+                            {
+                                "Name":"TIPO_IDENTIFICACION",
+                                "Type":0,
+                                "ObjectValue":"${companiaForm.tipoIdentificacion}"
+                            },
+                            {
+                                "Name":"CEDULA_JURIDICA",
+                                "Type":0,
+                                "ObjectValue":"${companiaForm.cedulaJuridica}"
+                            },
+                            {
+                                "Name":"DESCRIPCION_COMPANIA",
+                                "Type":0,
+                                "ObjectValue":"${companiaForm.descripcionCompania}"
+                            },
+                            {
+                                "Name":"CORREO_ELECTRONICO",
+                                "Type": 0,
+                                "ObjectValue":"${companiaForm.correoElectronico}"
+                            },
+                            {
+                                "Name":"CODIGO_PAIS",
+                                "Type":0,
+                                "ObjectValue":"${companiaForm.codigoPaisUbicacion}"
+                            },
+                            {
+                                "Name":"PROVINCIA",
+                                "Type":0,
+                                "ObjectValue":"${companiaForm.provincia}"
+                            },
+                            {
+                                "Name":"CANTON",
+                                "Type":0,
+                                "ObjectValue":"${companiaForm.canton}"
+                            },
+                            {
+                                "Name":"DISTRITO",
+                                "Type":0,
+                                "ObjectValue":"${companiaForm.distrito}"
+                            },
+                            {
+                                "Name":"BARRIO",
+                                "Type":0,
+                                "ObjectValue":"${companiaForm.barrio}"
+                            },
+                            {
+                                "Name":"DETALLE_DIRECCION",
+                                "Type":0,
+                                "ObjectValue":"${companiaForm.detalleDireccion}"
+                            },
+                            {
+                                "Name":"CODIGO_TELEFONO",
+                                "Type":0,
+                                "ObjectValue":"${companiaForm.codigoTelefono}"
+                            },
+                            {
+                                "Name":"TELEFONO",
+                                "Type":0,
+                                "ObjectValue":"${companiaForm.telefono}"
+                            },
+                            {
+                                "Name":"CLAVE_CORREO",
+                                "Type":0,
+                                "ObjectValue":"${companiaForm.claveCorreo}"
+                            },
+                            {
+                                "Name":"HOST_CORREO",
+                                "Type":0,
+                                "ObjectValue":"${companiaForm.hostCorreo}"
+                            },
+                            {
+                                "Name":"PUERTO_CORREO",
+                                "Type":0,
+                                "ObjectValue":"${companiaForm.puertoCorreo}"
+                            },
+                            {
+                                "Name":"MODIFICADO_POR",
+                                "Type":0,
+                                "ObjectValue": "${companiaForm.modificadoPor}"
+                            },
+                            {
+                                "Name":"FECHA_MODIFICACION",
+                                "Type":2,
+                                "ObjectValue":"${companiaForm.fechaModificacion}"
+                            }]
+                    }]
+                }`;
+
+                console.log(req);
+
+                let obj = JSON.parse(req);
+                
+                return req;
+            }
