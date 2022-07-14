@@ -68,7 +68,7 @@ export class AddEditCompaniaComponent implements OnInit {
         let entityName : string = 'MOD_Compania';
 
         this.alertService.clear();
-
+ 
         this.submitted = true;
 
         var today = new Date();
@@ -98,7 +98,7 @@ export class AddEditCompaniaComponent implements OnInit {
         companiaForm.puertoCorreo = this.addEditForm.get('puertoCorreo').value;
 
         companiaForm.modificadoPor = this.userObservable.identificacion;
-        companiaForm.fechaModificacion = today.toLocaleDateString();
+        //companiaForm.fechaModificacion = today.toLocaleDateString();
 
         let adn = createObjectADNCompania(companiaForm, operationName, module, entityName);
 
