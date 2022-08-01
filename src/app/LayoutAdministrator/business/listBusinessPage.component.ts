@@ -17,16 +17,18 @@ export class ListBusinessComponent implements OnInit {
     ngOnInit() {
         this.URLAdministratorPage = httpAccessAdminPage.urlPageAdministrator;
 
+
         this.accountService.getAllBusiness()
             .pipe(first())
             .subscribe(response => this.listBusiness = response );
     }
 
-    deleteBusiness(id: string) {
-        const business = this.businesss.find(x => x.id === id);
-        business.isDeleting = true;
-        this.accountService.deleteUser(id)
-            .pipe(first())
-            .subscribe(() => { this.businesss = this.businesss.filter(x => x.id !== id); });
+    // ajustar eliminacion de emprsa
+    deleteBusiness(id: number) {
+        let business = this.listBusiness.find(x => x.id === id);
+        // business.isDeleting = true;
+        // this.accountService.deleteUser(id)
+        //     .pipe(first())
+        //     .subscribe(() => { this.businesss = this.businesss.filter(x => x.id !== id); });
     }
 }

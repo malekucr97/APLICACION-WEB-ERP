@@ -1,22 +1,26 @@
-<h1 style="color:#1A5276">Empresas o Sociedades</h1>
-<h6>Listado de empresas que forman parte del Sistema Financiero-Contable ERP</h6>
-<a routerLink="/_AdminModule/AddEditBusinessPage" class="btn btn-sm btn-success mb-2 float-right">Registrar Empresa</a>
+<h1 style="color:#1A5276">Compañías</h1>
+<h4>Lista de compañías registradas en el sistema</h4>
+<a routerLink="{{URLAdministratorPage}}" class="btn btn-light mb-2 mr-3">Volver</a>
+
+
+<div class="card">
+    <div class="card-body">
+        <a routerLink="/_AdminModule/AddEditBusinessPage" class="btn btn-sm btn-success mb-2 float-right">Registrar Empresa</a>
+
 <table class="table table-striped">
     <thead>
         <tr>
-            <th style="width: 15%">Identificador de Empresa (ID)</th>
+            <th style="width: 25%">Número de Identificación</th>
             <th style="width: 40%">Nombre de Empresa o Sociedad</th>
-            <th style="width: 25%">Número de Identificación (cédula jurídica)</th>
             <th style="width: 10%"></th>
         </tr>
     </thead>
     <tbody>
         <tr *ngFor="let business of listBusiness">
-            <td>{{business.id}}</td>
-            <td>{{business.nombre}}</td>
             <td>{{business.cedulaJuridica}}</td>
+            <td>{{business.nombre}}</td>
             <td style="white-space: nowrap">
-                <a routerLink="/_AdminModule/ConfigureBusinessPage/{{business.id}}" class="btn btn-sm btn-dark mr-1">Parámetros de Configuración</a>
+                <a routerLink="/_GeneralesModule/ConfiguracionCompania/{{business.id}}" class="btn btn-sm btn-dark mr-1">Parámetros de Configuración</a>
                 <a routerLink="/_AdminModule/AdminListModulePage/{{business.id}}" class="btn btn-sm btn-light mr-1">Módulos Asociados</a>
                 <a routerLink="/_AdminModule/AddEditBusinessPage/{{business.id}}" class="btn btn-sm btn-warning mr-1">Actualizar</a>
                 <button (click)="deleteBusiness(business.id)" class="btn btn-sm btn-danger mr-1" [disabled]="business.isDeleting">
@@ -32,4 +36,6 @@
         </tr>
     </tbody>
 </table>
-<a routerLink="{{URLAdministratorPage}}" class="btn btn-light mb-2">Atrás</a>
+
+</div>
+</div>

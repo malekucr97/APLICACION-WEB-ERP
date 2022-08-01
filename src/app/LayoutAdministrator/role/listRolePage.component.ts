@@ -96,7 +96,7 @@ export class ListRoleComponent implements OnInit {
 
     escritura(rol: string) {
 
-        if (rol !== administrator.id  || rol !== amdinBusiness.adminSociedad) {
+        if (rol !== administrator.id && rol !== amdinBusiness.adminSociedad) {
 
             this.isActivating = true;
 
@@ -112,7 +112,7 @@ export class ListRoleComponent implements OnInit {
                 },
                 (error) => { console.log(error); this.isActivating = false; });
         } else {
-            this.message = 'La cuenta administradora tiene permisos de escritura y lectura sobre los modulos de la empresa.';
+            this.message = 'Las cuentas administradoras tienen permisos de escritura y lectura sobre los módulos de la empresa.';
             this.alertService.info(this.message, { keepAfterRouteChange: true });
             this.ngOnInit();
         }
@@ -120,7 +120,7 @@ export class ListRoleComponent implements OnInit {
 
     lectura(rol: string) {
 
-        if (rol !== administrator.id || rol !== amdinBusiness.adminSociedad) {
+        if (rol !== administrator.id && rol !== amdinBusiness.adminSociedad) {
 
             this.isActivating = true;
 
@@ -136,7 +136,7 @@ export class ListRoleComponent implements OnInit {
                 },
                 (error) => { console.log(error); this.isActivating = false; });
         } else {
-            this.message = 'La cuenta administradora tiene permisos de escritura y lectura sobre los modulos de la empresa.';
+            this.message = 'Las cuentas administradoras tienen permisos de lectura y escritura sobre los módulos de la empresa.';
             this.alertService.info(this.message, { keepAfterRouteChange: true });
             this.ngOnInit();
         }

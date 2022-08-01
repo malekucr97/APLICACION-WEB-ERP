@@ -11,7 +11,7 @@
         <h4 *ngIf="existeRol" style="display: inline;">Rol: </h4><h4 *ngIf="role" style="display:inline; color:#1A5276">{{role.nombre}}</h4>
         <h4 *ngIf="!existeRol" style="display: inline;">Rol de usuario no asignado</h4>
 
-        <button *ngIf="listBusinessUser" (click)="desAsignAllBusinessUser(userBusiness.identificacion)" class="btn btn-outline-danger mb-2 float-right">
+        <button *ngIf="listBusinessUser" (click)="desAsignAllBusinessUser(userBusiness.id)" class="btn btn-outline-danger mb-2 float-right">
             <span *ngIf="isDesAsignBusiness" class="spinner-border spinner-border-sm"></span>
             <span *ngIf="!isDesAsignBusiness">Eliminar Acceso de <b>TODAS</b> las Empresas</span>
         </button>

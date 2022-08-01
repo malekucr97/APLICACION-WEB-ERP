@@ -4,10 +4,12 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { first } from 'rxjs/operators';
 import { AccountService, AlertService } from '@app/_services';
 import { Compania } from '../../_models/modules/compania';
+import { User } from '@app/_models';
 
 @Component({ templateUrl: 'HTML_AddEditBusinessPage.html' })
 export class AddEditBusinessComponent implements OnInit {
     form: FormGroup;
+    userObserver: User;
 
     business: Compania;
 
@@ -25,7 +27,9 @@ export class AddEditBusinessComponent implements OnInit {
         private router: Router,
         private accountService: AccountService,
         private alertService: AlertService
-    ) { }
+    ) { 
+        this.userObserver = this.accountService.userValue;
+    }
 
     ngOnInit() {
 
@@ -65,6 +69,8 @@ export class AddEditBusinessComponent implements OnInit {
     onSubmit() {
         this.submitted = true;
 
+        let currentDate = new Date();
+
         if (this.form.invalid) {
             return;
         }
@@ -74,7 +80,13 @@ export class AddEditBusinessComponent implements OnInit {
 
         this.business.nombre = this.form.get('nombre').value;
         this.business.cedulaJuridica = this.form.get('cedulajuridica').value;
-
+        this.business.adicionadoPor = this.userObserver.identificacion;
+        this.business.fechaAdicion = currentDate;
+        this.business.correoElectronico = 'No registrado';
+        this.business.tipoIdentificacion = 'NA';
+        this.business.detalleDireccion = 'No registrado';
+        this.business.telefono = 'NA';
+        
         if (this.addBusiness) {
 
             this.accountService.addBusiness(this.business)

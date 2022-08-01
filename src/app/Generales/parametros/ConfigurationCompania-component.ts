@@ -8,23 +8,32 @@ import { Compania } from '../../_models/modules/compania';
 import { adnObject } from '@app/_models/adnObject';
 import { Procedimientos } from '@environments/environment-access-admin';
 import { AttributeEntity } from '@app/_models/baseEntity';
+import { Router, ActivatedRoute } from '@angular/router';
 
 @Component({
-    templateUrl: 'HTML_AddEditCompania.html',
+    templateUrl: 'HTML_ConfigurationCompania.html',
     styleUrls: ['../../../assets/scss/generales/app.scss'],
 })
-export class AddEditCompaniaComponent implements OnInit {
+export class ConfigurationCompaniaComponent implements OnInit {
     @ViewChild(MatSidenav) sidenav !: MatSidenav;
     
     userObservable: User;
     moduleObservable: Module;
     companiaObservable: Compania;
 
+    companiaConfiguration: Compania;
+
     submitted = false;
 
     addEditForm: FormGroup;
 
-    constructor ( private formBuilder: FormBuilder, private accountService: AccountService, private generalesSerice: GeneralesService, private alertService: AlertService ) {
+    constructor ( 
+            private formBuilder: FormBuilder,
+            private route: ActivatedRoute,
+            private accountService: AccountService, 
+            private generalesSerice: GeneralesService, 
+            private alertService: AlertService ) 
+    {
         this.userObservable = this.accountService.userValue;
         this.moduleObservable = this.accountService.moduleValue;
         this.companiaObservable = this.accountService.businessValue;
@@ -32,31 +41,72 @@ export class AddEditCompaniaComponent implements OnInit {
 
     ngOnInit() {
 
-        this.addEditForm = this.formBuilder.group({
-            nombre: [this.companiaObservable.nombre, Validators.required],
-            tipoIdentificacion: [this.companiaObservable.tipoIdentificacion, Validators.required],
-            cedulaJuridica: [this.companiaObservable.cedulaJuridica, Validators.required],
-            correoElectronico: [this.companiaObservable.correoElectronico, Validators.required],
+        let idBusiness:number;
 
-            // <!-- INFORMACIÓN GEOGRÁFICA -->
-            codigoPaisUbicacion: [this.companiaObservable.codigoPaisUbicacion, Validators.required],
-            provincia: [this.companiaObservable.provincia, Validators.required],
-            canton: [this.companiaObservable.canton, Validators.required],
-            distrito: [this.companiaObservable.distrito, Validators.required],
-            barrio: [this.companiaObservable.barrio],
-            detalleDireccion: [this.companiaObservable.detalleDireccion, Validators.required],
+        if (this.route.snapshot.params.pidBusiness) {
+            
+            idBusiness = this.route.snapshot.params.pidBusiness;
 
-            codigoTelefono: [this.companiaObservable.codigoTelefono, Validators.required],
-            telefono: [this.companiaObservable.telefono, Validators.required],
+            this.accountService.getBusinessById(idBusiness)
+            .pipe(first())
+            .subscribe(responseBusiness => {
+                this.companiaConfiguration = responseBusiness;
 
-            claveCorreo: [''],
-            hostCorreo: [this.companiaObservable.hostCorreo, Validators.required],
-            puertoCorreo: [this.companiaObservable.puertoCorreo, Validators.required]
-        });
+                this.addEditForm = this.formBuilder.group({
+                    id: [this.companiaConfiguration.id],
+                    nombre: [this.companiaConfiguration.nombre, Validators.required],
+                    tipoIdentificacion: [this.companiaConfiguration.tipoIdentificacion, Validators.required],
+                    cedulaJuridica: [this.companiaConfiguration.cedulaJuridica, Validators.required],
+                    correoElectronico: [this.companiaConfiguration.correoElectronico, Validators.required],
+        
+                    // <!-- INFORMACIÓN GEOGRÁFICA -->
+                    codigoPaisUbicacion: [this.companiaConfiguration.codigoPaisUbicacion, Validators.required],
+                    provincia: [this.companiaConfiguration.provincia, Validators.required],
+                    canton: [this.companiaConfiguration.canton, Validators.required],
+                    distrito: [this.companiaConfiguration.distrito, Validators.required],
+                    barrio: [this.companiaConfiguration.barrio],
+                    detalleDireccion: [this.companiaConfiguration.detalleDireccion, Validators.required],
+        
+                    codigoTelefono: [this.companiaConfiguration.codigoTelefono, Validators.required],
+                    telefono: [this.companiaConfiguration.telefono, Validators.required],
+        
+                    claveCorreo: [''],
+                    hostCorreo: [this.companiaConfiguration.hostCorreo, Validators.required],
+                    puertoCorreo: [this.companiaConfiguration.puertoCorreo, Validators.required]
+                });
+                
+            },
+            error => {
+                this.alertService.error('Problemas al consultar la información de la compañía seleccionada.' + error);
+            });
 
-        // this.generalesSerice.getCompaniaPorIdentificacion(this.companiaObservable.cedulaJuridica)
-        //     .pipe(first())
-        //     .subscribe(responseCompania => { this.compania = responseCompania; });
+        } else {
+
+            this.addEditForm = this.formBuilder.group({
+                id: [this.companiaObservable.id],
+                nombre: [this.companiaObservable.nombre, Validators.required],
+                tipoIdentificacion: [this.companiaObservable.tipoIdentificacion, Validators.required],
+                cedulaJuridica: [this.companiaObservable.cedulaJuridica, Validators.required],
+                correoElectronico: [this.companiaObservable.correoElectronico, Validators.required],
+    
+                // <!-- INFORMACIÓN GEOGRÁFICA -->
+                codigoPaisUbicacion: [this.companiaObservable.codigoPaisUbicacion, Validators.required],
+                provincia: [this.companiaObservable.provincia, Validators.required],
+                canton: [this.companiaObservable.canton, Validators.required],
+                distrito: [this.companiaObservable.distrito, Validators.required],
+                barrio: [this.companiaObservable.barrio],
+                detalleDireccion: [this.companiaObservable.detalleDireccion, Validators.required],
+    
+                codigoTelefono: [this.companiaObservable.codigoTelefono, Validators.required],
+                telefono: [this.companiaObservable.telefono, Validators.required],
+    
+                claveCorreo: [''],
+                hostCorreo: [this.companiaObservable.hostCorreo, Validators.required],
+                puertoCorreo: [this.companiaObservable.puertoCorreo, Validators.required]
+            });
+            
+            this.companiaConfiguration = this.companiaObservable;
+        } 
     }
 
     get f() { return this.addEditForm.controls; }
@@ -77,8 +127,9 @@ export class AddEditCompaniaComponent implements OnInit {
             return;
         
         let companiaForm = new Compania();
-            
-        companiaForm.id = this.companiaObservable.id;
+
+        companiaForm.id = this.addEditForm.controls['id'].value;
+
         companiaForm.nombre = this.addEditForm.get('nombre').value;
         companiaForm.tipoIdentificacion = this.addEditForm.get('tipoIdentificacion').value;
         companiaForm.cedulaJuridica = this.addEditForm.get('cedulaJuridica').value;
@@ -121,26 +172,6 @@ export class AddEditCompaniaComponent implements OnInit {
         window.location.reload();
     }
 }
-
-// function padTo2Digits(num: number) {
-//     return num.toString().padStart(2, '0');
-//   }
-
-// function formatDate(date: Date) {
-//     return (
-//       [
-//         date.getFullYear(),
-//         padTo2Digits(date.getMonth() + 1),
-//         padTo2Digits(date.getDate()),
-//       ].join('-') +
-//       ' ' +
-//       [
-//         padTo2Digits(date.getHours()),
-//         padTo2Digits(date.getMinutes()),
-//         padTo2Digits(date.getSeconds()),
-//       ].join(':')
-//     );
-//   }
 
 function createObjectADNCompania(companiaForm: Compania, operationName:string, module:string, entityName:string) : string {
     

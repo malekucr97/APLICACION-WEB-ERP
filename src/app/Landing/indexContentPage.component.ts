@@ -93,14 +93,17 @@ export class IndexContentPageComponent implements OnInit {
 
         switch (modIdentificador) {
 
+            // GeneralesURL: '/_GeneralesModule/Index.html',
+            case ModulesSistem.Generales: propertiesMod.urlRedirect = ModulesSistem.GeneralesURL; break;
+
             case ModulesSistem.ActivosFijos: propertiesMod.urlRedirect = ModulesSistem.ActivosFijosURL; break;
             case ModulesSistem.Bancos: propertiesMod.urlRedirect = ModulesSistem.BancosURL; break;
             case ModulesSistem.Contabilidad: propertiesMod.urlRedirect = ModulesSistem.ContabilidadURL; break;
             case ModulesSistem.CuentasCobrar: propertiesMod.urlRedirect = ModulesSistem.CuentasCobrarURL; break;
             case ModulesSistem.CuentasPagar: propertiesMod.urlRedirect = ModulesSistem.CuentasPagarURL; break;
             case ModulesSistem.Facturacion: propertiesMod.urlRedirect = ModulesSistem.FacturacionURL; break;
-            case ModulesSistem.Generales: propertiesMod.urlRedirect = ModulesSistem.GeneralesURL; break;
             case ModulesSistem.Inventario: propertiesMod.urlRedirect = ModulesSistem.InventarioURL; break;
+            case ModulesSistem.Cumplimiento: propertiesMod.urlRedirect = ModulesSistem.CumplimientoURL; break;
 
             default: propertiesMod.urlRedirect = '/';
         }

@@ -58,40 +58,42 @@ export class ListUserComponent implements OnInit {
         }
     }
 
-    deleteUser(identificacionUsuario: string) {
+    deleteUser(identificacionUsuario: string, idUser: number) {
+
+        this.isDeleting = true;
+        let message : string;
 
         if (identificacionUsuario !== administrator.id) {
 
-            this.isDeleting = true;
-
-            this.accountService.dessAssignAllBusinessUser(identificacionUsuario)
+            this.accountService.dessAssignAllBusinessUser(idUser)
                 .pipe(first())
-                .subscribe( responseDessA => {
+                .subscribe( responseDesAsign => {
 
-                    if (responseDessA.exito) {
+                    if (responseDesAsign.exito) {
 
-                        this.accountService.deleteUser(identificacionUsuario)
+                        this.accountService.deleteUser(idUser)
                             .pipe(first())
-                            .subscribe( responseObj => {
+                            .subscribe( responseDelete => {
 
-                                if (responseObj.exito) {
-                                    this.alertService.success(responseObj.responseMesagge, { keepAfterRouteChange: true });
+                                if (responseDelete.exito) {
+                                    this.alertService.success(responseDelete.responseMesagge, { keepAfterRouteChange: true });
                                 } else {
-                                    this.alertService.error(responseObj.responseMesagge, { keepAfterRouteChange: true });
+                                    this.alertService.error(responseDelete.responseMesagge, { keepAfterRouteChange: true });
                                 }
                                 this.ngOnInit();
                             },
                             (error) => { console.log(error); this.alertService.error(error); this.ngOnInit(); });
                     } else {
-                        this.alertService.error(responseDessA.responseMesagge, { keepAfterRouteChange: true });
+                        this.alertService.error(responseDesAsign.responseMesagge, { keepAfterRouteChange: true });
                     }
                 },
                 error => { console.log(error); this.alertService.error(error); this.ngOnInit(); });
         } else {
-            this.response.responseMesagge = 'No se puede eliminar la cuenta administradora del sistema';
-            this.alertService.info(this.response.responseMesagge, { keepAfterRouteChange: true });
+            message = 'No se puede eliminar la cuenta administradora del sistema';
+            this.alertService.info(message, { keepAfterRouteChange: true });
             this.ngOnInit();
         }
+        this.isDeleting = false;
     }
 
     activateUser(identificacion: string) {

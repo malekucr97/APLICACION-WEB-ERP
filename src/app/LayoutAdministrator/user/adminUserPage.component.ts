@@ -12,6 +12,7 @@ export class AdminUserComponent implements OnInit {
     URLConfigureUserPage: string;
     URLListUserPage: string;
     URLListBusinessPage: string;
+    URLListModulePage: string;
     URLListRolePage: string;
 
     adminSistema: boolean;
@@ -26,6 +27,7 @@ export class AdminUserComponent implements OnInit {
         this.URLConfigureUserPage = httpAccessAdminPage.urlPageConfigUser;
         this.URLListUserPage = httpAccessAdminPage.urlPageListUsers;
         this.URLListBusinessPage = httpAccessAdminPage.urlPageListBusiness;
+        this.URLListModulePage = httpAccessAdminPage.urlPageListModule;
         this.URLListRolePage = httpAccessAdminPage.urlPageListRole;
 
         if (this.user.estado === AuthStatesApp.inactive) { this.router.navigate([httpAccessPage.urlPageInactiveUser]); return; }

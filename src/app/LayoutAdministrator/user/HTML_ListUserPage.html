@@ -1,12 +1,16 @@
 <h1 style="color:#1A5276">Usuarios</h1>
-<a routerLink="{{URLAddEditUsertPage}}" class="btn btn-sm btn-success mb-3 mr-3 float-right">Registrar Usuario</a>
-<!-- <h3 *ngIf="!user.empresa">Seleccione la Empresa o Sociedad para visualizar el listado de sus Usuarios.</h3> -->
+<h4>Lista de de usuarios registrados en el sistema</h4>
+<a routerLink="{{URLAdministratorPage}}" class="btn btn-light mb-2 mr-3">Volver</a><br>
+<div class="card">
+    
+    <div class="card-body">
+        <a routerLink="{{URLAddEditUsertPage}}" class="btn btn-sm btn-success mb-3 mr-3 float-right">Registrar Usuario</a>
 <table class="table table-striped">
     <thead>
         <tr>
-            <th style="width: 5%">Id</th>
-            <th style="width: 30%">Nombre</th>
-            <th style="width: 15%">Email</th>
+            <th style="width: 5%">Identificación</th>
+            <th style="width: 25%">Nombre</th>
+            <th style="width: 20%">Email</th>
             <th style="width: 10%">Rol</th>
             <th style="width: 10%">Estado</th>
             <th style="width: 20%"></th>
@@ -39,7 +43,7 @@
 
                 <a routerLink="{{URLAddEditUsertPage}}{{us.identificacion}}" class="btn btn-sm btn-warning mr-1">Actualizar</a>
 
-                <button (click)="deleteUser(us.identificacion)" class="btn btn-sm btn-danger mr-1" [disabled]="isDeleting">
+                <button (click)="deleteUser(us.identificacion, us.id)" class="btn btn-sm btn-danger mr-1" [disabled]="isDeleting">
                     <span *ngIf="isDeleting" class="spinner-border spinner-border-sm"></span>
                     <span *ngIf="!isDeleting">Eliminar</span>
                 </button>
@@ -53,4 +57,7 @@
         </tr>
     </tbody>
 </table>
-<a routerLink="{{URLAdministratorPage}}" class="btn btn-light mb-2">Atrás</a>
+
+</div>
+</div>
+<!-- <a routerLink="" class="btn btn-light mb-2">Atrás</a> -->

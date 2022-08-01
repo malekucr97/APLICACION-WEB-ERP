@@ -46,7 +46,7 @@ import { Compania } from '../_models/modules/compania';
     templateUrl: 'menu.html',
     styleUrls: ['../../assets/scss/menus.scss'],
 })
-export class MenuGeneralesComponent implements OnInit {
+export class MenuCumplimientoComponent implements OnInit {
     @ViewChild(MatSidenav)
     sidenav !: MatSidenav;
 

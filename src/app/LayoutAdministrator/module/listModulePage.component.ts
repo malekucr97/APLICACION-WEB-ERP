@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { first } from 'rxjs/operators';
 import { Router, ActivatedRoute } from '@angular/router';
-import { AccountService, AlertService } from '@app/_services';
+import { AccountService, AlertService, ModulesService } from '@app/_services';
 import { User, Module } from '@app/_models';
 import { Compania } from '../../_models/modules/compania';
 
@@ -11,12 +11,17 @@ export class ListModuleComponent implements OnInit {
     moduleList: Module;
     businessMod: Compania;
 
-    listModules: Module[] = [];
+    listModulesBusiness: Module[] = [];
+    listAllModulesSystem: Module[] = [];
+    
     listBusiness: Compania[] = [];
-    listAllModules: Module[] = [];
+    
 
     isActivating: boolean;
     isDeleting: boolean;
+    isAssigning: boolean;
+    isDesAssigning: boolean;
+
     adminBoss: boolean;
     adminBusiness: boolean;
 
@@ -26,23 +31,34 @@ export class ListModuleComponent implements OnInit {
     idBusiness: string;
     pidBusiness: number;
 
+    seleccionEmpresa: boolean;
+
     constructor(private accountService: AccountService,
+        private modulesService: ModulesService,
                 private route: ActivatedRoute,
                 private router: Router,
                 private alertService: AlertService) { this.user = this.accountService.userValue; }
 
     ngOnInit() {
 
-        this.isActivating   = false;
-        this.isDeleting     = false;
-
         this.alertService.clear();
 
-        if (this.route.snapshot.params.pidBusiness) {
+        this.isActivating   = false;
+        this.isDeleting     = false;
+        this.isAssigning    = false;
+        this.isDesAssigning = false;
+        
+        this.seleccionEmpresa = false;
 
+        this.listModulesBusiness = null;
+        this.listAllModulesSystem = null;
+
+        this.pidBusiness = this.route.snapshot.params.pidBusiness;
+
+        if (this.pidBusiness) {
+
+            this.seleccionEmpresa = true;
             this.businessMod = new Compania();
-
-            this.pidBusiness = this.route.snapshot.params.pidBusiness;
 
             this.accountService.getBusinessById(this.pidBusiness)
             .pipe(first())
@@ -54,7 +70,36 @@ export class ListModuleComponent implements OnInit {
                     .pipe(first())
                     .subscribe(modulesBResponse => {
 
-                        if (modulesBResponse) { this.listModules = modulesBResponse; }
+                        if (modulesBResponse) {
+
+                            this.listModulesBusiness = modulesBResponse;
+
+                            this.accountService.getModulesSystem()
+                                .pipe(first())
+                                .subscribe(responseModulesActive => {
+
+                                    if (responseModulesActive) {
+
+                                        this.listAllModulesSystem = responseModulesActive;
+
+                                        if (this.listAllModulesSystem.length === this.listModulesBusiness.length) { 
+                                            this.listAllModulesSystem = null;
+                                        } else {
+
+                                            this.listModulesBusiness.forEach((moduleBusiness) => {
+
+                                                this.listAllModulesSystem.forEach((moduleListActive, index) => {
+
+                                                    if (moduleBusiness.identificador === moduleListActive.identificador) {
+                                                        this.listAllModulesSystem.splice(index, 1);
+                                                    }
+                                                });
+                                            });
+
+                                        }
+                                    } else { this.listAllModulesSystem = null; }
+                                });
+                        }
                     },
                     (error) => {
                         this.isActivating = false;
@@ -65,13 +110,31 @@ export class ListModuleComponent implements OnInit {
                 this.isActivating = false;
                 console.log(error);
             });
+
+        } else {
+
+            // Consulta todos los módulos activos que se pueden asignar a una compañía
+            this.accountService.getModulesSystem()
+                .pipe(first())
+                .subscribe(responseModulesActive => {
+
+                    if (responseModulesActive) {
+
+                        this.listAllModulesSystem = responseModulesActive;
+
+                    } else { this.listAllModulesSystem = null; }
+                },
+                (error) => {
+                    this.isActivating = false;
+                    console.log(error);
+                });
         }
     }
 
 
-    activateModule(idModule: number, identificador: string, idBusiness: number) {
+    activateModuleBusiness(idModule: number, identificador: string, idBusiness: number) {
 
-        this.moduleList = this.listModules.find(x => x.id === idModule && x.idSociedad === idBusiness && x.identificador === identificador);
+        this.moduleList = this.listModulesBusiness.find(x => x.id === idModule && x.idSociedad === idBusiness && x.identificador === identificador);
         this.isActivating = true;
 
         this.accountService.activateModule(this.moduleList)
@@ -90,9 +153,9 @@ export class ListModuleComponent implements OnInit {
             });
     }
 
-    inActivateModule(idModule: number, identificador: string, idBusiness: number) {
+    inActivateModuleBusiness(idModule: number, identificador: string, idBusiness: number) {
 
-        this.moduleList = this.listModules.find(x => x.id === idModule && x.idSociedad === idBusiness && x.identificador === identificador);
+        this.moduleList = this.listModulesBusiness.find(x => x.id === idModule && x.idSociedad === idBusiness && x.identificador === identificador);
         this.isActivating = true;
 
         this.accountService.inActivateModule(this.moduleList)
@@ -110,4 +173,83 @@ export class ListModuleComponent implements OnInit {
                 console.log(error);
             });
     }
+
+
+    // -->> Procedimientos actualziados - LLMADO A SERVICIO DE MODULES BACKEND
+    assignModuleBusiness(moduleId:number, businessId:number) : void {
+
+        this.isAssigning = true;
+
+        let moduleToAssign:Module = this.listAllModulesSystem.find(x => x.id === moduleId);
+        moduleToAssign.idSociedad = businessId;
+
+        this.modulesService.assignModuleToBusiness(moduleToAssign)
+            .pipe(first())
+            .subscribe( response => {
+
+                if (response.exito) {
+
+                    this.alertService.success(response.responseMesagge, { keepAfterRouteChange: true });
+
+                } else { this.alertService.error(response.responseMesagge, { keepAfterRouteChange: true }); }
+
+                this.isAssigning = false;
+                this.ngOnInit();
+            },
+            error => {
+                console.log(error);
+                this.alertService.error(error);
+            });
+    }
+    desAssignModuleBusiness(moduleId:number, businessId:number) : void {
+
+        this.isDesAssigning = true;
+
+        let moduleToDesAssign : Module = this.listModulesBusiness.find(x => x.id === moduleId && x.idSociedad === businessId);
+
+        this.modulesService.desAssignModuleToBusiness(moduleToDesAssign.id, moduleToDesAssign.idSociedad)
+            .pipe(first())
+            .subscribe( response => {
+
+                if (response.exito) {
+
+                    this.alertService.success(response.responseMesagge, { keepAfterRouteChange: true });
+
+                } else { this.alertService.warn(response.responseMesagge, { keepAfterRouteChange: true }); }
+
+                this.isDesAssigning = false;
+                this.ngOnInit();
+            },
+            error => {
+                console.log(error);
+                this.alertService.error(error);
+            });
+    }
+    opcionesSubMenu(moduleId:number) : void {
+
+        this.isDesAssigning = true;
+
+        // let moduleToDesAssign : Module = this.listModulesBusiness.find(x => x.id === moduleId && x.idSociedad === businessId);
+
+        // this.modulesService.desAssignModuleToBusiness(moduleToDesAssign.id, moduleToDesAssign.idSociedad)
+        //     .pipe(first())
+        //     .subscribe( response => {
+
+        //         if (response.exito) {
+
+        //             this.alertService.success(response.responseMesagge, { keepAfterRouteChange: true });
+
+        //         } else { this.alertService.warn(response.responseMesagge, { keepAfterRouteChange: true }); }
+
+        //         this.isDesAssigning = false;
+        //         this.ngOnInit();
+        //     },
+        //     error => {
+        //         console.log(error);
+        //         this.alertService.error(error);
+        //     });
+    }
+    
+
+    
 }

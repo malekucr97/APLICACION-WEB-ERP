@@ -74,7 +74,7 @@ export class AddModuleRoleComponent implements OnInit {
 
                         this.listModulesRol = responseModulesRolB;
 
-                        this.accountService.getModulesActive()
+                        this.accountService.getModulesSystem()
                         .pipe(first())
                         .subscribe(responseModulesActive => {
 
@@ -82,7 +82,8 @@ export class AddModuleRoleComponent implements OnInit {
 
                                 this.listModulesActive = responseModulesActive;
 
-                                if (this.listModulesActive.length === this.listModulesRol.length) { this.listModulesActive = null;
+                                if (this.listModulesActive.length === this.listModulesRol.length) { 
+                                    this.listModulesActive = null;
                                 } else {
 
                                     this.listModulesRol.forEach((modRol) => {
@@ -104,22 +105,24 @@ export class AddModuleRoleComponent implements OnInit {
         }
     }
 
-    acceso(identificadorModulo: string, nombreModulo: string, descModulo: string){
+    acceso(identificadorModulo: string, nombreModulo: string, descModulo: string) {
 
         this.access = true;
 
-        this.module = new Module();
-        this.module.identificador = identificadorModulo;
-        this.module.idSociedad = this.business.id;
-        this.module.nombre = nombreModulo;
-        this.module.descripcion = descModulo;
-        this.module.estado = 'Activo';
+        // this.module = new Module();
+        // this.module.identificador = identificadorModulo;
+        // this.module.idSociedad = this.business.id;
+        // this.module.nombre = nombreModulo;
+        // this.module.descripcion = descModulo;
+        // this.module.estado = 'Activo';
 
-        this.accountService.getModulesIdIdBusiness(this.module.identificador, this.module.idSociedad)
+        this.accountService.getModulesIdIdBusiness(identificadorModulo, this.business.id)
             .pipe(first())
             .subscribe( moduleResponse => {
 
-                this.accountService.accessModule(this.pRoleId, moduleResponse.id)
+                if(moduleResponse) {
+
+                    this.accountService.accessModule(this.pRoleId, moduleResponse.id)
                     .pipe(first())
                     .subscribe( response => {
 
@@ -129,19 +132,24 @@ export class AddModuleRoleComponent implements OnInit {
 
                         } else { this.alertService.error(response.responseMesagge, { keepAfterRouteChange: true }); }
 
-                        this.access = false;
                         this.ngOnInit();
                     },
-                    error => {
-                        console.log(error);
-                        this.alertService.error(error);
-                    });
+                    error => { console.log(error); this.alertService.error(error); });
+                    
+                } else {
+
+                    let message : string = 'El módulo al que se desea otorgar acceso no está activo en la compañía.';
+                    this.alertService.info(message, { keepAfterRouteChange: true });
+                }
         },
         error => {
             console.log(error);
             this.alertService.error(error);
         });
+
+        this.access = false;
     }
+
     eliminarAcceso(idMod: number){
 
         this.access = true;

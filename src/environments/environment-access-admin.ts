@@ -25,6 +25,8 @@ export const httpAccessAdminPage = {
     urlPageAddBUser: '/_AdminModule/AddBusinessUserPage/',
     urlPageAddRUser: '/_AdminModule/AddRoleUserPage/',
     urlPageListBusiness: '/_AdminModule/AdminListBusinessPage/',
+    urlPageListModule: '/_AdminModule/AdminListModulePage/',
+
     urlPageListRole: '/_AdminModule/AdminListRolePage/',
     urlPageAddModuleRol: '/_AdminModule/AddModuleRolePage/'
 };

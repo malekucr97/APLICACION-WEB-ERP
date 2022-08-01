@@ -67,7 +67,10 @@ export const ModulesSistem = {
     GeneralesURL: '/_GeneralesModule/Index.html',
 
     Inventario: 'ID-BANKAP-INVENTARIO',
-    InventarioURL: '/_InventarioModule/Index.html'
+    InventarioURL: '/_InventarioModule/Index.html',
+
+    Cumplimiento: 'ID-BANKAP-INVENTARIO',
+    CumplimientoURL: '/_InventarioModule/Index.html'
 };
 
 /*

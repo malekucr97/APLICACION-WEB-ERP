@@ -16,6 +16,9 @@ const CuentasPagarModule    = () => import('./CuentasPagar/cuentaspagar-module')
 const FacturacionModule     = () => import('./Facturacion/facturacion-module').then(    x => x.FacturacionModule);
 const InventarioModule      = () => import('./Inventario/inventario-module').then(      x => x.InventarioModule);
 
+// 31/07/2022 actualiz mlopez
+const CumplimientoModule    = () => import('./Cumplimiento/cumplimiento-module').then(  x => x.CumplimientoModule);
+
 const routes: Routes = [
     { path: '', component: HomeComponent, canActivate: [AuthGuard] },
     { path: 'account',              loadChildren: accountModule },
@@ -30,6 +33,7 @@ const routes: Routes = [
     { path: '_CuentasPagarModule',  loadChildren: CuentasPagarModule,   canActivate: [AuthGuard] },
     { path: '_FacturacionModule',   loadChildren: FacturacionModule,    canActivate: [AuthGuard] },
     { path: '_InventarioModule',    loadChildren: InventarioModule,     canActivate: [AuthGuard] },
+    { path: '_CumplimientoModule',  loadChildren: CumplimientoModule,   canActivate: [AuthGuard] },
     // -- redirección a Home
     { path: '**', redirectTo: '' }
 ];

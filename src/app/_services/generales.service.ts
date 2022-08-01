@@ -2,18 +2,19 @@ import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { environment } from '@environments/environment';
 import { Compania } from '../_models/modules/compania';
-import { ResponseMessage } from '@app/_models/';
+import { MenuModule, ResponseMessage } from '@app/_models/';
 
 @Injectable({ providedIn: 'root' })
 export class GeneralesService {
 
     constructor( private http: HttpClient ) { }
 
-    // getCompaniaPorIdentificacion(identificacion: string) {
-    //     return this.http.get<Compania>(`${environment.apiUrl}/generales/empresaidentificacion?identificacion=${identificacion}`);
-    // }
-
     putCompania(compania: Compania) {
-        return this.http.put<ResponseMessage>(`${environment.apiUrl}/generales/putcompania`, compania);
+        return this.http.put<ResponseMessage>(`${environment.apiUrl}/generales/updatecompania`, compania);
     }
+
+    getMenuGenerales(idModule:number) {
+        return this.http.get<MenuModule[]>(`${environment.apiUrl}/generales/menugenerales?idModule=${idModule}`);
+    }
+    
 }

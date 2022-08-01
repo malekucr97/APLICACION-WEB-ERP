@@ -17,7 +17,7 @@ export class LoginComponent implements OnInit {
     submitted = false;
     login: boolean;
 
-    userName: string; password: string; UrlHome: string; messageNoLogin: string;
+    userName: string; password: string; UrlHome: string;
 
     constructor(
         private formBuilder: FormBuilder,
@@ -43,7 +43,8 @@ export class LoginComponent implements OnInit {
     onSubmit() {
         this.submitted = true;
 
-        if (this.form.invalid) { return; }
+        if (this.form.invalid) 
+            return;
 
         this.loading = true;
 
@@ -94,17 +95,11 @@ export class LoginComponent implements OnInit {
                                 this.router.navigate([this.UrlHome]);
                             }
                         });
-                    // -- >> si el usuario no está registrado en el sistema
-                    } else {
-                        this.messageNoLogin = 'Usuario o contraseña incorrectos';
-                        this.alertService.info(this.messageNoLogin);
-                        this.loading = false;
                     }
                 },
                 error => {
-                    console.log(error);
-                    this.messageNoLogin = 'Se ha producido un error entre la comunicación con el servidor de respuesta.';
-                    this.alertService.error(this.messageNoLogin);
+                    let messageNoLogin = 'Usuario o contraseña incorrectos.';
+                    this.alertService.error(messageNoLogin);
                     this.loading = false;
                 });
     }

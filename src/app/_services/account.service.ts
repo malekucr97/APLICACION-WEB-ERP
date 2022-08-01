@@ -10,6 +10,7 @@ import { Compania, CompaniaUsuario } from '@app/_models/modules/compania';
 
 @Injectable({ providedIn: 'root' })
 export class AccountService {
+    
     private userSubject: BehaviorSubject<User>;
     public user: Observable<User>;
 
@@ -115,12 +116,12 @@ export class AccountService {
 
         return this.http.post<ResponseMessage>(`${environment.apiUrl}/users/desasignsociedadusuario`, desAssignBusinessUObject);
     }
-    dessAssignAllBusinessUser(identificacionUsuario: string) {
+    dessAssignAllBusinessUser(idUser: number) {
 
-        const desAssignBusinessUObject = new CompaniaUsuario();
-        desAssignBusinessUObject.IdentificacionUsuario = identificacionUsuario;
+        let desAssignUserBusiness = new CompaniaUsuario();
+        desAssignUserBusiness.IdUsuario = idUser;
 
-        return this.http.post<ResponseMessage>(`${environment.apiUrl}/users/desasignallsociedu`, desAssignBusinessUObject); 
+        return this.http.post<ResponseMessage>(`${environment.apiUrl}/users/desasignallsociedu`, desAssignUserBusiness); 
     }
 
 
@@ -131,9 +132,9 @@ export class AccountService {
     inActivateModule(module: Module) {
         return this.http.put<ResponseMessage>(`${environment.apiUrl}/users/inactivarmodulo`, module);
     }
-    getAllModules() {
-        return this.http.get<Module[]>(`${environment.apiUrl}/users/listadomodulos`);
-    }
+    // getAllModules() {
+    //     return this.http.get<Module[]>(`${environment.apiUrl}/users/listadomodulos`);
+    // }
     getModulesBusiness(idEmpresa: number) {
         return this.http.get<Module[]>(`${environment.apiUrl}/users/modulossociedad?idEmpresa=${idEmpresa}`);
     }
@@ -146,12 +147,12 @@ export class AccountService {
     getModulesActiveUser(idEmpresa: number, idRol: string) {
         return this.http.get<Module[]>(`${environment.apiUrl}/users/modulosactusuario?idEmpresa=${idEmpresa}&idRol=${idRol}`);
     }
-    getModulesActive() {
-        return this.http.get<Module[]>(`${environment.apiUrl}/users/modulosact`);
+    getModulesSystem() {
+        return this.http.get<Module[]>(`${environment.apiUrl}/users/modulossystem`);
     }
-    getModulesRol(idRol: string) {
-        return this.http.get<Module[]>(`${environment.apiUrl}/users/modulosactrol?idRol=${idRol}`);
-    }
+    // getModulesRol(idRol: string) {
+    //     return this.http.get<Module[]>(`${environment.apiUrl}/users/modulosactrol?idRol=${idRol}`);
+    // }
     getModulesRolBusiness(idRol: string, idEmpresa: number) {
         return this.http.get<Module[]>(`${environment.apiUrl}/users/modulosactrolempresa?idEmpresa=${idEmpresa}&idRol=${idRol}`);
     }
@@ -160,7 +161,7 @@ export class AccountService {
     }
     accessModule(idRol: string, idModulo: number) {
 
-        const accessMod = new ModuleRol();
+        let accessMod = new ModuleRol();
         accessMod.IdRol = idRol;
         accessMod.IdModulo = idModulo;
 
@@ -210,11 +211,11 @@ export class AccountService {
     inActivateUser(user: User) {
         return this.http.post<ResponseMessage>(`${environment.apiUrl}/users/inactivarcuenta`, user);
     }
-    deleteUser(identificationuser: string) {
-        return this.http.delete<ResponseMessage>(`${environment.apiUrl}/users/${identificationuser}`)
+    deleteUser(idUser: number) {
+        return this.http.delete<ResponseMessage>(`${environment.apiUrl}/users/deleteuser?idUser=${idUser}`)
             .pipe(map(x => {
                 // -- >> si se elimina el usuario de la sesión se cierra sesión
-                if (identificationuser === this.userValue.identificacion) { this.logout(); }
+                if (idUser === this.userValue.id) { this.logout(); }
                 return x;
             }));
     }

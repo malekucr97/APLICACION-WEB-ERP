@@ -137,11 +137,11 @@ export class AddBusinessUserComponent implements OnInit {
         } else { this.alertService.info('Esta emrpesa ya está asignada al usuario.', { keepAfterRouteChange: true }); }
     }
 
-    desAsignAllBusinessUser(identificacionUsuario: string){
+    desAsignAllBusinessUser(idUser: number){
 
         this.isDesAsignBusiness = true;
 
-        this.accountService.dessAssignAllBusinessUser(identificacionUsuario)
+        this.accountService.dessAssignAllBusinessUser(idUser)
             .pipe(first())
             .subscribe(
                 response => {

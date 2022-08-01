@@ -3,7 +3,7 @@ import { Routes, RouterModule } from '@angular/router';
 
 import { IndexGeneralesComponent } from './index.component';
 import { MenuGeneralesComponent } from './menu.component';
-import { AddEditCompaniaComponent } from './parametros/addEditCompania-component';
+import { ConfigurationCompaniaComponent } from './parametros/ConfigurationCompania-component';
 
 const routes: Routes = [
     {
@@ -11,7 +11,8 @@ const routes: Routes = [
         children: [
             { path: '', component: MenuGeneralesComponent },
             { path: 'Index.html', component: IndexGeneralesComponent },
-            { path: 'ConfiguracionCompania.html', component: AddEditCompaniaComponent },
+            { path: 'ConfiguracionCompania.html', component: ConfigurationCompaniaComponent },
+            { path: 'ConfiguracionCompania/:pidBusiness', component: ConfigurationCompaniaComponent },
         ]
     }
 ];

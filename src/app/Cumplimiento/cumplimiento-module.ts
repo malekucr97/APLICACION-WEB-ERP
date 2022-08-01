@@ -1,11 +1,10 @@
 import { NgModule } from '@angular/core';
 import { ReactiveFormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
-import { GeneralesRoutingModule } from './generales-routing.module';
+import { CumplimientoRoutingModule } from './cumplimiento-routing.module';
 
-import { IndexGeneralesComponent } from './index.component';
-import { MenuGeneralesComponent } from './menu.component';
-import { ConfigurationCompaniaComponent } from './parametros/ConfigurationCompania-component';
+import { IndexCumplimientoComponent } from './index.component';
+import { MenuCumplimientoComponent } from './menu.component';
 
 
 import { MatToolbarModule } from '@angular/material/toolbar';
@@ -22,7 +21,7 @@ import {MatTooltipModule} from '@angular/material/tooltip';
     imports: [
         CommonModule,
         ReactiveFormsModule,
-        GeneralesRoutingModule,
+        CumplimientoRoutingModule,
 
         MatToolbarModule,
         MatSidenavModule,
@@ -34,9 +33,8 @@ import {MatTooltipModule} from '@angular/material/tooltip';
         MatTooltipModule
     ],
     declarations: [
-        IndexGeneralesComponent,
-        MenuGeneralesComponent,
-        ConfigurationCompaniaComponent
+        IndexCumplimientoComponent,
+        MenuCumplimientoComponent
     ]
 })
-export class GeneralesModule { }
+export class CumplimientoModule { }

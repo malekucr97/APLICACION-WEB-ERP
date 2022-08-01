@@ -11,6 +11,7 @@ import { AdminBusinessComponent } from './business/adminBusinessPage.component';
 import { AddEditBusinessComponent } from './business/addEditBusinessPage.component';
 import { ListBusinessComponent } from './business/listBusinessPage.component';
 import { AddBusinessUserComponent } from './business/addBusinessUserPage.component';
+import { ConfigurationCompaniaComponent } from '../Generales/parametros/ConfigurationCompania-component';
 // -- roles
 import { AddRoleUserComponent } from './role/addRoleUserPage.component';
 import { ListRoleComponent } from './role/listRolePage.component';
@@ -35,6 +36,7 @@ const routes: Routes = [
             { path: 'AddEditBusinessPage/:pidBusiness', component: AddEditBusinessComponent },
             { path: 'AdminListBusinessPage', component: ListBusinessComponent },
             { path: 'AddBusinessUserPage/:id', component: AddBusinessUserComponent },
+            { path: 'ConfiguracionCompania/:pidBusiness', component: ConfigurationCompaniaComponent },
             // -- roles
             { path: 'AddRoleUserPage/:id', component: AddRoleUserComponent },
             { path: 'AdminListRolePage', component: ListRoleComponent },

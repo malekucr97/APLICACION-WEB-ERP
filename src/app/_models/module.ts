@@ -1,3 +1,5 @@
+import * as internal from "events";
+
 export class Module {
     id: number;
     identificador: string;
@@ -16,4 +18,10 @@ export class ModulesProperties {
     descripcion: string;
 
     urlRedirect: string;
+}
+
+export class MenuModule {
+    id: number;
+    idModulo:number;
+    JSONMenu:string;
 }
