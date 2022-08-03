@@ -3,14 +3,15 @@ import { ReactiveFormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
 import { LayoutComponent } from './layout.component';
 import { LandingRoutingModule } from './landing-routing.module';
-// import { BusinessPageComponent } from './businessPage.component';
 import { IndexContentPageComponent } from './indexContentPage.component';
-// -- landing no application
-import { InactiveUserPageComponent } from './nouser/inactiveUserPage.component';
-import { PendingUserPageComponent } from './nouser/pendingPage.component';
-import { NotRolPageComponent } from './nouser/notRolPage.component';
-import { NotBusinessUserPageComponent } from './nouser/notBusinessUserPage.component';
-import { InactiveRolPageComponent } from './nouser/inactiveRolPage.component';
+
+// -- Páginas de No Inicio de Sesión
+import { InactiveUserPageComponent }    from './nologgin/inactiveUserPage.component';
+import { PendingUserPageComponent }     from './nologgin/pendingPage.component';
+import { NotRolPageComponent }          from './nologgin/notRolPage.component';
+import { NotBusinessUserPageComponent } from './nologgin/notBusinessUserPage.component';
+import { InactiveRolPageComponent }     from './nologgin/inactiveRolPage.component';
+
 // -- importaciones menú
 import { MatToolbarModule } from '@angular/material/toolbar';
 import { MatSidenavModule } from '@angular/material/sidenav';
@@ -24,17 +25,26 @@ import { MatDividerModule } from '@angular/material/divider';
         ReactiveFormsModule,
         LandingRoutingModule,
         CommonModule,
-        // -- Menú importation
+        // ******************
+        // -- Utilidades menú
         MatToolbarModule,
         MatSidenavModule,
         MatButtonModule,
         MatIconModule,
         MatDividerModule
+        // -- Utilidades menú
+        // ******************
     ],
     declarations: [
         LayoutComponent,
+
+        // *********************************
+        // Componente de Inicio de Sesión **
+        // *********************************
         IndexContentPageComponent,
-        // -- landing no application
+        // *********************************
+        
+        // -- no loggin application
         InactiveUserPageComponent,
         PendingUserPageComponent,
         NotRolPageComponent,

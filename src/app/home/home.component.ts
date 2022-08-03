@@ -24,9 +24,20 @@ export class HomeComponent implements OnInit {
 
         if (this.user) {
 
-            if (AuthStatesApp.inactive === this.user.estado) { this.router.navigate([httpAccessPage.urlPageInactiveUser]); return; }
-            if (AuthStatesApp.pending === this.user.estado) { this.router.navigate([httpAccessPage.urlPagePending]); return; }
-            if (!this.user.idRol) { this.router.navigate([httpAccessPage.urlPageNotRol]); return; }
+            // if (AuthStatesApp.inactive === this.user.estado) { 
+            //     this.router.navigate([httpAccessPage.urlPageInactiveUser]);
+            //     return; 
+            // }
+
+            // if (AuthStatesApp.pending === this.user.estado) { 
+            //     this.router.navigate([httpAccessPage.urlPagePending]); 
+            //     return; 
+            // }
+
+            // if (!this.user.idRol) { 
+            //     this.router.navigate([httpAccessPage.urlPageNotRol]); 
+            //     return; 
+            // }
 
             // consulta las empresas activas para el usuario que esté iniciando sesión
             if (this.user.esAdmin) {

@@ -5,25 +5,34 @@ import { LayoutComponent } from './layout.component';
 
 import { IndexContentPageComponent } from './indexContentPage.component';
 
-import { PendingUserPageComponent } from './nouser/pendingPage.component';
-import { NotRolPageComponent } from './nouser/notRolPage.component';
-import { InactiveUserPageComponent } from './nouser/inactiveUserPage.component';
-import { InactiveRolPageComponent } from './nouser/inactiveRolPage.component';
-import { NotBusinessUserPageComponent } from './nouser/notBusinessUserPage.component';
+import { PendingUserPageComponent } from './nologgin/pendingPage.component';
+import { NotRolPageComponent } from './nologgin/notRolPage.component';
+import { InactiveUserPageComponent } from './nologgin/inactiveUserPage.component';
+import { InactiveRolPageComponent } from './nologgin/inactiveRolPage.component';
+import { NotBusinessUserPageComponent } from './nologgin/notBusinessUserPage.component';
 
 const routes: Routes = [
     {
         path: '', component: LayoutComponent,
         children: [
             { path: '', component: LayoutComponent },
-            // -- contenido de la aplicación
+            
+            // *********************************
+            // Index.html **
+            // *********************************
             { path: 'IndexContentPage.html', component: IndexContentPageComponent },
-            // -- landing no application
-            { path: 'PendingPage/NoLogin/Index.html', component: PendingUserPageComponent },
-            { path: 'NotRolPage/NoLogin/Index.html', component: NotRolPageComponent },
-            { path: 'InactiveUserPage/NoLogin/Index.html', component: InactiveUserPageComponent },
-            { path: 'InactiveRolPage/NoLogin/Index.html', component: InactiveRolPageComponent },
-            { path: 'NotBusinessPage/NoLogin/Index.html', component: NotBusinessUserPageComponent },
+            // *********************************
+            
+            // Usuario pendiente de activación
+            { path: 'PendingPage/Index.html', component: PendingUserPageComponent },
+            // Usuario sin rol
+            { path: 'NotRolPage/Index.html', component: NotRolPageComponent },
+            // Usuario inactivo
+            { path: 'InactiveUserPage/Index.html', component: InactiveUserPageComponent },
+            // Rol de usuario inactivo 
+            { path: 'InactiveRolPage/Index.html', component: InactiveRolPageComponent },
+            // Usuario sin compañía
+            { path: 'NotBusinessPage/Index.html', component: NotBusinessUserPageComponent },
         ]
     }
 ];

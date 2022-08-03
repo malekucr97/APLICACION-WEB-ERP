@@ -1,9 +1,9 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { first } from 'rxjs/operators';
 import { Router } from '@angular/router';
-import { AccountService, GeneralesService } from '@app/_services';
-import { User, Module, ModulesProperties } from '@app/_models';
-import { localVariables, ModulesSistem } from '@environments/environment';
+import { AccountService } from '@app/_services';
+import { User, ModulesProperties } from '@app/_models';
+import { localVariables, ModulesSystem } from '@environments/environment';
 import { amdinBusiness } from '@environments/environment-access-admin';
 import { MatSidenav } from '@angular/material/sidenav';
 import { Compania } from '@app/_models/modules/compania';
@@ -14,9 +14,7 @@ import { Compania } from '@app/_models/modules/compania';
 })
 export class IndexContentPageComponent implements OnInit {
 
-    constructor(private accountService: AccountService,
-                private generalesService: GeneralesService,
-                private router: Router) {
+    constructor(private accountService: AccountService, private router: Router) {
 
         this.userObservable = this.accountService.userValue;
         this.businessObservable = this.accountService.businessValue;
@@ -28,88 +26,107 @@ export class IndexContentPageComponent implements OnInit {
     userObservable: User;
     businessObservable: Compania;
 
-    compania: Compania;
-
-    propertiesMod: ModulesProperties;
-
-    public listActModules: Module[] = [];
-    public listModulesInfo: ModulesProperties[] = [];
+    public ListModulesActive: ModulesProperties[] = [];
 
     ngOnInit() {
 
-        // lista los módulos activos de cada empresa
-        if (this.userObservable.esAdmin ||
-            this.userObservable.idRol   === amdinBusiness.adminSociedad) {
+        // valida si el usuario que inició sesión es administrador
+        if (this.userObservable.esAdmin || this.userObservable.idRol === amdinBusiness.adminSociedad) {
 
+            // lista los módulos activos de una compañía
             this.accountService.getModulesActiveBusiness(this.businessObservable.id)
             .pipe(first())
-            .subscribe(responseList => {
+            .subscribe(responseListModules => {
 
-                if (responseList) {
+                if ( responseListModules ) {
 
-                    this.listActModules = responseList;
+                    responseListModules.forEach(module => {
 
-                    this.listActModules.forEach(mod => {
+                        let propertiesMod = new ModulesProperties();
 
-                        this.propertiesMod = new ModulesProperties();
+                        propertiesMod.id = module.identificador;
+                        propertiesMod.nombre = module.nombre;
+                        propertiesMod.pathIco =  localVariables.dir_img_modules + module.identificador + '.png';
+                        propertiesMod.descripcion =  module.descripcion;
 
-                        this.propertiesMod.id = mod.identificador;
-                        this.propertiesMod.nombre = mod.nombre;
-                        this.propertiesMod.pathIco =  localVariables.dir_img_modules + mod.identificador + '.png';
-                        this.propertiesMod.descripcion =  mod.descripcion;
-
-                        this.listModulesInfo.push(this.propertiesMod);
+                        this.ListModulesActive.push(propertiesMod);
                     });
                 }
             });
-        // lista los módulos de un usuario
+
+        // lista los módulos activos de un usuario
         } else {
 
             this.accountService.getModulesActiveUser(this.businessObservable.id, this.userObservable.idRol)
             .pipe(first())
-            .subscribe(responseList => {
+            .subscribe(responseListModules => {
 
-                if (responseList){
+                if ( responseListModules ) {
 
-                    this.listActModules = responseList;
+                    responseListModules.forEach(module => {
 
-                    this.listActModules.forEach(mod => {
+                        let propertiesMod = new ModulesProperties();
 
-                        this.propertiesMod = new ModulesProperties();
+                        propertiesMod.id = module.identificador;
+                        propertiesMod.nombre = module.nombre;
+                        propertiesMod.pathIco =  localVariables.dir_img_modules + module.identificador + '.png';
+                        propertiesMod.descripcion =  module.descripcion;
 
-                        this.propertiesMod.id = mod.identificador;
-                        this.propertiesMod.nombre = mod.nombre;
-                        this.propertiesMod.pathIco =  localVariables.dir_img_modules + mod.identificador + '.png';
-                        this.propertiesMod.descripcion =  mod.descripcion;
-
-                        this.listModulesInfo.push(this.propertiesMod);
+                        this.ListModulesActive.push(propertiesMod);
                     });
                 }
             });
         }
     }
 
-    asignarRedireccionamientoHttp(propertiesMod: ModulesProperties, modIdentificador: string){
+    asignarRedireccionamientoHttp(propertiesMod: ModulesProperties, IdentificadorModulo : string) : ModulesProperties {
 
-        switch (modIdentificador) {
+        switch (IdentificadorModulo) {
 
-            // GeneralesURL: '/_GeneralesModule/Index.html',
-            case ModulesSistem.Generales: propertiesMod.urlRedirect = ModulesSistem.GeneralesURL; break;
-
-            case ModulesSistem.ActivosFijos: propertiesMod.urlRedirect = ModulesSistem.ActivosFijosURL; break;
-            case ModulesSistem.Bancos: propertiesMod.urlRedirect = ModulesSistem.BancosURL; break;
-            case ModulesSistem.Contabilidad: propertiesMod.urlRedirect = ModulesSistem.ContabilidadURL; break;
-            case ModulesSistem.CuentasCobrar: propertiesMod.urlRedirect = ModulesSistem.CuentasCobrarURL; break;
-            case ModulesSistem.CuentasPagar: propertiesMod.urlRedirect = ModulesSistem.CuentasPagarURL; break;
-            case ModulesSistem.Facturacion: propertiesMod.urlRedirect = ModulesSistem.FacturacionURL; break;
-            case ModulesSistem.Inventario: propertiesMod.urlRedirect = ModulesSistem.InventarioURL; break;
-            case ModulesSistem.Cumplimiento: propertiesMod.urlRedirect = ModulesSistem.CumplimientoURL; break;
+            // redireccionamiento a GENERALES
+            case ModulesSystem.Identif_Generales: 
+                propertiesMod.urlRedirect = ModulesSystem.GeneralesIndexURL; 
+                break;
+            // redireccionamiento a ACTIVOS FIJOS
+            case ModulesSystem.Identif_ActivosFijos: 
+                propertiesMod.urlRedirect = ModulesSystem.ActivosFijosIndexURL; 
+                break;
+            // redireccionamiento a BANCOS
+            case ModulesSystem.Identif_Bancos: 
+                propertiesMod.urlRedirect = ModulesSystem.BancosIndexURL; 
+                break;
+            // redireccionamiento a CONTABILIDAD
+            case ModulesSystem.Identif_Contabilidad: 
+                propertiesMod.urlRedirect = ModulesSystem.ContabilidadIndexURL; 
+                break;
+            // redireccionamiento a CUENTAS POR COBRAR
+            case ModulesSystem.Identif_CuentasCobrar: 
+                propertiesMod.urlRedirect = ModulesSystem.CuentasCobrarIndexURL; 
+                break;
+            // redireccionamiento a CUENTAS POR PAGAR
+            case ModulesSystem.Identif_CuentasPagar: 
+                propertiesMod.urlRedirect = ModulesSystem.CuentasPagarIndexURL; 
+                break;
+            // redireccionamiento a FACTURACIÓN
+            case ModulesSystem.Identif_Facturacion: 
+                propertiesMod.urlRedirect = ModulesSystem.FacturacionIndexURL; 
+                break;
+            // redireccionamiento a INVENTARIO
+            case ModulesSystem.Identif_Inventario: 
+                propertiesMod.urlRedirect = ModulesSystem.InventarioIndexURL; 
+                break;
+            // redireccionamiento a CUMPLIMIENTO
+            case ModulesSystem.Identif_Cumplimiento: 
+                propertiesMod.urlRedirect = ModulesSystem.CumplimientoIndexURL; 
+                break;
 
             default: propertiesMod.urlRedirect = '/';
         }
         return propertiesMod;
     }
 
+    // ******************************************
+    // ** Procedimiento de Selección de Módulo **
     selectModule(pmodule: ModulesProperties) {
 
         this.accountService.getModulesIdIdBusiness(pmodule.id, this.businessObservable.id)

@@ -15,17 +15,26 @@ export const AuthStatesApp = {
 };
 
 export const httpAccessAdminPage = {
-    // -- >> Acceso
+    
+    // ********************************
+    // -- >> inicio de sesión *********
+    // ********************************
     URLPageAccount: '/account/login/',
-    // -- >> Administración
+    // ********************************
+    
+    // *************************************************
+    // -- >> Págia de Administración del Sistema *******
+    // *************************************************
     urlPageAdministrator: '/_AdminModule/AdminUserPage/',
-    urlPageConfigUser: '/_AdminModule/AddEditUserPage/',
+    // *************************************************
+
+    urlPageConfigUser:  '/_AdminModule/AddEditUserPage/',
     urlPageAddEditUser: '/_AdminModule/AddEditUserPage/',
-    urlPageListUsers: '/_AdminModule/AdminListUserPage/',
-    urlPageAddBUser: '/_AdminModule/AddBusinessUserPage/',
-    urlPageAddRUser: '/_AdminModule/AddRoleUserPage/',
-    urlPageListBusiness: '/_AdminModule/AdminListBusinessPage/',
-    urlPageListModule: '/_AdminModule/AdminListModulePage/',
+    urlPageListUsers:   '/_AdminModule/AdminListUserPage/',
+    urlPageAddBUser:    '/_AdminModule/AddBusinessUserPage/',
+    urlPageAddRUser:    '/_AdminModule/AddRoleUserPage/',
+    urlPageListBusiness:'/_AdminModule/AdminListBusinessPage/',
+    urlPageListModule:  '/_AdminModule/AdminListModulePage/',
 
     urlPageListRole: '/_AdminModule/AdminListRolePage/',
     urlPageAddModuleRol: '/_AdminModule/AddModuleRolePage/'

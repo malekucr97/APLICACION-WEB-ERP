@@ -11,11 +11,11 @@ import { httpAccessPage } from '@environments/environment';
 export class LoginComponent implements OnInit {
 
     form: FormGroup;
-    user: User;
+    // user: User;
 
     loading = false;
     submitted = false;
-    login: boolean;
+    // login: boolean;
 
     userName: string; password: string; UrlHome: string;
 
@@ -51,7 +51,8 @@ export class LoginComponent implements OnInit {
         this.userName = this.f.username.value;
         this.password = this.f.password.value;
 
-        this.login = false;
+        // -- >> bandera inicio sesión
+        // this.login = false;
 
         this.accountService.login(this.userName, this.password)
             .pipe(first())
@@ -59,47 +60,58 @@ export class LoginComponent implements OnInit {
 
                 if (responseObjectLogin) {
 
-                    this.user = responseObjectLogin;
+                    // this.user = responseObjectLogin;
 
                     // -- >> valida que el estado del usuario sea válido
-                    if (AuthStatesApp.inactive === this.user.estado) { this.router.navigate([httpAccessPage.urlPageInactiveUser]); return; }
-                    if (AuthStatesApp.pending === this.user.estado) { this.router.navigate([httpAccessPage.urlPagePending]); return; }
-                    if (!this.user.idRol) { this.router.navigate( [httpAccessPage.urlPageNotRol] ); return; }
+                    if (AuthStatesApp.inactive === responseObjectLogin.estado) { 
+                        this.router.navigate([httpAccessPage.urlPageInactiveUser]); 
+                        return; 
+                    }
+                    if (AuthStatesApp.pending === responseObjectLogin.estado) { 
+                        this.router.navigate([httpAccessPage.urlPagePending]); 
+                        return; 
+                    }
+                    if (!responseObjectLogin.idRol) { 
+                        this.router.navigate( [httpAccessPage.urlPageNotRol] ); 
+                        return; 
+                    }
 
-                    this.user.esAdmin = false;
-                    this.accountService.getRoleById(this.user.idRol)
+                    responseObjectLogin.esAdmin = false;
+                    this.accountService.getRoleById(responseObjectLogin.idRol)
                         .pipe(first())
                         .subscribe( responseObjectRol => {
 
                             // -- >> valida que el rol del usuario esté activo
                             if (AuthStatesApp.inactive === responseObjectRol.estado) {
-                                this.router.navigate([httpAccessPage.urlPageInactiveRol]); return;
+                                this.router.navigate([httpAccessPage.urlPageInactiveRol]); 
+                                return;
                             }
 
-                            // -- >> sesión iniciada con éxito
-                            this.login = true;
+                            // -- >> inicio de sesión exitoso
+                            // this.login = true;
 
-                            // valida si el usuario que inicia sesión es administrador
+                            // si el usuario que inicia sesión es administrador
                             if (administrator.esAdministrador === responseObjectRol.esAdministrador) {
 
-                                // valida si el usuario que inicia sesión es administrador del sistema
-                                if (administrator.id === responseObjectRol.id){ this.user.esAdmin = true; }
+                                // si es administrador del sistema
+                                if (administrator.id === responseObjectRol.id) { 
+                                    responseObjectLogin.esAdmin = true;
+                                }
 
-                                this.accountService.updateLocalUser(this.user);
-
+                                this.accountService.updateLocalUser(responseObjectLogin);
                                 this.router.navigate([httpAccessAdminPage.urlPageAdministrator]);
                                 return;
 
                             } else {
-                                // this.accountService.updateLocalUser(this.user);
+                                // this.accountService.updateLocalUser(responseObjectLogin);
                                 this.router.navigate([this.UrlHome]);
+                                return;
                             }
                         });
                     }
                 },
                 error => {
-                    let messageNoLogin = 'Usuario o contraseña incorrectos.';
-                    this.alertService.error(messageNoLogin);
+                    this.alertService.error('Usuario o contraseña incorrectos.');
                     this.loading = false;
                 });
     }

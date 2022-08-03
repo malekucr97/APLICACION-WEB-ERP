@@ -11,13 +11,20 @@ import { AdminBusinessComponent } from './business/adminBusinessPage.component';
 import { AddEditBusinessComponent } from './business/addEditBusinessPage.component';
 import { ListBusinessComponent } from './business/listBusinessPage.component';
 import { AddBusinessUserComponent } from './business/addBusinessUserPage.component';
-import { ConfigurationCompaniaComponent } from '../Generales/parametros/ConfigurationCompania-component';
+
 // -- roles
 import { AddRoleUserComponent } from './role/addRoleUserPage.component';
 import { ListRoleComponent } from './role/listRolePage.component';
 // -- modulos
 import { ListModuleComponent } from './module/listModulePage.component';
 import { AddModuleRoleComponent } from './module/addModuleRolePage.component';
+
+// **********************************************
+// ## ********** RUTAS MÓDULOS SISTEMA **********
+// ********************************************** 
+
+// ## ********* GENERALES -> PARÁMETROS********* ## //
+import { ConfigurationCompaniaComponent } from '../ModulosSistema/Generales/parametros/ConfigurationCompania-component';
 
 const routes: Routes = [
     {
@@ -36,7 +43,7 @@ const routes: Routes = [
             { path: 'AddEditBusinessPage/:pidBusiness', component: AddEditBusinessComponent },
             { path: 'AdminListBusinessPage', component: ListBusinessComponent },
             { path: 'AddBusinessUserPage/:id', component: AddBusinessUserComponent },
-            { path: 'ConfiguracionCompania/:pidBusiness', component: ConfigurationCompaniaComponent },
+            
             // -- roles
             { path: 'AddRoleUserPage/:id', component: AddRoleUserComponent },
             { path: 'AdminListRolePage', component: ListRoleComponent },
@@ -44,6 +51,9 @@ const routes: Routes = [
             { path: 'AdminListModulePage/:pidBusiness', component: ListModuleComponent },
             { path: 'AdminListModulePage', component: ListModuleComponent },
             { path: 'AddModuleRolePage/:pidRole/:pnom/:pdesc/:pesadmin', component: AddModuleRoleComponent },
+
+            // ## ********* GENERALES -> PARÁMETROS********* ## //
+            { path: 'ConfiguracionCompania/:pidBusiness', component: ConfigurationCompaniaComponent },
         ]
     }
 ];

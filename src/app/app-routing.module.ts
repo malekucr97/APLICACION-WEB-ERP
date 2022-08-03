@@ -6,18 +6,25 @@ import { AuthGuard } from './_helpers';
 const accountModule         = () => import('./account/account.module').then(            x => x.AccountModule);
 const AdminModule           = () => import('./LayoutAdministrator/admin-module').then(  x => x.AdminModule);
 const LandingModule         = () => import('./Landing/landing-module').then(            x => x.LandingModule);
-// -- módulos del sistema
-const GeneralesModule       = () => import('./Generales/generales-module').then(        x => x.GeneralesModule);
-const ActivosFijosModule    = () => import('./ActivosFijos/activos-module').then(       x => x.ActivosFijosModule);
-const BancosModule          = () => import('./Bancos/bancos-module').then(              x => x.BancosModule);
-const ContabilidadModule    = () => import('./Contabilidad/contabilidad-module').then(  x => x.ContabilidadModule);
-const CuentasCobrarModule   = () => import('./CuentasCobrar/cuentascobrar-module').then(x => x.CuentasCobrarModule);
-const CuentasPagarModule    = () => import('./CuentasPagar/cuentaspagar-module').then(  x => x.CuentasPagarModule);
-const FacturacionModule     = () => import('./Facturacion/facturacion-module').then(    x => x.FacturacionModule);
-const InventarioModule      = () => import('./Inventario/inventario-module').then(      x => x.InventarioModule);
 
-// 31/07/2022 actualiz mlopez
-const CumplimientoModule    = () => import('./Cumplimiento/cumplimiento-module').then(  x => x.CumplimientoModule);
+// ## ********* ACTIVOS FIJOS ********* ## //
+const ActivosFijosModule    = () => import('./ModulosSistema/ActivosFijos/activos-module').then( x => x.ActivosFijosModule );
+// ## ********* BANCOS ********* ## //
+const BancosModule          = () => import('./ModulosSistema/Bancos/bancos-module').then( x => x.BancosModule );
+// ## ********* CONTABILIDAD ********* ## //
+const ContabilidadModule    = () => import('./ModulosSistema/Contabilidad/contabilidad-module').then( x => x.ContabilidadModule );
+// ## ********* CUENTAS COBRAR ********* ## //
+const CuentasCobrarModule   = () => import('./ModulosSistema/CuentasCobrar/cuentascobrar-module').then( x => x.CuentasCobrarModule );
+// ## ********* CUENTAS PAGAR ********* ## //
+const CuentasPagarModule    = () => import('./ModulosSistema/CuentasPagar/cuentaspagar-module').then( x => x.CuentasPagarModule );
+// ## ********* FACTURACIÓN ********* ## //
+const FacturacionModule     = () => import('./ModulosSistema/Facturacion/facturacion-module').then( x => x.FacturacionModule );
+// ## ********* INVENTARIO ********* ## //
+const InventarioModule      = () => import('./ModulosSistema/Inventario/inventario-module').then( x => x.InventarioModule );
+// ## ********* GENERALES ********* ## //
+const GeneralesModule       = () => import('./ModulosSistema/Generales/generales-module').then( x => x.GeneralesModule );
+// ## ********* CUMPLIMIENTO ********* ## //
+const CumplimientoModule    = () => import('./ModulosSistema/Cumplimiento/cumplimiento-module').then( x => x.CumplimientoModule );
 
 const routes: Routes = [
     { path: '', component: HomeComponent, canActivate: [AuthGuard] },
