@@ -15,29 +15,29 @@ export class ListUserComponent implements OnInit {
     isActivating: boolean;
     isDeleting: boolean;
     adminBoss: boolean;
-    adminBusiness: boolean;
 
-    URLAddEditUsertPage: string;
-    URLAddBusinessUsertPage: string;
-    URLAddRoleUsertPage: string;
-    URLAdministratorPage: string;
+    public URLAddEditUsertPage: string     = httpAccessAdminPage.urlPageAddEditUser;
+    public URLAddBusinessUsertPage: string = httpAccessAdminPage.urlPageAddBUser;
+    public URLAddRoleUsertPage: string     = httpAccessAdminPage.urlPageAddRUser;
+    public URLAdministratorPage: string    = httpAccessAdminPage.urlPageAdministrator;
 
-    constructor(private accountService: AccountService, private alertService: AlertService) {
-                this.user = this.accountService.userValue;  }
+    constructor(private accountService: AccountService, 
+                private alertService: AlertService)
+    {
+        this.user = this.accountService.userValue;
+    }
 
     ngOnInit() {
+
+        // Realizar validación de usuario que tenga permisos para el listado
+        // redireccionamiento si el usuario no tiene acceso a una página o template de no acceso 
+
         this.isActivating   = false;
         this.isDeleting     = false;
-
-        this.URLAddEditUsertPage        = httpAccessAdminPage.urlPageAddEditUser;
-        this.URLAddBusinessUsertPage    = httpAccessAdminPage.urlPageAddBUser;
-        this.URLAddRoleUsertPage        = httpAccessAdminPage.urlPageAddRUser;
-        this.URLAdministratorPage       = httpAccessAdminPage.urlPageAdministrator;
 
         this.alertService.clear();
 
         this.adminBoss = false;
-        this.adminBusiness = false;
 
         if (this.user.esAdmin) {
 
@@ -46,12 +46,10 @@ export class ListUserComponent implements OnInit {
             this.accountService.getAllUsers()
             .pipe(first())
             .subscribe(users => this.listUsers = users );
-        }
 
-        if (this.user.idRol === amdinBusiness.adminSociedad && this.user.empresa) {
+        } else if (this.user.idRol === amdinBusiness.adminSociedad && this.user.empresa) {
 
-            this.adminBusiness = true;
-
+            // lista los usuarios activos con acceso a la compañía
             this.accountService.getUsersBusiness(this.user.empresa)
             .pipe(first())
             .subscribe(users => this.listUsers = users );

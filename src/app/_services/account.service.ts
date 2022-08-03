@@ -133,6 +133,12 @@ export class AccountService {
     inActivateModule(module: Module) {
         return this.http.put<ResponseMessage>(`${environment.apiUrl}/users/inactivarmodulo`, module);
     }
+    assignModuleToBusiness(moduleToAssign: Module) {
+        return this.http.post<ResponseMessage>(`${environment.apiUrl}/users/assignmodbusiness`, moduleToAssign);
+    }
+    desAssignModuleToBusiness(moduleId:number, idBusiness:number) {
+        return this.http.delete<ResponseMessage>(`${environment.apiUrl}/users/desassignmodbusiness?idModule=${moduleId}&idBusiness=${idBusiness}`);
+    }
     // getAllModules() {
     //     return this.http.get<Module[]>(`${environment.apiUrl}/users/listadomodulos`);
     // }

@@ -3,7 +3,6 @@ import { Router, ActivatedRoute } from '@angular/router';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { first } from 'rxjs/operators';
 import { AccountService, AlertService } from '@app/_services';
-import { User } from '@app/_models';
 import { administrator, httpAccessAdminPage, AuthStatesApp } from '@environments/environment-access-admin';
 import { httpAccessPage } from '@environments/environment';
 
@@ -11,13 +10,11 @@ import { httpAccessPage } from '@environments/environment';
 export class LoginComponent implements OnInit {
 
     form: FormGroup;
-    // user: User;
 
     loading = false;
     submitted = false;
-    // login: boolean;
 
-    userName: string; password: string; UrlHome: string;
+    private UrlHome : string;
 
     constructor(
         private formBuilder: FormBuilder,
@@ -42,25 +39,19 @@ export class LoginComponent implements OnInit {
 
     onSubmit() {
         this.submitted = true;
-
-        if (this.form.invalid) 
-            return;
-
         this.loading = true;
 
-        this.userName = this.f.username.value;
-        this.password = this.f.password.value;
+        if (this.form.invalid)
+            return;
 
-        // -- >> bandera inicio sesión
-        // this.login = false;
+        let userName : string = this.f.username.value;
+        let password : string = this.f.password.value;
 
-        this.accountService.login(this.userName, this.password)
+        this.accountService.login(userName, password)
             .pipe(first())
             .subscribe( responseObjectLogin => {
 
                 if (responseObjectLogin) {
-
-                    // this.user = responseObjectLogin;
 
                     // -- >> valida que el estado del usuario sea válido
                     if (AuthStatesApp.inactive === responseObjectLogin.estado) { 
@@ -87,9 +78,6 @@ export class LoginComponent implements OnInit {
                                 return;
                             }
 
-                            // -- >> inicio de sesión exitoso
-                            // this.login = true;
-
                             // si el usuario que inicia sesión es administrador
                             if (administrator.esAdministrador === responseObjectRol.esAdministrador) {
 
@@ -102,12 +90,16 @@ export class LoginComponent implements OnInit {
                                 this.router.navigate([httpAccessAdminPage.urlPageAdministrator]);
                                 return;
 
+                                // inicia sesión como usuario normal del sistema
+                                // redirecciona a home
                             } else {
-                                // this.accountService.updateLocalUser(responseObjectLogin);
+                                this.accountService.updateLocalUser(responseObjectLogin);
                                 this.router.navigate([this.UrlHome]);
                                 return;
                             }
                         });
+                        this.loading = false;
+                        this.submitted = false;
                     }
                 },
                 error => {
