@@ -4,7 +4,6 @@ import { Router } from '@angular/router';
 import { User } from '@app/_models';
 import { Compania } from '../_models/modules/compania';
 import { AccountService } from '@app/_services';
-import { AuthStatesApp } from '@environments/environment-access-admin';
 import { httpAccessPage } from '@environments/environment';
 
 @Component({
@@ -13,7 +12,6 @@ import { httpAccessPage } from '@environments/environment';
 export class HomeComponent implements OnInit {
 
     user: User;
-
     listBusiness: Compania[] = [];
 
     constructor(private accountService: AccountService, private router: Router) {
@@ -22,7 +20,7 @@ export class HomeComponent implements OnInit {
 
     ngOnInit() {
 
-        if (this.user) {
+        // if (this.user) {
 
             // if (AuthStatesApp.inactive === this.user.estado) { 
             //     this.router.navigate([httpAccessPage.urlPageInactiveUser]);
@@ -39,7 +37,7 @@ export class HomeComponent implements OnInit {
             //     return; 
             // }
 
-            // consulta las empresas activas para el usuario que esté iniciando sesión
+            
             if (this.user.esAdmin) {
                 this.accountService.getAllBusiness()
                 .pipe(first())
@@ -57,7 +55,7 @@ export class HomeComponent implements OnInit {
                     } else { this.router.navigate([httpAccessPage.urlPageNotBusiness]); }
                 });
             }
-        }
+        // }
     }
 
     selectBusiness(business: Compania) {

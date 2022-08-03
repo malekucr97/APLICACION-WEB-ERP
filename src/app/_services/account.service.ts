@@ -32,9 +32,9 @@ export class AccountService {
         this.moduleObservable = this.moduleSubject.asObservable();
     }
 
-    public get userValue(): User { return this.userSubject.value; }
-    public get businessValue(): Compania { return this.businessSubject.value; }
-    public get moduleValue(): Module { return this.moduleSubject.value; }
+    public get userValue():     User        { return this.userSubject.value;        }
+    public get businessValue(): Compania    { return this.businessSubject.value;    }
+    public get moduleValue():   Module      { return this.moduleSubject.value;      }
 
     public loadBusinessAsObservable(bus: Compania) {
 

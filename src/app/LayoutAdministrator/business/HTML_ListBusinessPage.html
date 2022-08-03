@@ -11,7 +11,7 @@
     <thead>
         <tr>
             <th style="width: 15%">Identificación</th>
-            <th style="width: 30%">Nombre de la Compañía</th>
+            <th style="width: 25%">Nombre de la Compañía</th>
             <th style="width: 15%">Correo Electrónico</th>
             <th style="width: 15%">Número de Teléfono</th>
             <th style="width: 10%"></th>
@@ -26,7 +26,7 @@
             <td style="white-space: nowrap">
                 <!-- <a routerLink="/_GeneralesModule/ConfiguracionCompania/{{business.id}}" class="btn btn-sm btn-dark mr-1">Parámetros de Configuración</a> -->
                 <a routerLink="/_AdminModule/AdminListModulePage/{{business.id}}" class="btn btn-sm btn-dark mr-1">Módulos Asociados</a>
-                <a routerLink="/_AdminModule/AddEditBusinessPage/{{business.id}}" class="btn btn-sm btn-warning mr-1">Actualizar</a>
+                <!-- <a routerLink="/_AdminModule/AddEditBusinessPage/{{business.id}}" class="btn btn-sm btn-warning mr-1">Actualizar</a> -->
                 <button (click)="deleteBusiness(business.id)" class="btn btn-sm btn-danger mr-1" [disabled]="business.isDeleting">
                     <span *ngIf="business.isDeleting" class="spinner-border spinner-border-sm"></span>
                     <span *ngIf="!business.isDeleting">Eliminar</span>

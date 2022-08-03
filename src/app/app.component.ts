@@ -5,7 +5,9 @@ import { User } from './_models';
 
 @Component({
     // tslint:disable-next-line: component-selector
-    selector: 'app', templateUrl: 'app.component.html', styleUrls: ['../assets/scss/app.scss']
+    selector: 'app', 
+    templateUrl: 'app.component.html', 
+    styleUrls: ['../assets/scss/app.scss']
 })
 export class AppComponent {
     user: User;

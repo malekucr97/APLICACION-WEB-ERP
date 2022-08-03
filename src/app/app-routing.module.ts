@@ -28,10 +28,11 @@ const CumplimientoModule    = () => import('./ModulosSistema/Cumplimiento/cumpli
 
 const routes: Routes = [
     { path: '', component: HomeComponent, canActivate: [AuthGuard] },
+    // -- administración y pantallas del sistema
     { path: 'account',              loadChildren: accountModule },
-    // -- módulos del sistema
     { path: '_AdminModule',         loadChildren: AdminModule,          canActivate: [AuthGuard] },
     { path: '_LandingModule',       loadChildren: LandingModule,        canActivate: [AuthGuard] },
+    // -- módulos del sistema
     { path: '_GeneralesModule',     loadChildren: GeneralesModule,      canActivate: [AuthGuard] },
     { path: '_ActivosFijosModule',  loadChildren: ActivosFijosModule,   canActivate: [AuthGuard] },
     { path: '_BancosModule',        loadChildren: BancosModule,         canActivate: [AuthGuard] },
@@ -41,7 +42,7 @@ const routes: Routes = [
     { path: '_FacturacionModule',   loadChildren: FacturacionModule,    canActivate: [AuthGuard] },
     { path: '_InventarioModule',    loadChildren: InventarioModule,     canActivate: [AuthGuard] },
     { path: '_CumplimientoModule',  loadChildren: CumplimientoModule,   canActivate: [AuthGuard] },
-    // -- redirección a Home
+    
     { path: '**', redirectTo: '' }
 ];
 
