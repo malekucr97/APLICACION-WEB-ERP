@@ -1,10 +1,9 @@
 import { Component, ViewChild, OnInit } from '@angular/core';
 import { AccountService, GeneralesService } from '@app/_services';
 import { MatSidenav } from '@angular/material/sidenav';
-import { MenuModule, Module, User } from '@app/_models';
+import { Module, User } from '@app/_models';
 import { httpAccessPage } from '../../../environments/environment';
 import { Router } from '@angular/router';
-import { first } from 'rxjs/operators';
 
 import {FlatTreeControl} from '@angular/cdk/tree';
 import {MatTreeFlatDataSource, MatTreeFlattener} from '@angular/material/tree';
@@ -56,8 +55,7 @@ export class MenuCumplimientoComponent implements OnInit {
 
     URLRedirectIndexContent: string;
 
-    constructor(private accountService: AccountService, private router: Router,
-                private generalesService: GeneralesService,) {
+    constructor(private accountService: AccountService, private router: Router) {
 
         this.userObservable = this.accountService.userValue;
         this.moduleObservable = this.accountService.moduleValue;

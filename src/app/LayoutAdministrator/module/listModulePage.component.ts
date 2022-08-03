@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { first } from 'rxjs/operators';
 import { Router, ActivatedRoute } from '@angular/router';
-import { AccountService, AlertService, ModulesService } from '@app/_services';
+import { AccountService, AlertService } from '@app/_services';
 import { User, Module } from '@app/_models';
 import { Compania } from '../../_models/modules/compania';
 
@@ -34,7 +34,6 @@ export class ListModuleComponent implements OnInit {
     seleccionEmpresa: boolean;
 
     constructor(private accountService: AccountService,
-        private modulesService: ModulesService,
                 private route: ActivatedRoute,
                 private router: Router,
                 private alertService: AlertService) { this.user = this.accountService.userValue; }
@@ -183,7 +182,7 @@ export class ListModuleComponent implements OnInit {
         let moduleToAssign:Module = this.listAllModulesSystem.find(x => x.id === moduleId);
         moduleToAssign.idSociedad = businessId;
 
-        this.modulesService.assignModuleToBusiness(moduleToAssign)
+        this.accountService.assignModuleToBusiness(moduleToAssign)
             .pipe(first())
             .subscribe( response => {
 
@@ -207,7 +206,7 @@ export class ListModuleComponent implements OnInit {
 
         let moduleToDesAssign : Module = this.listModulesBusiness.find(x => x.id === moduleId && x.idSociedad === businessId);
 
-        this.modulesService.desAssignModuleToBusiness(moduleToDesAssign.id, moduleToDesAssign.idSociedad)
+        this.accountService.desAssignModuleToBusiness(moduleToDesAssign.id, moduleToDesAssign.idSociedad)
             .pipe(first())
             .subscribe( response => {
 

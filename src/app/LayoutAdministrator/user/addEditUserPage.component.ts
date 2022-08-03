@@ -50,6 +50,7 @@ export class AddEditUserComponent implements OnInit {
 
         this.role = new Role();
 
+        // valida si se va a registrar o modificar un usuario
         if (this.route.snapshot.params.id){ this.updateUser = true; } else { this.addUser = true; }
 
         if (this.user.esAdmin || this.user.idRol === amdinBusiness.adminSociedad) {

@@ -19,7 +19,7 @@ export class IndexContentPageComponent implements OnInit {
         this.userObservable = this.accountService.userValue;
         this.businessObservable = this.accountService.businessValue;
     }
-
+ 
     @ViewChild(MatSidenav)
     sidenav !: MatSidenav;
 

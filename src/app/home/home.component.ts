@@ -11,57 +11,42 @@ import { httpAccessPage } from '@environments/environment';
 })
 export class HomeComponent implements OnInit {
 
-    user: User;
+    userObservable: User;
     listBusiness: Compania[] = [];
 
-    constructor(private accountService: AccountService, private router: Router) {
-        this.user = this.accountService.userValue;
+    constructor(private accountService: AccountService, 
+                private router: Router) {
+        this.userObservable = this.accountService.userValue;
     }
 
     ngOnInit() {
 
-        // if (this.user) {
+        // si es administrador lista todas las compañías del sistema
+        if (this.userObservable.esAdmin) {
+            this.accountService.getAllBusiness()
+            .pipe(first())
+            .subscribe(lstBusinessResponse => {
+                this.listBusiness = lstBusinessResponse;
+            });
 
-            // if (AuthStatesApp.inactive === this.user.estado) { 
-            //     this.router.navigate([httpAccessPage.urlPageInactiveUser]);
-            //     return; 
-            // }
+        // si no es administrador lista las compañías activas con acceso del usuario 
+        } else {
+            this.accountService.getBusinessActiveUser(this.userObservable.identificacion)
+            .pipe(first())
+            .subscribe(lstBusinessResponse => {
 
-            // if (AuthStatesApp.pending === this.user.estado) { 
-            //     this.router.navigate([httpAccessPage.urlPagePending]); 
-            //     return; 
-            // }
-
-            // if (!this.user.idRol) { 
-            //     this.router.navigate([httpAccessPage.urlPageNotRol]); 
-            //     return; 
-            // }
-
-            
-            if (this.user.esAdmin) {
-                this.accountService.getAllBusiness()
-                .pipe(first())
-                .subscribe(lstBusinessResponse => {
+                if (lstBusinessResponse) {
                     this.listBusiness = lstBusinessResponse;
-                });
-            } else {
-                this.accountService.getBusinessActiveUser(this.user.identificacion)
-                .pipe(first())
-                .subscribe(lstBusinessResponse => {
 
-                    if (lstBusinessResponse) {
-                        this.listBusiness = lstBusinessResponse;
-
-                    } else { this.router.navigate([httpAccessPage.urlPageNotBusiness]); }
-                });
-            }
-        // }
+                } else { this.router.navigate([httpAccessPage.urlPageNotBusiness]); }
+            });
+        }
     }
 
     selectBusiness(business: Compania) {
 
-        this.user.empresa = business.id;
-        this.accountService.updateLocalUser(this.user);
+        this.userObservable.empresa = business.id;
+        this.accountService.updateLocalUser(this.userObservable);
 
         this.accountService.loadBusinessAsObservable(business);
         this.router.navigate([httpAccessPage.urlContentIndex]);
