@@ -7,70 +7,51 @@ export const environment = {
     apiUrl: 'http://localhost:4000'
 };
 
-// export const administrator = {
-//     // production: false,
-//     esAdministrador: 1,
-//     id: 'adminboss',
-//     // state: 'admin',
-//     urlRedirect: '/_AdminModule/AdminUserPage/'
-// };
-
-// export const AuthApp = {
-//     active: 'Activo',
-//     inactive: 'Inactivo',
-//     pending: 'Pendiente'
-// };
-
 export const httpAccessPage = {
     // -- >> Langing Pages Index Application
     urlContentIndex: '/_LandingModule/IndexContentPage.html',
+    
     // -- >> Langing No Login Application
-    urlPagePending: '/_LandingModule/PendingPage/NoLogin/Index.html',
-    urlPageNotRol: '/_LandingModule/NotRolPage/NoLogin/Index.html',
-    urlPageInactiveUser: '/_LandingModule/InactiveUserPage/NoLogin/Index.html',
-    urlPageInactiveRol: '/_LandingModule/InactiveRolPage/NoLogin/Index.html',
-    urlPageNotBusiness: '/_LandingModule/NotBusinessPage/NoLogin/Index.html'
+    urlPagePending: '/_LandingModule/PendingPage/Index.html',
+    urlPageNotRol: '/_LandingModule/NotRolPage/Index.html',
+    // Usuario Inactivo
+    urlPageInactiveUser: '/_LandingModule/InactiveUserPage/Index.html',
+    
+    urlPageInactiveRol: '/_LandingModule/InactiveRolPage/Index.html',
+    urlPageNotBusiness: '/_LandingModule/NotBusinessPage/Index.html'
 };
-
-// export const amdinBusiness = {
-//     production: false,
-//     adminSociedad: 'admin-e'
-//     // ,
-//     // state: 'Activo',
-//     // urlRedirect: ''
-// };
 
 export const localVariables = {
     dir_img_modules: '/assets/images/inra/ModulosBankap/'
 };
 
-export const ModulesSistem = {
-    ActivosFijos: 'ID-BANKAP-ACT-FIJ',
-    ActivosFijosURL: '/_ActivosFijosModule/Index.html',
+export const ModulesSystem = {
+    Identif_ActivosFijos: 'ID-BANKAP-ACT-FIJ',
+    ActivosFijosIndexURL: '/_ActivosFijosModule/Index.html',
 
-    Bancos: 'ID-BANKAP-BANCOS',
-    BancosURL: '/_BancosModule/Index.html',
+    Identif_Bancos: 'ID-BANKAP-BANCOS',
+    BancosIndexURL: '/_BancosModule/Index.html',
 
-    Contabilidad: 'ID-BANKAP-CONTA',
-    ContabilidadURL: '/_ContabilidadModule/Index.html',
+    Identif_Contabilidad: 'ID-BANKAP-CONTA',
+    ContabilidadIndexURL: '/_ContabilidadModule/Index.html',
 
-    CuentasCobrar: 'ID-BANKAP-CXC',
-    CuentasCobrarURL: '/_CuentasCobrarModule/Index.html',
+    Identif_CuentasCobrar: 'ID-BANKAP-CXC',
+    CuentasCobrarIndexURL: '/_CuentasCobrarModule/Index.html',
 
-    CuentasPagar: 'ID-BANKAP-CXP',
-    CuentasPagarURL: '/_CuentasPagarModule/Index.html',
+    Identif_CuentasPagar: 'ID-BANKAP-CXP',
+    CuentasPagarIndexURL: '/_CuentasPagarModule/Index.html',
 
-    Facturacion: 'ID-BANKAP-FACTURA-E',
-    FacturacionURL: '/_FacturacionModule/Index.html',
+    Identif_Facturacion: 'ID-BANKAP-FACTURA-E',
+    FacturacionIndexURL: '/_FacturacionModule/Index.html',
 
-    Generales: 'ID-BANKAP-GENERAL',
-    GeneralesURL: '/_GeneralesModule/Index.html',
+    Identif_Generales: 'ID-BANKAP-GENERAL',
+    GeneralesIndexURL: '/_GeneralesModule/Index.html',
 
-    Inventario: 'ID-BANKAP-INVENTARIO',
-    InventarioURL: '/_InventarioModule/Index.html',
+    Identif_Inventario: 'ID-BANKAP-INVENTARIO',
+    InventarioIndexURL: '/_InventarioModule/Index.html',
 
-    Cumplimiento: 'ID-BANKAP-INVENTARIO',
-    CumplimientoURL: '/_InventarioModule/Index.html'
+    Identif_Cumplimiento: 'ID-BANKAP-CUMPLIMIENTO',
+    CumplimientoIndexURL: '/_CumplimientoModule/Index.html'
 };
 
 /*

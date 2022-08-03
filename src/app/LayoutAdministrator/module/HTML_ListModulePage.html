@@ -60,10 +60,10 @@
             <table class="table table-striped">
                 <thead>
                     <tr>
-                        <th style="width: 15%">Identificador</th>
-                        <th style="width: 15%">Nombre</th>
-                        <th style="width: 25%">Descripción</th>
-                        <!-- <th style="width: 10%">Estado</th> -->
+                        <th style="width: 25%">Identificador</th>
+                        <th style="width: 25%">Nombre</th>
+                        <th style="width: 30%">Descripción</th>
+                        <th style="width: 10%">Estado</th>
                         <th style="width: 20%"></th>
                     </tr>
                 </thead>
@@ -72,14 +72,14 @@
                         <td>{{module.identificador}}</td>
                         <td>{{module.nombre}}</td>
                         <td>{{module.descripcion}}</td>
-                        <!-- <td>{{module.estado}}</td> -->
+                        <td>{{module.estado}}</td>
                         <td style="white-space: nowrap">
             
-                            <div *ngIf="!seleccionEmpresa">
+                            <!-- <div *ngIf="!seleccionEmpresa">
                                 <button (click)="opcionesSubMenu(module.id)" class="btn btn-sm btn-info mr-1" [disabled]="isActivating" >
                                     <span>Mostrar Opciones de SubMenú</span>
                                 </button>
-                            </div>
+                            </div> -->
 
                             <div *ngIf="seleccionEmpresa">
                                 <button (click)="assignModuleBusiness(module.id, businessMod.id)"  class="btn btn-sm btn-success">

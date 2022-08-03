@@ -10,8 +10,10 @@
 <table class="table table-striped">
     <thead>
         <tr>
-            <th style="width: 25%">Número de Identificación</th>
-            <th style="width: 40%">Nombre de Empresa o Sociedad</th>
+            <th style="width: 15%">Identificación</th>
+            <th style="width: 30%">Nombre de la Compañía</th>
+            <th style="width: 15%">Correo Electrónico</th>
+            <th style="width: 15%">Número de Teléfono</th>
             <th style="width: 10%"></th>
         </tr>
     </thead>
@@ -19,9 +21,11 @@
         <tr *ngFor="let business of listBusiness">
             <td>{{business.cedulaJuridica}}</td>
             <td>{{business.nombre}}</td>
+            <td>{{business.correoElectronico}}</td>
+            <td>{{business.telefono}}</td>
             <td style="white-space: nowrap">
-                <a routerLink="/_GeneralesModule/ConfiguracionCompania/{{business.id}}" class="btn btn-sm btn-dark mr-1">Parámetros de Configuración</a>
-                <a routerLink="/_AdminModule/AdminListModulePage/{{business.id}}" class="btn btn-sm btn-light mr-1">Módulos Asociados</a>
+                <!-- <a routerLink="/_GeneralesModule/ConfiguracionCompania/{{business.id}}" class="btn btn-sm btn-dark mr-1">Parámetros de Configuración</a> -->
+                <a routerLink="/_AdminModule/AdminListModulePage/{{business.id}}" class="btn btn-sm btn-dark mr-1">Módulos Asociados</a>
                 <a routerLink="/_AdminModule/AddEditBusinessPage/{{business.id}}" class="btn btn-sm btn-warning mr-1">Actualizar</a>
                 <button (click)="deleteBusiness(business.id)" class="btn btn-sm btn-danger mr-1" [disabled]="business.isDeleting">
                     <span *ngIf="business.isDeleting" class="spinner-border spinner-border-sm"></span>

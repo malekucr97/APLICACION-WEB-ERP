@@ -73,6 +73,7 @@ export class AccountService {
                 return user;
             }));
     }
+    // -- >> CIERRA SESIÓN
     logout() {
         localStorage.removeItem('user');
         this.userSubject.next(null);
