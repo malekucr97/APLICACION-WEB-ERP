@@ -9,19 +9,21 @@ export class Module {
     estado: string;
 
     pathIco: string;
+    indexHTTP: string;
 }
 
-export class ModulesProperties {
-    id: string;
-    nombre: string;
-    pathIco: string;
-    descripcion: string;
+// export class ModulesProperties {
+//     id: string;
+//     idModule:number;
+//     nombre: string;
+//     pathIco: string;
+//     descripcion: string;
 
-    urlRedirect: string;
-}
+//     indexHTTP: string;
+// }
 
-export class MenuModule {
-    id: number;
-    idModulo:number;
-    JSONMenu:string;
-}
+// export class MenuModule {
+//     id: number;
+//     idModulo:number;
+//     JSONMenu:string;
+// }

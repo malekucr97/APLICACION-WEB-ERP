@@ -1,7 +1,7 @@
 import { Component, ViewChild, OnInit } from '@angular/core';
 import { AccountService, GeneralesService } from '@app/_services';
 import { MatSidenav } from '@angular/material/sidenav';
-import { MenuModule, Module, User } from '@app/_models';
+import { Module, User } from '@app/_models';
 import { httpAccessPage } from '../../../environments/environment';
 import { Router } from '@angular/router';
 import { first } from 'rxjs/operators';

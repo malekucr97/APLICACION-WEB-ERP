@@ -9,16 +9,16 @@ export const environment = {
 
 export const httpAccessPage = {
     // -- >> Langing Pages Index Application
-    urlContentIndex: '/_LandingModule/IndexContentPage.html',
+    urlContentIndex: '/_/index.html',
     
     // -- >> Langing No Login Application
-    urlPagePending: '/_LandingModule/PendingPage/Index.html',
-    urlPageNotRol: '/_LandingModule/NotRolPage/Index.html',
+    urlPagePending: '/_/PendingPage/index.html',
+    urlPageNotRol: '/_/NotRolPage/index.html',
     // Usuario Inactivo
-    urlPageInactiveUser: '/_LandingModule/InactiveUserPage/Index.html',
+    urlPageInactiveUser: '/_/InactiveUserPage/index.html',
     
-    urlPageInactiveRol: '/_LandingModule/InactiveRolPage/Index.html',
-    urlPageNotBusiness: '/_LandingModule/NotBusinessPage/Index.html'
+    urlPageInactiveRol: '/_/InactiveRolPage/index.html',
+    urlPageNotBusiness: '/_/NotBusinessPage/index.html'
 };
 
 export const localVariables = {

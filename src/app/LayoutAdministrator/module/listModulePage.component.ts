@@ -35,7 +35,6 @@ export class ListModuleComponent implements OnInit {
 
     constructor(private accountService: AccountService,
                 private route: ActivatedRoute,
-                private router: Router,
                 private alertService: AlertService) { this.user = this.accountService.userValue; }
 
     ngOnInit() {
@@ -130,7 +129,7 @@ export class ListModuleComponent implements OnInit {
         }
     }
 
-
+    // Activar módulo de Compañía
     activateModuleBusiness(idModule: number, identificador: string, idBusiness: number) {
 
         this.moduleList = this.listModulesBusiness.find(x => x.id === idModule && x.idSociedad === idBusiness && x.identificador === identificador);
