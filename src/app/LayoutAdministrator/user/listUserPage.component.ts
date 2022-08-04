@@ -56,6 +56,8 @@ export class ListUserComponent implements OnInit {
 
                     if (responseDelete.exito) {
 
+                        // hacer eliminacion del usuario de la lista en el scope de la vista
+
                         this.alertService.success(responseDelete.responseMesagge, { keepAfterRouteChange: true });
                     
                         this.actualizarListaUsuarios(this.adminBoss, this.user.idRol, this.user.empresa);

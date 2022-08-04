@@ -62,7 +62,7 @@ export class AccountService {
         localStorage.setItem('Obusiness', JSON.stringify(compania));
     }
 
-    // -- >> ADMINISTRACIÓN DE ACCESO
+    // -- >> INICIA SESIÓN
     login(username, password) {
         return this.http.post<User>(`${environment.apiUrl}/users/autenticar`, { username, password })
             .pipe(map(user => {

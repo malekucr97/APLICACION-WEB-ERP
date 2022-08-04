@@ -33,7 +33,7 @@ import { Compania } from '../../_models/modules/compania';
     {
       name: 'Cuentas Contables',
       link: '/',
-      icon: ''//folder
+      icon: ''
     },
     {
       name: 'Movimientos',
