@@ -2,7 +2,7 @@ import { Component, OnInit, ViewChild } from '@angular/core';
 import { first } from 'rxjs/operators';
 import { Router } from '@angular/router';
 import { AccountService } from '@app/_services';
-import { User, ModulesProperties } from '@app/_models';
+import { User, Module } from '@app/_models';
 import { localVariables, ModulesSystem } from '@environments/environment';
 import { amdinBusiness } from '@environments/environment-access-admin';
 import { MatSidenav } from '@angular/material/sidenav';
@@ -26,32 +26,21 @@ export class IndexContentPageComponent implements OnInit {
     userObservable: User;
     businessObservable: Compania;
 
-    public ListModulesActive: ModulesProperties[] = [];
+    public ListModules: Module[] = [];
+
+
+    // hacer funcionalidad para en caso de que no haya respuesta con el servidor que muestre algo en pantalla al respecto
 
     ngOnInit() {
-
         // valida si el usuario que inició sesión es administrador
-        if (this.userObservable.esAdmin || this.userObservable.idRol === amdinBusiness.adminSociedad) {
+        if (this.userObservable.esAdmin 
+            || this.userObservable.idRol === amdinBusiness.adminSociedad) {
 
             // lista los módulos activos de una compañía
             this.accountService.getModulesActiveBusiness(this.businessObservable.id)
             .pipe(first())
             .subscribe(responseListModules => {
-
-                if ( responseListModules ) {
-
-                    responseListModules.forEach(module => {
-
-                        let propertiesMod = new ModulesProperties();
-
-                        propertiesMod.id = module.identificador;
-                        propertiesMod.nombre = module.nombre;
-                        propertiesMod.pathIco =  localVariables.dir_img_modules + module.identificador + '.png';
-                        propertiesMod.descripcion =  module.descripcion;
-
-                        this.ListModulesActive.push(propertiesMod);
-                    });
-                }
+                this.setListModules(responseListModules);
             });
 
         // lista los módulos activos de un usuario
@@ -60,85 +49,88 @@ export class IndexContentPageComponent implements OnInit {
             this.accountService.getModulesActiveUser(this.businessObservable.id, this.userObservable.idRol)
             .pipe(first())
             .subscribe(responseListModules => {
-
-                if ( responseListModules ) {
-
-                    responseListModules.forEach(module => {
-
-                        let propertiesMod = new ModulesProperties();
-
-                        propertiesMod.id = module.identificador;
-                        propertiesMod.nombre = module.nombre;
-                        propertiesMod.pathIco =  localVariables.dir_img_modules + module.identificador + '.png';
-                        propertiesMod.descripcion =  module.descripcion;
-
-                        this.ListModulesActive.push(propertiesMod);
-                    });
-                }
+                this.setListModules(responseListModules);
             });
         }
     }
 
-    asignarRedireccionamientoHttp(propertiesMod: ModulesProperties, IdentificadorModulo : string) : ModulesProperties {
+    private setListModules(responseListModules:Module[]=null) : void {
+        if ( responseListModules ) {
 
-        switch (IdentificadorModulo) {
+            let ListModulesTemp: Module[] = [];
+
+            responseListModules.forEach(module => {
+
+                let modTemp = new Module();
+
+                modTemp.id = module.id;
+                modTemp.identificador = module.identificador;
+                modTemp.nombre = module.nombre;
+                modTemp.pathIco =  localVariables.dir_img_modules + module.identificador + '.png';
+                modTemp.descripcion =  module.descripcion;
+
+                modTemp = this.redireccionIndexModulosHTTP(modTemp, module.identificador);
+
+                ListModulesTemp.push(modTemp);
+            });
+
+            this.ListModules = ListModulesTemp;
+        }
+    }
+    redireccionIndexModulosHTTP(mod: Module, identificador : string) : Module {
+
+        switch (identificador) {
 
             // redireccionamiento a GENERALES
             case ModulesSystem.Identif_Generales: 
-                propertiesMod.urlRedirect = ModulesSystem.GeneralesIndexURL; 
+            mod.indexHTTP = ModulesSystem.GeneralesIndexURL; 
                 break;
             // redireccionamiento a ACTIVOS FIJOS
             case ModulesSystem.Identif_ActivosFijos: 
-                propertiesMod.urlRedirect = ModulesSystem.ActivosFijosIndexURL; 
+            mod.indexHTTP = ModulesSystem.ActivosFijosIndexURL; 
                 break;
             // redireccionamiento a BANCOS
             case ModulesSystem.Identif_Bancos: 
-                propertiesMod.urlRedirect = ModulesSystem.BancosIndexURL; 
+            mod.indexHTTP = ModulesSystem.BancosIndexURL; 
                 break;
             // redireccionamiento a CONTABILIDAD
             case ModulesSystem.Identif_Contabilidad: 
-                propertiesMod.urlRedirect = ModulesSystem.ContabilidadIndexURL; 
+            mod.indexHTTP = ModulesSystem.ContabilidadIndexURL; 
                 break;
             // redireccionamiento a CUENTAS POR COBRAR
             case ModulesSystem.Identif_CuentasCobrar: 
-                propertiesMod.urlRedirect = ModulesSystem.CuentasCobrarIndexURL; 
+            mod.indexHTTP = ModulesSystem.CuentasCobrarIndexURL; 
                 break;
             // redireccionamiento a CUENTAS POR PAGAR
             case ModulesSystem.Identif_CuentasPagar: 
-                propertiesMod.urlRedirect = ModulesSystem.CuentasPagarIndexURL; 
+            mod.indexHTTP = ModulesSystem.CuentasPagarIndexURL; 
                 break;
             // redireccionamiento a FACTURACIÓN
             case ModulesSystem.Identif_Facturacion: 
-                propertiesMod.urlRedirect = ModulesSystem.FacturacionIndexURL; 
+            mod.indexHTTP = ModulesSystem.FacturacionIndexURL; 
                 break;
             // redireccionamiento a INVENTARIO
             case ModulesSystem.Identif_Inventario: 
-                propertiesMod.urlRedirect = ModulesSystem.InventarioIndexURL; 
+            mod.indexHTTP = ModulesSystem.InventarioIndexURL; 
                 break;
             // redireccionamiento a CUMPLIMIENTO
             case ModulesSystem.Identif_Cumplimiento: 
-                propertiesMod.urlRedirect = ModulesSystem.CumplimientoIndexURL; 
+            mod.indexHTTP = ModulesSystem.CumplimientoIndexURL; 
                 break;
 
-            default: propertiesMod.urlRedirect = '/';
+            default: mod.indexHTTP = '/';
         }
-        return propertiesMod;
+        return mod;
     }
 
     // ******************************************
     // ** Procedimiento de Selección de Módulo **
-    selectModule(pmodule: ModulesProperties) {
+    selectModule(mod: Module) {
 
-        this.accountService.getModulesIdIdBusiness(pmodule.id, this.businessObservable.id)
-            .pipe(first())
-            .subscribe(responseModule => {
-                pmodule = this.asignarRedireccionamientoHttp(pmodule, responseModule.identificador);
+        let module : Module = this.ListModules.find(x => x.id === mod.id);
+        this.accountService.loadModuleAsObservable(module);
 
-                responseModule.pathIco = pmodule.pathIco;
-                this.accountService.loadModuleAsObservable(responseModule);
-
-                this.router.navigate([pmodule.urlRedirect]);
-            });
+        this.router.navigate([module.indexHTTP]);
     }
 
     logout() { this.accountService.logout(); }

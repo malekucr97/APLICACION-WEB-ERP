@@ -79,32 +79,22 @@ export class LoginComponent implements OnInit {
                             }
 
                             // si el usuario que inicia sesión es administrador
-                            if (administrator.esAdministrador === responseObjectRol.esAdministrador) {
-
-                                // si es administrador del sistema
-                                if (administrator.id === responseObjectRol.id) { 
+                            if (administrator.esAdministrador === responseObjectRol.esAdministrador 
+                                && administrator.id === responseObjectRol.id) {
+                                    
                                     responseObjectLogin.esAdmin = true;
-                                }
+                            } 
+                            
+                            this.accountService.updateLocalUser(responseObjectLogin);
+                            this.router.navigate([this.UrlHome]);
 
-                                this.accountService.updateLocalUser(responseObjectLogin);
-                                this.router.navigate([httpAccessAdminPage.urlPageAdministrator]);
-                                return;
-
-                                // inicia sesión como usuario normal del sistema
-                                // redirecciona a home
-                            } else {
-                                this.accountService.updateLocalUser(responseObjectLogin);
-                                this.router.navigate([this.UrlHome]);
-                                return;
-                            }
+                            this.loading = false;
+                            this.submitted = false;
                         });
-                        this.loading = false;
-                        this.submitted = false;
                     }
                 },
-                error => {
-                    this.alertService.error('Usuario o contraseña incorrectos.');
-                    this.loading = false;
+                (error) => {
+                    this.alertService.error('Problemas al obtener respuesta del Servidor. Por favor contacte al administrador.');
                 });
     }
 }

@@ -14,19 +14,32 @@ export class HomeComponent implements OnInit {
     userObservable: User;
     listBusiness: Compania[] = [];
 
-    constructor(private accountService: AccountService, 
+    conexion:boolean;
+    message:string;
+
+    constructor(private accountService: AccountService,
                 private router: Router) {
         this.userObservable = this.accountService.userValue;
     }
 
     ngOnInit() {
 
+        this.conexion = false;
+        this.message = 'Esperando respuesta del servidor';
+
         // si es administrador lista todas las compañías del sistema
         if (this.userObservable.esAdmin) {
+
             this.accountService.getAllBusiness()
             .pipe(first())
-            .subscribe(lstBusinessResponse => {
-                this.listBusiness = lstBusinessResponse;
+            .subscribe(listComaniesResponse => {
+
+                this.conexion = true;
+                this.message = 'Seleccione la Compañía para ingresar';
+                
+                if (listComaniesResponse) {
+                    this.listBusiness = listComaniesResponse;
+                }
             });
 
         // si no es administrador lista las compañías activas con acceso del usuario 
@@ -35,10 +48,12 @@ export class HomeComponent implements OnInit {
             .pipe(first())
             .subscribe(lstBusinessResponse => {
 
+                this.conexion = true;
+                this.message = 'Seleccione la Compañía para ingresar';
+
                 if (lstBusinessResponse) {
                     this.listBusiness = lstBusinessResponse;
-
-                } else { this.router.navigate([httpAccessPage.urlPageNotBusiness]); }
+                }
             });
         }
     }
@@ -49,6 +64,8 @@ export class HomeComponent implements OnInit {
         this.accountService.updateLocalUser(this.userObservable);
 
         this.accountService.loadBusinessAsObservable(business);
+
+        // http index.html
         this.router.navigate([httpAccessPage.urlContentIndex]);
     }
 }

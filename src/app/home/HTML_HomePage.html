@@ -1,9 +1,9 @@
 <div class="card text-center" style="position: absolute; width: 45%; position: absolute; left: 50%; top: 35%; transform: translate(-50%, -35%);">
     <div class="card-header">
-      <h4>Selección de Empresa o Sociedad</h4>
+      <h1 style="color: #053254;margin-top: 2%;">{{message}}</h1>
     </div>
 
-    <div class="card-body" style="margin-bottom: 5%; margin-top: 5%;">
+    <div *ngIf="conexion" class="card-body" style="margin-bottom: 5%; margin-top: 5%;">
         <div class="card" *ngFor="let business of listBusiness">
             <ul class="list-group list-group-flush">
               <li class="list-group-item" > <h5>{{business.nombre}}</h5></li>
@@ -11,8 +11,21 @@
             </ul>
         </div><br>
     </div>
+
+    <div *ngIf="!conexion" class="card-body">
+      <div class="card">
+
+          <ul class="list-group list-group-flush">
+            <li class="list-group-item" style="color: red;margin-top: 2%;" >
+              <h3><span class="spinner-border spinner-border-lg align-center"></span></h3>
+            </li>
+          </ul>
+          
+      </div><br>
+  </div>
       
     <div class="card-footer text-muted">
       Derechos Reservados Soluciones INRA S.A
     </div>
-  </div>
+
+</div>

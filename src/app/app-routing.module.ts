@@ -28,10 +28,11 @@ const CumplimientoModule    = () => import('./ModulosSistema/Cumplimiento/cumpli
 
 const routes: Routes = [
     { path: '', component: HomeComponent, canActivate: [AuthGuard] },
-    // -- administración y pantallas del sistema
+    // -- index & landings pages
+    { path: '_',                    loadChildren: LandingModule,        canActivate: [AuthGuard] },
+    // -- inicio se sesión & pantallas de administración
     { path: 'account',              loadChildren: accountModule },
     { path: '_AdminModule',         loadChildren: AdminModule,          canActivate: [AuthGuard] },
-    { path: '_LandingModule',       loadChildren: LandingModule,        canActivate: [AuthGuard] },
     // -- módulos del sistema
     { path: '_GeneralesModule',     loadChildren: GeneralesModule,      canActivate: [AuthGuard] },
     { path: '_ActivosFijosModule',  loadChildren: ActivosFijosModule,   canActivate: [AuthGuard] },

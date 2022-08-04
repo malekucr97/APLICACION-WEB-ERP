@@ -1,4 +1,4 @@
-<div *ngIf="userObservable">
+<!-- <div *ngIf="userObservable"> -->
 
     <div class="info">
         <p class="info__user">
@@ -26,7 +26,7 @@
                 <article>
                     <section class="content__menu">
             
-                        <div class="content__menu__item" *ngFor="let module of ListModulesActive">
+                        <div class="content__menu__item" *ngFor="let module of ListModules">
                             <a> <img class="content__menu__item__logo" src="{{module.pathIco}}" title="{{module.descripcion}}" 
                                 (click)="selectModule(module)"> </a>
                             <p class="content__menu__item__titulo">{{module.nombre}}</p>    
@@ -37,4 +37,4 @@
             </main>
         </div>
     </mat-sidenav-container>
-</div>
+<!-- </div> -->

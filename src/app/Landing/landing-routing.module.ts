@@ -15,24 +15,24 @@ const routes: Routes = [
     {
         path: '', component: LayoutComponent,
         children: [
-            { path: '', component: LayoutComponent },
+            { path: '', component: IndexContentPageComponent },
             
             // *********************************
             // Index.html **
             // *********************************
-            { path: 'IndexContentPage.html', component: IndexContentPageComponent },
+            { path: 'index.html', component: IndexContentPageComponent },
             // *********************************
             
             // Usuario pendiente de activación
-            { path: 'PendingPage/Index.html', component: PendingUserPageComponent },
+            { path: 'PendingPage/index.html', component: PendingUserPageComponent },
             // Usuario sin rol
-            { path: 'NotRolPage/Index.html', component: NotRolPageComponent },
+            { path: 'NotRolPage/index.html', component: NotRolPageComponent },
             // Usuario inactivo
-            { path: 'InactiveUserPage/Index.html', component: InactiveUserPageComponent },
+            { path: 'InactiveUserPage/index.html', component: InactiveUserPageComponent },
             // Rol de usuario inactivo 
-            { path: 'InactiveRolPage/Index.html', component: InactiveRolPageComponent },
+            { path: 'InactiveRolPage/index.html', component: InactiveRolPageComponent },
             // Usuario sin compañía
-            { path: 'NotBusinessPage/Index.html', component: NotBusinessUserPageComponent },
+            { path: 'NotBusinessPage/index.html', component: NotBusinessUserPageComponent },
         ]
     }
 ];

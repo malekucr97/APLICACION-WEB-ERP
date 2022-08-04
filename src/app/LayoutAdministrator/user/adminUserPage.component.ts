@@ -9,11 +9,11 @@ import { Router } from '@angular/router';
 export class AdminUserComponent implements OnInit {
     user: User;
 
-    URLConfigureUserPage: string;
-    URLListUserPage: string;
-    URLListBusinessPage: string;
-    URLListModulePage: string;
-    URLListRolePage: string;
+    URLConfigureUserPage: string = httpAccessAdminPage.urlPageConfigUser;
+    URLListUserPage: string = httpAccessAdminPage.urlPageListUsers;
+    URLListBusinessPage: string = httpAccessAdminPage.urlPageListBusiness;
+    URLListModulePage: string = httpAccessAdminPage.urlPageListModule;
+    URLListRolePage: string = httpAccessAdminPage.urlPageListRole;
 
     adminSistema: boolean;
     adminEmpresa: boolean;
@@ -24,25 +24,34 @@ export class AdminUserComponent implements OnInit {
 
     ngOnInit() {
 
-        this.URLConfigureUserPage = httpAccessAdminPage.urlPageConfigUser;
-        this.URLListUserPage = httpAccessAdminPage.urlPageListUsers;
-        this.URLListBusinessPage = httpAccessAdminPage.urlPageListBusiness;
-        this.URLListModulePage = httpAccessAdminPage.urlPageListModule;
-        this.URLListRolePage = httpAccessAdminPage.urlPageListRole;
+        if (this.user.estado === AuthStatesApp.inactive) { 
+            this.router.navigate([httpAccessPage.urlPageInactiveUser]); 
+            return; 
+        }
+        if (this.user.estado === AuthStatesApp.pending) { 
+            this.router.navigate([httpAccessPage.urlPagePending]); 
+            return; 
+        }
+        if (!this.user.idRol) { 
+            this.router.navigate([httpAccessPage.urlPageNotRol]); 
+            return; 
+        }
 
-        if (this.user.estado === AuthStatesApp.inactive) { this.router.navigate([httpAccessPage.urlPageInactiveUser]); return; }
-        if (this.user.estado === AuthStatesApp.pending) { this.router.navigate([httpAccessPage.urlPagePending]); return; }
-        if (!this.user.idRol) { this.router.navigate([httpAccessPage.urlPageNotRol]); return; }
+        this.adminSistema = false; 
+        this.adminEmpresa = false;
 
-        this.adminSistema = false; this.adminEmpresa = false;
-
-        if (this.user.esAdmin) { this.adminSistema = true; }
-        if (this.user.idRol === amdinBusiness.adminSociedad) {this.adminEmpresa = true; }
+        if (this.user.esAdmin) { 
+            this.adminSistema = true; 
+        }
+        if (this.user.idRol === amdinBusiness.adminSociedad) {
+            this.adminEmpresa = true; 
+        }
 
         // -- >> en caso de que el usuario no sea administrador
         // -- >> redirecciona al usuario activo a la página de actualización del usuario
         if (AuthStatesApp.active === this.user.estado && !this.adminEmpresa && !this.adminSistema) {
-            this.router.navigate([this.URLConfigureUserPage + this.user.identificacion]); return;
+            this.router.navigate([this.URLConfigureUserPage + this.user.identificacion]); 
+            return;
         }
     }
 }

@@ -30,66 +30,48 @@ export class ListUserComponent implements OnInit {
     ngOnInit() {
 
         // Realizar validación de usuario que tenga permisos para el listado
-        // redireccionamiento si el usuario no tiene acceso a una página o template de no acceso 
-
-        this.isActivating   = false;
-        this.isDeleting     = false;
+        // redireccionamiento si el usuario no tiene acceso a una página o template de no acceso
 
         this.alertService.clear();
 
-        this.adminBoss = false;
+        this.isActivating   = false;
+        this.isDeleting     = false;
+        this.adminBoss      = false;
 
-        if (this.user.esAdmin) {
-
-            this.adminBoss = true;
-
-            this.accountService.getAllUsers()
-            .pipe(first())
-            .subscribe(users => this.listUsers = users );
-
-        } else if (this.user.idRol === amdinBusiness.adminSociedad && this.user.empresa) {
-
-            // lista los usuarios activos con acceso a la compañía
-            this.accountService.getUsersBusiness(this.user.empresa)
-            .pipe(first())
-            .subscribe(users => this.listUsers = users );
-        }
+        this.actualizarListaUsuarios(this.user.esAdmin, this.user.idRol, this.user.empresa);
     }
 
     deleteUser(identificacionUsuario: string, idUser: number) {
+
+        this.alertService.clear();
 
         this.isDeleting = true;
         let message : string;
 
         if (identificacionUsuario !== administrator.id) {
 
-            this.accountService.dessAssignAllBusinessUser(idUser)
+            this.accountService.deleteUser(idUser)
                 .pipe(first())
-                .subscribe( responseDesAsign => {
+                .subscribe( responseDelete => {
 
-                    if (responseDesAsign.exito) {
+                    if (responseDelete.exito) {
 
-                        this.accountService.deleteUser(idUser)
-                            .pipe(first())
-                            .subscribe( responseDelete => {
+                        this.alertService.success(responseDelete.responseMesagge, { keepAfterRouteChange: true });
+                    
+                        this.actualizarListaUsuarios(this.adminBoss, this.user.idRol, this.user.empresa);
 
-                                if (responseDelete.exito) {
-                                    this.alertService.success(responseDelete.responseMesagge, { keepAfterRouteChange: true });
-                                } else {
-                                    this.alertService.error(responseDelete.responseMesagge, { keepAfterRouteChange: true });
-                                }
-                                this.ngOnInit();
-                            },
-                            (error) => { console.log(error); this.alertService.error(error); this.ngOnInit(); });
                     } else {
-                        this.alertService.error(responseDesAsign.responseMesagge, { keepAfterRouteChange: true });
+                        this.alertService.warn('No se puede eliminar un usuario con acceso a una compañía. Por favor elimine el acceso del usuario a la compañía.', { keepAfterRouteChange: true });
+                        console.log(responseDelete.responseMesagge);
                     }
+                    this.alertService.clear();
                 },
-                error => { console.log(error); this.alertService.error(error); this.ngOnInit(); });
+                (error) => { this.alertService.error(error.message); });
+
         } else {
+
             message = 'No se puede eliminar la cuenta administradora del sistema';
-            this.alertService.info(message, { keepAfterRouteChange: true });
-            this.ngOnInit();
+            this.alertService.info(message, { keepAfterRouteChange: false });
         }
         this.isDeleting = false;
     }
@@ -136,6 +118,26 @@ export class ListUserComponent implements OnInit {
             this.response.responseMesagge = 'No se puede modificar el estado de la cuenta administradora del sistema';
             this.alertService.info(this.response.responseMesagge, { keepAfterRouteChange: true });
             this.ngOnInit();
+        }
+    }
+
+    private actualizarListaUsuarios(esAdmin:boolean=false, rol:string=null, businessUser:number=null) : void {
+
+        if (esAdmin) {
+
+            this.adminBoss = true;
+
+            // lista todos los usuarios
+            this.accountService.getAllUsers()
+            .pipe(first())
+            .subscribe(users => this.listUsers = users );
+
+        } else if (rol && rol === amdinBusiness.adminSociedad && businessUser) {
+
+            // lista los usuarios activos con acceso a la compañía
+            this.accountService.getUsersBusiness(businessUser)
+            .pipe(first())
+            .subscribe(users => this.listUsers = users );
         }
     }
 }
