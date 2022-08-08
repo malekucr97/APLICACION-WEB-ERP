@@ -1,4 +1,6 @@
-﻿export class User {
+﻿import { Role } from "./role";
+
+export class User {
     id: number;
     identificacion: string;
     nombreCompleto: string;
@@ -9,5 +11,7 @@
     password: string;
     idRol: string;
     empresa: number;
+
+    // no mapp
     esAdmin: boolean;
 }

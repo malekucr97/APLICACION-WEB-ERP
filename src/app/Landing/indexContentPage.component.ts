@@ -1,6 +1,6 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { first } from 'rxjs/operators';
-import { Router } from '@angular/router';
+import { Router, ActivatedRoute } from '@angular/router';
 import { AccountService } from '@app/_services';
 import { User, Module } from '@app/_models';
 import { localVariables, ModulesSystem } from '@environments/environment';
@@ -14,7 +14,9 @@ import { Compania } from '@app/_models/modules/compania';
 })
 export class IndexContentPageComponent implements OnInit {
 
-    constructor(private accountService: AccountService, private router: Router) {
+    constructor(private accountService: AccountService, 
+                private router: Router,
+                private route: ActivatedRoute,) {
 
         this.userObservable = this.accountService.userValue;
         this.businessObservable = this.accountService.businessValue;
@@ -23,34 +25,53 @@ export class IndexContentPageComponent implements OnInit {
     @ViewChild(MatSidenav)
     sidenav !: MatSidenav;
 
+    conexion:boolean;
+
     userObservable: User;
     businessObservable: Compania;
 
     public ListModules: Module[] = [];
-
-
-    // hacer funcionalidad para en caso de que no haya respuesta con el servidor que muestre algo en pantalla al respecto
+    private UrlHome:string = '/';
 
     ngOnInit() {
-        // valida si el usuario que inició sesión es administrador
-        if (this.userObservable.esAdmin 
-            || this.userObservable.idRol === amdinBusiness.adminSociedad) {
 
-            // lista los módulos activos de una compañía
-            this.accountService.getModulesActiveBusiness(this.businessObservable.id)
-            .pipe(first())
-            .subscribe(responseListModules => {
-                this.setListModules(responseListModules);
-            });
+        this.conexion = false;
 
-        // lista los módulos activos de un usuario
+        // valida que se haya seleccionado una empresa
+        if (this.businessObservable) {
+        
+                // valida si el usuario que inició sesión es administrador
+            if (this.userObservable.esAdmin 
+                || this.userObservable.idRol === amdinBusiness.adminSociedad) {
+
+                // lista los módulos activos de una compañía
+                this.accountService.getModulesActiveBusiness(this.businessObservable.id)
+                .pipe(first())
+                .subscribe(responseListModules => {
+                    this.conexion = true;
+                    this.setListModules(responseListModules);
+                },
+                error => {
+                    // si hay algun problema redirecciona a home
+                    this.router.navigate([this.UrlHome], { relativeTo: this.route });
+                });
+
+            // lista los módulos activos de un usuario
+            } else {
+
+                this.accountService.getModulesActiveUser(this.businessObservable.id, this.userObservable.idRol)
+                .pipe(first())
+                .subscribe(responseListModules => {
+                    this.conexion = true;
+                    this.setListModules(responseListModules);
+                },
+                error => {
+                    // si hay algun problema redirecciona a home
+                    this.router.navigate([this.UrlHome], { relativeTo: this.route });
+                });
+            }
         } else {
-
-            this.accountService.getModulesActiveUser(this.businessObservable.id, this.userObservable.idRol)
-            .pipe(first())
-            .subscribe(responseListModules => {
-                this.setListModules(responseListModules);
-            });
+            this.router.navigate([this.UrlHome], { relativeTo: this.route });
         }
     }
 

@@ -3,8 +3,8 @@ import { Router, ActivatedRoute } from '@angular/router';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { first } from 'rxjs/operators';
 import { AccountService, AlertService } from '@app/_services';
-import { administrator, httpAccessAdminPage, AuthStatesApp } from '@environments/environment-access-admin';
-import { httpAccessPage } from '@environments/environment';
+import { administrator, AuthStatesApp, httpLandingIndexPage } from '@environments/environment-access-admin';
+import { User } from '@app/_models';
 
 @Component({ templateUrl: 'login.component.html' })
 export class LoginComponent implements OnInit {
@@ -53,48 +53,46 @@ export class LoginComponent implements OnInit {
 
                 if (responseObjectLogin) {
 
-                    // -- >> valida que el estado del usuario sea válido
-                    if (AuthStatesApp.inactive === responseObjectLogin.estado) { 
-                        this.router.navigate([httpAccessPage.urlPageInactiveUser]); 
-                        return; 
+                    if (AuthStatesApp.inactive === responseObjectLogin.estado) {
+                        this.router.navigate([httpLandingIndexPage.indexHTTPInactiveUser]);
+                        return;
                     }
-                    if (AuthStatesApp.pending === responseObjectLogin.estado) { 
-                        this.router.navigate([httpAccessPage.urlPagePending]); 
-                        return; 
+                    if (AuthStatesApp.pending === responseObjectLogin.estado) {
+                        this.router.navigate([httpLandingIndexPage.indexHTTPPendingUser]);
+                        return;
                     }
                     if (!responseObjectLogin.idRol) { 
-                        this.router.navigate( [httpAccessPage.urlPageNotRol] ); 
+                        this.router.navigate( [httpLandingIndexPage.indexHTTPNotRolUser] ); 
                         return; 
                     }
 
                     responseObjectLogin.esAdmin = false;
                     this.accountService.getRoleById(responseObjectLogin.idRol)
-                        .pipe(first())
-                        .subscribe( responseObjectRol => {
+                    .pipe(first())
+                    .subscribe( responseObjectRol => {
+    
+                        if (responseObjectRol.estado === AuthStatesApp.inactive) {
+                            this.router.navigate([httpLandingIndexPage.indexHTTPInactiveRolUser]);
+                            return;
+                        }
 
-                            // -- >> valida que el rol del usuario esté activo
-                            if (AuthStatesApp.inactive === responseObjectRol.estado) {
-                                this.router.navigate([httpAccessPage.urlPageInactiveRol]); 
-                                return;
-                            }
+                        // si el usuario que inicia sesión es administrador
+                        if (administrator.id === responseObjectRol.id) {
+                                
+                                responseObjectLogin.esAdmin = true;
+                        }
+                        this.loading = false;
+                        this.submitted = false;
 
-                            // si el usuario que inicia sesión es administrador
-                            if (administrator.esAdministrador === responseObjectRol.esAdministrador 
-                                && administrator.id === responseObjectRol.id) {
-                                    
-                                    responseObjectLogin.esAdmin = true;
-                            } 
-                            
-                            this.accountService.updateLocalUser(responseObjectLogin);
-                            this.router.navigate([this.UrlHome]);
-
-                            this.loading = false;
-                            this.submitted = false;
-                        });
-                    }
-                },
-                (error) => {
-                    this.alertService.error('Problemas al obtener respuesta del Servidor. Por favor contacte al administrador.');
-                });
+                        let user : User = responseObjectLogin;
+                        
+                        this.accountService.updateLocalUser(user);
+                        this.router.navigate([this.UrlHome]);
+                    });
+                }
+            },
+            (error) => {
+                this.alertService.error('Problemas al obtener respuesta del Servidor. Por favor contacte al administrador.');
+            });
     }
 }

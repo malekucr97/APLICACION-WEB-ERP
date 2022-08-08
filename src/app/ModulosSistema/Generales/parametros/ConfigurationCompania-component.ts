@@ -5,7 +5,7 @@ import { User, Module, Role, ResponseMessage } from '@app/_models';
 import { first } from 'rxjs/operators';
 import { MatSidenav } from '@angular/material/sidenav';
 import { Compania } from '../../../_models/modules/compania';
-import { Procedimientos } from '@environments/environment-access-admin';
+// import { Procedimientos } from '@environments/environment-access-admin';
 
 @Component({
     templateUrl: 'HTML_ConfigurationCompania.html',
@@ -69,8 +69,8 @@ export class ConfigurationCompaniaComponent implements OnInit {
 
     updateSubmit() : void {
 
-        let operationName : string = Procedimientos._actualizarInformacionCompania;
-        let module : string = Procedimientos._MOD_GENERALES;
+        let operationName : string = 'ActualizarInformacionCompania';
+        let module : string = 'GENERALES';
         let entityName : string = 'MOD_Compania';
 
         this.alertService.clear();

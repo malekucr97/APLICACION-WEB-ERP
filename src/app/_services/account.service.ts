@@ -2,11 +2,12 @@
 import { Router } from '@angular/router';
 import { HttpClient } from '@angular/common/http';
 import { BehaviorSubject, Observable } from 'rxjs';
-import { map } from 'rxjs/operators';
+import { map, first } from 'rxjs/operators';
 import { environment } from '@environments/environment';
 import { User } from '@app/_models';
 import { Module, Role, ModuleRol, ResponseMessage, AssignRoleObject } from '@app/_models/';
 import { Compania, CompaniaUsuario } from '@app/_models/modules/compania';
+import { administrator, AuthStatesApp, httpLandingIndexPage } from '@environments/environment-access-admin';
 
 @Injectable({ providedIn: 'root' })
 export class AccountService {
@@ -79,7 +80,10 @@ export class AccountService {
         this.userSubject.next(null);
 
         localStorage.removeItem('Obusiness');
+        this.businessSubject.next(null);
+
         localStorage.removeItem('Omodule');
+        this.moduleSubject.next(null);
 
         this.router.navigate(['account/login']);
     }
@@ -182,6 +186,19 @@ export class AccountService {
     }
 
     // -- >> Procedimientos de Usuarios
+    // async validateLoginUser(user:User=null) : Promise<string> {
+
+    //     let indexRedirect : string = '/';
+
+    //     if (AuthStatesApp.inactive === user.estado) { 
+    //         return httpLandingIndexPage.indexHTTPInactiveUser;
+    //     }
+    //     if (AuthStatesApp.pending === user.estado) {
+    //         return httpLandingIndexPage.indexHTTPPendingUser;
+    //     }
+        
+    //     return indexRedirect;        
+    // }
     addUser(user: User) { 
         return this.http.post<ResponseMessage>(`${environment.apiUrl}/users/registrarusuario`, user); 
     }

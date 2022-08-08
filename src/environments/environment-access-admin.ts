@@ -40,10 +40,24 @@ export const httpAccessAdminPage = {
     urlPageAddModuleRol: '/_AdminModule/AddModuleRolePage/'
 };
 
-export const Procedimientos = {
-
-    // ---------------------
-    // PROCEDIMIENTOS DE MODULOS DE GENERALES
-    _MOD_GENERALES: 'GENERALES',
-    _actualizarInformacionCompania: 'ActualizarInformacionCompania'
+export const httpLandingIndexPage = {
+    // -- >> Langing Pages Index Application
+    indexHTTP: '/_/index.html',
+    
+    // -- >> Langing No Login Application
+    indexHTTPPendingUser: '/_/PendingPage/index.html',
+    indexHTTPNotRolUser: '/_/NotRolPage/index.html',
+    // Usuario Inactivo
+    indexHTTPInactiveUser: '/_/InactiveUserPage/index.html',
+    
+    indexHTTPInactiveRolUser: '/_/InactiveRolPage/index.html',
+    urlPageNotBusiness: '/_/NotBusinessPage/index.html'
 };
+
+// export const Procedimientos = {
+
+//     // ---------------------
+//     // PROCEDIMIENTOS DE MODULOS DE GENERALES
+//     _MOD_GENERALES: 'GENERALES',
+//     _actualizarInformacionCompania: 'ActualizarInformacionCompania'
+// };

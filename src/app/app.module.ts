@@ -4,16 +4,15 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { AppRoutingModule } from './app-routing.module';
 import { JwtInterceptor, ErrorInterceptor } from './_helpers';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { MatTreeModule } from '@angular/material/tree';
+import { MatTooltipModule } from '@angular/material/tooltip';
+import { MatNativeDateModule } from '@angular/material/core';
+
+// -- >> ** componentes iniciales sistema ** << --
 import { AppComponent } from './app.component';
 import { AlertComponent } from './_components';
 import { HomeComponent } from './home';
-import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-
-import {MatTreeModule} from '@angular/material/tree';
-
-import {MatTooltipModule} from '@angular/material/tooltip';
-import {MatNativeDateModule} from '@angular/material/core';
-
 
 @NgModule({
     imports: [

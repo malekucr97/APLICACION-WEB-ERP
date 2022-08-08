@@ -2,7 +2,7 @@ import { Component, ViewChild, } from '@angular/core';
 import { AccountService } from '@app/_services';
 import { MatSidenav } from '@angular/material/sidenav';
 import { Module, User } from '@app/_models';
-import { httpAccessPage } from '../../../environments/environment';
+import { httpLandingIndexPage } from '../../../environments/environment-access-admin';
 
 import {FlatTreeControl} from '@angular/cdk/tree';
 import {MatTreeFlatDataSource, MatTreeFlattener} from '@angular/material/tree';
@@ -72,7 +72,7 @@ import { Compania } from '../../_models/modules/compania';
 
 
 @Component({
-    templateUrl: 'menu.html',
+    templateUrl: '../menu.html',
     styleUrls: ['../../../assets/scss/menus.scss'],
     
 })
@@ -84,7 +84,7 @@ export class MenuBancosComponent {
     moduleObservable: Module;
     businessObservable: Compania;
 
-    URLRedirectIndexContent: string;
+    URLRedirectIndexContent: string = httpLandingIndexPage.indexHTTP;
 
     menuArray = [
         { menuLink: '/',        menuIcon: 'home',    menuName: 'submenu 1'},
@@ -95,8 +95,6 @@ export class MenuBancosComponent {
         this.userObservable = this.accountService.userValue;
         this.moduleObservable = this.accountService.moduleValue;
         this.businessObservable = this.accountService.businessValue;
-
-        this.URLRedirectIndexContent = httpAccessPage.urlContentIndex;
 
         this.dataSource.data = TREE_DATA;
     }

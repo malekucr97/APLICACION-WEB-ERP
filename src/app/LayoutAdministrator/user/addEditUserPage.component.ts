@@ -53,9 +53,12 @@ export class AddEditUserComponent implements OnInit {
         // valida si se va a registrar o modificar un usuario
         if (this.route.snapshot.params.id){ this.updateUser = true; } else { this.addUser = true; }
 
-        if (this.user.esAdmin || this.user.idRol === amdinBusiness.adminSociedad) {
-            this.URLRedirectPage = httpAccessAdminPage.urlPageListUsers;
-        } else { this.URLRedirectPage = '/'; }
+        if (this.user.esAdmin || 
+            this.user.idRol === amdinBusiness.adminSociedad) {
+                this.URLRedirectPage = httpAccessAdminPage.urlPageListUsers;
+        } else { 
+            this.URLRedirectPage = '/'; 
+        }
 
         if (this.addUser) {
 
