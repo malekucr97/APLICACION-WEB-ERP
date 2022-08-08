@@ -131,8 +131,8 @@ export class ListUserComponent implements OnInit {
 
             // lista todos los usuarios
             this.accountService.getAllUsers()
-            .pipe(first())
-            .subscribe(users => this.listUsers = users );
+                .pipe(first())
+                .subscribe(users => this.listUsers = users );
 
         } else if (rol && rol === amdinBusiness.adminSociedad && businessUser) {
 

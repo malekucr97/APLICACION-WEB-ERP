@@ -1,8 +1,11 @@
-<!-- <div *ngIf="userObservable"> -->
+<div *ngIf="conexion">
 
     <div class="info">
+        <p class="info__home"   >
+            <i routerLink="/" class="info__home__icon fa fa-home fa-lg"></i>
+        </p>
         <p class="info__user">
-            <i routerLink="/_AdminModule/AdminUserPage" class="info__user__icon fa fa-cog"></i>
+            <i routerLink="/_AdminModule/AdminUserPage" class="info__user__icon fa fa-cog fa-lg"></i>
         </p>
         <p class="info__logout">
             <i class="info__logout__icon fa fa-sign-out fa-lg" (click)="logout()"></i>
@@ -37,4 +40,8 @@
             </main>
         </div>
     </mat-sidenav-container>
-<!-- </div> -->
+</div>
+
+<div>
+    <router-outlet></router-outlet>
+</div>

@@ -4,7 +4,7 @@ import { Router } from '@angular/router';
 import { User } from '@app/_models';
 import { Compania } from '../_models/modules/compania';
 import { AccountService } from '@app/_services';
-import { httpAccessPage } from '@environments/environment';
+import { administrator, AuthStatesApp, httpLandingIndexPage } from '@environments/environment-access-admin';
 
 @Component({
     templateUrl: 'HTML_HomePage.html'
@@ -27,35 +27,57 @@ export class HomeComponent implements OnInit {
         this.conexion = false;
         this.message = 'Esperando respuesta del servidor';
 
-        // si es administrador lista todas las compañías del sistema
-        if (this.userObservable.esAdmin) {
-
-            this.accountService.getAllBusiness()
-            .pipe(first())
-            .subscribe(listComaniesResponse => {
-
-                this.conexion = true;
-                this.message = 'Seleccione la Compañía para ingresar';
-                
-                if (listComaniesResponse) {
-                    this.listBusiness = listComaniesResponse;
-                }
-            });
-
-        // si no es administrador lista las compañías activas con acceso del usuario 
-        } else {
-            this.accountService.getBusinessActiveUser(this.userObservable.identificacion)
-            .pipe(first())
-            .subscribe(lstBusinessResponse => {
-
-                this.conexion = true;
-                this.message = 'Seleccione la Compañía para ingresar';
-
-                if (lstBusinessResponse) {
-                    this.listBusiness = lstBusinessResponse;
-                }
-            });
+        if (AuthStatesApp.inactive === this.userObservable.estado) {
+            this.router.navigate([httpLandingIndexPage.indexHTTPInactiveUser]);
+            return;
         }
+        if (AuthStatesApp.pending === this.userObservable.estado) {
+            this.router.navigate([httpLandingIndexPage.indexHTTPPendingUser]);
+            return;
+        }
+        if (!this.userObservable.idRol) { 
+            this.router.navigate( [httpLandingIndexPage.indexHTTPNotRolUser] );
+            return; 
+        }
+
+        this.userObservable.esAdmin = false;
+        this.accountService.getRoleById(this.userObservable.idRol)
+        .pipe(first())
+        .subscribe( responseObjectRol => {
+
+            if (responseObjectRol.estado === AuthStatesApp.inactive) {
+                this.router.navigate([httpLandingIndexPage.indexHTTPInactiveRolUser]);
+                return;
+            }
+
+            this.conexion = true;
+            this.message = 'Seleccione la Compañía para ingresar';
+
+            // si el usuario que inicia sesión es administrador
+            if (administrator.id === responseObjectRol.id) {
+                    
+                this.userObservable.esAdmin = true;
+                this.accountService.updateLocalUser(this.userObservable);
+
+                this.accountService.getAllBusiness()
+                .pipe(first())
+                .subscribe(listComaniesResponse => {
+                    
+                    if (listComaniesResponse) {
+                        this.listBusiness = listComaniesResponse;
+                    }
+                });
+            } else {
+                this.accountService.getBusinessActiveUser(this.userObservable.identificacion)
+                .pipe(first())
+                .subscribe(lstBusinessResponse => {
+    
+                    if (lstBusinessResponse) {
+                        this.listBusiness = lstBusinessResponse;
+                    }
+                });
+            }
+        });
     }
 
     selectBusiness(business: Compania) {
@@ -66,6 +88,6 @@ export class HomeComponent implements OnInit {
         this.accountService.loadBusinessAsObservable(business);
 
         // http index.html
-        this.router.navigate([httpAccessPage.urlContentIndex]);
+        this.router.navigate([httpLandingIndexPage.indexHTTP]);
     }
 }

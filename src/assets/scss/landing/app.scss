@@ -9,9 +9,18 @@
     font-family: "../../assets/fonts/Aero.ttf";
     font-size: 1.8rem;
     font-weight: 750;
-    text-align: center;
+
+    
+    // text-align: center;
+    
+    @media (max-width: 1500px) {
+        font-size: 1.3rem;
+    }
     @media (max-width: 800px) {
-        font-size: 1.5rem;
+        font-size: 1rem;
+    }
+    @media (max-width: 600px) {
+        font-size: 0.8rem;
     }
 }
 @mixin font-info {
@@ -41,13 +50,24 @@
         
         color: white;
     }
+    &__home {
+        padding-right: 1%;
+        
+        color: white;
+    }
     &__user__icon {
         margin-right: 2%;
         margin-top: 5px;
+        width: 100%;
     }
     &__logout__icon {
         margin-left: 2%;
         margin-top: 5px;
+        width: 100%;
+    }
+    &__home__icon {
+        margin-top: 5px;
+        width: 100%;
     }
     &__user__icon:hover {
         cursor: pointer;
@@ -57,10 +77,14 @@
         cursor: pointer;
         color: #F9A01B;
     }
+    &__home__icon:hover {
+        cursor: pointer;
+        color: #F9A01B;
+    }
 }
 .title {
     display: flex;
-    flex-direction: row;
+    // flex-direction: row;
     align-items: center;
     justify-content: space-evenly;
 
@@ -68,20 +92,22 @@
         color: white;
         display: flex;
         padding-top: 1%;
+
         @include font-aero;
     }
 
     &__deco--left {
-        height: 13%;
-        width: 13%;
+        height: 12%;
+        width: 12%; 
     }
 
     &__deco--right {
-        height: 13%;
-        width: 13%;
+        height: 12%;
+        width: 12%;
     }
 }
 .content {
+    // height: calc(52vh - 1px);
     margin: 16px;
     justify-content: center;
     align-items: center;
@@ -104,10 +130,32 @@
             padding-top: 1%;
             padding-bottom: 1%;
             text-align: center;
-    
+
+            
+
             &__logo {
                 transition: opacity 0.5s ease-in-out;
                 cursor: pointer;
+
+                // @media (max-width: 1500px) {
+                //     width: 90%;
+                //     height: 90%;
+                // }
+                @media (max-width: 800px) {
+                    width: 50%;
+                    height: 50%;
+                }
+                // @media (max-width: 500px) {
+                //     width: 30%;
+                //     height: 30%;
+                // }
+
+
+                // @media (max-width: 600px) {
+                //     // font-size: 0.8rem;
+                //     width: 10%;
+                //     height: 10%;
+                // }
             }
             &__titulo {
                 color: #005188;
@@ -115,9 +163,9 @@
                 font-weight: 700;
                 transition: color 0.2s ease-in-out;
     
-                @media (min-width: 1500px) {
-                    font-size: 1.5rem;
-                }
+                // @media (min-width: 1500px) {
+                //     font-size: 1.5rem;
+                // }
     
                 &:hover {
                     color: #00AEEF;
