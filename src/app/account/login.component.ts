@@ -86,7 +86,7 @@ export class LoginComponent implements OnInit {
 
                         let user : User = responseObjectLogin;
                         
-                        this.accountService.updateLocalUser(user);
+                        this.accountService.loadUserAsObservable(user);
                         this.router.navigate([this.UrlHome]);
                     });
                 }

@@ -1,56 +1,16 @@
-<div *ngIf="seleccionCompania">
-    <h1>Pantalla de Administración del Sistema</h1>
-    <br><br>
-    <h2 style="display: inline;">Bienvenido</h2>
-    <h2 style="display: inline; color:#1A5276"> {{user.nombreCompleto}} !</h2>
-    <br><br>
-    <hr><br>
-    <h1 style="color:#1A5276">Actualizar Información de Usuario</h1>
-    <br>
-    <a routerLink="{{URLConfigureUserPage}}{{user.identificacion}}" class="btn btn-outline-dark mb-2">Actualizar Información Usuario</a>
-    <br><hr><br>
-    <h1 style="color:#1A5276">Módulos de Administración del Sistema</h1>
-    <br>
-    <a style="margin-right: 1%;" routerLink="{{URLListUserPage}}" class="btn btn-outline-dark mb-2">Administración de Usuarios</a>
-    <a style="margin-right: 1%;" routerLink="{{URLListBusinessPage}}" class="btn btn-outline-dark mb-2">Administración de Empresas</a>
-    <a style="margin-right: 1%;" routerLink="{{URLListModulePage}}" class="btn btn-outline-dark mb-2">Administración de Módulos</a>
-    <a style="margin-right: 1%;" routerLink="{{URLListRolePage}}" class="btn btn-outline-dark mb-2">Administración de Roles</a>
-</div>
-
-<!-- <div *ngIf="adminSistema">
-    <br><br>
-
-    <h1 style="display: inline;">Administración Interna del Sistema</h1>
-    <br><br>
-    <h1 style="display: inline;">Bienvenido</h1>
-    <h1 style="display: inline; color:#1A5276"> {{user.nombreCompleto}} !</h1><br><br>
-    <hr><br>
-
-    <h1 style="color:#1A5276">Configuración de Usuario</h1>
-    <br>
-    <a routerLink="{{URLConfigureUserPage}}{{user.identificacion}}" class="btn btn-outline-dark mb-2">Parámetros de Usuario</a>
-    <br><hr><br>
-
-    <h1 style="color:#1A5276">Configuraciones Internas del Sistema</h1>
-    <br>
-    <a style="margin-right: 1%;" routerLink="{{URLListUserPage}}" class="btn btn-outline-dark mb-2">Administración de Usuarios</a>
-    <a style="margin-right: 1%;" routerLink="{{URLListBusinessPage}}" class="btn btn-outline-dark mb-2">Administración de Empresas</a>
-    <a style="margin-right: 1%;" routerLink="{{URLListModulePage}}" class="btn btn-outline-dark mb-2">Administración de Módulos</a>
-    <a style="margin-right: 1%;" routerLink="{{URLListRolePage}}" class="btn btn-outline-dark mb-2">Administración de Roles</a>
-</div>
-
-<div *ngIf="adminEmpresa">
-    <br><br>
-    <h1>Administración Interna de Empresas</h1>
-    <h2>Bienvenido {{user.nombreCompleto}} !</h2>
-    <br><hr><br>
-
-    <h1 style="color:#1A5276;">Configuración de Usuario</h1>
-    <br>
-    <a routerLink="{{URLConfigureUserPage}}{{user.identificacion}}" class="btn btn-outline-dark mb-2">Parámetros de Usuario</a>
-    <br><hr><br>
-    <h1 style="color:#1A5276">Configuraciones Internas del Sistema</h1>
-    <br>
-    <h3 *ngIf="!user.empresa">Para acceder a la configuración de parámetros del sistema debe seleccionar una Empresa o Sociedad</h3>
-    <a *ngIf="user.empresa" style="margin-right: 1%;" routerLink="{{URLListUserPage}}" class="btn btn-outline-dark mb-2">Administración de Usuarios</a>
-</div> -->
+<h1>Pantalla de Administración del Sistema</h1>
+<br><br>
+<h2 style="display: inline;">Bienvenido</h2>
+<h2 style="display: inline; color:#1A5276"> {{userObservable.nombreCompleto}} !</h2>
+<br><br>
+<hr><br>
+<h1 style="color:#1A5276">Actualizar Información de Usuario</h1>
+<br>
+<a routerLink="{{URLConfigureUserPage}}{{userObservable.identificacion}}" class="btn btn-outline-dark mb-2">Actualizar Información Usuario</a>
+<br><hr><br>
+<h1 style="color:#1A5276">Módulos de Administración del Sistema</h1>
+<br>
+<a style="margin-right: 1%;" routerLink="{{URLListUserPage}}" class="btn btn-outline-dark mb-2">Administración de Usuarios</a>
+<a *ngIf="userObservable.esAdmin" style="margin-right: 1%;" routerLink="{{URLListBusinessPage}}" class="btn btn-outline-dark mb-2">Administración de Empresas</a>
+<a *ngIf="userObservable.esAdmin"style="margin-right: 1%;" routerLink="{{URLListModulePage}}" class="btn btn-outline-dark mb-2">Administración de Módulos</a>
+<a *ngIf="userObservable.esAdmin"style="margin-right: 1%;" routerLink="{{URLListRolePage}}" class="btn btn-outline-dark mb-2">Administración de Roles</a>

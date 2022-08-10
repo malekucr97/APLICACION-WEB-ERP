@@ -5,7 +5,7 @@ import { AccountService } from '@app/_services';
 // act css
 @Component({
     templateUrl: 'index.html',
-    styleUrls: ['../../../assets/scss/generales/app.scss'],
+    styleUrls: ['../../../assets/scss/cumplimiento/app.scss'],
 })
 export class IndexCumplimientoComponent implements OnInit {
     pPathIcoModule: string;

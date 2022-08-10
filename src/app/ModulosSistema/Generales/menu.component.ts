@@ -4,7 +4,6 @@ import { MatSidenav } from '@angular/material/sidenav';
 import { Module, User } from '@app/_models';
 import { httpLandingIndexPage } from '../../../environments/environment-access-admin';
 import { Router } from '@angular/router';
-import { first } from 'rxjs/operators';
 
 import {FlatTreeControl} from '@angular/cdk/tree';
 import {MatTreeFlatDataSource, MatTreeFlattener} from '@angular/material/tree';
@@ -54,9 +53,13 @@ export class MenuGeneralesComponent implements OnInit {
     moduleObservable: Module;
     businessObservable: Compania;
 
+    private Home:string = httpLandingIndexPage.homeHTTP;
+    private Index:string = httpLandingIndexPage.indexHTTP;
+
     URLRedirectIndexContent: string = httpLandingIndexPage.indexHTTP;
 
-    constructor(private accountService: AccountService, private router: Router,
+    constructor(private accountService: AccountService, 
+                private router: Router,
                 private generalesService: GeneralesService,) {
 
         this.userObservable = this.accountService.userValue;
@@ -68,8 +71,14 @@ export class MenuGeneralesComponent implements OnInit {
 
     ngOnInit() {
 
-      let treeMenu:string;
-      
+      if (!this.businessObservable) {
+        this.router.navigate([this.Home]);
+        return;
+      }
+      if (!this.moduleObservable) {
+        this.router.navigate([this.Index]);
+        return;
+      }
     }
 
   private _transformer = (node: FoodNode, level: number) => {

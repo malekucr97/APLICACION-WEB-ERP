@@ -1,11 +1,12 @@
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { Component, OnInit, ViewChild, ElementRef } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { AccountService, AlertService, GeneralesService } from '@app/_services';
-import { User, Module, Role, ResponseMessage } from '@app/_models';
+import { User, Module } from '@app/_models';
 import { first } from 'rxjs/operators';
 import { MatSidenav } from '@angular/material/sidenav';
 import { Compania } from '../../../_models/modules/compania';
-// import { Procedimientos } from '@environments/environment-access-admin';
+
+declare var $: any;
 
 @Component({
     templateUrl: 'HTML_ConfigurationCompania.html',
@@ -22,13 +23,13 @@ export class ConfigurationCompaniaComponent implements OnInit {
 
     submitted = false;
 
-    addEditForm: FormGroup;
+    updateForm: FormGroup;
 
     constructor ( 
             private formBuilder: FormBuilder,
             private accountService: AccountService, 
             private generalesSerice: GeneralesService, 
-            private alertService: AlertService ) 
+            private alertService: AlertService) 
     {
         this.userObservable = this.accountService.userValue;
         this.moduleObservable = this.accountService.moduleValue;
@@ -39,7 +40,7 @@ export class ConfigurationCompaniaComponent implements OnInit {
 
         this.companiaConfiguration = new Compania();
 
-        this.addEditForm = this.formBuilder.group({
+        this.updateForm = this.formBuilder.group({
             id: [this.companiaObservable.id],
             nombre: [this.companiaObservable.nombre, Validators.required],
             tipoIdentificacion: [this.companiaObservable.tipoIdentificacion, Validators.required],
@@ -47,31 +48,31 @@ export class ConfigurationCompaniaComponent implements OnInit {
             correoElectronico: [this.companiaObservable.correoElectronico, Validators.required],
 
             // <!-- INFORMACIÓN GEOGRÁFICA -->
-            codigoPaisUbicacion: [this.companiaObservable.codigoPaisUbicacion, Validators.required],
+            codigoPaisUbicacion: [this.companiaObservable.codigoPaisUbicacion],
             provincia: [this.companiaObservable.provincia, Validators.required],
             canton: [this.companiaObservable.canton, Validators.required],
             distrito: [this.companiaObservable.distrito, Validators.required],
             barrio: [this.companiaObservable.barrio],
-            detalleDireccion: [this.companiaObservable.detalleDireccion, Validators.required],
+            detalleDireccion: [this.companiaObservable.detalleDireccion],
 
-            codigoTelefono: [this.companiaObservable.codigoTelefono, Validators.required],
+            codigoTelefono: [this.companiaObservable.codigoTelefono],
             telefono: [this.companiaObservable.telefono, Validators.required],
 
             claveCorreo: [''],
-            hostCorreo: [this.companiaObservable.hostCorreo, Validators.required],
-            puertoCorreo: [this.companiaObservable.puertoCorreo, Validators.required]
+            hostCorreo: [this.companiaObservable.hostCorreo],
+            puertoCorreo: [this.companiaObservable.puertoCorreo]
         });
         
         this.companiaConfiguration = this.companiaObservable;
     }
 
-    get f() { return this.addEditForm.controls; }
+    get f() { return this.updateForm.controls; }
 
     updateSubmit() : void {
 
-        let operationName : string = 'ActualizarInformacionCompania';
-        let module : string = 'GENERALES';
-        let entityName : string = 'MOD_Compania';
+        // let operationName : string = 'Actualizar Informacion Compania';
+        // let module : string = 'GENERALES';
+        // let entityName : string = 'MOD_Compania';
 
         this.alertService.clear();
  
@@ -79,53 +80,56 @@ export class ConfigurationCompaniaComponent implements OnInit {
 
         var today = new Date();
 
-        if (this.addEditForm.invalid)
+        if (this.updateForm.invalid)
             return;
         
         let companiaForm = new Compania();
 
-        companiaForm.id = this.addEditForm.controls['id'].value;
+        companiaForm.id = this.updateForm.controls['id'].value;
 
-        companiaForm.nombre = this.addEditForm.get('nombre').value;
-        companiaForm.tipoIdentificacion = this.addEditForm.get('tipoIdentificacion').value;
-        companiaForm.cedulaJuridica = this.addEditForm.get('cedulaJuridica').value;
-        companiaForm.correoElectronico = this.addEditForm.get('correoElectronico').value;
-        companiaForm.codigoPaisUbicacion = this.addEditForm.get('codigoPaisUbicacion').value;
-        companiaForm.provincia = this.addEditForm.get('provincia').value;
-        companiaForm.canton = this.addEditForm.get('canton').value;
-        companiaForm.distrito = this.addEditForm.get('distrito').value;
-        companiaForm.barrio = this.addEditForm.get('barrio').value;
-        companiaForm.detalleDireccion = this.addEditForm.get('detalleDireccion').value;
-        companiaForm.codigoTelefono = this.addEditForm.get('codigoTelefono').value;
-        companiaForm.telefono = this.addEditForm.get('telefono').value;
-        if(this.addEditForm.get('claveCorreo').value) {
-            companiaForm.claveCorreo = this.addEditForm.get('claveCorreo').value;
+        companiaForm.nombre = this.updateForm.get('nombre').value;
+        companiaForm.tipoIdentificacion = this.updateForm.get('tipoIdentificacion').value;
+        companiaForm.cedulaJuridica = this.updateForm.get('cedulaJuridica').value;
+        companiaForm.correoElectronico = this.updateForm.get('correoElectronico').value;
+        companiaForm.codigoPaisUbicacion = this.updateForm.get('codigoPaisUbicacion').value;
+        companiaForm.provincia = this.updateForm.get('provincia').value;
+        companiaForm.canton = this.updateForm.get('canton').value;
+        companiaForm.distrito = this.updateForm.get('distrito').value;
+        companiaForm.barrio = this.updateForm.get('barrio').value;
+        companiaForm.detalleDireccion = this.updateForm.get('detalleDireccion').value;
+        companiaForm.codigoTelefono = this.updateForm.get('codigoTelefono').value;
+        companiaForm.telefono = this.updateForm.get('telefono').value;
+        if(this.updateForm.get('claveCorreo').value) {
+            companiaForm.claveCorreo = this.updateForm.get('claveCorreo').value;
         }
-        companiaForm.hostCorreo = this.addEditForm.get('hostCorreo').value;
-        companiaForm.puertoCorreo = this.addEditForm.get('puertoCorreo').value;
+        companiaForm.hostCorreo = this.updateForm.get('hostCorreo').value;
+        companiaForm.puertoCorreo = this.updateForm.get('puertoCorreo').value;
 
         companiaForm.modificadoPor = this.userObservable.identificacion;
-        //companiaForm.fechaModificacion = today.toLocaleDateString();
+        companiaForm.fechaModificacion = today;
 
-        let adn = createObjectADNCompania(companiaForm, operationName, module, entityName);
+        // let adn = createObjectADNCompania(companiaForm, operationName, module, entityName);
 
         this.generalesSerice.putCompania(companiaForm)
         .pipe(first())
         .subscribe( responseAddCompania => {
-            this.alertService.clear();
 
             if (responseAddCompania.exito) {
-                this.accountService.updateLocalCompania(companiaForm);
-                this.alertService.success(responseAddCompania.responseMesagge, { keepAfterRouteChange: true });
-            }else{
-                this.alertService.error(responseAddCompania.responseMesagge, { keepAfterRouteChange: true });
-            }
-        },
-        error => { console.log(error); this.alertService.error(error); });
-    }
 
-    refrescar() {
-        // window.location.reload();
+                this.companiaConfiguration = companiaForm;
+                this.accountService.loadBusinessAsObservable(companiaForm);
+                
+                this.alertService.success(responseAddCompania.responseMesagge, { keepAfterRouteChange: false });
+                
+            } else {
+                this.alertService.error(responseAddCompania.responseMesagge, { keepAfterRouteChange: false });
+            }
+            $('#updateModal').modal('hide');
+        },
+        error => {
+            console.log(error);
+            this.alertService.error(error);
+        });
     }
 }
 
@@ -240,4 +244,4 @@ function createObjectADNCompania(companiaForm: Compania, operationName:string, m
                 let obj = JSON.parse(req);
                 
                 return req;
-            }
+}

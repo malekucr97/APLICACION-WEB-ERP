@@ -50,7 +50,7 @@ export class AddBusinessUserComponent implements OnInit {
 
         if (this.pUserId !== administrator.id) {
 
-            this.accountService.getUserById(this.pUserId)
+            this.accountService.getUserByIdentification(this.pUserId)
             .pipe(first())
             .subscribe(responseUser => {
 

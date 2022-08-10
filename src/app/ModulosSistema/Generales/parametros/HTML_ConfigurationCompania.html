@@ -1,7 +1,7 @@
 <mat-sidenav-container>
     <div class="content mat-elevation-z4">
         <main>
-            <h1 style="color:#1A5276">Compañía</h1>
+            <h1 style="color:#1A5276">Información de Compañía</h1>
             <article>
                 <section class="content__menu">
                     <table class="table table-striped">
@@ -12,8 +12,6 @@
                                 <th style="width: 15%">Email</th>
                                 <th style="width: 20%">Detalle Dirección</th>
                                 <th style="width: 5%">Teléfono</th>
-                                <th style="width: 10%">Host Correo</th>
-                                <th style="width: 5%">Puerto Correo</th>
                                 <th style="width: 10%"></th>
                             </tr>
                         </thead>
@@ -24,8 +22,6 @@
                                 <td>{{companiaConfiguration.correoElectronico}}</td>
                                 <td>{{companiaConfiguration.detalleDireccion}}</td>
                                 <td>{{companiaConfiguration.telefono}}</td>
-                                <td>{{companiaConfiguration.hostCorreo}}</td>
-                                <td>{{companiaConfiguration.puertoCorreo}}</td>
                                 <td style="white-space: nowrap">
 
                                     <button class="btn btn-sm btn-info" data-toggle="modal" data-target="#updateModal">
@@ -48,20 +44,18 @@
         
         <div class="content-form mat-elevation-z4">
             
-            <main class="main-form"> 
-                
+            <main class="main-form">
                 <div class="modal-dialog modal-dialog-centered modal-xl">
                     
                     <div class="modal-content">
                         <div class="modal-body">
-                            <button style="color:red" type="button" class="close btn-close" data-dismiss="modal" (click)="refrescar()">&times;</button>
+                            <button style="color:red" type="button" class="close btn-close" data-dismiss="modal">&times;</button>
                             <h1 style="color:#1A5276">Parametrización</h1>
                             
-                            <form [formGroup]="addEditForm" (ngSubmit)="updateSubmit()" class="row g-3">
+                            <form [formGroup]="updateForm" (ngSubmit)="updateSubmit()" class="row g-3">
             
                                 <div class="form-group col-md-2">
                                     <label for="tipoIdentificacion" class="form-label">Tipo de Identificación</label>
-                                    <!-- <input formControlName="tipoIdentificacion" class="form-control" type="text" id="id_tidentificacion" /> -->
                                     <input formControlName="tipoIdentificacion" class="form-control" type="text" id="id_tidentificacion"  [ngClass]="{ 'is-invalid': submitted && f.tipoIdentificacion.errors }" />
                                     <div *ngIf="submitted && f.tipoIdentificacion.errors" class="invalid-feedback">
                                         <div *ngIf="f.tipoIdentificacion.errors.required">El tipo de identificación es requerido</div>
@@ -172,7 +166,7 @@
                                 </div>
                 
                                 <div class="col-md-6 mt-4">
-                                    <button type="submit" class="btn btn-info px-5">Actualizar</button>
+                                    <button type="submit" class="btn btn-info px-5" >Actualizar</button>
                                 </div>
                 
                             </form>

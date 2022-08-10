@@ -25,17 +25,17 @@
                     <span *ngIf="!isActivating">Activar rol</span>
                 </button>
                 <button *ngIf="rol.estado=='Activo'"  (click)="inActivateRole(rol.id)" class="btn btn-sm btn-info mr-1" [disabled]="isActivating" >
-                    <span *ngIf="isActivating" class="spinner-border spinner-border-sm"></span>
-                    <span *ngIf="!isActivating">Inactiv rol</span>
+                    <span *ngIf="isInActivating" class="spinner-border spinner-border-sm"></span>
+                    <span *ngIf="!isInActivating">Inactiv rol</span>
                 </button>
 
                 <button *ngIf="rol.tipo!='Lectura'"  (click)="lectura(rol.id)" class="btn btn-sm btn-light mr-1" [disabled]="isActivating" >
-                    <span *ngIf="isActivating" class="spinner-border spinner-border-sm"></span>
-                    <span *ngIf="!isActivating">Lectura</span>
+                    <span *ngIf="isReading" class="spinner-border spinner-border-sm"></span>
+                    <span *ngIf="!isReading">Lectura</span>
                 </button>
                 <button *ngIf="rol.tipo=='Lectura'"  (click)="escritura(rol.id)" class="btn btn-sm btn-dark mr-1" [disabled]="isActivating" >
-                    <span *ngIf="isActivating" class="spinner-border spinner-border-sm"></span>
-                    <span *ngIf="!isActivating">Escritura</span>
+                    <span *ngIf="isWriting" class="spinner-border spinner-border-sm"></span>
+                    <span *ngIf="!isWriting">Escritura</span>
                 </button>
 
                 <a routerLink="{{URLAddModuleRolPage}}{{rol.id}}/{{rol.nombre}}/{{rol.descripcion}}/{{rol.esAdministrador}}" class="btn btn-sm btn-dark mr-1"> Módulo </a>

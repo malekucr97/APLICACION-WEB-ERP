@@ -57,7 +57,7 @@ export class HomeComponent implements OnInit {
             if (administrator.id === responseObjectRol.id) {
                     
                 this.userObservable.esAdmin = true;
-                this.accountService.updateLocalUser(this.userObservable);
+                this.accountService.loadUserAsObservable(this.userObservable);
 
                 this.accountService.getAllBusiness()
                 .pipe(first())
@@ -83,7 +83,7 @@ export class HomeComponent implements OnInit {
     selectBusiness(business: Compania) {
 
         this.userObservable.empresa = business.id;
-        this.accountService.updateLocalUser(this.userObservable);
+        this.accountService.loadUserAsObservable(this.userObservable);
 
         this.accountService.loadBusinessAsObservable(business);
 
