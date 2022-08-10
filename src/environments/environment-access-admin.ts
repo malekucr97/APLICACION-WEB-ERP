@@ -35,12 +35,15 @@ export const httpAccessAdminPage = {
     urlPageAddRUser:    '/_AdminModule/AddRoleUserPage/',
     urlPageListBusiness:'/_AdminModule/AdminListBusinessPage/',
     urlPageListModule:  '/_AdminModule/AdminListModulePage/',
-
-    urlPageListRole: '/_AdminModule/AdminListRolePage/',
-    urlPageAddModuleRol: '/_AdminModule/AddModuleRolePage/'
+    urlPageListRole:    '/_AdminModule/AdminListRolePage/',
+    urlPageAddModuleRol:'/_AdminModule/AddModuleRolePage/'
 };
 
 export const httpLandingIndexPage = {
+
+    // -- >> Home Page Index Application
+    homeHTTP: '/',
+
     // -- >> Langing Pages Index Application
     indexHTTP: '/_/index.html',
     

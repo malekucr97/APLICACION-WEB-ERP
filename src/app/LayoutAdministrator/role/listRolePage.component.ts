@@ -2,42 +2,52 @@ import { Component, OnInit } from '@angular/core';
 import { first } from 'rxjs/operators';
 import { AccountService, AlertService } from '@app/_services';
 import { User, Role } from '@app/_models';
-import { amdinBusiness, administrator, httpAccessAdminPage } from '@environments/environment-access-admin';
+import { administrator, httpAccessAdminPage, httpLandingIndexPage } from '@environments/environment-access-admin';
+import { Compania } from '@app/_models/modules/compania';
+import { Router } from '@angular/router';
 
 @Component({ templateUrl: 'HTML_ListRolePage.html' })
 export class ListRoleComponent implements OnInit {
-    user: User;
-    rolList: Role;
+    userObservable: User;
+    businessObservable: Compania;
 
     listRoles: Role[] = [];
 
-    isActivating: boolean;
-    isDeleting: boolean;
+    isActivating: boolean = false;
+    isInActivating: boolean = false;
+    isWriting: boolean = false;
+    isReading: boolean = false;
+
     adminBoss: boolean;
     adminBusiness: boolean;
 
-    URLAddModuleRolPage: string;
-    URLAdministratorPage: string;
+    URLAddModuleRolPage: string = httpAccessAdminPage.urlPageAddModuleRol;
+    URLAdministratorPage: string = httpAccessAdminPage.urlPageAdministrator;
+
     idBusiness: string;
-    message: string;
+
+    private Home:string = httpLandingIndexPage.homeHTTP;
+    private Index:string = httpLandingIndexPage.indexHTTP;
 
     constructor(private accountService: AccountService,
-                private alertService: AlertService) {
+                private alertService: AlertService,
+                private router: Router) {
 
-            this.user = this.accountService.userValue;
+            this.userObservable = this.accountService.userValue;
+            this.businessObservable = this.accountService.businessValue;
+            
         }
 
     ngOnInit() {
-        this.isActivating   = false;
-        this.isDeleting     = false;
 
-        this.URLAddModuleRolPage = httpAccessAdminPage.urlPageAddModuleRol;
-        this.URLAdministratorPage = httpAccessAdminPage.urlPageAdministrator;
-
-        this.alertService.clear();
-
-        this.adminBoss = false;
-        this.adminBusiness = false;
+        if (!this.businessObservable) {
+            this.router.navigate([this.Home]);
+            return;
+        }
+        if (!this.userObservable.esAdmin) {
+            this.router.navigate([this.Index]);
+            return;
+        }
 
         this.accountService.getAllRoles()
         .pipe(first())
@@ -46,99 +56,138 @@ export class ListRoleComponent implements OnInit {
         );
     }
 
-    activateRole(rol: string) {
+    private updateRol(rolUpdate: Role, rolList: Role, idRol: string, accion: string, actualizaDato: string) : void {
 
-        if (rol !== administrator.id) {
+        this.accountService.updateRol(rolUpdate)
+            .pipe(first())
+            .subscribe( responseUpdate => {
 
+                if (responseUpdate.exito) {
+
+                    this.listRoles[this.listRoles.findIndex( r => r.id == idRol )] = rolList;
+                    this.alertService.success(responseUpdate.responseMesagge, { keepAfterRouteChange: false });
+
+                } else {
+                    this.alertService.error(responseUpdate.responseMesagge, { keepAfterRouteChange: false });
+
+                    switch(accion) { 
+
+                        case 'Estado': { 
+                            rolList.estado = actualizaDato;
+                           break; 
+                        } 
+                        case 'Tipo': { 
+                            rolList.tipo = actualizaDato;
+                            break; 
+                        }
+                        default: { null; break; } 
+                     }
+
+                    this.listRoles[this.listRoles.findIndex( r => r.id == idRol )] = rolList;
+                }
+                this.isActivating = false;
+                this.isInActivating = false;
+                this.isWriting = false;
+                this.isReading = false;
+            },
+            (error) => {
+                this.alertService.error(error, { keepAfterRouteChange: false });
+            });
+    }
+
+    activateRole(idRol: string) {
+
+        this.alertService.clear();
+
+        if (idRol !== administrator.id) {
+
+            let estado = 'Activo';
             this.isActivating = true;
 
-            this.rolList = this.listRoles.find(x => x.id === rol);
-            this.rolList.estado = 'Activo';
+            let rolList = this.listRoles.find(x => x.id === idRol);
+            rolList.estado = estado;
 
-            this.accountService.updateRol(this.rolList)
-                .pipe(first())
-                .subscribe( response => {
-                    this.alertService.success(response.responseMesagge, { keepAfterRouteChange: true });
-                    this.isActivating = false;
-                    this.ngOnInit();
-                },
-                (error) => { console.log(error); this.isActivating = false; });
+            let rolUpdate : Role = new Role();
+            rolUpdate.id = idRol;
+            rolUpdate.estado = estado;
+
+            this.updateRol(rolUpdate, rolList, idRol, 'Estado', 'Inactivo');
+
         } else {
-            this.message = 'No se puede modificar el estado de la cuenta administradora del sistema';
-            this.alertService.info(this.message, { keepAfterRouteChange: true });
-            this.ngOnInit();
+            let message = 'No se puede modificar el estado de la cuenta administradora del sistema';
+            this.alertService.info(message, { keepAfterRouteChange: false });
         }
     }
 
-    inActivateRole(rol: string) {
+    inActivateRole(idRol: string) {
 
-        if (rol !== administrator.id) {
+        this.alertService.clear();
 
-            this.isActivating = true;
+        if (idRol !== administrator.id) {
 
-            this.rolList = this.listRoles.find(x => x.id === rol);
-            this.rolList.estado = 'Inactivo';
+            let estado = 'Inactivo';
+            this.isInActivating = true;
 
-            this.accountService.updateRol(this.rolList)
-                .pipe(first())
-                .subscribe( response => {
-                    this.alertService.success(response.responseMesagge, { keepAfterRouteChange: true });
-                    this.isActivating = false;
-                    this.ngOnInit();
-                },
-                (error) => { console.log(error); this.isActivating = false; });
+            let rolList = this.listRoles.find(x => x.id === idRol);
+            rolList.estado = estado;
+
+            let rolUpdate : Role = new Role();
+            rolUpdate.id = idRol;
+            rolUpdate.estado = estado;
+
+            this.updateRol(rolUpdate, rolList, idRol, 'Estado', 'Activo');
+
         } else {
-            this.message = 'No se puede modificar el estado de la cuenta administradora del sistema';
-            this.alertService.info(this.message, { keepAfterRouteChange: true });
-            this.ngOnInit();
+            let message = 'No se puede modificar el estado de la cuenta administradora del sistema';
+            this.alertService.info(message, { keepAfterRouteChange: false });
         }
     }
 
-    escritura(rol: string) {
+    escritura(idRol: string) {
 
-        if (rol !== administrator.id && rol !== amdinBusiness.adminSociedad) {
+        this.alertService.clear();
 
-            this.isActivating = true;
+        if (idRol !== administrator.id) {
 
-            this.rolList = this.listRoles.find(x => x.id === rol);
-            this.rolList.tipo = 'Escritura';
+            let tipo = 'Escritura';
+            this.isWriting = true;
 
-            this.accountService.updateRol(this.rolList)
-                .pipe(first())
-                .subscribe( response => {
-                    this.alertService.success(response.responseMesagge, { keepAfterRouteChange: true });
-                    this.isActivating = false;
-                    this.ngOnInit();
-                },
-                (error) => { console.log(error); this.isActivating = false; });
+            let rolList = this.listRoles.find(x => x.id === idRol);
+            rolList.tipo = tipo;
+
+            let rolUpdate : Role = new Role();
+            rolUpdate.id = idRol;
+            rolUpdate.tipo = tipo;
+
+            this.updateRol(rolUpdate, rolList, idRol, 'Tipo', 'Lectura');
+
         } else {
-            this.message = 'Las cuentas administradoras tienen permisos de escritura y lectura sobre los módulos de la empresa.';
-            this.alertService.info(this.message, { keepAfterRouteChange: true });
-            this.ngOnInit();
+            let message = 'No se puede cambiar el tipo de permisos de la cuenta administradora del sistema';
+            this.alertService.info(message, { keepAfterRouteChange: false });
         }
     }
 
-    lectura(rol: string) {
+    lectura(idRol: string) {
 
-        if (rol !== administrator.id && rol !== amdinBusiness.adminSociedad) {
+        this.alertService.clear();
 
-            this.isActivating = true;
+        if (idRol !== administrator.id) {
 
-            this.rolList = this.listRoles.find(x => x.id === rol);
-            this.rolList.tipo = 'Lectura';
+            let tipo = 'Lectura';
+            this.isReading = true;
 
-            this.accountService.updateRol(this.rolList)
-                .pipe(first())
-                .subscribe( response => {
-                    this.alertService.success(response.responseMesagge, { keepAfterRouteChange: true });
-                    this.isActivating = false;
-                    this.ngOnInit();
-                },
-                (error) => { console.log(error); this.isActivating = false; });
+            let rolList = this.listRoles.find(x => x.id === idRol);
+            rolList.tipo = tipo;
+
+            let rolUpdate : Role = new Role();
+            rolUpdate.id = idRol;
+            rolUpdate.tipo = tipo;
+
+            this.updateRol(rolUpdate, rolList, idRol, 'Tipo', 'Escritura');
+
         } else {
-            this.message = 'Las cuentas administradoras tienen permisos de lectura y escritura sobre los módulos de la empresa.';
-            this.alertService.info(this.message, { keepAfterRouteChange: true });
-            this.ngOnInit();
+            let message = 'No se puede cambiar el tipo de permisos de la cuenta administradora del sistema';
+            this.alertService.info(message, { keepAfterRouteChange: false });
         }
     }
 }

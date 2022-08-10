@@ -7,11 +7,11 @@ export class User {
     email: string;
     numeroTelefono: string;
     estado: string;
-    token: string;
     password: string;
+    token: string;
     idRol: string;
-    empresa: number;
-
+    
     // no mapp
+    empresa: number;
     esAdmin: boolean;
 }

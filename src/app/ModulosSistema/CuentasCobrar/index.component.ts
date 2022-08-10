@@ -5,7 +5,7 @@ import { ActivatedRoute } from '@angular/router';
 
 @Component({
     templateUrl: 'index.html',
-    styleUrls: ['../../../assets/scss/generales/app.scss'],
+    styleUrls: ['../../../assets/scss/cuentascobrar/app.scss'],
 })
 export class IndexCuentasCobrarComponent implements OnInit {
     pPathIcoModule: string;

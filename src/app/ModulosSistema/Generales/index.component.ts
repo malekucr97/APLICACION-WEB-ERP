@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
+import { ActivatedRoute, Router } from '@angular/router';
 import { User, Module } from '@app/_models';
+import { Compania } from '@app/_models/modules/compania';
 import { AccountService } from '@app/_services';
 
 @Component({
@@ -11,7 +13,8 @@ export class IndexGeneralesComponent implements OnInit {
 
     userObservable: User;
     moduleObservable: Module;
-
+    businessObservable: Compania;
+    
     pnombremodulo: string;
 
     public adminSistema: boolean;
@@ -20,6 +23,7 @@ export class IndexGeneralesComponent implements OnInit {
     constructor(private accountService: AccountService) {
         this.userObservable = this.accountService.userValue;
         this.moduleObservable = this.accountService.moduleValue;
+        this.businessObservable = this.accountService.businessValue;
     }
 
     ngOnInit() { }

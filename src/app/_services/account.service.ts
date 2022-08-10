@@ -2,12 +2,11 @@
 import { Router } from '@angular/router';
 import { HttpClient } from '@angular/common/http';
 import { BehaviorSubject, Observable } from 'rxjs';
-import { map, first } from 'rxjs/operators';
+import { map } from 'rxjs/operators';
 import { environment } from '@environments/environment';
 import { User } from '@app/_models';
 import { Module, Role, ModuleRol, ResponseMessage, AssignRoleObject } from '@app/_models/';
 import { Compania, CompaniaUsuario } from '@app/_models/modules/compania';
-import { administrator, AuthStatesApp, httpLandingIndexPage } from '@environments/environment-access-admin';
 
 @Injectable({ providedIn: 'root' })
 export class AccountService {
@@ -21,6 +20,11 @@ export class AccountService {
     private businessSubject: BehaviorSubject<Compania>;
     public businessObservable: Observable<Compania>;
 
+    private listUsersSubject : BehaviorSubject<User[]> ;
+
+    // **************************************************************
+    // ************************* CONSTRUCTOR ************************
+    // **************************************************************
     constructor( private router: Router, private http: HttpClient ) {
 
         this.userSubject = new BehaviorSubject<User>(JSON.parse(localStorage.getItem('user')));
@@ -33,37 +37,59 @@ export class AccountService {
         this.moduleObservable = this.moduleSubject.asObservable();
     }
 
+    // ******************************************************************************
+    // ****************************** MÉTODOS ACCESORES *****************************
+    // ******************************************************************************
+    public get userListValue(): User[] { 
+        if (this.listUsersSubject) {
+            return this.listUsersSubject.value;   
+        }
+        return null;
+    }
     public get userValue():     User        { return this.userSubject.value;        }
     public get businessValue(): Compania    { return this.businessSubject.value;    }
     public get moduleValue():   Module      { return this.moduleSubject.value;      }
+    // ******************************************************************************
 
+    // *******************************************************************
+    // ********************** MÉTODOS SUBSCRIPTORES **********************
+    // *******************************************************************
+    // -- >> Suscribe lista de usuario para administración
+    ///
+    public suscribeListUser(listaUsuarios : User[]) : void {
+        this.listUsersSubject = new BehaviorSubject<User[]>(listaUsuarios);
+    }
+    // -- >> Actualiza lista de usuario administración
+    public loadListUsers(listaUsuarios : User[]) : void {
+        this.listUsersSubject.next(listaUsuarios);
+    }
+    // -- >> Actualiza Objeto Compañía en memoria y subcripción
     public loadBusinessAsObservable(bus: Compania) {
 
         localStorage.removeItem('Obusiness');
-
         localStorage.setItem('Obusiness', JSON.stringify(bus));
+
         this.businessSubject.next(bus);
     }
+    // -- >> Actualiza Objeto Módulo en memoria y subcripción
     public loadModuleAsObservable(mod: Module) {
 
         localStorage.removeItem('Omodule');
-
         localStorage.setItem('Omodule', JSON.stringify(mod));
+
         this.moduleSubject.next(mod);
     }
-
-    // -- >> ACTUALIZA USUARIO EN MEMORIA LOCAL
-    updateLocalUser(user: User) {
+    // -- >> Actualiza Objeto uSUARIO en memoria y subcripción
+    loadUserAsObservable(user: User) {
         localStorage.removeItem('user');
         localStorage.setItem('user', JSON.stringify(user));
-    }
-    // -- >> ACTUALIZA COMPAÑÍA EN MEMORIA LOCAL
-    updateLocalCompania(compania: Compania) {
-        localStorage.removeItem('Obusiness');
-        localStorage.setItem('Obusiness', JSON.stringify(compania));
-    }
 
-    // -- >> INICIA SESIÓN
+        this.userSubject.next(user);
+    }
+    // *******************************************************************
+
+    // **********************************************************************************************
+    // -- >> Inicio de Sesión
     login(username, password) {
         return this.http.post<User>(`${environment.apiUrl}/users/autenticar`, { username, password })
             .pipe(map(user => {
@@ -74,7 +100,8 @@ export class AccountService {
                 return user;
             }));
     }
-    // -- >> CIERRA SESIÓN
+    // **********************************************************************************************
+    // -- >> Finaliza Sesión
     logout() {
         localStorage.removeItem('user');
         this.userSubject.next(null);
@@ -87,6 +114,7 @@ export class AccountService {
 
         this.router.navigate(['account/login']);
     }
+    // **********************************************************************************************
 
     // -- >> Procedimientos Empresas
     getAllBusiness() {
@@ -143,9 +171,6 @@ export class AccountService {
     desAssignModuleToBusiness(moduleId:number, idBusiness:number) {
         return this.http.delete<ResponseMessage>(`${environment.apiUrl}/users/desassignmodbusiness?idModule=${moduleId}&idBusiness=${idBusiness}`);
     }
-    // getAllModules() {
-    //     return this.http.get<Module[]>(`${environment.apiUrl}/users/listadomodulos`);
-    // }
     getModulesBusiness(idEmpresa: number) {
         return this.http.get<Module[]>(`${environment.apiUrl}/users/modulossociedad?idEmpresa=${idEmpresa}`);
     }
@@ -161,9 +186,6 @@ export class AccountService {
     getModulesSystem() {
         return this.http.get<Module[]>(`${environment.apiUrl}/users/modulossystem`);
     }
-    // getModulesRol(idRol: string) {
-    //     return this.http.get<Module[]>(`${environment.apiUrl}/users/modulosactrol?idRol=${idRol}`);
-    // }
     getModulesRolBusiness(idRol: string, idEmpresa: number) {
         return this.http.get<Module[]>(`${environment.apiUrl}/users/modulosactrolempresa?idEmpresa=${idEmpresa}&idRol=${idRol}`);
     }
@@ -184,21 +206,6 @@ export class AccountService {
     deleteAccessModule(idRol: string, idModulo: number, ) {
         return this.http.delete<ResponseMessage>(`${environment.apiUrl}/users/eliminaraccesomodulo?idRol=${idRol}&idModulo=${idModulo}`);
     }
-
-    // -- >> Procedimientos de Usuarios
-    // async validateLoginUser(user:User=null) : Promise<string> {
-
-    //     let indexRedirect : string = '/';
-
-    //     if (AuthStatesApp.inactive === user.estado) { 
-    //         return httpLandingIndexPage.indexHTTPInactiveUser;
-    //     }
-    //     if (AuthStatesApp.pending === user.estado) {
-    //         return httpLandingIndexPage.indexHTTPPendingUser;
-    //     }
-        
-    //     return indexRedirect;        
-    // }
     addUser(user: User) { 
         return this.http.post<ResponseMessage>(`${environment.apiUrl}/users/registrarusuario`, user); 
     }
@@ -206,11 +213,11 @@ export class AccountService {
     removeRoleUser(user: User) {
         return this.http.put<ResponseMessage>(`${environment.apiUrl}/users/removerrolusuario`, user);
     }
-    updateUser(id, user: User) {
+    updateUser(id:string, user: User) {
         return this.http.put<ResponseMessage>(`${environment.apiUrl}/users/actualizarusuario`, user)
             .pipe(map(x => {
                 // actualiza la información del usuario local si es quien se está en la sesión
-                if (id === this.userValue.id) {
+                if (id === this.userValue.identificacion) {
                     localStorage.setItem('user', JSON.stringify(user));
                     this.userSubject.next(user);
                 }
@@ -223,17 +230,17 @@ export class AccountService {
     getUser(usuarioid: string) {
         return this.http.get<User>(`${environment.apiUrl}/users/${usuarioid}`);
     }
-    getUserById(id: string) {
-        return this.http.get<User>(`${environment.apiUrl}/users/usuarioid?idUsuario=${id}`);
+    getUserByIdentification(identification: string) {
+        return this.http.get<User>(`${environment.apiUrl}/users/usuarioidentification?identUsuario=${identification}`);
     }
     getUsersBusiness(idEmpresa: number) {
         return this.http.get<User[]>(`${environment.apiUrl}/users/usuariosempresa?idEmpresa=${idEmpresa}`);
     }
     activateUser(user: User) {
-        return this.http.post<ResponseMessage>(`${environment.apiUrl}/users/activarcuenta`, user);
+        return this.http.put<ResponseMessage>(`${environment.apiUrl}/users/activarcuenta`, user);
     }
     inActivateUser(user: User) {
-        return this.http.post<ResponseMessage>(`${environment.apiUrl}/users/inactivarcuenta`, user);
+        return this.http.put<ResponseMessage>(`${environment.apiUrl}/users/inactivarcuenta`, user);
     }
     deleteUser(idUser: number) {
         return this.http.delete<ResponseMessage>(`${environment.apiUrl}/users/deleteuser?idUser=${idUser}`)

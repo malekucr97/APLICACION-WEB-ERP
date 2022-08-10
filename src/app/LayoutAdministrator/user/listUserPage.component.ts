@@ -1,20 +1,24 @@
-import { Component, OnInit } from '@angular/core';
+import { AfterContentInit, AfterViewInit, Component, OnInit } from '@angular/core';
 import { first } from 'rxjs/operators';
+import { Router } from '@angular/router';
 import { AccountService, AlertService } from '@app/_services';
 import { User, ResponseMessage } from '@app/_models';
-import { administrator, amdinBusiness, httpAccessAdminPage } from '@environments/environment-access-admin';
+import { administrator, amdinBusiness, httpAccessAdminPage, httpLandingIndexPage } from '@environments/environment-access-admin';
+import { Compania } from '@app/_models/modules/compania';
 
 @Component({ templateUrl: 'HTML_ListUserPage.html' })
 export class ListUserComponent implements OnInit {
-    user: User;
-    userList: User;
+    userObservable: User;
+    businessObservable: Compania;
+
     response: ResponseMessage;
 
     listUsers: User[] = [];
 
-    isActivating: boolean;
-    isDeleting: boolean;
-    adminBoss: boolean;
+    isActivating: boolean = false;
+    isDeleting: boolean = false;
+
+    private Home:string = httpLandingIndexPage.homeHTTP;
 
     public URLAddEditUsertPage: string     = httpAccessAdminPage.urlPageAddEditUser;
     public URLAddBusinessUsertPage: string = httpAccessAdminPage.urlPageAddBUser;
@@ -22,33 +26,49 @@ export class ListUserComponent implements OnInit {
     public URLAdministratorPage: string    = httpAccessAdminPage.urlPageAdministrator;
 
     constructor(private accountService: AccountService, 
-                private alertService: AlertService)
+                private alertService: AlertService,
+                private router: Router)
     {
-        this.user = this.accountService.userValue;
+        this.userObservable = this.accountService.userValue;
+        this.businessObservable = this.accountService.businessValue;
     }
 
     ngOnInit() {
 
-        // Realizar validación de usuario que tenga permisos para el listado
-        // redireccionamiento si el usuario no tiene acceso a una página o template de no acceso
+        if (!this.businessObservable) {
+            this.router.navigate([this.Home]);
+            return;
+        }
 
-        this.alertService.clear();
+        if (this.userObservable.esAdmin) {
 
-        this.isActivating   = false;
-        this.isDeleting     = false;
-        this.adminBoss      = false;
+            this.accountService.getAllUsers()
+                .pipe(first())
+                .subscribe(users => {
+                    this.listUsers = users;
+                    this.accountService.suscribeListUser(this.listUsers);
+                });
+                    
+                
 
-        this.actualizarListaUsuarios(this.user.esAdmin, this.user.idRol, this.user.empresa);
+        } else if (this.userObservable.idRol && this.userObservable.idRol === amdinBusiness.adminSociedad) {
+
+            this.accountService.getUsersBusiness(this.userObservable.empresa)
+            .pipe(first())
+            .subscribe(users => {
+                this.listUsers = users;
+                this.accountService.suscribeListUser(this.listUsers);
+                
+            });
+        }
     }
-
     deleteUser(identificacionUsuario: string, idUser: number) {
 
         this.alertService.clear();
 
-        this.isDeleting = true;
-        let message : string;
-
         if (identificacionUsuario !== administrator.id) {
+
+            this.isDeleting = true;
 
             this.accountService.deleteUser(idUser)
                 .pipe(first())
@@ -56,90 +76,95 @@ export class ListUserComponent implements OnInit {
 
                     if (responseDelete.exito) {
 
-                        // hacer eliminacion del usuario de la lista en el scope de la vista
-
-                        this.alertService.success(responseDelete.responseMesagge, { keepAfterRouteChange: true });
-                    
-                        this.actualizarListaUsuarios(this.adminBoss, this.user.idRol, this.user.empresa);
+                        this.alertService.success(responseDelete.responseMesagge, { keepAfterRouteChange: false });
+                        this.listUsers.splice(this.listUsers.findIndex( u => u.id == idUser ), 1);
 
                     } else {
-                        this.alertService.warn('No se puede eliminar un usuario con acceso a una compañía. Por favor elimine el acceso del usuario a la compañía.', { keepAfterRouteChange: true });
+                        this.alertService.warn('No se puede eliminar un usuario con acceso a una compañía.', { keepAfterRouteChange: false });
                         console.log(responseDelete.responseMesagge);
                     }
-                    this.alertService.clear();
+                    this.isDeleting = false;
                 },
-                (error) => { this.alertService.error(error.message); });
+                (error) => { 
+                    this.isDeleting = false; this.alertService.error(error.message, { keepAfterRouteChange: false }); 
+                });
 
         } else {
-
-            message = 'No se puede eliminar la cuenta administradora del sistema';
+            let message = 'No se puede eliminar la cuenta administradora del sistema';
             this.alertService.info(message, { keepAfterRouteChange: false });
         }
-        this.isDeleting = false;
     }
 
-    activateUser(identificacion: string) {
+    activateUser(identificacion, idUser: number) {
+
+        this.alertService.clear();
 
         if (identificacion !== administrator.id) {
 
             this.isActivating = true;
 
-            this.userList = this.listUsers.find(x => x.identificacion === identificacion);
+            let userList : User = this.listUsers.find(x => x.id === idUser);
+            let userUpdate : User = new User();
+            userUpdate.id = idUser;
 
-            this.accountService.activateUser(this.userList)
+            this.accountService.activateUser(userUpdate)
                 .pipe(first())
                 .subscribe( responseActivate => {
-                    this.alertService.success(responseActivate.responseMesagge, { keepAfterRouteChange: true });
-                    this.ngOnInit();
+
+                    if (responseActivate.exito) {
+
+                        userList.estado = 'Activo';
+                        this.listUsers[this.listUsers.findIndex( u => u.id == idUser )] = userList;
+
+                        this.alertService.success(responseActivate.responseMesagge, { keepAfterRouteChange: false });
+
+                    } else {
+                        this.alertService.warn('Problemas al activar el usuario. Error: ' + responseActivate.responseMesagge, { keepAfterRouteChange: false });
+                    }
+                    this.isActivating = false;
                 },
-                (error) => { console.log(error); this.alertService.error(error); this.ngOnInit();
+                (error) => { 
+                    this.isActivating = false; this.alertService.error(error, { keepAfterRouteChange: false });
                 });
         } else {
-            this.response.responseMesagge = 'No se puede modificar el estado de la cuenta administradora del sistema';
-            this.alertService.info(this.response.responseMesagge, { keepAfterRouteChange: true });
-            this.ngOnInit();
+            let message : string = 'No se puede modificar el estado de la cuenta administradora del sistema';
+            this.alertService.info(message, { keepAfterRouteChange: false });
         }
     }
 
-    inActivateUser(identificacion: string) {
+    inActivateUser(identificacion: string, idUser: number) {
+
+        this.alertService.clear();
 
         if (identificacion !== administrator.id) {
 
-            this.userList = this.listUsers.find(x => x.identificacion === identificacion);
             this.isActivating = true;
 
-            this.accountService.inActivateUser(this.userList)
+            let userList : User = this.listUsers.find(x => x.id === idUser);
+            let userUpdate : User = new User();
+            userUpdate.id = idUser;
+            
+            this.accountService.inActivateUser(userUpdate)
                 .pipe(first())
                 .subscribe( responseInActivate => {
-                    this.alertService.success(responseInActivate.responseMesagge, { keepAfterRouteChange: true });
-                    this.ngOnInit();
+
+                    if (responseInActivate.exito) {
+
+                        userList.estado = 'Inactivo';
+                        this.listUsers[this.listUsers.findIndex( u => u.id == idUser )] = userList;
+                        this.alertService.success(responseInActivate.responseMesagge, { keepAfterRouteChange: false });
+
+                    } else {
+                        this.alertService.warn('Problemas al inactivar el usuario. Error: ' + responseInActivate.responseMesagge, { keepAfterRouteChange: false });
+                    }
+                    this.isActivating = false;
                 },
-                (error) => { console.log(error); this.alertService.error(error); this.ngOnInit();
+                (error) => { 
+                    this.isActivating = false; this.alertService.error(error, { keepAfterRouteChange: false });
                 });
         } else {
-            this.response.responseMesagge = 'No se puede modificar el estado de la cuenta administradora del sistema';
-            this.alertService.info(this.response.responseMesagge, { keepAfterRouteChange: true });
-            this.ngOnInit();
-        }
-    }
-
-    private actualizarListaUsuarios(esAdmin:boolean=false, rol:string=null, businessUser:number=null) : void {
-
-        if (esAdmin) {
-
-            this.adminBoss = true;
-
-            // lista todos los usuarios
-            this.accountService.getAllUsers()
-                .pipe(first())
-                .subscribe(users => this.listUsers = users );
-
-        } else if (rol && rol === amdinBusiness.adminSociedad && businessUser) {
-
-            // lista los usuarios activos con acceso a la compañía
-            this.accountService.getUsersBusiness(businessUser)
-            .pipe(first())
-            .subscribe(users => this.listUsers = users );
+            let message : string = 'No se puede modificar el estado de la cuenta administradora del sistema';
+            this.alertService.info(message, { keepAfterRouteChange: false });
         }
     }
 }

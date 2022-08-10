@@ -47,15 +47,17 @@
             
                 <mat-tree [dataSource]="dataSource" [treeControl]="treeControl">
                     <!-- This is the tree node template for leaf nodes -->
+                    <!-- opciones hijas -->
                     <mat-tree-node *matTreeNodeDef="let node" matTreeNodePadding>
             
                         <button mat-button class="menu-button-submodulo" >
                             <mat-icon>{{node.icon}}</mat-icon>
-                            <span routerLink="{{node.link}}">{{node.name}}</span>
+                            <span routerLink="{{node.link}}" (click)="sidenav.toggle()">{{node.name}}</span>
                         </button>
                     
                     </mat-tree-node>
                     <!-- This is the tree node template for expandable nodes -->
+                    <!-- opciones principales -->
                     <mat-tree-node *matTreeNodeDef="let node;when: hasChild" matTreeNodePadding>
             
                         <button class="menu-button-submodulo" mat-button matTreeNodeToggle

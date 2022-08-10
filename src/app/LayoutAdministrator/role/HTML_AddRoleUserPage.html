@@ -2,16 +2,17 @@
 <div class="card">
     <div class="card-body">
 
-        <h4 style="display: inline;">Número de identificación: </h4><h5 style="display: inline; color:#1A5276">{{userRole.identificacion}}</h5>
+        <h4 style="display: inline;">Número de identificación: </h4><h5 style="display: inline; color:#1A5276">{{userToAssign.identificacion}}</h5>
         <br>
-        <h4 style="display: inline;">Nombre completo: </h4><h5 style="display:inline; color:#1A5276">{{userRole.nombreCompleto}}</h5>
+        <h4 style="display: inline;">Nombre completo: </h4><h5 style="display:inline; color:#1A5276">{{userToAssign.nombreCompleto}}</h5>
         <br>
-        <h6 *ngIf="existeRol" style="display: inline;">Rol de usuario: </h6><h6 *ngIf="role" style="display:inline; color:#1A5276">{{role.nombre}}</h6>
-        <h6 *ngIf="!existeRol" style="display: inline;">Rol de usuario no asignado</h6>
+        <h6 *ngIf="isRolAssign" style="display: inline;">Rol de usuario: </h6>
+        <h6 *ngIf="role" style="display:inline; color:#1A5276">{{role.nombre}}</h6>
+        <h6 *ngIf="!isRolAssign" style="display: inline;">Rol de usuario no asignado</h6>
         <br>
-        <button (click)="desAsignAllRolesUser(userRole.identificacion)" class="btn btn-outline-danger mb-2 float-right">
+        <button (click)="desAsignAllRolesUser()" class="btn btn-outline-danger mb-2 float-right">
             <span *ngIf="isDesAsignRoles" class="spinner-border spinner-border-sm"></span>
-            <b><span *ngIf="!isDesAsignRoles">Eliminar Rol de Usuario</span></b>
+            <span *ngIf="!isDesAsignRoles">Eliminar asignación de rol</span>
         </button>
         <br>
 
@@ -37,7 +38,7 @@
                         <td>{{rol.estado}}</td>
 
                         <td style="white-space: nowrap">
-                            <button (click)="assignRoleUser(rol.id, userRole.identificacion)" class="btn btn-sm btn-success mr-1">
+                            <button (click)="assignRoleUser(rol.id)" class="btn btn-sm btn-success mr-1">
                                 <span *ngIf="isAsignRole" class="spinner-border spinner-border-sm"></span>
                                 <span *ngIf="!isAsignRole">Asignar Rol</span>
                             </button>

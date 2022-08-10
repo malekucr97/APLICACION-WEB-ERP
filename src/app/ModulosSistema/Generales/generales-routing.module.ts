@@ -12,7 +12,6 @@ const routes: Routes = [
             { path: '', component: MenuGeneralesComponent },
             { path: 'Index.html', component: IndexGeneralesComponent },
             { path: 'ConfiguracionCompania.html', component: ConfigurationCompaniaComponent },
-            // { path: 'ConfiguracionCompania/:pidBusiness', component: ConfigurationCompaniaComponent },
         ]
     }
 ];

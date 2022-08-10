@@ -1,12 +1,15 @@
 import { Component, OnInit } from '@angular/core';
 import { User } from '@app/_models';
 import { AccountService } from '@app/_services';
-import { amdinBusiness, httpAccessAdminPage } from '@environments/environment-access-admin';
+import { amdinBusiness, httpAccessAdminPage, httpLandingIndexPage } from '@environments/environment-access-admin';
 import { Router } from '@angular/router';
+import { Compania } from '@app/_models/modules/compania';
 
 @Component({ templateUrl: 'HTML_AdminUserPage.html' })
 export class AdminUserComponent implements OnInit {
-    user: User;
+
+    userObservable: User;
+    businessObservable: Compania;
 
     URLConfigureUserPage: string = httpAccessAdminPage.urlPageConfigUser;
     URLListUserPage: string = httpAccessAdminPage.urlPageListUsers;
@@ -14,54 +17,24 @@ export class AdminUserComponent implements OnInit {
     URLListModulePage: string = httpAccessAdminPage.urlPageListModule;
     URLListRolePage: string = httpAccessAdminPage.urlPageListRole;
 
-    seleccionCompania: boolean = false;
+    private Home:string = httpLandingIndexPage.homeHTTP;
 
     constructor(private accountService: AccountService, 
                 private router: Router) {
-        this.user = this.accountService.userValue;
+        this.userObservable = this.accountService.userValue;
+        this.businessObservable = this.accountService.businessValue;
     }
 
     ngOnInit() {
 
-        if (this.user && this.user.empresa) {
-
-            this.seleccionCompania = true;
-
-            // si el usuario que inicia sesión no es administrador muestra la pantalla de actualizar info de usuario
-            if (!this.user.esAdmin && this.user.idRol !== amdinBusiness.adminSociedad) {
-
-                this.router.navigate([this.URLConfigureUserPage + this.user.identificacion]); 
-                return;
-            }
-        } else {
-            this.seleccionCompania = false;
+        if (!this.businessObservable) {
+            this.router.navigate([this.Home]);
+            return;
         }
 
-        // if (this.user.estado === AuthStatesApp.inactive) { 
-        //     this.router.navigate([httpAccessPage.urlPageInactiveUser]); 
-        //     return; 
-        // }
-        // if (this.user.estado === AuthStatesApp.pending) { 
-        //     this.router.navigate([httpAccessPage.urlPagePending]); 
-        //     return; 
-        // }
-        // if (!this.user.idRol) { 
-        //     this.router.navigate([httpAccessPage.urlPageNotRol]); 
-        //     return; 
-        // }
-
-        // this.adminSistema = false; 
-        // this.adminEmpresa = false;
-
-        // if (this.user.esAdmin) { 
-        //     this.adminSistema = true; 
-        // }
-        // if (this.user.idRol === amdinBusiness.adminSociedad) {
-        //     this.adminEmpresa = true; 
-        // }
-
-        // -- >> en caso de que el usuario no sea administrador
-        // -- >> redirecciona al usuario activo a la página de actualización del usuario
-        
+        if (!this.userObservable.esAdmin && this.userObservable.idRol !== amdinBusiness.adminSociedad) {
+            this.router.navigate([this.URLConfigureUserPage + this.userObservable.identificacion]); 
+            return;
+        }
     }
 }

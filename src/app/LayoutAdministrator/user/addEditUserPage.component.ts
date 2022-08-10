@@ -19,17 +19,17 @@ export class AddEditUserComponent implements OnInit {
     loading = false;
     submitted = false;
 
-    id: string;
+    pidentificationUser: string;
     URLRedirectPage: string;
 
     esAdmin: boolean;
-    listRoles: boolean;
+    // listRoles: boolean;
     updateUser: boolean;
     addUser: boolean;
 
     listRolesBusiness: Role[] = [];
 
-    userForm = new User();
+    // userForm = new User();
 
     constructor(
         private formBuilder: FormBuilder,
@@ -43,15 +43,18 @@ export class AddEditUserComponent implements OnInit {
 
     ngOnInit() {
 
-        this.listRoles = true;
-
-        this.updateUser = false;
         this.addUser = false;
+        this.updateUser = false;
 
         this.role = new Role();
 
         // valida si se va a registrar o modificar un usuario
-        if (this.route.snapshot.params.id){ this.updateUser = true; } else { this.addUser = true; }
+        if (this.route.snapshot.params.id) {
+            this.updateUser = true;
+            this.pidentificationUser = this.route.snapshot.params.id;
+        } else { 
+            this.addUser = true; 
+        }
 
         if (this.user.esAdmin || 
             this.user.idRol === amdinBusiness.adminSociedad) {
@@ -70,15 +73,13 @@ export class AddEditUserComponent implements OnInit {
                 email: ['', Validators.required],
                 numeroTelefono: ['', Validators.required],
                 role: [''],
-                bus: [''],
-                roles: [''],
+                // bus: [''],
+                // roles: [''],
                 password: ['',  [Validators.required, Validators.minLength(6)]]
             });
         }
 
         if (this.updateUser) {
-
-            this.id = this.route.snapshot.params.id;
 
             this.form = this.formBuilder.group({
                 identificacion: ['', Validators.required],
@@ -88,21 +89,21 @@ export class AddEditUserComponent implements OnInit {
                 email: ['', Validators.required],
                 numeroTelefono: ['', Validators.required],
                 role: [''],
-                bus: [''],
-                roles: [''],
+                // bus: [''],
+                // roles: [''],
                 password: ['']
             });
 
             this.form.controls.identificacion.disable();
             this.form.controls.role.disable();
 
-            this.accountService.getUserById(this.id)
+            this.accountService.getUserByIdentification(this.pidentificationUser)
                 .pipe(first())
                 .subscribe(responseUser => {
 
                     this.f.identificacion.setValue(responseUser.identificacion);
 
-                    const arrayNombre = responseUser.nombreCompleto.split(' ');
+                    let arrayNombre = responseUser.nombreCompleto.split(' ');
 
                     this.f.nombre.setValue(arrayNombre[0]);
                     this.f.primerApellido.setValue(arrayNombre[1]);
@@ -132,33 +133,37 @@ export class AddEditUserComponent implements OnInit {
     onSubmit() {
 
         this.submitted = true;
+        this.loading = true;
+
         this.alertService.clear();
 
         if (this.form.invalid) {
             return;
         }
-        this.loading = true;
 
-        this.userForm.identificacion = this.form.get('identificacion').value;
+        let userForm : User = new User();
+        
+        userForm.identificacion = this.form.get('identificacion').value;
 
-        this.userForm.nombreCompleto =  this.form.get('nombre').value + ' ' +
+        userForm.nombreCompleto =  this.form.get('nombre').value + ' ' +
                                         this.form.get('primerApellido').value + ' ' +
                                         this.form.get('segundoApellido').value;
 
-        this.userForm.email = this.form.get('email').value;
-        this.userForm.numeroTelefono = this.form.get('numeroTelefono').value;
+        userForm.email = this.form.get('email').value;
+        userForm.numeroTelefono = this.form.get('numeroTelefono').value;
 
-        this.userForm.password = this.form.get('password').value;
+        userForm.password = this.form.get('password').value;
 
         if (this.addUser) {
-            this.accountService.addUser(this.userForm)
+            this.accountService.addUser(userForm)
             .pipe(first())
             .subscribe( responseAddUser => {
 
                 if (responseAddUser.exito) {
-                    this.router.navigate([this.URLRedirectPage], { relativeTo: this.route });
                     this.alertService.success(responseAddUser.responseMesagge, { keepAfterRouteChange: true });
-                }else{
+                    this.router.navigate([this.URLRedirectPage], { relativeTo: this.route });
+                    
+                } else {
                     this.alertService.error(responseAddUser.responseMesagge, { keepAfterRouteChange: true });
                 }
                 this.loading = false;
@@ -167,15 +172,20 @@ export class AddEditUserComponent implements OnInit {
         }
 
         if (this.updateUser) {
-            this.accountService.updateUser(this.id, this.userForm)
+            this.accountService.updateUser(this.pidentificationUser, userForm)
             .pipe(first())
-            .subscribe(
-                response => {
+            .subscribe( responseUpdate => {
+
+                if (responseUpdate.exito) {
+                    this.alertService.success(responseUpdate.responseMesagge, { keepAfterRouteChange: true });
                     this.router.navigate([this.URLRedirectPage], { relativeTo: this.route });
-                    this.alertService.success(response.responseMesagge, { keepAfterRouteChange: true });
-                    this.loading = false;
-                },
-                error => { console.log(error); this.alertService.error(error); this.loading = false; });
+                    
+                } else {
+                    this.alertService.error(responseUpdate.responseMesagge, { keepAfterRouteChange: true });
+                }
+                this.loading = false;
+            },
+            error => { console.log(error); this.alertService.error(error); this.loading = false; });
         }
     }
 }
