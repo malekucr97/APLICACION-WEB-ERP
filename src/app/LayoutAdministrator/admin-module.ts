@@ -20,6 +20,7 @@ import { AddRoleUserComponent } from './role/addRoleUserPage.component';
 // -- modulos
 import { ListModuleComponent } from './module/listModulePage.component';
 import { AddModuleRoleComponent } from './module/addModuleRolePage.component';
+import { ListModuleBusinessComponent } from './module/listModuleBusinessPage.component';
 
 @NgModule({
     imports: [
@@ -39,6 +40,7 @@ import { AddModuleRoleComponent } from './module/addModuleRolePage.component';
         AddEditBusinessComponent,
         ListRoleComponent,
         ListModuleComponent,
+        ListModuleBusinessComponent,
         AddModuleRoleComponent
     ]
 })

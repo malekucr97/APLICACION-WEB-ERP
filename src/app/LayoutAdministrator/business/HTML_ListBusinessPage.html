@@ -5,7 +5,7 @@
 
 <div class="card">
     <div class="card-body">
-        <a routerLink="/_AdminModule/AddEditBusinessPage" class="btn btn-sm btn-success mb-2 float-right">Registrar Empresa</a>
+        <a routerLink="/_AdminModule/AddEditBusinessPage" class="btn btn-sm btn-outline-success mb-2 float-right">Registrar Empresa</a>
 
 <table class="table table-striped">
     <thead>
@@ -24,13 +24,11 @@
             <td>{{business.correoElectronico}}</td>
             <td>{{business.telefono}}</td>
             <td style="white-space: nowrap">
-                <!-- <a routerLink="/_GeneralesModule/ConfiguracionCompania/{{business.id}}" class="btn btn-sm btn-dark mr-1">Parámetros de Configuración</a> -->
-                <a routerLink="/_AdminModule/AdminListModulePage/{{business.id}}" class="btn btn-sm btn-dark mr-1">Módulos Asociados</a>
-                <!-- <a routerLink="/_AdminModule/AddEditBusinessPage/{{business.id}}" class="btn btn-sm btn-warning mr-1">Actualizar</a> -->
-                <button (click)="deleteBusiness(business.id)" class="btn btn-sm btn-danger mr-1" [disabled]="business.isDeleting">
+                <a routerLink="/_AdminModule/AdminListModuleBusinessPage/{{business.id}}" class="btn btn-sm btn-outline-dark mr-1">Módulos Asociados</a>
+                <!-- <button (click)="deleteBusiness(business.id)" class="btn btn-sm btn-danger mr-1" [disabled]="business.isDeleting">
                     <span *ngIf="business.isDeleting" class="spinner-border spinner-border-sm"></span>
                     <span *ngIf="!business.isDeleting">Eliminar</span>
-                </button>
+                </button> -->
             </td>
         </tr>
         <tr *ngIf="!listBusiness">
