@@ -1,178 +1,206 @@
-import { FormGroup } from '@angular/forms';
 import { Component, OnInit } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
 import { first } from 'rxjs/operators';
 import { AccountService, AlertService } from '@app/_services';
-import { User, Role, ResponseMessage } from '@app/_models';
-import { administrator, httpAccessAdminPage } from '@environments/environment-access-admin';
+import { User, Role } from '@app/_models';
+import { administrator, httpAccessAdminPage, httpLandingIndexPage } from '@environments/environment-access-admin';
 import { Compania } from '../../_models/modules/compania';
 
 @Component({ templateUrl: 'HTML_AddBusinessUserPage.html' })
 export class AddBusinessUserComponent implements OnInit {
-    form: FormGroup;
 
-    user: User;
-    userBusiness: User;
-    role: Role;
-    response: ResponseMessage;
+    userObservable: User;
+
+    userToAssign: User = new User();
+    role: Role = new Role();
+    business: Compania;
 
     isAsignBusiness: boolean;
-    existeRol: boolean;
-    asignarEmrpesa: boolean;
+    existeRol: boolean = false;
     isDesAsignBusiness: boolean;
-
-    pUserId: string;
-    URLListUsersPage: string;
-
+    
     listAllBusiness: Compania[] = [];
     listBusinessUser: Compania[] = [];
 
-    constructor(
-        private route: ActivatedRoute,
-        private accountService: AccountService,
-        private alertService: AlertService,
-        private router: Router,
-    ) {
-        this.user = this.accountService.userValue;
+    public HTTPListUserPage: string = httpAccessAdminPage.urlPageListUsers;
+    private Index:string = httpLandingIndexPage.indexHTTP;
+
+    listUserSubject : User[];
+
+    constructor(private route: ActivatedRoute,
+                private accountService: AccountService,
+                private alertService: AlertService,
+                private router: Router) {
+        
+            this.userObservable = this.accountService.userValue;
+            this.listUserSubject = this.accountService.userListValue;
     }
 
     ngOnInit() {
 
         this.alertService.clear();
-        this.existeRol = false;
 
-        this.pUserId = this.route.snapshot.params.id;
+        if (!this.accountService.userListValue) {
+            this.router.navigate([this.HTTPListUserPage]);
+            return;
+        }
+        if (!this.userObservable.esAdmin) {
+            this.router.navigate([this.Index]);
+            return;
+        }
+        if (!this.route.snapshot.params.id) {
+            this.router.navigate([this.HTTPListUserPage]);
+            return;
+        }
 
-        this.userBusiness = new User();
-        this.role = new Role();
+        let pUserId = this.route.snapshot.params.id;
 
-        this.URLListUsersPage = httpAccessAdminPage.urlPageListUsers;
+        if (pUserId !== administrator.id) {
 
-        if (this.pUserId !== administrator.id) {
+            this.userToAssign = this.listUserSubject.find(x => x.identificacion === pUserId);
 
-            this.accountService.getUserByIdentification(this.pUserId)
-            .pipe(first())
-            .subscribe(responseUser => {
+            if (this.userToAssign.idRol) {
 
-                this.userBusiness = responseUser;
+                this.existeRol = true;
 
-                if (this.userBusiness.idRol) {
+                this.accountService.getRoleById(this.userToAssign.idRol)
+                .pipe(first())
+                .subscribe(responseRole => { this.role = responseRole; });
 
-                    this.existeRol = true;
-
-                    this.accountService.getRoleById(responseUser.idRol)
-                    .pipe(first())
-                    .subscribe(responseRole => { this.role = responseRole; },
-                    error => { this.alertService.error(error); });
-
-                } else { this.role = null; }
-            },
-            error => { this.alertService.error(error); });
+            } else { this.role = null; }
 
             this.accountService.getAllBusiness()
-                    .pipe(first())
-                    .subscribe(responseListBusiness => {
-                        if (responseListBusiness) {
-                            this.listAllBusiness = responseListBusiness;
+                .pipe(first())
+                .subscribe(responseListBusiness => {
 
-                            this.accountService.getBusinessActiveUser(this.pUserId)
-                            .pipe(first())
-                            .subscribe(responseListBusinessUser => {
-                                if (responseListBusinessUser) {
-                                    this.listBusinessUser = responseListBusinessUser;
+                    if (responseListBusiness && responseListBusiness.length > 0) {
 
-                                    if (this.listBusinessUser.length === this.listAllBusiness.length) {
-                                        this.listAllBusiness = null;
+                        this.listAllBusiness = responseListBusiness;
 
-                                    } else {
-                                        this.listBusinessUser.forEach((businessUs) => {
+                        this.accountService.getBusinessActiveUser(this.userToAssign.id)
+                        .pipe(first())
+                        .subscribe(responseListBusinessUser => {
 
-                                            this.listAllBusiness.forEach((businessList, index) => {
+                            this.listBusinessUser = responseListBusinessUser;
 
-                                                if (businessUs.id === businessList.id) { this.listAllBusiness.splice(index, 1); }
-                                            });
-                                        });
-                                    }
-                                } else { this.listBusinessUser = null; }
-                            });
-                        } else {
-                            this.response.responseMesagge = 'No hay registro de empresas registradas por el momento.';
-                            this.alertService.info(this.response.responseMesagge);
-                        }
-                    });
+                            if (this.listBusinessUser && this.listBusinessUser.length > 0) {
+
+                                if (this.listBusinessUser.length !== this.listAllBusiness.length) {
+                                    
+                                    this.listBusinessUser.forEach((businessUs) => {
+                                        this.listAllBusiness.splice(this.listAllBusiness.findIndex( b => b.id == businessUs.id ), 1);
+                                    });
+
+                                } else { this.listAllBusiness = null; }
+                            } else { this.listBusinessUser = null; }
+                        },
+                        error => { this.alertService.error('Problemas al consultar la lista de compañías para el usuario seleccionado.' + error); });
+
+                    } else {
+                        this.listAllBusiness = null;
+                        this.listBusinessUser = null;
+                        this.alertService.info('No hay registro de empresas registradas por el momento.');
+                    }
+                });
         } else {
-            this.router.navigate([httpAccessAdminPage.urlPageListUsers], { relativeTo: this.route });
-            this.response.responseMesagge = 'El usuario Administrador tiene acceso a todas las Empresas.';
-            this.alertService.info(this.response.responseMesagge, { keepAfterRouteChange: true });
+            let message = 'El usuario Administrador tiene acceso a todas las Empresas.';
+            this.alertService.info(message, { keepAfterRouteChange: true });
+            this.router.navigate([this.HTTPListUserPage], { relativeTo: this.route });
         }
     }
 
-    assignBusinessUser(identificacionUsuario: string, idBusiness: number){
+    assignBusinessUser(idBusiness: number) {
+
+        this.alertService.clear();
         this.isAsignBusiness = true;
-        this.asignarEmrpesa = true;
 
-        if (this.listBusinessUser){
+        let business : Compania = this.listAllBusiness.find(m => m.id == idBusiness);
 
-            this.listBusinessUser.forEach((businessUs) => {
-
-                if (businessUs.id === idBusiness) {
-                    this.asignarEmrpesa = false;
-                }
-            });
-        }
-
-        if (this.asignarEmrpesa){
-
-            this.accountService.assignBusinessUser(identificacionUsuario, idBusiness)
+        this.accountService.assignBusinessUser(this.userToAssign.id, idBusiness)
             .pipe(first())
-            .subscribe(
-                response => {
+            .subscribe( response => {
 
-                    this.alertService.success(response.responseMesagge, { keepAfterRouteChange: true });
-                    this.isAsignBusiness = false;
+                if (response.exito) {
 
-                    this.ngOnInit();
-                },
-                error => { console.log(error); this.alertService.error(error); });
-        } else { this.alertService.info('Esta emrpesa ya está asignada al usuario.', { keepAfterRouteChange: true }); }
+                    this.alertService.success(response.responseMesagge);
+
+                    this.listAllBusiness.splice(this.listAllBusiness.findIndex( m => m.id == idBusiness ), 1);
+                    if (this.listAllBusiness.length == 0) {
+                        this.listAllBusiness = null;
+                    }
+
+                    if (!this.listBusinessUser) {
+                        this.listBusinessUser = [];
+                    }
+                    this.listBusinessUser.push(business);
+
+                } else {
+                    this.alertService.error(response.responseMesagge);
+                }
+                this.isAsignBusiness = false;
+            },
+            error => { this.isAsignBusiness = false; this.alertService.error(error); });
     }
 
-    desAsignAllBusinessUser(idUser: number){
+    desAsignAllBusinessUser(idUser: number) {
 
+        this.alertService.clear();
         this.isDesAsignBusiness = true;
 
         this.accountService.dessAssignAllBusinessUser(idUser)
             .pipe(first())
-            .subscribe(
-                response => {
+            .subscribe( response => {
 
-                    this.isDesAsignBusiness = false;
+                if (response.exito) {
 
-                    if (response.exito) {
+                    this.alertService.success(response.responseMesagge);
 
-                        this.alertService.success(response.responseMesagge, { keepAfterRouteChange: true });
-                    } else {
-                        this.alertService.error(response.responseMesagge, { keepAfterRouteChange: true });
+                    if (!this.listAllBusiness) {
+                        this.listAllBusiness = [];
                     }
+                    this.listBusinessUser.forEach((businessUs) => {
+                        this.listAllBusiness.push(businessUs);
+                    });
 
-                    this.ngOnInit();
-                },
-                error => { console.log(error); this.alertService.error(error); this.isDesAsignBusiness = false; });
+                    this.listBusinessUser = null;
+
+                } else {
+                    this.alertService.error(response.responseMesagge);
+                }
+                this.isDesAsignBusiness = false;
+            },
+            error => { this.alertService.error(error); this.isDesAsignBusiness = false; });
     }
 
-    dessAssignBusinessUser(identificacionUsuario: string, idBusiness: number){
-        this.isAsignBusiness = true;
+    dessAssignBusinessUser(idBusiness: number){
+        
+        this.alertService.clear();
+        this.isDesAsignBusiness = true;
 
-        this.accountService.dessAssignBusinessUser(identificacionUsuario, idBusiness)
+        let business : Compania = this.listBusinessUser.find(m => m.id == idBusiness);
+
+        this.accountService.dessAssignBusinessUser(this.userToAssign.id, idBusiness)
             .pipe(first())
-            .subscribe(
-                response => {
+            .subscribe( response => {
 
-                    this.alertService.success(response.responseMesagge, { keepAfterRouteChange: true });
-                    this.isAsignBusiness = false;
+                if (response.exito) {
 
-                    this.ngOnInit();
-                },
-                error => { console.log(error); this.alertService.error(error); this.isAsignBusiness = false; });
+                    this.alertService.success(response.responseMesagge);
+
+                    this.listBusinessUser.splice(this.listBusinessUser.findIndex( m => m.id == idBusiness ), 1);
+                    if (this.listBusinessUser.length==0) {
+                        this.listBusinessUser = null;
+                    }
+
+                    if (!this.listAllBusiness) {
+                        this.listAllBusiness = [];
+                    }
+                    this.listAllBusiness.push(business);
+
+                } else { this.alertService.error(response.responseMesagge); }
+
+                this.isDesAsignBusiness = false;
+            },
+            error => { this.alertService.error(error); this.isDesAsignBusiness = false; });
     }
 }

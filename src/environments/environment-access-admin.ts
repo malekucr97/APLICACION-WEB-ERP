@@ -28,15 +28,16 @@ export const httpAccessAdminPage = {
     urlPageAdministrator: '/_AdminModule/AdminUserPage/',
     // *************************************************
 
-    urlPageConfigUser:  '/_AdminModule/AddEditUserPage/',
-    urlPageAddEditUser: '/_AdminModule/AddEditUserPage/',
-    urlPageListUsers:   '/_AdminModule/AdminListUserPage/',
-    urlPageAddBUser:    '/_AdminModule/AddBusinessUserPage/',
-    urlPageAddRUser:    '/_AdminModule/AddRoleUserPage/',
-    urlPageListBusiness:'/_AdminModule/AdminListBusinessPage/',
-    urlPageListModule:  '/_AdminModule/AdminListModulePage/',
-    urlPageListRole:    '/_AdminModule/AdminListRolePage/',
-    urlPageAddModuleRol:'/_AdminModule/AddModuleRolePage/'
+    urlPageConfigUser:          '/_AdminModule/AddEditUserPage/',
+    urlPageAddEditUser:         '/_AdminModule/AddEditUserPage/',
+    urlPageListUsers:           '/_AdminModule/AdminListUserPage/',
+    urlPageAddBUser:            '/_AdminModule/AddBusinessUserPage/',
+    urlPageAddRUser:            '/_AdminModule/AddRoleUserPage/',
+    urlPageListBusiness:        '/_AdminModule/AdminListBusinessPage/',
+    urlPageListModule:          '/_AdminModule/AdminListModulePage/',
+    urlPageListBusinessModule:  '/_AdminModule/AdminListModuleBusinessPage/',
+    urlPageListRole:            '/_AdminModule/AdminListRolePage/',
+    urlPageAddModuleRol:        '/_AdminModule/AddModuleRolePage/'
 };
 
 export const httpLandingIndexPage = {

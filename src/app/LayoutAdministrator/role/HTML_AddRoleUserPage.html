@@ -1,24 +1,23 @@
-<h1>Asignación de Roles a Usuarios del Sistema</h1><br>
+<h1>Asignación de Roles a Usuario del Sistema</h1>
+<br>
+<a routerLink="/_AdminModule/AdminListUserPage" class="btn btn-light mb-2 mr-3">Volver</a><br>
 <div class="card">
     <div class="card-body">
 
-        <h4 style="display: inline;">Número de identificación: </h4><h5 style="display: inline; color:#1A5276">{{userToAssign.identificacion}}</h5>
-        <br>
-        <h4 style="display: inline;">Nombre completo: </h4><h5 style="display:inline; color:#1A5276">{{userToAssign.nombreCompleto}}</h5>
-        <br>
-        <h6 *ngIf="isRolAssign" style="display: inline;">Rol de usuario: </h6>
-        <h6 *ngIf="role" style="display:inline; color:#1A5276">{{role.nombre}}</h6>
-        <h6 *ngIf="!isRolAssign" style="display: inline;">Rol de usuario no asignado</h6>
-        <br>
+        <h3 style="display: inline;">Usuario: </h3><h3 style="display: inline; color:#1A5276"><b>{{userToAssign.identificacion}}</b></h3>
+        <h3 style="display: inline;"> Nombre: </h3><h2 style="display:inline; color:#1A5276"><b>{{userToAssign.nombreCompleto}}</b></h2>
+        <h4 *ngIf="isRolAssign" style="display: inline;">Rol asignado: </h4><h4 *ngIf="role" style="display:inline; color:#1A5276"><b>{{role.nombre}}</b></h4>
+        <h4 *ngIf="!isRolAssign" style="display: inline;"><b>Rol de usuario no asignado</b></h4>
+
         <button (click)="desAsignAllRolesUser()" class="btn btn-outline-danger mb-2 float-right">
             <span *ngIf="isDesAsignRoles" class="spinner-border spinner-border-sm"></span>
             <span *ngIf="!isDesAsignRoles">Eliminar asignación de rol</span>
         </button>
-        <br>
+        <br><br>
 
         <div *ngIf="listAllRoles">
-            <br><hr>
-            <h4>Listado de Roles del Sistema</h4>
+            <br>
+            <h3 style="color:#1A5276">Seleccione el rol para asignarlo al usuario seleccionado</h3>
             <table class="table table-striped">
             
                 <thead>
@@ -38,22 +37,15 @@
                         <td>{{rol.estado}}</td>
 
                         <td style="white-space: nowrap">
-                            <button (click)="assignRoleUser(rol.id)" class="btn btn-sm btn-success mr-1">
+                            <button (click)="assignRoleUser(rol.id)" class="btn btn-sm btn-outline-success mr-1">
                                 <span *ngIf="isAsignRole" class="spinner-border spinner-border-sm"></span>
                                 <span *ngIf="!isAsignRole">Asignar Rol</span>
                             </button>
                         </td>
                     </tr>
-                    <!-- <tr *ngIf="!listBuslistBusinessUseriness">
-                        <td colspan="4" class="text-center">
-                            <span class="spinner-border spinner-border-lg align-center"></span>
-                        </td>
-                    </tr> -->
                 </tbody>
             </table>
         </div>
-        
-        <a routerLink="/_AdminModule/AdminListUserPage" class="btn btn-outline-secondary mb-2">Atrás</a>
 
     </div>
 </div>

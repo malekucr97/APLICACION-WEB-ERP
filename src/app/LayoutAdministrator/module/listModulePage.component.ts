@@ -1,26 +1,29 @@
 import { Component, OnInit } from '@angular/core';
 import { first } from 'rxjs/operators';
-import { Router, ActivatedRoute } from '@angular/router';
+import { Router } from '@angular/router';
 import { AccountService, AlertService } from '@app/_services';
 import { User, Module } from '@app/_models';
 import { Compania } from '../../_models/modules/compania';
+import { httpLandingIndexPage } from '@environments/environment-access-admin';
 
 @Component({ templateUrl: 'HTML_ListModulePage.html' })
 export class ListModuleComponent implements OnInit {
-    user: User;
-    moduleList: Module;
-    businessMod: Compania;
+    
+    userObservable: User;
+    businessObservable: Compania;
+
+    business: Compania;
 
     listModulesBusiness: Module[] = [];
-    listAllModulesSystem: Module[] = [];
+    listModulesSystem: Module[] = [];
     
     listBusiness: Compania[] = [];
     
 
-    isActivating: boolean;
-    isDeleting: boolean;
-    isAssigning: boolean;
-    isDesAssigning: boolean;
+    isActivating: boolean = false;
+    isInActivating: boolean = false;
+    isAssigning: boolean = false;
+    isDesAssigning: boolean = false;
 
     adminBoss: boolean;
     adminBusiness: boolean;
@@ -29,225 +32,102 @@ export class ListModuleComponent implements OnInit {
     URLAddBusinessUsertPage: string;
     URLAddRoleUsertPage: string;
     idBusiness: string;
-    pidBusiness: number;
 
-    seleccionEmpresa: boolean;
+    seleccionEmpresa: boolean = false;
+
+    private Home : string = httpLandingIndexPage.homeHTTP;
+    private Index : string = httpLandingIndexPage.indexHTTP;
+
+    listBusinessSubject : Compania[];
 
     constructor(private accountService: AccountService,
-                private route: ActivatedRoute,
-                private alertService: AlertService) { this.user = this.accountService.userValue; }
+                private alertService: AlertService,
+                private router: Router) { 
+            
+            this.userObservable = this.accountService.userValue;
+            this.businessObservable = this.accountService.businessValue;
+            this.listBusinessSubject = this.accountService.businessListValue;
+        }
 
     ngOnInit() {
 
         this.alertService.clear();
 
-        this.isActivating   = false;
-        this.isDeleting     = false;
-        this.isAssigning    = false;
-        this.isDesAssigning = false;
-        
-        this.seleccionEmpresa = false;
-
-        this.listModulesBusiness = null;
-        this.listAllModulesSystem = null;
-
-        this.pidBusiness = this.route.snapshot.params.pidBusiness;
-
-        if (this.pidBusiness) {
-
-            this.seleccionEmpresa = true;
-            this.businessMod = new Compania();
-
-            this.accountService.getBusinessById(this.pidBusiness)
-            .pipe(first())
-            .subscribe(businessResponse => {
-
-                this.businessMod = businessResponse;
-
-                this.accountService.getModulesBusiness(this.businessMod.id)
-                    .pipe(first())
-                    .subscribe(modulesBResponse => {
-
-                        if (modulesBResponse) {
-
-                            this.listModulesBusiness = modulesBResponse;
-
-                            this.accountService.getModulesSystem()
-                                .pipe(first())
-                                .subscribe(responseModulesActive => {
-
-                                    if (responseModulesActive) {
-
-                                        this.listAllModulesSystem = responseModulesActive;
-
-                                        if (this.listAllModulesSystem.length === this.listModulesBusiness.length) { 
-                                            this.listAllModulesSystem = null;
-                                        } else {
-
-                                            this.listModulesBusiness.forEach((moduleBusiness) => {
-
-                                                this.listAllModulesSystem.forEach((moduleListActive, index) => {
-
-                                                    if (moduleBusiness.identificador === moduleListActive.identificador) {
-                                                        this.listAllModulesSystem.splice(index, 1);
-                                                    }
-                                                });
-                                            });
-
-                                        }
-                                    } else { this.listAllModulesSystem = null; }
-                                });
-                        }
-                    },
-                    (error) => {
-                        this.isActivating = false;
-                        console.log(error);
-                    });
-            },
-            (error) => {
-                this.isActivating = false;
-                console.log(error);
-            });
-
-        } else {
-
-            // Consulta todos los módulos activos que se pueden asignar a una compañía
-            this.accountService.getModulesSystem()
-                .pipe(first())
-                .subscribe(responseModulesActive => {
-
-                    if (responseModulesActive) {
-
-                        this.listAllModulesSystem = responseModulesActive;
-
-                    } else { this.listAllModulesSystem = null; }
-                },
-                (error) => {
-                    this.isActivating = false;
-                    console.log(error);
-                });
+        if (!this.userObservable.esAdmin) {
+            this.router.navigate([this.Index]);
+            return;
         }
+        if (!this.businessObservable) {
+            this.router.navigate([this.Home]);
+            return;
+        }
+        this.accountService.getModulesSystem()
+        .pipe(first())
+        .subscribe(responseModulesActive => { 
+            this.listModulesSystem = responseModulesActive;
+        });
     }
 
-    // Activar módulo de Compañía
-    activateModuleBusiness(idModule: number, identificador: string, idBusiness: number) {
+    activateModuleSystem(idModule: number) {
 
-        this.moduleList = this.listModulesBusiness.find(x => x.id === idModule && x.idSociedad === idBusiness && x.identificador === identificador);
+        this.alertService.clear();
         this.isActivating = true;
 
-        this.accountService.activateModule(this.moduleList)
+        let moduleList = this.listModulesBusiness.find(x => x.id === idModule);
+        
+        this.accountService.activateModule(idModule, this.business.id)
             .pipe(first())
-            .subscribe( response => {
+            .subscribe( responseActivate => {
 
-                if ( response.exito ){ this.alertService.success(response.responseMesagge, { keepAfterRouteChange: true });
-                } else { this.alertService.error(response.responseMesagge, { keepAfterRouteChange: true }); }
+                if ( responseActivate.exito ) {
+
+                    this.alertService.success(responseActivate.responseMesagge);
+                    
+                    moduleList.estado = 'Activo';
+                    this.listModulesBusiness.splice(this.listModulesBusiness.findIndex( m => m.id == moduleList.id ), 1);
+                    this.listModulesBusiness.push(moduleList);
+
+                } else { 
+                    this.alertService.error(responseActivate.responseMesagge);
+                }
                 this.isActivating = false;
-
-                this.ngOnInit();
             },
             (error) => {
                 this.isActivating = false;
-                console.log(error);
+                let message : string = 'Problemas al activar el estado del módulo seleccionado.' + error;
+                this.alertService.error(message);
             });
     }
 
-    inActivateModuleBusiness(idModule: number, identificador: string, idBusiness: number) {
+    inActivateModuleSystem(idModule: number) {
 
-        this.moduleList = this.listModulesBusiness.find(x => x.id === idModule && x.idSociedad === idBusiness && x.identificador === identificador);
-        this.isActivating = true;
+        this.alertService.clear();
+        this.isInActivating = true;
 
-        this.accountService.inActivateModule(this.moduleList)
+        let moduleList = this.listModulesBusiness.find(x => x.id === idModule);
+        
+        this.accountService.inActivateModule(idModule, this.business.id)
             .pipe(first())
-            .subscribe( response => {
+            .subscribe( responseInActivate => {
 
-                if ( response.exito ){ this.alertService.success(response.responseMesagge, { keepAfterRouteChange: true });
-                } else { this.alertService.error(response.responseMesagge, { keepAfterRouteChange: true }); }
-                this.isActivating = false;
+                if ( responseInActivate.exito ) {
 
-                this.ngOnInit();
+                    this.alertService.success(responseInActivate.responseMesagge);
+
+                    moduleList.estado = 'Inactivo';
+                    this.listModulesBusiness.splice(this.listModulesBusiness.findIndex( m => m.id == moduleList.id ), 1);
+                    this.listModulesBusiness.push(moduleList);
+
+                } else { 
+                    this.alertService.error(responseInActivate.responseMesagge); 
+                }
+                this.isInActivating = false;
             },
             (error) => {
-                this.isActivating = false;
-                console.log(error);
+                this.isInActivating = false;
+                let message : string = 'Problemas al inactivar el estado del módulo seleccionado.' + error;
+                this.alertService.error(message);
             });
     }
-
-
-    // -->> Procedimientos actualziados - LLMADO A SERVICIO DE MODULES BACKEND
-    assignModuleBusiness(moduleId:number, businessId:number) : void {
-
-        this.isAssigning = true;
-
-        let moduleToAssign:Module = this.listAllModulesSystem.find(x => x.id === moduleId);
-        moduleToAssign.idSociedad = businessId;
-
-        this.accountService.assignModuleToBusiness(moduleToAssign)
-            .pipe(first())
-            .subscribe( response => {
-
-                if (response.exito) {
-
-                    this.alertService.success(response.responseMesagge, { keepAfterRouteChange: true });
-
-                } else { this.alertService.error(response.responseMesagge, { keepAfterRouteChange: true }); }
-
-                this.isAssigning = false;
-                this.ngOnInit();
-            },
-            error => {
-                console.log(error);
-                this.alertService.error(error);
-            });
-    }
-    desAssignModuleBusiness(moduleId:number, businessId:number) : void {
-
-        this.isDesAssigning = true;
-
-        let moduleToDesAssign : Module = this.listModulesBusiness.find(x => x.id === moduleId && x.idSociedad === businessId);
-
-        this.accountService.desAssignModuleToBusiness(moduleToDesAssign.id, moduleToDesAssign.idSociedad)
-            .pipe(first())
-            .subscribe( response => {
-
-                if (response.exito) {
-
-                    this.alertService.success(response.responseMesagge, { keepAfterRouteChange: true });
-
-                } else { this.alertService.warn(response.responseMesagge, { keepAfterRouteChange: true }); }
-
-                this.isDesAssigning = false;
-                this.ngOnInit();
-            },
-            error => {
-                console.log(error);
-                this.alertService.error(error);
-            });
-    }
-    opcionesSubMenu(moduleId:number) : void {
-
-        this.isDesAssigning = true;
-
-        // let moduleToDesAssign : Module = this.listModulesBusiness.find(x => x.id === moduleId && x.idSociedad === businessId);
-
-        // this.modulesService.desAssignModuleToBusiness(moduleToDesAssign.id, moduleToDesAssign.idSociedad)
-        //     .pipe(first())
-        //     .subscribe( response => {
-
-        //         if (response.exito) {
-
-        //             this.alertService.success(response.responseMesagge, { keepAfterRouteChange: true });
-
-        //         } else { this.alertService.warn(response.responseMesagge, { keepAfterRouteChange: true }); }
-
-        //         this.isDesAssigning = false;
-        //         this.ngOnInit();
-        //     },
-        //     error => {
-        //         console.log(error);
-        //         this.alertService.error(error);
-        //     });
-    }
-    
-
-    
+  
 }
