@@ -50,7 +50,7 @@
                     <!-- opciones hijas -->
                     <mat-tree-node *matTreeNodeDef="let node" matTreeNodePadding>
             
-                        <button mat-button class="menu-button-submodulo" >
+                        <button mat-button >
                             <mat-icon>{{node.icon}}</mat-icon>
                             <span routerLink="{{node.link}}" (click)="sidenav.toggle()">{{node.name}}</span>
                         </button>
@@ -60,7 +60,7 @@
                     <!-- opciones principales -->
                     <mat-tree-node *matTreeNodeDef="let node;when: hasChild" matTreeNodePadding>
             
-                        <button class="menu-button-submodulo" mat-button matTreeNodeToggle
+                        <button mat-button matTreeNodeToggle
                                 [attr.aria-label]="'Toggle ' + node.name">
                             <mat-icon class="mat-icon-rtl-mirror">
                             {{treeControl.isExpanded(node) ? 'expand_more' : 'chevron_right'}}
