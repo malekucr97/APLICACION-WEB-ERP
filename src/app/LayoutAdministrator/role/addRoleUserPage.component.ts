@@ -14,12 +14,12 @@ export class AddRoleUserComponent implements OnInit {
 
     listAllRoles: Role[] = [];
 
-    isRolAssign: boolean;
+    isRolAssign: boolean = false;
     isDesAsignRoles: boolean;
     isAsignRole: boolean;
 
     private Index:string = httpLandingIndexPage.indexHTTP;
-    private HTTPListUserPage : string = httpAccessAdminPage.urlPageListUsers
+    private HTTPListUserPage : string = httpAccessAdminPage.urlPageListUsers;
 
     listUserSubject : User[];
 
@@ -47,7 +47,7 @@ export class AddRoleUserComponent implements OnInit {
         }
 
         if (!this.route.snapshot.params.id) {
-            this.router.navigate([httpAccessAdminPage.urlPageListUsers]);
+            this.router.navigate([this.HTTPListUserPage]);
             return;
         }
 
@@ -55,7 +55,6 @@ export class AddRoleUserComponent implements OnInit {
 
         if (pUserId !== administrator.id) {
 
-            this.isRolAssign = false;
             this.userToAssign = this.listUserSubject.find(x => x.identificacion === pUserId);
             this.accountService.loadListUsers(this.listUserSubject);
 
@@ -101,15 +100,14 @@ export class AddRoleUserComponent implements OnInit {
                     this.listUserSubject[this.listUserSubject.findIndex( u => u.id == this.userToAssign.id )] = this.userToAssign;
                     this.accountService.loadListUsers(this.listUserSubject);
 
-                    this.alertService.success('El rol ' + this.role.nombre + ' fue asignado con éxito.');
+                    this.alertService.success(response.responseMesagge);
                     
                 } else {
-                    this.alertService.success(response.responseMesagge);
+                    this.alertService.error(response.responseMesagge);
                 }
-
                 this.isAsignRole = false;
             },
-            error => { console.log(error); this.alertService.error(error); });
+            error => { this.isAsignRole = false; this.alertService.error(error); });
     }
 
     desAsignAllRolesUser() {

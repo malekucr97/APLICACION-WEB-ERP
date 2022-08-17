@@ -3,7 +3,7 @@ import { Component, OnInit } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
 import { first } from 'rxjs/operators';
 import { AccountService, AlertService } from '@app/_services';
-import { amdinBusiness, httpAccessAdminPage } from '@environments/environment-access-admin';
+import { amdinBusiness, httpAccessAdminPage, httpLandingIndexPage } from '@environments/environment-access-admin';
 import { User, Role, ResponseMessage } from '@app/_models';
 import { Compania } from '../../_models/modules/compania';
 
@@ -23,13 +23,12 @@ export class AddEditUserComponent implements OnInit {
     URLRedirectPage: string;
 
     esAdmin: boolean;
-    // listRoles: boolean;
     updateUser: boolean;
     addUser: boolean;
 
     listRolesBusiness: Role[] = [];
 
-    // userForm = new User();
+    private Home : string = httpLandingIndexPage.homeHTTP;
 
     constructor(
         private formBuilder: FormBuilder,
@@ -60,7 +59,7 @@ export class AddEditUserComponent implements OnInit {
             this.user.idRol === amdinBusiness.adminSociedad) {
                 this.URLRedirectPage = httpAccessAdminPage.urlPageListUsers;
         } else { 
-            this.URLRedirectPage = '/'; 
+            this.URLRedirectPage = this.Home; 
         }
 
         if (this.addUser) {

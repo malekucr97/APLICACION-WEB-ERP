@@ -1,4 +1,5 @@
-<h1>Listado de Roles del Sistema !</h1>
+<h1>Roles</h1>
+<h4>Lista de de roles registrados en el sistema</h4>
 <a routerLink="{{URLAdministratorPage}}" class="btn btn-light mb-2">Volver</a><br>
 
 <div class="card">
@@ -7,9 +8,9 @@
 <table class="table table-striped">
     <thead>
         <tr>
-            <th style="width: 40%">Descripción</th>
-            <th style="width: 10%">Estado</th>
-            <th style="width: 10%">Tipo</th>
+            <th style="width: 25%">Descripción</th>
+            <th style="width: 20%">Estado</th>
+            <th style="width: 30%">Tipo</th>
             <th style="width: 20%"></th>
         </tr>
     </thead>
@@ -33,17 +34,12 @@
                     <span *ngIf="isReading" class="spinner-border spinner-border-sm"></span>
                     <span *ngIf="!isReading">Lectura</span>
                 </button>
-                <button *ngIf="rol.tipo=='Lectura'"  (click)="escritura(rol.id)" class="btn btn-sm btn-dark mr-1" [disabled]="isActivating" >
+                <button *ngIf="rol.tipo=='Lectura'"  (click)="escritura(rol.id)" class="btn btn-sm btn-outline-dark mr-1" [disabled]="isActivating" >
                     <span *ngIf="isWriting" class="spinner-border spinner-border-sm"></span>
                     <span *ngIf="!isWriting">Escritura</span>
                 </button>
 
-                <a routerLink="{{URLAddModuleRolPage}}{{rol.id}}/{{rol.nombre}}/{{rol.descripcion}}/{{rol.esAdministrador}}" class="btn btn-sm btn-dark mr-1"> Módulo </a>
-
-
-
-                <!-- <a (click)="lectura(rol.id)" *ngIf="rol.tipo=='Escritura'" routerLink="" class="btn btn-sm btn-dark mr-1"> Lectura :</a>
-                <a (click)="escritura(rol.id)" *ngIf="rol.tipo=='Lectura'" routerLink="" class="btn btn-sm btn-dark mr-1"> Escritura </a> -->
+                <a routerLink="{{URLAddModuleRolPage}}{{rol.id}}" class="btn btn-sm btn-outline-dark mr-1"> Módulo </a>
 
             </td>
         </tr>

@@ -1,62 +1,14 @@
 <h1 style="color:#1A5276">Módulos </h1>
 <h4 *ngIf="!listModulesBusiness">Listado de módulos registrados en el sistema</h4>
-<h4 *ngIf="listModulesBusiness">Listado de Módulos de la Compañía {{businessMod.nombre}}</h4>
 
 <a routerLink="/_AdminModule/AdminUserPage/" class="btn btn-light mb-2 mr-3">Volver</a>
 
 <div class="card">
     <div class="card-body">
 
-        <div *ngIf="listModulesBusiness">
-            <!-- <h4>Listado de Módulos de la Compañía</h4> -->
-            <h4 *ngIf="seleccionEmpresa" style="color:#1A5276">Desactive o elimine el acceso a un módulo en {{businessMod.nombre}}</h4>
-            <table class="table table-striped">
-                <thead>
-                    <tr>
-                        <th style="width: 15%">Identificador</th>
-                        <th style="width: 20%">Compañía</th>
-                        <th style="width: 15%">Nombre</th>
-                        <th style="width: 25%">Descripción</th>
-                        <th style="width: 10%">Estado</th>
-                        <th style="width: 20%"></th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr *ngFor="let module of listModulesBusiness">
-                        <td>{{module.identificador}}</td>
-                        <td>{{businessMod.nombre}}</td>
-                        <td>{{module.nombre}}</td>
-                        <td>{{module.descripcion}}</td>
-                        <td>{{module.estado}}</td>
-                        <td style="white-space: nowrap">
-            
-                            <button *ngIf="module.estado!='Activo'"  (click)="activateModuleBusiness(module.id, module.identificador, module.idSociedad)" class="btn btn-sm btn-success mr-1" [disabled]="isActivating" >
-                                <span *ngIf="isActivating" class="spinner-border spinner-border-sm"></span>
-                                <span *ngIf="!isActivating">Activar Módulo</span>
-                            </button>
-                            <button *ngIf="module.estado=='Activo'"  (click)="inActivateModuleBusiness(module.id, module.identificador, module.idSociedad)" class="btn btn-sm btn-warning mr-1" [disabled]="isActivating" >
-                                <span *ngIf="isActivating" class="spinner-border spinner-border-sm"></span>
-                                <span *ngIf="!isActivating">Inactivar Módulo</span>
-                            </button>
-                            <button *ngIf="seleccionEmpresa" (click)="desAssignModuleBusiness(module.id, businessMod.id)"  class="btn btn-sm btn-danger mr-1">
-                                <span *ngIf="isDesAssigning" class="spinner-border spinner-border-sm"></span>
-                                <span *ngIf="!isDesAssigning">Eliminar Acceso</span>
-                            </button>
-            
-                        </td>
-                    </tr>
-                    <tr *ngIf="!listModulesBusiness">
-                        <td colspan="4" class="text-center">
-                            <span class="spinner-border spinner-border-lg align-center"></span>
-                        </td>
-                    </tr>
-                </tbody>
-            </table>
-        </div>
-
-        <div *ngIf="listAllModulesSystem">
+        <div>
             <br>
-            <h4 *ngIf="seleccionEmpresa" style="color:#1A5276">Seleccione los módulos a los que se les dará acceso en {{businessMod.nombre}}</h4>
+            <h4 *ngIf="seleccionEmpresa" style="color:#1A5276">Seleccione los módulos a los que se les dará acceso en {{business.nombre}}</h4>
             <table class="table table-striped">
                 <thead>
                     <tr>
@@ -64,37 +16,16 @@
                         <th style="width: 25%">Nombre</th>
                         <th style="width: 30%">Descripción</th>
                         <th style="width: 10%">Estado</th>
-                        <th style="width: 20%"></th>
                     </tr>
                 </thead>
                 <tbody>
-                    <tr *ngFor="let module of listAllModulesSystem">
+                    <tr *ngFor="let module of listModulesSystem">
                         <td>{{module.identificador}}</td>
                         <td>{{module.nombre}}</td>
                         <td>{{module.descripcion}}</td>
                         <td>{{module.estado}}</td>
-                        <td style="white-space: nowrap">
-            
-                            <!-- <div *ngIf="!seleccionEmpresa">
-                                <button (click)="opcionesSubMenu(module.id)" class="btn btn-sm btn-info mr-1" [disabled]="isActivating" >
-                                    <span>Mostrar Opciones de SubMenú</span>
-                                </button>
-                            </div> -->
+                    </tr>
 
-                            <div *ngIf="seleccionEmpresa">
-                                <button (click)="assignModuleBusiness(module.id, businessMod.id)"  class="btn btn-sm btn-success">
-                                    <span *ngIf="isAssigning" class="spinner-border spinner-border-sm"></span>
-                                    <span *ngIf="!isAssigning">Otorgar Acceso de Módulo a Compañía</span>
-                                </button>
-                            </div>
-                            
-                        </td>
-                    </tr>
-                    <tr *ngIf="!listAllModulesSystem">
-                        <td colspan="4" class="text-center">
-                            <span class="spinner-border spinner-border-lg align-center"></span>
-                        </td>
-                    </tr>
                 </tbody>
             </table>
         </div>

@@ -51,9 +51,10 @@ export class ListRoleComponent implements OnInit {
 
         this.accountService.getAllRoles()
         .pipe(first())
-        .subscribe(responseRoles =>
-            this.listRoles = responseRoles
-        );
+        .subscribe(responseRoles => {
+            this.listRoles = responseRoles;
+            this.accountService.suscribeListRol(this.listRoles);
+        });
     }
 
     private updateRol(rolUpdate: Role, rolList: Role, idRol: string, accion: string, actualizaDato: string) : void {
@@ -72,7 +73,7 @@ export class ListRoleComponent implements OnInit {
 
                     switch(accion) { 
 
-                        case 'Estado': { 
+                        case 'Estado': {
                             rolList.estado = actualizaDato;
                            break; 
                         } 

@@ -7,9 +7,11 @@ export class Role {
     tipo: string;
 }
 
-export class ModuleRol{
+export class ModuleRolBusiness{
     IdRol: string;
     IdModulo: number;
+    IdBusiness: number;
+    Estado: string;
 }
 
 export class AssignRoleObject{

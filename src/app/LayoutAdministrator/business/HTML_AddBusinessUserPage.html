@@ -1,44 +1,47 @@
-<h1 style="display: inline; color:#1A5276">Dar o Eliminar acceso</h1>
-<h1 style="display: inline;"> a Usuarios en Empresas</h1><br><br>
-
+<h1 style="display: inline; color:#1A5276">Acceso de Usuario sobre Compañías</h1>
+<br><br>
+<a routerLink="{{HTTPListUserPage}}" class="btn btn-light mb-2 mr-3">Volver</a><br>
 <div class="card">
     <div class="card-body">
 
-        <h2 style="display: inline;">Usuario Seleccionado: </h2><h3 style="display: inline; color:#1A5276">{{userBusiness.identificacion}}</h3>
+        <h3 style="display: inline;">Usuario: </h3><h3 style="display: inline; color:#1A5276"><b>{{userToAssign.identificacion}} </b></h3>
+        <h3 style="display: inline;">Nombre: </h3><h2 style="display:inline; color:#1A5276">{{userToAssign.nombreCompleto}}</h2>
+        <h4 *ngIf="existeRol" style="display: inline;">Rol asignado: </h4><h4 *ngIf="role" style="display:inline; color:#1A5276"><b>{{role.nombre}}</b></h4>
+        <h4 *ngIf="!existeRol" style="display: inline;"><b>Rol de usuario no asignado</b></h4>
         <br>
-        <h2 style="display: inline;">Nombre: </h2><h3 style="display:inline; color:#1A5276">{{userBusiness.nombreCompleto}}</h3>
-        <br><br>
-        <h4 *ngIf="existeRol" style="display: inline;">Rol: </h4><h4 *ngIf="role" style="display:inline; color:#1A5276">{{role.nombre}}</h4>
-        <h4 *ngIf="!existeRol" style="display: inline;">Rol de usuario no asignado</h4>
 
-        <button *ngIf="listBusinessUser" (click)="desAsignAllBusinessUser(userBusiness.id)" class="btn btn-outline-danger mb-2 float-right">
+        <button *ngIf="listBusinessUser" (click)="desAsignAllBusinessUser(userToAssign.id)" class="btn btn-outline-danger mb-2 float-right">
             <span *ngIf="isDesAsignBusiness" class="spinner-border spinner-border-sm"></span>
-            <span *ngIf="!isDesAsignBusiness">Eliminar Acceso de <b>TODAS</b> las Empresas</span>
+            <span *ngIf="!isDesAsignBusiness">Eliminar Acceso de TODAS las Empresas</span>
         </button>
 
         <br><br>
         
         <div *ngIf="listBusinessUser">
-            <hr>
-            <h2 style="color:#1A5276">El usuario tiene acceso a las siguientes empresas</h2>
+            <br>
+            <h3 style="color:#1A5276">Seleccione la Compañía para eliminar el acceso del usuario seleccionado</h3>
             <table class="table table-striped">
             
                 <thead>
                     <tr>
-                        <th style="width: 20%">Cédula Jurídica</th>
-                        <th style="width: 70%">Nombre</th>
-                        <th style="width: 20%"></th>
+                        <th style="width: 15%">Identificación</th>
+                        <th style="width: 25%">Nombre de la Compañía</th>
+                        <th style="width: 15%">Correo Electrónico</th>
+                        <th style="width: 15%">Número de Teléfono</th>
+                        <th style="width: 10%"></th>
                     </tr>
                 </thead>
                 <tbody>
                     <tr *ngFor="let bussiDess of listBusinessUser">
                         <td>{{bussiDess.cedulaJuridica}}</td>
                         <td>{{bussiDess.nombre}}</td>
+                        <td>{{bussiDess.correoElectronico}}</td>
+                        <td>{{bussiDess.telefono}}</td>
                         
                         <td style="white-space: nowrap">
-                            <button (click)="dessAssignBusinessUser(userBusiness.identificacion, bussiDess.id)" class="btn btn-sm btn-danger mr-1">
-                                <span *ngIf="isAsignBusiness" class="spinner-border spinner-border-sm"></span>
-                                <span *ngIf="!isAsignBusiness">Eliminar Acceso</span>
+                            <button (click)="dessAssignBusinessUser(bussiDess.id)" class="btn btn-sm btn-outline-danger mr-1">
+                                <span *ngIf="isDesAsignBusiness" class="spinner-border spinner-border-sm"></span>
+                                <span *ngIf="!isDesAsignBusiness">Eliminar Acceso</span>
                             </button>
                         </td>
                     </tr>
@@ -48,22 +51,26 @@
         
         <div *ngIf="listAllBusiness">
             <br>
-            <h2 style="color:#1A5276">Empresas del Sistema</h2>
+            <h3 style="color:#1A5276">Seleccione la Compañía para otorgar acceso al usuario seleccionado</h3>
             <table class="table table-striped">
                 <thead>
                     <tr>
-                        <th style="width: 20%">Cédula Jurídica</th>
-                        <th style="width: 70%">Nombre</th>
-                        <th style="width: 20%"></th>
+                        <th style="width: 15%">Identificación</th>
+                        <th style="width: 25%">Nombre de la Compañía</th>
+                        <th style="width: 15%">Correo Electrónico</th>
+                        <th style="width: 15%">Número de Teléfono</th>
+                        <th style="width: 10%"></th>
                     </tr>
                 </thead>
                 <tbody>
-                    <tr *ngFor="let bussiAss of listAllBusiness">
-                        <td>{{bussiAss.cedulaJuridica}}</td>
-                        <td>{{bussiAss.nombre}}</td>
+                    <tr *ngFor="let businessAss of listAllBusiness">
+                        <td>{{businessAss.cedulaJuridica}}</td>
+                        <td>{{businessAss.nombre}}</td>
+                        <td>{{businessAss.correoElectronico}}</td>
+                        <td>{{businessAss.telefono}}</td>
 
                         <td style="white-space: nowrap">
-                            <button (click)="assignBusinessUser(userBusiness.identificacion, bussiAss.id)" class="btn btn-sm btn-success mr-1">
+                            <button (click)="assignBusinessUser(businessAss.id)" class="btn btn-sm btn-outline-success mr-1">
                                 <span *ngIf="isAsignBusiness" class="spinner-border spinner-border-sm"></span>
                                 <span *ngIf="!isAsignBusiness">Otorgar Acceso</span>
                             </button>
@@ -72,8 +79,6 @@
                 </tbody>
             </table>
         </div>
-
-        <a routerLink="{{URLListUsersPage}}" class="btn btn-light mb-2">Atrás</a>
 
     </div>
 </div>
