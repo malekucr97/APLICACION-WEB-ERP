@@ -1,0 +1,45 @@
+<h1 style="color:#1A5276">Grupos</h1>
+<h4>Lista de de grupos de la compañía</h4>
+<!-- <a routerLink="/" class="btn btn-light mb-2 mr-3">Volver</a><br> -->
+<div class="card">
+    
+    <div class="card-body">
+        <a routerLink="{{URLAddEditGroupPage}}/add" class="btn btn-sm btn-success mb-3 mr-3 float-right">Registrar Grupo</a>
+        
+        <table class="table table-striped">
+            <thead>
+                <tr>
+                    <th style="width: 20%">Descripción del grupo</th>
+                    <th style="width: 60%">Estado</th>
+                    <th style="width: 20%"></th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr *ngFor="let group of listGroups">
+                    <td>{{group.descripcionGrupo}}</td>
+                    <td>{{group.estado}}</td>
+                    <td style="white-space: nowrap">
+
+                        <!-- <button *ngIf="us.estado!='Activo'"  (click)="activate(group.id)" class="btn btn-sm btn-light mr-1" [disabled]="isActivating" >
+                            <span *ngIf="isActivating" class="spinner-border spinner-border-sm"></span>
+                            <span *ngIf="!isActivating">Activar grupo</span>
+                        </button>
+                        <button *ngIf="us.estado=='Activo'"  (click)="inActivate(group.id)" class="btn btn-sm btn-info mr-1" [disabled]="isActivating" >
+                            <span *ngIf="isActivating" class="spinner-border spinner-border-sm"></span>
+                            <span *ngIf="!isActivating">Inactiv grupo</span>
+                        </button> -->
+
+                        <a routerLink="{{URLAddEditGroupPage}}update/{{group.id}}" class="btn btn-sm btn-warning mr-1">Actualizar</a>
+
+                        <!-- <button (click)="deleteUser(group.id)" class="btn btn-sm btn-outline-danger mr-1" [disabled]="isDeleting">
+                            <span *ngIf="isDeleting" class="spinner-border spinner-border-sm"></span>
+                            <span *ngIf="!isDeleting">Eliminar</span>
+                        </button> -->
+
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+
+    </div>
+</div>

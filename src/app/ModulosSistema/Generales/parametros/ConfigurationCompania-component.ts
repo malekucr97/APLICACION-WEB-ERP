@@ -68,7 +68,7 @@ export class ConfigurationCompaniaComponent implements OnInit {
 
     get f() { return this.updateForm.controls; }
 
-    updateSubmit() : void {
+    Submit() : void {
 
         // let operationName : string = 'Actualizar Informacion Compania';
         // let module : string = 'GENERALES';
@@ -127,7 +127,7 @@ export class ConfigurationCompaniaComponent implements OnInit {
             $('#updateModal').modal('hide');
         },
         error => {
-            console.log(error);
+            $('#updateModal').modal('hide');
             this.alertService.error(error);
         });
     }
