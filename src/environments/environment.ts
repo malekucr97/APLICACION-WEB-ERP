@@ -51,7 +51,7 @@ export const ModulesSystem = {
     InventarioIndexURL: '/_InventarioModule/Index.html',
 
     Identif_Cumplimiento: 'ID-BANKAP-CUMPLIMIENTO',
-    CumplimientoIndexURL: '/_CumplimientoModule/Index.html'
+    CumplimientoIndexURL: '/_ModuloCumplimiento/Index.html'
 };
 
 /*

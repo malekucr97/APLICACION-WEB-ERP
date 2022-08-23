@@ -1,45 +1,96 @@
-<h1 style="color:#1A5276">Grupos</h1>
-<h4>Lista de de grupos de la compañía</h4>
-<!-- <a routerLink="/" class="btn btn-light mb-2 mr-3">Volver</a><br> -->
-<div class="card">
-    
-    <div class="card-body">
-        <a routerLink="{{URLAddEditGroupPage}}/add" class="btn btn-sm btn-success mb-3 mr-3 float-right">Registrar Grupo</a>
+<mat-sidenav-container *ngIf="showList">
+            
+    <div class="content mat-elevation-z4">
+        <main>
+            <a style="margin-top: 2%;" routerLink="{{URLAddEditGroupPage}}/add" class="btn btn-sm btn-outline-success float-right" data-toggle="modal" data-target="#grupoModal">
+                <i class="fa fa-plus" aria-hidden="true"></i>
+            </a>
+            <h1 style="color:#1A5276;margin-top: 2%;">Grupos de Riesgo</h1>
+            
+            <article>
+                <section class="content__menu">
         
-        <table class="table table-striped">
-            <thead>
-                <tr>
-                    <th style="width: 20%">Descripción del grupo</th>
-                    <th style="width: 60%">Estado</th>
-                    <th style="width: 20%"></th>
-                </tr>
-            </thead>
-            <tbody>
-                <tr *ngFor="let group of listGroups">
-                    <td>{{group.descripcionGrupo}}</td>
-                    <td>{{group.estado}}</td>
-                    <td style="white-space: nowrap">
+                    <table class="table table-striped">
+                        <thead>
+                            <tr>
+                                <th style="width: 60%">Descripción de Grupo</th>
+                                <th style="width: 20%">Estado</th>
+                                <th style="width: 20%"></th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr *ngFor="let group of listGroups">
+                                <td>{{group.descripcionGrupo}}</td>
+                                <td *ngIf="group.estado=='A'">Activo</td>
+                                <td *ngIf="group.estado=='I'">Inactivo</td>
+                                <td style="white-space: nowrap">
 
-                        <!-- <button *ngIf="us.estado!='Activo'"  (click)="activate(group.id)" class="btn btn-sm btn-light mr-1" [disabled]="isActivating" >
-                            <span *ngIf="isActivating" class="spinner-border spinner-border-sm"></span>
-                            <span *ngIf="!isActivating">Activar grupo</span>
-                        </button>
-                        <button *ngIf="us.estado=='Activo'"  (click)="inActivate(group.id)" class="btn btn-sm btn-info mr-1" [disabled]="isActivating" >
-                            <span *ngIf="isActivating" class="spinner-border spinner-border-sm"></span>
-                            <span *ngIf="!isActivating">Inactiv grupo</span>
-                        </button> -->
+                                    <a style="margin-right: 5%;" routerLink="{{URLAddEditGroupPage}}update/{{group.id}}" class="btn btn-sm btn-outline-info">
+                                        <i class="fa fa-edit"></i>
+                                    </a>
+                                    <a style="margin-left: 5%;" routerLink="{{URLAddEditGroupPage}}delete/{{group.id}}" class="btn btn-sm btn-outline-danger">
+                                        <i class="fa fa-trash"></i>
+                                    </a>
 
-                        <a routerLink="{{URLAddEditGroupPage}}update/{{group.id}}" class="btn btn-sm btn-warning mr-1">Actualizar</a>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
 
-                        <!-- <button (click)="deleteUser(group.id)" class="btn btn-sm btn-outline-danger mr-1" [disabled]="isDeleting">
-                            <span *ngIf="isDeleting" class="spinner-border spinner-border-sm"></span>
-                            <span *ngIf="!isDeleting">Eliminar</span>
-                        </button> -->
-
-                    </td>
-                </tr>
-            </tbody>
-        </table>
-
+                </section>
+            </article>
+        </main>
     </div>
+
+</mat-sidenav-container>
+
+<!-- Modal -->
+<div class="modal" id="grupoModal">
+    <mat-sidenav-container>
+        
+        <div class="content-form-grupo mat-elevation-z4">
+            
+            <main class="main-form">
+                <div class="modal-dialog modal-dialog-centered modal-xl">
+                    
+                    <div  class="modal-content">
+                        <div  class="modal-body">
+                            <button routerLink="{{URLAddEditGroupPage}}" style="color:red" type="button" class="close btn-close" data-dismiss="modal">&times;</button>
+                            <h1 style="color:#1A5276">Formulario Grupos de Riesgo</h1>
+                            
+                            <form style="width: 100%;" [formGroup]="groupFrom" (ngSubmit)="onSubmit()" >
+            
+                                <div class="form-group">
+                                    <label for="descripcionGrupo" class="form-label">Descripción del grupo</label>
+                                    <input formControlName="descripcionGrupo" class="form-control" type="text" id="id_descripcion_grupo"  
+                                        [ngClass]="{ 'is-invalid': submitted && f.descripcionGrupo.errors }" />
+                                    <div *ngIf="submitted && f.descripcionGrupo.errors" class="invalid-feedback">
+                                        <div *ngIf="f.descripcionGrupo.errors.required">La descripción del grupo es requerida</div>
+                                    </div>
+                                    <br>
+                                    <label style="margin-right: 1%;">
+                                        <input type="radio" value="A" formControlName="estado">
+                                            <span>Activo</span>
+                                    </label>
+                                    <label style="margin-left: 2%;">
+                                        <input type="radio" value="I" formControlName="estado">
+                                            <span>Inactivo</span>
+                                    </label>
+
+                                    <div>
+                                        <button type="submit" class="btn btn-sm btn-outline-info float-right" >{{buttomText}}</button>
+                                    </div>
+
+                                </div>
+                                
+                
+                                
+                
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </main>
+        </div>
+    </mat-sidenav-container>
 </div>

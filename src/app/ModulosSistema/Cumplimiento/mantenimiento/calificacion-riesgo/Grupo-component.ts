@@ -14,7 +14,7 @@ declare var $: any;
 
 @Component({
     templateUrl: 'HTML_Grupo.html',
-    styleUrls: ['../../../../../assets/scss/generales/app.scss'],
+    styleUrls: ['../../../../../assets/scss/cumplimiento/app.scss'],
 })
 export class GrupoComponent implements OnInit {
     @ViewChild(MatSidenav) sidenav !: MatSidenav;
@@ -23,13 +23,18 @@ export class GrupoComponent implements OnInit {
     moduleObservable: Module;
     companiaObservable: Compania;
 
+    showList : boolean = false;
     submitted : boolean = false;
     update: boolean = false;
     add: boolean = false;
+    delete: boolean = false;
+
+    buttomText : string = '';
 
     groupFrom: FormGroup;
 
     listGroups: Grupo[];
+    listGroupsSubject : Grupo[];
 
     public URLAddEditGroupPage: string = httpModulesPages.urlCumplimiento_Grupo;
 
@@ -43,59 +48,73 @@ export class GrupoComponent implements OnInit {
         this.userObservable = this.accountService.userValue;
         this.moduleObservable = this.accountService.moduleValue;
         this.companiaObservable = this.accountService.businessValue;
+        // this.listGroupsSubject = this.cumplimientoService.groupsListValue;
     }
 
     ngOnInit() {
 
-        let idGrupo : string;
+        if (!this.cumplimientoService.groupsListValue) {
+            // this.router.navigate([this.HTTPListBusinessPage]);
+            return;
+        }
 
-        if (this.route.snapshot.params.pidGrupo) {
+        let idGrupo : string;
+        let urlPath : string = this.route.snapshot.routeConfig.path;
+
+        if (urlPath.includes('update')) {
+            
             this.update = true;
             idGrupo = this.route.snapshot.params.pidGrupo;
-        } else { 
-            this.add = true; 
-        }
+            this.buttomText = 'Actualizar';
 
-        if (this.add) {
             this.groupFrom = this.formBuilder.group({
                 id: [''],
                 codigoCompania: [''],
                 descripcionGrupo: ['', Validators.required],
-                estado: ['', Validators.required],
-    
-                adicionadoPor: [''],
-                fechaAdicion: ['']
+                estado: ['', Validators.required]
             });
-        }
-        if (this.update) {
+
+        } else if (urlPath.includes('add')) {
+            this.add = true;
+            this.buttomText = 'Registrar';
+
             this.groupFrom = this.formBuilder.group({
                 id: [''],
                 codigoCompania: [''],
                 descripcionGrupo: ['', Validators.required],
-                estado: ['', Validators.required],
-    
-                modificadoPor: [''],
-                fechaModificacion: ['']
+                estado: ['A', Validators.required]
             });
-        }
 
-        if (!this.listGroups) {
+        } else if (urlPath.includes('delete')) {
+            this.delete = true;
+
+        } else {
+
+            this.groupFrom = this.formBuilder.group({
+                descripcionGrupo: [''],
+                estado: ['']
+            });
+
             this.cumplimientoService.getGroupsBusiness(this.userObservable.empresa)
             .pipe(first())
             .subscribe(groupsResponse => {
-                this.listGroups = groupsResponse;
+
+                if (groupsResponse.length > 0) {
+                    this.showList = true;
+                    this.listGroups = groupsResponse;   
+                    this.cumplimientoService.suscribeListGroups(this.listGroups);
+                }
             },
             error => {
-                let message : string = 'Problemas al consultar los grupos. ' + error;
+                let message : string = 'Problemas al consultar los grupos de riesgo. ' + error;
                 this.alertService.error(message); 
             });
         }
     }
 
-
     get f() { return this.groupFrom.controls; }
 
-    Submit() : void {
+    onSubmit() : void {
 
         this.alertService.clear();
         this.submitted = true;

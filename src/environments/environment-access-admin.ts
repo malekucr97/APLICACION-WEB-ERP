@@ -55,5 +55,5 @@ export const httpLandingIndexPage = {
 export const httpModulesPages = {
 
     // -- >> Cumplimiento
-    urlCumplimiento_Grupo: '/_CumplimientoModule/Mantenimientos/CalificacionRiesgo/Grupos/'
+    urlCumplimiento_Grupo: '/_ModuloCumplimiento/Mantenimientos/CalificacionRiesgo/Grupos/'
 };

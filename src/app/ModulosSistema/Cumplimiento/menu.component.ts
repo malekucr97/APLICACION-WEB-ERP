@@ -21,7 +21,7 @@ import { Compania } from '../../_models/modules/compania';
                {name: 'Calificación Riesgo',
                link: '', 
                icon: '',
-               children: [{name: 'Grupos', link: '/_CumplimientoModule/Mantenimientos/CalificacionRiesgo/Grupos/', icon: ''}, 
+               children: [{name: 'Grupos', link: '/_ModuloCumplimiento/Mantenimientos/CalificacionRiesgo/Grupos/', icon: ''}, 
                           {name: 'Criterios',link: '/', icon: ''},
                           {name: 'Paises',link: '/', icon: ''},
                           {name: 'Profesiones',link: '/', icon: ''},
