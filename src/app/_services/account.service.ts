@@ -5,7 +5,7 @@ import { BehaviorSubject, Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
 import { environment } from '@environments/environment';
 import { User } from '@app/_models';
-import { Module, Role, ModuleRol, ResponseMessage, AssignRoleObject } from '@app/_models/';
+import { Module, Role, ModuleRolBusiness, ResponseMessage, AssignRoleObject } from '@app/_models/';
 import { Compania, CompaniaUsuario } from '@app/_models/modules/compania';
 
 @Injectable({ providedIn: 'root' })
@@ -20,7 +20,10 @@ export class AccountService {
     private businessSubject: BehaviorSubject<Compania>;
     public businessObservable: Observable<Compania>;
 
-    private listUsersSubject : BehaviorSubject<User[]> ;
+    // listas administración
+    private listUsersSubject    : BehaviorSubject<User[]> ;
+    private listRolesSubject    : BehaviorSubject<Role[]> ;
+    private listBusinessSubject : BehaviorSubject<Compania[]> ;
 
     // **************************************************************
     // ************************* CONSTRUCTOR ************************
@@ -46,6 +49,18 @@ export class AccountService {
         }
         return null;
     }
+    public get rolListValue(): Role[] { 
+        if (this.listRolesSubject) {
+            return this.listRolesSubject.value;   
+        }
+        return null;
+    }
+    public get businessListValue(): Compania[] { 
+        if (this.listBusinessSubject) {
+            return this.listBusinessSubject.value;   
+        }
+        return null;
+    }
     public get userValue():     User        { return this.userSubject.value;        }
     public get businessValue(): Compania    { return this.businessSubject.value;    }
     public get moduleValue():   Module      { return this.moduleSubject.value;      }
@@ -55,13 +70,28 @@ export class AccountService {
     // ********************** MÉTODOS SUBSCRIPTORES **********************
     // *******************************************************************
     // -- >> Suscribe lista de usuario para administración
-    ///
     public suscribeListUser(listaUsuarios : User[]) : void {
         this.listUsersSubject = new BehaviorSubject<User[]>(listaUsuarios);
     }
     // -- >> Actualiza lista de usuario administración
     public loadListUsers(listaUsuarios : User[]) : void {
         this.listUsersSubject.next(listaUsuarios);
+    }
+    // -- >> Suscribe lista de roles para administración
+    public suscribeListRol(listaRoles : Role[]) : void {
+        this.listRolesSubject = new BehaviorSubject<Role[]>(listaRoles);
+    }
+    // -- >> Actualiza lista de roles administración
+    public loadListRol(listaRoles : Role[]) : void {
+        this.listRolesSubject.next(listaRoles);
+    }
+    // -- >> Suscribe lista de roles para administración
+    public suscribeListBusiness(listaRoles : Compania[]) : void {
+        this.listBusinessSubject = new BehaviorSubject<Compania[]>(listaRoles);
+    }
+    // -- >> Actualiza lista de roles administración
+    public loadListBusiness(listaCompanias : Compania[]) : void {
+        this.listBusinessSubject.next(listaCompanias);
     }
     // -- >> Actualiza Objeto Compañía en memoria y subcripción
     public loadBusinessAsObservable(bus: Compania) {
@@ -120,7 +150,7 @@ export class AccountService {
     getAllBusiness() {
         return this.http.get<Compania[]>(`${environment.apiUrl}/users/listadoempresas`);
     }
-    getBusinessActiveUser(idUsuario: string) {
+    getBusinessActiveUser(idUsuario: number) {
         return this.http.get<Compania[]>(`${environment.apiUrl}/users/empresasusuarioactivas?idUsuario=${idUsuario}`);
     }
     getBusinessById(idEmpresa: number) {
@@ -133,18 +163,18 @@ export class AccountService {
     updateBusiness(business: Compania) {
         return this.http.put<ResponseMessage>(`${environment.apiUrl}/users/actualizarempresa`, business);
     }
-    assignBusinessUser(identificacionUsuario: string, idBusiness: number) {
+    assignBusinessUser(idUser: number, idBusiness: number) {
 
-        const assignBusinessUObject = new CompaniaUsuario();
-        assignBusinessUObject.IdentificacionUsuario = identificacionUsuario;
+        let assignBusinessUObject = new CompaniaUsuario();
+        assignBusinessUObject.IdUsuario = idUser;
         assignBusinessUObject.IdEmpresa = idBusiness;
 
         return this.http.post<ResponseMessage>(`${environment.apiUrl}/users/asignarsociedadusuario`, assignBusinessUObject);
     }
-    dessAssignBusinessUser(identificacionUsuario: string, idBusiness: number) {
+    dessAssignBusinessUser(idUser: number, idBusiness: number) {
 
         const desAssignBusinessUObject = new CompaniaUsuario();
-        desAssignBusinessUObject.IdentificacionUsuario = identificacionUsuario;
+        desAssignBusinessUObject.IdUsuario = idUser;
         desAssignBusinessUObject.IdEmpresa = idBusiness;
 
         return this.http.post<ResponseMessage>(`${environment.apiUrl}/users/desasignsociedadusuario`, desAssignBusinessUObject);
@@ -159,23 +189,50 @@ export class AccountService {
 
 
     // -- >> Procedientos Modulos
-    activateModule(module: Module) {
-        return this.http.put<ResponseMessage>(`${environment.apiUrl}/users/activarmodulo`, module);
+    getModulesSystem() {
+        return this.http.get<Module[]>(`${environment.apiUrl}/users/modulossistema`);
     }
-    inActivateModule(module: Module) {
-        return this.http.put<ResponseMessage>(`${environment.apiUrl}/users/inactivarmodulo`, module);
+    getModulesByRolAndBusiness(idRol: string, idEmpresa: number) {
+        return this.http.get<Module[]>(`${environment.apiUrl}/users/modulosrolempresa?idEmpresa=${idEmpresa}&idRol=${idRol}`);
     }
-    assignModuleToBusiness(moduleToAssign: Module) {
-        return this.http.post<ResponseMessage>(`${environment.apiUrl}/users/assignmodbusiness`, moduleToAssign);
+    deleteAccessModuleToRol(idRol: string, idModulo: number, idEmpresa: number) {
+        return this.http.delete<ResponseMessage>(`${environment.apiUrl}/users/eliminaraccesomodulo?idRol=${idRol}&idModulo=${idModulo}&idEmpresa=${idEmpresa}`);
     }
-    desAssignModuleToBusiness(moduleId:number, idBusiness:number) {
-        return this.http.delete<ResponseMessage>(`${environment.apiUrl}/users/desassignmodbusiness?idModule=${moduleId}&idBusiness=${idBusiness}`);
+    grantAccessModuleToRol(idRol: string, idModulo: number, idBusiness: number) {
+
+        let accessMod : ModuleRolBusiness = new ModuleRolBusiness();
+        accessMod.IdRol = idRol;
+        accessMod.IdModulo = idModulo;
+        accessMod.IdBusiness = idBusiness;
+
+        return this.http.post<ResponseMessage>(`${environment.apiUrl}/users/otorgaraccesoamodulo`, accessMod);
     }
     getModulesBusiness(idEmpresa: number) {
         return this.http.get<Module[]>(`${environment.apiUrl}/users/modulossociedad?idEmpresa=${idEmpresa}`);
     }
-    getModulesIdIdBusiness(identificador: string, idEmpresa: number) {
-        return this.http.get<Module>(`${environment.apiUrl}/users/modididempresa?identificador=${identificador}&idEmpresa=${idEmpresa}`);
+    activateModule(idModule: number, idBusiness: number) {
+        let activateMod : ModuleRolBusiness = new ModuleRolBusiness();
+        activateMod.IdModulo = idModule;
+        activateMod.IdBusiness = idBusiness;
+
+        return this.http.put<ResponseMessage>(`${environment.apiUrl}/users/activarmodulo`, activateMod);
+    }
+    inActivateModule(idModule: number, idBusiness: number) {
+        let inActivateMod : ModuleRolBusiness = new ModuleRolBusiness();
+        inActivateMod.IdModulo = idModule;
+        inActivateMod.IdBusiness = idBusiness;
+
+        return this.http.put<ResponseMessage>(`${environment.apiUrl}/users/inactivarmodulo`, inActivateMod);
+    }
+    assignModuleToBusiness(idModule: number, idBusiness: number) {
+        let moduleToBusiness : ModuleRolBusiness = new ModuleRolBusiness();
+        moduleToBusiness.IdModulo = idModule;
+        moduleToBusiness.IdBusiness = idBusiness;
+
+        return this.http.post<ResponseMessage>(`${environment.apiUrl}/users/asignarmodulosociedad`, moduleToBusiness);
+    }
+    desAssignModuleToBusiness(moduleId:number, idBusiness:number) {
+        return this.http.delete<ResponseMessage>(`${environment.apiUrl}/users/desasigmodsociedad?idModulo=${moduleId}&idEmpresa=${idBusiness}`);
     }
     getModulesActiveBusiness(idEmpresa: number) {
         return this.http.get<Module[]>(`${environment.apiUrl}/users/modulosactsociedad?idEmpresa=${idEmpresa}`);
@@ -183,33 +240,16 @@ export class AccountService {
     getModulesActiveUser(idEmpresa: number, idRol: string) {
         return this.http.get<Module[]>(`${environment.apiUrl}/users/modulosactusuario?idEmpresa=${idEmpresa}&idRol=${idRol}`);
     }
-    getModulesSystem() {
-        return this.http.get<Module[]>(`${environment.apiUrl}/users/modulossystem`);
-    }
-    getModulesRolBusiness(idRol: string, idEmpresa: number) {
-        return this.http.get<Module[]>(`${environment.apiUrl}/users/modulosactrolempresa?idEmpresa=${idEmpresa}&idRol=${idRol}`);
-    }
+    
     addModuleRol(module: Module) {
         return this.http.post<Module>(`${environment.apiUrl}/users/registrarmodulo`, module);
-    }
-    accessModule(idRol: string, idModulo: number) {
-
-        let accessMod = new ModuleRol();
-        accessMod.IdRol = idRol;
-        accessMod.IdModulo = idModulo;
-
-        return this.http.post<ResponseMessage>(`${environment.apiUrl}/users/accesomodulo`, accessMod);
     }
     deleteModule(idModulo: number) {
         return this.http.delete<ResponseMessage>(`${environment.apiUrl}/users/eliminarmodulo?idModulo=${idModulo}`);
     }
-    deleteAccessModule(idRol: string, idModulo: number, ) {
-        return this.http.delete<ResponseMessage>(`${environment.apiUrl}/users/eliminaraccesomodulo?idRol=${idRol}&idModulo=${idModulo}`);
-    }
     addUser(user: User) { 
         return this.http.post<ResponseMessage>(`${environment.apiUrl}/users/registrarusuario`, user); 
     }
-
     removeRoleUser(user: User) {
         return this.http.put<ResponseMessage>(`${environment.apiUrl}/users/removerrolusuario`, user);
     }
@@ -218,8 +258,14 @@ export class AccountService {
             .pipe(map(x => {
                 // actualiza la información del usuario local si es quien se está en la sesión
                 if (id === this.userValue.identificacion) {
-                    localStorage.setItem('user', JSON.stringify(user));
-                    this.userSubject.next(user);
+
+                    this.userValue.email = user.email;
+                    this.userValue.nombreCompleto = user.nombreCompleto;
+                    this.userValue.numeroTelefono = user.numeroTelefono;
+                    this.userValue.password = user.password;
+
+                    localStorage.setItem('user', JSON.stringify(this.userValue));
+                    this.userSubject.next(this.userValue);
                 }
                 return x;
             }));

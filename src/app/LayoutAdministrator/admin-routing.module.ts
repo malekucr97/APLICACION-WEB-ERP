@@ -11,13 +11,13 @@ import { AdminBusinessComponent } from './business/adminBusinessPage.component';
 import { AddEditBusinessComponent } from './business/addEditBusinessPage.component';
 import { ListBusinessComponent } from './business/listBusinessPage.component';
 import { AddBusinessUserComponent } from './business/addBusinessUserPage.component';
-
 // -- roles
 import { AddRoleUserComponent } from './role/addRoleUserPage.component';
 import { ListRoleComponent } from './role/listRolePage.component';
 // -- modulos
 import { ListModuleComponent } from './module/listModulePage.component';
 import { AddModuleRoleComponent } from './module/addModuleRolePage.component';
+import { ListModuleBusinessComponent } from './module/listModuleBusinessPage.component';
 
 // **********************************************
 // ## ********** RUTAS MÓDULOS SISTEMA **********
@@ -48,9 +48,9 @@ const routes: Routes = [
             { path: 'AddRoleUserPage/:id', component: AddRoleUserComponent },
             { path: 'AdminListRolePage', component: ListRoleComponent },
             // -- modulos
-            { path: 'AdminListModulePage/:pidBusiness', component: ListModuleComponent },
+            { path: 'AdminListModuleBusinessPage/:pidBusiness', component: ListModuleBusinessComponent },
             { path: 'AdminListModulePage', component: ListModuleComponent },
-            { path: 'AddModuleRolePage/:pidRole/:pnom/:pdesc/:pesadmin', component: AddModuleRoleComponent },
+            { path: 'AddModuleRolePage/:pidRole', component: AddModuleRoleComponent },
 
             // ## ********* GENERALES -> PARÁMETROS********* ## //
             { path: 'ConfiguracionCompania/:pidBusiness', component: ConfigurationCompaniaComponent },

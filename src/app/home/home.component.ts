@@ -65,15 +65,21 @@ export class HomeComponent implements OnInit {
                     
                     if (listComaniesResponse) {
                         this.listBusiness = listComaniesResponse;
+                    } else {
+                        this.router.navigate([httpLandingIndexPage.urlPageNotBusiness]);
+                        return;
                     }
                 });
             } else {
-                this.accountService.getBusinessActiveUser(this.userObservable.identificacion)
+                this.accountService.getBusinessActiveUser(this.userObservable.id)
                 .pipe(first())
                 .subscribe(lstBusinessResponse => {
     
                     if (lstBusinessResponse) {
                         this.listBusiness = lstBusinessResponse;
+                    } else {
+                        this.router.navigate([httpLandingIndexPage.urlPageNotBusiness]);
+                        return;
                     }
                 });
             }

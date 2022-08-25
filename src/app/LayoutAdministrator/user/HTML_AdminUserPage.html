@@ -1,16 +1,22 @@
-<h1>Pantalla de Administración del Sistema</h1>
-<br><br>
+<h1>Administración Interna del Sistema</h1>
+<br>
 <h2 style="display: inline;">Bienvenido</h2>
 <h2 style="display: inline; color:#1A5276"> {{userObservable.nombreCompleto}} !</h2>
 <br><br>
 <hr><br>
-<h1 style="color:#1A5276">Actualizar Información de Usuario</h1>
+<div class="card">
+    <div class="card-body">
+        <h1 style="color:#1A5276">Actualizar Información de Usuario</h1>
+        <br>
+        <a routerLink="{{URLConfigureUserPage}}{{userObservable.identificacion}}" class="btn btn-outline-dark mb-2">Actualizar Información Usuario</a>
+        <br><hr><br>
+        <h1 style="color:#1A5276">Módulos de Administración del Sistema</h1>
+        <br>
+        <a style="margin-right: 1%;" routerLink="{{URLListUserPage}}" class="btn btn-outline-dark mb-2">Administración de Usuarios</a>
+        <a *ngIf="userObservable.esAdmin" style="margin-right: 1%;" routerLink="{{URLListBusinessPage}}" class="btn btn-outline-dark mb-2">Administración de Empresas</a>
+        <a *ngIf="userObservable.esAdmin"style="margin-right: 1%;" routerLink="{{URLListModulePage}}" class="btn btn-outline-dark mb-2">Administración de Módulos</a>
+        <a *ngIf="userObservable.esAdmin"style="margin-right: 1%;" routerLink="{{URLListRolePage}}" class="btn btn-outline-dark mb-2">Administración de Roles</a>
+    </div>
+</div>
 <br>
-<a routerLink="{{URLConfigureUserPage}}{{userObservable.identificacion}}" class="btn btn-outline-dark mb-2">Actualizar Información Usuario</a>
-<br><hr><br>
-<h1 style="color:#1A5276">Módulos de Administración del Sistema</h1>
-<br>
-<a style="margin-right: 1%;" routerLink="{{URLListUserPage}}" class="btn btn-outline-dark mb-2">Administración de Usuarios</a>
-<a *ngIf="userObservable.esAdmin" style="margin-right: 1%;" routerLink="{{URLListBusinessPage}}" class="btn btn-outline-dark mb-2">Administración de Empresas</a>
-<a *ngIf="userObservable.esAdmin"style="margin-right: 1%;" routerLink="{{URLListModulePage}}" class="btn btn-outline-dark mb-2">Administración de Módulos</a>
-<a *ngIf="userObservable.esAdmin"style="margin-right: 1%;" routerLink="{{URLListRolePage}}" class="btn btn-outline-dark mb-2">Administración de Roles</a>
+<hr>

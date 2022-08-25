@@ -3,10 +3,11 @@ import * as internal from "events";
 export class Module {
     id: number;
     identificador: string;
-    idSociedad: number;
+    // idSociedad: number;
     nombre: string;
     descripcion: string;
     estado: string;
+    pathLogo: string;
 
     pathIco: string;
     indexHTTP: string;

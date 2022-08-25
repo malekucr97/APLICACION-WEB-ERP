@@ -1,4 +1,4 @@
-import { AfterContentInit, AfterViewInit, Component, OnInit } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { first } from 'rxjs/operators';
 import { Router } from '@angular/router';
 import { AccountService, AlertService } from '@app/_services';
@@ -27,8 +27,8 @@ export class ListUserComponent implements OnInit {
 
     constructor(private accountService: AccountService, 
                 private alertService: AlertService,
-                private router: Router)
-    {
+                private router: Router) {
+                    
         this.userObservable = this.accountService.userValue;
         this.businessObservable = this.accountService.businessValue;
     }
@@ -49,8 +49,6 @@ export class ListUserComponent implements OnInit {
                     this.accountService.suscribeListUser(this.listUsers);
                 });
                     
-                
-
         } else if (this.userObservable.idRol && this.userObservable.idRol === amdinBusiness.adminSociedad) {
 
             this.accountService.getUsersBusiness(this.userObservable.empresa)
@@ -60,7 +58,7 @@ export class ListUserComponent implements OnInit {
                 this.accountService.suscribeListUser(this.listUsers);
                 
             });
-        }
+        } else { this.router.navigate([this.Home]); }
     }
     deleteUser(identificacionUsuario: string, idUser: number) {
 
