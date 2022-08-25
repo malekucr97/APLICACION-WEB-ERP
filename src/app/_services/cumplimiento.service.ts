@@ -27,9 +27,9 @@ export class CumplimientoService {
     }
     
     getGroupsBusiness(idCompania: number) {
-        return this.http.get<Grupo[]>(`${environment.apiUrl}/cumplimiento/cum_gruposcompania?idCompania=${idCompania}`);
+        return this.http.get<Grupo[]>(`${environment.apiUrl}/cumplimiento/gruposriesgocompania?idCompania=${idCompania}`);
     }
     update(group: Grupo) {
-        return this.http.put<ResponseMessage>(`${environment.apiUrl}/users/actualizarcompania`, group);
+        return this.http.put<ResponseMessage>(`${environment.apiUrl}/cumplimiento/`, group);
     }
 }

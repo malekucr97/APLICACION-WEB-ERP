@@ -11,9 +11,7 @@ const routes: Routes = [
         children: [
             { path: '', component: MenuCumplimientoComponent },
             { path: 'Index.html', component: IndexCumplimientoComponent },
-            { path: 'Mantenimientos/CalificacionRiesgo/Grupos', component: GrupoComponent },
-            { path: 'Mantenimientos/CalificacionRiesgo/Grupos/add', component: GrupoComponent },
-            { path: 'Mantenimientos/CalificacionRiesgo/Grupos/update/:pidGrupo', component: GrupoComponent },
+            { path: 'Mantenimientos/CalificacionRiesgo/Grupos', component: GrupoComponent }
         ]
     }
 ];

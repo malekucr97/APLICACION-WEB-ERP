@@ -42,58 +42,21 @@ export class GrupoComponent implements OnInit {
                  private cumplimientoService: CumplimientoService, 
                  private accountService: AccountService,
                  private alertService: AlertService,
-                 private route: ActivatedRoute,
-                 private router: Router) 
+                 private route: ActivatedRoute)
     {
         this.userObservable = this.accountService.userValue;
         this.moduleObservable = this.accountService.moduleValue;
         this.companiaObservable = this.accountService.businessValue;
-        // this.listGroupsSubject = this.cumplimientoService.groupsListValue;
     }
 
     ngOnInit() {
 
+        this.groupFrom = this.formBuilder.group({
+            descripcionGrupo: [''],
+            estado: ['']
+        });
+
         if (!this.cumplimientoService.groupsListValue) {
-            // this.router.navigate([this.HTTPListBusinessPage]);
-            return;
-        }
-
-        let idGrupo : string;
-        let urlPath : string = this.route.snapshot.routeConfig.path;
-
-        if (urlPath.includes('update')) {
-            
-            this.update = true;
-            idGrupo = this.route.snapshot.params.pidGrupo;
-            this.buttomText = 'Actualizar';
-
-            this.groupFrom = this.formBuilder.group({
-                id: [''],
-                codigoCompania: [''],
-                descripcionGrupo: ['', Validators.required],
-                estado: ['', Validators.required]
-            });
-
-        } else if (urlPath.includes('add')) {
-            this.add = true;
-            this.buttomText = 'Registrar';
-
-            this.groupFrom = this.formBuilder.group({
-                id: [''],
-                codigoCompania: [''],
-                descripcionGrupo: ['', Validators.required],
-                estado: ['A', Validators.required]
-            });
-
-        } else if (urlPath.includes('delete')) {
-            this.delete = true;
-
-        } else {
-
-            this.groupFrom = this.formBuilder.group({
-                descripcionGrupo: [''],
-                estado: ['']
-            });
 
             this.cumplimientoService.getGroupsBusiness(this.userObservable.empresa)
             .pipe(first())
@@ -101,7 +64,8 @@ export class GrupoComponent implements OnInit {
 
                 if (groupsResponse.length > 0) {
                     this.showList = true;
-                    this.listGroups = groupsResponse;   
+                    this.listGroups = groupsResponse;
+
                     this.cumplimientoService.suscribeListGroups(this.listGroups);
                 }
             },
@@ -109,7 +73,47 @@ export class GrupoComponent implements OnInit {
                 let message : string = 'Problemas al consultar los grupos de riesgo. ' + error;
                 this.alertService.error(message); 
             });
+    
+        } else {
+
+            this.listGroups = this.cumplimientoService.groupsListValue;
+            this.showList = true;
         }
+    }
+
+    onAdd() : void {
+
+        this.add = true;
+        this.buttomText = 'Registrar';
+
+        this.groupFrom = this.formBuilder.group({
+            descripcionGrupo: ['', Validators.required],
+            estado: ['A', Validators.required]
+        });
+
+        $('#grupoModal').modal({backdrop: 'static', keyboard: false}, 'show');
+    }
+
+    onEdit(group:Grupo) : void {
+
+        this.update = true;
+        this.buttomText = 'Actualizar';
+
+        this.groupFrom = this.formBuilder.group({
+            descripcionGrupo: [group.descripcionGrupo, Validators.required],
+            estado: [group.estado, Validators.required]
+        });
+
+        $('#grupoModal').modal({backdrop: 'static', keyboard: false}, 'show');
+    }
+
+    onDelete(group:Grupo) : void {
+
+        this.delete = true;
+
+        if(confirm("Está seguro que desea eliminar el grupo " + group.descripcionGrupo)) {
+            console.log("pos si");
+        } else {console.log("pos no");}
     }
 
     get f() { return this.groupFrom.controls; }
@@ -134,7 +138,9 @@ export class GrupoComponent implements OnInit {
             groupForm.adicionadoPor = this.userObservable.identificacion;
             groupForm.fechaAdicion = today;
  
+            // procedure add
         }
+        
         if (this.update) {
             groupForm.modificadoPor = this.userObservable.identificacion;
             groupForm.fechaModificacion = today;
@@ -148,7 +154,7 @@ export class GrupoComponent implements OnInit {
                     } else {
                         this.alertService.error(responseUpdate.responseMesagge);
                     }
-                    $('#updateModal').modal('hide');
+                    $('#grupoModal').modal('hide');
                 },
                 error => {
                     let messaje : string = 'Problemas al actualizar la información del grupo. ' + error;
