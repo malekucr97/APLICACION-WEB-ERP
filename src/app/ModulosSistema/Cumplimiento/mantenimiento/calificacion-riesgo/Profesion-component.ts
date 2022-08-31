@@ -100,7 +100,7 @@ export class ProfesionComponent implements OnInit {
             estado: [profesion.estado, Validators.required]
         });
 
-        $('#profesionjModal').modal({backdrop: 'static', keyboard: false}, 'show');
+        $('#profesionModal').modal({backdrop: 'static', keyboard: false}, 'show');
     }
 
     onDelete(profesion:Profesion) : void {
