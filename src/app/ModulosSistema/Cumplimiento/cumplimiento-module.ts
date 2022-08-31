@@ -16,6 +16,10 @@ import {MatTreeModule} from '@angular/material/tree';
 import {MatTooltipModule} from '@angular/material/tooltip';
 
 import { GrupoComponent } from './mantenimiento/calificacion-riesgo/Grupo-component';
+import { NivelRiesgoComponent } from './mantenimiento/calificacion-riesgo/NivelRiesgo-component';
+import { ActividadEconomicaComponent } from './mantenimiento/calificacion-riesgo/ActividadEconomica-component';
+import { ProfesionComponent } from './mantenimiento/calificacion-riesgo/Profesion-component';
+
 
 
 @NgModule({
@@ -36,7 +40,10 @@ import { GrupoComponent } from './mantenimiento/calificacion-riesgo/Grupo-compon
     declarations: [
         IndexCumplimientoComponent,
         MenuCumplimientoComponent,
-        GrupoComponent
+        GrupoComponent,
+        NivelRiesgoComponent,
+        ActividadEconomicaComponent,
+        ProfesionComponent
     ]
 })
 export class CumplimientoModule { }
