@@ -27,11 +27,9 @@
                     <td *ngIf="userObservable.esAdmin" style="white-space: nowrap">
 
                         <a routerLink="{{URLAddBusinessUsertPage}}{{us.identificacion}}" class="btn btn-sm btn-outline-dark mr-1">
-                            Empresa
-                        </a>
+                            Empresa </a>
                         <a routerLink="{{URLAddRoleUsertPage}}{{us.identificacion}}" class="btn btn-sm btn-dark mr-1">
-                            Rol
-                        </a>
+                            Rol </a>
 
                         <button *ngIf="us.estado!='Activo'"  (click)="activateUser(us.identificacion, us.id)" class="btn btn-sm btn-light mr-1" [disabled]="isActivating" >
                             <span *ngIf="isActivating" class="spinner-border spinner-border-sm"></span>
