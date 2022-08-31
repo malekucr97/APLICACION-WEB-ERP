@@ -6,7 +6,6 @@ import { CumplimientoRoutingModule } from './cumplimiento-routing.module';
 import { IndexCumplimientoComponent } from './index.component';
 import { MenuCumplimientoComponent } from './menu.component';
 
-
 import { MatToolbarModule } from '@angular/material/toolbar';
 import { MatSidenavModule } from '@angular/material/sidenav';
 import { MatButtonModule } from '@angular/material/button';
@@ -15,6 +14,8 @@ import { MatDividerModule } from '@angular/material/divider';
 
 import {MatTreeModule} from '@angular/material/tree';
 import {MatTooltipModule} from '@angular/material/tooltip';
+
+import { GrupoComponent } from './mantenimiento/calificacion-riesgo/Grupo-component';
 
 
 @NgModule({
@@ -34,7 +35,8 @@ import {MatTooltipModule} from '@angular/material/tooltip';
     ],
     declarations: [
         IndexCumplimientoComponent,
-        MenuCumplimientoComponent
+        MenuCumplimientoComponent,
+        GrupoComponent
     ]
 })
 export class CumplimientoModule { }
