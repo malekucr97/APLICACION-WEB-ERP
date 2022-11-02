@@ -3,7 +3,7 @@
     <div class="content mat-elevation-z4">
         <main>
             
-            <a (click)="onAdd()" class="btn btn-add btn-sm btn-outline-success float-right" >
+            <a (click)="onAdd()" class="btn btn-add btn-sm btn-outline-success float-right" matTooltip="Nuevo">
                 <i class="fa fa-plus" aria-hidden="true"></i></a>
 
             <h1 class="h1-title">Profesiones</h1>
@@ -29,10 +29,10 @@
                                 <td *ngIf="profesion.estado=='I'">Inactivo</td>
                                 <td style="white-space: nowrap">
 
-                                    <a style="margin-right: 5%;" (click)="onEdit(profesion)" class="btn btn-sm btn-outline-info">
+                                    <a style="margin-right: 5%;" (click)="onEdit(profesion)" class="btn btn-sm btn-outline-info" matTooltip="Editar">
                                         <i class="fa fa-edit"></i> </a>
                                     
-                                    <a style="margin-left: 5%;" (click)="onDelete(profesion)" class="btn btn-sm btn-outline-danger">
+                                    <a style="margin-left: 5%;" (click)="onDelete(profesion)" class="btn btn-sm btn-outline-danger" matTooltip="Eliminar">
                                         <i class="fa fa-trash"></i> </a>
 
                                 </td>
@@ -48,10 +48,10 @@
 </mat-sidenav-container>
 
 <!-- Modal -->
-<div class="modal modal-profesion" id="profesionModal">
+<div class="modal modal-cumplimiento" id="profesionModal">
     <mat-sidenav-container>
         
-        <div class="content-form-grupo mat-elevation-z4">
+        <div class="content-form-cumplimiento mat-elevation-z4">
             
             <main class="main-form">
                 <div class="modal-dialog modal-dialog-centered modal-xl">
