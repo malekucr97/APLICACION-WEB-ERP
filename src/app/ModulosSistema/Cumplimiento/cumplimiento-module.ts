@@ -19,6 +19,16 @@ import { GrupoComponent } from './mantenimiento/calificacion-riesgo/Grupo-compon
 import { NivelRiesgoComponent } from './mantenimiento/calificacion-riesgo/NivelRiesgo-component';
 import { ActividadEconomicaComponent } from './mantenimiento/calificacion-riesgo/ActividadEconomica-component';
 import { ProfesionComponent } from './mantenimiento/calificacion-riesgo/Profesion-component';
+import { PaisComponent } from './mantenimiento/calificacion-riesgo/pais-component';
+import { MovimientoDebeComponent } from './mantenimiento/calificacion-riesgo/MovimientoDebe-component';
+import { MovimientoHaberComponent } from './mantenimiento/calificacion-riesgo/MovimientoHaber-component';
+import { CantidadDebeComponent } from './mantenimiento/calificacion-riesgo/CantidadDebe-component';
+import { CantidadHaberComponent } from './mantenimiento/calificacion-riesgo/CantidadHaber-component';
+import { Articulo15Component } from './mantenimiento/calificacion-riesgo/Articulo15-component';
+import { CanalDistribucionComponent } from './mantenimiento/calificacion-riesgo/CanalDistribucion-component';
+import { EspecialidadComponent } from './mantenimiento/calificacion-riesgo/Especialidad-component';
+import { ProductoFinancieroComponent } from './mantenimiento/calificacion-riesgo/ProductoFinanciero-component';
+
 
 
 
@@ -43,7 +53,16 @@ import { ProfesionComponent } from './mantenimiento/calificacion-riesgo/Profesio
         GrupoComponent,
         NivelRiesgoComponent,
         ActividadEconomicaComponent,
-        ProfesionComponent
+        ProfesionComponent,
+        PaisComponent,
+        MovimientoDebeComponent,
+        MovimientoHaberComponent,
+        CantidadDebeComponent,
+        CantidadHaberComponent,
+        Articulo15Component,
+        CanalDistribucionComponent,
+        EspecialidadComponent,
+        ProductoFinancieroComponent
     ]
 })
 export class CumplimientoModule { }

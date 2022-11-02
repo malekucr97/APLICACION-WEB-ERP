@@ -138,6 +138,10 @@ export class IndexContentPageComponent implements OnInit {
             case ModulesSystem.Identif_Cumplimiento: 
             mod.indexHTTP = ModulesSystem.CumplimientoIndexURL; 
                 break;
+            // redireccionamiento a MACRED
+            case ModulesSystem.Identif_Macred: 
+            mod.indexHTTP = ModulesSystem.MacredIndexURL; 
+                break;
 
             default: mod.indexHTTP = '/';
         }
