@@ -25,6 +25,8 @@ const InventarioModule      = () => import('./ModulosSistema/Inventario/inventar
 const GeneralesModule       = () => import('./ModulosSistema/Generales/generales-module').then( x => x.GeneralesModule );
 // ## ********* CUMPLIMIENTO ********* ## //
 const CumplimientoModule    = () => import('./ModulosSistema/Cumplimiento/cumplimiento-module').then( x => x.CumplimientoModule );
+// ## ********* MACRED ********* ## //
+const MacredModule    = () => import('./ModulosSistema/Macred/macred-module').then( x => x.MacredModule );
 
 const routes: Routes = [
     { path: '', component: HomeComponent, canActivate: [AuthGuard] },
@@ -43,6 +45,7 @@ const routes: Routes = [
     { path: '_FacturacionModule',   loadChildren: FacturacionModule,    canActivate: [AuthGuard] },
     { path: '_InventarioModule',    loadChildren: InventarioModule,     canActivate: [AuthGuard] },
     { path: '_ModuloCumplimiento',  loadChildren: CumplimientoModule,   canActivate: [AuthGuard] },
+    { path: '_MacredModulo',        loadChildren: MacredModule,   canActivate: [AuthGuard] },
     
     { path: '**', redirectTo: '' }
 ];
