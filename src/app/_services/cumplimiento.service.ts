@@ -20,13 +20,10 @@ import { ProductoFinanciero } from '@app/_models/Cumplimiento/ProductoFinanciero
 @Injectable({ providedIn: 'root' })
 export class CumplimientoService {
 
-    private listGroupsSubject : BehaviorSubject<Grupo[]> ;
+    // private listGroupsSubject : BehaviorSubject<Grupo[]> ;
 
     constructor( private http: HttpClient ) { }
 
-// ******************************************************************************
-    // ****************************** MÉTODOS ACCESORES *****************************
-    // ******************************************************************************
     /*public get groupsListValue(): Grupo[] { 
         if (this.listGroupsSubject) {
             return this.listGroupsSubject.value;   

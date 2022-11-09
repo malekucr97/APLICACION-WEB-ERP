@@ -44,8 +44,9 @@ const routes: Routes = [
     { path: '_CuentasPagarModule',  loadChildren: CuentasPagarModule,   canActivate: [AuthGuard] },
     { path: '_FacturacionModule',   loadChildren: FacturacionModule,    canActivate: [AuthGuard] },
     { path: '_InventarioModule',    loadChildren: InventarioModule,     canActivate: [AuthGuard] },
+    //
     { path: '_ModuloCumplimiento',  loadChildren: CumplimientoModule,   canActivate: [AuthGuard] },
-    { path: '_MacredModulo',        loadChildren: MacredModule,   canActivate: [AuthGuard] },
+    { path: '_ModuloMacred',        loadChildren: MacredModule,         canActivate: [AuthGuard] },
     
     { path: '**', redirectTo: '' }
 ];

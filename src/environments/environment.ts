@@ -54,7 +54,7 @@ export const ModulesSystem = {
     CumplimientoIndexURL: '/_ModuloCumplimiento/Index.html',
 
     Identif_Macred: 'ID-BANKAP-MACRED',
-    MacredIndexURL: '/_MacredModulo/Index.html'
+    MacredIndexURL: '/_ModuloMacred/Index.html'
 };
 
 /*

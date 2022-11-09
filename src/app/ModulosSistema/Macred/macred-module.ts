@@ -32,7 +32,8 @@ import {MatTooltipModule} from '@angular/material/tooltip';
     ],
     declarations: [
         IndexMacredComponent,
-        MenuMacredComponent
+        MenuMacredComponent,
+        
     ]
 })
 export class MacredModule { }
