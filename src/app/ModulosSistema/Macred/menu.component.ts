@@ -25,7 +25,7 @@ import { Compania } from '../../_models/modules/compania';
       name: 'Análisis de Personas',
       link: '',
       icon: '',
-      children: [{name: 'Asociados', link: '/', icon: ''},
+      children: [{name: 'Asociados', link: '/_ModuloMacred/Asociados/CalificacionAsociados.html', icon: ''},
                 {name: 'No Asociados', link: '/', icon: ''}
       ],
     },
