@@ -12,7 +12,7 @@ const routes: Routes = [
         children: [
             { path: '', component: MenuMacredComponent },
             { path: 'Index.html', component: IndexMacredComponent },
-            { path: 'Asociados/CalificacionAsociados', component: AsociadosComponent }
+            { path: 'Asociados/CalificacionAsociados.html', component: AsociadosComponent }
         ]
     }
 ];

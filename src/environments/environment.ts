@@ -7,22 +7,8 @@ export const environment = {
     apiUrl: 'http://localhost:4000'
 };
 
-// export const httpAccessPage = {
-//     // -- >> Langing Pages Index Application
-//     urlContentIndex: '/_/index.html',
-    
-//     // -- >> Langing No Login Application
-//     urlPagePending: '/_/PendingPage/index.html',
-//     urlPageNotRol: '/_/NotRolPage/index.html',
-//     // Usuario Inactivo
-//     urlPageInactiveUser: '/_/InactiveUserPage/index.html',
-    
-//     urlPageInactiveRol: '/_/InactiveRolPage/index.html',
-//     urlPageNotBusiness: '/_/NotBusinessPage/index.html'
-// };
-
 export const localVariables = {
-    dir_img_modules: '/assets/images/inra/ModulosBankap/'
+    dir_img_modules: './assets/images/inra/ModulosBankap/'
 };
 
 export const ModulesSystem = {

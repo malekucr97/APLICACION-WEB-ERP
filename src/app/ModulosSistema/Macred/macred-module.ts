@@ -5,6 +5,7 @@ import { MacredRoutingModule } from './macred-routing.module';
 
 import { IndexMacredComponent } from './index.component';
 import { MenuMacredComponent } from './menu.component';
+import { AsociadosComponent } from './asociados/asociados-component';
 
 import { MatToolbarModule } from '@angular/material/toolbar';
 import { MatSidenavModule } from '@angular/material/sidenav';
@@ -14,6 +15,7 @@ import { MatDividerModule } from '@angular/material/divider';
 
 import {MatTreeModule} from '@angular/material/tree';
 import {MatTooltipModule} from '@angular/material/tooltip';
+
 
 @NgModule({
     imports: [
@@ -33,7 +35,7 @@ import {MatTooltipModule} from '@angular/material/tooltip';
     declarations: [
         IndexMacredComponent,
         MenuMacredComponent,
-        
+        AsociadosComponent
     ]
 })
 export class MacredModule { }

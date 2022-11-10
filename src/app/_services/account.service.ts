@@ -2,17 +2,20 @@
 import { Router } from '@angular/router';
 import { HttpClient } from '@angular/common/http';
 import { BehaviorSubject, Observable } from 'rxjs';
-import { map } from 'rxjs/operators';
+import { first, map } from 'rxjs/operators';
 import { environment } from '@environments/environment';
 import { User } from '@app/_models';
 import { Module, Role, ModuleRolBusiness, ResponseMessage, AssignRoleObject } from '@app/_models/';
 import { Compania, CompaniaUsuario } from '@app/_models/modules/compania';
+import { ScreenAccessUser } from '@app/_models/admin/screenAccessUser';
 
 @Injectable({ providedIn: 'root' })
 export class AccountService {
     
     private userSubject: BehaviorSubject<User>;
     public user: Observable<User>;
+
+    public Oscreens: Observable<ScreenAccessUser[]>;
 
     private moduleSubject: BehaviorSubject<Module>;
     public moduleObservable: Observable<Module>;
@@ -21,9 +24,9 @@ export class AccountService {
     public businessObservable: Observable<Compania>;
 
     // listas administración
-    private listUsersSubject    : BehaviorSubject<User[]> ;
-    private listRolesSubject    : BehaviorSubject<Role[]> ;
-    private listBusinessSubject : BehaviorSubject<Compania[]> ;
+    private listUsersSubject        : BehaviorSubject<User[]> ;
+    private listRolesSubject        : BehaviorSubject<Role[]> ;
+    private listBusinessSubject     : BehaviorSubject<Compania[]> ;
 
     // **************************************************************
     // ************************* CONSTRUCTOR ************************
@@ -51,16 +54,17 @@ export class AccountService {
     }
     public get rolListValue(): Role[] { 
         if (this.listRolesSubject) {
-            return this.listRolesSubject.value;   
+            return this.listRolesSubject.value;
         }
         return null;
     }
     public get businessListValue(): Compania[] { 
         if (this.listBusinessSubject) {
-            return this.listBusinessSubject.value;   
+            return this.listBusinessSubject.value;
         }
         return null;
     }
+    
     public get userValue():     User        { return this.userSubject.value;        }
     public get businessValue(): Compania    { return this.businessSubject.value;    }
     public get moduleValue():   Module      { return this.moduleSubject.value;      }
@@ -93,6 +97,7 @@ export class AccountService {
     public loadListBusiness(listaCompanias : Compania[]) : void {
         this.listBusinessSubject.next(listaCompanias);
     }
+
     // -- >> Actualiza Objeto Compañía en memoria y subcripción
     public loadBusinessAsObservable(bus: Compania) {
 
@@ -118,6 +123,10 @@ export class AccountService {
     }
     // *******************************************************************
 
+    validateAccessUser(idUser:number, idModule:number, nombrePantalla:string) {
+        return this.http.get<ResponseMessage>(`${environment.apiUrl}/users/validaaccesopantalla?idUsuario=${idUser}&idModulo=${idModule}&nomPantalla=${nombrePantalla}`);
+    }
+    
     // **********************************************************************************************
     // -- >> Inicio de Sesión
     login(username, password) {
