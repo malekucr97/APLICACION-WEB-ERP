@@ -24,14 +24,6 @@ export class AsociadosComponent implements OnInit {
     moduleObservable: Module;
     companiaObservable: Compania;
 
-    showList : boolean = false;
-    submitted : boolean = false;
-    update : boolean = false;
-    add : boolean = false;
-    delete : boolean = false;
-
-    buttomText : string = '';
-
     listScreenAccessUser: ScreenAccessUser[];
 
     constructor (private formBuilder: FormBuilder,
@@ -46,7 +38,10 @@ export class AsociadosComponent implements OnInit {
     }
 
     ngOnInit() {
-        this.accountService.validateAccessUser(this.userObservable.id, this.moduleObservable.id, this.nombrePantalla)
+        this.accountService.validateAccessUser( this.userObservable.id, 
+                                                this.moduleObservable.id, 
+                                                this.nombrePantalla, 
+                                                this.companiaObservable.id )
             .pipe(first())
             .subscribe(response => {
                 if(!response.exito)

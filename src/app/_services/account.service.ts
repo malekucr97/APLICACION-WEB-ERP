@@ -123,8 +123,11 @@ export class AccountService {
     }
     // *******************************************************************
 
-    validateAccessUser(idUser:number, idModule:number, nombrePantalla:string) {
-        return this.http.get<ResponseMessage>(`${environment.apiUrl}/users/validaaccesopantalla?idUsuario=${idUser}&idModulo=${idModule}&nomPantalla=${nombrePantalla}`);
+    validateAccessUser(idUser:number, idModule:number, nombrePantalla:string, idBusiness:number) {
+        return this.http.get<ResponseMessage>(`${environment.apiUrl}/users/validaaccesopantalla?idUsuario=${idUser}
+                                                                                                &idModulo=${idModule}
+                                                                                                &nomPantalla=${nombrePantalla}
+                                                                                                &îdEmpresa=${idBusiness}`);
     }
     
     // **********************************************************************************************
