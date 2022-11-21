@@ -1,0 +1,11 @@
+.buttoms {
+    display: flex;
+    flex-direction: row;
+    justify-content: right;
+    align-items: right;
+    flex-wrap: wrap;
+}
+
+.buttom {
+    margin: 1% 1% 1% 1%;
+}

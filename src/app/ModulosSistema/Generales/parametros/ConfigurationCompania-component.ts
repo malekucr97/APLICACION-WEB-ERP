@@ -111,25 +111,25 @@ export class ConfigurationCompaniaComponent implements OnInit {
         // let adn = createObjectADNCompania(companiaForm, operationName, module, entityName);
 
         this.generalesSerice.putCompania(companiaForm)
-        .pipe(first())
-        .subscribe( responseAddCompania => {
+            .pipe(first())
+            .subscribe( responseAddCompania => {
 
-            if (responseAddCompania.exito) {
+                if (responseAddCompania.exito) {
 
-                this.companiaConfiguration = companiaForm;
-                this.accountService.loadBusinessAsObservable(companiaForm);
-                
-                this.alertService.success(responseAddCompania.responseMesagge, { keepAfterRouteChange: false });
-                
-            } else {
-                this.alertService.error(responseAddCompania.responseMesagge, { keepAfterRouteChange: false });
-            }
-            $('#updateModal').modal('hide');
-        },
-        error => {
-            $('#updateModal').modal('hide');
-            this.alertService.error(error);
-        });
+                    this.companiaConfiguration = companiaForm;
+                    this.accountService.loadBusinessAsObservable(companiaForm);
+                    
+                    this.alertService.success(responseAddCompania.responseMesagge, { keepAfterRouteChange: false });
+                    
+                } else {
+                    this.alertService.error(responseAddCompania.responseMesagge, { keepAfterRouteChange: false });
+                }
+                $('#updateModal').modal('hide');
+            },
+            error => {
+                $('#updateModal').modal('hide');
+                this.alertService.error(error);
+            });
     }
 }
 
