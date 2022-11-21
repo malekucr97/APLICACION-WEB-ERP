@@ -14,14 +14,14 @@ import { Compania } from '@app/_models/modules/compania';
 })
 export class IndexContentPageComponent implements OnInit {
 
-    constructor(private accountService: AccountService, 
+    constructor(private accountService: AccountService,
                 private router: Router,
                 private route: ActivatedRoute,) {
 
         this.userObservable = this.accountService.userValue;
         this.businessObservable = this.accountService.businessValue;
     }
- 
+
     @ViewChild(MatSidenav)
     sidenav !: MatSidenav;
 
@@ -39,9 +39,9 @@ export class IndexContentPageComponent implements OnInit {
 
         // valida que se haya seleccionado una empresa
         if (this.businessObservable) {
-        
+
                 // valida si el usuario que inició sesión es administrador
-            if (this.userObservable.esAdmin 
+            if (this.userObservable.esAdmin
                 || this.userObservable.idRol === amdinBusiness.adminSociedad) {
 
                 // lista los módulos activos de una compañía
@@ -78,74 +78,79 @@ export class IndexContentPageComponent implements OnInit {
     private setListModules(responseListModules:Module[]=null) : void {
         if ( responseListModules ) {
 
-            let ListModulesTemp: Module[] = [];
-
             responseListModules.forEach(module => {
-
-                let modTemp = new Module();
-
-                modTemp.id = module.id;
-                modTemp.identificador = module.identificador;
-                modTemp.nombre = module.nombre;
-                modTemp.pathIco =  localVariables.dir_img_modules + module.identificador + '.png';
-                modTemp.descripcion =  module.descripcion;
-
-                modTemp = this.redireccionIndexModulosHTTP(modTemp, module.identificador);
-
-                ListModulesTemp.push(modTemp);
+                
+                this.ListModules.push(new Module(   module.id, 
+                                                    module.identificador, 
+                                                    module.nombre,
+                                                    module.descripcion,
+                                                    module.estado,
+                                                    module.pathLogo,
+                                                    localVariables.dir_img_modules + module.identificador + '.png',
+                                                    this.redireccionIndexModulosHTTP(module.identificador)));
             });
-
-            this.ListModules = ListModulesTemp;
         }
     }
-    redireccionIndexModulosHTTP(mod: Module, identificador : string) : Module {
+    redireccionIndexModulosHTTP(/*mod: Module, */identificador : string) : string {
+
+        let indexHTTPModule : string = '';
 
         switch (identificador) {
 
             // redireccionamiento a GENERALES
-            case ModulesSystem.Identif_Generales: 
-            mod.indexHTTP = ModulesSystem.GeneralesIndexURL; 
+            case ModulesSystem.Identif_Generales:
+                indexHTTPModule = ModulesSystem.GeneralesIndexURL;
+            // mod.indexHTTP = ModulesSystem.GeneralesIndexURL;
                 break;
             // redireccionamiento a ACTIVOS FIJOS
-            case ModulesSystem.Identif_ActivosFijos: 
-            mod.indexHTTP = ModulesSystem.ActivosFijosIndexURL; 
+            case ModulesSystem.Identif_ActivosFijos:
+                indexHTTPModule = ModulesSystem.ActivosFijosIndexURL;
+            // mod.indexHTTP = ModulesSystem.ActivosFijosIndexURL;
                 break;
             // redireccionamiento a BANCOS
-            case ModulesSystem.Identif_Bancos: 
-            mod.indexHTTP = ModulesSystem.BancosIndexURL; 
+            case ModulesSystem.Identif_Bancos:
+                indexHTTPModule = ModulesSystem.BancosIndexURL;
+            // mod.indexHTTP = ModulesSystem.BancosIndexURL;
                 break;
             // redireccionamiento a CONTABILIDAD
-            case ModulesSystem.Identif_Contabilidad: 
-            mod.indexHTTP = ModulesSystem.ContabilidadIndexURL; 
+            case ModulesSystem.Identif_Contabilidad:
+                indexHTTPModule = ModulesSystem.ContabilidadIndexURL;
+            // mod.indexHTTP = ModulesSystem.ContabilidadIndexURL;
                 break;
             // redireccionamiento a CUENTAS POR COBRAR
-            case ModulesSystem.Identif_CuentasCobrar: 
-            mod.indexHTTP = ModulesSystem.CuentasCobrarIndexURL; 
+            case ModulesSystem.Identif_CuentasCobrar:
+                indexHTTPModule = ModulesSystem.CuentasCobrarIndexURL;
+            // mod.indexHTTP = ModulesSystem.CuentasCobrarIndexURL;
                 break;
             // redireccionamiento a CUENTAS POR PAGAR
-            case ModulesSystem.Identif_CuentasPagar: 
-            mod.indexHTTP = ModulesSystem.CuentasPagarIndexURL; 
+            case ModulesSystem.Identif_CuentasPagar:
+                indexHTTPModule = ModulesSystem.CuentasPagarIndexURL;
+            // mod.indexHTTP = ModulesSystem.CuentasPagarIndexURL;
                 break;
             // redireccionamiento a FACTURACIÓN
-            case ModulesSystem.Identif_Facturacion: 
-            mod.indexHTTP = ModulesSystem.FacturacionIndexURL; 
+            case ModulesSystem.Identif_Facturacion:
+                indexHTTPModule = ModulesSystem.FacturacionIndexURL;
+            // mod.indexHTTP = ModulesSystem.FacturacionIndexURL;
                 break;
             // redireccionamiento a INVENTARIO
-            case ModulesSystem.Identif_Inventario: 
-            mod.indexHTTP = ModulesSystem.InventarioIndexURL; 
+            case ModulesSystem.Identif_Inventario:
+                indexHTTPModule = ModulesSystem.InventarioIndexURL;
+            // mod.indexHTTP = ModulesSystem.InventarioIndexURL;
                 break;
             // redireccionamiento a CUMPLIMIENTO
-            case ModulesSystem.Identif_Cumplimiento: 
-            mod.indexHTTP = ModulesSystem.CumplimientoIndexURL; 
+            case ModulesSystem.Identif_Cumplimiento:
+                indexHTTPModule = ModulesSystem.CumplimientoIndexURL;
+            // mod.indexHTTP = ModulesSystem.CumplimientoIndexURL;
                 break;
             // redireccionamiento a MACRED
-            case ModulesSystem.Identif_Macred: 
-            mod.indexHTTP = ModulesSystem.MacredIndexURL; 
+            case ModulesSystem.Identif_Macred:
+                indexHTTPModule = ModulesSystem.MacredIndexURL;
+            // mod.indexHTTP = ModulesSystem.MacredIndexURL;
                 break;
 
-            default: mod.indexHTTP = '/';
+            default: indexHTTPModule = '/';
         }
-        return mod;
+        return indexHTTPModule;
     }
 
     // ******************************************

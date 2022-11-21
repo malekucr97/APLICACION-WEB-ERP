@@ -1,11 +1,12 @@
 export class Module {
-    id: number;
-    identificador: string;
-    nombre: string;
-    descripcion: string;
-    estado: string;
-    pathLogo: string;
 
-    pathIco: string;
-    indexHTTP: string;
+constructor(    public id:number, 
+                public identificador:string, 
+                public nombre:string,
+                public descripcion:string,
+                public estado:string,
+                public pathLogo:string,
+                public pathIco:string,
+                public indexHTTP:string ) {
+    }
 }
