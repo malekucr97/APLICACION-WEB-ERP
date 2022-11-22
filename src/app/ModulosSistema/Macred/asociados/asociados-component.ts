@@ -55,7 +55,7 @@ export class AsociadosComponent implements OnInit {
     escenarios : boolean = false;
     escenariosFcl : boolean = false;
 
-    habilitaBtnRegistrarIngreso : boolean = false;
+    habilitaBtnIngreso : boolean = false;
     habilitaBtnHistoprialIngreso: boolean = true;
     habilitaBtnRegistroDeudor: boolean = false;
 
@@ -417,13 +417,13 @@ export class AsociadosComponent implements OnInit {
                     this.menuItem               = null;
 
                     this.habilitaBtnGeneraNuevoAnalisis = true;
-                    this.habilitaBtnRegistrarIngreso    = false;
+                    this.habilitaBtnIngreso    = false;
                     
                     this.cargaInformacionPersona();
      
                 } else { return; }
-
             });
+
         } else { this.cargaInformacionPersona(); }
     }
 
@@ -494,7 +494,7 @@ export class AsociadosComponent implements OnInit {
                     this._analisisCapacidadpago = response;
 
                     this.habilitaBtnGeneraNuevoAnalisis = false;
-                    this.habilitaBtnRegistrarIngreso    = true;
+                    this.habilitaBtnIngreso    = true;
 
                     // this.formDatosAnalisisHeader = this.formBuilder.group({
                     //     fechaAnalisis           : [this._analisisCapacidadpago.fechaAnalisis,               Validators.required],

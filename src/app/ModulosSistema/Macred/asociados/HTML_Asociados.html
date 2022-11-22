@@ -1,252 +1,246 @@
-<div>
-    <mat-sidenav-container>
 
-        <div class="asociado_content mat-elevation-z4">
+<div class="asociado_contenedor mat-elevation-z4">
 
-            <form [formGroup]="formPersona"  class="row asociado_content-form">
+    <div class="asociado_contenedor__body">
 
-                <div class="form-group col-md-3">
-                    <label for="id" class="form-label">Id</label>
-                    <input formControlName="id" class="form-control" type="text" id="id_id" readonly />
-                </div>
+        <form [formGroup]="formPersona" class="row">
 
-                <div class="form-group col-md-3">
-                    <label for="codigoCliente" class="form-label">Código de Cliente</label>
-                    <input formControlName="codigoCliente" class="form-control" type="text" id="id_codigo_persona"  />
-                </div>
-
-                <div class="form-group col-md-6">
-                    <label for="lblIdentificacion" class="form-label">Número de Identificación</label>
-                    <input formControlName="identificacion" class="form-control" type="text" id="id_identificacion"
-                        [ngClass]="{ 'is-invalid': submittedPersonForm && f.identificacion.errors }" />
-                    <div *ngIf="submittedPersonForm && f.identificacion.errors" class="invalid-feedback">
-                        <div *ngIf="f.identificacion.errors.required">La identificación es requerida</div>
-                    </div>
-                </div>
-
-                <div class="form-group col-md-6">
-                    <label for="nombre" class="form-label">Nombre</label>
-                    <input formControlName="nombre" class="form-control" type="text" id="id_nombre"
-                        [ngClass]="{ 'is-invalid': submittedPersonForm && f.nombre.errors }" />
-                    <div *ngIf="submittedPersonForm && f.nombre.errors" class="invalid-feedback">
-                        <div *ngIf="f.nombre.errors.required">El nombre es requerido</div>
-                    </div>
-                </div>
-                <div class="form-group col-md-3">
-                    <label for="primerApellido" class="form-label">Primer Apellido</label>
-                    <input formControlName="primerApellido" class="form-control" type="text" id="id_nombre"
-                        [ngClass]="{ 'is-invalid': submittedPersonForm && f.primerApellido.errors }" />
-                    <div *ngIf="submittedPersonForm && f.primerApellido.errors" class="invalid-feedback">
-                        <div *ngIf="f.primerApellido.errors.required">El primer apellido es requerido</div>
-                    </div>
-                </div>
-                <div class="form-group col-md-3">
-                    <label for="segundoApellido" class="form-label">Segundo Apellido</label>
-                    <input formControlName="segundoApellido" class="form-control" type="text" id="id_nombre"
-                        [ngClass]="{ 'is-invalid': submittedPersonForm && f.segundoApellido.errors }" />
-                    <div *ngIf="submittedPersonForm && f.segundoApellido.errors" class="invalid-feedback">
-                        <div *ngIf="f.segundoApellido.errors.required">El segundo apellido es requerido</div>
-                    </div>
-                </div>
-
-                <div class="col-md-12 mt-3">
-                    <button type="submit" (click)="SubmitPerson()" class="btn btn-info px-5" >Consultar</button>
-
-                    
-                </div>
-            </form>
-
-
-            <!-- OPCIOINES SUBMENU -->
-            <!-- ** // MUESTRA LOS MÓDULOS EN PANTALLA -->
-            <div *ngIf="_personaMacred" class="asociado_content__menuitems mat-elevation-z4">
-
-                <section class="asociado_content__menuitems__section">
-                    <div class="asociado_content__menuitems__section__item" *ngFor="let module of listSubMenu">
-                        <p *ngIf="module.estado=='A'" class="asociado_content__menuitems__section__item__titulo" (click)="selectModule(module)">{{module.nombre}}</p>
-                    </div>
-                </section>
+            <div class="form-group col-md-3">
+                <label for="id" class="form-label">Id</label>
+                <input formControlName="id" class="form-control" type="text" id="id_id" readonly />
             </div>
-            
-        </div>
+            <div class="form-group col-md-3">
+                <label for="codigoCliente" class="form-label">Código de Cliente</label>
+                <input formControlName="codigoCliente" class="form-control" type="text" id="id_codigo_persona"  />
+            </div>
+            <div class="form-group col-md-6">
+                <label for="lblIdentificacion" class="form-label">Número de Identificación</label>
+                <input formControlName="identificacion" class="form-control" type="text" id="id_identificacion"
+                    [ngClass]="{ 'is-invalid': submittedPersonForm && f.identificacion.errors }" />
+                <div *ngIf="submittedPersonForm && f.identificacion.errors" class="invalid-feedback">
+                    <div *ngIf="f.identificacion.errors.required">La identificación es requerida</div>
+                </div>
+            </div>
 
-    </mat-sidenav-container>
+            <div class="form-group col-md-6">
+                <label for="nombre" class="form-label">Nombre</label>
+                <input formControlName="nombre" class="form-control" type="text" id="id_nombre"
+                    [ngClass]="{ 'is-invalid': submittedPersonForm && f.nombre.errors }" />
+                <div *ngIf="submittedPersonForm && f.nombre.errors" class="invalid-feedback">
+                    <div *ngIf="f.nombre.errors.required">El nombre es requerido</div>
+                </div>
+            </div>
+            <div class="form-group col-md-3">
+                <label for="primerApellido" class="form-label">Primer Apellido</label>
+                <input formControlName="primerApellido" class="form-control" type="text" id="id_nombre"
+                    [ngClass]="{ 'is-invalid': submittedPersonForm && f.primerApellido.errors }" />
+                <div *ngIf="submittedPersonForm && f.primerApellido.errors" class="invalid-feedback">
+                    <div *ngIf="f.primerApellido.errors.required">El primer apellido es requerido</div>
+                </div>
+            </div>
+            <div class="form-group col-md-3">
+                <label for="segundoApellido" class="form-label">Segundo Apellido</label>
+                <input formControlName="segundoApellido" class="form-control" type="text" id="id_nombre"
+                    [ngClass]="{ 'is-invalid': submittedPersonForm && f.segundoApellido.errors }" />
+                <div *ngIf="submittedPersonForm && f.segundoApellido.errors" class="invalid-feedback">
+                    <div *ngIf="f.segundoApellido.errors.required">El segundo apellido es requerido</div>
+                </div>
+            </div>
+
+            <div class="col-md-12 mt-3">
+                <button type="submit" (click)="SubmitPerson()" class="btn btn-info px-5" >Consultar</button>
+            </div>
+
+        </form>
+    </div>
+
+    <!-- OPCIOINES SUBMENU -->
+    <!-- ** // MUESTRA LOS MÓDULOS EN PANTALLA -->
+    <div *ngIf="_personaMacred" class="asociado_contenedor__menuitems mat-elevation-z4">
+        <section class="asociado_contenedor__menuitems__section">
+            <div class="asociado_contenedor__menuitems__section__item" *ngFor="let module of listSubMenu">
+                <p *ngIf="module.estado=='A'" class="asociado_contenedor__menuitems__section__item__titulo" (click)="selectModule(module)">{{module.nombre}}</p>
+            </div>
+        </section>
+    </div>
+    
 </div>
 
-<section class="asociado_content__menuitems__section" *ngIf="menuItem">
-    <div class="asociado_content__menuitems__section__item">
-        <p class="asociado_content__menu__item__titulo">{{menuItem.nombre}}</p>
+<section class="asociado_contenedor__menuselected__section" *ngIf="menuItem">
+    <div class="asociado_contenedor__menuselected__item">
+        <p class="asociado_contenedor__menuselected__item__titulo">{{menuItem.nombre}}</p>
     </div>
 </section>
 
-<div *ngIf="datosAnalisis">
-    <mat-sidenav-container>
-        <div class="asociado_analisis_content mat-elevation-z4">
-            
-            <div class="asociado_analisis_content__encabezado">
-                <div *ngIf="_analisisCapacidadpago" class="asociado_analisis_content__encabezado__text">
-                    <h2>codigo de análisis: {{_analisisCapacidadpago.codigoAnalisis}}</h2>
-                </div>
-
-                <div class="asociado_analisis_content__encabezado__buttons">
-                    <button *ngIf="habilitaBtnHistoprialIngreso" class="btn btn-dark px-5 asociado_analisis_content__encabezado__buttons__btn" >
-                        Historial
-                    </button>
-                    <button *ngIf="habilitaBtnRegistroDeudor" class="btn btn-dark px-5 asociado_analisis_content__encabezado__buttons__btn" >
-                        Nuevo Deudor
-                    </button>
-                </div>
-            </div>
-
-            <hr><br>
-
-            <div class="asociado_analisis_content__body">
-                <form [formGroup]="formDatosAnalisisHeader" class="row asociado_analisis_content__form">
-                    <div class="col-md-3">
-                        <label for="lblFechaAnalisis" class="form-label">Fecha de Análisis</label>
-                        <input formControlName="fechaAnalisis" class="form-control" matInput [matDatepicker]="picker" >
-                        <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
-                        <mat-datepicker #picker></mat-datepicker>
-                    </div>
-
-                    <div class="form-group col-sm-1 asociado_analisis_content__form__estado">
-                        <mat-checkbox formControlName="estado" >Estado</mat-checkbox>
-                    </div>
-                    <div class="form-group col-sm-1 asociado_analisis_content__form__analisisDefinitivo">
-                        <mat-checkbox formControlName="analisisDefinitivo" >Análisis definitivo ?</mat-checkbox>
-                    </div>
-
-                    <div class="col-sm-7"> </div>
-
-                    <div class="form-group col-md-6">
-                        <label for="lblCapacidadPago" class="form-label">Nivel de Capacidad de Pago</label>
-                        <select formControlName="capacidadPago" class="form-control" name="selectCapacidadPago" readonly >
-                                <option [disabled]="true" [ngValue]="objeto" *ngFor="let objeto of listNivelesCapacidadpago">{{objeto.descripcion}}</option>
-                        </select>
-                        <div *ngIf="submittedDatosAnalisisHeaderForm && g.capacidadPago.errors" class="invalid-feedback">
-                            <div *ngIf="g.capacidadPago.errors.required">El Nivel de Capacidad de Pago es requerido</div>
-                        </div>
-                    </div>
-                    
-                    <div class="form-group col-md-2">
-                        <label for="lblPuntajeAnalisis" class="form-label">Puntaje del Análisis</label>
-                        <input formControlName="puntajeAnalisis" class="form-control" type="text" id="id_puntajeAnalisis"
-                        readonly />
-                    </div>
-                    <div class="form-group col-md-2">
-                        <label for="lblCalificacionCic" class="form-label">Calificación CIC</label>
-                        <input formControlName="calificacionCic" class="form-control" type="text" id="id_calificacionCic"
-                        readonly />
-                    </div>
-                    <div class="form-group col-md-2">
-                        <label for="lblCalificacionFinalCic" class="form-label">Calificación FINAL CIC</label>
-                        <input formControlName="calificacionFinalCic" class="form-control" type="text" id="id_calificacionFinalCic"
-                        readonly />
-                    </div>
-                    <!-- -- -->
-                    <div class="form-group col-md-3">
-                        <label for="lblTipoIngresoAnalisis" class="form-label">Tipo de Ingreso de Análisis</label>
-                        <select formControlName="tipoIngresoAnalisis" class="form-control" name="selectTipoIngresoAnalisis"
-                            [ngClass]="{ 'is-invalid': submittedDatosAnalisisHeaderForm && g.tipoIngresoAnalisis.errors }" >
-                                <option [ngValue]="objeto" *ngFor="let objeto of listTipoIngresoAnalisis">{{objeto.id}} - {{objeto.descripcion}}</option>
-                        </select>
-                        <div *ngIf="submittedDatosAnalisisHeaderForm && g.tipoIngresoAnalisis.errors" class="invalid-feedback">
-                            <div *ngIf="g.tipoIngresoAnalisis.errors.required">El Tipo de Ingreso es requerido</div>
-                        </div>
-                    </div>
-                    <div class="form-group col-md-3">
-                        <label for="tipoFormaPagoAnalisis" class="form-label">Forma de Pago de Análisis</label>
-                        <select formControlName="tipoFormaPagoAnalisis" class="form-control" name="tipoFormaPagoAnalisis"
-                            [ngClass]="{ 'is-invalid': submittedDatosAnalisisHeaderForm && g.tipoFormaPagoAnalisis.errors }" >
-                                <option [ngValue]="objeto" *ngFor="let objeto of listTipoFormaPagoAnalisis">{{objeto.id}} - {{objeto.descripcion}}</option>
-                        </select>
-                        <div *ngIf="submittedDatosAnalisisHeaderForm && g.tipoFormaPagoAnalisis.errors" class="invalid-feedback">
-                            <div *ngIf="g.tipoFormaPagoAnalisis.errors.required">La Forma de Pago es requerida</div>
-                        </div>
-                    </div>
-                    
-
-                    <div class="form-group col-md-4">
-                        <label for="lblModeloAnalisis" class="form-label">Modelo de Análisis</label>
-                        <select formControlName="modeloAnalisis" class="form-control" name="selectModeloAnalisis"
-                            [ngClass]="{ 'is-invalid': submittedDatosAnalisisHeaderForm && g.modeloAnalisis.errors }" >
-                                <option [ngValue]="objeto" *ngFor="let objeto of listModelosAnalisis">{{objeto.id}} - {{objeto.descripcion}}</option>
-                        </select>
-                        <div *ngIf="submittedDatosAnalisisHeaderForm && g.modeloAnalisis.errors" class="invalid-feedback">
-                            <div *ngIf="g.modeloAnalisis.errors.required">El Modelo de Análisis es requerido</div>
-                        </div>
-                    </div>
-
-                    <div class="form-group col-md-2">
-                        <label for="tipoMoneda" class="form-label">Moneda</label>
-                        <select formControlName="tipoMoneda" class="form-control" name="tipoMoneda"
-                            [ngClass]="{ 'is-invalid': submittedDatosAnalisisHeaderForm && g.tipoMoneda.errors }" >
-                                <option [ngValue]="objeto" *ngFor="let objeto of listTiposMonedas">{{objeto.simbolo}} {{objeto.descripcion}}</option>
-                        </select>
-                        <div *ngIf="submittedDatosAnalisisHeaderForm && g.tipoMoneda.errors" class="invalid-feedback">
-                            <div *ngIf="g.tipoMoneda.errors.required">La Moneda es requerida</div>
-                        </div>
-                    </div>
-
-
-                    <div class="form-group col-md-3">
-                        <label for="lblTipoGenerador" class="form-label">Tipo de Generador</label>
-                        <select formControlName="tipoGenerador" class="form-control" name="selectTipoGenerador"
-                            [ngClass]="{ 'is-invalid': submittedDatosAnalisisHeaderForm && g.tipoGenerador.errors }" >
-                                <option [ngValue]="objeto" *ngFor="let objeto of listTiposGeneradores">{{objeto.codigoGenerador}} - {{objeto.descripcion}}</option>
-                        </select>
-                        <div *ngIf="submittedDatosAnalisisHeaderForm && g.tipoGenerador.errors" class="invalid-feedback">
-                            <div *ngIf="g.tipoGenerador.errors.required">El Tipo de Generador es requerido</div>
-                        </div>
-                    </div>
-
-                    <div class="form-group col-md-3">
-                        <label for="lblIndicadorCsd" class="form-label">Indicador CSD</label>
-                        <input formControlName="indicadorCsd" class="form-control" type="number" id="id_indicadorcsd"
-                            [ngClass]="{ 'is-invalid': submittedDatosAnalisisHeaderForm && g.indicadorCsd.errors }" />
-                        <div *ngIf="submittedDatosAnalisisHeaderForm && g.indicadorCsd.errors" class="invalid-feedback">
-                            <div *ngIf="g.indicadorCsd.errors.required">El Indicador CSD es requerido</div>
-                        </div>
-                    </div>
-
-                    <div class="form-group col-md-4">
-                        <label for="lblPonderacionLvt" class="form-label">Ponderación LVT</label>
-                        <input formControlName="ponderacionLvt" class="form-control" type="text" id="id_ponderacionLvt"
-                            [ngClass]="{ 'is-invalid': submittedDatosAnalisisHeaderForm && g.ponderacionLvt.errors }" />
-                        <div *ngIf="submittedDatosAnalisisHeaderForm && g.ponderacionLvt.errors" class="invalid-feedback">
-                            <div *ngIf="g.ponderacionLvt.errors.required">La ponderación LVT es requerida</div>
-                        </div>
-                    </div>
-
-                    <div class="form-group col-md-2">
-                        <label for="lblNumeroDependientes" class="form-label">Número de Dependientes</label>
-                        <input formControlName="numeroDependientes" class="form-control" type="number" id="id_numeroDependientes"
-                            [ngClass]="{ 'is-invalid': submittedDatosAnalisisHeaderForm && g.numeroDependientes.errors }" />
-                        <div *ngIf="submittedDatosAnalisisHeaderForm && g.numeroDependientes.errors" class="invalid-feedback">
-                            <div *ngIf="g.numeroDependientes.errors.required">El Número de Dependientes es requerido</div>
-                        </div>
-                    </div>
-
-                    <div class="form-group col-md-12">
-                        <hr>
-                        <textarea matInput  formControlName="observaciones" 
-                                            class="form-control"
-                                            id="id_observaciones"
-                                            placeholder="Ingrese las observaciones..."></textarea>
-
-                        <hr>
-                    </div>
-
-                    <div *ngIf="habilitaBtnGeneraNuevoAnalisis" class="col-md-12 asociado_analisis_content__body_btns__btnGenerar">
-                        <button (click)="SubmitNuevoAnalisis()" class="btn btn-success px-5" >Generar</button>
-                    </div>
-                </form>
-                <div *ngIf="habilitaBtnRegistrarIngreso" class="col-md-12 asociado_analisis_content__body_btns__btnSRegistrarIngreso">
-                    <button class="btn btn-success px-5" (click)="habilitaRegistrarIngreso()" >Ingresos</button>
-                </div>
-            </div>
+<!-- <div *ngIf="datosAnalisis"> -->
+<div class="analisis_contenedor mat-elevation-z4">
+        
+    <div class="analisis_contenedor__header">
+        <div class="analisis_contenedor__header__prev">
+            <h2 *ngIf="_analisisCapacidadpago">codigo de análisis: {{_analisisCapacidadpago.codigoAnalisis}}</h2>
         </div>
-    </mat-sidenav-container>
+        <div class="analisis_contenedor__header__next">
+            <button *ngIf="habilitaBtnHistoprialIngreso" class="btn btn-dark px-5 " >
+                Historial
+            </button>
+            <button *ngIf="habilitaBtnRegistroDeudor" class="btn btn-dark px-5 " >
+                Nuevo Deudor
+            </button>
+        </div>
+    </div>
+
+    <hr><br>
+
+    <div class="analisis_contenedor__body">
+        <form [formGroup]="formDatosAnalisisHeader" class="row">
+            
+            <div class="col-md-3">
+                <label for="lblFechaAnalisis" class="form-label">Fecha de Análisis</label>
+                <input formControlName="fechaAnalisis" class="form-control" matInput [matDatepicker]="picker" >
+                <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+                <mat-datepicker #picker></mat-datepicker>
+            </div>
+
+            <div class="form-group col-sm-1 analisis_contenedor__body__estado">
+                <mat-checkbox formControlName="estado" >Estado</mat-checkbox>
+            </div>
+            <div class="form-group col-sm-1 analisis_contenedor__body__analisisDefinitivo">
+                <mat-checkbox formControlName="analisisDefinitivo" >Análisis definitivo ?</mat-checkbox>
+            </div>
+
+            <div class="col-sm-7"> </div>
+
+            <div class="form-group col-md-6">
+                <label for="lblCapacidadPago" class="form-label">Nivel de Capacidad de Pago</label>
+                <select formControlName="capacidadPago" class="form-control" name="selectCapacidadPago" readonly >
+                        <option [disabled]="true" [ngValue]="objeto" *ngFor="let objeto of listNivelesCapacidadpago">{{objeto.descripcion}}</option>
+                </select>
+                <div *ngIf="submittedDatosAnalisisHeaderForm && g.capacidadPago.errors" class="invalid-feedback">
+                    <div *ngIf="g.capacidadPago.errors.required">El Nivel de Capacidad de Pago es requerido</div>
+                </div>
+            </div>
+            
+            <div class="form-group col-md-2">
+                <label for="lblPuntajeAnalisis" class="form-label">Puntaje del Análisis</label>
+                <input formControlName="puntajeAnalisis" class="form-control" type="text" id="id_puntajeAnalisis"
+                readonly />
+            </div>
+            <div class="form-group col-md-2">
+                <label for="lblCalificacionCic" class="form-label">Calificación CIC</label>
+                <input formControlName="calificacionCic" class="form-control" type="text" id="id_calificacionCic"
+                readonly />
+            </div>
+            <div class="form-group col-md-2">
+                <label for="lblCalificacionFinalCic" class="form-label">Calificación FINAL CIC</label>
+                <input formControlName="calificacionFinalCic" class="form-control" type="text" id="id_calificacionFinalCic"
+                readonly />
+            </div>
+            <!-- -- -->
+            <div class="form-group col-md-3">
+                <label for="lblTipoIngresoAnalisis" class="form-label">Tipo de Ingreso de Análisis</label>
+                <select formControlName="tipoIngresoAnalisis" class="form-control" name="selectTipoIngresoAnalisis"
+                    [ngClass]="{ 'is-invalid': submittedDatosAnalisisHeaderForm && g.tipoIngresoAnalisis.errors }" >
+                        <option [ngValue]="objeto" *ngFor="let objeto of listTipoIngresoAnalisis">{{objeto.id}} - {{objeto.descripcion}}</option>
+                </select>
+                <div *ngIf="submittedDatosAnalisisHeaderForm && g.tipoIngresoAnalisis.errors" class="invalid-feedback">
+                    <div *ngIf="g.tipoIngresoAnalisis.errors.required">El Tipo de Ingreso es requerido</div>
+                </div>
+            </div>
+            <div class="form-group col-md-3">
+                <label for="tipoFormaPagoAnalisis" class="form-label">Forma de Pago de Análisis</label>
+                <select formControlName="tipoFormaPagoAnalisis" class="form-control" name="tipoFormaPagoAnalisis"
+                    [ngClass]="{ 'is-invalid': submittedDatosAnalisisHeaderForm && g.tipoFormaPagoAnalisis.errors }" >
+                        <option [ngValue]="objeto" *ngFor="let objeto of listTipoFormaPagoAnalisis">{{objeto.id}} - {{objeto.descripcion}}</option>
+                </select>
+                <div *ngIf="submittedDatosAnalisisHeaderForm && g.tipoFormaPagoAnalisis.errors" class="invalid-feedback">
+                    <div *ngIf="g.tipoFormaPagoAnalisis.errors.required">La Forma de Pago es requerida</div>
+                </div>
+            </div>
+            
+
+            <div class="form-group col-md-4">
+                <label for="lblModeloAnalisis" class="form-label">Modelo de Análisis</label>
+                <select formControlName="modeloAnalisis" class="form-control" name="selectModeloAnalisis"
+                    [ngClass]="{ 'is-invalid': submittedDatosAnalisisHeaderForm && g.modeloAnalisis.errors }" >
+                        <option [ngValue]="objeto" *ngFor="let objeto of listModelosAnalisis">{{objeto.id}} - {{objeto.descripcion}}</option>
+                </select>
+                <div *ngIf="submittedDatosAnalisisHeaderForm && g.modeloAnalisis.errors" class="invalid-feedback">
+                    <div *ngIf="g.modeloAnalisis.errors.required">El Modelo de Análisis es requerido</div>
+                </div>
+            </div>
+
+            <div class="form-group col-md-2">
+                <label for="tipoMoneda" class="form-label">Moneda</label>
+                <select formControlName="tipoMoneda" class="form-control" name="tipoMoneda"
+                    [ngClass]="{ 'is-invalid': submittedDatosAnalisisHeaderForm && g.tipoMoneda.errors }" >
+                        <option [ngValue]="objeto" *ngFor="let objeto of listTiposMonedas">{{objeto.simbolo}} {{objeto.descripcion}}</option>
+                </select>
+                <div *ngIf="submittedDatosAnalisisHeaderForm && g.tipoMoneda.errors" class="invalid-feedback">
+                    <div *ngIf="g.tipoMoneda.errors.required">La Moneda es requerida</div>
+                </div>
+            </div>
+
+
+            <div class="form-group col-md-3">
+                <label for="lblTipoGenerador" class="form-label">Tipo de Generador</label>
+                <select formControlName="tipoGenerador" class="form-control" name="selectTipoGenerador"
+                    [ngClass]="{ 'is-invalid': submittedDatosAnalisisHeaderForm && g.tipoGenerador.errors }" >
+                        <option [ngValue]="objeto" *ngFor="let objeto of listTiposGeneradores">{{objeto.codigoGenerador}} - {{objeto.descripcion}}</option>
+                </select>
+                <div *ngIf="submittedDatosAnalisisHeaderForm && g.tipoGenerador.errors" class="invalid-feedback">
+                    <div *ngIf="g.tipoGenerador.errors.required">El Tipo de Generador es requerido</div>
+                </div>
+            </div>
+
+            <div class="form-group col-md-3">
+                <label for="lblIndicadorCsd" class="form-label">Indicador CSD</label>
+                <input formControlName="indicadorCsd" class="form-control" type="number" id="id_indicadorcsd"
+                    [ngClass]="{ 'is-invalid': submittedDatosAnalisisHeaderForm && g.indicadorCsd.errors }" />
+                <div *ngIf="submittedDatosAnalisisHeaderForm && g.indicadorCsd.errors" class="invalid-feedback">
+                    <div *ngIf="g.indicadorCsd.errors.required">El Indicador CSD es requerido</div>
+                </div>
+            </div>
+
+            <div class="form-group col-md-4">
+                <label for="lblPonderacionLvt" class="form-label">Ponderación LVT</label>
+                <input formControlName="ponderacionLvt" class="form-control" type="text" id="id_ponderacionLvt"
+                    [ngClass]="{ 'is-invalid': submittedDatosAnalisisHeaderForm && g.ponderacionLvt.errors }" />
+                <div *ngIf="submittedDatosAnalisisHeaderForm && g.ponderacionLvt.errors" class="invalid-feedback">
+                    <div *ngIf="g.ponderacionLvt.errors.required">La ponderación LVT es requerida</div>
+                </div>
+            </div>
+
+            <div class="form-group col-md-2">
+                <label for="lblNumeroDependientes" class="form-label">Número de Dependientes</label>
+                <input formControlName="numeroDependientes" class="form-control" type="number" id="id_numeroDependientes"
+                    [ngClass]="{ 'is-invalid': submittedDatosAnalisisHeaderForm && g.numeroDependientes.errors }" />
+                <div *ngIf="submittedDatosAnalisisHeaderForm && g.numeroDependientes.errors" class="invalid-feedback">
+                    <div *ngIf="g.numeroDependientes.errors.required">El Número de Dependientes es requerido</div>
+                </div>
+            </div>
+
+            <div class="form-group col-md-12">
+                <hr>
+                <textarea matInput  formControlName="observaciones" 
+                                    class="form-control"
+                                    id="id_observaciones"
+                                    placeholder="Ingrese las observaciones..."></textarea>
+
+                <hr>
+            </div>
+        </form>
+    </div>
+
+    <div class="analisis_contenedor__footer">
+        <div class="analisis_contenedor__footer__prev">
+            <button *ngIf="habilitaBtnGeneraNuevoAnalisis" (click)="SubmitNuevoAnalisis()" class="btn btn-success px-5 " >
+                Generar </button>
+        </div>
+        <div class="analisis_contenedor__footer__next">
+            <button *ngIf="habilitaBtnIngreso" (click)="habilitaRegistrarIngreso()" class="btn px-5 btn-info" >
+                Ingresos </button>
+        </div>
+    </div>
 </div>
 
 
