@@ -22,6 +22,7 @@ import { MatCheckboxModule } from '@angular/material/checkbox';
 
 import { MatDialogModule } from '@angular/material/dialog';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { PersonasComponent } from './mantenimientos/Personas/personas-component';
 
 @NgModule({
     imports: [
@@ -49,7 +50,8 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
     declarations: [
         IndexMacredComponent,
         MenuMacredComponent,
-        AsociadosComponent
+        AsociadosComponent,
+        PersonasComponent
     ]
     ,
     entryComponents: [

@@ -3,6 +3,7 @@ import { Routes, RouterModule } from '@angular/router';
 import { AsociadosComponent } from './asociados/asociados-component';
 
 import { IndexMacredComponent } from './index.component';
+import { PersonasComponent } from './mantenimientos/Personas/personas-component';
 import { MenuMacredComponent } from './menu.component';
 
 
@@ -12,7 +13,8 @@ const routes: Routes = [
         children: [
             { path: '', component: MenuMacredComponent },
             { path: 'Index.html', component: IndexMacredComponent },
-            { path: 'Asociados/CalificacionAsociados.html', component: AsociadosComponent }
+            { path: 'Asociados/CalificacionAsociados.html', component: AsociadosComponent },
+            { path: 'Mantenimientos/Personas/DatosPersonas.html', component: PersonasComponent}
         ]
     }
 ];

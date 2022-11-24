@@ -54,7 +54,7 @@ import { Compania } from '../../_models/modules/compania';
       children: [{name: 'Personas', 
                   link: '', 
                   icon: '',
-                  children: [{name: 'Datos Personas', link: '/', icon: ''},//monetization_on
+                  children: [{name: 'Datos Personas', link: '/_ModuloMacred/Mantenimientos/Personas/DatosPersonas.html', icon: ''},//monetization_on
                             {name: 'Estado Civil', link: '/', icon: ''},//monetization_on
                             {name: 'Condición Laboral', link: '/', icon: ''},//monetization_on
                             {name: 'Tipos de Género', link: '/', icon: ''},//monetization_on

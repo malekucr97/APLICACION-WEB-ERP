@@ -361,7 +361,7 @@ export class AsociadosComponent implements OnInit {
                         primerApellido  : [this._personaMacred.primerApellido,   Validators.required],
                         segundoApellido : [this._personaMacred.segundoApellido,  Validators.required],
                         identificacion  : [this._personaMacred.identificacion,   Validators.required],
-                        codigoCliente   : [this._personaMacred.codPersona,       Validators.required]
+                        codigoCliente   : [this._personaMacred.codigoPersona,       Validators.required]
                     });
 
                     this.formDatosAnalisisHeader = this.formBuilder.group({

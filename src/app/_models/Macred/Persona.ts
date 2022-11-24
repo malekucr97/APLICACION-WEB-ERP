@@ -1,20 +1,20 @@
 export class MacPersona {
     id: number;
     codigoCompania: number;
-    codPersona: number;
-    codPerfilCoop: number;
-    codTipoAsociado: string;
+    codigoPersona: number;
+    codigoPerfilCoop: number;
+    codigoTipoAsociado: number;
     identificacion: string;
     codExterno: string;
     primerApellido: string;
     segundoApellido: string;
     nombre: string;
-    codGenero: string;
+    codigoGenero: number;
     fechaNacimiento: Date;
-    codTipoPersona: string;
-    codEstadoCivil: string;
-    codCondicionLaboral: string;
-    codCatCredito: string;
+    codigoTipoPersona: number;
+    codigoEstadoCivil: number;
+    codigoCondicionLaboral: number;
+    codigoCatCredito: number;
     tiempoAfiliacion: number;
     cantidadHijos: number;
     cantidadCreditosHistorico: number;
