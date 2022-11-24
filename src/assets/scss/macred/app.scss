@@ -5,66 +5,6 @@
 @mixin bg-color-skyblue { background-color: #00AEEF; }
 @mixin bg-color-light-gray { background-color: #B3B3B3; }
 
-.asociado_contenedor {
-
-    margin: 2% 2% 2% 2%;
-    padding: 1% 2% 1% 2%;
-    border-radius: 10px;
-
-    &__body {
-        margin: 2% 2% 2% 2%;
-        padding: 1% 2% 2% 2%;
-    }
-    &__menuselected {
-        &__section {
-            display:         flex;
-            flex-direction:  row;
-            justify-content: center;
-            align-items:     center;
-            flex-wrap:       wrap;
-        }
-        &__item {
-            &__titulo {
-                color: #005188;
-                font-size: 1.7rem;
-                font-weight: 850;
-                transition: color 0.2s ease-in-out;
-    
-                &:hover {
-                    color: #35980a;
-                    cursor: pointer;
-                }
-            }
-        }
-
-    }
-
-    &__menuitems {
-        margin: 2% 2% 3% 2%;
-        border-radius: 10px;
-        &__section {
-            display:         flex;
-            flex-direction:  row;
-            justify-content: center;
-            align-items:     center;
-            flex-wrap:       wrap;
-            &__item {
-                margin: 2% 2% 1% 2%;
-                &__titulo {
-                    color: #005188;
-                    font-size: 1rem;
-                    font-weight: 700;
-                    transition: color 0.2s ease-in-out;
-        
-                    &:hover {
-                        color: #00AEEF;
-                        cursor: pointer;
-                    }
-                }
-            }
-        }
-    }
-}
 .analisis_contenedor {
 
     margin: 2% 2% 5% 2%;
@@ -108,6 +48,54 @@
         }
         &__analisisDefinitivo {
             margin-top: 2%;
+        }
+    }
+}
+
+.selecteditem {
+    display:         flex;
+    flex-direction:  row;
+    justify-content: center;
+    align-items:     center;
+    flex-wrap:       wrap;
+    &__titulo {
+        color: #005188;
+        font-size: 1.7rem;
+        font-weight: 850;
+        transition: color 0.2s ease-in-out;
+        &:hover {
+            color: #35980a;
+            cursor: pointer;
+        }
+    }
+}
+.sectionmenu {
+    padding: 0 1% 2% 1%;
+}
+.menuitems {
+    margin: 0 2% 0 2%;
+    border-radius: 10px;
+
+    &__items {
+
+        display:         flex;
+        flex-direction:  row;
+        justify-content: center;
+        align-items:     center;
+        flex-wrap:       wrap;
+
+        &__titulo {
+            color: #005188;
+            font-size: 1rem;
+            font-weight: 700;
+            transition: color 0.2s ease-in-out;
+
+            padding-top: 1%;
+
+            &:hover {
+                color: #00AEEF;
+                cursor: pointer;
+            }
         }
     }
 }

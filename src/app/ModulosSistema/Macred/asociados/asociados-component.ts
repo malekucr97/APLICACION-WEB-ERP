@@ -16,15 +16,16 @@ import { MacTiposMoneda } from '@app/_models/Macred/TiposMoneda';
 import { MacModeloAnalisis } from '@app/_models/Macred/ModeloAnalisis';
 import { MacNivelCapacidadPago } from '@app/_models/Macred/NivelCapacidadPago';
 import { MacTipoGenerador } from '@app/_models/Macred/TipoGenerador';
-import { THIS_EXPR } from '@angular/compiler/src/output/output_ast';
 import { MatDialog } from '@angular/material/dialog';
 import { DialogoConfirmacionComponent } from '@app/_components/dialogo-confirmacion/dialogo-confirmacion.component';
+import { MacTipoIngreso } from '@app/_models/Macred/TipoIngreso';
 
 declare var $: any;
 
 @Component({
     templateUrl: 'HTML_Asociados.html',
-    styleUrls: ['../../../../assets/scss/macred/app.scss'],
+    styleUrls: ['../../../../assets/scss/app.scss',
+                '../../../../assets/scss/macred/app.scss'],
 })
 export class AsociadosComponent implements OnInit {
     @ViewChild(MatSidenav) sidenav !: MatSidenav;
@@ -33,8 +34,8 @@ export class AsociadosComponent implements OnInit {
 
     _globalCodMonedaPrincipal : number ;
 
-    _analisisCapacidadpago : MacAnalisisCapacidadPago;
-    _personaMacred : MacPersona = null;
+    _analisisCapacidadpago  : MacAnalisisCapacidadPago;
+    _personaMacred          : MacPersona = null;
 
 
     userObservable: User;
@@ -43,6 +44,9 @@ export class AsociadosComponent implements OnInit {
 
     submittedPersonForm : boolean = false;
     submittedDatosAnalisisHeaderForm : boolean = false;
+    submittedIngresosForm : boolean = false;
+
+    
 
     datosAnalisis : boolean = false;
     flujoCaja : boolean = false;
@@ -66,6 +70,7 @@ export class AsociadosComponent implements OnInit {
 
     listScreenAccessUser: ScreenAccessUser[];
 
+    // analisis
     listTipoIngresoAnalisis: MacTipoIngresoAnalisis[];
     listTipoFormaPagoAnalisis: MacTipoFormaPagoAnalisis[];
     listTiposMonedas: MacTiposMoneda[];
@@ -73,8 +78,12 @@ export class AsociadosComponent implements OnInit {
     listNivelesCapacidadpago: MacNivelCapacidadPago[];
     listTiposGeneradores: MacTipoGenerador[];
 
+    // ingresos
+    listTiposIngresos: MacTipoIngreso[];
+
     formPersona: FormGroup;
-    formDatosAnalisisHeader: FormGroup;
+    formAnalisis: FormGroup;
+    formIngresos: FormGroup;
 
     public today = new Date();
 
@@ -199,6 +208,8 @@ export class AsociadosComponent implements OnInit {
 
             // ingresos
             case 5: this.ingresos = true;
+
+
                 break;
 
 
@@ -249,7 +260,7 @@ export class AsociadosComponent implements OnInit {
             identificacion  : [null, Validators.required],
             codigoCliente   : [null]
         });
-        this.formDatosAnalisisHeader = this.formBuilder.group({
+        this.formAnalisis = this.formBuilder.group({
             fechaAnalisis           : [null],
             tipoIngresoAnalisis     : [null],
             tipoFormaPagoAnalisis   : [null],
@@ -267,6 +278,16 @@ export class AsociadosComponent implements OnInit {
             calificacionFinalCic    : [null],
             observaciones           : [null]
         });
+        this.formIngresos = this.formBuilder.group({
+            codigoTipoIngreso   : [null],
+            montoBruto          : [null],
+            montoExtras         : [null],
+            porcentajeExtras    : [null],
+            cargasSociales      : [null],
+            impuestoRenta       : [null],
+            montoNeto           : [null],
+            montoDeducciones    : [null]
+        });
 
         this.accountService.validateAccessUser( this.userObservable.id,
                                                 this.moduleObservable.id,
@@ -279,34 +300,35 @@ export class AsociadosComponent implements OnInit {
                 if(!response.exito)
                     this.router.navigate([this.moduleObservable.indexHTTP]);
 
+                // carga datos analisis
                 this.macredService.GetParametroGeneralVal1(this.companiaObservable.id, 'COD_MONEDA_PRINCIPAL', true)
                     .pipe(first())
                     .subscribe(response => { this._globalCodMonedaPrincipal = +response; });
-
                 this.macredService.getTiposMonedas(this.companiaObservable.id)
                      .pipe(first())
                      .subscribe(response => { this.listTiposMonedas = response; });
-
                  this.macredService.getTiposFormaPagoAnalisis(this.companiaObservable.id)
                      .pipe(first())
                      .subscribe(response => { this.listTipoFormaPagoAnalisis = response; });
-
                  this.macredService.getTiposIngresoAnalisis(this.companiaObservable.id)
                      .pipe(first())
                      .subscribe(response => { this.listTipoIngresoAnalisis = response; });
-
                 this.macredService.getModelosAnalisis(this.companiaObservable.id, false)
                     .pipe(first())
                     .subscribe(response => { this.listModelosAnalisis = response; });
-
                 this.macredService.getNivelesCapacidadPago(this.companiaObservable.id, false)
                     .pipe(first())
                     .subscribe(response => { this.listNivelesCapacidadpago = response; });
-
                 this.macredService.getTiposGenerador(this.companiaObservable.id, false)
                     .pipe(first())
                     .subscribe(response => { this.listTiposGeneradores = response; });
-            });
+            
+                // carga datos ingresos
+                this.macredService.getTiposIngresos(this.companiaObservable.id, false)
+                    .pipe(first())
+                    .subscribe(response => { this.listTiposIngresos = response; });
+            
+                });
     }
 
     selectModule(mod: Module) {
@@ -324,7 +346,8 @@ export class AsociadosComponent implements OnInit {
     }
 
     get f() { return this.formPersona.controls; }
-    get g() { return this.formDatosAnalisisHeader.controls; }
+    get g() { return this.formAnalisis.controls; }
+    get i() { return this.formIngresos.controls; }
 
 
     cargaInformacionPersona() : void {
@@ -364,7 +387,7 @@ export class AsociadosComponent implements OnInit {
                         codigoCliente   : [this._personaMacred.codPersona,       Validators.required]
                     });
 
-                    this.formDatosAnalisisHeader = this.formBuilder.group({
+                    this.formAnalisis = this.formBuilder.group({
                         fechaAnalisis           : [this.today,  Validators.required],
                         tipoIngresoAnalisis     : [null,        Validators.required],
                         tipoFormaPagoAnalisis   : [null,        Validators.required],
@@ -433,7 +456,7 @@ export class AsociadosComponent implements OnInit {
 
         this.submittedDatosAnalisisHeaderForm = true;
 
-        if ( this.formDatosAnalisisHeader.invalid )
+        if ( this.formAnalisis.invalid )
             return;
 
         if ( this._personaMacred == null ) {
@@ -441,21 +464,21 @@ export class AsociadosComponent implements OnInit {
             this._personaMacred.id = 5;
         }
 
-        var idTipoIngresoAnalisis   = this.formDatosAnalisisHeader.controls['tipoIngresoAnalisis'].value.id;
-        var idTipoFormaPagoAnalisis = this.formDatosAnalisisHeader.controls['tipoFormaPagoAnalisis'].value.id;
-        var idNivelCapacidadPago    = this.formDatosAnalisisHeader.controls['capacidadPago'].value.id;
-        var idModeloAnalisis        = this.formDatosAnalisisHeader.controls['modeloAnalisis'].value.id;
-        var idTipoMoneda            = this.formDatosAnalisisHeader.controls['tipoMoneda'].value.id;
-        var idTipoGenerador         = this.formDatosAnalisisHeader.controls['tipoGenerador'].value.id;
-        var estado                  = this.formDatosAnalisisHeader.controls['estado'].value;
-        var analisisDefinitivo      = this.formDatosAnalisisHeader.controls['analisisDefinitivo'].value;
-        var puntajeAnalisis         = this.formDatosAnalisisHeader.controls['puntajeAnalisis'].value;
-        var calificacionCic         = this.formDatosAnalisisHeader.controls['calificacionCic'].value;
-        var calificacionFinalCic    = this.formDatosAnalisisHeader.controls['calificacionFinalCic'].value;
-        var indicadorCsd            = this.formDatosAnalisisHeader.controls['indicadorCsd'].value;
-        var ponderacionLvt          = this.formDatosAnalisisHeader.controls['ponderacionLvt'].value;
-        var numeroDependientes      = this.formDatosAnalisisHeader.controls['numeroDependientes'].value;
-        var observaciones           = this.formDatosAnalisisHeader.controls['observaciones'].value;
+        var idTipoIngresoAnalisis   = this.formAnalisis.controls['tipoIngresoAnalisis'].value.id;
+        var idTipoFormaPagoAnalisis = this.formAnalisis.controls['tipoFormaPagoAnalisis'].value.id;
+        var idNivelCapacidadPago    = this.formAnalisis.controls['capacidadPago'].value.id;
+        var idModeloAnalisis        = this.formAnalisis.controls['modeloAnalisis'].value.id;
+        var idTipoMoneda            = this.formAnalisis.controls['tipoMoneda'].value.id;
+        var idTipoGenerador         = this.formAnalisis.controls['tipoGenerador'].value.id;
+        var estado                  = this.formAnalisis.controls['estado'].value;
+        var analisisDefinitivo      = this.formAnalisis.controls['analisisDefinitivo'].value;
+        var puntajeAnalisis         = this.formAnalisis.controls['puntajeAnalisis'].value;
+        var calificacionCic         = this.formAnalisis.controls['calificacionCic'].value;
+        var calificacionFinalCic    = this.formAnalisis.controls['calificacionFinalCic'].value;
+        var indicadorCsd            = this.formAnalisis.controls['indicadorCsd'].value;
+        var ponderacionLvt          = this.formAnalisis.controls['ponderacionLvt'].value;
+        var numeroDependientes      = this.formAnalisis.controls['numeroDependientes'].value;
+        var observaciones           = this.formAnalisis.controls['observaciones'].value;
 
         var ancapCapPago            = 0.00;
         var ancapCalificacionFinal  = 0.00;
@@ -496,7 +519,7 @@ export class AsociadosComponent implements OnInit {
                     this.habilitaBtnGeneraNuevoAnalisis = false;
                     this.habilitaBtnIngreso    = true;
 
-                    // this.formDatosAnalisisHeader = this.formBuilder.group({
+                    // this.formAnalisis = this.formBuilder.group({
                     //     fechaAnalisis           : [this._analisisCapacidadpago.fechaAnalisis,               Validators.required],
                     //     tipoIngresoAnalisis     : [this._analisisCapacidadpago.codigoTipoIngresoAnalisis,   Validators.required],
                     //     tipoFormaPagoAnalisis   : [this._analisisCapacidadpago.codigoTipoFormaPagoAnalisis, Validators.required],
@@ -543,5 +566,10 @@ export class AsociadosComponent implements OnInit {
         this.listSubMenu.push(modTemp);
     }
 
-    habilitaRegistrarIngreso() : void {}
+    habilitaFormularioIngreso() : void {
+
+        this.habilitarItemSubMenu(  new Module(5, 'Ingresos', 'Ingresos', 'Ingresos', 'A', '.png', '.ico', 'http'));
+        this.selectModule(          new Module(5, 'Ingresos', 'Ingresos', 'Ingresos', 'I', '.png', '.ico', 'http'));
+
+    }
 }

@@ -1,79 +1,125 @@
+<main>
 
-<div class="asociado_contenedor mat-elevation-z4">
+    <!-- <article class="bloq">
+        <div class="contenedor mat-elevation-z4">
+        <section> -->
 
-    <div class="asociado_contenedor__body">
+<article class="bloq">
+    <div class="contenedor mat-elevation-z4">
 
-        <form [formGroup]="formPersona" class="row">
-
-            <div class="form-group col-md-3">
-                <label for="id" class="form-label">Id</label>
-                <input formControlName="id" class="form-control" type="text" id="id_id" readonly />
-            </div>
-            <div class="form-group col-md-3">
-                <label for="codigoCliente" class="form-label">Código de Cliente</label>
-                <input formControlName="codigoCliente" class="form-control" type="text" id="id_codigo_persona"  />
-            </div>
-            <div class="form-group col-md-6">
-                <label for="lblIdentificacion" class="form-label">Número de Identificación</label>
-                <input formControlName="identificacion" class="form-control" type="text" id="id_identificacion"
-                    [ngClass]="{ 'is-invalid': submittedPersonForm && f.identificacion.errors }" />
-                <div *ngIf="submittedPersonForm && f.identificacion.errors" class="invalid-feedback">
-                    <div *ngIf="f.identificacion.errors.required">La identificación es requerida</div>
+        <section>
+            <div class="contenedor__header">
+                <div class="contenedor__header__prev">
+    
+    
+                    <h2 >Consulta de Personas </h2>
+    
+    
                 </div>
-            </div>
-
-            <div class="form-group col-md-6">
-                <label for="nombre" class="form-label">Nombre</label>
-                <input formControlName="nombre" class="form-control" type="text" id="id_nombre"
-                    [ngClass]="{ 'is-invalid': submittedPersonForm && f.nombre.errors }" />
-                <div *ngIf="submittedPersonForm && f.nombre.errors" class="invalid-feedback">
-                    <div *ngIf="f.nombre.errors.required">El nombre es requerido</div>
+                <div class="contenedor__header__next">
+    
+    
                 </div>
-            </div>
-            <div class="form-group col-md-3">
-                <label for="primerApellido" class="form-label">Primer Apellido</label>
-                <input formControlName="primerApellido" class="form-control" type="text" id="id_nombre"
-                    [ngClass]="{ 'is-invalid': submittedPersonForm && f.primerApellido.errors }" />
-                <div *ngIf="submittedPersonForm && f.primerApellido.errors" class="invalid-feedback">
-                    <div *ngIf="f.primerApellido.errors.required">El primer apellido es requerido</div>
-                </div>
-            </div>
-            <div class="form-group col-md-3">
-                <label for="segundoApellido" class="form-label">Segundo Apellido</label>
-                <input formControlName="segundoApellido" class="form-control" type="text" id="id_nombre"
-                    [ngClass]="{ 'is-invalid': submittedPersonForm && f.segundoApellido.errors }" />
-                <div *ngIf="submittedPersonForm && f.segundoApellido.errors" class="invalid-feedback">
-                    <div *ngIf="f.segundoApellido.errors.required">El segundo apellido es requerido</div>
-                </div>
-            </div>
-
-            <div class="col-md-12 mt-3">
-                <button type="submit" (click)="SubmitPerson()" class="btn btn-info px-5" >Consultar</button>
-            </div>
-
-        </form>
-    </div>
-
-    <!-- OPCIOINES SUBMENU -->
-    <!-- ** // MUESTRA LOS MÓDULOS EN PANTALLA -->
-    <div *ngIf="_personaMacred" class="asociado_contenedor__menuitems mat-elevation-z4">
-        <section class="asociado_contenedor__menuitems__section">
-            <div class="asociado_contenedor__menuitems__section__item" *ngFor="let module of listSubMenu">
-                <p *ngIf="module.estado=='A'" class="asociado_contenedor__menuitems__section__item__titulo" (click)="selectModule(module)">{{module.nombre}}</p>
             </div>
         </section>
-    </div>
-    
-</div>
 
-<section class="asociado_contenedor__menuselected__section" *ngIf="menuItem">
+        <section>
+            <div class="contenedor__body">
+
+                <form [formGroup]="formPersona" class="row">
+
+                    <div class="form-group col-md-3">
+                        <label for="id" class="form-label">Id</label>
+                        <input formControlName="id" class="form-control" type="text" id="id_id" readonly />
+                    </div>
+                    <div class="form-group col-md-3">
+                        <label for="codigoCliente" class="form-label">Código de Cliente</label>
+                        <input formControlName="codigoCliente" class="form-control" type="text" id="id_codigo_persona"  />
+                    </div>
+                    <div class="form-group col-md-6">
+                        <label for="lblIdentificacion" class="form-label">Número de Identificación</label>
+                        <input formControlName="identificacion" class="form-control" type="text" id="id_identificacion"
+                            [ngClass]="{ 'is-invalid': submittedPersonForm && f.identificacion.errors }" />
+                        <div *ngIf="submittedPersonForm && f.identificacion.errors" class="invalid-feedback">
+                            <div *ngIf="f.identificacion.errors.required">La identificación es requerida</div>
+                        </div>
+                    </div>
+
+                    <div class="form-group col-md-6">
+                        <label for="nombre" class="form-label">Nombre</label>
+                        <input formControlName="nombre" class="form-control" type="text" id="id_nombre"
+                            [ngClass]="{ 'is-invalid': submittedPersonForm && f.nombre.errors }" />
+                        <div *ngIf="submittedPersonForm && f.nombre.errors" class="invalid-feedback">
+                            <div *ngIf="f.nombre.errors.required">El nombre es requerido</div>
+                        </div>
+                    </div>
+                    <div class="form-group col-md-3">
+                        <label for="primerApellido" class="form-label">Primer Apellido</label>
+                        <input formControlName="primerApellido" class="form-control" type="text" id="id_nombre"
+                            [ngClass]="{ 'is-invalid': submittedPersonForm && f.primerApellido.errors }" />
+                        <div *ngIf="submittedPersonForm && f.primerApellido.errors" class="invalid-feedback">
+                            <div *ngIf="f.primerApellido.errors.required">El primer apellido es requerido</div>
+                        </div>
+                    </div>
+                    <div class="form-group col-md-3">
+                        <label for="segundoApellido" class="form-label">Segundo Apellido</label>
+                        <input formControlName="segundoApellido" class="form-control" type="text" id="id_nombre"
+                            [ngClass]="{ 'is-invalid': submittedPersonForm && f.segundoApellido.errors }" />
+                        <div *ngIf="submittedPersonForm && f.segundoApellido.errors" class="invalid-feedback">
+                            <div *ngIf="f.segundoApellido.errors.required">El segundo apellido es requerido</div>
+                        </div>
+                    </div>
+
+                    <div class="col-md-12">
+
+                        <button type="submit" (click)="SubmitPerson()"></button>
+                        
+                    </div>
+
+                </form>
+            </div>
+        </section>
+
+        <section>
+            <div class="contenedor__footer">
+                <div class="contenedor__footer__prev">
+
+                    <!-- <button type="submit" (click)="SubmitPerson()" class="btn btn-info px-5" >Consultar</button> -->
+
+                </div>
+            </div>
+        </section>
+
+        <section class="sectionmenu">
+            <!-- OPCIOINES SUBMENU -->
+            <!-- ** // MUESTRA LOS MÓDULOS EN PANTALLA -->
+            <div *ngIf="_personaMacred" class="menuitems mat-elevation-z4">
+
+                <div class="menuitems__items" *ngFor="let module of listSubMenu">
+                    <p *ngIf="module.estado=='A'" class="menuitems__items__titulo" (click)="selectModule(module)">{{module.nombre}}</p>
+                </div>
+
+            </div>
+        </section>
+
+        
+    </div>
+
+</article>
+
+<!-- <section class="asociado_contenedor__menuselected__section" *ngIf="menuItem">
     <div class="asociado_contenedor__menuselected__item">
         <p class="asociado_contenedor__menuselected__item__titulo">{{menuItem.nombre}}</p>
     </div>
-</section>
+</section> -->
+<!-- <section class="asociado_contenedor__menuselected__section" > -->
+<!-- <div class="selecteditem">
+    <p class="selecteditem__titulo">Ingresos</p>
+</div> -->
+<!-- </section> -->
 
 <!-- <div *ngIf="datosAnalisis"> -->
-<div class="analisis_contenedor mat-elevation-z4">
+<div *ngIf="datosAnalisis" class="analisis_contenedor mat-elevation-z4">
         
     <div class="analisis_contenedor__header">
         <div class="analisis_contenedor__header__prev">
@@ -92,7 +138,7 @@
     <hr><br>
 
     <div class="analisis_contenedor__body">
-        <form [formGroup]="formDatosAnalisisHeader" class="row">
+        <form [formGroup]="formAnalisis" class="row">
             
             <div class="col-md-3">
                 <label for="lblFechaAnalisis" class="form-label">Fecha de Análisis</label>
@@ -225,7 +271,6 @@
                                     class="form-control"
                                     id="id_observaciones"
                                     placeholder="Ingrese las observaciones..."></textarea>
-
                 <hr>
             </div>
         </form>
@@ -237,10 +282,74 @@
                 Generar </button>
         </div>
         <div class="analisis_contenedor__footer__next">
-            <button *ngIf="habilitaBtnIngreso" (click)="habilitaRegistrarIngreso()" class="btn px-5 btn-info" >
+            <!-- *ngIf="habilitaBtnIngreso" -->
+            <button  (click)="habilitaFormularioIngreso()" class="btn px-5 btn-info" >
                 Ingresos </button>
         </div>
     </div>
+</div>
+
+
+<div class="col-md-12 mt-5" *ngIf="flujoCaja">
+    <mat-sidenav-container>
+        <div class="asociado_content mat-elevation-z4">
+            <main>
+                <article>
+                    <section >
+                        <br>
+                        <br>
+
+                        <div >
+                            <p >Administración de Flujo de Caja  !</p>
+                        </div>
+                        <br>
+
+                    </section>
+                </article>
+            </main>
+        </div>
+    </mat-sidenav-container>
+</div>
+<div class="col-md-12 mt-5" *ngIf="pd">
+    <mat-sidenav-container>
+        <div class="asociado_content mat-elevation-z4">
+            <main>
+                <article>
+                    <section >
+                        <br>
+                        <br>
+
+                        <div >
+                            <p >Administración de Probability of Default  !</p>
+                        </div>
+
+                        <br>
+                    </section>
+                </article>
+            </main>
+        </div>
+    </mat-sidenav-container>
+</div>
+
+<div class="col-md-12 mt-5" *ngIf="scoring">
+    <mat-sidenav-container>
+        <div class="asociado_content mat-elevation-z4">
+            <main>
+                <article>
+                    <section >
+                        <br>
+                        <br>
+
+                        <div >
+                            <p >Administración de Scoring Crediticio  !</p>
+                        </div>
+                        <br>
+
+                    </section>
+                </article>
+            </main>
+        </div>
+    </mat-sidenav-container>
 </div>
 
 
@@ -250,205 +359,247 @@
 
 
 
+<article class="bloq">
+    <div class="contenedor mat-elevation-z4">
+    <!-- <div *ngIf="ingresos" class="contenedor mat-elevation-z4"> -->
+            
+    <section>
+        <div class="contenedor__header">
+            <div class="contenedor__header__prev">
 
 
+                <h2 >seccion prev h2</h2>
 
 
+            </div>
+            <div class="contenedor__header__next">
 
 
+                <button  class="btn btn-dark px-5 " >
+                    btn 1
+                </button>
+                <button  class="btn btn-dark px-5 " >
+                    btn 2
+                </button>
 
 
-
-
-
-
-
-
-        <div class="col-md-12 mt-5" *ngIf="flujoCaja">
-            <mat-sidenav-container>
-                <div class="asociado_content mat-elevation-z4">
-                    <main>
-                        <article>
-                            <section >
-                                <br>
-                                <br>
-
-                                <div >
-                                    <p >Administración de Flujo de Caja  !</p>
-                                </div>
-                                <br>
-
-                            </section>
-                        </article>
-                    </main>
-                </div>
-            </mat-sidenav-container>
+            </div>
         </div>
+    </section>
 
-        <div class="col-md-12 mt-5" *ngIf="pd">
-            <mat-sidenav-container>
-                <div class="asociado_content mat-elevation-z4">
-                    <main>
-                        <article>
-                            <section >
-                                <br>
-                                <br>
+        <section>
+            <div class="contenedor__body">
+                <form [formGroup]="formIngresos" class="row">
 
-                                <div >
-                                    <p >Administración de Probability of Default  !</p>
-                                </div>
+                    <div class="form-group col-md-3">
+                        <label for="lblCodigoTipoIngreso" class="form-label">Tipo de Ingreso</label>
+                        <select formControlName="codigoTipoIngreso" class="form-control" name="selectCodigoTipoIngreso"
+                        [ngClass]="{ 'is-invalid': submittedIngresosForm && g.codigoTipoIngreso.errors }" >
+                                <option [ngValue]="objeto" *ngFor="let objeto of listTiposIngresos">{{objeto.id}} - {{objeto.descripcion}}</option>
+                        </select>
+                        <div *ngIf="submittedIngresosForm && i.codigoTipoIngreso.errors" class="invalid-feedback">
+                            <div *ngIf="i.codigoTipoIngreso.errors.required">El Tipo de Ingreso es requerido</div>
+                        </div>
+                    </div>
 
-                                <br>
-                            </section>
-                        </article>
-                    </main>
+                    <div class="form-group col-md-3">
+                        <label for="lblMontoBruto" class="form-label">Salario Monto Bruto</label>
+                        <input formControlName="montoBruto" class="form-control" type="number" id="id_montoBruto"
+                            [ngClass]="{ 'is-invalid': submittedIngresosForm && i.montoBruto.errors }" />
+                        <div *ngIf="submittedIngresosForm && i.montoBruto.errors" class="invalid-feedback">
+                            <div *ngIf="i.montoBruto.errors.required">El Salario Monto Bruto es requerido</div>
+                        </div>
+                    </div>
+
+                    <div class="form-group col-md-3">
+                        <label for="lblMontoExtras" class="form-label">Monto Extras Aplicables</label>
+                        <input formControlName="montoExtras" class="form-control" type="number" id="id_montoExtras"
+                            [ngClass]="{ 'is-invalid': submittedIngresosForm && i.montoExtras.errors }" />
+                        <div *ngIf="submittedIngresosForm && i.montoExtras.errors" class="invalid-feedback">
+                            <div *ngIf="i.montoExtras.errors.required">Ingrese 0 si no aplican extras</div>
+                        </div>
+                    </div>
+
+                    <div class="form-group col-md-3">
+                        <label for="lblPorcentajeExtras" class="form-label">Porcentaje Extras Aplicables</label>
+                        <input formControlName="porcentajeExtras" class="form-control" type="number" id="id_porcentajeExtras"
+                            [ngClass]="{ 'is-invalid': submittedIngresosForm && i.porcentajeExtras.errors }" />
+                        <div *ngIf="submittedIngresosForm && i.porcentajeExtras.errors" class="invalid-feedback">
+                            <div *ngIf="i.porcentajeExtras.errors.required">Ingrese 0 si no aplican extras</div>
+                        </div>
+                    </div>
+                    <div class="form-group col-md-3">
+                        <label for="lblCargasSociales" class="form-label">Cargas Sociales</label>
+                        <input formControlName="cargasSociales" class="form-control" type="number" id="id_cargasSociales"
+                            [ngClass]="{ 'is-invalid': submittedIngresosForm && i.cargasSociales.errors }" />
+                        <div *ngIf="submittedIngresosForm && i.cargasSociales.errors" class="invalid-feedback">
+                            <div *ngIf="i.cargasSociales.errors.required">Ingrese 0 si no aplican extras</div>
+                        </div>
+                    </div>
+
+                    <div class="form-group col-md-3">
+                        <label for="lblImpuestoRenta" class="form-label">Impuesto de Renta</label>
+                        <input formControlName="impuestoRenta" class="form-control" type="number" id="id_impuestoRenta"
+                            [ngClass]="{ 'is-invalid': submittedIngresosForm && i.impuestoRenta.errors }" />
+                        <div *ngIf="submittedIngresosForm && i.impuestoRenta.errors" class="invalid-feedback">
+                            <div *ngIf="i.impuestoRenta.errors.required">El impuesto sobre la renta es requerido</div>
+                        </div>
+                    </div>
+
+                    <div class="form-group col-md-3">
+                        <label for="lblMontoDeducciones" class="form-label">Monto Deducciones</label>
+                        <input formControlName="montoDeducciones" class="form-control" type="number" id="id_montoDeducciones"
+                            [ngClass]="{ 'is-invalid': submittedIngresosForm && i.montoDeducciones.errors }" />
+                        <div *ngIf="submittedIngresosForm && i.montoDeducciones.errors" class="invalid-feedback">
+                            <div *ngIf="i.montoDeducciones.errors.required">El monto de las deducciones es requerido</div>
+                        </div>
+                    </div>
+
+                    <div class="form-group col-md-3">
+                        <label for="lblMontoNeto" class="form-label">Ingreso Monto Neto</label>
+                        <input formControlName="montoNeto" class="form-control" type="number" id="id_montoNeto"
+                            [ngClass]="{ 'is-invalid': submittedIngresosForm && i.montoNeto.errors }" />
+                        <div *ngIf="submittedIngresosForm && i.montoNeto.errors" class="invalid-feedback">
+                            <div *ngIf="i.montoNeto.errors.required">El monto neto es requerido</div>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </section>
+
+        <section>
+            <div class="contenedor__footer">
+                <div class="contenedor__footer__prev">
+
+
+                    <button  class="btn btn-success px-5 " >
+                        btn 3 </button>
+
+
                 </div>
-            </mat-sidenav-container>
-        </div>
+                <div class="contenedor__footer__next">
 
-        <div class="col-md-12 mt-5" *ngIf="scoring">
-            <mat-sidenav-container>
-                <div class="asociado_content mat-elevation-z4">
-                    <main>
-                        <article>
-                            <section >
-                                <br>
-                                <br>
 
-                                <div >
-                                    <p >Administración de Scoring Crediticio  !</p>
-                                </div>
-                                <br>
+                    <button  class="btn px-5 btn-info" >
+                        btn 4 </button>
 
-                            </section>
-                        </article>
-                    </main>
+
                 </div>
-            </mat-sidenav-container>
+            </div>
+        </section>
+    </div>
+</article>
+
+
+
+
+
+
+
+
+<div class="col-md-12 mt-5" *ngIf="obligacionesSupervisadas">
+    <mat-sidenav-container>
+        <div class="asociado_content mat-elevation-z4">
+            <main>
+                <article>
+                    <section >
+                        <br>
+                        <br>
+
+                        <div >
+                            <p >Administración de Obligaciones Supervisadas  !</p>
+                        </div>
+                        <br>
+
+                    </section>
+                </article>
+            </main>
         </div>
+    </mat-sidenav-container>
+</div>
 
-        <div class="col-md-12 mt-5" *ngIf="ingresos">
-            <mat-sidenav-container>
-                <div class="asociado_content mat-elevation-z4">
-                    <main>
-                        <article>
-                            <section >
-                                <br>
-                                <br>
+<div class="col-md-12 mt-5" *ngIf="oNoSupervisadas">
+    <mat-sidenav-container>
+        <div class="asociado_content mat-elevation-z4">
+            <main>
+                <article>
+                    <section >
+                        <br>
+                        <br>
 
-                                <div >
-                                    <p >Administración de Ingresos  !</p>
-                                </div>
-                                <br>
+                        <div >
+                            <p >Administración de O. No Supervisadas  !</p>
+                        </div>
+                        <br>
 
-                            </section>
-                        </article>
-                    </main>
-                </div>
-            </mat-sidenav-container>
+                    </section>
+                </article>
+            </main>
         </div>
+    </mat-sidenav-container>
+</div>
 
-        <div class="col-md-12 mt-5" *ngIf="obligacionesSupervisadas">
-            <mat-sidenav-container>
-                <div class="asociado_content mat-elevation-z4">
-                    <main>
-                        <article>
-                            <section >
-                                <br>
-                                <br>
+<div class="col-md-12 mt-5" *ngIf="lvt">
+    <mat-sidenav-container>
+        <div class="asociado_content mat-elevation-z4">
+            <main>
+                <article>
+                    <section >
+                        <br>
+                        <br>
 
-                                <div >
-                                    <p >Administración de Obligaciones Supervisadas  !</p>
-                                </div>
-                                <br>
+                        <div >
+                            <p >Administración de LVT  !</p>
+                        </div>
+                        <br>
 
-                            </section>
-                        </article>
-                    </main>
-                </div>
-            </mat-sidenav-container>
+                    </section>
+                </article>
+            </main>
         </div>
+    </mat-sidenav-container>
+</div>
 
-        <div class="col-md-12 mt-5" *ngIf="oNoSupervisadas">
-            <mat-sidenav-container>
-                <div class="asociado_content mat-elevation-z4">
-                    <main>
-                        <article>
-                            <section >
-                                <br>
-                                <br>
+<div class="col-md-12 mt-5" *ngIf="escenarios">
+    <mat-sidenav-container>
+        <div class="asociado_content mat-elevation-z4">
+            <main>
+                <article>
+                    <section >
+                        <br>
+                        <br>
 
-                                <div >
-                                    <p >Administración de O. No Supervisadas  !</p>
-                                </div>
-                                <br>
+                        <div >
+                            <p >Administración de Escenarios  !</p>
+                        </div>
+                        <br>
 
-                            </section>
-                        </article>
-                    </main>
-                </div>
-            </mat-sidenav-container>
+                    </section>
+                </article>
+            </main>
         </div>
+    </mat-sidenav-container>
+</div>
 
-        <div class="col-md-12 mt-5" *ngIf="lvt">
-            <mat-sidenav-container>
-                <div class="asociado_content mat-elevation-z4">
-                    <main>
-                        <article>
-                            <section >
-                                <br>
-                                <br>
+<div class="col-md-12 mt-5" *ngIf="escenariosFcl">
+    <mat-sidenav-container>
+        <div class="asociado_content mat-elevation-z4">
+            <main>
+                <article>
+                    <section >
+                        <br>
+                        <br>
 
-                                <div >
-                                    <p >Administración de LVT  !</p>
-                                </div>
-                                <br>
+                        <div >
+                            <p >Administración de Escenarios FCL  !</p>
+                        </div>
+                        <br>
 
-                            </section>
-                        </article>
-                    </main>
-                </div>
-            </mat-sidenav-container>
+                    </section>
+                </article>
+            </main>
         </div>
+    </mat-sidenav-container>
+</div>
 
-        <div class="col-md-12 mt-5" *ngIf="escenarios">
-            <mat-sidenav-container>
-                <div class="asociado_content mat-elevation-z4">
-                    <main>
-                        <article>
-                            <section >
-                                <br>
-                                <br>
-
-                                <div >
-                                    <p >Administración de Escenarios  !</p>
-                                </div>
-                                <br>
-
-                            </section>
-                        </article>
-                    </main>
-                </div>
-            </mat-sidenav-container>
-        </div>
-
-        <div class="col-md-12 mt-5" *ngIf="escenariosFcl">
-            <mat-sidenav-container>
-                <div class="asociado_content mat-elevation-z4">
-                    <main>
-                        <article>
-                            <section >
-                                <br>
-                                <br>
-
-                                <div >
-                                    <p >Administración de Escenarios FCL  !</p>
-                                </div>
-                                <br>
-
-                            </section>
-                        </article>
-                    </main>
-                </div>
-            </mat-sidenav-container>
-        </div>
+</main>
