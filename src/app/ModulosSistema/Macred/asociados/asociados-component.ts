@@ -37,7 +37,6 @@ export class AsociadosComponent implements OnInit {
     _analisisCapacidadpago  : MacAnalisisCapacidadPago;
     _personaMacred          : MacPersona = null;
 
-
     userObservable: User;
     moduleObservable: Module;
     companiaObservable: Compania;
@@ -45,8 +44,6 @@ export class AsociadosComponent implements OnInit {
     submittedPersonForm : boolean = false;
     submittedDatosAnalisisHeaderForm : boolean = false;
     submittedIngresosForm : boolean = false;
-
-    
 
     datosAnalisis : boolean = false;
     flujoCaja : boolean = false;
@@ -71,12 +68,12 @@ export class AsociadosComponent implements OnInit {
     listScreenAccessUser: ScreenAccessUser[];
 
     // analisis
-    listTipoIngresoAnalisis: MacTipoIngresoAnalisis[];
-    listTipoFormaPagoAnalisis: MacTipoFormaPagoAnalisis[];
-    listTiposMonedas: MacTiposMoneda[];
-    listModelosAnalisis: MacModeloAnalisis[];
-    listNivelesCapacidadpago: MacNivelCapacidadPago[];
-    listTiposGeneradores: MacTipoGenerador[];
+    listTipoIngresoAnalisis:    MacTipoIngresoAnalisis[];
+    listTipoFormaPagoAnalisis:  MacTipoFormaPagoAnalisis[];
+    listTiposMonedas:           MacTiposMoneda[];
+    listModelosAnalisis:        MacModeloAnalisis[];
+    listNivelesCapacidadpago:   MacNivelCapacidadPago[];
+    listTiposGeneradores:       MacTipoGenerador[];
 
     // ingresos
     listTiposIngresos: MacTipoIngreso[];
@@ -85,7 +82,7 @@ export class AsociadosComponent implements OnInit {
     formAnalisis: FormGroup;
     formIngresos: FormGroup;
 
-    public today = new Date();
+    public today : Date ;
 
     constructor (private formBuilder: FormBuilder,
                  private macredService: MacredService,
@@ -97,6 +94,8 @@ export class AsociadosComponent implements OnInit {
         this.userObservable = this.accountService.userValue;
         this.moduleObservable = this.accountService.moduleValue;
         this.companiaObservable = this.accountService.businessValue;
+
+        this.today = new Date();
     }
 
     addListMenu(modItem:Module) : void {
@@ -257,8 +256,7 @@ export class AsociadosComponent implements OnInit {
             nombre          : [null],
             primerApellido  : [null],
             segundoApellido : [null],
-            identificacion  : [null, Validators.required],
-            codigoCliente   : [null]
+            identificacion  : [null, Validators.required]
         });
         this.formAnalisis = this.formBuilder.group({
             fechaAnalisis           : [null],
@@ -327,7 +325,6 @@ export class AsociadosComponent implements OnInit {
                 this.macredService.getTiposIngresos(this.companiaObservable.id, false)
                     .pipe(first())
                     .subscribe(response => { this.listTiposIngresos = response; });
-            
                 });
     }
 
@@ -342,7 +339,6 @@ export class AsociadosComponent implements OnInit {
 
         this.menuItem = this.listSubMenu.find(x => x.id === mod.id);
         this.habilitaTab(this.menuItem);
-
     }
 
     get f() { return this.formPersona.controls; }
@@ -350,32 +346,14 @@ export class AsociadosComponent implements OnInit {
     get i() { return this.formIngresos.controls; }
 
 
-    cargaInformacionPersona() : void {
+    cargaInformacionPersona(identificacionPersona : string) : void {
 
-        this.submittedPersonForm = true;
-
-        if (this.formPersona.invalid)
-            return;
-
-        let persona = new MacPersona();
-        persona.identificacion = this.formPersona.controls['identificacion'].value;
-
-        this.macredService.getPersonaMacred(persona.identificacion, this.companiaObservable.id)
+        this.macredService.getPersonaMacred(identificacionPersona, this.companiaObservable.id)
             .pipe(first())
             .subscribe(response => {
 
-                if (response) {
+                if ( response ) {
 
-                    if (this._personaMacred == null) {
-                        this.habilitarItemSubMenu(new Module(   1,
-                                                                'Datos de Anláisis',
-                                                                'Datos de Anláisis',
-                                                                'Datos de Anláisis',
-                                                                'A',
-                                                                '.png',
-                                                                '.ico',
-                                                                'http'));
-                    }
                     this._personaMacred = response;
 
                     this.formPersona = this.formBuilder.group({
@@ -383,10 +361,8 @@ export class AsociadosComponent implements OnInit {
                         nombre          : [this._personaMacred.nombre,           Validators.required],
                         primerApellido  : [this._personaMacred.primerApellido,   Validators.required],
                         segundoApellido : [this._personaMacred.segundoApellido,  Validators.required],
-                        identificacion  : [this._personaMacred.identificacion,   Validators.required],
-                        codigoCliente   : [this._personaMacred.codPersona,       Validators.required]
+                        identificacion  : [this._personaMacred.identificacion,   Validators.required]
                     });
-
                     this.formAnalisis = this.formBuilder.group({
                         fechaAnalisis           : [this.today,  Validators.required],
                         tipoIngresoAnalisis     : [null,        Validators.required],
@@ -410,10 +386,16 @@ export class AsociadosComponent implements OnInit {
                         calificacionFinalCic    : [0],
                         observaciones           : [null]
                     });
-                }
+
+                    // if (this._personaMacred == null) {
+                    this.habilitarItemSubMenu( new Module( 1, 'Datos de Anláisis', 'Datos de Anláisis', 'Datos de Anláisis', 'A', '.png', '.ico', 'http') );
+                    this.selectModule( new Module(1, 'Datos de Anláisis', 'Datos de Anláisis', 'Datos de Anláisis', 'A', '.png', '.ico', 'http') );
+                    // }
+
+                } else { this.alertService.info('No se encontraron registros.'); }
             },
             error => {
-                let message : string = 'Problemas al consultar la persona. Detalle: ' + error;
+                let message : string = 'Problemas de conexión: ' + error;
                 this.alertService.error(message);
             });
     }
@@ -421,6 +403,12 @@ export class AsociadosComponent implements OnInit {
     SubmitPerson() : void {
 
         this.alertService.clear();
+        this.submittedPersonForm = true;
+
+        if (this.formPersona.invalid)
+            return;
+
+        let identificacionPersona = this.formPersona.controls['identificacion'].value;
 
         if (this._analisisCapacidadpago) {
 
@@ -440,14 +428,14 @@ export class AsociadosComponent implements OnInit {
                     this.menuItem               = null;
 
                     this.habilitaBtnGeneraNuevoAnalisis = true;
-                    this.habilitaBtnIngreso    = false;
+                    this.habilitaBtnIngreso             = false;
                     
-                    this.cargaInformacionPersona();
+                    this.cargaInformacionPersona(identificacionPersona);
      
                 } else { return; }
             });
 
-        } else { this.cargaInformacionPersona(); }
+        } else { this.cargaInformacionPersona(identificacionPersona); }
     }
 
     SubmitNuevoAnalisis() : void {

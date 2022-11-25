@@ -5,51 +5,53 @@
 @mixin bg-color-skyblue { background-color: #00AEEF; }
 @mixin bg-color-light-gray { background-color: #B3B3B3; }
 
-.analisis_contenedor {
+// .analisis_contenedor {
 
-    margin: 2% 2% 5% 2%;
-    border-radius: 10px;
+//     margin: 2% 2% 5% 2%;
+//     border-radius: 10px;
 
-    &__header {
-        &__prev {
-            width: 50%;
-            padding: 0 0 1% 2%;
-            display: inline-block;
-            text-align: left;
-        }
-        &__next {
-            width: 50%;
-            padding: 2% 2% 1% 0;
-            display: inline-block;
-            text-align: right;
-        }
-    }
-    &__footer {
-        &__prev {
-            width: 50%;
-            padding: 0 0 3% 2%;
-            display: inline-block;
-            text-align: left;
-        }
-        &__next {
-            width: 50%;
-            padding: 0 2% 3% 0;
-            display: inline-block;
-            text-align: right;
-        }
-    }
-    &__body {
-        margin: 2% 2% 0 2%;
-        padding: 1% 2% 0 2%;
+//     &__header {
+//         &__prev {
+//             width: 50%;
+//             padding: 0 0 1% 2%;
+//             display: inline-block;
+//             text-align: left;
+//         }
+//         &__next {
+//             width: 50%;
+//             padding: 2% 2% 1% 0;
+//             display: inline-block;
+//             text-align: right;
+//         }
+//     }
+//     &__footer {
+//         &__prev {
+//             width: 50%;
+//             padding: 0 0 3% 2%;
+//             display: inline-block;
+//             text-align: left;
+//         }
+//         &__next {
+//             width: 50%;
+//             padding: 0 2% 3% 0;
+//             display: inline-block;
+//             text-align: right;
+//         }
+//     }
+//     &__body {
+//         margin: 2% 2% 0 2%;
+//         padding: 1% 2% 0 2%;
 
-        &__estado {
-            margin-top: 2%;
-            margin-right: 4%;
-        }
-        &__analisisDefinitivo {
-            margin-top: 2%;
-        }
-    }
+
+//     }
+// }
+
+.cbxestado{
+    margin-top: 2%;
+    margin-right: 4%;
+}
+.cbxanalisisDefinitivo {
+    margin-top: 2%;
 }
 
 .selecteditem {

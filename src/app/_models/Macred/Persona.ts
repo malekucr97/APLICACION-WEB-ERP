@@ -1,22 +1,26 @@
 export class MacPersona {
     id: number;
     codigoCompania: number;
-    codPersona: number;
-    codPerfilCoop: number;
-    codTipoAsociado: string;
+    
     identificacion: string;
-    codExterno: string;
+    nombre: string;
     primerApellido: string;
     segundoApellido: string;
-    nombre: string;
-    codGenero: string;
+    codigoGenero: number;
     fechaNacimiento: Date;
-    codTipoPersona: string;
-    codEstadoCivil: string;
-    codCondicionLaboral: string;
-    codCatCredito: string;
-    tiempoAfiliacion: number;
+    codigoTipoPersona: number;
+    codigoEstadoCivil: number;
+    codigoCondicionLaboral: number;
+    codigoCategoriaCredito: number;
     cantidadHijos: number;
+    edad: number;
+
+    indAsociado: boolean;
+    codigoTipoAsociado: string;
+    tiempoAfiliacion: number;
+
+    codExterno: string;
+    codigoPerfilCoop: number;
     cantidadCreditosHistorico: number;
     cPH: number;
     cPHUltimos12Meses: number;
@@ -28,7 +32,6 @@ export class MacPersona {
     diasAtrasoCorte: number;
     atrasosUltimos12Meses: number;
     atrasosUltimos24Meses: number;
-    edadAsociado: number;
     montoAprobadoTotal: number;
     saldoTotal: number;
     saldoCuotas: number;
@@ -40,9 +43,6 @@ export class MacPersona {
     aniosLaborales: number;
     nHistoricoCreditos: number;
     nCreditosVigentes: number;
-    constante: number;
-    indAsociado: boolean; 
-    estado: boolean;
     datoHabitaCasa: number;
     datoProvincia: number;
     perMediosPago: number;
@@ -52,6 +52,10 @@ export class MacPersona {
     perAnioAfiliacion: number;
     vCoeficiente: number;
     codigoTipoGarantia: number;
+
+    constante: number;
+    estado: boolean;
+
     adicionadoPor: string;
     fechaAdicion: Date;
     modificadoPor: string;
