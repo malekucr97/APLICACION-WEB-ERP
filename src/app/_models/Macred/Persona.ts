@@ -12,13 +12,13 @@ export class MacPersona {
     codigoEstadoCivil: number;
     codigoCondicionLaboral: number;
     codigoCategoriaCredito: number;
+    codigoTipoHabitacion: number;
+    codigoTipoGarantia: number;
     cantidadHijos: number;
     edad: number;
-
     indAsociado: boolean;
     codigoTipoAsociado: string;
     tiempoAfiliacion: number;
-
     codExterno: string;
     codigoPerfilCoop: number;
     cantidadCreditosHistorico: number;
@@ -28,8 +28,8 @@ export class MacPersona {
     cantidadFianzas: number;
     totalSaldoFianzas: number;
     totalCuotasFianzas: number;
-    atrasoMaximo: number;
     diasAtrasoCorte: number;
+    atrasoMaximo: number;
     atrasosUltimos12Meses: number;
     atrasosUltimos24Meses: number;
     montoAprobadoTotal: number;
@@ -43,7 +43,6 @@ export class MacPersona {
     aniosLaborales: number;
     nHistoricoCreditos: number;
     nCreditosVigentes: number;
-    datoHabitaCasa: number;
     datoProvincia: number;
     perMediosPago: number;
     perSegmentoAsociado: number;
@@ -51,7 +50,6 @@ export class MacPersona {
     perEndeudamientoTotal: number;
     perAnioAfiliacion: number;
     vCoeficiente: number;
-    codigoTipoGarantia: number;
 
     constante: number;
     estado: boolean;
