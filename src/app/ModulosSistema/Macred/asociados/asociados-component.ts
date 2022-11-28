@@ -1,24 +1,24 @@
-import { FormBuilder, FormGroup, Validators  } from '@angular/forms';
-import { Component, OnInit, ViewChild } from '@angular/core';
-import { AccountService, AlertService } from '@app/_services';
-import { User, Module } from '@app/_models';
-import { MatSidenav } from '@angular/material/sidenav';
-import { Compania } from '../../../_models/modules/compania';
-import { MacredService } from '@app/_services/macred.service';
-import { ScreenAccessUser } from '@app/_models/admin/screenAccessUser';
-import { Router } from '@angular/router';
-import { first } from 'rxjs/operators';
-import { MacPersona } from '@app/_models/Macred/Persona';
-import { MacTipoIngresoAnalisis } from '@app/_models/Macred/TipoIngresoAnalisis';
-import { MacTipoFormaPagoAnalisis } from '@app/_models/Macred/TipoFormaPagoAnalisis';
-import { MacAnalisisCapacidadPago } from '@app/_models/Macred/AnalisisCapacidadPago';
-import { MacTiposMoneda } from '@app/_models/Macred/TiposMoneda';
-import { MacModeloAnalisis } from '@app/_models/Macred/ModeloAnalisis';
-import { MacNivelCapacidadPago } from '@app/_models/Macred/NivelCapacidadPago';
-import { MacTipoGenerador } from '@app/_models/Macred/TipoGenerador';
-import { MatDialog } from '@angular/material/dialog';
-import { DialogoConfirmacionComponent } from '@app/_components/dialogo-confirmacion/dialogo-confirmacion.component';
-import { MacTipoIngreso } from '@app/_models/Macred/TipoIngreso';
+import { FormBuilder, FormGroup, Validators  }  from '@angular/forms';
+import { Component, OnInit, ViewChild }         from '@angular/core';
+import { AccountService, AlertService }         from '@app/_services';
+import { User, Module }                         from '@app/_models';
+import { MatSidenav }                           from '@angular/material/sidenav';
+import { Compania }                             from '../../../_models/modules/compania';
+import { MacredService }                        from '@app/_services/macred.service';
+import { ScreenAccessUser }                     from '@app/_models/admin/screenAccessUser';
+import { Router }                               from '@angular/router';
+import { first }                                from 'rxjs/operators';
+import { MacPersona }                           from '@app/_models/Macred/Persona';
+import { MacTipoIngresoAnalisis }               from '@app/_models/Macred/TipoIngresoAnalisis';
+import { MacTipoFormaPagoAnalisis }             from '@app/_models/Macred/TipoFormaPagoAnalisis';
+import { MacAnalisisCapacidadPago }             from '@app/_models/Macred/AnalisisCapacidadPago';
+import { MacTiposMoneda }                       from '@app/_models/Macred/TiposMoneda';
+import { MacModeloAnalisis }                    from '@app/_models/Macred/ModeloAnalisis';
+import { MacNivelCapacidadPago }                from '@app/_models/Macred/NivelCapacidadPago';
+import { MacTipoGenerador }                     from '@app/_models/Macred/TipoGenerador';
+import { MatDialog }                            from '@angular/material/dialog';
+import { DialogoConfirmacionComponent }         from '@app/_components/dialogo-confirmacion/dialogo-confirmacion.component';
+import { MacTipoIngreso }                       from '@app/_models/Macred/TipoIngreso';
 
 declare var $: any;
 
@@ -30,31 +30,35 @@ declare var $: any;
 export class AsociadosComponent implements OnInit {
     @ViewChild(MatSidenav) sidenav !: MatSidenav;
 
-    nombrePantalla : string = 'CalificacionAsociados.html';
+    private nombrePantalla : string = 'CalificacionAsociados.html';
 
     _globalCodMonedaPrincipal : number ;
 
     _analisisCapacidadpago  : MacAnalisisCapacidadPago;
     _personaMacred          : MacPersona = null;
 
-    userObservable: User;
-    moduleObservable: Module;
-    companiaObservable: Compania;
+    // ## -- objetos suscritos -- ## //
+    private userObservable      : User;
+    private moduleObservable    : Module;
+    private companiaObservable  : Compania;
+    // ## -- ----------------- -- ## //
 
+    // ## -- submit formularios -- ## //
     submittedPersonForm : boolean = false;
     submittedDatosAnalisisHeaderForm : boolean = false;
     submittedIngresosForm : boolean = false;
+    // ## -- ------------------ -- ## //
 
-    datosAnalisis : boolean = false;
-    flujoCaja : boolean = false;
-    pd : boolean = false;
-    scoring : boolean = false;
-    ingresos : boolean = false;
-    obligacionesSupervisadas : boolean = false;
-    oNoSupervisadas : boolean = false;
-    lvt : boolean = false;
-    escenarios : boolean = false;
-    escenariosFcl : boolean = false;
+    datosAnalisis               : boolean = false;
+    flujoCaja                   : boolean = false;
+    pd                          : boolean = false;
+    scoring                     : boolean = false;
+    ingresos                    : boolean = false;
+    obligacionesSupervisadas    : boolean = false;
+    oNoSupervisadas             : boolean = false;
+    lvt                         : boolean = false;
+    escenarios                  : boolean = false;
+    escenariosFcl               : boolean = false;
 
     habilitaBtnIngreso : boolean = false;
     habilitaBtnHistoprialIngreso: boolean = true;
@@ -64,10 +68,11 @@ export class AsociadosComponent implements OnInit {
     public menuItem : Module = null;
 
     habilitaBtnGeneraNuevoAnalisis : boolean = true;
+    habilitaBtnGuardarAnalisis      : boolean = false;
 
     listScreenAccessUser: ScreenAccessUser[];
 
-    // analisis
+    // listas analisis
     listTipoIngresoAnalisis:    MacTipoIngresoAnalisis[];
     listTipoFormaPagoAnalisis:  MacTipoFormaPagoAnalisis[];
     listTiposMonedas:           MacTiposMoneda[];
@@ -75,7 +80,7 @@ export class AsociadosComponent implements OnInit {
     listNivelesCapacidadpago:   MacNivelCapacidadPago[];
     listTiposGeneradores:       MacTipoGenerador[];
 
-    // ingresos
+    // listas ingresos
     listTiposIngresos: MacTipoIngreso[];
 
     formPersona: FormGroup;
@@ -84,12 +89,12 @@ export class AsociadosComponent implements OnInit {
 
     public today : Date ;
 
-    constructor (private formBuilder: FormBuilder,
-                 private macredService: MacredService,
-                 private accountService: AccountService,
-                 private alertService: AlertService,
-                 private router: Router,
-                 public dialogo: MatDialog)
+    constructor (   private formBuilder:       FormBuilder,
+                    private macredService:     MacredService,
+                    private accountService:    AccountService,
+                    private alertService:      AlertService,
+                    private router:            Router,
+                    private dialogo:           MatDialog )
     {
         this.userObservable = this.accountService.userValue;
         this.moduleObservable = this.accountService.moduleValue;
@@ -97,6 +102,10 @@ export class AsociadosComponent implements OnInit {
 
         this.today = new Date();
     }
+
+    get f() {   return this.formPersona.controls;     }
+    get g() {   return this.formAnalisis.controls;    }
+    get i() {   return this.formIngresos.controls;    }
 
     addListMenu(modItem:Module) : void {
 
@@ -188,47 +197,34 @@ export class AsociadosComponent implements OnInit {
 
         switch (mod.id) {
 
-            // datos análisis
-            case 1:     this.datosAnalisis = true;
-
+            case 1:                     this.datosAnalisis = true;
                 break;
-            // flujo de caja libre
+
             case 2:
             this.flujoCaja = true;
                 break;
-            // probability of default
             case 3:
             this.pd = true;
                 break;
-            // scoring crediticio
+
             case 4:
             this.scoring = true;
                 break;
 
-            // ingresos
-            case 5: this.ingresos = true;
-
-
+            case 5:                     this.ingresos = true;
                 break;
-
-
-            // obligaciones supervisadas
             case 6:
             this.obligacionesSupervisadas = true;
                 break;
-            // obligaciones no supervisadas
             case 7:
             this.oNoSupervisadas = true;
                 break;
-            // lvt
             case 8:
             this.lvt = true;
                 break;
-            // escenarios
             case 9:
             this.escenarios = true;
                 break;
-            // escenarios fcl
             case 10:
             this.escenariosFcl = true;
                 break;
@@ -341,11 +337,6 @@ export class AsociadosComponent implements OnInit {
         this.habilitaTab(this.menuItem);
     }
 
-    get f() { return this.formPersona.controls; }
-    get g() { return this.formAnalisis.controls; }
-    get i() { return this.formIngresos.controls; }
-
-
     cargaInformacionPersona(identificacionPersona : string) : void {
 
         this.macredService.getPersonaMacred(identificacionPersona, this.companiaObservable.id)
@@ -387,10 +378,8 @@ export class AsociadosComponent implements OnInit {
                         observaciones           : [null]
                     });
 
-                    // if (this._personaMacred == null) {
-                    this.habilitarItemSubMenu( new Module( 1, 'Datos de Anláisis', 'Datos de Anláisis', 'Datos de Anláisis', 'A', '.png', '.ico', 'http') );
-                    this.selectModule( new Module(1, 'Datos de Anláisis', 'Datos de Anláisis', 'Datos de Anláisis', 'A', '.png', '.ico', 'http') );
-                    // }
+                    this.habilitarItemSubMenu(  new Module( 1, 'Datos de Anláisis', 'Datos de Anláisis', 'Datos de Anláisis', 'A', '.png', '.ico', 'http') );
+                    this.selectModule(          new Module(1, 'Datos de Anláisis', 'Datos de Anláisis', 'Datos de Anláisis', 'A', '.png', '.ico', 'http') );
 
                 } else { this.alertService.info('No se encontraron registros.'); }
             },
@@ -428,7 +417,9 @@ export class AsociadosComponent implements OnInit {
                     this.menuItem               = null;
 
                     this.habilitaBtnGeneraNuevoAnalisis = true;
+                    
                     this.habilitaBtnIngreso             = false;
+                    this.habilitaBtnGuardarAnalisis     = false;
                     
                     this.cargaInformacionPersona(identificacionPersona);
      
@@ -438,19 +429,40 @@ export class AsociadosComponent implements OnInit {
         } else { this.cargaInformacionPersona(identificacionPersona); }
     }
 
-    SubmitNuevoAnalisis() : void {
+    GuardarAnalisis() : void {
 
         this.alertService.clear();
-
         this.submittedDatosAnalisisHeaderForm = true;
 
         if ( this.formAnalisis.invalid )
             return;
 
-        if ( this._personaMacred == null ) {
-            this._personaMacred = new MacPersona();
-            this._personaMacred.id = 5;
-        }
+        var analisis : MacAnalisisCapacidadPago = this.createAnalisisObjectForm();
+
+        this.macredService.putAnalisisCapPago(analisis)
+            .pipe(first())
+            .subscribe(response => {
+
+                if ( response ) {
+
+                    this._analisisCapacidadpago = response;
+
+                    this.habilitaBtnGeneraNuevoAnalisis = false;
+                    this.habilitaBtnIngreso             = true;
+
+                    this.habilitaBtnGuardarAnalisis     = true;
+
+                } else {
+                    let message : string = 'Problemas al actualizar el Análisis de Capacidad de Pago.';
+                    this.alertService.error(message);
+                }
+            }, error => {
+                let message : string = 'Problemas de conexión. Detalle: ' + error;
+                this.alertService.error(message);
+            });
+    }
+
+    createAnalisisObjectForm() : MacAnalisisCapacidadPago {
 
         var idTipoIngresoAnalisis   = this.formAnalisis.controls['tipoIngresoAnalisis'].value.id;
         var idTipoFormaPagoAnalisis = this.formAnalisis.controls['tipoFormaPagoAnalisis'].value.id;
@@ -468,9 +480,9 @@ export class AsociadosComponent implements OnInit {
         var numeroDependientes      = this.formAnalisis.controls['numeroDependientes'].value;
         var observaciones           = this.formAnalisis.controls['observaciones'].value;
 
-        var ancapCapPago            = 0.00;
-        var ancapCalificacionFinal  = 0.00;
-        var ancapPuntajeFinal       = 0.00;
+        var ancapCapPago            = 0.00 ;
+        var ancapCalificacionFinal  = 0.00 ;
+        var ancapPuntajeFinal       = 0.00 ;
 
         var analisis = new MacAnalisisCapacidadPago (   this.companiaObservable.id,
                                                         this._personaMacred.id,
@@ -495,6 +507,19 @@ export class AsociadosComponent implements OnInit {
                                                         ancapPuntajeFinal,
                                                         this.userObservable.identificacion,
                                                         this.today ) ;
+            
+        return analisis;
+    }
+
+    SubmitNuevoAnalisis() : void {
+
+        this.alertService.clear();
+        this.submittedDatosAnalisisHeaderForm = true;
+
+        if ( this.formAnalisis.invalid )
+            return;
+        
+        var analisis : MacAnalisisCapacidadPago = this.createAnalisisObjectForm();
 
         this.macredService.postAnalisisCapPago(analisis)
             .pipe(first())
@@ -505,7 +530,9 @@ export class AsociadosComponent implements OnInit {
                     this._analisisCapacidadpago = response;
 
                     this.habilitaBtnGeneraNuevoAnalisis = false;
-                    this.habilitaBtnIngreso    = true;
+                    this.habilitaBtnIngreso             = true;
+
+                    this.habilitaBtnGuardarAnalisis     = true;
 
                     // this.formAnalisis = this.formBuilder.group({
                     //     fechaAnalisis           : [this._analisisCapacidadpago.fechaAnalisis,               Validators.required],
@@ -546,9 +573,7 @@ export class AsociadosComponent implements OnInit {
 
         var modTemp : Module = mod;
 
-        if( this.listSubMenu.find( b => b.id == mod.id ) &&
-            this.listSubMenu.find( b => b.id == mod.id ).estado != 'A' ) {
-
+        if( this.listSubMenu.find( b => b.id == mod.id ) ) {
                 this.listSubMenu.splice(this.listSubMenu.findIndex( b => b.id == mod.id ), 1);
         }
         this.listSubMenu.push(modTemp);
