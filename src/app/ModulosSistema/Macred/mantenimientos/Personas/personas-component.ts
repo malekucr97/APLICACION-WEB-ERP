@@ -158,8 +158,7 @@ export class PersonasComponent implements OnInit {
                         nombre          : [this._personaMacred.nombre,           Validators.required],
                         primerApellido  : [this._personaMacred.primerApellido,   Validators.required],
                         segundoApellido : [this._personaMacred.segundoApellido,  Validators.required],
-                        identificacion  : [this._personaMacred.identificacion,   Validators.required],
-                        codigoCliente   : [this._personaMacred.codigoPersona,       Validators.required]
+                        identificacion  : [this._personaMacred.identificacion,   Validators.required]
                     });
                 }
             },

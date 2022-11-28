@@ -48,8 +48,12 @@ export class MacredService {
     postAnalisisCapPago(analisis:MacAnalisisCapacidadPago) {
         return this.http.post<MacAnalisisCapacidadPago>(`${environment.apiUrl}/macred/createanalisiscapacidadpago`, analisis);
     }
+    putAnalisisCapPago(analisis:MacAnalisisCapacidadPago) {
+        return this.http.put<MacAnalisisCapacidadPago>(`${environment.apiUrl}/macred/updateanalisiscapacidadpago`, analisis);
+    }
 
     getTiposIngresos(idCompania: number, incluyeInactivos:boolean) {
         return this.http.get<MacTipoIngreso[]>(`${environment.apiUrl}/macred/gettiposingresos?idCompania=${idCompania}&incluyeInactivos=${incluyeInactivos}`);
     }
+    
 }

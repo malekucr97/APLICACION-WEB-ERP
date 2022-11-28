@@ -5,48 +5,12 @@
 @mixin bg-color-skyblue { background-color: #00AEEF; }
 @mixin bg-color-light-gray { background-color: #B3B3B3; }
 
-// .analisis_contenedor {
+.search {
+    margin: 35px 0 35px 0;
+    
+}
 
-//     margin: 2% 2% 5% 2%;
-//     border-radius: 10px;
-
-//     &__header {
-//         &__prev {
-//             width: 50%;
-//             padding: 0 0 1% 2%;
-//             display: inline-block;
-//             text-align: left;
-//         }
-//         &__next {
-//             width: 50%;
-//             padding: 2% 2% 1% 0;
-//             display: inline-block;
-//             text-align: right;
-//         }
-//     }
-//     &__footer {
-//         &__prev {
-//             width: 50%;
-//             padding: 0 0 3% 2%;
-//             display: inline-block;
-//             text-align: left;
-//         }
-//         &__next {
-//             width: 50%;
-//             padding: 0 2% 3% 0;
-//             display: inline-block;
-//             text-align: right;
-//         }
-//     }
-//     &__body {
-//         margin: 2% 2% 0 2%;
-//         padding: 1% 2% 0 2%;
-
-
-//     }
-// }
-
-.cbxestado{
+.cbxestado {
     margin-top: 2%;
     margin-right: 4%;
 }
@@ -72,13 +36,24 @@
     }
 }
 .sectionmenu {
-    padding: 0 1% 2% 1%;
+    padding: 1% 1% 1% 1%;
 }
 .menuitems {
     margin: 0 2% 0 2%;
     border-radius: 10px;
 
+    margin: 1% 1% 1% 1%;
+    padding: 1% 0% 0% 0%;
+    border-radius: 10px;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    flex-wrap: wrap;
+
     &__items {
+
+        margin: 0 1% 0 1%;
 
         display:         flex;
         flex-direction:  row;
