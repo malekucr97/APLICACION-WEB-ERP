@@ -439,6 +439,10 @@ export class AsociadosComponent implements OnInit {
 
         var analisis : MacAnalisisCapacidadPago = this.createAnalisisObjectForm();
 
+        analisis.codigoAnalisis     = this._analisisCapacidadpago.codigoAnalisis;
+        analisis.modificadoPor      = this.userObservable.identificacion;
+        analisis.fechaModificacion  = this.today;
+
         this.macredService.putAnalisisCapPago(analisis)
             .pipe(first())
             .subscribe(response => {
