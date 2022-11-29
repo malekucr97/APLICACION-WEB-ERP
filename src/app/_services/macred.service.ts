@@ -21,6 +21,11 @@ export class MacredService {
     getPersonaMacred(identificacionPersona: string, idCompania:number) {
         return this.http.get<MacPersona>(`${environment.apiUrl}/macred/getpersonaidentificacion?identificacionPersona=${identificacionPersona}&idCompania=${idCompania}`);
     }
+    
+    getPersonasCompania(idCompania:number) {
+        return this.http.get<MacPersona[]>(`${environment.apiUrl}/macred/getpersonascompania?idCompania=${idCompania}`);
+    }
+
     getTiposIngresoAnalisis(idCompania: number) {
         return this.http.get<MacTipoIngresoAnalisis[]>(`${environment.apiUrl}/macred/gettipoingresoanalisis?idCompania=${idCompania}`);
     }
