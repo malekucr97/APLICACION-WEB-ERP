@@ -1,8 +1,9 @@
 <main>
 
     <article class="bloq">
-        <div class="contenedor mat-elevation-z4">
 
+        <div class="contenedor mat-elevation-z4">
+            
             <section>   <!-- header -->
                 <div class="contenedor__header">                    
                     <div class="contenedor__header__prev">
@@ -31,8 +32,8 @@
                             </div>
                         </div>
 
-                        <div class="col-md-3 search">
-                            <a> <mat-icon (click)="SubmitPerson()">search</mat-icon> </a>
+                        <div class="col-md-3 margin-icos-mat">
+                            <a class="item-seleccionable"> <mat-icon (click)="SubmitPerson()">search</mat-icon> </a>
                         </div>
 
                         <div class="form-group col-md-6">
@@ -67,16 +68,12 @@
             <section> <!-- footer -->
                 <div class="contenedor__footer">
                     <section class="sectionmenu">
-                        <!-- OPCIOINES SUBMENU -->
                         <div *ngIf="_personaMacred" class="menuitems mat-elevation-z4">
-            
                             <div class="menuitems__items" *ngFor="let module of listSubMenu">
                                 <p class="menuitems__items__titulo" (click)="selectModule(module)">{{module.nombre}}</p>
                             </div>
-            
                         </div>
                     </section>
-
                 </div>
             </section>
 
@@ -85,8 +82,8 @@
 
     <article class="bloq">
         <section *ngIf="menuItem">
-            <div class="selecteditem">
-                <p class="selecteditem__titulo">{{menuItem.nombre}}</p>
+            <div class="center-menu-items">
+                <p class="item-seleccionable titulo-menu-seleccionado">{{menuItem.nombre}}</p>
             </div>
         </section>
     </article>
@@ -122,10 +119,10 @@
                             <mat-datepicker #picker></mat-datepicker>
                         </div>
 
-                        <div class="form-group col-sm-1 cbxestado">
-                            <mat-checkbox formControlName="estado" >Estado</mat-checkbox>
+                        <div class="form-group col-sm-1 margin-icos-mat margin-icos-mat__cbx">
+                            <mat-checkbox formControlName="estado">Estado</mat-checkbox>
                         </div>
-                        <div class="form-group col-sm-1 cbxanalisisDefinitivo">
+                        <div class="form-group col-sm-1 margin-icos-mat">
                             <mat-checkbox formControlName="analisisDefinitivo" >Análisis definitivo ?</mat-checkbox>
                         </div>
 
@@ -333,21 +330,16 @@
 
 
 <article class="bloq" >
-    <div *ngIf="ingresos" class="contenedor mat-elevation-z4">
+    <div  class="contenedor mat-elevation-z4">
     <!-- <div *ngIf="ingresos" class="contenedor mat-elevation-z4"> -->
             
         <section>   <!-- header -->
             <div class="contenedor__header">
                 <div class="contenedor__header__prev">
-                    <h2 >seccion prev h2</h2>
+                    <h2 *ngIf="_analisisCapacidadpago">codigo de análisis: {{_analisisCapacidadpago.codigoAnalisis}}</h2>
                 </div>
                 <div class="contenedor__header__next">
-                    <button  class="btn btn-dark px-5 " >
-                        btn 1
-                    </button>
-                    <button  class="btn btn-dark px-5 " >
-                        btn 2
-                    </button>
+                    <h2 >Información de Ingresos</h2>
                 </div>
             </div>
         </section>
@@ -367,6 +359,8 @@
                         </div>
                     </div>
 
+                    <div class="col-md-9"></div>
+
                     <div class="form-group col-md-3">
                         <label for="lblMontoBruto" class="form-label">Salario Monto Bruto</label>
                         <input formControlName="montoBruto" class="form-control" type="number" id="id_montoBruto"
@@ -377,22 +371,16 @@
                     </div>
 
                     <div class="form-group col-md-3">
-                        <label for="lblMontoExtras" class="form-label">Monto Extras Aplicables</label>
-                        <input formControlName="montoExtras" class="form-control" type="number" id="id_montoExtras"
-                            [ngClass]="{ 'is-invalid': submittedIngresosForm && i.montoExtras.errors }" />
-                        <div *ngIf="submittedIngresosForm && i.montoExtras.errors" class="invalid-feedback">
-                            <div *ngIf="i.montoExtras.errors.required">Ingrese 0 si no aplican extras</div>
+                        <label for="lblMontoNeto" class="form-label">Salario Monto Neto</label>
+                        <input formControlName="montoNeto" class="form-control" type="number" id="id_montoNeto"
+                            [ngClass]="{ 'is-invalid': submittedIngresosForm && i.montoNeto.errors }" />
+                        <div *ngIf="submittedIngresosForm && i.montoNeto.errors" class="invalid-feedback">
+                            <div *ngIf="i.montoNeto.errors.required">El monto neto es requerido</div>
                         </div>
                     </div>
 
-                    <div class="form-group col-md-3">
-                        <label for="lblPorcentajeExtras" class="form-label">Porcentaje Extras Aplicables</label>
-                        <input formControlName="porcentajeExtras" class="form-control" type="number" id="id_porcentajeExtras"
-                            [ngClass]="{ 'is-invalid': submittedIngresosForm && i.porcentajeExtras.errors }" />
-                        <div *ngIf="submittedIngresosForm && i.porcentajeExtras.errors" class="invalid-feedback">
-                            <div *ngIf="i.porcentajeExtras.errors.required">Ingrese 0 si no aplican extras</div>
-                        </div>
-                    </div>
+                    <div class="col-md-6"></div>
+
                     <div class="form-group col-md-3">
                         <label for="lblCargasSociales" class="form-label">Cargas Sociales</label>
                         <input formControlName="cargasSociales" class="form-control" type="number" id="id_cargasSociales"
@@ -411,6 +399,32 @@
                         </div>
                     </div>
 
+                    <div class="col-md-6"></div>
+
+                    <div class="form-group col-md-3">
+                        <label for="lblMontoExtras" class="form-label">Monto Extras Aplicables</label>
+                        <input formControlName="montoExtras" class="form-control" type="number" id="id_montoExtras"
+                            [ngClass]="{ 'is-invalid': submittedIngresosForm && i.montoExtras.errors }" />
+                        <div *ngIf="submittedIngresosForm && i.montoExtras.errors" class="invalid-feedback">
+                            <div *ngIf="i.montoExtras.errors.required">Ingrese 0 si no aplican extras</div>
+                        </div>
+                    </div>
+
+                    <div class="form-group col-md-3">
+                        <label for="lblPorcentajeExtras" class="form-label">Porcentaje Extras Aplicables</label>
+                        <input formControlName="porcentajeExtras" class="form-control" type="number" id="id_porcentajeExtras"
+                            [ngClass]="{ 'is-invalid': submittedIngresosForm && i.porcentajeExtras.errors }" />
+                        <div *ngIf="submittedIngresosForm && i.porcentajeExtras.errors" class="invalid-feedback">
+                            <div *ngIf="i.porcentajeExtras.errors.required">Ingrese 0 si no aplican extras</div>
+                        </div>
+                    </div>
+
+                    <div class="col-md-3 margin-icos-mat">
+                        <a class="item-seleccionable"> <mat-icon (click)="openExtrasModal()">open_in_new</mat-icon> </a>
+                    </div>
+
+                    <div class="col-md-3"></div>
+
                     <div class="form-group col-md-3">
                         <label for="lblMontoDeducciones" class="form-label">Monto Deducciones</label>
                         <input formControlName="montoDeducciones" class="form-control" type="number" id="id_montoDeducciones"
@@ -420,15 +434,64 @@
                         </div>
                     </div>
 
-                    <div class="form-group col-md-3">
-                        <label for="lblMontoNeto" class="form-label">Ingreso Monto Neto</label>
-                        <input formControlName="montoNeto" class="form-control" type="number" id="id_montoNeto"
-                            [ngClass]="{ 'is-invalid': submittedIngresosForm && i.montoNeto.errors }" />
-                        <div *ngIf="submittedIngresosForm && i.montoNeto.errors" class="invalid-feedback">
-                            <div *ngIf="i.montoNeto.errors.required">El monto neto es requerido</div>
-                        </div>
+                    <div class="col-md-3 margin-icos-mat">
+                        <a class="item-seleccionable"> <mat-icon (click)="openDeduccionesModal()">open_in_new</mat-icon> </a>
                     </div>
                 </form>
+
+            </div>
+        </section>
+
+        <section *ngIf="listIngresosAnalisis" >
+            <div class="card">
+    
+                <div class="card-body">
+                    <!-- <a class="btn btn-sm btn-success mb-3 mr-3 float-right">Registrar Usuario</a> -->
+                    
+                    <table class="table table-striped">
+                        <thead>
+                            <tr>
+                                <th style="width: 10%">Cd. Análisis</th>
+                                <th style="width: 10%">Monto Bruto</th>
+                                <th style="width: 10%">Monto Neto</th>
+                                <th style="width: 10%">Cargas Sociales</th>
+                                <th style="width: 10%">Impuesto Renta</th>
+                                <th style="width: 10%">Extras Aplicables</th>
+                                <th style="width: 10%">Porcentaje Extras</th>
+                                <th style="width: 10%">Deducciones</th>
+                                <th  style="width: 10%"></th>
+                            </tr>
+                        </thead>
+
+                        <tbody>
+                            <tr *ngFor="let obj of listIngresosAnalisis">
+
+                                <td>{{obj.codigoAnalisis}}</td>
+                                <td>{{obj.montoBruto}}</td>
+                                <td>{{obj.montoNeto}}</td>
+                                <td>{{obj.cargasSociales}}</td>
+                                <td>{{obj.impuestoRenta}}</td>
+                                <td>{{obj.montoExtras}}</td>
+                                <td>{{obj.porcentajeExtras}}</td>
+                                <td>{{obj.montoDeducciones}}</td>
+
+                                <td  style="white-space: nowrap">
+            
+                                    <a class="btn btn-sm btn-outline-dark mr-1">
+                                        Opción 1 </a>
+            
+                                    <button (click)="deleteIngreso(obj)" class="btn btn-sm btn-outline-danger mr-1" [disabled]="isDeleting">
+                                        <span *ngIf="isDeleting" class="spinner-border spinner-border-sm"></span>
+                                        <span *ngIf="!isDeleting">Eliminar</span>
+                                    </button>
+            
+                                </td>
+
+                            </tr>
+                        </tbody>
+                    </table>
+            
+                </div>
             </div>
         </section>
 
@@ -436,14 +499,88 @@
             <div class="contenedor__footer">
                 <div class="contenedor__footer__prev">
                     <button  class="btn btn-success px-5 " >
-                        btn 3 </button>
+                        Registrar </button>
                 </div>
                 <div class="contenedor__footer__next">
-                    <button  class="btn px-5 btn-info" >
-                        btn 4 </button>
+                    <!-- <button  class="btn px-5 btn-info" >
+                        btn 4 </button> -->
                 </div>
             </div>
         </section>
+
+
+        <article class="modal" id="extrasModal">
+
+            <div class="contenedor__body">
+                                
+                <div class="modal-content">
+
+                    <section>
+                        <div class="contenedor__header">
+                            <div class="contenedor__header__prev">
+                                <h1 style="color:#1A5276">Registro de Extras Aplicables</h1>
+                            </div>
+                            <div class="contenedor__header__next">
+                                <button  style="color:red" type="button" class="close btn-close" data-dismiss="modal">&times;</button>
+                            </div>
+                        </div>
+                    </section>
+
+                    <section>
+                        <div class="modal-body">
+                        
+                            <form [formGroup]="formExtras" class="row" >
+
+                                <div class="form-group col-md-3">
+                                    <label for="lblMontoExtras" class="form-label">Monto de las Extras</label>
+                                    <input formControlName="montoExtra" class="form-control" type="number" id="id_montoExtra"
+                                        [ngClass]="{ 'is-invalid': submittedIngresosForm && e.montoExtra.errors }" />
+                                    <div *ngIf="submittedIngresosForm && e.montoExtra.errors" class="invalid-feedback">
+                                        <div *ngIf="e.montoExtra.errors.required">El Monto de las Extras es requerido</div>
+                                    </div>
+                                </div>
+
+                                <div class="form-group col-md-3">
+                                    <label for="lblPorcentajeExtrasAplicable" class="form-label">Porcentaje de Extras Aplicables</label>
+                                    <input formControlName="porcentajeExtrasAplicable" class="form-control" type="number" id="id_porcentajeExtrasAplicable"
+                                    readonly />
+                                </div>
+
+                                <div class="form-group col-md-3">
+                                    <label for="lblDesviacionEstandar" class="form-label">Desviación Estándar</label>
+                                    <input formControlName="desviacionEstandar" class="form-control" type="number" id="id_desviacionEstandar"
+                                    readonly />
+                                    
+                                </div>
+
+                                <div class="form-group col-md-3">
+                                    <label for="lblCoeficienteVarianza" class="form-label">Coeficiente Varianza</label>
+                                    <input formControlName="coeficienteVarianza" class="form-control" type="number" id="id_coeficienteVarianza"
+                                    readonly />
+                                    
+                                </div>
+
+                            </form>
+                        </div>
+                    </section>
+
+
+                    <section>   <!-- footer -->
+                        <div class="contenedor__footer">
+                            <div class="contenedor__footer__prev">
+                                <button (click)="SubmitFormExtras()" class="btn btn-success px-5 " >
+                                    Registrar </button>
+                            </div>
+                            <div class="contenedor__footer__next"> </div>
+                        </div>
+                    </section>
+
+                </div>
+
+            </div>
+
+        </article>
+
     </div>
 </article>
 

@@ -5,35 +5,16 @@
 @mixin bg-color-skyblue { background-color: #00AEEF; }
 @mixin bg-color-light-gray { background-color: #B3B3B3; }
 
-.search {
-    margin: 35px 0 35px 0;
-    
-}
+.margin-icos-mat {
+    margin: 30px 0 25px 0;
 
-.cbxestado {
-    margin-top: 2%;
-    margin-right: 4%;
-}
-.cbxanalisisDefinitivo {
-    margin-top: 2%;
-}
-
-.selecteditem {
-    display:         flex;
-    flex-direction:  row;
-    justify-content: center;
-    align-items:     center;
-    flex-wrap:       wrap;
-    &__titulo {
-        color: #005188;
-        font-size: 1.7rem;
-        font-weight: 850;
-        transition: color 0.2s ease-in-out;
-        &:hover {
-            color: #35980a;
-            cursor: pointer;
-        }
+    &__cbx {
+        margin-right: 4%;
     }
+}
+.titulo-menu-seleccionado {
+    font-size: 1.7rem;
+    font-weight: 850;
 }
 .sectionmenu {
     padding: 1% 1% 1% 1%;

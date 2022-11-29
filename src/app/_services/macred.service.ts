@@ -12,6 +12,7 @@ import { MacNivelCapacidadPago } from '@app/_models/Macred/NivelCapacidadPago';
 import { MacTipoGenerador } from '@app/_models/Macred/TipoGenerador';
 import { MacAnalisisCapacidadPago } from '@app/_models/Macred/AnalisisCapacidadPago';
 import { MacTipoIngreso } from '@app/_models/Macred/TipoIngreso';
+import { MacIngresosXAnalisis } from '@app/_models/Macred/IngresosXAnalisis';
 
 @Injectable({ providedIn: 'root' })
 export class MacredService {
@@ -55,5 +56,7 @@ export class MacredService {
     getTiposIngresos(idCompania: number, incluyeInactivos:boolean) {
         return this.http.get<MacTipoIngreso[]>(`${environment.apiUrl}/macred/gettiposingresos?idCompania=${idCompania}&incluyeInactivos=${incluyeInactivos}`);
     }
-    
+    getIngresosAnalisis(idCompania: number, codigoAnalisis:number) {
+        return this.http.get<MacIngresosXAnalisis[]>(`${environment.apiUrl}/macred/getingresosanalisis?idCompania=${idCompania}&codigoAnalisis=${codigoAnalisis}`);
+    }
 }

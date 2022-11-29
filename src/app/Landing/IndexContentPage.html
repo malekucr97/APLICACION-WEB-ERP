@@ -1,46 +1,52 @@
-<div *ngIf="conexion">
-
-    <div class="info">
-        <p class="info__home"   >
-            <i routerLink="/" class="info__home__icon fa fa-home fa-lg"></i>
-        </p>
-        <p class="info__user">
-            <i routerLink="/_AdminModule/AdminUserPage" class="info__user__icon fa fa-cog fa-lg"></i>
-        </p>
-        <p class="info__logout">
-            <i class="info__logout__icon fa fa-sign-out fa-lg" (click)="logout()"></i>
-        </p>
-    </div>
-
-    <mat-toolbar>
-        <article style="width: 100%;">
-            <section class="title">
-                <img class="title__deco--left" src="./assets/images/inra/img_bankap_left.png ">
-                <p class="title__description">SISTEMA DE GESTIÓN ADMINISTRATIVO FINANCIERO</p>
-                <img class="title__deco--right" src="./assets/images/inra/img_bankap_rigth.png ">
-            </section>
-        </article>
-    </mat-toolbar>
-
-    <!-- ** // MUESTRA LOS MÓDULOS EN PANTALLA -->
-    <mat-sidenav-container>
-        <div class="content mat-elevation-z4">
-            <main>
-                <article>
-                    <section class="content__menu">
-            
-                        <div class="content__menu__item" *ngFor="let module of ListModules">
-                            <a> <img class="content__menu__item__logo" src="{{module.pathIco}}" title="{{module.descripcion}}" 
-                                (click)="selectModule(module)"> </a>
-                            <p class="content__menu__item__titulo">{{module.nombre}}</p>    
-                        </div>
-            
-                    </section>
-                </article>
-            </main>
+<article class="var">
+    <section>
+        <div class="var__item">
+            <p class="var__item__p"> <i routerLink="/"                            class="fa fa-home fa-lg">       </i> </p>
+            <p class="var__item__p"> <i routerLink="/_AdminModule/AdminUserPage"  class="fa fa-cog fa-lg" >       </i> </p>
+            <p class="var__item__p"> <i (click)="logout()"                        class="fa fa-sign-out fa-lg">   </i> </p>
         </div>
-    </mat-sidenav-container>
-</div>
+    </section>
+</article>
+
+<article class="titulo-administracion-contenedor">
+    <section>
+        <div class="titulo-administracion-contenedor__seccion" >
+        <div class="titulo-administracion-contenedor__seccion__left">
+            <img class="titulo-administracion-contenedor__seccion__left__img" src="./assets/images/inra/img_bankap_left.png ">
+        </div>
+        <div class="titulo-administracion-contenedor__seccion__center">
+            <p class="titulo-administracion-contenedor__seccion__center__titulo"> SISTEMA DE GESTIÓN ADMINISTRATIVO FINANCIERO </p>
+        </div>
+        <div class="titulo-administracion-contenedor__seccion__rigth">
+            <img class="titulo-administracion-contenedor__seccion__rigth__img" src="./assets/images/inra/img_bankap_rigth.png ">
+        </div>
+        </div>
+    </section>
+</article>
+
+
+<main>
+    <article class="bloq">
+        <div class="contenedor mat-elevation-z4">
+            <section>
+                <div class="contenedor__body">
+                    <section class="menu-module-item-section">
+
+                        <div class="menu-module-item-section__item" *ngFor="let module of ListModules">
+
+                            <a> <img class="menu-module-item-section__item__logo"  src="{{module.pathIco}}" 
+                                                                        title="{{module.descripcion}}" 
+                                                                        (click)="selectModule(module)" > </a>
+                            <p class="menu-module-item-section__item__titulo">{{module.nombre}}</p>  
+
+                        </div>
+
+                    </section>
+                </div>
+            </section>
+        </div>
+    </article>
+</main>
 
 <div>
     <router-outlet></router-outlet>

@@ -19,6 +19,7 @@ import { MacTipoGenerador }                     from '@app/_models/Macred/TipoGe
 import { MatDialog }                            from '@angular/material/dialog';
 import { DialogoConfirmacionComponent }         from '@app/_components/dialogo-confirmacion/dialogo-confirmacion.component';
 import { MacTipoIngreso }                       from '@app/_models/Macred/TipoIngreso';
+import { MacIngresosXAnalisis } from '@app/_models/Macred/IngresosXAnalisis';
 
 declare var $: any;
 
@@ -60,6 +61,8 @@ export class AsociadosComponent implements OnInit {
     escenarios                  : boolean = false;
     escenariosFcl               : boolean = false;
 
+    isDeleting                  : boolean = false;
+
     habilitaBtnIngreso : boolean = false;
     habilitaBtnHistoprialIngreso: boolean = true;
     habilitaBtnRegistroDeudor: boolean = false;
@@ -82,10 +85,12 @@ export class AsociadosComponent implements OnInit {
 
     // listas ingresos
     listTiposIngresos: MacTipoIngreso[];
+    listIngresosAnalisis : MacIngresosXAnalisis[] ;
 
     formPersona: FormGroup;
     formAnalisis: FormGroup;
     formIngresos: FormGroup;
+    formExtras: FormGroup;
 
     public today : Date ;
 
@@ -106,6 +111,7 @@ export class AsociadosComponent implements OnInit {
     get f() {   return this.formPersona.controls;     }
     get g() {   return this.formAnalisis.controls;    }
     get i() {   return this.formIngresos.controls;    }
+    get e() {   return this.formExtras.controls;    }
 
     addListMenu(modItem:Module) : void {
 
@@ -212,6 +218,17 @@ export class AsociadosComponent implements OnInit {
                 break;
 
             case 5:                     this.ingresos = true;
+
+            if (!this.listIngresosAnalisis)
+                this.listIngresosAnalisis = [] ;
+            
+                if (this.listIngresosAnalisis.length == 0) {
+                    this.macredService.getIngresosAnalisis( this.companiaObservable.id, 
+                                                            this._analisisCapacidadpago.codigoAnalisis )
+                        .pipe(first())
+                        .subscribe(response => { this.listIngresosAnalisis = response; });
+                }
+
                 break;
             case 6:
             this.obligacionesSupervisadas = true;
@@ -281,6 +298,12 @@ export class AsociadosComponent implements OnInit {
             impuestoRenta       : [null],
             montoNeto           : [null],
             montoDeducciones    : [null]
+        });
+        this.formExtras = this.formBuilder.group({
+            montoExtra                  : [null],
+            desviacionEstandar          : [null],
+            coeficienteVarianza         : [null],
+            porcentajeExtrasAplicable   : [null],
         });
 
         this.accountService.validateAccessUser( this.userObservable.id,
@@ -422,7 +445,7 @@ export class AsociadosComponent implements OnInit {
                     this.habilitaBtnGuardarAnalisis     = false;
                     
                     this.cargaInformacionPersona(identificacionPersona);
-     
+
                 } else { return; }
             });
 
@@ -453,16 +476,19 @@ export class AsociadosComponent implements OnInit {
 
                     this.habilitaBtnGeneraNuevoAnalisis = false;
                     this.habilitaBtnIngreso             = true;
-
                     this.habilitaBtnGuardarAnalisis     = true;
 
+                    this.alertService.success(
+                        `Análisis ${this._analisisCapacidadpago.codigoAnalisis} actualizado con éxito.`
+                    );
+
                 } else {
-                    let message : string = 'Problemas al actualizar el Análisis de Capacidad de Pago.';
-                    this.alertService.error(message);
+                    this.alertService.error(`No fue posible actualizar el análisis.`);
                 }
             }, error => {
-                let message : string = 'Problemas de conexión. Detalle: ' + error;
-                this.alertService.error(message);
+                this.alertService.error(
+                    `Problemas al establecer la conexión con el servidor. Detalle: ${ error }`
+                );
             });
     }
 
@@ -560,7 +586,9 @@ export class AsociadosComponent implements OnInit {
                     //     observaciones           : [this._analisisCapacidadpago.observaciones]
                     // });
 
-                    this.habilitarItemSubMenu(new Module(5, 'Ingresos', 'Ingresos', 'Ingresos', 'A', '.png', '.ico', 'http'));
+                    this.alertService.success(
+                        `Análisis ${ this._analisisCapacidadpago.codigoAnalisis } generado correctamente !`
+                    );
 
                 } else {
                     let message : string = 'Problemas al registrar el Análisis de Capacidad de Pago.';
@@ -587,6 +615,42 @@ export class AsociadosComponent implements OnInit {
 
         this.habilitarItemSubMenu(  new Module(5, 'Ingresos', 'Ingresos', 'Ingresos', 'A', '.png', '.ico', 'http'));
         this.selectModule(          new Module(5, 'Ingresos', 'Ingresos', 'Ingresos', 'I', '.png', '.ico', 'http'));
+
+        this.habilitaBtnIngreso = false;
+    }
+
+    deleteIngreso(ingreso : MacIngresosXAnalisis) : void {
+
+        this.isDeleting = true;
+    }
+
+    openExtrasModal() : void {
+
+        // this.add = true;
+        // this.buttomText = 'Registrar';
+
+        // this.groupForm = this.formBuilder.group({
+        //     descripcionGrupo: ['', Validators.required],
+        //     estado: ['A', Validators.required]
+        // });
+
+        $('#extrasModal').modal({backdrop: 'static', keyboard: false}, 'show');
+    }
+
+    openDeduccionesModal() : void {
+
+        // this.add = true;
+        // this.buttomText = 'Registrar';
+
+        // this.groupForm = this.formBuilder.group({
+        //     descripcionGrupo: ['', Validators.required],
+        //     estado: ['A', Validators.required]
+        // });
+
+        $('#deduccionesModal').modal({backdrop: 'static', keyboard: false}, 'show');
+    }
+
+    SubmitFormExtras() : void {
 
     }
 }
