@@ -14,6 +14,9 @@ import { AppComponent } from './app.component';
 import { AlertComponent } from './_components';
 import { HomeComponent } from './home';
 
+import {MatIconModule} from '@angular/material/icon';
+import {MatToolbarModule} from '@angular/material/toolbar';
+
 @NgModule({
     imports: [
         BrowserModule,
@@ -25,7 +28,10 @@ import { HomeComponent } from './home';
         
         MatTreeModule,
         MatNativeDateModule,
-        MatTooltipModule
+        MatTooltipModule,
+
+        MatIconModule,
+        MatToolbarModule
     ],
     declarations: [
         AppComponent,

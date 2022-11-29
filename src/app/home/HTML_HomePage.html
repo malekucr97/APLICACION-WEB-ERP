@@ -1,31 +1,55 @@
-<div class="card text-center" style="position: absolute; width: 45%; position: absolute; left: 50%; top: 35%; transform: translate(-50%, -35%);">
-    <div class="card-header">
-      <h1 style="color: #053254;margin-top: 2%;">{{message}}</h1>
+<article class="var">
+  <section>
+    <div class="var__item">
+        <p class="var__item__p"> <i class="fa fa-sign-out fa-lg" (click)="logout()"> </i> </p>
     </div>
+  </section>
+</article>
 
-    <div *ngIf="conexion" class="card-body" style="margin-bottom: 5%; margin-top: 5%;">
-        <div class="card" *ngFor="let business of listBusiness">
-            <ul class="list-group list-group-flush">
-              <li class="list-group-item" > <h5>{{business.nombre}}</h5></li>
-              <button class="btn-selected-business" (click)="selectBusiness(business)">Seleccionar</button>
-            </ul>
-        </div><br>
-    </div>
+<article class="titulo-administracion-contenedor">
+    <section>
+      <div class="titulo-administracion-contenedor__seccion" >
+        <div class="titulo-administracion-contenedor__seccion__left">
+          <img class="titulo-administracion-contenedor__seccion__left__img" src="./assets/images/inra/img_bankap_left.png ">
+        </div>
+        <div class="titulo-administracion-contenedor__seccion__center">
+          <p class="titulo-administracion-contenedor__seccion__center__titulo"> SISTEMA DE GESTIÓN ADMINISTRATIVO FINANCIERO </p>
+        </div>
+        <div class="titulo-administracion-contenedor__seccion__rigth">
+          <img class="titulo-administracion-contenedor__seccion__rigth__img" src="./assets/images/inra/img_bankap_rigth.png ">
+        </div>
+      </div>
+    </section>
+</article>
 
-    <div *ngIf="!conexion" class="card-body">
-      <div class="card">
+<article class="select-company-contenedor">
+  <section>
+    <div class="card select-company-contenedor__card">
 
-          <ul class="list-group list-group-flush">
-            <li class="list-group-item" style="color: red;margin-top: 2%;" >
-              <h3><span class="spinner-border spinner-border-lg align-center"></span></h3>
+      <div *ngIf="conexion" class="card-body select-company-contenedor__card__body"> <!-- body -->
+        <div class="list-group list-group-flush" *ngFor="let business of listBusiness">
+          <div class="list-group-item select-company-contenedor__card__body__item" (click)="selectBusiness(business)">
+            <div class="select-company-contenedor__card__body__item__titulo"> <p>{{business.nombre}}</p> </div>
+            <div class="select-company-contenedor__card__body__item__ico"> <mat-icon>open_in_new</mat-icon> </div>
+          </div>
+        </div>
+      </div>
+
+      <div *ngIf="!conexion" class="card-body select-company-contenedor__card__body"> <!-- no connect -->
+        <div class="list-group list-group-flush">
+            <h1 class="select-company-contenedor__card__header__titulo">{{message}}</h1>
+            <li class="list-group-item select-company-contenedor__card__body__spiner">
+              <span class="spinner-border spinner-border-lg" ></span>
             </li>
-          </ul>
-          
-      </div><br>
-  </div>
-      
-    <div class="card-footer text-muted">
-      Derechos Reservados Soluciones INRA S.A
-    </div>
+        </div>
+      </div>
 
-</div>
+    </div>
+  </section>
+</article>
+
+<section> <!-- footer -->
+  <div class="card-footer text-center text-muted">
+    Derechos Reservados Soluciones INRA S.A
+  </div>
+</section>

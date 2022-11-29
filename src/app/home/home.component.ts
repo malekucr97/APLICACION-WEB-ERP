@@ -7,7 +7,8 @@ import { AccountService } from '@app/_services';
 import { administrator, AuthStatesApp, httpLandingIndexPage } from '@environments/environment-access-admin';
 
 @Component({
-    templateUrl: 'HTML_HomePage.html'
+    templateUrl: 'HTML_HomePage.html',
+    styleUrls: ['../../assets/scss/app.scss']
 })
 export class HomeComponent implements OnInit {
 
@@ -51,7 +52,7 @@ export class HomeComponent implements OnInit {
             }
 
             this.conexion = true;
-            this.message = 'Seleccione la Compañía para ingresar';
+            this.message = 'Seleccione la Compañía';
 
             // si el usuario que inicia sesión es administrador
             if (administrator.id === responseObjectRol.id) {
@@ -96,4 +97,6 @@ export class HomeComponent implements OnInit {
         // http index.html
         this.router.navigate([httpLandingIndexPage.indexHTTP]);
     }
+
+    logout() { this.accountService.logout(); }
 }
