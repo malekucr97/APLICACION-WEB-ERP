@@ -23,7 +23,8 @@ declare var $: any;
 
 @Component({
     templateUrl: 'HTML_Personas.html',
-    styleUrls: ['../../../../../assets/scss/macred/app.scss'],
+    styleUrls: ['../../../../../assets/scss/app.scss',
+                '../../../../../assets/scss/macred/app.scss'],
 })
 export class PersonasComponent implements OnInit {
     @ViewChild(MatSidenav) sidenav !: MatSidenav;
@@ -60,6 +61,16 @@ export class PersonasComponent implements OnInit {
     listTiposGeneradores: MacTipoGenerador[];
 
     formPersona: FormGroup;
+    formPersonaList: FormGroup;
+    listPersonas: MacPersona[];
+    showList : boolean = false;
+
+    submitted : boolean = false;
+    update : boolean = false;
+    add : boolean = false;
+    delete : boolean = false;
+
+    buttomText : string = '';
 
     public today = new Date();
 
@@ -131,6 +142,8 @@ export class PersonasComponent implements OnInit {
                     .pipe(first())
                     .subscribe(response => { this.listTiposGeneradores = response; });
             });
+
+            this.consultaPersonasCompania();
     }
 
     get f() { return this.formPersona.controls; }
@@ -160,12 +173,56 @@ export class PersonasComponent implements OnInit {
                         segundoApellido : [this._personaMacred.segundoApellido,  Validators.required],
                         identificacion  : [this._personaMacred.identificacion,   Validators.required]
                     });
+
+                    this.showList = true;
+                    this.listPersonas.length = 0;
+                    this.listPersonas.push(this._personaMacred);
                 }
             },
             error => {
                 let message : string = 'Problemas al consultar la persona. Detalle: ' + error;
                 this.alertService.error(message);
             });
+    }
+
+    consultaPersonasCompania() : void {
+        this.formPersonaList = this.formBuilder.group({
+            id              : [''],
+            nombre          : [''],
+            primerApellido  : [''],
+            segundoApellido : [''],
+            identificacion  : [''],
+            codigoCliente   : ['']
+        });
+
+        this.macredService.getPersonasCompania(this.userObservable.empresa)
+        .pipe(first())
+        .subscribe(personaResponse => {
+
+            if (personaResponse.length > 0) {
+                this.showList = true;
+                this.listPersonas = personaResponse;
+            }
+        },
+        error => {
+            let message : string = 'Problemas al consultar las personas. ' + error;
+            this.alertService.error(message); 
+        });
+    }
+
+    onEdit(persona:MacPersona) : void {
+
+        this.update = true;
+        this.buttomText = 'Actualizar';
+
+        this.formPersona = this.formBuilder.group({
+            nombre: [persona.nombre, Validators.required],
+            primerApellido: [persona.primerApellido, Validators.required],
+            segundoApellido: [persona.segundoApellido, Validators.required],
+            //segundoApellido: [persona.segundoApellido, Validators.required]
+        });
+
+        $('#personaModal').modal({backdrop: 'static', keyboard: false}, 'show');
     }
 
     SubmitPerson() : void {
