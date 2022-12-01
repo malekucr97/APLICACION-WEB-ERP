@@ -267,19 +267,21 @@
             <article class="modal modal-config" id="analisisModal">
                 <div class="modal-content">
 
-                    <div class="modal-header ">
-                        <div class="contenedor__header-modal " >
-                            <div class="contenedor__header__prev">
-                                <h1 style="color:#1A5276">Historial de Análisis de Capacida de Pago</h1>
-                            </div>
-                            <div class="contenedor__header__next">
-                                <button style="color:red" type="button" class="close btn-close" data-dismiss="modal">&times;</button>
+                    <section>
+                        <div class="modal-header ">
+                            <div class="contenedor__header-modal " >
+                                <div class="contenedor__header__prev">
+                                    <h1 style="color:#1A5276">Historial de Análisis de Capacida de Pago</h1>
+                                </div>
+                                <div class="contenedor__header__next">
+                                    <button style="color:red" type="button" class="close btn-close" data-dismiss="modal">&times;</button>
+                                </div>
                             </div>
                         </div>
-                    </div>
+                    </section>
 
                     <section>
-                        <form [formGroup]="formHistorialAnalisis" class="row modal-config__formulario" >
+                        <form [formGroup]="formHistorialAnalisis" class="row modal-config__formulario-header" >
                             <div class="form-group col-md-3">
                                 <label for="lblCodigoAnalisisHistorial" class="form-label">Código de Análisis del Historial</label>
                                 <input formControlName="codigoAnalisisHistorial" class="form-control" type="number" id="id_codigoAnalisisHistorial"
@@ -295,7 +297,7 @@
                     </section>
                     
                     <section>    <!-- body -->
-                        <div class="contenedor__body " >
+                        <div class="contenedor__body" >
                             <div *ngIf="listHistorialAnalisis" >
                                 <table  class="table table-striped">
                                     <thead>
@@ -321,17 +323,11 @@
                                             <td>{{obj.puntajeFinalCic}}</td>
             
                                             <td  style="white-space: nowrap">
-                        
-                                                <!-- <button  class="btn btn-sm btn-outline-danger mr-1" [disabled]="isDeleting">
-                                                    <span *ngIf="isDeleting" class="spinner-border spinner-border-sm"></span>
-                                                    <span *ngIf="!isDeleting">Eliminar</span>
-                                                </button> -->
 
                                                 <div class="">
                                                     <a class="item-seleccionable" (click)="deleteIngreso(obj)"> <mat-icon>delete_forever</mat-icon> </a>
                                                 </div>
 
-                                                
                                             </td>
                                         </tr>
                                     </tbody>
@@ -345,81 +341,7 @@
             </article>
 
         </div>
-
-        <!-- <section class="modal modal-config" id="analisisModal">
-            <div class="modal-content">
-    
-                <div class="modal-header ">
-                    <div class="contenedor__header-modal " >
-                        <div class="contenedor__header__prev">
-                            <h1 style="color:#1A5276">Historial de Análisis de Capacida de Pago</h1>
-                        </div>
-                        <div class="contenedor__header__next">
-                            <button style="color:red" type="button" class="close btn-close" data-dismiss="modal">&times;</button>
-                        </div>
-                    </div>
-                </div>
-    
-                <section>
-                    <form [formGroup]="formHistorialAnalisis" class="row formulario-modal-filtro" >
-                        <div class="form-group col-md-3">
-                            <label for="lblCodigoAnalisisHistorial" class="form-label">Código de Análisis del Historial</label>
-                            <input formControlName="codigoAnalisisHistorial" class="form-control" type="number" id="id_codigoAnalisisHistorial"
-                                [ngClass]="{ 'is-invalid': submittedHistorialAnalisisForm && h.codigoAnalisisHistorial.errors }" />
-                            <div *ngIf="submittedHistorialAnalisisForm && h.codigoAnalisisHistorial.errors" class="invalid-feedback">
-                                <div *ngIf="h.codigoAnalisisHistorial.errors.required">El Código de Análisis del Historial es requerido</div>
-                            </div>
-                        </div>
-                        <div class="col-md-3 margin-icos-mat">
-                            <a class="item-seleccionable"> <mat-icon (click)="SubmitFormExtras()">filter_list</mat-icon> </a>
-                        </div>
-                    </form>
-                </section>
-                
-                <section>
-                    <div class="contenedor__body " >
-                        <div *ngIf="listHistorialAnalisis" >
-                            <table  class="table table-striped">
-                                <thead>
-                                    <tr>
-                                        <th style="width: 10%">Código de Análisis</th>
-                                        <th style="width: 10%">Fecha del Análisis</th>
-                                        <th style="width: 10%">Estado</th>
-                                        <th style="width: 10%">Es Definitivo ?</th>
-                                        <th style="width: 10%">Scoring</th>
-                                        <th style="width: 40%">Puntaje Final Cic</th>
-
-                                        <th style="width: 10%"></th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    <tr *ngFor="let obj of listHistorialAnalisis">
         
-                                        <td>{{obj.codigoAnalisis}}</td>
-                                        <td>{{obj.fechaAnalisis}}</td>
-                                        <td>{{obj.estado}}</td>
-                                        <td>{{obj.analisisDefinitivo}}</td>
-                                        <td>{{obj.puntajeAnalisis}}</td>
-                                        <td>{{obj.puntajeFinalCic}}</td>
-        
-                                        <td  style="white-space: nowrap">
-                    
-                                            <button (click)="deleteIngreso(obj)" class="btn btn-sm btn-outline-danger mr-1" [disabled]="isDeleting">
-                                                <span *ngIf="isDeleting" class="spinner-border spinner-border-sm"></span>
-                                                <span *ngIf="!isDeleting">Eliminar</span>
-                                            </button>
-                                        </td>
-                                    </tr>
-                                </tbody>
-                            </table>
-                        </div>
-    
-                    </div>
-                </section>
-    
-            </div>
-        </section> -->
-
     </article>
 
     

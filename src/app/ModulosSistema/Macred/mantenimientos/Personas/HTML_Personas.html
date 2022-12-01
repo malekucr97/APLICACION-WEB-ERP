@@ -163,95 +163,93 @@
     </article>
 </main>
 
-<article class="modal" id="personaModal">
+<article class="modal modal-config" id="personaModal">
 
-    <div class="contenedor__body">
-                        
-        <div class="modal-content">
+    <div class="modal-content">
 
-            <section>
-                <div class="contenedor__header">
-                    <div class="contenedor__header__prev">
-                        <h1 style="color:#1A5276">Registro de Personas</h1>
-                    </div>
-                    <div class="contenedor__header__next">
-                        <button  style="color:red" type="button" class="close btn-close" data-dismiss="modal">&times;</button>
-                    </div>
+        <section>
+            <div class="contenedor__header-modal" >
+                <div class="contenedor__header__prev">
+                    <h1 style="color:#1A5276">Registro de Personas</h1>
                 </div>
-            </section>
-
-            <section>
-                <div class="modal-body">
-                
-                    <form [formGroup]="formPersona" class="row" >
-                        
-                        <div class="form-group col-md-3">
-                            <label for="nombrePersona" class="form-label">Nombre</label>
-                            <input formControlName="nombre" class="form-control" type="text" id="id_nombre_persona"  
-                                [ngClass]="{ 'is-invalid': submitted && f.nombre.errors }" />
-                            <div *ngIf="submitted && f.nombre.errors" class="invalid-feedback">
-                                <div *ngIf="f.nombre.errors.required">El nombre de la persona es requerida.</div>
-                            </div>
-                        </div>
-
-                        <div class="form-group col-md-3">
-                            <label for="primerApellidoPersona" class="form-label">Primer Apellido</label>
-                            <input formControlName="primerApellido" class="form-control" type="text" id="id_primer_apellido_persona"  
-                                [ngClass]="{ 'is-invalid': submitted && f.primerApellido.errors }" />
-                            <div *ngIf="submitted && f.primerApellido.errors" class="invalid-feedback">
-                                <div *ngIf="f.primerApellido.errors.required">El primer apellido es requerido.</div>
-                            </div>
-                        </div>
-
-                        <div class="form-group col-md-3">
-                            <label for="segundoApellidoPersona" class="form-label">Segundo Apellido</label>
-                            <input formControlName="segundoApellido" class="form-control" type="text" id="id_segundo_apellido_persona"  
-                                [ngClass]="{ 'is-invalid': submitted && f.segundoApellido.errors }" />
-                            <div *ngIf="submitted && f.segundoApellido.errors" class="invalid-feedback">
-                                <div *ngIf="f.segundoApellido.errors.required">El segundo apellido es requerido.</div>
-                            </div>
-                        </div>
-
-                        <div class="form-group col-md-3">
-                            <label for="fechaNacimientoPersona" class="form-label">Fecha Nacimiento</label>
-                            <input formControlName="fechaNacimiento" class="form-control" type="text" id="id_fecha_nacimiento_persona"  
-                                [ngClass]="{ 'is-invalid': submitted && f.fechaNacimiento.errors }" matInput [matDatepicker]="picker"/>
-                        
-                            <mat-datepicker-toggle matIconSuffix [for]="picker"></mat-datepicker-toggle>
-                            <mat-datepicker #picker></mat-datepicker> 
-
-                            <div *ngIf="submitted && f.fechaNacimiento.errors" class="invalid-feedback">
-                                <div *ngIf="f.fechaNacimiento.errors.required">La fecha de nacimiento es requerida.</div>
-                            </div>
-                        </div>
-
-                        <div class="form-group col-md-3">
-                            <label for="lblEstadosCiviles" class="form-label">Estados Civiles</label>
-                            <select formControlName="estadoCivil" class="form-control" name="selectEstadosCiviles"
-                                [ngClass]="{ 'is-invalid': submitted && e.estadosCiviles.errors }" >
-                                    <option [ngValue]="objeto" *ngFor="let objeto of listEstadosCiviles">{{objeto.id}} - {{objeto.descripcion}}</option>
-                            </select>
-                            <div *ngIf="submitted && e.estadosCiviles.errors" class="invalid-feedback">
-                                <div *ngIf="e.estadosCiviles.errors.required">El estado civil es requerido</div>
-                            </div>
-                        </div>
-
-                    </form>
+                <div class="contenedor__header__next">
+                    <button  style="color:red" type="button" class="close btn-close" data-dismiss="modal">&times;</button>
                 </div>
-            </section>
+            </div>
+        </section>
 
 
-            <section>   <!-- footer -->
-                <div class="contenedor__footer">
-                    <div class="contenedor__footer__prev">
-                        <button  class="btn btn-success px-5 " >
-                            Registrar </button>
+        <section>
+
+            <div class="contenedor__body">
+
+                <form [formGroup]="formPersona" class="row modal-config__formulario-body" >
+                    
+                    <div class="form-group col-md-3">
+                        <label for="nombrePersona" class="form-label">Nombre</label>
+                        <input formControlName="nombre" class="form-control" type="text" id="id_nombre_persona"  
+                            [ngClass]="{ 'is-invalid': submitted && f.nombre.errors }" />
+                        <div *ngIf="submitted && f.nombre.errors" class="invalid-feedback">
+                            <div *ngIf="f.nombre.errors.required">El nombre de la persona es requerida.</div>
+                        </div>
                     </div>
-                    <div class="contenedor__footer__next"> </div>
-                </div>
-            </section>
 
-        </div>
+                    <div class="form-group col-md-3">
+                        <label for="primerApellidoPersona" class="form-label">Primer Apellido</label>
+                        <input formControlName="primerApellido" class="form-control" type="text" id="id_primer_apellido_persona"  
+                            [ngClass]="{ 'is-invalid': submitted && f.primerApellido.errors }" />
+                        <div *ngIf="submitted && f.primerApellido.errors" class="invalid-feedback">
+                            <div *ngIf="f.primerApellido.errors.required">El primer apellido es requerido.</div>
+                        </div>
+                    </div>
+
+                    <div class="form-group col-md-3">
+                        <label for="segundoApellidoPersona" class="form-label">Segundo Apellido</label>
+                        <input formControlName="segundoApellido" class="form-control" type="text" id="id_segundo_apellido_persona"  
+                            [ngClass]="{ 'is-invalid': submitted && f.segundoApellido.errors }" />
+                        <div *ngIf="submitted && f.segundoApellido.errors" class="invalid-feedback">
+                            <div *ngIf="f.segundoApellido.errors.required">El segundo apellido es requerido.</div>
+                        </div>
+                    </div>
+
+                    <div class="form-group col-md-3">
+                        <label for="fechaNacimientoPersona" class="form-label">Fecha Nacimiento</label>
+                        <input formControlName="fechaNacimiento" class="form-control" type="text" id="id_fecha_nacimiento_persona"  
+                            [ngClass]="{ 'is-invalid': submitted && f.fechaNacimiento.errors }" matInput [matDatepicker]="picker"/>
+                    
+                        <mat-datepicker-toggle matIconSuffix [for]="picker"></mat-datepicker-toggle>
+                        <mat-datepicker #picker></mat-datepicker> 
+
+                        <div *ngIf="submitted && f.fechaNacimiento.errors" class="invalid-feedback">
+                            <div *ngIf="f.fechaNacimiento.errors.required">La fecha de nacimiento es requerida.</div>
+                        </div>
+                    </div>
+
+                    <div class="form-group col-md-3">
+                        <label for="lblEstadosCiviles" class="form-label">Estados Civiles</label>
+                        <select formControlName="estadoCivil" class="form-control" name="selectEstadosCiviles"
+                            [ngClass]="{ 'is-invalid': submitted && e.estadosCiviles.errors }" >
+                                <option [ngValue]="objeto" *ngFor="let objeto of listEstadosCiviles">{{objeto.id}} - {{objeto.descripcion}}</option>
+                        </select>
+                        <div *ngIf="submitted && e.estadosCiviles.errors" class="invalid-feedback">
+                            <div *ngIf="e.estadosCiviles.errors.required">El estado civil es requerido</div>
+                        </div>
+                    </div>
+
+                </form>
+
+            </div>
+        </section>
+
+        <section>   <!-- footer -->
+            <div class="contenedor__footer">
+                <div class="contenedor__footer__prev">
+                    <button  class="btn btn-success px-5 " >
+                        Registrar </button>
+                </div>
+                <div class="contenedor__footer__next"> </div>
+            </div>
+        </section>
 
     </div>
 
