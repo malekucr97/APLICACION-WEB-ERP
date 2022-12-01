@@ -20,6 +20,7 @@ import { MatDialog }                            from '@angular/material/dialog';
 import { DialogoConfirmacionComponent }         from '@app/_components/dialogo-confirmacion/dialogo-confirmacion.component';
 import { MacTipoIngreso }                       from '@app/_models/Macred/TipoIngreso';
 import { MacIngresosXAnalisis } from '@app/_models/Macred/IngresosXAnalisis';
+import { MacExtrasAplicables } from '@app/_models/Macred/ExtrasAplicables';
 
 declare var $: any;
 
@@ -34,6 +35,7 @@ export class AsociadosComponent implements OnInit {
     private nombrePantalla : string = 'CalificacionAsociados.html';
 
     _globalCodMonedaPrincipal : number ;
+    _globalMesesAplicaExtras : number ;
 
     _analisisCapacidadpago  : MacAnalisisCapacidadPago;
     _personaMacred          : MacPersona = null;
@@ -46,8 +48,10 @@ export class AsociadosComponent implements OnInit {
 
     // ## -- submit formularios -- ## //
     submittedPersonForm : boolean = false;
-    submittedDatosAnalisisHeaderForm : boolean = false;
+    submittedAnalisisForm : boolean = false;
     submittedIngresosForm : boolean = false;
+    submittedExtrasForm : boolean = false;
+    submittedHistorialAnalisisForm : boolean = false;
     // ## -- ------------------ -- ## //
 
     datosAnalisis               : boolean = false;
@@ -86,11 +90,14 @@ export class AsociadosComponent implements OnInit {
     // listas ingresos
     listTiposIngresos: MacTipoIngreso[];
     listIngresosAnalisis : MacIngresosXAnalisis[] ;
+    listExtrasAplicables : MacExtrasAplicables[] ;
+    listHistorialAnalisis : MacAnalisisCapacidadPago[] ;
 
-    formPersona: FormGroup;
-    formAnalisis: FormGroup;
-    formIngresos: FormGroup;
-    formExtras: FormGroup;
+    formPersona             : FormGroup;
+    formAnalisis            : FormGroup;
+    formIngresos            : FormGroup;
+    formExtras              : FormGroup;
+    formHistorialAnalisis   : FormGroup;
 
     public today : Date ;
 
@@ -108,11 +115,12 @@ export class AsociadosComponent implements OnInit {
         this.today = new Date();
     }
 
-    get f() {   return this.formPersona.controls;     }
-    get g() {   return this.formAnalisis.controls;    }
-    get i() {   return this.formIngresos.controls;    }
-    get e() {   return this.formExtras.controls;    }
-
+    get f () {   return this.formPersona.controls;   }
+    get g () {   return this.formAnalisis.controls;  }
+    get i () {   return this.formIngresos.controls;  }
+    get e () {   return this.formExtras.controls;    }
+    get h () {   return this.formHistorialAnalisis.controls;    }
+    
     addListMenu(modItem:Module) : void {
 
         this.listSubMenu.push(modItem);
@@ -304,11 +312,17 @@ export class AsociadosComponent implements OnInit {
             desviacionEstandar          : [null],
             coeficienteVarianza         : [null],
             porcentajeExtrasAplicable   : [null],
+            mesesExtrasAplicables       : [null]
+        });
+        this.formHistorialAnalisis = this.formBuilder.group({
+            codigoAnalisis  : [null]
         });
 
-        this.accountService.validateAccessUser( this.userObservable.id,
+
+
+        this.accountService.validateAccessUser( this.userObservable.id  ,
                                                 this.moduleObservable.id,
-                                                this.nombrePantalla,
+                                                this.nombrePantalla     ,
                                                 this.companiaObservable.id )
             .pipe(first())
             .subscribe(response => {
@@ -317,10 +331,14 @@ export class AsociadosComponent implements OnInit {
                 if(!response.exito)
                     this.router.navigate([this.moduleObservable.indexHTTP]);
 
-                // carga datos analisis
+                // carga datos parámetros generales
                 this.macredService.GetParametroGeneralVal1(this.companiaObservable.id, 'COD_MONEDA_PRINCIPAL', true)
                     .pipe(first())
                     .subscribe(response => { this._globalCodMonedaPrincipal = +response; });
+                this.macredService.GetParametroGeneralVal1(this.companiaObservable.id, 'MESES_APLICABLES_EXTRAS', true)
+                    .pipe(first())
+                    .subscribe(response => { this._globalMesesAplicaExtras = +response; });
+                // carga datos analisis
                 this.macredService.getTiposMonedas(this.companiaObservable.id)
                      .pipe(first())
                      .subscribe(response => { this.listTiposMonedas = response; });
@@ -339,7 +357,6 @@ export class AsociadosComponent implements OnInit {
                 this.macredService.getTiposGenerador(this.companiaObservable.id, false)
                     .pipe(first())
                     .subscribe(response => { this.listTiposGeneradores = response; });
-            
                 // carga datos ingresos
                 this.macredService.getTiposIngresos(this.companiaObservable.id, false)
                     .pipe(first())
@@ -455,7 +472,7 @@ export class AsociadosComponent implements OnInit {
     GuardarAnalisis() : void {
 
         this.alertService.clear();
-        this.submittedDatosAnalisisHeaderForm = true;
+        this.submittedAnalisisForm = true;
 
         if ( this.formAnalisis.invalid )
             return;
@@ -544,7 +561,7 @@ export class AsociadosComponent implements OnInit {
     SubmitNuevoAnalisis() : void {
 
         this.alertService.clear();
-        this.submittedDatosAnalisisHeaderForm = true;
+        this.submittedAnalisisForm = true;
 
         if ( this.formAnalisis.invalid )
             return;
@@ -623,18 +640,55 @@ export class AsociadosComponent implements OnInit {
 
         this.isDeleting = true;
     }
+    deleteExtra(extra : MacExtrasAplicables) : void {
+
+        this.isDeleting = true;
+    }
 
     openExtrasModal() : void {
 
-        // this.add = true;
-        // this.buttomText = 'Registrar';
+        if (!this.listExtrasAplicables)
+            this.listExtrasAplicables = [] ;
 
-        // this.groupForm = this.formBuilder.group({
-        //     descripcionGrupo: ['', Validators.required],
-        //     estado: ['A', Validators.required]
-        // });
+        this.macredService.getExtrasAplicables( this.companiaObservable.id, 
+                                                this._analisisCapacidadpago
+                                                != null 
+                                                ? this._analisisCapacidadpago.codigoAnalisis 
+                                                : 1 )
+            .pipe(first())
+            .subscribe(response => { this.listExtrasAplicables = response; });
 
+        // this.macredService.getExtrasAplicables( this.companiaObservable.id, 
+        //                                         this._analisisCapacidadpago.codigoAnalisis )
+        //     .pipe(first())
+        //     .subscribe(response => { this.listExtrasAplicables = response; });
+            
+        this.formExtras = this.formBuilder.group({
+            montoExtra                  : [null,    Validators.required],
+            desviacionEstandar          : [0,       Validators.required],
+            coeficienteVarianza         : [0,       Validators.required],
+            porcentajeExtrasAplicable   : [0,       Validators.required],
+            mesesExtrasAplicables       : [this._globalMesesAplicaExtras, Validators.required]
+        });
+        
         $('#extrasModal').modal({backdrop: 'static', keyboard: false}, 'show');
+    }
+    openHistorialAnalisisModal() : void {
+
+        // submittedHistorialAnalisisForm
+
+        if (!this.listHistorialAnalisis)
+            this.listHistorialAnalisis = [] ;
+
+        this.macredService.getHistorialAnlisis( this.companiaObservable.id )
+            .pipe(first())
+            .subscribe(response => { this.listHistorialAnalisis = response; });
+            
+        this.formHistorialAnalisis = this.formBuilder.group({
+            codigoAnalisis  : [null,    Validators.required]
+        });
+        
+        $('#analisisModal').modal({backdrop: 'static', keyboard: false}, 'show');
     }
 
     openDeduccionesModal() : void {
@@ -652,5 +706,52 @@ export class AsociadosComponent implements OnInit {
 
     SubmitFormExtras() : void {
 
+        this.alertService.clear();
+        this.submittedExtrasForm = true;
+
+        if ( this.formExtras.invalid )
+            return;
+        
+        var extrasAplicables : MacExtrasAplicables = new MacExtrasAplicables ;
+
+        extrasAplicables.codigoAnalisis = this._analisisCapacidadpago
+                                            != null 
+                                            ? this._analisisCapacidadpago.codigoAnalisis 
+                                            : 1;
+        extrasAplicables.codigoCompania = this.companiaObservable.id;
+
+        var montoExtra                  = this.formExtras.controls['montoExtra'].value;
+        var porcentajeExtrasAplicable   = this.formExtras.controls['porcentajeExtrasAplicable'].value;
+        var desviacionEstandar          = this.formExtras.controls['desviacionEstandar'].value;
+        var coeficienteVarianza         = this.formExtras.controls['coeficienteVarianza'].value;
+
+        extrasAplicables.montoExtras                = montoExtra ;
+
+        extrasAplicables.porcentajeExtrasAplicables = porcentajeExtrasAplicable != null ? porcentajeExtrasAplicable : 0;
+        extrasAplicables.desviacionEstandar         = desviacionEstandar        != null ? desviacionEstandar        : 0;
+        extrasAplicables.coeficienteVarianza        = coeficienteVarianza       != null ? coeficienteVarianza       : 0;
+
+        extrasAplicables.adicionadoPor = this.userObservable.identificacion;
+        extrasAplicables.fechaAdicion = this.today;
+
+        this.macredService.postExtrasAplicables(extrasAplicables)
+            .pipe(first())
+            .subscribe(response => {
+
+                if (response) {
+
+                    this.alertService.success( `sucess.` );
+
+                } else {
+                    let message : string = 'Problemas al registrar el Análisis de Capacidad de Pago.';
+                    this.alertService.error(message);
+                }
+            } ,
+            error => {
+                let message : string = 'Problemas de conexión. Detalle: ' + error;
+                this.alertService.error(message);
+            });
     }
 }
+
+
