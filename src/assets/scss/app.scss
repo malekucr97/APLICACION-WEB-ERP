@@ -13,6 +13,11 @@
         font-size: 1.2rem;
     }
 }
+::ng-deep .cdk-overlay-container {
+
+    z-index:2000;
+
+}
 
 // ## -- >> mensaje de alerta
 .alerta {
