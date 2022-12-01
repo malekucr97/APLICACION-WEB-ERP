@@ -13,6 +13,7 @@ import { MacTipoGenerador } from '@app/_models/Macred/TipoGenerador';
 import { MacAnalisisCapacidadPago } from '@app/_models/Macred/AnalisisCapacidadPago';
 import { MacTipoIngreso } from '@app/_models/Macred/TipoIngreso';
 import { MacIngresosXAnalisis } from '@app/_models/Macred/IngresosXAnalisis';
+import { MacEstadoCivil } from '@app/_models/Macred/MacEstadoCivil';
 
 @Injectable({ providedIn: 'root' })
 export class MacredService {
@@ -22,10 +23,13 @@ export class MacredService {
     getPersonaMacred(identificacionPersona: string, idCompania:number) {
         return this.http.get<MacPersona>(`${environment.apiUrl}/macred/getpersonaidentificacion?identificacionPersona=${identificacionPersona}&idCompania=${idCompania}`);
     }
-    
     getPersonasCompania(idCompania:number) {
         return this.http.get<MacPersona[]>(`${environment.apiUrl}/macred/getpersonascompania?idCompania=${idCompania}`);
     }
+    getEstadosCivilesCompania(idCompania:number) {
+        return this.http.get<MacEstadoCivil[]>(`${environment.apiUrl}/macred/getestadoscivilescompania?idCompania=${idCompania}`);
+    }
+
 
     getTiposIngresoAnalisis(idCompania: number) {
         return this.http.get<MacTipoIngresoAnalisis[]>(`${environment.apiUrl}/macred/gettipoingresoanalisis?idCompania=${idCompania}`);
