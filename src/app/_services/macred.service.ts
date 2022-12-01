@@ -13,6 +13,7 @@ import { MacTipoGenerador } from '@app/_models/Macred/TipoGenerador';
 import { MacAnalisisCapacidadPago } from '@app/_models/Macred/AnalisisCapacidadPago';
 import { MacTipoIngreso } from '@app/_models/Macred/TipoIngreso';
 import { MacIngresosXAnalisis } from '@app/_models/Macred/IngresosXAnalisis';
+
 import { MacEstadoCivil } from '@app/_models/Macred/MacEstadoCivil';
 
 @Injectable({ providedIn: 'root' })
