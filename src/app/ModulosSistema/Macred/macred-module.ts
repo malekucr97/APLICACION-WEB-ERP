@@ -23,6 +23,8 @@ import { MatCheckboxModule } from '@angular/material/checkbox';
 import { MatDialogModule } from '@angular/material/dialog';
 import { PersonasComponent } from './mantenimientos/Personas/personas-component';
 
+import {MatFormFieldModule} from '@angular/material/form-field';
+
 @NgModule({
     imports: [
         CommonModule,
@@ -43,7 +45,9 @@ import { PersonasComponent } from './mantenimientos/Personas/personas-component'
         MatDatepickerModule,
         MatCheckboxModule,
 
-        MatDialogModule
+        MatDialogModule,
+
+        MatFormFieldModule
 
     ],
     declarations: [

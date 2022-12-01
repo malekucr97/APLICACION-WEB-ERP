@@ -88,8 +88,10 @@
         </section>
     </article>
 
-    <article class="bloq">
-        <div *ngIf="datosAnalisis" class="contenedor mat-elevation-z4">
+    <!-- -- -->
+    <article *ngIf="datosAnalisis" class="bloq">
+
+        <div  class="contenedor mat-elevation-z4">
                 
             <section>   <!-- header -->
                 <div class="contenedor__header">
@@ -98,12 +100,10 @@
                         <h2 *ngIf="_analisisCapacidadpago">codigo de análisis: {{_analisisCapacidadpago.codigoAnalisis}}</h2>
                     </div>
                     <div class="contenedor__header__next">
-                        <button *ngIf="habilitaBtnHistoprialIngreso" class="btn btn-dark px-5 " >
-                            Historial
-                        </button>
-                        <button *ngIf="habilitaBtnRegistroDeudor" class="btn btn-dark px-5 " >
-                            Nuevo Deudor
-                        </button>
+                        <button *ngIf="habilitaBtnHistoprialIngreso" (click)="openHistorialAnalisisModal()"   class="btn btn-dark px-5 " >
+                            Historial       </button>
+                        <button *ngIf="habilitaBtnRegistroDeudor"                                   class="btn btn-dark px-5 " >
+                            Nuevo Deudor    </button>
                     </div>
                 </div>
             </section>
@@ -133,7 +133,7 @@
                             <select formControlName="capacidadPago" class="form-control" name="selectCapacidadPago" readonly >
                                     <option [disabled]="true" [ngValue]="objeto" *ngFor="let objeto of listNivelesCapacidadpago">{{objeto.descripcion}}</option>
                             </select>
-                            <div *ngIf="submittedDatosAnalisisHeaderForm && g.capacidadPago.errors" class="invalid-feedback">
+                            <div *ngIf="submittedAnalisisForm && g.capacidadPago.errors" class="invalid-feedback">
                                 <div *ngIf="g.capacidadPago.errors.required">El Nivel de Capacidad de Pago es requerido</div>
                             </div>
                         </div>
@@ -157,20 +157,20 @@
                         <div class="form-group col-md-3">
                             <label for="lblTipoIngresoAnalisis" class="form-label">Tipo de Ingreso de Análisis</label>
                             <select formControlName="tipoIngresoAnalisis" class="form-control" name="selectTipoIngresoAnalisis"
-                                [ngClass]="{ 'is-invalid': submittedDatosAnalisisHeaderForm && g.tipoIngresoAnalisis.errors }" >
+                                [ngClass]="{ 'is-invalid': submittedAnalisisForm && g.tipoIngresoAnalisis.errors }" >
                                     <option [ngValue]="objeto" *ngFor="let objeto of listTipoIngresoAnalisis">{{objeto.id}} - {{objeto.descripcion}}</option>
                             </select>
-                            <div *ngIf="submittedDatosAnalisisHeaderForm && g.tipoIngresoAnalisis.errors" class="invalid-feedback">
+                            <div *ngIf="submittedAnalisisForm && g.tipoIngresoAnalisis.errors" class="invalid-feedback">
                                 <div *ngIf="g.tipoIngresoAnalisis.errors.required">El Tipo de Ingreso es requerido</div>
                             </div>
                         </div>
                         <div class="form-group col-md-3">
                             <label for="tipoFormaPagoAnalisis" class="form-label">Forma de Pago de Análisis</label>
                             <select formControlName="tipoFormaPagoAnalisis" class="form-control" name="tipoFormaPagoAnalisis"
-                                [ngClass]="{ 'is-invalid': submittedDatosAnalisisHeaderForm && g.tipoFormaPagoAnalisis.errors }" >
+                                [ngClass]="{ 'is-invalid': submittedAnalisisForm && g.tipoFormaPagoAnalisis.errors }" >
                                     <option [ngValue]="objeto" *ngFor="let objeto of listTipoFormaPagoAnalisis">{{objeto.id}} - {{objeto.descripcion}}</option>
                             </select>
-                            <div *ngIf="submittedDatosAnalisisHeaderForm && g.tipoFormaPagoAnalisis.errors" class="invalid-feedback">
+                            <div *ngIf="submittedAnalisisForm && g.tipoFormaPagoAnalisis.errors" class="invalid-feedback">
                                 <div *ngIf="g.tipoFormaPagoAnalisis.errors.required">La Forma de Pago es requerida</div>
                             </div>
                         </div>
@@ -178,10 +178,10 @@
                         <div class="form-group col-md-4">
                             <label for="lblModeloAnalisis" class="form-label">Modelo de Análisis</label>
                             <select formControlName="modeloAnalisis" class="form-control" name="selectModeloAnalisis"
-                                [ngClass]="{ 'is-invalid': submittedDatosAnalisisHeaderForm && g.modeloAnalisis.errors }" >
+                                [ngClass]="{ 'is-invalid': submittedAnalisisForm && g.modeloAnalisis.errors }" >
                                     <option [ngValue]="objeto" *ngFor="let objeto of listModelosAnalisis">{{objeto.id}} - {{objeto.descripcion}}</option>
                             </select>
-                            <div *ngIf="submittedDatosAnalisisHeaderForm && g.modeloAnalisis.errors" class="invalid-feedback">
+                            <div *ngIf="submittedAnalisisForm && g.modeloAnalisis.errors" class="invalid-feedback">
                                 <div *ngIf="g.modeloAnalisis.errors.required">El Modelo de Análisis es requerido</div>
                             </div>
                         </div>
@@ -189,10 +189,10 @@
                         <div class="form-group col-md-2">
                             <label for="tipoMoneda" class="form-label">Moneda</label>
                             <select formControlName="tipoMoneda" class="form-control" name="tipoMoneda"
-                                [ngClass]="{ 'is-invalid': submittedDatosAnalisisHeaderForm && g.tipoMoneda.errors }" >
+                                [ngClass]="{ 'is-invalid': submittedAnalisisForm && g.tipoMoneda.errors }" >
                                     <option [ngValue]="objeto" *ngFor="let objeto of listTiposMonedas">{{objeto.simbolo}} {{objeto.descripcion}}</option>
                             </select>
-                            <div *ngIf="submittedDatosAnalisisHeaderForm && g.tipoMoneda.errors" class="invalid-feedback">
+                            <div *ngIf="submittedAnalisisForm && g.tipoMoneda.errors" class="invalid-feedback">
                                 <div *ngIf="g.tipoMoneda.errors.required">La Moneda es requerida</div>
                             </div>
                         </div>
@@ -200,10 +200,10 @@
                         <div class="form-group col-md-3">
                             <label for="lblTipoGenerador" class="form-label">Tipo de Generador</label>
                             <select formControlName="tipoGenerador" class="form-control" name="selectTipoGenerador"
-                                [ngClass]="{ 'is-invalid': submittedDatosAnalisisHeaderForm && g.tipoGenerador.errors }" >
+                                [ngClass]="{ 'is-invalid': submittedAnalisisForm && g.tipoGenerador.errors }" >
                                     <option [ngValue]="objeto" *ngFor="let objeto of listTiposGeneradores">{{objeto.codigoGenerador}} - {{objeto.descripcion}}</option>
                             </select>
-                            <div *ngIf="submittedDatosAnalisisHeaderForm && g.tipoGenerador.errors" class="invalid-feedback">
+                            <div *ngIf="submittedAnalisisForm && g.tipoGenerador.errors" class="invalid-feedback">
                                 <div *ngIf="g.tipoGenerador.errors.required">El Tipo de Generador es requerido</div>
                             </div>
                         </div>
@@ -211,8 +211,8 @@
                         <div class="form-group col-md-3">
                             <label for="lblIndicadorCsd" class="form-label">Indicador CSD</label>
                             <input formControlName="indicadorCsd" class="form-control" type="number" id="id_indicadorcsd"
-                                [ngClass]="{ 'is-invalid': submittedDatosAnalisisHeaderForm && g.indicadorCsd.errors }" />
-                            <div *ngIf="submittedDatosAnalisisHeaderForm && g.indicadorCsd.errors" class="invalid-feedback">
+                                [ngClass]="{ 'is-invalid': submittedAnalisisForm && g.indicadorCsd.errors }" />
+                            <div *ngIf="submittedAnalisisForm && g.indicadorCsd.errors" class="invalid-feedback">
                                 <div *ngIf="g.indicadorCsd.errors.required">El Indicador CSD es requerido</div>
                             </div>
                         </div>
@@ -220,8 +220,8 @@
                         <div class="form-group col-md-4">
                             <label for="lblPonderacionLvt" class="form-label">Ponderación LVT</label>
                             <input formControlName="ponderacionLvt" class="form-control" type="text" id="id_ponderacionLvt"
-                                [ngClass]="{ 'is-invalid': submittedDatosAnalisisHeaderForm && g.ponderacionLvt.errors }" />
-                            <div *ngIf="submittedDatosAnalisisHeaderForm && g.ponderacionLvt.errors" class="invalid-feedback">
+                                [ngClass]="{ 'is-invalid': submittedAnalisisForm && g.ponderacionLvt.errors }" />
+                            <div *ngIf="submittedAnalisisForm && g.ponderacionLvt.errors" class="invalid-feedback">
                                 <div *ngIf="g.ponderacionLvt.errors.required">La ponderación LVT es requerida</div>
                             </div>
                         </div>
@@ -229,8 +229,8 @@
                         <div class="form-group col-md-2">
                             <label for="lblNumeroDependientes" class="form-label">Número de Dependientes</label>
                             <input formControlName="numeroDependientes" class="form-control" type="number" id="id_numeroDependientes"
-                                [ngClass]="{ 'is-invalid': submittedDatosAnalisisHeaderForm && g.numeroDependientes.errors }" />
-                            <div *ngIf="submittedDatosAnalisisHeaderForm && g.numeroDependientes.errors" class="invalid-feedback">
+                                [ngClass]="{ 'is-invalid': submittedAnalisisForm && g.numeroDependientes.errors }" />
+                            <div *ngIf="submittedAnalisisForm && g.numeroDependientes.errors" class="invalid-feedback">
                                 <div *ngIf="g.numeroDependientes.errors.required">El Número de Dependientes es requerido</div>
                             </div>
                         </div>
@@ -264,8 +264,166 @@
                 </div>
             </section>
 
+            <article class="modal modal-config" id="analisisModal">
+                <div class="modal-content">
+
+                    <div class="modal-header ">
+                        <div class="contenedor__header-modal " >
+                            <div class="contenedor__header__prev">
+                                <h1 style="color:#1A5276">Historial de Análisis de Capacida de Pago</h1>
+                            </div>
+                            <div class="contenedor__header__next">
+                                <button style="color:red" type="button" class="close btn-close" data-dismiss="modal">&times;</button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <section>
+                        <form [formGroup]="formHistorialAnalisis" class="row modal-config__formulario" >
+                            <div class="form-group col-md-3">
+                                <label for="lblCodigoAnalisisHistorial" class="form-label">Código de Análisis del Historial</label>
+                                <input formControlName="codigoAnalisisHistorial" class="form-control" type="number" id="id_codigoAnalisisHistorial"
+                                    [ngClass]="{ 'is-invalid': submittedHistorialAnalisisForm && h.codigoAnalisisHistorial.errors }" />
+                                <div *ngIf="submittedHistorialAnalisisForm && h.codigoAnalisisHistorial.errors" class="invalid-feedback">
+                                    <div *ngIf="h.codigoAnalisisHistorial.errors.required">El Código de Análisis del Historial es requerido</div>
+                                </div>
+                            </div>
+                            <div class="col-md-3 margin-icos-mat">
+                                <a class="item-seleccionable"> <mat-icon (click)="SubmitFormExtras()">filter_list</mat-icon> </a>
+                            </div>
+                        </form>
+                    </section>
+                    
+                    <section>    <!-- body -->
+                        <div class="contenedor__body " >
+                            <div *ngIf="listHistorialAnalisis" >
+                                <table  class="table table-striped">
+                                    <thead>
+                                        <tr>
+                                            <th style="width: 10%">Código de Análisis</th>
+                                            <th style="width: 20%">Fecha del Análisis</th>
+                                            <th style="width: 10%">Estado</th>
+                                            <th style="width: 10%">Es Definitivo ?</th>
+                                            <th style="width: 10%">Scoring</th>
+                                            <th style="width: 30%">Puntaje Final Cic</th>
+    
+                                            <th style="width: 10%"></th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr *ngFor="let obj of listHistorialAnalisis">
+            
+                                            <td>{{obj.codigoAnalisis}}</td>
+                                            <td>{{obj.fechaAnalisis}}</td>
+                                            <td>{{obj.estado}}</td>
+                                            <td>{{obj.analisisDefinitivo}}</td>
+                                            <td>{{obj.puntajeAnalisis}}</td>
+                                            <td>{{obj.puntajeFinalCic}}</td>
+            
+                                            <td  style="white-space: nowrap">
+                        
+                                                <!-- <button  class="btn btn-sm btn-outline-danger mr-1" [disabled]="isDeleting">
+                                                    <span *ngIf="isDeleting" class="spinner-border spinner-border-sm"></span>
+                                                    <span *ngIf="!isDeleting">Eliminar</span>
+                                                </button> -->
+
+                                                <div class="">
+                                                    <a class="item-seleccionable" (click)="deleteIngreso(obj)"> <mat-icon>delete_forever</mat-icon> </a>
+                                                </div>
+
+                                                
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+
+                        </div>
+                    </section>
+
+                </div>
+            </article>
+
         </div>
+
+        <!-- <section class="modal modal-config" id="analisisModal">
+            <div class="modal-content">
+    
+                <div class="modal-header ">
+                    <div class="contenedor__header-modal " >
+                        <div class="contenedor__header__prev">
+                            <h1 style="color:#1A5276">Historial de Análisis de Capacida de Pago</h1>
+                        </div>
+                        <div class="contenedor__header__next">
+                            <button style="color:red" type="button" class="close btn-close" data-dismiss="modal">&times;</button>
+                        </div>
+                    </div>
+                </div>
+    
+                <section>
+                    <form [formGroup]="formHistorialAnalisis" class="row formulario-modal-filtro" >
+                        <div class="form-group col-md-3">
+                            <label for="lblCodigoAnalisisHistorial" class="form-label">Código de Análisis del Historial</label>
+                            <input formControlName="codigoAnalisisHistorial" class="form-control" type="number" id="id_codigoAnalisisHistorial"
+                                [ngClass]="{ 'is-invalid': submittedHistorialAnalisisForm && h.codigoAnalisisHistorial.errors }" />
+                            <div *ngIf="submittedHistorialAnalisisForm && h.codigoAnalisisHistorial.errors" class="invalid-feedback">
+                                <div *ngIf="h.codigoAnalisisHistorial.errors.required">El Código de Análisis del Historial es requerido</div>
+                            </div>
+                        </div>
+                        <div class="col-md-3 margin-icos-mat">
+                            <a class="item-seleccionable"> <mat-icon (click)="SubmitFormExtras()">filter_list</mat-icon> </a>
+                        </div>
+                    </form>
+                </section>
+                
+                <section>
+                    <div class="contenedor__body " >
+                        <div *ngIf="listHistorialAnalisis" >
+                            <table  class="table table-striped">
+                                <thead>
+                                    <tr>
+                                        <th style="width: 10%">Código de Análisis</th>
+                                        <th style="width: 10%">Fecha del Análisis</th>
+                                        <th style="width: 10%">Estado</th>
+                                        <th style="width: 10%">Es Definitivo ?</th>
+                                        <th style="width: 10%">Scoring</th>
+                                        <th style="width: 40%">Puntaje Final Cic</th>
+
+                                        <th style="width: 10%"></th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr *ngFor="let obj of listHistorialAnalisis">
+        
+                                        <td>{{obj.codigoAnalisis}}</td>
+                                        <td>{{obj.fechaAnalisis}}</td>
+                                        <td>{{obj.estado}}</td>
+                                        <td>{{obj.analisisDefinitivo}}</td>
+                                        <td>{{obj.puntajeAnalisis}}</td>
+                                        <td>{{obj.puntajeFinalCic}}</td>
+        
+                                        <td  style="white-space: nowrap">
+                    
+                                            <button (click)="deleteIngreso(obj)" class="btn btn-sm btn-outline-danger mr-1" [disabled]="isDeleting">
+                                                <span *ngIf="isDeleting" class="spinner-border spinner-border-sm"></span>
+                                                <span *ngIf="!isDeleting">Eliminar</span>
+                                            </button>
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+    
+                    </div>
+                </section>
+    
+            </div>
+        </section> -->
+
     </article>
+
+    
+
 
 <div class="col-md-12 mt-5" *ngIf="flujoCaja">
     <mat-sidenav-container>
@@ -329,9 +487,8 @@
 </div>
 
 
-<article class="bloq" >
-    <div  class="contenedor mat-elevation-z4">
-    <!-- <div *ngIf="ingresos" class="contenedor mat-elevation-z4"> -->
+<article *ngIf="ingresos" class="bloq" >
+    <div class="contenedor mat-elevation-z4">
             
         <section>   <!-- header -->
             <div class="contenedor__header">
@@ -510,9 +667,7 @@
 
 
         <article class="modal" id="extrasModal">
-
             <div class="contenedor__body">
-                                
                 <div class="modal-content">
 
                     <section>
@@ -521,7 +676,7 @@
                                 <h1 style="color:#1A5276">Registro de Extras Aplicables</h1>
                             </div>
                             <div class="contenedor__header__next">
-                                <button  style="color:red" type="button" class="close btn-close" data-dismiss="modal">&times;</button>
+                                <button style="color:red" type="button" class="close btn-close" data-dismiss="modal">&times;</button>
                             </div>
                         </div>
                     </section>
@@ -534,11 +689,22 @@
                                 <div class="form-group col-md-3">
                                     <label for="lblMontoExtras" class="form-label">Monto de las Extras</label>
                                     <input formControlName="montoExtra" class="form-control" type="number" id="id_montoExtra"
-                                        [ngClass]="{ 'is-invalid': submittedIngresosForm && e.montoExtra.errors }" />
-                                    <div *ngIf="submittedIngresosForm && e.montoExtra.errors" class="invalid-feedback">
+                                        [ngClass]="{ 'is-invalid': submittedExtrasForm && e.montoExtra.errors }" />
+                                    <div *ngIf="submittedExtrasForm && e.montoExtra.errors" class="invalid-feedback">
                                         <div *ngIf="e.montoExtra.errors.required">El Monto de las Extras es requerido</div>
                                     </div>
                                 </div>
+
+                                <div class="form-group col-md-2">
+                                    <label for="lblMesesExtrasAplicables" class="form-label">Meses Aplicables</label>
+                                    <input formControlName="mesesExtrasAplicables" class="form-control" type="number" id="id_mesesExtrasAplicables"
+                                        [ngClass]="{ 'is-invalid': submittedExtrasForm && e.mesesExtrasAplicables.errors }" />
+                                    <div *ngIf="submittedExtrasForm && e.mesesExtrasAplicables.errors" class="invalid-feedback">
+                                        <div *ngIf="e.mesesExtrasAplicables.errors.required">Los Meses Aplicables a las Extras son requeridos.</div>
+                                    </div>
+                                </div>
+                                
+                                <div class="col-md-7"></div>
 
                                 <div class="form-group col-md-3">
                                     <label for="lblPorcentajeExtrasAplicable" class="form-label">Porcentaje de Extras Aplicables</label>
@@ -564,6 +730,47 @@
                         </div>
                     </section>
 
+                    <section *ngIf="listExtrasAplicables" >
+
+                        <div class="card">
+                            <div class="card-body">
+                                
+                                <table class="table table-striped">
+                                    <thead>
+                                        <tr>
+                                            <th style="width: 20%">Monto Extras</th>
+                                            <th style="width: 20%">Desviación Estándar</th>
+                                            <th style="width: 20%">Coeficiente de Varianza</th>
+                                            <th style="width: 20%">Porcentaje de Extras Aplicables</th>
+                                            <th style="width: 20%"></th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr *ngFor="let obj of listExtrasAplicables">
+            
+                                            <td>{{obj.montoExtras}}</td>
+                                            <td>{{obj.desviacionEstandar}}</td>
+                                            <td>{{obj.coeficienteVarianza}}</td>
+                                            <td>{{obj.porcentajeExtrasAplicables}}</td>
+            
+                                            <td  style="white-space: nowrap">
+                        
+                                                <a class="btn btn-sm btn-outline-dark mr-1">
+                                                    Opción 1 </a>
+                        
+                                                <button (click)="deleteIngreso(obj)" class="btn btn-sm btn-outline-danger mr-1" [disabled]="isDeleting">
+                                                    <span *ngIf="isDeleting" class="spinner-border spinner-border-sm"></span>
+                                                    <span *ngIf="!isDeleting">Eliminar</span>
+                                                </button>
+                        
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                        
+                            </div>
+                        </div>
+                    </section>
 
                     <section>   <!-- footer -->
                         <div class="contenedor__footer">

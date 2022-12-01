@@ -13,6 +13,7 @@ import { MacTipoGenerador } from '@app/_models/Macred/TipoGenerador';
 import { MacAnalisisCapacidadPago } from '@app/_models/Macred/AnalisisCapacidadPago';
 import { MacTipoIngreso } from '@app/_models/Macred/TipoIngreso';
 import { MacIngresosXAnalisis } from '@app/_models/Macred/IngresosXAnalisis';
+import { MacExtrasAplicables } from '@app/_models/Macred/ExtrasAplicables';
 
 @Injectable({ providedIn: 'root' })
 export class MacredService {
@@ -58,5 +59,14 @@ export class MacredService {
     }
     getIngresosAnalisis(idCompania: number, codigoAnalisis:number) {
         return this.http.get<MacIngresosXAnalisis[]>(`${environment.apiUrl}/macred/getingresosanalisis?idCompania=${idCompania}&codigoAnalisis=${codigoAnalisis}`);
+    }
+    getExtrasAplicables(idCompania: number, codigoAnalisis:number) {
+        return this.http.get<MacExtrasAplicables[]>(`${environment.apiUrl}/macred/getextrasaplicanles?idCompania=${idCompania}&codigoAnalisis=${codigoAnalisis}`);
+    }
+    postExtrasAplicables(extras:MacExtrasAplicables) {
+        return this.http.post<MacExtrasAplicables>(`${environment.apiUrl}/macred/createextrasaplicables`, extras);
+    }
+    getHistorialAnlisis(idCompania: number) {
+        return this.http.get<MacAnalisisCapacidadPago[]>(`${environment.apiUrl}/macred/gethistorialcapacidadpago?idCompania=${idCompania}`);
     }
 }

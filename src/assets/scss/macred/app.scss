@@ -3,7 +3,7 @@
 @mixin bg-color-darkest-blue { background-color: #053254; }
 @mixin bg-color-blue { background-color: #005188; }
 @mixin bg-color-skyblue { background-color: #00AEEF; }
-@mixin bg-color-light-gray { background-color: #B3B3B3; }
+@mixin bg-color-light-gray { background-color: #B3B3B3; } 
 
 .margin-icos-mat {
     margin: 30px 0 25px 0;
@@ -56,4 +56,10 @@
             }
         }
     }
+}
+
+
+
+.formulario-modal-filtro {
+    
 }
