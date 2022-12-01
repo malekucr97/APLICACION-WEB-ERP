@@ -18,6 +18,7 @@ import { MacTipoGenerador } from '@app/_models/Macred/TipoGenerador';
 import { THIS_EXPR } from '@angular/compiler/src/output/output_ast';
 import { MatDialog } from '@angular/material/dialog';
 import { DialogoConfirmacionComponent } from '@app/_components/dialogo-confirmacion/dialogo-confirmacion.component';
+import { MacEstadoCivil } from '@app/_models/Macred/MacEstadoCivil';
 
 declare var $: any;
 
@@ -53,17 +54,21 @@ export class PersonasComponent implements OnInit {
 
     listScreenAccessUser: ScreenAccessUser[];
 
-    listTipoIngresoAnalisis: MacTipoIngresoAnalisis[];
-    listTipoFormaPagoAnalisis: MacTipoFormaPagoAnalisis[];
-    listTiposMonedas: MacTiposMoneda[];
-    listModelosAnalisis: MacModeloAnalisis[];
-    listNivelesCapacidadpago: MacNivelCapacidadPago[];
-    listTiposGeneradores: MacTipoGenerador[];
-
+    
+    // Personas
     formPersona: FormGroup;
     formPersonaList: FormGroup;
     listPersonas: MacPersona[];
     showList : boolean = false;
+
+    // Estados Civiles
+    formEstadoCivil: FormGroup;
+    formEstadoCivilList: FormGroup;
+    listEstadosCiviles: MacEstadoCivil[];
+
+
+
+    listIngresosAnalisis : MacEstadoCivil[];
 
     submitted : boolean = false;
     update : boolean = false;
@@ -100,7 +105,14 @@ export class PersonasComponent implements OnInit {
             primerApellido  : [null],
             segundoApellido : [null],
             identificacion  : [null, Validators.required],
-            codigoCliente   : [null]
+            codigoCliente   : [null],
+            fechaNacimiento : [null],
+            estadoCivil     : [null]
+        });
+        this.formEstadoCivil = this.formBuilder.group({
+            id                  : [null],
+            codigoEstadoCivil   : [null],
+            descripcion         : [null]
         });
         
         this.accountService.validateAccessUser( this.userObservable.id,
@@ -118,35 +130,13 @@ export class PersonasComponent implements OnInit {
                     .pipe(first())
                     .subscribe(response => { this._globalCodMonedaPrincipal = +response; });
 
-                this.macredService.getTiposMonedas(this.companiaObservable.id)
-                     .pipe(first())
-                     .subscribe(response => { this.listTiposMonedas = response; });
-
-                 this.macredService.getTiposFormaPagoAnalisis(this.companiaObservable.id)
-                     .pipe(first())
-                     .subscribe(response => { this.listTipoFormaPagoAnalisis = response; });
-
-                 this.macredService.getTiposIngresoAnalisis(this.companiaObservable.id)
-                     .pipe(first())
-                     .subscribe(response => { this.listTipoIngresoAnalisis = response; });
-
-                this.macredService.getModelosAnalisis(this.companiaObservable.id, false)
-                    .pipe(first())
-                    .subscribe(response => { this.listModelosAnalisis = response; });
-
-                this.macredService.getNivelesCapacidadPago(this.companiaObservable.id, false)
-                    .pipe(first())
-                    .subscribe(response => { this.listNivelesCapacidadpago = response; });
-
-                this.macredService.getTiposGenerador(this.companiaObservable.id, false)
-                    .pipe(first())
-                    .subscribe(response => { this.listTiposGeneradores = response; });
             });
 
             this.consultaPersonasCompania();
     }
 
     get f() { return this.formPersona.controls; }
+    get e() { return this.formEstadoCivil.controls; }
 
     cargaInformacionPersona() : void {
 
@@ -167,11 +157,13 @@ export class PersonasComponent implements OnInit {
                     this._personaMacred = response;
 
                     this.formPersona = this.formBuilder.group({
-                        id              : [this._personaMacred.id,               Validators.required],
-                        nombre          : [this._personaMacred.nombre,           Validators.required],
-                        primerApellido  : [this._personaMacred.primerApellido,   Validators.required],
-                        segundoApellido : [this._personaMacred.segundoApellido,  Validators.required],
-                        identificacion  : [this._personaMacred.identificacion,   Validators.required]
+                        id              : [this._personaMacred.id,              Validators.required],
+                        nombre          : [this._personaMacred.nombre,          Validators.required],
+                        primerApellido  : [this._personaMacred.primerApellido,  Validators.required],
+                        segundoApellido : [this._personaMacred.segundoApellido, Validators.required],
+                        identificacion  : [this._personaMacred.identificacion,  Validators.required],
+                        fechaNacimiento : [this._personaMacred.fechaNacimiento, Validators.required],
+                        estadoCivil     : [this._personaMacred.codigoEstadoCivil, Validators.required]
                     });
 
                     this.showList = true;
@@ -192,7 +184,9 @@ export class PersonasComponent implements OnInit {
             primerApellido  : [''],
             segundoApellido : [''],
             identificacion  : [''],
-            codigoCliente   : ['']
+            codigoCliente   : [''],
+            fechaNacimiento : [''],
+            estadoCivil     : ['']
         });
 
         this.macredService.getPersonasCompania(this.userObservable.empresa)
@@ -210,6 +204,28 @@ export class PersonasComponent implements OnInit {
         });
     }
 
+    consultaEstadosCivilesCompania() : void {
+        this.formEstadoCivilList = this.formBuilder.group({
+            id                  : [''],
+            codigoEstadoCivil   : [''],
+            Descripcion         : ['']
+        });
+
+        this.macredService.getEstadosCivilesCompania(this.userObservable.empresa)
+        .pipe(first())
+        .subscribe(estadoCivilResponse => {
+
+            if (estadoCivilResponse.length > 0) {
+                this.showList = true;
+                this.listEstadosCiviles = estadoCivilResponse;
+            }
+        },
+        error => {
+            let message : string = 'Problemas al consultar los estados civiles. ' + error;
+            this.alertService.error(message); 
+        });
+    }
+
     onEdit(persona:MacPersona) : void {
 
         this.update = true;
@@ -219,8 +235,24 @@ export class PersonasComponent implements OnInit {
             nombre: [persona.nombre, Validators.required],
             primerApellido: [persona.primerApellido, Validators.required],
             segundoApellido: [persona.segundoApellido, Validators.required],
+            fechaNacimiento: [persona.fechaNacimiento, Validators.required]
             //segundoApellido: [persona.segundoApellido, Validators.required]
         });
+
+        this.consultaEstadosCivilesCompania();
+
+        $('#personaModal').modal({backdrop: 'static', keyboard: false}, 'show');
+    }
+
+    openPersonaModal() : void {
+
+        // this.add = true;
+        // this.buttomText = 'Registrar';
+
+        // this.groupForm = this.formBuilder.group({
+        //     descripcionGrupo: ['', Validators.required],
+        //     estado: ['A', Validators.required]
+        // });
 
         $('#personaModal').modal({backdrop: 'static', keyboard: false}, 'show');
     }
