@@ -13,7 +13,6 @@
         font-size: 1.2rem;
     }
 }
-
 // ## -- >> mensaje de alerta
 .alerta {
     width: 100%;
@@ -141,6 +140,27 @@
 .contenedor {
     margin: 1% 1% 1% 1%;
     border-radius: 10px;
+    
+    &__header-modal {
+        width: 100%;
+    }
+    &__footer-modal {
+        width: 100%;
+
+        &__prev {
+            width: 50%;
+            padding: 0 0 0 2%;
+            display: inline-block;
+            text-align: left;
+        }
+        &__next {
+            width: 50%;
+            padding: 0 2% 0 0;
+            display: inline-block;
+            text-align: right;
+        }
+    }
+
     &__header {
         border-bottom: 1px solid rgb(202, 202, 202);
         &__prev {
@@ -173,5 +193,17 @@
     }
     &__body {
         padding: 0.5% 2% 0.5% 2%;
+    }
+}
+
+.modal-config {
+    width: 85%;
+    height: 85%;
+
+    margin: 3% 5% 15% 6%;
+    padding: 0 0.5% 0 1%;
+
+    &__formulario{
+        margin: 0.5% 0 0 1%;
     }
 }
