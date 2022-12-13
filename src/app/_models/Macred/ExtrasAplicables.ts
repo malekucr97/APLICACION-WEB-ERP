@@ -8,6 +8,7 @@ export class MacExtrasAplicables {
     desviacionEstandar: number;
     coeficienteVarianza: number;
     porcentajeExtrasAplicables: number;
+    promedioExtrasAplicables: number;
 
     adicionadoPor: string;
     fechaAdicion: Date;

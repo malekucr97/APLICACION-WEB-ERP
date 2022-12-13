@@ -14,9 +14,7 @@
     }
 }
 ::ng-deep .cdk-overlay-container {
-
     z-index:2000;
-
 }
 // ## -- >> mensaje de alerta
 .alerta {
@@ -208,11 +206,7 @@
     margin: 3% 5% 15% 6%;
     padding: 0 0.5% 0 1%;
 
-    &__formulario-header{
+    &__formulario-header {
         margin: 0.5% 0 0 1%;
-    }
-    &__formulario-body {
-        // border-top: 1px solid rgb(202, 202, 202);
-        // margin: 0.5% 0 0 1%;
     }
 }

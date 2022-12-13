@@ -1,8 +1,31 @@
 export class MacAnalisisCapacidadPago {
 
-    codigoAnalisis : number;
+    codigoCompania       :number;
 
-    codModeloAnalisis : number;
+    codigoPersona        : number;
+    fechaAnalisis        : Date;
+    estado               : boolean;
+    analisisDefinitivo   : boolean;
+    codigoNivelCapPago   : number;
+    puntajeAnalisis      : number;
+    calificacionCic      : string;
+    puntajeFinalCic      : number;
+    codigoTipoIngresoAnalisis   : number;
+    codigoTipoFormaPagoAnalisis : number;
+    codigoModeloAnalisis        : number;
+    codigoMoneda            : number;
+    codigoTipoGenerador     : number;
+    indicadorCsd            : number;
+    descPondLvt             : string;
+    numeroDependientes      : number;
+    observaciones           : string;
+    ancapCapacidadPago      : number;
+    ancapCalificacionFinal  : number;
+    ancapPuntajeFinal       : number;
+    adicionadoPor           : string;
+    fechaAdicion            : Date
+
+    codigoAnalisis : number;
     codModeloSc : number;
     
     tipoIngreso : string;
@@ -10,29 +33,4 @@ export class MacAnalisisCapacidadPago {
     
     modificadoPor : string;
     fechaModificacion : Date
-
-    constructor(    public codigoCompania       :number,
-                    public codigoPersona        : number,
-                    public fechaAnalisis        : Date,
-                    public estado               : boolean,
-                    public analisisDefinitivo   : boolean,
-                    public codigoNivelCapPago   : number,
-                    public puntajeAnalisis      : number,
-                    public calificacionCic      : string,
-                    public puntajeFinalCic      : number,
-                    public codigoTipoIngresoAnalisis   : number,
-                    public codigoTipoFormaPagoAnalisis : number,
-                    public codigoModeloAnalisis        : number,
-                    public codigoMoneda            : number,
-                    public codigoTipoGenerador     : number,
-                    public indicadorCsd            : number,
-                    public descPondLvt             : string,
-                    public numeroDependientes      : number,
-                    public observaciones           : string,
-                    public ancapCapacidadPago      : number,
-                    public ancapCalificacionFinal  : number,
-                    public ancapPuntajeFinal       : number,
-                    public adicionadoPor           : string,
-                    public fechaAdicion            : Date
-    ) { }
 }

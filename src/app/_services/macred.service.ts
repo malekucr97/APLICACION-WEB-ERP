@@ -16,6 +16,9 @@ import { MacIngresosXAnalisis } from '@app/_models/Macred/IngresosXAnalisis';
 import { MacExtrasAplicables } from '@app/_models/Macred/ExtrasAplicables';
 
 import { MacEstadoCivil } from '@app/_models/Macred/MacEstadoCivil';
+import { MacMatrizAceptacionIngreso } from '@app/_models/Macred/MatrizAceptacionIngreso';
+import { MacTipoDeducciones } from '@app/_models/Macred/TipoDeduccion';
+import { MacDeduccionesAnalisis } from '@app/_models/Macred/DeduccionAnalisis';
 
 @Injectable({ providedIn: 'root' })
 export class MacredService {
@@ -78,5 +81,23 @@ export class MacredService {
     }
     getHistorialAnlisis(idCompania: number) {
         return this.http.get<MacAnalisisCapacidadPago[]>(`${environment.apiUrl}/macred/gethistorialcapacidadpago?idCompania=${idCompania}`);
+    }
+    getMatrizAceptacionIngreso(idCompania: number, incluyeInactivos:boolean) {
+        return this.http.get<MacMatrizAceptacionIngreso[]>(`${environment.apiUrl}/macred/getmatrizaceptacioningreso?idCompania=${idCompania}&incluyeInactivos=${incluyeInactivos}`);
+    }
+    getExtrasAnalisis(idCompania: number, codigoAnalisis:number) {
+        return this.http.get<MacExtrasAplicables>(`${environment.apiUrl}/macred/getextrasanalisis?idCompania=${idCompania}&codigoAnalisis=${codigoAnalisis}`);
+    }
+    deleteExtrasAplicables(idExtras : number) {
+        return this.http.delete<ResponseMessage>(`${environment.apiUrl}/macred/eliminarextrasaplicables?idExtras=${idExtras}`);
+    }
+    getTiposDeducciones(idCompania: number, incluyeInactivos:boolean) {
+        return this.http.get<MacTipoDeducciones[]>(`${environment.apiUrl}/macred/gettiposdeducciones?idCompania=${idCompania}&incluyeInactivos=${incluyeInactivos}`);
+    }
+    postDeduccionesAnalisis(deduccion:MacDeduccionesAnalisis) {
+        return this.http.post<MacDeduccionesAnalisis>(`${environment.apiUrl}/macred/creatededuccionesanalisis`, deduccion);
+    }
+    getDeduccionesAnalisis(idCompania: number, codigoAnalisis:number) {
+        return this.http.get<MacDeduccionesAnalisis[]>(`${environment.apiUrl}/macred/getdeduccionesanalisis?idCompania=${idCompania}&codigoAnalisis=${codigoAnalisis}`);
     }
 }
