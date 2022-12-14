@@ -85,11 +85,11 @@ export class MacredService {
     getMatrizAceptacionIngreso(idCompania: number, incluyeInactivos:boolean) {
         return this.http.get<MacMatrizAceptacionIngreso[]>(`${environment.apiUrl}/macred/getmatrizaceptacioningreso?idCompania=${idCompania}&incluyeInactivos=${incluyeInactivos}`);
     }
-    getExtrasAnalisis(idCompania: number, codigoAnalisis:number) {
-        return this.http.get<MacExtrasAplicables>(`${environment.apiUrl}/macred/getextrasanalisis?idCompania=${idCompania}&codigoAnalisis=${codigoAnalisis}`);
+    getExtrasAnalisisIngreso(idCompania: number, codigoAnalisis:number, idIngreso:number) {
+        return this.http.get<MacExtrasAplicables>(`${environment.apiUrl}/macred/getextrasanalisisingreso?idCompania=${idCompania}&codigoAnalisis=${codigoAnalisis}&idIngreso=${idIngreso}`);
     }
-    deleteExtrasAplicables(idExtras : number) {
-        return this.http.delete<ResponseMessage>(`${environment.apiUrl}/macred/eliminarextrasaplicables?idExtras=${idExtras}`);
+    deleteExtrasAplicables(idExtras : number, idIngreso : number, idCompania : number) {
+        return this.http.delete<ResponseMessage>(`${environment.apiUrl}/macred/eliminarextrasaplicables?idExtras=${idExtras}&idIngreso=${idIngreso}&idCompania=${idCompania}`);
     }
     getTiposDeducciones(idCompania: number, incluyeInactivos:boolean) {
         return this.http.get<MacTipoDeducciones[]>(`${environment.apiUrl}/macred/gettiposdeducciones?idCompania=${idCompania}&incluyeInactivos=${incluyeInactivos}`);
@@ -97,7 +97,13 @@ export class MacredService {
     postDeduccionesAnalisis(deduccion:MacDeduccionesAnalisis) {
         return this.http.post<MacDeduccionesAnalisis>(`${environment.apiUrl}/macred/creatededuccionesanalisis`, deduccion);
     }
-    getDeduccionesAnalisis(idCompania: number, codigoAnalisis:number) {
-        return this.http.get<MacDeduccionesAnalisis[]>(`${environment.apiUrl}/macred/getdeduccionesanalisis?idCompania=${idCompania}&codigoAnalisis=${codigoAnalisis}`);
+    getDeduccionesAnalisis(idCompania: number, codigoAnalisis:number, idIngreso:number) {
+        return this.http.get<MacDeduccionesAnalisis[]>(`${environment.apiUrl}/macred/getdeduccionesanalisis?idCompania=${idCompania}&codigoAnalisis=${codigoAnalisis}&idIngreso=${idIngreso}`);
+    }
+    postIngresosAnalisis(ingresoAnalisis:MacIngresosXAnalisis) {
+        return this.http.post<MacIngresosXAnalisis>(`${environment.apiUrl}/macred/createingresosanalisis`, ingresoAnalisis);
+    }
+    putIngresosAnalisis(ingresoAnalisis:MacIngresosXAnalisis) {
+        return this.http.put<ResponseMessage>(`${environment.apiUrl}/macred/updateingresosanalisis`, ingresoAnalisis);
     }
 }

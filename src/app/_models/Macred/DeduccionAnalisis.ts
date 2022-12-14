@@ -2,6 +2,7 @@ export class MacDeduccionesAnalisis {
     id: number;
     codigoAnalisis: number;
     codigoCompania: number;
+    codigoIngreso: number;
 
     codigoTipoDeduccion: number;
     codigoMoneda: number;

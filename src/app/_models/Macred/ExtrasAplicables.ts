@@ -3,6 +3,7 @@ export class MacExtrasAplicables {
     id: number;
     codigoCompania: number;
     codigoAnalisis: number;
+    codigoIngreso: number;
     
     montoExtras: number;
     desviacionEstandar: number;
