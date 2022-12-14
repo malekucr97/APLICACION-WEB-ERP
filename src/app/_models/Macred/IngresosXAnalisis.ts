@@ -2,9 +2,9 @@ export class MacIngresosXAnalisis {
 
     id: number;
     codigoCompania: number;
-    
     codigoTipoIngreso: number;
     codigoAnalisis: number;
+    
     codigoTipoMoneda: number;
 
     montoBruto: number;
