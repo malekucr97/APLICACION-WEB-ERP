@@ -16,6 +16,12 @@ import { MacIngresosXAnalisis } from '@app/_models/Macred/IngresosXAnalisis';
 import { MacExtrasAplicables } from '@app/_models/Macred/ExtrasAplicables';
 
 import { MacEstadoCivil } from '@app/_models/Macred/MacEstadoCivil';
+import { MacTipoPersona } from '@app/_models/Macred/TipoPersona';
+import { MacTipoGenero } from '@app/_models/Macred/TipoGenero';
+import { MacCondicionLaboral } from '@app/_models/Macred/CondicionLaboral';
+import { MacCategoriaCredito } from '@app/_models/Macred/CategoriaCredito';
+import { MacTipoAsociado } from '@app/_models/Macred/TipoAsociado';
+import { MacTipoHabitacion } from '@app/_models/Macred/TipoHabitacion';
 
 @Injectable({ providedIn: 'root' })
 export class MacredService {
@@ -28,9 +34,40 @@ export class MacredService {
     getPersonasCompania(idCompania:number) {
         return this.http.get<MacPersona[]>(`${environment.apiUrl}/macred/getpersonascompania?idCompania=${idCompania}`);
     }
+    postPersona(persona:MacPersona) {
+        return this.http.post<MacPersona>(`${environment.apiUrl}/macred/createpersona`, persona);
+    }
+    putPersona(persona:MacPersona) {
+        return this.http.put<MacPersona>(`${environment.apiUrl}/macred/updatepersona`, persona);
+    }
+    deletePersona(idPersona:number) {
+        return this.http.delete<MacPersona>(`${environment.apiUrl}/macred/deletepersona?idPersona=${idPersona}`);
+    }
     getEstadosCivilesCompania(idCompania:number) {
         return this.http.get<MacEstadoCivil[]>(`${environment.apiUrl}/macred/getestadoscivilescompania?idCompania=${idCompania}`);
     }
+    putEstadoCivil(estadoCivil:MacEstadoCivil) {
+        return this.http.put<MacEstadoCivil>(`${environment.apiUrl}/macred/updateestadocivil`, estadoCivil);
+    }
+    getTiposPersonasCompania(idCompania:number) {
+        return this.http.get<MacTipoPersona[]>(`${environment.apiUrl}/macred/gettipospersonascompania?idCompania=${idCompania}`);
+    }
+    getTiposGenerosCompania(idCompania:number) {
+        return this.http.get<MacTipoGenero[]>(`${environment.apiUrl}/macred/gettiposgeneroscompania?idCompania=${idCompania}`);
+    }
+    getCondicionesLaboralesCompania(idCompania:number) {
+        return this.http.get<MacCondicionLaboral[]>(`${environment.apiUrl}/macred/getcondicioneslaboralescompania?idCompania=${idCompania}`);
+    }
+    getCategoriasCreditosCompania(idCompania:number) {
+        return this.http.get<MacCategoriaCredito[]>(`${environment.apiUrl}/macred/getcategoriascreditoscompania?idCompania=${idCompania}`);
+    }
+    getTiposAsociadosCompania(idCompania:number) {
+        return this.http.get<MacTipoAsociado[]>(`${environment.apiUrl}/macred/gettiposasociadoscompania?idCompania=${idCompania}`);
+    }
+    getTiposHabitacionesCompania(idCompania:number) {
+        return this.http.get<MacTipoHabitacion[]>(`${environment.apiUrl}/macred/gettiposhabitacionescompania?idCompania=${idCompania}`);
+    }
+
 
 
     getTiposIngresoAnalisis(idCompania: number) {

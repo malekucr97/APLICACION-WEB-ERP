@@ -25,55 +25,33 @@ import { MacCondicionLaboral } from '@app/_models/Macred/CondicionLaboral';
 import { MacCategoriaCredito } from '@app/_models/Macred/CategoriaCredito';
 import { MacTipoAsociado } from '@app/_models/Macred/TipoAsociado';
 import { MacTipoHabitacion } from '@app/_models/Macred/TipoHabitacion';
+import { valHooks } from 'jquery';
 
 declare var $: any;
 
 @Component({
-    templateUrl: 'HTML_Personas.html',
+    templateUrl: 'HTML_EstadosCiviles.html',
     styleUrls: ['../../../../../assets/scss/app.scss',
                 '../../../../../assets/scss/macred/app.scss'],
 })
-export class PersonasComponent implements OnInit {
+export class EstadosCivilesComponent implements OnInit {
     @ViewChild(MatSidenav) sidenav !: MatSidenav;
 
-    nombrePantalla : string = 'DatosPersonas.html';
+    nombrePantalla : string = 'EstadosCiviles.html';
 
-    _globalCodMonedaPrincipal : number ;
-    _personaMacred : MacPersona;
-
+    _estadoCivilMacred : MacEstadoCivil;
 
     userObservable: User;
     moduleObservable: Module;
     companiaObservable: Compania;
 
-    submittedPersonForm : boolean = false;
+    submittedEstadoCivilForm : boolean = false;
     
-    // Personas
-    formPersona: FormGroup;
-    formPersonaList: FormGroup;
-    listPersonas: MacPersona[];
-    showList : boolean = false;
-
     // Estados Civiles
+    formEstadoCivil: FormGroup;
+    formEstadoCivilList: FormGroup;
     listEstadosCiviles: MacEstadoCivil[];
-
-    // Tipo Persona
-    listTiposPersonas: MacTipoPersona[];
-
-    // Tipo Genero
-    listTiposGeneros: MacTipoGenero[];
-
-    // Condicion Laboral
-    listCondicionesLaborales: MacCondicionLaboral[];
-
-    // Categoria Credito
-    listCategoriasCreditos: MacCategoriaCredito[];
-
-    // Tipo Asociado
-    listTiposAsociados: MacTipoAsociado[];
-
-    // Tipo Habitacion
-    listTiposHabitaciones: MacTipoHabitacion[];
+    showList : boolean = false;
 
     submitted : boolean = false;
     update : boolean = false;
@@ -83,8 +61,6 @@ export class PersonasComponent implements OnInit {
     buttomText : string = '';
 
     public today = new Date();
-
-    tipoActualizacion : string; // P - Persona, C - Info Credito, N - Nuevo registro
 
     constructor (private formBuilder: FormBuilder,
                  private macredService: MacredService,
@@ -100,39 +76,12 @@ export class PersonasComponent implements OnInit {
 
     ngOnInit() {
 
-        this.formPersona = this.formBuilder.group({
-            id              : [null],
-            nombre          : [null],
-            primerApellido  : [null],
-            segundoApellido : [null],
-            identificacion  : [null, Validators.required],
-            codigoCliente   : [null],
-            fechaNacimiento : [null],
-            estadoCivil     : [null],
-            codigoTipoPersona : [null],
-            codigoGenero : [null],
-            codigoCondicionLaboral : [null],
-            cantidadHijos: [null],
-            estado : [null],
-            indAsociado : [null],
-
-            // Información Crediticia
-            cantidadFianzas : [null],
-            tiempoAfiliacion : [null],
-            cantidadCreditosHistorico : [null],
-            totalSaldoFianzas : [null],
-            totalCuotasFianzas : [null],
-            cPH : [null],
-            cPHUltimos12Meses : [null],
-            cPHUltimos24Meses : [null],
-            atrasoMaximo : [null],
-            atrasosUltimos12Meses : [null],
-            atrasosUltimos24Meses : [null],
-            diasAtrasoCorte : [null],
-
-            codigoCategoriaCredito : [null],
-            codigoTipoAsociado : [null],
-            codigoTipoHabitacion : [null]
+        this.formEstadoCivil = this.formBuilder.group({
+            id                  : [null],
+            codigoEstadoCivil   : [null],
+            codigoCompania      : [null],
+            descripcion         : [null],
+            estado              : [null]
 
         });
         
@@ -147,25 +96,21 @@ export class PersonasComponent implements OnInit {
                 if(!response.exito)
                     this.router.navigate([this.moduleObservable.indexHTTP]);
 
-                this.macredService.GetParametroGeneralVal1(this.companiaObservable.id, 'COD_MONEDA_PRINCIPAL', true)
-                    .pipe(first())
-                    .subscribe(response => { this._globalCodMonedaPrincipal = +response; });
-
             });
 
-            this.consultaPersonasCompania();
+            this.consultaEstadosCivilesCompania();
     }
 
-    get f() { return this.formPersona.controls; }
+    get f() { return this.formEstadoCivil.controls; }
 
-    cargaInformacionPersona() : void {
+    /*cargaInformacionEstadoCivil() : void {
 
-        this.submittedPersonForm = true;
+        this.submittedEstadoCivilForm = true;
 
-        if (this.formPersona.invalid)
+        if (this.formEstadoCivil.invalid)
             return;
 
-        let persona = new MacPersona();
+        let estadoCivil = new MacEstadoCivil();
         persona.identificacion = this.formPersona.controls['identificacion'].value;
 
         this.macredService.getPersonaMacred(persona.identificacion, this.companiaObservable.id)
@@ -219,60 +164,16 @@ export class PersonasComponent implements OnInit {
                 let message : string = 'Problemas al consultar la persona. Detalle: ' + error;
                 this.alertService.error(message);
             });
-    }
-
-    consultaPersonasCompania() : void {
-        this.formPersonaList = this.formBuilder.group({
-            id              : [''],
-            nombre          : [''],
-            primerApellido  : [''],
-            segundoApellido : [''],
-            identificacion  : [''],
-            codigoCliente   : [''],
-            fechaNacimiento : [''],
-            estadoCivil     : [''],
-            codigoTipoPersona : [''],
-            codigoGenero : [''],
-            cantidadHijos : [''],
-            codigoCondicionLaboral : [''],
-            estado : [''],
-            indAsociado : [''],
-
-            // Información Crediticia
-            cantidadFianzas : [''],
-            tiempoAfiliacion : [''],
-            cantidadCreditosHistorico : [''],
-            totalSaldoFianzas : [''],
-            totalCuotasFianzas : [''],
-            cPH : [''],
-            cPHUltimos12Meses : [''],
-            cPHUltimos24Meses : [''],
-            atrasoMaximo : [''],
-            atrasosUltimos12Meses : [''],
-            atrasosUltimos24Meses : [''],
-            diasAtrasoCorte : [''],
-
-            codigoCategoriaCredito : [''],
-            codigoTipoAsociado : [''],
-            codigoTipoHabitacion : ['']
-        });
-
-        this.macredService.getPersonasCompania(this.userObservable.empresa)
-        .pipe(first())
-        .subscribe(personaResponse => {
-
-            if (personaResponse.length > 0) {
-                this.showList = true;
-                this.listPersonas = personaResponse;
-            }
-        },
-        error => {
-            let message : string = 'Problemas al consultar las personas. ' + error;
-            this.alertService.error(message); 
-        });
-    }
+    }*/
 
     consultaEstadosCivilesCompania() : void {
+        this.formEstadoCivilList = this.formBuilder.group({
+            id                  : [''],
+            codigoEstadoCivil   : [null],
+            codigoCompania      : [null],
+            descripcion         : [null],
+            estado              : [null]
+        });
 
         this.macredService.getEstadosCivilesCompania(this.userObservable.empresa)
         .pipe(first())
@@ -289,109 +190,83 @@ export class PersonasComponent implements OnInit {
         });
     }
 
-    consultaTiposPersonasCompania() : void {
+    editEstadoCivil(estadoCivil:MacEstadoCivil) : void {
 
-        this.macredService.getTiposPersonasCompania(this.userObservable.empresa)
-        .pipe(first())
-        .subscribe(tipoPersonaResponse => {
-
-            if (tipoPersonaResponse.length > 0) {
-                this.showList = true;
-                this.listTiposPersonas = tipoPersonaResponse;
-            }
-        },
-        error => {
-            let message : string = 'Problemas al consultar los tipos de personas. ' + error;
-            this.alertService.error(message); 
+        this.update = true;
+        this.buttomText = 'Actualizar';
+        
+        this._estadoCivilMacred = estadoCivil;
+        
+        this.formEstadoCivil = this.formBuilder.group({
+            id: [estadoCivil.id,Validators.required],
+            codigoEstadoCivil : [estadoCivil.codigoEstadoCivil,Validators.required],
+            descripcion : [estadoCivil.descripcion,Validators.required],
+            estado : [estadoCivil.estado,Validators.required]
         });
+
+        $('#estadoCivilModal').modal({backdrop: 'static', keyboard: false}, 'show');
     }
 
-    consultaTiposGenerosCompania() : void {
+    guardarEstadoCivil() : void {
 
-        this.macredService.getTiposGenerosCompania(this.userObservable.empresa)
-        .pipe(first())
-        .subscribe(tipoGeneroResponse => {
+        this.alertService.clear();
+        this.submittedEstadoCivilForm = true;
 
-            if (tipoGeneroResponse.length > 0) {
-                this.showList = true;
-                this.listTiposGeneros = tipoGeneroResponse;
-            }
-        },
-        error => {
-            let message : string = 'Problemas al consultar los tipos de generos. ' + error;
-            this.alertService.error(message); 
-        });
+        if ( this.formEstadoCivil.invalid ){
+            return;
+        }
+        
+        var estadoCivil : MacEstadoCivil;
+
+        if (this.update) {
+            estadoCivil = this.updateEstadoCivilModal();
+            estadoCivil.modificadoPor      = this.userObservable.identificacion;
+            estadoCivil.fechaModificacion  = this.today;
+
+            this.macredService.putEstadoCivil(estadoCivil)
+            .pipe(first())
+            .subscribe(response => {
+
+                if (response) {
+
+                    this._estadoCivilMacred = response;
+
+                    this.alertService.success(
+                        `Estado civil ${ this._estadoCivilMacred.codigoEstadoCivil } actualizado correctamente!`
+                    );
+                    $('#estadoCivilModal').modal('hide');
+                    this.ngOnInit();
+
+                } else {
+                    let message : string = 'Problemas al actualizar el estado civil.';
+                    this.alertService.error(message);
+                }
+            },
+            error => {
+                let message : string = 'Problemas de conexión. Detalle: ' + error;
+                this.alertService.error(message);
+            });
+        }
     }
 
-    consultaCondicionesLaboralesCompania() : void {
+    updateEstadoCivilModal() : MacEstadoCivil {
 
-        this.macredService.getCondicionesLaboralesCompania(this.userObservable.empresa)
-        .pipe(first())
-        .subscribe(condicionLaboralResponse => {
+        var codigoEstadoCivil   = this.formEstadoCivil.controls['codigoEstadoCivil'].value;
+        var descripcion         = this.formEstadoCivil.controls['descripcion'].value;
+        var estado              = this.formEstadoCivil.controls['estado'].value
 
-            if (condicionLaboralResponse.length > 0) {
-                this.showList = true;
-                this.listCondicionesLaborales = condicionLaboralResponse;
-            }
-        },
-        error => {
-            let message : string = 'Problemas al consultar las condiciones laborales. ' + error;
-            this.alertService.error(message); 
-        });
+
+        var estadoCivil = this._estadoCivilMacred;
+
+        estadoCivil.codigoEstadoCivil   = codigoEstadoCivil;
+        estadoCivil.descripcion         = descripcion;
+        estadoCivil.estado              = estado;
+
+        return estadoCivil;
     }
 
-    consultaCategoriasCreditosCompania() : void {
-
-        this.macredService.getCategoriasCreditosCompania(this.userObservable.empresa)
-        .pipe(first())
-        .subscribe(categoriaCreditoResponse => {
-
-            if (categoriaCreditoResponse.length > 0) {
-                this.showList = true;
-                this.listCategoriasCreditos = categoriaCreditoResponse;
-            }
-        },
-        error => {
-            let message : string = 'Problemas al consultar las categorias de créditos. ' + error;
-            this.alertService.error(message); 
-        });
-    }
-
-    consultaTiposAsociadoCompania() : void {
-
-        this.macredService.getTiposAsociadosCompania(this.userObservable.empresa)
-        .pipe(first())
-        .subscribe(tipoAsociadoResponse => {
-
-            if (tipoAsociadoResponse.length > 0) {
-                this.showList = true;
-                this.listTiposAsociados = tipoAsociadoResponse;
-            }
-        },
-        error => {
-            let message : string = 'Problemas al consultar los tipos de asociados. ' + error;
-            this.alertService.error(message); 
-        });
-    }
-
-    consultaTiposHabitacionesCompania() : void {
-
-        this.macredService.getTiposHabitacionesCompania(this.userObservable.empresa)
-        .pipe(first())
-        .subscribe(tipoHabitacionResponse => {
-
-            if (tipoHabitacionResponse.length > 0) {
-                this.showList = true;
-                this.listTiposHabitaciones = tipoHabitacionResponse;
-            }
-        },
-        error => {
-            let message : string = 'Problemas al consultar los tipos de habitaciones. ' + error;
-            this.alertService.error(message); 
-        });
-    }
-
-    editPersonaModal(persona:MacPersona) : void {
+    /*
+    onEdit(persona:MacPersona) : void {
 
         this.update = true;
         this.buttomText = 'Actualizar';
@@ -720,7 +595,7 @@ export class PersonasComponent implements OnInit {
         
 
         return persona;
-    }
+    }*/
 
     
 }
