@@ -33,33 +33,33 @@ export const active = {
 export const ModulesSystem = {
 
     Identif_ActivosFijos:   'ID-BANKAP-ACT-FIJ',
-    activosfijosbasehref:   '/inra-sa/modulo-activos-fijos/',
+    activosfijosbasehref:   '/modulo-activos-fijos/',
 
     Identif_Bancos:         'ID-BANKAP-BANCOS',
-    bancosbasehref:         '/inra-sa/modulo-bancos/',
+    bancosbasehref:         '/modulo-bancos/',
 
     Identif_Contabilidad:   'ID-BANKAP-CONTA',
-    contabilidadbasehref:   '/inra-sa/modulo-contabilidad/',
+    contabilidadbasehref:   '/modulo-contabilidad/',
 
     Identif_CuentasCobrar:  'ID-BANKAP-CXC',
-    cuentascobrarbasehref:  '/inra-sa/modulo-cuentas-cobrar/',
+    cuentascobrarbasehref:  '/modulo-cuentas-cobrar/',
 
     Identif_CuentasPagar:   'ID-BANKAP-CXP',
-    cuentaspagarbasehref:   '/inra-sa/modulo-cuentas-pagar/',
+    cuentaspagarbasehref:   '/modulo-cuentas-pagar/',
 
     Identif_Facturacion:    'ID-BANKAP-FACTURA-E',
-    facturacionbasehref:    '/inra-sa/modulo-facturacion/',
+    facturacionbasehref:    '/modulo-facturacion/',
 
     Identif_Generales:      'ID-BANKAP-GENERAL',
-    generalesbasehref:      '/inra-sa/modulo-generales/',
+    generalesbasehref:      '/modulo-generales/',
 
     Identif_Inventario:     'ID-BANKAP-INVENTARIO',
-    inventariobasehref:     '/inra-sa/modulo-inventario/',
+    inventariobasehref:     '/modulo-inventario/',
 
     Identif_Cumplimiento:   'ID-BANKAP-CUMPLIMIENTO',
-    cumplimientobasehref:   '/inra-sa/modulo-cumplimiento/',
+    cumplimientobasehref:   '/modulo-cumplimiento/',
 
     Identif_Macred:         'ID-BANKAP-MACRED',
-    macredbasehref:         '/inra-sa/modulo-macred/'
+    macredbasehref:         '/modulo-macred/'
 
 };

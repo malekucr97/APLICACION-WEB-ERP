@@ -30,26 +30,28 @@ const MacredModule = () => import(
     './ModulosSistema/Macred/macred-module').then( x => x.MacredModule );                       // ## MACRED            ## //
 
 const routes: Routes = [
+
     { path: '', component: HomeComponent, canActivate: [AuthGuard] },
+
+    // -- index - landings pages
+    { path: '',  loadChildren: LandingModule,  canActivate: [AuthGuard] },
+    // ## **************** ## //
+
     // -- inicio se sesión & pantallas de administración
     { path: 'account',              loadChildren: accountModule },
     { path: '_AdminModule',         loadChildren: AdminModule,      canActivate: [AuthGuard] },
 
-    // -- index - landings pages
-    { path: 'inra-sa',  loadChildren: LandingModule,                canActivate: [AuthGuard] },
-    // ## **************** ## //
-
     // -- módulos del sistema
-    { path: 'inra-sa/modulo-generales',         loadChildren: GeneralesModule,      canActivate: [AuthGuard] },
-    { path: 'inra-sa/modulo-activos-fijos',     loadChildren: ActivosFijosModule,   canActivate: [AuthGuard] },
-    { path: 'inra-sa/modulo-bancos',            loadChildren: BancosModule,         canActivate: [AuthGuard] },
-    { path: 'inra-sa/modulo-contabilidad',      loadChildren: ContabilidadModule,   canActivate: [AuthGuard] },
-    { path: 'inra-sa/modulo-cuentas-cobrar',    loadChildren: CuentasCobrarModule,  canActivate: [AuthGuard] },
-    { path: 'inra-sa/modulo-cuentas-pagar',     loadChildren: CuentasPagarModule,   canActivate: [AuthGuard] },
-    { path: 'inra-sa/modulo-facturacion',       loadChildren: FacturacionModule,    canActivate: [AuthGuard] },
-    { path: 'inra-sa/modulo-inventario',        loadChildren: InventarioModule,     canActivate: [AuthGuard] },
-    { path: 'inra-sa/modulo-cumplimiento',      loadChildren: CumplimientoModule,   canActivate: [AuthGuard] },
-    { path: 'inra-sa/modulo-macred',            loadChildren: MacredModule,         canActivate: [AuthGuard] },
+    { path: 'modulo-generales',         loadChildren: GeneralesModule,      canActivate: [AuthGuard] },
+    { path: 'modulo-activos-fijos',     loadChildren: ActivosFijosModule,   canActivate: [AuthGuard] },
+    { path: 'modulo-bancos',            loadChildren: BancosModule,         canActivate: [AuthGuard] },
+    { path: 'modulo-contabilidad',      loadChildren: ContabilidadModule,   canActivate: [AuthGuard] },
+    { path: 'modulo-cuentas-cobrar',    loadChildren: CuentasCobrarModule,  canActivate: [AuthGuard] },
+    { path: 'modulo-cuentas-pagar',     loadChildren: CuentasPagarModule,   canActivate: [AuthGuard] },
+    { path: 'modulo-facturacion',       loadChildren: FacturacionModule,    canActivate: [AuthGuard] },
+    { path: 'modulo-inventario',        loadChildren: InventarioModule,     canActivate: [AuthGuard] },
+    { path: 'modulo-cumplimiento',      loadChildren: CumplimientoModule,   canActivate: [AuthGuard] },
+    { path: 'modulo-macred',            loadChildren: MacredModule,         canActivate: [AuthGuard] },
     
     // default
     { path: '**', redirectTo: '' }
