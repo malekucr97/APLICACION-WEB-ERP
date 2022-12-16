@@ -7,47 +7,51 @@ const accountModule         = () => import('./account/account.module').then(    
 const AdminModule           = () => import('./LayoutAdministrator/admin-module').then(  x => x.AdminModule);
 const LandingModule         = () => import('./Landing/landing-module').then(            x => x.LandingModule);
 
-// ## ********* ACTIVOS FIJOS ********* ## //
-const ActivosFijosModule    = () => import('./ModulosSistema/ActivosFijos/activos-module').then( x => x.ActivosFijosModule );
-// ## ********* BANCOS ********* ## //
-const BancosModule          = () => import('./ModulosSistema/Bancos/bancos-module').then( x => x.BancosModule );
-// ## ********* CONTABILIDAD ********* ## //
-const ContabilidadModule    = () => import('./ModulosSistema/Contabilidad/contabilidad-module').then( x => x.ContabilidadModule );
-// ## ********* CUENTAS COBRAR ********* ## //
-const CuentasCobrarModule   = () => import('./ModulosSistema/CuentasCobrar/cuentascobrar-module').then( x => x.CuentasCobrarModule );
-// ## ********* CUENTAS PAGAR ********* ## //
-const CuentasPagarModule    = () => import('./ModulosSistema/CuentasPagar/cuentaspagar-module').then( x => x.CuentasPagarModule );
-// ## ********* FACTURACIÓN ********* ## //
-const FacturacionModule     = () => import('./ModulosSistema/Facturacion/facturacion-module').then( x => x.FacturacionModule );
-// ## ********* INVENTARIO ********* ## //
-const InventarioModule      = () => import('./ModulosSistema/Inventario/inventario-module').then( x => x.InventarioModule );
-// ## ********* GENERALES ********* ## //
-const GeneralesModule       = () => import('./ModulosSistema/Generales/generales-module').then( x => x.GeneralesModule );
-// ## ********* CUMPLIMIENTO ********* ## //
-const CumplimientoModule    = () => import('./ModulosSistema/Cumplimiento/cumplimiento-module').then( x => x.CumplimientoModule );
-// ## ********* MACRED ********* ## //
-const MacredModule    = () => import('./ModulosSistema/Macred/macred-module').then( x => x.MacredModule );
+
+const ActivosFijosModule = () => import(
+    './ModulosSistema/ActivosFijos/activos-module').then( x => x.ActivosFijosModule );          // ## ACTIVOS FIJOS     ## //
+const BancosModule = () => import(
+    './ModulosSistema/Bancos/bancos-module').then( x => x.BancosModule );                       // ## BANCOS            ## //
+const ContabilidadModule = () => import(
+    './ModulosSistema/Contabilidad/contabilidad-module').then( x => x.ContabilidadModule );     // ## CONTABILIDAD      ## //
+const CuentasCobrarModule = () => import(
+    './ModulosSistema/CuentasCobrar/cuentascobrar-module').then( x => x.CuentasCobrarModule );  // ## CUENTAS COBRAR    ## //
+const CuentasPagarModule = () => import(
+    './ModulosSistema/CuentasPagar/cuentaspagar-module').then( x => x.CuentasPagarModule );     // ## CUENTAS PAGAR     ## //
+const FacturacionModule = () => import(
+    './ModulosSistema/Facturacion/facturacion-module').then( x => x.FacturacionModule );        // ## FACTURACIÓN       ## //
+const InventarioModule = () => import(
+    './ModulosSistema/Inventario/inventario-module').then( x => x.InventarioModule );           // ## INVENTARIO        ## //
+const GeneralesModule = () => import(
+    './ModulosSistema/Generales/generales-module').then( x => x.GeneralesModule );              // ## GENERALES         ## //
+const CumplimientoModule = () => import(
+    './ModulosSistema/Cumplimiento/cumplimiento-module').then( x => x.CumplimientoModule );     // ## CUMPLIMIENTO      ## //
+const MacredModule = () => import(
+    './ModulosSistema/Macred/macred-module').then( x => x.MacredModule );                       // ## MACRED            ## //
 
 const routes: Routes = [
     { path: '', component: HomeComponent, canActivate: [AuthGuard] },
-    // -- index & landings pages
-    { path: '_',                    loadChildren: LandingModule,        canActivate: [AuthGuard] },
     // -- inicio se sesión & pantallas de administración
     { path: 'account',              loadChildren: accountModule },
-    { path: '_AdminModule',         loadChildren: AdminModule,          canActivate: [AuthGuard] },
+    { path: '_AdminModule',         loadChildren: AdminModule,      canActivate: [AuthGuard] },
+
+    // -- index - landings pages
+    { path: 'inra-sa',  loadChildren: LandingModule,                canActivate: [AuthGuard] },
+    // ## **************** ## //
+
     // -- módulos del sistema
-    { path: '_GeneralesModule',     loadChildren: GeneralesModule,      canActivate: [AuthGuard] },
-    { path: '_ActivosFijosModule',  loadChildren: ActivosFijosModule,   canActivate: [AuthGuard] },
-    { path: '_BancosModule',        loadChildren: BancosModule,         canActivate: [AuthGuard] },
-    { path: '_ContabilidadModule',  loadChildren: ContabilidadModule,   canActivate: [AuthGuard] },
-    { path: '_CuentasCobrarModule', loadChildren: CuentasCobrarModule,  canActivate: [AuthGuard] },
-    { path: '_CuentasPagarModule',  loadChildren: CuentasPagarModule,   canActivate: [AuthGuard] },
-    { path: '_FacturacionModule',   loadChildren: FacturacionModule,    canActivate: [AuthGuard] },
-    { path: '_InventarioModule',    loadChildren: InventarioModule,     canActivate: [AuthGuard] },
-    //
-    { path: '_ModuloCumplimiento',  loadChildren: CumplimientoModule,   canActivate: [AuthGuard] },
-    { path: '_ModuloMacred',        loadChildren: MacredModule,         canActivate: [AuthGuard] },
+    { path: 'inra-sa/modulo-generales',         loadChildren: GeneralesModule,      canActivate: [AuthGuard] },
+    { path: 'inra-sa/modulo-activos-fijos',     loadChildren: ActivosFijosModule,   canActivate: [AuthGuard] },
+    { path: 'inra-sa/modulo-bancos',            loadChildren: BancosModule,         canActivate: [AuthGuard] },
+    { path: 'inra-sa/modulo-contabilidad',      loadChildren: ContabilidadModule,   canActivate: [AuthGuard] },
+    { path: 'inra-sa/modulo-cuentas-cobrar',    loadChildren: CuentasCobrarModule,  canActivate: [AuthGuard] },
+    { path: 'inra-sa/modulo-cuentas-pagar',     loadChildren: CuentasPagarModule,   canActivate: [AuthGuard] },
+    { path: 'inra-sa/modulo-facturacion',       loadChildren: FacturacionModule,    canActivate: [AuthGuard] },
+    { path: 'inra-sa/modulo-inventario',        loadChildren: InventarioModule,     canActivate: [AuthGuard] },
+    { path: 'inra-sa/modulo-cumplimiento',      loadChildren: CumplimientoModule,   canActivate: [AuthGuard] },
+    { path: 'inra-sa/modulo-macred',            loadChildren: MacredModule,         canActivate: [AuthGuard] },
     
+    // default
     { path: '**', redirectTo: '' }
 ];
 

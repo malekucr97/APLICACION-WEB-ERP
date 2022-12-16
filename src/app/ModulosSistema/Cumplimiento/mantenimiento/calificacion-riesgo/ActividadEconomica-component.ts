@@ -8,7 +8,6 @@ import { Compania } from '../../../../_models/modules/compania';
 import { ActividadEconomica } from '@app/_models/Cumplimiento/ActividadEconomica';
 import { CumplimientoService } from '@app/_services/cumplimiento.service';
 import { ActivatedRoute } from '@angular/router';
-import { httpModulesPages } from '@environments/environment-access-admin';
 
 declare var $: any;
 
@@ -35,7 +34,7 @@ export class ActividadEconomicaComponent implements OnInit {
 
     listEconomicActivity: ActividadEconomica[];
 
-    public URLAddEditGroupPage: string = httpModulesPages.urlCumplimiento_Grupo;
+    // public URLAddEditGroupPage: string = httpModulesPages.urlCumplimiento_Grupo;
 
     constructor (private formBuilder: FormBuilder,
                  private cumplimientoService: CumplimientoService, 
