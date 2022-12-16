@@ -35,7 +35,7 @@ declare var $: any;
 export class AsociadosComponent implements OnInit {
     @ViewChild(MatSidenav) sidenav !: MatSidenav;
 
-    private nombrePantalla : string = 'CalificacionAsociados.html';
+    private nombrePantalla : string = 'calificacion-asociados.html';
 
     _globalCodMonedaPrincipal : number ;
     _globalMesesAplicaExtras : number ;
@@ -54,10 +54,10 @@ export class AsociadosComponent implements OnInit {
     // ## -- ----------------- -- ## //
 
     // ## -- submit formularios -- ## //
-    submittedPersonForm : boolean = false;
-    submittedAnalisisForm : boolean = false;
-    submittedIngresosForm : boolean = false;
-    submittedExtrasForm : boolean = false;
+    submittedPersonForm     : boolean = false;
+    submittedAnalisisForm   : boolean = false;
+    submittedIngresosForm   : boolean = false;
+    submittedExtrasForm     : boolean = false;
     submittedHistorialAnalisisForm : boolean = false;
     submittedDeduccionesForm : boolean = false;
     // ## -- ------------------ -- ## //
@@ -605,28 +605,6 @@ export class AsociadosComponent implements OnInit {
                     this.habilitaBtnIngreso             = true;
 
                     this.habilitaBtnGuardarAnalisis     = true;
-
-                    // this.formAnalisis = this.formBuilder.group({
-                    //     fechaAnalisis           : [this._analisisCapacidadpago.fechaAnalisis,               Validators.required],
-                    //     tipoIngresoAnalisis     : [this._analisisCapacidadpago.codigoTipoIngresoAnalisis,   Validators.required],
-                    //     tipoFormaPagoAnalisis   : [this._analisisCapacidadpago.codigoTipoFormaPagoAnalisis, Validators.required],
-
-                    //     tipoMoneda              : [this._analisisCapacidadpago.codigoMoneda,                Validators.required],
-                    //     analisisDefinitivo      : [this._analisisCapacidadpago.analisisDefinitivo],
-                    //     estado                  : [this._analisisCapacidadpago.estado],
-
-                    //     modeloAnalisis          : [this._analisisCapacidadpago.codigoModeloAnalisis,        Validators.required],
-                    //     indicadorCsd            : [this._analisisCapacidadpago.indicadorCsd],
-                    //     ponderacionLvt          : [this._analisisCapacidadpago.descPondLvt],
-
-                    //     capacidadPago           : [this._analisisCapacidadpago.codigoNivelCapPago],
-                    //     tipoGenerador           : [this._analisisCapacidadpago.codigoTipoGenerador],
-                    //     numeroDependientes      : [this._analisisCapacidadpago.numeroDependientes],
-                    //     puntajeAnalisis         : [this._analisisCapacidadpago.puntajeAnalisis],
-                    //     calificacionCic         : [this._analisisCapacidadpago.calificacionCic],
-                    //     calificacionFinalCic    : [this._analisisCapacidadpago.puntajeFinalCic],
-                    //     observaciones           : [this._analisisCapacidadpago.observaciones]
-                    // });
 
                     this.alertService.success(
                         `Análisis ${ this._analisisCapacidadpago.codigoAnalisis } generado correctamente !`

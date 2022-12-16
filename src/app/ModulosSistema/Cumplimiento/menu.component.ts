@@ -10,6 +10,8 @@ import {MatTreeFlatDataSource, MatTreeFlattener} from '@angular/material/tree';
 
 import { Compania } from '../../_models/modules/compania';
 
+import { ModulesSystem } from '@environments/environment';
+
  interface FoodNode { name: string; link: string; icon: string; children?: FoodNode[]; }
  interface ExampleFlatNode { expandable: boolean; name: string; link?: string; icon?: string; level: number; }
 
@@ -21,28 +23,28 @@ import { Compania } from '../../_models/modules/compania';
                {name: 'Calificación Riesgo',
                link: '', 
                icon: '',
-               children: [{name: 'Grupos', link: '/_ModuloCumplimiento/Mantenimientos/CalificacionRiesgo/Grupos/', icon: ''}, 
-                          {name: 'Criterios',link: '/', icon: ''},
-                          {name: 'Paises',link: '/_ModuloCumplimiento/Mantenimientos/CalificacionRiesgo/Paises/', icon: ''},
-                          {name: 'Profesiones',link: '/_ModuloCumplimiento/Mantenimientos/CalificacionRiesgo/Profesiones/', icon: ''},
-                          {name: 'Actividades Económicas',link: '/_ModuloCumplimiento/Mantenimientos/CalificacionRiesgo/ActividadesEconomicas/', icon: ''},
-                          {name: 'Rango Montos al Debe',link: '/_ModuloCumplimiento/Mantenimientos/CalificacionRiesgo/MovimientosDebe/', icon: ''},
-                          {name: 'Rango Montos al Haber',link: '/_ModuloCumplimiento/Mantenimientos/CalificacionRiesgo/MovimientosHaber/', icon: ''},
-                          {name: 'Artículo 15',link: '/_ModuloCumplimiento/Mantenimientos/CalificacionRiesgo/Articulo15/', icon: ''},
-                          {name: 'Productos Financieros',link: '/_ModuloCumplimiento/Mantenimientos/CalificacionRiesgo/ProductosFinancieros/', icon: ''},
-                          {name: 'Nivel Transaccional',link: '/', icon: ''},
-                          {name: 'Fondos de Origen',link: '/', icon: ''},
-                          {name: 'Ubicación Geográfica',link: '/', icon: ''},
-                          {name: 'Canales de Distribucción',link: '/_ModuloCumplimiento/Mantenimientos/CalificacionRiesgo/CanalesDistribucion/', icon: ''},
-                          {name: 'Medios de Pago',link: '/', icon: ''},
-                          {name: 'Tipos de Personas',link: '/', icon: ''},
-                          {name: 'Rango Cantidades al Debe',link: '/_ModuloCumplimiento/Mantenimientos/CalificacionRiesgo/CantidadesDebe/', icon: ''},
-                          {name: 'Rango Cantidades al Haber',link: '/_ModuloCumplimiento/Mantenimientos/CalificacionRiesgo/CantidadesHaber/', icon: ''},
-                          {name: 'Especialidades',link: '/_ModuloCumplimiento/Mantenimientos/CalificacionRiesgo/Especialidades/', icon: ''},
-                          {name: 'Matrices',link: '/', icon: ''},
-                          {name: 'Criterios por Matrices',link: '/', icon: ''},
-                          {name: 'Niveles de Riesgo',link: '/_ModuloCumplimiento/Mantenimientos/CalificacionRiesgo/NivelesRiesgos/', icon: ''},
-                          {name: 'Calificación SUGEF',link: '/', icon: ''}
+               children: [{name: 'Grupos',      link: ModulesSystem.cumplimientobasehref + 'Mantenimientos/CalificacionRiesgo/Grupos/', icon: ''}, 
+                          {name: 'Criterios',   link: '/', icon: ''},
+                          {name: 'Paises',      link: ModulesSystem.cumplimientobasehref + 'Mantenimientos/CalificacionRiesgo/Paises/', icon: ''},
+                          {name: 'Profesiones', link: ModulesSystem.cumplimientobasehref + 'Mantenimientos/CalificacionRiesgo/Profesiones/', icon: ''},
+                          {name: 'Actividades Económicas',link: ModulesSystem.cumplimientobasehref + 'Mantenimientos/CalificacionRiesgo/ActividadesEconomicas/', icon: ''},
+                          {name: 'Rango Montos al Debe',  link: ModulesSystem.cumplimientobasehref + 'Mantenimientos/CalificacionRiesgo/MovimientosDebe/', icon: ''},
+                          {name: 'Rango Montos al Haber', link: ModulesSystem.cumplimientobasehref + 'Mantenimientos/CalificacionRiesgo/MovimientosHaber/', icon: ''},
+                          {name: 'Artículo 15',           link: ModulesSystem.cumplimientobasehref + 'Mantenimientos/CalificacionRiesgo/Articulo15/', icon: ''},
+                          {name: 'Productos Financieros', link: ModulesSystem.cumplimientobasehref + 'Mantenimientos/CalificacionRiesgo/ProductosFinancieros/', icon: ''},
+                          {name: 'Nivel Transaccional',   link: '/', icon: ''},
+                          {name: 'Fondos de Origen',      link: '/', icon: ''},
+                          {name: 'Ubicación Geográfica',  link: '/', icon: ''},
+                          {name: 'Canales de Distribucción',link: ModulesSystem.cumplimientobasehref + 'Mantenimientos/CalificacionRiesgo/CanalesDistribucion/', icon: ''},
+                          {name: 'Medios de Pago',            link: '/', icon: ''},
+                          {name: 'Tipos de Personas',         link: '/', icon: ''},
+                          {name: 'Rango Cantidades al Debe',  link: ModulesSystem.cumplimientobasehref + 'Mantenimientos/CalificacionRiesgo/CantidadesDebe/', icon: ''},
+                          {name: 'Rango Cantidades al Haber', link: ModulesSystem.cumplimientobasehref + 'Mantenimientos/CalificacionRiesgo/CantidadesHaber/', icon: ''},
+                          {name: 'Especialidades',            link: ModulesSystem.cumplimientobasehref + 'Mantenimientos/CalificacionRiesgo/Especialidades/', icon: ''},
+                          {name: 'Matrices',                  link: '/', icon: ''},
+                          {name: 'Criterios por Matrices',    link: '/', icon: ''},
+                          {name: 'Niveles de Riesgo',         link: ModulesSystem.cumplimientobasehref + 'Mantenimientos/CalificacionRiesgo/NivelesRiesgos/', icon: ''},
+                          {name: 'Calificación SUGEF',        link: '/', icon: ''}
                         ]}],
   },
   {
@@ -102,7 +104,8 @@ import { Compania } from '../../_models/modules/compania';
 
 @Component({
     templateUrl: '../menu.html',
-    styleUrls: ['../../../assets/scss/menus.scss'],
+    styleUrls: ['../../../assets/scss/app.scss',
+                '../../../assets/scss/menus.scss'],
 })
 export class MenuCumplimientoComponent implements OnInit {
     @ViewChild(MatSidenav)

@@ -85,7 +85,8 @@ import { Compania } from '../../_models/modules/compania';
 
 @Component({
     templateUrl: '../menu.html',
-    styleUrls: ['../../../assets/scss/menus.scss'],
+    styleUrls: ['../../../assets/scss/app.scss',
+                '../../../assets/scss/menus.scss'],
 })
 export class MenuInventarioComponent {
     @ViewChild(MatSidenav)

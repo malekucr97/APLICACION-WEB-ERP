@@ -24,8 +24,7 @@ export const httpAccessAdminPage = {
     // *************************************************
     // -- >> Págia de Administración del Sistema *******
     // *************************************************
-    urlPageAdministrator: '/_AdminModule/AdminUserPage/',
-
+    urlPageAdministrator:       '/_AdminModule/AdminUserPage/',
     urlPageConfigUser:          '/_AdminModule/AddEditUserPage/',
     urlPageAddEditUser:         '/_AdminModule/AddEditUserPage/',
     urlPageListUsers:           '/_AdminModule/AdminListUserPage/',
@@ -43,17 +42,11 @@ export const httpLandingIndexPage = {
     // -- >> Home Page Index Application
     homeHTTP: '/',
     // -- >> Langing Pages Index Application
-    indexHTTP: '/_/index.html',
+    indexHTTP: '/inra-sa/index.html',
     // -- >> Langing No Loggin Application
     indexHTTPPendingUser:       '/_/PendingPage/index.html',
     indexHTTPNotRolUser:        '/_/NotRolPage/index.html',
     indexHTTPInactiveUser:      '/_/InactiveUserPage/index.html',
     indexHTTPInactiveRolUser:   '/_/InactiveRolPage/index.html',
     urlPageNotBusiness:         '/_/NotBusinessPage/index.html'
-};
-
-export const httpModulesPages = {
-
-    // -- >> Cumplimiento
-    urlCumplimiento_Grupo: '/_ModuloCumplimiento/Mantenimientos/CalificacionRiesgo/Grupos/'
 };

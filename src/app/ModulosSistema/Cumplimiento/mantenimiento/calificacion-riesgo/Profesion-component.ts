@@ -8,7 +8,6 @@ import { Compania } from '../../../../_models/modules/compania';
 import { Profesion } from '@app/_models/Cumplimiento/Profesion';
 import { CumplimientoService } from '@app/_services/cumplimiento.service';
 import { ActivatedRoute } from '@angular/router';
-import { httpModulesPages } from '@environments/environment-access-admin';
 
 declare var $: any;
 
@@ -35,7 +34,7 @@ export class ProfesionComponent implements OnInit {
 
     listProfesion: Profesion[];
 
-    public URLAddEditGroupPage: string = httpModulesPages.urlCumplimiento_Grupo;
+    // public URLAddEditGroupPage: string = httpModulesPages.urlCumplimiento_Grupo;
 
     constructor (private formBuilder: FormBuilder,
                  private cumplimientoService: CumplimientoService, 
