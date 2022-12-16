@@ -42,7 +42,7 @@ export const httpLandingIndexPage = {
     // -- >> Home Page Index Application
     homeHTTP: '/',
     // -- >> Langing Pages Index Application
-    indexHTTP: '/index.html',
+    indexHTTP: '/inra-sa/index.html',
     // -- >> Langing No Loggin Application
     indexHTTPPendingUser:       '/_/PendingPage/index.html',
     indexHTTPNotRolUser:        '/_/NotRolPage/index.html',
