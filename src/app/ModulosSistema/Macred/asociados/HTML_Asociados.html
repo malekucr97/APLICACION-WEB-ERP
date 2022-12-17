@@ -100,9 +100,9 @@
                         <h2 *ngIf="_analisisCapacidadpago">codigo de análisis: {{_analisisCapacidadpago.codigoAnalisis}}</h2>
                     </div>
                     <div class="contenedor__header__next">
-                        <button *ngIf="habilitaBtnHistoprialIngreso" (click)="openHistorialanalisisHistorialModal()"   class="btn btn-dark px-5 " >
+                        <button *ngIf="habilitaBtnHistoprialIngreso" (click)="openHistorialModal()" class="btn btn-dark px-5 " >
                             Historial       </button>
-                        <button *ngIf="habilitaBtnRegistroDeudor"                                   class="btn btn-dark px-5 " >
+                        <button *ngIf="habilitaBtnRegistroDeudor" class="btn btn-dark px-5 " >
                             Nuevo Deudor    </button>
                     </div>
                 </div>
@@ -313,7 +313,7 @@
                                         </tr>
                                     </thead>
                                     <tbody>
-                                        <tr *ngFor="let obj of listHistorialAnalisis" class="item-seleccionable" (click)="selectAnalisis(obj)" >
+                                        <tr *ngFor="let obj of listHistorialAnalisis" class="item-seleccionable" (click)="selectAnalisisHistorial(obj)" >
                                             <td>{{obj.codigoAnalisis}}</td>
                                             <td>{{obj.fechaAnalisis}}</td>
                                             <td>{{obj.estado}}</td>
@@ -322,11 +322,7 @@
                                             <td>{{obj.puntajeFinalCic}}</td>
             
                                             <td  style="white-space: nowrap">
-
-                                                <div class="">
-                                                    <a class="item-seleccionable" (click)="deleteIngreso(obj)"> <mat-icon>delete_forever</mat-icon> </a>
-                                                </div>
-
+                                                <a class="item-seleccionable-delete" (click)="deleteIngreso(obj)"> <mat-icon>delete_forever</mat-icon> </a>
                                             </td>
                                         </tr>
                                     </tbody>
@@ -573,12 +569,9 @@
                                 <td>{{obj.montoDeducciones}}</td>
 
                                 <td  style="white-space: nowrap">
-            
-                                    <button (click)="deleteIngreso(obj)" class="btn btn-sm btn-danger mr-1" [disabled]="isDeleting">
-                                        <span *ngIf="isDeleting" class="spinner-border spinner-border-sm"></span>
-                                        <span *ngIf="!isDeleting">Eliminar</span>
-                                    </button>
-            
+                                    <a class="item-seleccionable-delete" (click)="deleteIngreso(obj)"> 
+                                        <mat-icon>delete_forever</mat-icon> 
+                                    </a>
                                 </td>
 
                             </tr>
@@ -594,10 +587,12 @@
                 <div class="contenedor__footer__prev">
                     <button *ngIf="habilitaBtnRegistrarIngreso"
                             (click)="SubmitFormIngresos()" 
-                            class="btn btn-success px-5 " > Registrar Ingreso </button>
+                            class="btn btn-success px-5 " 
+                            mat-flat-button color="primary" > Registrar Ingreso </button>
                     <button *ngIf="habilitaBtnActualizaIngreso" 
                             (click)="ActualizaFormIngresos()" 
-                            class="btn btn-warning px-5 " > Actualizar Ingreso </button>
+                            class="btn btn-success px-5 "
+                            mat-flat-button color="primary" > Guardar Cambios </button>
                 </div>
                 <div class="contenedor__footer__next"></div>
             </div>

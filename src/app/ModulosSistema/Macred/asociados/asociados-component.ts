@@ -1,29 +1,23 @@
-import { FormBuilder, FormGroup, RequiredValidator, Validators  }  from '@angular/forms';
+import { FormBuilder, FormGroup, Validators  }  from '@angular/forms';
 import { Component, OnInit, ViewChild }         from '@angular/core';
 import { AccountService, AlertService }         from '@app/_services';
-import { User, Module }                         from '@app/_models';
 import { MatSidenav }                           from '@angular/material/sidenav';
-import { Compania }                             from '../../../_models/modules/compania';
-import { MacredService }                        from '@app/_services/macred.service';
-import { ScreenAccessUser }                     from '@app/_models/admin/screenAccessUser';
 import { Router }                               from '@angular/router';
 import { first }                                from 'rxjs/operators';
-import { MacPersona }                           from '@app/_models/Macred/Persona';
-import { MacTipoIngresoAnalisis }               from '@app/_models/Macred/TipoIngresoAnalisis';
-import { MacTipoFormaPagoAnalisis }             from '@app/_models/Macred/TipoFormaPagoAnalisis';
-import { MacAnalisisCapacidadPago }             from '@app/_models/Macred/AnalisisCapacidadPago';
-import { MacTiposMoneda }                       from '@app/_models/Macred/TiposMoneda';
-import { MacModeloAnalisis }                    from '@app/_models/Macred/ModeloAnalisis';
-import { MacNivelCapacidadPago }                from '@app/_models/Macred/NivelCapacidadPago';
-import { MacTipoGenerador }                     from '@app/_models/Macred/TipoGenerador';
+
+import { ScreenAccessUser, User, Module, Compania } from '@app/_models';
+
 import { MatDialog }                            from '@angular/material/dialog';
 import { DialogoConfirmacionComponent }         from '@app/_components/dialogo-confirmacion/dialogo-confirmacion.component';
-import { MacTipoIngreso }                       from '@app/_models/Macred/TipoIngreso';
-import { MacIngresosXAnalisis } from '@app/_models/Macred/IngresosXAnalisis';
-import { MacExtrasAplicables } from '@app/_models/Macred/ExtrasAplicables';
-import { MacMatrizAceptacionIngreso } from '@app/_models/Macred/MatrizAceptacionIngreso';
-import { MacTipoDeducciones } from '@app/_models/Macred/TipoDeduccion';
-import { MacDeduccionesAnalisis } from '@app/_models/Macred/DeduccionAnalisis';
+
+// ## -- servicio macred http -- ## //
+import { MacredService } from '@app/_services/macred.service';
+// ## -- objetos macred analisis de capacidad de pago -- ## //
+import {    MacAnalisisCapacidadPago, MacDeduccionesAnalisis, MacExtrasAplicables, 
+            MacIngresosXAnalisis, MacMatrizAceptacionIngreso, MacModeloAnalisis, 
+            MacNivelCapacidadPago, MacPersona, MacTipoDeducciones,  MacTipoFormaPagoAnalisis, 
+            MacTipoGenerador, MacTipoIngreso, MacTipoIngresoAnalisis, MacTiposMoneda } from '@app/_models/Macred';
+// ## -- ******************************************** -- ## //
 
 declare var $: any;
 
@@ -94,8 +88,8 @@ export class AsociadosComponent implements OnInit {
     habilitaIcoOpenModalDeducciones : boolean = false;
     // ## -- ---------------- -- ## //
 
-    public listSubMenu: Module[] = [];
-    public menuItem : Module = null;
+    public listSubMenu  : Module[]  = [];
+    public menuItem     : Module    = null;
 
     listScreenAccessUser: ScreenAccessUser[];
 
@@ -251,90 +245,16 @@ export class AsociadosComponent implements OnInit {
     }
 
     addListMenu(modItem:Module) : void {
-
         this.listSubMenu.push(modItem);
-
-        // this.listSubMenu.push(new Module(2,
-        //                                 'Flujo de Caja',
-        //                                 'Flujo de Caja',
-        //                                 'Flujo de Caja',
-        //                                 'I',
-        //                                 '.png',
-        //                                 '.ico',
-        //                                 'http'));
-
-
-        // this.listSubMenu.push(new Module(3,
-        //                                 'Probability of Default',
-        //                                 'Probability of Default',
-        //                                 'Probability of Default',
-        //                                 'I',
-        //                                 '.png',
-        //                                 '.ico',
-        //                                 'http'));
-
-        // this.listSubMenu.push(new Module(4,
-        //                                 'Scoring Crediticio',
-        //                                 'Scoring Crediticio',
-        //                                 'Scoring Crediticio',
-        //                                 'I',
-        //                                 '.png',
-        //                                 '.ico',
-        //                                 'http'));
-
-        // this.listSubMenu.push(new Module(5,
-        //                                 'Ingresos',
-        //                                 'Ingresos',
-        //                                 'Ingresos',
-        //                                 'I',
-        //                                 '.png',
-        //                                 '.ico',
-        //                                 'http'));
-
-        // this.listSubMenu.push(new Module(6,
-        //                                 'Obligaciones Supervisadas',
-        //                                 'Obligaciones Supervisadas',
-        //                                 'Obligaciones Supervisadas',
-        //                                 'I',
-        //                                 '.png',
-        //                                 '.ico',
-        //                                 'http'));
-
-        // this.listSubMenu.push(new Module(7,
-        //                                 'O. No Supervisadas',
-        //                                 'O. No Supervisadas',
-        //                                 'O. No Supervisadas',
-        //                                 'I',
-        //                                 '.png',
-        //                                 '.ico',
-        //                                 'http'));
-
-        // this.listSubMenu.push(new Module(8,
-        //                                 'LVT',
-        //                                 'LVT',
-        //                                 'LVT',
-        //                                 'I',
-        //                                 '.png',
-        //                                 '.ico',
-        //                                 'http'));
-
-        // this.listSubMenu.push(new Module(9,
-        //                                 'Escenarios',
-        //                                 'Escenarios',
-        //                                 'Escenarios',
-        //                                 'I',
-        //                                 '.png',
-        //                                 '.ico',
-        //                                 'http'));
-
-        // this.listSubMenu.push(new Module(10,
-        //                                 'Escenarios FCL',
-        //                                 'Escenarios FCL',
-        //                                 'Escenarios FCL',
-        //                                 'I',
-        //                                 '.png',
-        //                                 '.ico',
-        //                                 'http'));
+        // this.listSubMenu.push(new Module(2,'Flujo de Caja','Flujo de Caja','Flujo de Caja','I','.png','.ico','http'));
+        // this.listSubMenu.push(new Module(3,'Probability of Default','Probability of Default','Probability of Default','I','.png','.ico','http'));
+        // this.listSubMenu.push(new Module(4,'Scoring Crediticio','Scoring Crediticio','Scoring Crediticio','I','.png','.ico','http'));
+        // this.listSubMenu.push(new Module(5,'Ingresos','Ingresos','Ingresos','I','.png','.ico','http'));
+        // this.listSubMenu.push(new Module(6,'Obligaciones Supervisadas','Obligaciones Supervisadas','Obligaciones Supervisadas','I','.png','.ico','http'));
+        // this.listSubMenu.push(new Module(7,'O. No Supervisadas','O. No Supervisadas','O. No Supervisadas','I','.png','.ico','http'));
+        // this.listSubMenu.push(new Module(8,'LVT','LVT','LVT','I','.png','.ico','http'));
+        // this.listSubMenu.push(new Module(9,'Escenarios','Escenarios','Escenarios','I','.png','.ico','http'));
+        // this.listSubMenu.push(new Module(10,'Escenarios FCL','Escenarios FCL','Escenarios FCL','I','.png','.ico','http'));
     }
     habilitaTab(mod: Module) {
 
@@ -357,12 +277,14 @@ export class AsociadosComponent implements OnInit {
 
             case 5:                     this.ingresos = true;
 
-                this.habilitaBtnRegistrarIngreso = true;
+                this.inicializaFormularioIngreso();
 
-                if (this._ingresoAnalisisSeleccionado) {
-                    this.habilitaBtnActualizaIngreso = true;
-                    this.habilitaBtnRegistrarIngreso = false;
-                }
+                // this.habilitaBtnRegistrarIngreso = true;
+
+                // if (this._ingresoAnalisisSeleccionado) {
+                    // this.habilitaBtnActualizaIngreso = true;
+                    // this.habilitaBtnRegistrarIngreso = false;
+                // }
 
                 this.macredService.getMatrizAceptacionIngreso( this.companiaObservable.id, false )
                     .pipe(first())
@@ -458,7 +380,7 @@ export class AsociadosComponent implements OnInit {
                     
                     this.cargaInformacionPersona(identificacionPersona);
                     this.inicializaFormDatosAnalisis();
-                    this.inicializaFormIngresosAnalisis();
+                    // this.inicializaFormIngresosAnalisis();
 
                 } else { return; }
             });
@@ -466,7 +388,7 @@ export class AsociadosComponent implements OnInit {
         } else {
             this.cargaInformacionPersona(identificacionPersona);
             this.inicializaFormDatosAnalisis();
-            this.inicializaFormIngresosAnalisis();
+            // this.inicializaFormIngresosAnalisis();
         }
     }
     cargaInformacionPersona(identificacionPersona : string) : void {
@@ -588,8 +510,7 @@ export class AsociadosComponent implements OnInit {
         this.alertService.clear();
         this.submittedAnalisisForm = true;
 
-        if ( this.formAnalisis.invalid )
-            return;
+        if ( this.formAnalisis.invalid ) return;
         
         var analisis : MacAnalisisCapacidadPago = this.createAnalisisObjectForm();
 
@@ -635,7 +556,6 @@ export class AsociadosComponent implements OnInit {
         this.selectModule(          new Module(5, 'Ingresos', 'Ingresos', 'Ingresos', 'I', '.png', '.ico', 'http'));
         this.habilitaBtnIngreso = false;
     }
-
     deleteIngreso(ingreso : MacIngresosXAnalisis) : void {
 
         this.isDeleting = true;
@@ -649,7 +569,7 @@ export class AsociadosComponent implements OnInit {
         
         $('#extrasModal').modal({backdrop: 'static', keyboard: false}, 'show');
     }
-    openHistorialanalisisHistorialModal() : void {
+    openHistorialModal() : void {
 
         if (!this.listHistorialAnalisis) this.listHistorialAnalisis = [] ;
 
@@ -673,31 +593,51 @@ export class AsociadosComponent implements OnInit {
     }
     selectIngresoAnalisis(ingreso : MacIngresosXAnalisis) : void {
 
+        // this.habilitarBtnEliminarExtras = false;
+
+        // limpia formulario
+        if (this._ingresoAnalisisSeleccionado && this._ingresoAnalisisSeleccionado.id === ingreso.id) {
+            this._ingresoAnalisisSeleccionado       = null;
+            // this.habilitaBtnActualizaIngreso        = false;
+            // this.habilitaIcoOpenModalExtras         = false;
+            // this.habilitaIcoOpenModalDeducciones    = false;
+            // this.habilitaBtnRegistrarIngreso        = true;
+            this._extrasAplicables          = null;
+            this.listDeduccionesAnalisis    = null;
+
+            this.inicializaFormularioIngreso();
+
+            return;
+        }
+
+        // this.inicializaFormIngresosAnalisis();
+
         this._ingresoAnalisisSeleccionado = ingreso ;
+        this.inicializaFormularioIngreso();
 
-        this.habilitaBtnActualizaIngreso        = true;
-        this.habilitaIcoOpenModalExtras         = true;
-        this.habilitaIcoOpenModalDeducciones    = true;
+        // this.habilitaBtnActualizaIngreso        = true;
+        // this.habilitaIcoOpenModalExtras         = true;
+        // this.habilitaIcoOpenModalDeducciones    = true;
 
-        this.habilitaBtnRegistrarIngreso = false;
+        // this.habilitaBtnRegistrarIngreso = false;
 
-        this._extrasAplicables = null;
+        // this._extrasAplicables = null;
 
-        this.formIngresos.setValue({
-            codigoTipoIngreso   : this.listTiposIngresos.find ( x => x.id === this._ingresoAnalisisSeleccionado.codigoTipoIngreso ),
-            montoBruto          : this._ingresoAnalisisSeleccionado.montoBruto,
-            montoExtras         : this._ingresoAnalisisSeleccionado.montoExtras,
-            porcentajeExtras    : this._ingresoAnalisisSeleccionado.porcentajeExtras,
-            cargasSociales      : this._ingresoAnalisisSeleccionado.cargasSociales,
-            impuestoRenta       : this._ingresoAnalisisSeleccionado.impuestoRenta,
-            montoNeto           : this._ingresoAnalisisSeleccionado.montoNeto,
-            montoDeducciones    : this._ingresoAnalisisSeleccionado.montoDeducciones
-        });
+        // this.formIngresos.setValue({
+        //     codigoTipoIngreso   : this.listTiposIngresos.find ( x => x.id === this._ingresoAnalisisSeleccionado.codigoTipoIngreso ),
+        //     montoBruto          : this._ingresoAnalisisSeleccionado.montoBruto,
+        //     montoExtras         : this._ingresoAnalisisSeleccionado.montoExtras,
+        //     porcentajeExtras    : this._ingresoAnalisisSeleccionado.porcentajeExtras,
+        //     cargasSociales      : this._ingresoAnalisisSeleccionado.cargasSociales,
+        //     impuestoRenta       : this._ingresoAnalisisSeleccionado.impuestoRenta,
+        //     montoNeto           : this._ingresoAnalisisSeleccionado.montoNeto,
+        //     montoDeducciones    : this._ingresoAnalisisSeleccionado.montoDeducciones
+        // });
 
         this.obtenerExtrasAplicablesAnalisis();
         this.obtenerDeduccionesAnalisis();
     }
-
+    
     obtenerDeduccionesAnalisis() : void {
 
         this.macredService.getDeduccionesAnalisis(  this.companiaObservable.id,
@@ -713,7 +653,6 @@ export class AsociadosComponent implements OnInit {
                 this.totalizarDeducciones(false) ;
             });
     }
-
     obtenerExtrasAplicablesAnalisis() : void {
 
         this.macredService.getExtrasAnalisisIngreso(    this.companiaObservable.id,
@@ -722,46 +661,53 @@ export class AsociadosComponent implements OnInit {
             .pipe(first())
             .subscribe(response => {
 
-                if (response) {
+                // this._extrasAplicables = response;
+
+                // if (response) {
 
                     this._extrasAplicables = response;
+                    this.inicializaFormExtrasAplicables();
 
-                    this.formExtras = this.formBuilder.group({
-                        montoExtra                  : [this._extrasAplicables.montoExtras, Validators.required],
-                        desviacionEstandar          : this._extrasAplicables.desviacionEstandar,
-                        coeficienteVarianza         : this._extrasAplicables.coeficienteVarianza,
-                        porcentajeExtrasAplicable   : this._extrasAplicables.porcentajeExtrasAplicables,
-                        promedioExtrasAplicables    : this._extrasAplicables.promedioExtrasAplicables,
-                        mesesExtrasAplicables       : this._globalMesesAplicaExtras
-                    });
+                    // this.formExtras = this.formBuilder.group({
+                    //     montoExtra                  : [this._extrasAplicables.montoExtras, Validators.required],
+                    //     desviacionEstandar          : this._extrasAplicables.desviacionEstandar,
+                    //     coeficienteVarianza         : this._extrasAplicables.coeficienteVarianza,
+                    //     porcentajeExtrasAplicable   : this._extrasAplicables.porcentajeExtrasAplicables,
+                    //     promedioExtrasAplicables    : this._extrasAplicables.promedioExtrasAplicables,
+                    //     mesesExtrasAplicables       : this._globalMesesAplicaExtras
+                    // });
 
-                } else {
+                // }
+                //  else {
 
-                    this.formExtras = this.formBuilder.group({
-                        montoExtra                  : [0, Validators.required],
-                        desviacionEstandar          : 0,
-                        coeficienteVarianza         : 0,
-                        porcentajeExtrasAplicable   : 0,
-                        promedioExtrasAplicables    : 0,
-                        mesesExtrasAplicables       : this._globalMesesAplicaExtras
-                    });
-                }
+                //     this.formExtras = this.formBuilder.group({
+                //         montoExtra                  : [0, Validators.required],
+                //         desviacionEstandar          : 0,
+                //         coeficienteVarianza         : 0,
+                //         porcentajeExtrasAplicable   : 0,
+                //         promedioExtrasAplicables    : 0,
+                //         mesesExtrasAplicables       : this._globalMesesAplicaExtras
+                //     });
+                // }
             });
     }
 
-    selectAnalisis(analisis : MacAnalisisCapacidadPago) : void {
+    selectAnalisisHistorial(analisis : MacAnalisisCapacidadPago) : void {
+
+        // this.inicializaFormularioIngreso();
 
         this._analisisCapacidadpago = analisis ;
 
-        this.habilitaBtnGeneraNuevoAnalisis = false ;
-        this.habilitaBtnGuardarAnalisis     = true  ;
-        this.habilitaBtnIngreso             = true  ;
+        this.habilitaBtnGeneraNuevoAnalisis = false;
+        this.habilitaBtnGuardarAnalisis     = true;
+        this.habilitaBtnIngreso             = true;
 
-        this._extrasAplicables      = null ;
+        this._ingresoAnalisisSeleccionado   = null;
+        this._extrasAplicables              = null;
 
-        this.listDeduccionesAnalisis    = null;
-        this.listIngresosAnalisis       = null;
-        this.listExtrasAplicables       = null;
+        this.listDeduccionesAnalisis        = null;
+        this.listIngresosAnalisis           = null;
+        this.listExtrasAplicables           = null;
         
         if(!this._analisisCapacidadpago.codigoNivelCapPago) this._analisisCapacidadpago.codigoNivelCapPago = 99;
 
@@ -787,7 +733,45 @@ export class AsociadosComponent implements OnInit {
 
         $('#analisisHistorialModal').modal('hide');
     }
+    inicializaFormularioIngreso() : void {
 
+        if (this._ingresoAnalisisSeleccionado) {
+
+            this.habilitaBtnActualizaIngreso = true;
+            this.habilitaBtnRegistrarIngreso = false;
+
+            this.habilitaIcoOpenModalExtras         = true;
+            this.habilitaIcoOpenModalDeducciones    = true;
+
+            this.formIngresos = this.formBuilder.group({
+                codigoTipoIngreso   : [this.listTiposIngresos.find ( x => x.id === this._ingresoAnalisisSeleccionado.codigoTipoIngreso ), Validators.required],
+                montoBruto          : [this._ingresoAnalisisSeleccionado.montoBruto, Validators.required],
+                montoExtras         : this._ingresoAnalisisSeleccionado.montoExtras,
+                porcentajeExtras    : this._ingresoAnalisisSeleccionado.porcentajeExtras,
+                cargasSociales      : this._ingresoAnalisisSeleccionado.cargasSociales,
+                impuestoRenta       : this._ingresoAnalisisSeleccionado.impuestoRenta,
+                montoNeto           : [this._ingresoAnalisisSeleccionado.montoNeto, Validators.required],
+                montoDeducciones    : this._ingresoAnalisisSeleccionado.montoDeducciones
+            });
+        } else {
+            this.habilitaBtnActualizaIngreso = false;
+            this.habilitaBtnRegistrarIngreso = true;
+
+            this.habilitaIcoOpenModalExtras         = false;
+            this.habilitaIcoOpenModalDeducciones    = false;
+
+            this.formIngresos = this.formBuilder.group({
+                codigoTipoIngreso   : [null, Validators.required],
+                montoBruto          : [null, Validators.required],
+                montoExtras         : 0,
+                porcentajeExtras    : 0,
+                cargasSociales      : 0,
+                impuestoRenta       : 0,
+                montoNeto           : [null, Validators.required],
+                montoDeducciones    : 0
+            });
+        }
+    }
     inicializaFormDeduccionesAnalisis() : void {
         this.formDeducciones = this.formBuilder.group({
             codigoTipoDeduccion : [null,    Validators.required],
@@ -830,18 +814,6 @@ export class AsociadosComponent implements OnInit {
             identificacion  : [this._personaMacred.identificacion,   Validators.required]
         });
     }
-    inicializaFormIngresosAnalisis()    : void {
-        this.formIngresos = this.formBuilder.group({
-            codigoTipoIngreso   : [null, Validators.required],
-            montoBruto          : [null, Validators.required],
-            montoExtras         : 0,
-            porcentajeExtras    : 0,
-            cargasSociales      : [null, Validators.required],
-            impuestoRenta       : [null, Validators.required],
-            montoNeto           : [null, Validators.required],
-            montoDeducciones    : 0
-        });
-    }
     inicializaFormExtrasAplicables()    : void {
 
         if (this._extrasAplicables) {
@@ -857,6 +829,9 @@ export class AsociadosComponent implements OnInit {
                 mesesExtrasAplicables       : this._globalMesesAplicaExtras
             });
         } else {
+
+            this.habilitarBtnEliminarExtras = false;
+
             this.formExtras = this.formBuilder.group({
                 montoExtra                  : [0, Validators.required],
                 desviacionEstandar          : 0,
@@ -907,7 +882,7 @@ export class AsociadosComponent implements OnInit {
                 if (response.exito) {
 
                     this._extrasAplicables = null;
-                    this.habilitarBtnEliminarExtras = false;
+                    // this.habilitarBtnEliminarExtras = false;
 
                     this.CerrarExtrasModal();
                     this.alertService.success( response.responseMesagge );
@@ -977,7 +952,7 @@ export class AsociadosComponent implements OnInit {
             });
     }
 
-    totalizarDeducciones(close : boolean = true) : void {   
+    totalizarDeducciones(close : boolean = true) : void {
         var totalDeducciones : number = 0;
         if (this.listDeduccionesAnalisis) {
             this.listDeduccionesAnalisis.forEach(element => {
@@ -1143,6 +1118,8 @@ export class AsociadosComponent implements OnInit {
 
     SubmitFormIngresos() : void {
 
+        // va;lidacion manua,.
+
         this.alertService.clear();
         this.submittedIngresosForm = true;
 
@@ -1175,16 +1152,18 @@ export class AsociadosComponent implements OnInit {
 
                 this.listIngresosAnalisis.push(response);
 
-                this.formIngresos.setValue({
-                    codigoTipoIngreso   : [null],
-                    montoBruto          : [null],
-                    montoExtras         : 0,
-                    porcentajeExtras    : 0,
-                    cargasSociales      : [null],
-                    impuestoRenta       : [null],
-                    montoNeto           : [null],
-                    montoDeducciones    : 0
-                });
+                this.inicializaFormularioIngreso();
+
+                // this.formIngresos.setValue({
+                //     codigoTipoIngreso   : [null],
+                //     montoBruto          : [null],
+                //     montoExtras         : 0,
+                //     porcentajeExtras    : 0,
+                //     cargasSociales      : [null],
+                //     impuestoRenta       : [null],
+                //     montoNeto           : [null],
+                //     montoDeducciones    : 0
+                // });
 
                 this.alertService.success( `Registro de Ingreso realizado con éxito..` );
 
@@ -1222,31 +1201,31 @@ export class AsociadosComponent implements OnInit {
 
                     this.listIngresosAnalisis.splice(this.listIngresosAnalisis.findIndex( m => m.id == this._ingresoAnalisisSeleccionado.id ), 1);
                     this.listIngresosAnalisis.push(this._ingresoAnalisisSeleccionado);
-
-                    this.formIngresos.setValue({
-                        codigoTipoIngreso   : null,
-                        montoBruto          : null,
-                        montoExtras         : 0,
-                        porcentajeExtras    : 0,
-                        cargasSociales      : null,
-                        impuestoRenta       : null,
-                        montoNeto           : null,
-                        montoDeducciones    : 0
-                    });
-
-                    this.habilitaBtnActualizaIngreso    = false;
-                    this.habilitaBtnRegistrarIngreso    = true ;
-                    
-                    this.habilitaIcoOpenModalExtras         = false;
-                    this.habilitaIcoOpenModalDeducciones    = false;
-
                     this._ingresoAnalisisSeleccionado = null;
+
+                    // this.habilitaBtnActualizaIngreso    = false;
+                    // this.habilitaBtnRegistrarIngreso    = true ;
+                    
+                    // this.habilitaIcoOpenModalExtras         = false;
+                    // this.habilitaIcoOpenModalDeducciones    = false;
+
+                    this.inicializaFormularioIngreso();
+
+
+                    // this.formIngresos.setValue({
+                    //     codigoTipoIngreso   : null,
+                    //     montoBruto          : null,
+                    //     montoExtras         : 0,
+                    //     porcentajeExtras    : 0,
+                    //     cargasSociales      : null,
+                    //     impuestoRenta       : null,
+                    //     montoNeto           : null,
+                    //     montoDeducciones    : 0
+                    // });
 
                     this.alertService.success( response.responseMesagge );
 
-                } else {
-                    this.alertService.error(response.responseMesagge);
-                }
+                } else { this.alertService.error(response.responseMesagge); }
             });
     }
 }
