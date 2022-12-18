@@ -122,6 +122,43 @@
         }
     }
 }
+
+.item-list {
+
+    &__edit {
+
+        margin: 0 5px 0 0;
+        display: inline-block;
+
+        color: #053254;
+        transition: color 0.2s ease-in-out;
+        &:hover {
+            color: #F9A01B;
+            cursor: pointer;
+        }
+    }
+    &__delete {
+
+        padding: 0 0 0 5px;
+        display: inline-block;
+
+        color: #053254;
+        transition: color 0.2s ease-in-out;
+        &:hover {
+            color: #f91b1b;
+            cursor: pointer;
+        }
+    }
+    &__confirm {
+        color: #053254;
+        transition: color 0.2s ease-in-out;
+        &:hover {
+            color: #129523;
+            cursor: pointer;
+        }
+    }
+}
+
 .item-seleccionable {
     color: #053254;
     transition: color 0.2s ease-in-out;

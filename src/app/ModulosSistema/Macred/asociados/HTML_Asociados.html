@@ -32,8 +32,8 @@
                             </div>
                         </div>
 
-                        <div class="col-md-3 margin-icos-mat">
-                            <a class="item-seleccionable"> <mat-icon (click)="SubmitPerson()">search</mat-icon> </a>
+                        <div class="col-md-3 margin-icos-mat item-list">
+                            <a class="item-list__confirm"> <mat-icon (click)="SubmitPerson()">search</mat-icon> </a>
                         </div>
 
                         <div class="form-group col-md-6">
@@ -60,7 +60,7 @@
                                 <div *ngIf="f.segundoApellido.errors.required">El segundo apellido es requerido</div>
                             </div>
                         </div>
-                        <button type="submit" (click)="SubmitPerson()"></button>
+                        <button class="item-list__confirm" type="submit" (click)="SubmitPerson()"></button>
                     </form>
                 </div>
             </section>
@@ -82,8 +82,8 @@
 
     <article class="bloq">
         <section *ngIf="menuItem">
-            <div class="center-menu-items">
-                <p class="item-seleccionable titulo-menu-seleccionado">{{menuItem.nombre}}</p>
+            <div class="center-menu-items item-list">
+                <p class="item-list__edit titulo-menu-seleccionado">{{menuItem.nombre}}</p>
             </div>
         </section>
     </article>
@@ -251,15 +251,21 @@
             <section>   <!-- footer --> 
                 <div class="contenedor__footer">
                     <div class="contenedor__footer__prev">
-                        <button *ngIf="habilitaBtnGeneraNuevoAnalisis" (click)="SubmitNuevoAnalisis()" class="btn btn-success px-5 " >
-                            Generar </button>
+                        <button *ngIf="habilitaBtnGeneraNuevoAnalisis" 
+                                (click)="SubmitNuevoAnalisis()" 
+                                class="btn btn-success px-5 " 
+                                mat-flat-button color="primary" > Registrar </button>
 
-                        <button *ngIf="habilitaBtnGuardarAnalisis" (click)="GuardarAnalisis()" class="btn btn-success px-5 " >
-                            Guardar </button>
+                        <button *ngIf="habilitaBtnGuardarAnalisis" 
+                                (click)="GuardarAnalisis()" 
+                                class="btn btn-success px-5 "
+                                mat-flat-button color="primary" > Guardar Cambios </button>
                     </div>
                     <div class="contenedor__footer__next">
-                        <button *ngIf="habilitaBtnIngreso" (click)="habilitaFormularioIngreso()" class="btn px-5 btn-info" >
-                            Ingresos </button>
+                        <button *ngIf="habilitaBtnIngreso" 
+                                (click)="habilitaFormularioIngreso()" 
+                                class="btn px-5 btn-info" 
+                                mat-flat-button color="primary" > Ingresos </button>
                     </div>
                 </div>
             </section>
@@ -290,8 +296,8 @@
                                     <div *ngIf="h.codigoAnalisisHistorial.errors.required">El Código de Análisis del Historial es requerido</div>
                                 </div>
                             </div>
-                            <div class="col-md-3 margin-icos-mat">
-                                <a class="item-seleccionable"> <mat-icon (click)="SubmitFormExtras()">filter_list</mat-icon> </a>
+                            <div class="col-md-3 margin-icos-mat item-list">
+                                <a class="item-list__edit"> <mat-icon>filter_list</mat-icon> </a>
                             </div>
                         </form>
                     </section>
@@ -302,35 +308,41 @@
                                 <table  class="table table-striped">
                                     <thead>
                                         <tr>
-                                            <th style="width: 10%">Código de Análisis</th>
-                                            <th style="width: 20%">Fecha del Análisis</th>
-                                            <th style="width: 10%">Estado</th>
-                                            <th style="width: 10%">Es Definitivo ?</th>
-                                            <th style="width: 10%">Scoring</th>
-                                            <th style="width: 30%">Puntaje Final Cic</th>
-    
-                                            <th style="width: 10%"></th>
+                                            <th style="width: 5%">Análisis</th>
+                                            <th style="width: 12%">Fecha de Análisis</th>
+                                            <th style="width: 12%">Cód. Nivel Cap pago</th>
+                                            <th style="width: 7%">Estado</th>
+                                            <th style="width: 8%">¿ Definitivo ?</th>
+                                            <th style="width: 10%">Scoring Análisis</th>
+                                            <th style="width: 10%">Puntaje Final CIC</th>
+                                            <th style="width: 10%">Moneda</th>
+                                            <th style="width: 26%">Observaciones</th>
+                                            <!-- <th style="width: 5%"></th> -->
                                         </tr>
                                     </thead>
                                     <tbody>
-                                        <tr *ngFor="let obj of listHistorialAnalisis" class="item-seleccionable" (click)="selectAnalisisHistorial(obj)" >
+                                        <tr *ngFor="let obj of listHistorialAnalisis" class="item-list__confirm" (click)="selectAnalisisHistorial(obj)" >
                                             <td>{{obj.codigoAnalisis}}</td>
                                             <td>{{obj.fechaAnalisis}}</td>
+                                            <td>{{obj.codigoNivelCapPago}}</td>
                                             <td>{{obj.estado}}</td>
                                             <td>{{obj.analisisDefinitivo}}</td>
                                             <td>{{obj.puntajeAnalisis}}</td>
                                             <td>{{obj.puntajeFinalCic}}</td>
-            
-                                            <td  style="white-space: nowrap">
-                                                <a class="item-seleccionable-delete" (click)="deleteIngreso(obj)"> <mat-icon>delete_forever</mat-icon> </a>
-                                            </td>
+                                            <td>{{obj.codigoMoneda}}</td>
+                                            <td>{{obj.observaciones}}</td>
+                                            <!-- <td style="white-space: nowrap"> -->
+                                                <!-- <div class="item-list">
+                                                    <a class="item-list__confirm" (click)="deleteIngreso(obj)"> <mat-icon>spa</mat-icon> </a>
+                                                </div> -->
+                                            <!-- </td> -->
                                         </tr>
                                     </tbody>
                                 </table>
                             </div>
 
                         </div>
-                    </section>
+                    </section>  
 
                 </div>
             </article>
@@ -472,28 +484,12 @@
 
                     <div class="col-md-6"></div>
 
-                    <!-- <div class="form-group col-md-3">
-                        <label for="lblMontoExtras" class="form-label">Monto Extras Aplicables</label>
-                        <input formControlName="montoExtras" class="form-control" type="number" id="id_montoExtras"
-                            [ngClass]="{ 'is-invalid': submittedIngresosForm && i.montoExtras.errors }" />
-                        <div *ngIf="submittedIngresosForm && i.montoExtras.errors" class="invalid-feedback">
-                            <div *ngIf="i.montoExtras.errors.required">Ingrese 0 si no aplican extras</div>
-                        </div>
-                    </div> -->
                     <div class="form-group col-md-3">
                         <label for="lblMontoExtras" class="form-label">Monto Extras Aplicables</label>
                         <input formControlName="montoExtras" class="form-control" type="number" id="id_montoExtras"
                             readonly />
                     </div>
 
-                    <!-- <div class="form-group col-md-3">
-                        <label for="lblPorcentajeExtras" class="form-label">Porcentaje Extras Aplicables</label>
-                        <input formControlName="porcentajeExtras" class="form-control" type="number" id="id_porcentajeExtras"
-                            [ngClass]="{ 'is-invalid': submittedIngresosForm && i.porcentajeExtras.errors }" />
-                        <div *ngIf="submittedIngresosForm && i.porcentajeExtras.errors" class="invalid-feedback">
-                            <div *ngIf="i.porcentajeExtras.errors.required">Ingrese 0 si no aplican extras</div>
-                        </div>
-                    </div> -->
                     <div class="form-group col-md-3">
                         <label for="lblPorcentajeExtras" class="form-label">Porcentaje Extras Aplicables</label>
                         <input formControlName="porcentajeExtras" class="form-control" type="number" id="id_porcentajeExtras"
@@ -501,22 +497,14 @@
 
                     </div>
 
-                    <div class="col-md-3 margin-icos-mat">
-                        <a *ngIf="habilitaIcoOpenModalExtras" class="item-seleccionable"> 
+                    <div class="col-md-3 margin-icos-mat item-list">
+                        <a *ngIf="habilitaIcoOpenModalExtras" class="item-list__edit"> 
                             <mat-icon (click)="openExtrasModal()">open_in_new</mat-icon> 
                         </a>
                     </div>
 
                     <div class="col-md-3"></div>
 
-                    <!-- <div class="form-group col-md-3">
-                        <label for="lblMontoDeducciones" class="form-label">Monto Deducciones</label>
-                        <input formControlName="montoDeducciones" class="form-control" type="number" id="id_montoDeducciones"
-                            [ngClass]="{ 'is-invalid': submittedIngresosForm && i.montoDeducciones.errors }" />
-                        <div *ngIf="submittedIngresosForm && i.montoDeducciones.errors" class="invalid-feedback">
-                            <div *ngIf="i.montoDeducciones.errors.required">El monto de las deducciones es requerido</div>
-                        </div>
-                    </div> -->
                     <div class="form-group col-md-3">
                         <label for="lblMontoDeducciones" class="form-label">Monto Deducciones</label>
                         <input formControlName="montoDeducciones" class="form-control" type="number" id="id_montoDeducciones"
@@ -524,8 +512,8 @@
 
                     </div>
 
-                    <div class="col-md-3 margin-icos-mat">
-                        <a *ngIf="habilitaIcoOpenModalDeducciones" class="item-seleccionable">
+                    <div class="col-md-3 margin-icos-mat item-list">
+                        <a *ngIf="habilitaIcoOpenModalDeducciones" class="item-list__edit">
                             <mat-icon (click)="openDeduccionesModal()">open_in_new</mat-icon> 
                         </a>
                     </div>
@@ -542,21 +530,21 @@
                     <table class="table table-striped">
                         <thead>
                             <tr>
-                                <th style="width: 8%">Código de Análisis</th>
-                                <th style="width: 5%">Tipo de Ingreso</th>
+                                <th style="width: 5%">Análisis</th>
+                                <th style="width: 10%">Tipo de Ingreso</th>
                                 <th style="width: 12%">Monto Bruto</th>
                                 <th style="width: 12%">Monto Neto</th>
                                 <th style="width: 8%">Cargas Sociales</th>
                                 <th style="width: 8%">Impuesto Renta</th>
-                                <th style="width: 10%">Extras Aplicables</th>
+                                <th style="width: 8%">Extras Aplicables</th>
                                 <th style="width: 9%">Porcentaje Extras</th>
-                                <th style="width: 13%">Deducciones</th>
-                                <th style="width: 5%"></th>
+                                <th style="width: 10%">Deducciones</th>
+                                <th style="width: 8%"></th>
                             </tr>
                         </thead>
 
                         <tbody>
-                            <tr *ngFor="let obj of listIngresosAnalisis" class="item-seleccionable" (click)="selectIngresoAnalisis(obj)">
+                            <tr *ngFor="let obj of listIngresosAnalisis" >
 
                                 <td>{{obj.codigoAnalisis}}</td>
                                 <td>{{obj.codigoTipoIngreso}}</td>
@@ -569,9 +557,17 @@
                                 <td>{{obj.montoDeducciones}}</td>
 
                                 <td  style="white-space: nowrap">
-                                    <a class="item-seleccionable-delete" (click)="deleteIngreso(obj)"> 
-                                        <mat-icon>delete_forever</mat-icon> 
-                                    </a>
+                                    
+                                    <div class="item-list">
+                                        <a class="item-list__edit" (click)="selectIngresoAnalisis(obj)"> 
+                                            <mat-icon>find_replace</mat-icon>
+                                        </a>
+
+                                        <a class="item-list__delete" (click)="deleteIngreso(obj)"> 
+                                            <mat-icon>clear</mat-icon>
+                                        </a>
+                                    </div>
+
                                 </td>
 
                             </tr>
@@ -586,7 +582,7 @@
             <div class="contenedor__footer">
                 <div class="contenedor__footer__prev">
                     <button *ngIf="habilitaBtnRegistrarIngreso"
-                            (click)="SubmitFormIngresos()" 
+                            (click)="RegistrarIngresoAnalisis()" 
                             class="btn btn-success px-5 " 
                             mat-flat-button color="primary" > Registrar Ingreso </button>
                     <button *ngIf="habilitaBtnActualizaIngreso" 
@@ -698,8 +694,10 @@
                 <section>   <!-- footer -->
                     <div class="contenedor__footer">
                         <div class="contenedor__footer__prev">
-                            <button *ngIf="habilitarBtnSubmitExtras" (click)="SubmitFormExtras()" class="btn btn-success px-5 " >
-                                Registrar </button>
+                            <button *ngIf="habilitarBtnSubmitExtras" 
+                                    (click)="SubmitFormExtras()" 
+                                    class="btn btn-success px-5 " 
+                                    mat-flat-button color="primary" > Registrar </button>
                         </div>
                         <div class="contenedor__footer__next"> 
                             <button *ngIf="habilitarBtnFinalizarExtras" 
