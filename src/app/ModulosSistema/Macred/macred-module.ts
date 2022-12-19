@@ -24,6 +24,7 @@ import { MatDialogModule } from '@angular/material/dialog';
 import { PersonasComponent } from './mantenimientos/Personas/personas-component';
 
 import {MatFormFieldModule} from '@angular/material/form-field';
+import { EstadosCivilesComponent } from './mantenimientos/Personas/estadosciviles-component';
 
 @NgModule({
     imports: [
@@ -54,9 +55,9 @@ import {MatFormFieldModule} from '@angular/material/form-field';
         IndexMacredComponent,
         MenuMacredComponent,
         AsociadosComponent,
-        PersonasComponent
-    ]
-    ,
+        PersonasComponent,
+        EstadosCivilesComponent
+    ],
     entryComponents: [
         AsociadosComponent
     ]

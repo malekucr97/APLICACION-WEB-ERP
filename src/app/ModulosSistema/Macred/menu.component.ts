@@ -2,6 +2,7 @@ import { Component, ViewChild } from '@angular/core';
 import { AccountService }       from '@app/_services';
 import { MatSidenav }           from '@angular/material/sidenav';
 import { httpLandingIndexPage } from '../../../environments/environment-access-admin';
+
 import { FlatTreeControl}       from '@angular/cdk/tree';
 import { MatTreeFlatDataSource, MatTreeFlattener} from '@angular/material/tree';
 import { Module, User }   from '@app/_models';
@@ -56,7 +57,7 @@ const TREE_DATA: FoodNode[] = [
                 link: '', 
                 icon: '',
                 children: [{name: 'Datos Personas', link: ModulesSystem.macredbasehref + 'mantenimientos/personas/datos-personas.html', icon: ''},//monetization_on
-                          {name: 'Estado Civil', link: '/', icon: ''},//monetization_on
+                          {name: 'Estado Civil', link: '/_ModuloMacred/Mantenimientos/Personas/EstadosCiviles.html', icon: ''},//monetization_on
                           {name: 'Condición Laboral', link: '/', icon: ''},//monetization_on
                           {name: 'Tipos de Género', link: '/', icon: ''},//monetization_on
                           {name: 'Tipos de Persona', link: '/', icon: ''},//monetization_on
