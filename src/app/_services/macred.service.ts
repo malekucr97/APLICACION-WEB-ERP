@@ -14,14 +14,17 @@ import { MacAnalisisCapacidadPago } from '@app/_models/Macred/AnalisisCapacidadP
 import { MacTipoIngreso } from '@app/_models/Macred/TipoIngreso';
 import { MacIngresosXAnalisis } from '@app/_models/Macred/IngresosXAnalisis';
 import { MacExtrasAplicables } from '@app/_models/Macred/ExtrasAplicables';
-
-import { MacEstadoCivil } from '@app/_models/Macred/MacEstadoCivil';
+import { MacMatrizAceptacionIngreso } from '@app/_models/Macred/MatrizAceptacionIngreso';
+import { MacTipoDeducciones } from '@app/_models/Macred/TipoDeduccion';
+import { MacDeduccionesAnalisis } from '@app/_models/Macred/DeduccionAnalisis';
 import { MacTipoPersona } from '@app/_models/Macred/TipoPersona';
 import { MacTipoGenero } from '@app/_models/Macred/TipoGenero';
 import { MacCondicionLaboral } from '@app/_models/Macred/CondicionLaboral';
 import { MacCategoriaCredito } from '@app/_models/Macred/CategoriaCredito';
 import { MacTipoAsociado } from '@app/_models/Macred/TipoAsociado';
 import { MacTipoHabitacion } from '@app/_models/Macred/TipoHabitacion';
+import { MacEstadoCivil } from '@app/_models/Macred/MacEstadoCivil';
+
 
 @Injectable({ providedIn: 'root' })
 export class MacredService {
@@ -121,5 +124,38 @@ export class MacredService {
     }
     getHistorialAnlisis(idCompania: number) {
         return this.http.get<MacAnalisisCapacidadPago[]>(`${environment.apiUrl}/macred/gethistorialcapacidadpago?idCompania=${idCompania}`);
+    }
+    getMatrizAceptacionIngreso(idCompania: number, incluyeInactivos:boolean) {
+        return this.http.get<MacMatrizAceptacionIngreso[]>(`${environment.apiUrl}/macred/getmatrizaceptacioningreso?idCompania=${idCompania}&incluyeInactivos=${incluyeInactivos}`);
+    }
+    getExtrasAnalisisIngreso(idCompania: number, codigoAnalisis:number, idIngreso:number) {
+        return this.http.get<MacExtrasAplicables>(`${environment.apiUrl}/macred/getextrasanalisisingreso?idCompania=${idCompania}&codigoAnalisis=${codigoAnalisis}&idIngreso=${idIngreso}`);
+    }
+    deleteExtrasAplicables(idExtras : number, idIngreso : number, idCompania : number) {
+        return this.http.delete<ResponseMessage>(`${environment.apiUrl}/macred/eliminarextrasaplicables?idExtras=${idExtras}&idIngreso=${idIngreso}&idCompania=${idCompania}`);
+    }
+    getTiposDeducciones(idCompania: number, incluyeInactivos:boolean) {
+        return this.http.get<MacTipoDeducciones[]>(`${environment.apiUrl}/macred/gettiposdeducciones?idCompania=${idCompania}&incluyeInactivos=${incluyeInactivos}`);
+    }
+    postDeduccionesAnalisis(deduccion:MacDeduccionesAnalisis) {
+        return this.http.post<MacDeduccionesAnalisis>(`${environment.apiUrl}/macred/creatededuccionesanalisis`, deduccion);
+    }
+    getDeduccionesAnalisis(idCompania: number, codigoAnalisis:number, idIngreso:number) {
+        return this.http.get<MacDeduccionesAnalisis[]>(`${environment.apiUrl}/macred/getdeduccionesanalisis?idCompania=${idCompania}&codigoAnalisis=${codigoAnalisis}&idIngreso=${idIngreso}`);
+    }
+    postIngresosAnalisis(ingresoAnalisis:MacIngresosXAnalisis) {
+        return this.http.post<MacIngresosXAnalisis>(`${environment.apiUrl}/macred/createingresosanalisis`, ingresoAnalisis);
+    }
+    putIngresosAnalisis(ingresoAnalisis:MacIngresosXAnalisis) {
+        return this.http.put<ResponseMessage>(`${environment.apiUrl}/macred/updateingresosanalisis`, ingresoAnalisis);
+    }
+    putDeduccionAnalisis(deduccionAnalisis:MacDeduccionesAnalisis) {
+        return this.http.put<ResponseMessage>(`${environment.apiUrl}/macred/updatededuccionanalisis`, deduccionAnalisis);
+    }
+    deleteDeduccionIngreso( idDeduccion : number ) {
+        return this.http.delete<ResponseMessage>(`${environment.apiUrl}/macred/eliminardeduccioningreso?idDeduccion=${idDeduccion}`);
+    }
+    deleteIngresoAnalisis( idIngreso : number ) {
+        return this.http.delete<ResponseMessage>(`${environment.apiUrl}/macred/eliminaringresoanalisis?idIngreso=${idIngreso}`);
     }
 }

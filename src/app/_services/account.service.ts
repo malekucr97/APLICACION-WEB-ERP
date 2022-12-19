@@ -199,7 +199,6 @@ export class AccountService {
         return this.http.post<ResponseMessage>(`${environment.apiUrl}/users/desasignallsociedu`, desAssignUserBusiness); 
     }
 
-
     // -- >> Procedientos Modulos
     getModulesSystem() {
         return this.http.get<Module[]>(`${environment.apiUrl}/users/modulossistema`);

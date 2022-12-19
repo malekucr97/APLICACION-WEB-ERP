@@ -36,7 +36,7 @@ declare var $: any;
 export class PersonasComponent implements OnInit {
     @ViewChild(MatSidenav) sidenav !: MatSidenav;
 
-    nombrePantalla : string = 'DatosPersonas.html';
+    nombrePantalla : string = 'datos-personas.html';
 
     _globalCodMonedaPrincipal : number ;
     _personaMacred : MacPersona;

@@ -8,8 +8,8 @@ const routes: Routes = [
     {
         path: '', component: MenuFacturacionComponent,
         children: [
-            { path: '', component: MenuFacturacionComponent },
-            { path: 'Index.html', component: IndexFacturacionComponent },
+            { path: '', component:              IndexFacturacionComponent },
+            { path: 'index.html', component:    IndexFacturacionComponent },
         ]
     }
 ];

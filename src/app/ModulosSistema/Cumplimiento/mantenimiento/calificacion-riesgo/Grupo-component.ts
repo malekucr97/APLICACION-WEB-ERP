@@ -7,7 +7,6 @@ import { MatSidenav } from '@angular/material/sidenav';
 import { Compania } from '../../../../_models/modules/compania';
 import { Grupo } from '@app/_models/Cumplimiento/Grupo';
 import { CumplimientoService } from '@app/_services/cumplimiento.service';
-import { httpModulesPages } from '@environments/environment-access-admin';
 
 declare var $: any;
 
@@ -35,7 +34,7 @@ export class GrupoComponent implements OnInit {
     listGroups: Grupo[];
     listGroupsSubject : Grupo[];
 
-    public URLAddEditGroupPage: string = httpModulesPages.urlCumplimiento_Grupo;
+    public URLAddEditGroupPage: string = 'inra-sa/modulo-cumplimiento/Mantenimientos/CalificacionRiesgo/Grupos/';
 
     constructor (private formBuilder: FormBuilder,
                  private cumplimientoService: CumplimientoService, 

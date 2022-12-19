@@ -17,6 +17,8 @@ import { HomeComponent } from './home';
 import {MatIconModule} from '@angular/material/icon';
 import {MatToolbarModule} from '@angular/material/toolbar';
 
+import {LocationStrategy, HashLocationStrategy} from '@angular/common';
+
 @NgModule({
     imports: [
         BrowserModule,
@@ -41,6 +43,8 @@ import {MatToolbarModule} from '@angular/material/toolbar';
     providers: [
         { provide: HTTP_INTERCEPTORS, useClass: JwtInterceptor, multi: true },
         { provide: HTTP_INTERCEPTORS, useClass: ErrorInterceptor, multi: true },
+        // ## rewrrite /# ## //
+        { provide: LocationStrategy,  useClass: HashLocationStrategy }
     ],
     bootstrap: [AppComponent]
 })
