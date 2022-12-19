@@ -37,7 +37,7 @@ declare var $: any;
 export class EstadosCivilesComponent implements OnInit {
     @ViewChild(MatSidenav) sidenav !: MatSidenav;
 
-    nombrePantalla : string = 'EstadosCiviles.html';
+    nombrePantalla : string = 'estados-civiles.html';
 
     _estadoCivilMacred : MacEstadoCivil;
 

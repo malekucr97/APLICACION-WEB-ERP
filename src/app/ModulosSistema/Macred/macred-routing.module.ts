@@ -16,8 +16,8 @@ const routes: Routes = [
             // datos de análisis
             { path: 'asociados/calificacion-asociados.html',        component: AsociadosComponent },
             // mantenimientos
-            { path: 'mantenimientos/personas/datos-personas.html',  component: PersonasComponent }
-            { path: 'Mantenimientos/Personas/EstadosCiviles.html', component: EstadosCivilesComponent}
+            { path: 'mantenimientos/personas/datos-personas.html',  component: PersonasComponent },
+            { path: 'mantenimientos/personas/estados-civiles.html', component: EstadosCivilesComponent}
         ]
     }
 ];
