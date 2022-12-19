@@ -46,8 +46,14 @@ export class MacredService {
     getEstadosCivilesCompania(idCompania:number) {
         return this.http.get<MacEstadoCivil[]>(`${environment.apiUrl}/macred/getestadoscivilescompania?idCompania=${idCompania}`);
     }
+    postEstadoCivil(estadoCivil:MacEstadoCivil) {
+        return this.http.post<MacEstadoCivil>(`${environment.apiUrl}/macred/createestadocivil`, estadoCivil);
+    }
     putEstadoCivil(estadoCivil:MacEstadoCivil) {
         return this.http.put<MacEstadoCivil>(`${environment.apiUrl}/macred/updateestadocivil`, estadoCivil);
+    }
+    deleteEstadoCivil(idEstadoCivil:number) {
+        return this.http.delete<MacEstadoCivil>(`${environment.apiUrl}/macred/deleteestadocivil?idEstadoCivil=${idEstadoCivil}`);
     }
     getTiposPersonasCompania(idCompania:number) {
         return this.http.get<MacTipoPersona[]>(`${environment.apiUrl}/macred/gettipospersonascompania?idCompania=${idCompania}`);
