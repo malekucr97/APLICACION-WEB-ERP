@@ -106,4 +106,13 @@ export class MacredService {
     putIngresosAnalisis(ingresoAnalisis:MacIngresosXAnalisis) {
         return this.http.put<ResponseMessage>(`${environment.apiUrl}/macred/updateingresosanalisis`, ingresoAnalisis);
     }
+    putDeduccionAnalisis(deduccionAnalisis:MacDeduccionesAnalisis) {
+        return this.http.put<ResponseMessage>(`${environment.apiUrl}/macred/updatededuccionanalisis`, deduccionAnalisis);
+    }
+    deleteDeduccionIngreso( idDeduccion : number ) {
+        return this.http.delete<ResponseMessage>(`${environment.apiUrl}/macred/eliminardeduccioningreso?idDeduccion=${idDeduccion}`);
+    }
+    deleteIngresoAnalisis( idIngreso : number ) {
+        return this.http.delete<ResponseMessage>(`${environment.apiUrl}/macred/eliminaringresoanalisis?idIngreso=${idIngreso}`);
+    }
 }

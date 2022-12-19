@@ -317,7 +317,6 @@
                                             <th style="width: 10%">Puntaje Final CIC</th>
                                             <th style="width: 10%">Moneda</th>
                                             <th style="width: 26%">Observaciones</th>
-                                            <!-- <th style="width: 5%"></th> -->
                                         </tr>
                                     </thead>
                                     <tbody>
@@ -331,11 +330,6 @@
                                             <td>{{obj.puntajeFinalCic}}</td>
                                             <td>{{obj.codigoMoneda}}</td>
                                             <td>{{obj.observaciones}}</td>
-                                            <!-- <td style="white-space: nowrap"> -->
-                                                <!-- <div class="item-list">
-                                                    <a class="item-list__confirm" (click)="deleteIngreso(obj)"> <mat-icon>spa</mat-icon> </a>
-                                                </div> -->
-                                            <!-- </td> -->
                                         </tr>
                                     </tbody>
                                 </table>
@@ -557,17 +551,14 @@
                                 <td>{{obj.montoDeducciones}}</td>
 
                                 <td  style="white-space: nowrap">
-                                    
                                     <div class="item-list">
                                         <a class="item-list__edit" (click)="selectIngresoAnalisis(obj)"> 
-                                            <mat-icon>find_replace</mat-icon>
+                                            <mat-icon>visibility</mat-icon>
                                         </a>
-
                                         <a class="item-list__delete" (click)="deleteIngreso(obj)"> 
                                             <mat-icon>clear</mat-icon>
                                         </a>
                                     </div>
-
                                 </td>
 
                             </tr>
@@ -716,7 +707,6 @@
             </div>
         </article> <!-- fin modal -->
 
-
         <article class="modal modal-config" id="deduccionesModal"> <!-- inicio modal -->
 
             <div class="modal-content">
@@ -793,7 +783,7 @@
                                         <th style="width: 20%">Tipo de Moneda</th>
                                         <th style="width: 20%">Tipo de Cambio</th>
                                         <th style="width: 20%">Monto de la Deducción</th>
-                                        <!-- <th style="width: 10%"></th> -->
+                                        <th style="width: 10%"></th>
                                     </tr>
                                 </thead>
                                 <tbody>
@@ -803,15 +793,18 @@
                                         <td>{{obj.codigoMoneda}}</td>
                                         <td>{{obj.tipoCambio}}</td>
                                         <td>{{obj.monto}}</td>
-        
-                                        <!-- <td  style="white-space: nowrap">
-                    
-                                            <button (click)="deleteIngreso(obj)" class="btn btn-sm btn-outline-danger mr-1" [disabled]="isDeleting">
-                                                <span *ngIf="isDeleting" class="spinner-border spinner-border-sm"></span>
-                                                <span *ngIf="!isDeleting">Eliminar</span>
-                                            </button>
-                    
-                                        </td> -->
+
+                                        <td  style="white-space: nowrap">
+                                            <div class="item-list">
+                                                <a class="item-list__edit" (click)="selectDeduccionAnalisis(obj)"> 
+                                                    <mat-icon>visibility</mat-icon>
+                                                </a>
+                                                <a class="item-list__delete" (click)="deleteDeduccionIngreso(obj)"> 
+                                                    <mat-icon>clear</mat-icon>
+                                                </a>
+                                            </div>
+                                        </td>
+                                        
                                     </tr>
                                 </tbody>
                             </table>
@@ -823,13 +816,19 @@
                 <section>   <!-- footer -->
                     <div class="contenedor__footer">
                         <div class="contenedor__footer__prev">
-                            <button (click)="SubmitFormDeducciones()" 
-                                    class="btn btn-success px-5 " > Registrar </button>
+                            <button *ngIf="habilitarBtnRegistraDeduccion"
+                                    (click)="SubmitFormDeducciones()"
+                                    class="btn btn-success px-5 "
+                                    mat-flat-button color="primary" > Registrar </button>
+                            <button *ngIf="habilitarBtnActualizaDeduccion"
+                                    (click)="ActualizaFormDeducciones()"
+                                    class="btn btn-success px-5 "
+                                    mat-flat-button color="primary" > Guardar </button>
                         </div>
-                        <div class="contenedor__footer__next"> 
-                            <button *ngIf="habilitarBtnFinalizarDeducciones" 
-                                    (click)="totalizarDeducciones()" 
-                                    class="btn btn-success px-5 " 
+                        <div class="contenedor__footer__next">
+                            <button *ngIf="habilitarBtnFinalizarDeducciones"
+                                    (click)="totalizarDeducciones()"
+                                    class="btn btn-success px-5 "
                                     mat-flat-button color="primary" > Finalizar </button>
                         </div>
                     </div>
