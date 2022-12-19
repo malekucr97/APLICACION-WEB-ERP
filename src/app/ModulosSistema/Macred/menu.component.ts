@@ -57,7 +57,7 @@ const TREE_DATA: FoodNode[] = [
                 link: '', 
                 icon: '',
                 children: [{name: 'Datos Personas', link: ModulesSystem.macredbasehref + 'mantenimientos/personas/datos-personas.html', icon: ''},//monetization_on
-                          {name: 'Estado Civil', link: '/_ModuloMacred/Mantenimientos/Personas/EstadosCiviles.html', icon: ''},//monetization_on
+                          {name: 'Estado Civil', link: ModulesSystem.macredbasehref + 'mantenimientos/personas/estados-civiles.html', icon: ''},//monetization_on
                           {name: 'Condición Laboral', link: '/', icon: ''},//monetization_on
                           {name: 'Tipos de Género', link: '/', icon: ''},//monetization_on
                           {name: 'Tipos de Persona', link: '/', icon: ''},//monetization_on
