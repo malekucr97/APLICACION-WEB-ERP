@@ -56,7 +56,6 @@ export class ListUserComponent implements OnInit {
             .subscribe(users => {
                 this.listUsers = users;
                 this.accountService.suscribeListUser(this.listUsers);
-                
             });
         } else { this.router.navigate([this.Home]); }
     }

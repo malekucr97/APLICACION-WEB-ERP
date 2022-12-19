@@ -14,6 +14,11 @@ import { AppComponent } from './app.component';
 import { AlertComponent } from './_components';
 import { HomeComponent } from './home';
 
+import {MatIconModule} from '@angular/material/icon';
+import {MatToolbarModule} from '@angular/material/toolbar';
+
+import {LocationStrategy, HashLocationStrategy} from '@angular/common';
+
 @NgModule({
     imports: [
         BrowserModule,
@@ -25,7 +30,10 @@ import { HomeComponent } from './home';
         
         MatTreeModule,
         MatNativeDateModule,
-        MatTooltipModule
+        MatTooltipModule,
+
+        MatIconModule,
+        MatToolbarModule
     ],
     declarations: [
         AppComponent,
@@ -35,6 +43,8 @@ import { HomeComponent } from './home';
     providers: [
         { provide: HTTP_INTERCEPTORS, useClass: JwtInterceptor, multi: true },
         { provide: HTTP_INTERCEPTORS, useClass: ErrorInterceptor, multi: true },
+        // ## rewrrite /# ## //
+        { provide: LocationStrategy,  useClass: HashLocationStrategy }
     ],
     bootstrap: [AppComponent]
 })

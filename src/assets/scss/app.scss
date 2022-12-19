@@ -4,49 +4,257 @@
 @mixin bg-color-blue { background-color: #005188; }
 @mixin bg-color-skyblue { background-color: #00AEEF; }
 @mixin bg-color-light-gray { background-color: #B3B3B3; }
-
 @mixin font-aero {
     font-family: "../../assets/fonts/Aero.ttf";
     font-size: 1.8rem;
     font-weight: 750;
     text-align: center;
     @media (max-width: 800px) {
-        font-size: 1.5rem;
+        font-size: 1.2rem;
+    }
+}
+::ng-deep .cdk-overlay-container {
+    z-index:2000;
+}
+// ## -- >> mensaje de alerta
+.alerta {
+    width: 100%;
+    position: absolute;
+    top: 1%;
+    &__messaje{
+        margin-top: 35px;
+        text-align: center;
+    }
+}
+// ## -- >> barra iconos home config logout
+.var {
+    height: 25px;
+    @include bg-color-darkest-blue;
+    &__item {
+        display: flex;
+        justify-content: flex-end;
+        &__p {  
+            margin-right: 1%;
+            color: white;
+            &:hover {
+                cursor: pointer;
+                color: #F9A01B;
+            }
+        }
+    }
+}
+// ## -- >> contenedor titulo contenido
+.titulo-administracion-contenedor {
+    background: linear-gradient(#00AEEF 1%, #005188, #053254 40%);
+    color: white;
+    &__seccion {
+        display: flex;
+        align-items: center;
+        justify-content: space-evenly;
+        &__left {
+            &__img {
+                @media (max-width: 800px) {
+                    width: 80%;
+                }
+            }
+        }
+        &__center {
+            &__titulo {
+                color: white;
+                display: flex;
+                padding-top: 1%;
+                @include font-aero;
+            }
+        }
+        &__rigth {
+            &__img {
+                @media (max-width: 800px) {
+                    width: 80%;
+                }
+            }
+        }
+    }
+}
+// ## -- >> contenedor selección compañía
+.select-company-contenedor {
+    display:         flex;
+    flex-direction:  row;
+    justify-content: center;
+    align-items:     center;
+    flex-wrap:       wrap;
+    padding: 5% 0 5% 0;
+    &__card {
+        &__header { 
+            @include font-aero;
+            &__titulo {
+                color: #053254;
+                font-size: 2rem;
+                font-weight: 450;
+            }
+        }
+        &__body {
+            &__item {
+                color: #005188;
+                transition: color 0.2s ease-in-out;
+                &:hover {
+                    color: #F9A01B;
+                    cursor: pointer;
+                }
+                &__titulo {
+                    width: 90%;
+                    display: inline-block;
+                    text-align: left;
+                }
+                &__ico {
+                    width: 10%;
+                    display: inline-block;
+                    text-align: right;
+                }
+            }
+            &__spiner {
+                display: flex;
+                flex-direction: row;
+                justify-content: center;
+                align-items: center;
+                flex-wrap: wrap;
+                color: red;
+            }
+        }
     }
 }
 
-.info {
-    height: 25px;
+.item-list {
 
-    @include bg-color-darkest-blue;
-    display: flex;
-    
-    justify-content: flex-end;
-    
-    &__logout {
-        margin-top: 1px;
-        margin-right: 2%;
-        color: white;
+    &__edit {
+
+        margin: 0 5px 0 0;
+        display: inline-block;
+
+        color: #053254;
+        transition: color 0.2s ease-in-out;
+        &:hover {
+            color: #F9A01B;
+            cursor: pointer;
+        }
     }
-    &__user {
-        padding-right: 1%;
-        
-        color: white;
+    &__delete {
+
+        padding: 0 0 0 5px;
+        display: inline-block;
+
+        color: #053254;
+        transition: color 0.2s ease-in-out;
+        &:hover {
+            color: #f91b1b;
+            cursor: pointer;
+        }
     }
-    &__user__icon {
-        margin-right: 2%;
-        margin-top: 5px;
+    &__confirm {
+        color: #053254;
+        transition: color 0.2s ease-in-out;
+        &:hover {
+            color: #129523;
+            cursor: pointer;
+        }
     }
-    &__logout__icon {
-        margin-left: 2%;
-        margin-top: 5px;
-    }
-    &__user__icon:hover {
-        cursor: pointer;
+}
+
+.item-seleccionable {
+    color: #053254;
+    transition: color 0.2s ease-in-out;
+    &:hover {
         color: #F9A01B;
-    }
-    &__logout__icon:hover {
         cursor: pointer;
-        color: #F9A01B;
+    }
+}
+.item-seleccionable-delete {
+    color: #053254;
+    transition: color 0.2s ease-in-out;
+    &:hover {
+        color: #f91b1b;
+        cursor: pointer;
+    }
+}
+
+
+
+.center-menu-items {
+    display:         flex;
+    flex-direction:  row;
+    justify-content: center;
+    align-items:     center;
+    flex-wrap:       wrap;
+}
+.bloq {
+    padding: 0.2% 1% 0.4% 1%;
+}
+.contenedor {
+    margin: 1% 1% 1% 1%;
+    border-radius: 10px;
+    
+    &__header-modal {
+        width: 100%;
+    }
+    &__footer-modal {
+        width: 100%;
+
+        &__prev {
+            width: 50%;
+            padding: 0 0 0 2%;
+            display: inline-block;
+            text-align: left;
+        }
+        &__next {
+            width: 50%;
+            padding: 0 2% 0 0;
+            display: inline-block;
+            text-align: right;
+        }
+    }
+
+    &__header {
+        border-bottom: 1px solid rgb(202, 202, 202);
+        &__prev {
+            width: 50%;
+            padding: 1% 0 0 2%;
+            display: inline-block;
+            text-align: left;
+        }
+        &__next {
+            width: 50%;
+            padding: 1% 2% 0 0;
+            display: inline-block;
+            text-align: right;
+        }
+    }
+    &__footer {
+        border-top: 1px solid rgb(202, 202, 202);
+        &__prev {
+            width: 50%;
+            padding: 1% 0 1% 2%;
+            display: inline-block;
+            text-align: left;
+        }
+        &__next {
+            width: 50%;
+            padding: 1% 2% 1% 0;
+            display: inline-block;
+            text-align: right;
+        }
+    }
+    &__body {
+        padding: 0.5% 2% 0.5% 2%;
+    }
+}
+
+.modal-config {
+    width: 85%;
+    height: 85%;
+
+    margin: 3% 5% 15% 6%;
+    padding: 0 0.5% 0 1%;
+
+    &__formulario-header {
+        margin: 0.5% 0 0 1%;
     }
 }

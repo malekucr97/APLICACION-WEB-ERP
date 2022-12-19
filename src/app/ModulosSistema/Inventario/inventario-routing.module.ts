@@ -8,8 +8,8 @@ const routes: Routes = [
     {
         path: '', component: MenuInventarioComponent,
         children: [
-            { path: '', component: MenuInventarioComponent },
-            { path: 'Index.html', component: IndexInventarioComponent },
+            { path: '', component:              IndexInventarioComponent },
+            { path: 'index.html', component:    IndexInventarioComponent },
         ]
     }
 ];

@@ -5,10 +5,8 @@ import { User, Module } from '@app/_models';
 import { first } from 'rxjs/operators';
 import { MatSidenav } from '@angular/material/sidenav';
 import { Compania } from '../../../../_models/modules/compania';
-import { ActividadEconomica } from '@app/_models/Cumplimiento/ActividadEconomica';
 import { CumplimientoService } from '@app/_services/cumplimiento.service';
 import { ActivatedRoute } from '@angular/router';
-import { httpModulesPages } from '@environments/environment-access-admin';
 import { CanalDistribucion } from '@app/_models/Cumplimiento/CanalDistribucion';
 
 declare var $: any;
@@ -36,7 +34,7 @@ export class CanalDistribucionComponent implements OnInit {
 
     listDistributionChannels: CanalDistribucion[];
 
-    public URLAddEditGroupPage: string = httpModulesPages.urlCumplimiento_Grupo;
+    // public URLAddEditGroupPage: string = httpModulesPages.urlCumplimiento_Grupo;
 
     constructor (private formBuilder: FormBuilder,
                  private cumplimientoService: CumplimientoService, 

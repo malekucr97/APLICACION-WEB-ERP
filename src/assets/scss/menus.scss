@@ -15,67 +15,7 @@
     }
 }
 
-.info {
-    height: 25px;
-
-    @include bg-color-darkest-blue;
-    display: flex;
-    
-    justify-content: flex-end;
-    flex-direction: row;
-    
-    &__logout {
-        margin-top: 1px;
-        margin-right: 2%;
-        color: white;
-    }
-    &__user {
-        display: flex;
-        padding-right: 1%;
-        
-        color: white;
-    }
-    &__user__icon {
-        margin-right: 2%;
-        margin-top: 5px;
-    }
-    &__logout__icon {
-        margin-left: 2%;
-        margin-top: 5px;
-    }
-    &__user__icon:hover {
-        cursor: pointer;
-        color: #F9A01B;
-    }
-    &__logout__icon:hover {
-        cursor: pointer;
-        color: #F9A01B;
-    }
-}
-.title {
-    display: flex;
-    flex-direction: row;
-    align-items: center;
-    justify-content: space-evenly;
-
-    &__description {
-        color: white;
-        display: flex;
-        padding-top: 1%;
-        @include font-aero;
-    }
-
-    &__deco--left {
-        height: 13%;
-        width: 13%;
-    }
-
-    &__deco--right {
-        height: 13%;
-        width: 13%;
-    }
-}
-.btn_hamburguesa {
+.btn-hamburguesa {
     position: absolute;
     left: 2%;
 }

@@ -7,7 +7,6 @@ import { MatSidenav } from '@angular/material/sidenav';
 import { Compania } from '../../../../_models/modules/compania';
 import { CumplimientoService } from '@app/_services/cumplimiento.service';
 import { ActivatedRoute } from '@angular/router';
-import { httpModulesPages } from '@environments/environment-access-admin';
 import { ProductoFinanciero } from '@app/_models/Cumplimiento/ProductoFinanciero';
 
 declare var $: any;
@@ -35,7 +34,7 @@ export class ProductoFinancieroComponent implements OnInit {
 
     listFinancialProducts: ProductoFinanciero[];
 
-    public URLAddEditGroupPage: string = httpModulesPages.urlCumplimiento_Grupo;
+    // public URLAddEditGroupPage: string = httpModulesPages.urlCumplimiento_Grupo;
 
     constructor (private formBuilder: FormBuilder,
                  private cumplimientoService: CumplimientoService, 

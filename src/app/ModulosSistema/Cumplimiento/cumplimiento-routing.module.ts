@@ -21,21 +21,21 @@ const routes: Routes = [
     {
         path: '', component: MenuCumplimientoComponent,
         children: [
-            { path: '', component: MenuCumplimientoComponent },
-            { path: 'Index.html', component: IndexCumplimientoComponent },
-            { path: 'Mantenimientos/CalificacionRiesgo/Grupos', component: GrupoComponent },
-            { path: 'Mantenimientos/CalificacionRiesgo/NivelesRiesgos', component: NivelRiesgoComponent },
-            { path: 'Mantenimientos/CalificacionRiesgo/ActividadesEconomicas', component: ActividadEconomicaComponent },
-            { path: 'Mantenimientos/CalificacionRiesgo/Profesiones', component: ProfesionComponent },
-            { path: 'Mantenimientos/CalificacionRiesgo/Paises', component: PaisComponent },
-            { path: 'Mantenimientos/CalificacionRiesgo/MovimientosDebe', component: MovimientoDebeComponent },
-            { path: 'Mantenimientos/CalificacionRiesgo/MovimientosHaber', component: MovimientoHaberComponent },
-            { path: 'Mantenimientos/CalificacionRiesgo/CantidadesDebe', component: CantidadDebeComponent },
-            { path: 'Mantenimientos/CalificacionRiesgo/CantidadesHaber', component: CantidadHaberComponent },
-            { path: 'Mantenimientos/CalificacionRiesgo/Articulo15', component: Articulo15Component },
-            { path: 'Mantenimientos/CalificacionRiesgo/CanalesDistribucion', component: CanalDistribucionComponent },
-            { path: 'Mantenimientos/CalificacionRiesgo/Especialidades', component: EspecialidadComponent },
-            { path: 'Mantenimientos/CalificacionRiesgo/ProductosFinancieros', component: ProductoFinancieroComponent }
+            { path: '', component:              IndexCumplimientoComponent },
+            { path: 'index.html', component:    IndexCumplimientoComponent },
+            { path: 'Mantenimientos/CalificacionRiesgo/Grupos',                 component: GrupoComponent },
+            { path: 'Mantenimientos/CalificacionRiesgo/NivelesRiesgos',         component: NivelRiesgoComponent },
+            { path: 'Mantenimientos/CalificacionRiesgo/ActividadesEconomicas',  component: ActividadEconomicaComponent },
+            { path: 'Mantenimientos/CalificacionRiesgo/Profesiones',            component: ProfesionComponent },
+            { path: 'Mantenimientos/CalificacionRiesgo/Paises',                 component: PaisComponent },
+            { path: 'Mantenimientos/CalificacionRiesgo/MovimientosDebe',        component: MovimientoDebeComponent },
+            { path: 'Mantenimientos/CalificacionRiesgo/MovimientosHaber',       component: MovimientoHaberComponent },
+            { path: 'Mantenimientos/CalificacionRiesgo/CantidadesDebe',         component: CantidadDebeComponent },
+            { path: 'Mantenimientos/CalificacionRiesgo/CantidadesHaber',        component: CantidadHaberComponent },
+            { path: 'Mantenimientos/CalificacionRiesgo/Articulo15',             component: Articulo15Component },
+            { path: 'Mantenimientos/CalificacionRiesgo/CanalesDistribucion',    component: CanalDistribucionComponent },
+            { path: 'Mantenimientos/CalificacionRiesgo/Especialidades',         component: EspecialidadComponent },
+            { path: 'Mantenimientos/CalificacionRiesgo/ProductosFinancieros',   component: ProductoFinancieroComponent }
         ]
     }
 ];

@@ -1,24 +1,29 @@
-<div class="info">
-    <p class="info__user">
-        <i routerLink="/_AdminModule/AdminUserPage" class="info__user__icon fa fa-cog fa-lg"></i>
-    </p>
-    <p class="info__logout">
-        <i class="info__logout__icon fa fa-sign-out fa-lg" (click)="logout()"></i>
-    </p>
-</div>
+<article class="var">
+    <section>
+        <div class="var__item">
+            <p class="var__item__p"> <i (click)="logout()"        class="fa fa-sign-out fa-lg"> </i> </p>
+        </div>
+    </section>
+</article>
 
-<mat-toolbar>
-    <article>
-        <section class="title">
-            <button class="btn_hamburguesa" mat-icon-button (click)="sidenav.toggle()">
-                    <mat-icon>menu</mat-icon>
+<article class="titulo-administracion-contenedor">
+    <section>
+        <div class="titulo-administracion-contenedor__seccion" >
+            <button class="btn-hamburguesa" mat-icon-button (click)="sidenav.toggle()">
+                <mat-icon>menu</mat-icon>
             </button>
-            <img class="title__deco--left" src="./assets/images/inra/img_bankap_left.png ">
-            <p class="title__description">{{businessObservable.nombre}}</p>
-            <img class="title__deco--right" src="./assets/images/inra/img_bankap_rigth.png ">
-        </section>
-    </article>
-</mat-toolbar>
+            <div class="titulo-administracion-contenedor__seccion__left">
+                <img class="titulo-administracion-contenedor__seccion__left__img" src="./assets/images/inra/img_bankap_left.png ">
+            </div>
+            <div class="titulo-administracion-contenedor__seccion__center">
+                <p class="titulo-administracion-contenedor__seccion__center__titulo"> {{businessObservable.nombre}} </p>
+            </div>
+            <div class="titulo-administracion-contenedor__seccion__rigth">
+                <img class="titulo-administracion-contenedor__seccion__rigth__img" src="./assets/images/inra/img_bankap_rigth.png ">
+            </div>
+        </div>
+    </section>
+</article>
 
 <mat-sidenav mode="over">
     <mat-sidenav-container>
@@ -37,7 +42,7 @@
                 <mat-icon>reply</mat-icon>
             </button>
 
-            <img class="avatar mat-elevation-z8" src="{{moduleObservable.pathIco}}">
+            <img class="avatar mat-elevation-z8" src="{{moduleObservable.pathLogo}}">
             <hr>
             <h4 class="name">{{moduleObservable.descripcion}}</h4>
             <h4 class="name">{{businessObservable.nombre}} - núm.céd {{businessObservable.cedulaJuridica}}</h4>
