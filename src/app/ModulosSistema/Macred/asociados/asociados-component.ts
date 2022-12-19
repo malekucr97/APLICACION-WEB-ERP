@@ -1,29 +1,23 @@
-import { FormBuilder, FormGroup, RequiredValidator, Validators  }  from '@angular/forms';
-import { Component, OnInit, ViewChild }         from '@angular/core';
-import { AccountService, AlertService }         from '@app/_services';
-import { User, Module }                         from '@app/_models';
-import { MatSidenav }                           from '@angular/material/sidenav';
-import { Compania }                             from '../../../_models/modules/compania';
-import { MacredService }                        from '@app/_services/macred.service';
-import { ScreenAccessUser }                     from '@app/_models/admin/screenAccessUser';
-import { Router }                               from '@angular/router';
-import { first }                                from 'rxjs/operators';
-import { MacPersona }                           from '@app/_models/Macred/Persona';
-import { MacTipoIngresoAnalisis }               from '@app/_models/Macred/TipoIngresoAnalisis';
-import { MacTipoFormaPagoAnalisis }             from '@app/_models/Macred/TipoFormaPagoAnalisis';
-import { MacAnalisisCapacidadPago }             from '@app/_models/Macred/AnalisisCapacidadPago';
-import { MacTiposMoneda }                       from '@app/_models/Macred/TiposMoneda';
-import { MacModeloAnalisis }                    from '@app/_models/Macred/ModeloAnalisis';
-import { MacNivelCapacidadPago }                from '@app/_models/Macred/NivelCapacidadPago';
-import { MacTipoGenerador }                     from '@app/_models/Macred/TipoGenerador';
-import { MatDialog }                            from '@angular/material/dialog';
-import { DialogoConfirmacionComponent }         from '@app/_components/dialogo-confirmacion/dialogo-confirmacion.component';
-import { MacTipoIngreso }                       from '@app/_models/Macred/TipoIngreso';
-import { MacIngresosXAnalisis } from '@app/_models/Macred/IngresosXAnalisis';
-import { MacExtrasAplicables } from '@app/_models/Macred/ExtrasAplicables';
-import { MacMatrizAceptacionIngreso } from '@app/_models/Macred/MatrizAceptacionIngreso';
-import { MacTipoDeducciones } from '@app/_models/Macred/TipoDeduccion';
-import { MacDeduccionesAnalisis } from '@app/_models/Macred/DeduccionAnalisis';
+import { FormBuilder, FormGroup, Validators  }      from '@angular/forms';
+import { Component, OnInit, ViewChild }             from '@angular/core';
+import { AccountService, AlertService }             from '@app/_services';
+import { MatSidenav }                               from '@angular/material/sidenav';
+import { Router }                                   from '@angular/router';
+import { first }                                    from 'rxjs/operators';
+
+import { ScreenAccessUser, User, Module, Compania } from '@app/_models';
+
+import { MatDialog }                                from '@angular/material/dialog';
+import { DialogoConfirmacionComponent }             from '@app/_components/dialogo-confirmacion/dialogo-confirmacion.component';
+
+// ## -- servicio macred http -- ## //
+import { MacredService }                            from '@app/_services/macred.service';
+// ## -- objetos macred analisis de capacidad de pago -- ## //
+import {    MacAnalisisCapacidadPago, MacDeduccionesAnalisis, MacExtrasAplicables, 
+            MacIngresosXAnalisis, MacMatrizAceptacionIngreso, MacModeloAnalisis, 
+            MacNivelCapacidadPago, MacPersona, MacTipoDeducciones,  MacTipoFormaPagoAnalisis, 
+            MacTipoGenerador, MacTipoIngreso, MacTipoIngresoAnalisis, MacTiposMoneda } from '@app/_models/Macred';
+// ## -- ******************************************** -- ## //
 
 declare var $: any;
 
@@ -44,6 +38,7 @@ export class AsociadosComponent implements OnInit {
     _personaMacred          : MacPersona = null;
 
     _extrasAplicables       : MacExtrasAplicables ;
+    _deduccion              : MacDeduccionesAnalisis ;
 
     _ingresoAnalisisSeleccionado : MacIngresosXAnalisis ;
 
@@ -92,10 +87,13 @@ export class AsociadosComponent implements OnInit {
 
     habilitaIcoOpenModalExtras      : boolean = false;
     habilitaIcoOpenModalDeducciones : boolean = false;
+
+    habilitarBtnActualizaDeduccion  : boolean = false;
+    habilitarBtnRegistraDeduccion   : boolean = false;
     // ## -- ---------------- -- ## //
 
-    public listSubMenu: Module[] = [];
-    public menuItem : Module = null;
+    public listSubMenu  : Module[]  = [];
+    public menuItem     : Module    = null;
 
     listScreenAccessUser: ScreenAccessUser[];
 
@@ -108,15 +106,15 @@ export class AsociadosComponent implements OnInit {
     listTiposGeneradores:       MacTipoGenerador[];
 
     // listas ingresos
-    listTiposIngresos           : MacTipoIngreso[] ;
-    listIngresosAnalisis        : MacIngresosXAnalisis[] ;
-    listHistorialAnalisis       : MacAnalisisCapacidadPago[] ;
-    listMatrizAceptacionIngreso : MacMatrizAceptacionIngreso[] ;
-    listTiposDeducciones        : MacTipoDeducciones[] ;
+    listTiposIngresos           : MacTipoIngreso[];
+    listIngresosAnalisis        : MacIngresosXAnalisis[];
+    listHistorialAnalisis       : MacAnalisisCapacidadPago[];
+    listMatrizAceptacionIngreso : MacMatrizAceptacionIngreso[];
+    listTiposDeducciones        : MacTipoDeducciones[];
 
-    listExtrasAplicables        : MacExtrasAplicables[] ;
-    listTempExtrasAplicables    : MacExtrasAplicables[] ;
-    listDeduccionesAnalisis     : MacDeduccionesAnalisis[] ;
+    listExtrasAplicables        : MacExtrasAplicables[];
+    listTempExtrasAplicables    : MacExtrasAplicables[];
+    listDeduccionesAnalisis     : MacDeduccionesAnalisis[];
 
     formPersona             : FormGroup;
     formAnalisis            : FormGroup;
@@ -215,10 +213,10 @@ export class AsociadosComponent implements OnInit {
                     this.router.navigate([this.moduleObservable.indexHTTP]);
 
                 // carga datos parámetros generales
-                this.macredService.GetParametroGeneralVal1(this.companiaObservable.id, 'COD_MONEDA_PRINCIPAL', true)
+                this.macredService.GetParametroGeneralVal1(this.companiaObservable.id, 'COD_MONEDA_PRINCIPAL',      true )
                     .pipe(first())
                     .subscribe(response => { this._globalCodMonedaPrincipal = +response; });
-                this.macredService.GetParametroGeneralVal1(this.companiaObservable.id, 'MESES_APLICABLES_EXTRAS', true)
+                this.macredService.GetParametroGeneralVal1(this.companiaObservable.id, 'MESES_APLICABLES_EXTRAS',   true )
                     .pipe(first())
                     .subscribe(response => { this._globalMesesAplicaExtras = +response; });
                 // carga datos analisis
@@ -231,110 +229,39 @@ export class AsociadosComponent implements OnInit {
                  this.macredService.getTiposIngresoAnalisis(this.companiaObservable.id)
                      .pipe(first())
                      .subscribe(response => { this.listTipoIngresoAnalisis = response; });
-                this.macredService.getModelosAnalisis(this.companiaObservable.id, false)
+                this.macredService.getModelosAnalisis(this.companiaObservable.id,           false )
                     .pipe(first())
                     .subscribe(response => { this.listModelosAnalisis = response; });
-                this.macredService.getNivelesCapacidadPago(this.companiaObservable.id, false)
+                this.macredService.getNivelesCapacidadPago(this.companiaObservable.id,      false )
                     .pipe(first())
                     .subscribe(response => { this.listNivelesCapacidadpago = response; });
-                this.macredService.getTiposGenerador(this.companiaObservable.id, false)
+                this.macredService.getTiposGenerador(this.companiaObservable.id,            false )
                     .pipe(first())
                     .subscribe(response => { this.listTiposGeneradores = response; });
                 // carga datos ingresos
-                this.macredService.getTiposIngresos(this.companiaObservable.id, false)
+                this.macredService.getTiposIngresos(this.companiaObservable.id,             false )
                     .pipe(first())
                     .subscribe(response => { this.listTiposIngresos = response; });
-                this.macredService.getTiposDeducciones(this.companiaObservable.id, false)
+                this.macredService.getTiposDeducciones(this.companiaObservable.id,          false )
                     .pipe(first())
                     .subscribe(response => { this.listTiposDeducciones = response; });    
                 });
+                this.macredService.getMatrizAceptacionIngreso( this.companiaObservable.id,  false )
+                    .pipe(first())
+                    .subscribe(response => { this.listMatrizAceptacionIngreso = response; });
     }
 
     addListMenu(modItem:Module) : void {
-
         this.listSubMenu.push(modItem);
-
-        // this.listSubMenu.push(new Module(2,
-        //                                 'Flujo de Caja',
-        //                                 'Flujo de Caja',
-        //                                 'Flujo de Caja',
-        //                                 'I',
-        //                                 '.png',
-        //                                 '.ico',
-        //                                 'http'));
-
-
-        // this.listSubMenu.push(new Module(3,
-        //                                 'Probability of Default',
-        //                                 'Probability of Default',
-        //                                 'Probability of Default',
-        //                                 'I',
-        //                                 '.png',
-        //                                 '.ico',
-        //                                 'http'));
-
-        // this.listSubMenu.push(new Module(4,
-        //                                 'Scoring Crediticio',
-        //                                 'Scoring Crediticio',
-        //                                 'Scoring Crediticio',
-        //                                 'I',
-        //                                 '.png',
-        //                                 '.ico',
-        //                                 'http'));
-
-        // this.listSubMenu.push(new Module(5,
-        //                                 'Ingresos',
-        //                                 'Ingresos',
-        //                                 'Ingresos',
-        //                                 'I',
-        //                                 '.png',
-        //                                 '.ico',
-        //                                 'http'));
-
-        // this.listSubMenu.push(new Module(6,
-        //                                 'Obligaciones Supervisadas',
-        //                                 'Obligaciones Supervisadas',
-        //                                 'Obligaciones Supervisadas',
-        //                                 'I',
-        //                                 '.png',
-        //                                 '.ico',
-        //                                 'http'));
-
-        // this.listSubMenu.push(new Module(7,
-        //                                 'O. No Supervisadas',
-        //                                 'O. No Supervisadas',
-        //                                 'O. No Supervisadas',
-        //                                 'I',
-        //                                 '.png',
-        //                                 '.ico',
-        //                                 'http'));
-
-        // this.listSubMenu.push(new Module(8,
-        //                                 'LVT',
-        //                                 'LVT',
-        //                                 'LVT',
-        //                                 'I',
-        //                                 '.png',
-        //                                 '.ico',
-        //                                 'http'));
-
-        // this.listSubMenu.push(new Module(9,
-        //                                 'Escenarios',
-        //                                 'Escenarios',
-        //                                 'Escenarios',
-        //                                 'I',
-        //                                 '.png',
-        //                                 '.ico',
-        //                                 'http'));
-
-        // this.listSubMenu.push(new Module(10,
-        //                                 'Escenarios FCL',
-        //                                 'Escenarios FCL',
-        //                                 'Escenarios FCL',
-        //                                 'I',
-        //                                 '.png',
-        //                                 '.ico',
-        //                                 'http'));
+        // this.listSubMenu.push(new Module(2,'Flujo de Caja','Flujo de Caja','Flujo de Caja','I','.png','.ico','http'));
+        // this.listSubMenu.push(new Module(3,'Probability of Default','Probability of Default','Probability of Default','I','.png','.ico','http'));
+        // this.listSubMenu.push(new Module(4,'Scoring Crediticio','Scoring Crediticio','Scoring Crediticio','I','.png','.ico','http'));
+        // this.listSubMenu.push(new Module(5,'Ingresos','Ingresos','Ingresos','I','.png','.ico','http'));
+        // this.listSubMenu.push(new Module(6,'Obligaciones Supervisadas','Obligaciones Supervisadas','Obligaciones Supervisadas','I','.png','.ico','http'));
+        // this.listSubMenu.push(new Module(7,'O. No Supervisadas','O. No Supervisadas','O. No Supervisadas','I','.png','.ico','http'));
+        // this.listSubMenu.push(new Module(8,'LVT','LVT','LVT','I','.png','.ico','http'));
+        // this.listSubMenu.push(new Module(9,'Escenarios','Escenarios','Escenarios','I','.png','.ico','http'));
+        // this.listSubMenu.push(new Module(10,'Escenarios FCL','Escenarios FCL','Escenarios FCL','I','.png','.ico','http'));
     }
     habilitaTab(mod: Module) {
 
@@ -357,16 +284,7 @@ export class AsociadosComponent implements OnInit {
 
             case 5:                     this.ingresos = true;
 
-                this.habilitaBtnRegistrarIngreso = true;
-
-                if (this._ingresoAnalisisSeleccionado) {
-                    this.habilitaBtnActualizaIngreso = true;
-                    this.habilitaBtnRegistrarIngreso = false;
-                }
-
-                this.macredService.getMatrizAceptacionIngreso( this.companiaObservable.id, false )
-                    .pipe(first())
-                    .subscribe(response => { this.listMatrizAceptacionIngreso = response; });
+                this.inicializaFormIngreso();
 
                 this.macredService.getIngresosAnalisis( this.companiaObservable.id, 
                                                         this._analisisCapacidadpago.codigoAnalisis )
@@ -429,14 +347,13 @@ export class AsociadosComponent implements OnInit {
         this.alertService.clear();
         this.submittedPersonForm = true;
 
-        if (this.formPersona.invalid)
-            return;
+        if (this.formPersona.invalid) return;
 
         let identificacionPersona = this.formPersona.controls['identificacion'].value;
 
         if (this._analisisCapacidadpago) {
 
-            this.dialogo.open(DialogoConfirmacionComponent, { 
+            this.dialogo.open(DialogoConfirmacionComponent, {
                 data: 'Existe un análisis en proceso, seguro que desea continuar ?'
             })
             .afterClosed()
@@ -450,15 +367,9 @@ export class AsociadosComponent implements OnInit {
                     this._analisisCapacidadpago = null;
                     this._personaMacred         = null;
                     this.menuItem               = null;
-
-                    this.habilitaBtnGeneraNuevoAnalisis = true;
-                    
-                    this.habilitaBtnIngreso             = false;
-                    this.habilitaBtnGuardarAnalisis     = false;
                     
                     this.cargaInformacionPersona(identificacionPersona);
                     this.inicializaFormDatosAnalisis();
-                    this.inicializaFormIngresosAnalisis();
 
                 } else { return; }
             });
@@ -466,7 +377,6 @@ export class AsociadosComponent implements OnInit {
         } else {
             this.cargaInformacionPersona(identificacionPersona);
             this.inicializaFormDatosAnalisis();
-            this.inicializaFormIngresosAnalisis();
         }
     }
     cargaInformacionPersona(identificacionPersona : string) : void {
@@ -497,11 +407,9 @@ export class AsociadosComponent implements OnInit {
         this.alertService.clear();
         this.submittedAnalisisForm = true;
 
-        if ( this.formAnalisis.invalid )
-            return;
+        if ( this.formAnalisis.invalid ) return;
 
         var analisis : MacAnalisisCapacidadPago = this.createAnalisisObjectForm();
-
         analisis.codigoAnalisis     = this._analisisCapacidadpago.codigoAnalisis;
         analisis.modificadoPor      = this.userObservable.identificacion;
         analisis.fechaModificacion  = this.today;
@@ -513,27 +421,20 @@ export class AsociadosComponent implements OnInit {
                 if ( response ) {
 
                     this._analisisCapacidadpago = response;
+                    this.inicializaFormDatosAnalisis();
 
-                    this.habilitaBtnGeneraNuevoAnalisis = false;
-                    this.habilitaBtnIngreso             = true;
-                    this.habilitaBtnGuardarAnalisis     = true;
+                    this.alertService.success( `Análisis ${this._analisisCapacidadpago.codigoAnalisis} actualizado con éxito.` );
 
-                    this.alertService.success(
-                        `Análisis ${this._analisisCapacidadpago.codigoAnalisis} actualizado con éxito.`
-                    );
+                } else { this.alertService.error(`No fue posible actualizar el análisis.`); }
 
-                } else {
-                    this.alertService.error(`No fue posible actualizar el análisis.`);
-                }
             }, error => {
-                this.alertService.error(
-                    `Problemas al establecer la conexión con el servidor. Detalle: ${ error }`
-                );
+                this.alertService.error( `Problemas al establecer la conexión con el servidor. Detalle: ${ error }` );
             });
     }
 
     createAnalisisObjectForm() : MacAnalisisCapacidadPago {
 
+        var fechaAnalisis           = this.formAnalisis.controls['fechaAnalisis'].value;
         var idTipoIngresoAnalisis   = this.formAnalisis.controls['tipoIngresoAnalisis'].value.id;
         var idTipoFormaPagoAnalisis = this.formAnalisis.controls['tipoFormaPagoAnalisis'].value.id;
         var idNivelCapacidadPago    = this.formAnalisis.controls['capacidadPago'].value.id;
@@ -558,7 +459,8 @@ export class AsociadosComponent implements OnInit {
 
         analisis.codigoCompania     = this.companiaObservable.id;
         analisis.codigoPersona      = this._personaMacred.id;
-        analisis.fechaAnalisis      = this.today;
+        
+        analisis.fechaAnalisis      = fechaAnalisis;
         analisis.estado             = estado;
         analisis.analisisDefinitivo = analisisDefinitivo;
         analisis.codigoNivelCapPago = idNivelCapacidadPago;
@@ -567,7 +469,7 @@ export class AsociadosComponent implements OnInit {
         analisis.puntajeFinalCic    = calificacionFinalCic;
         analisis.codigoTipoIngresoAnalisis      = idTipoIngresoAnalisis;
         analisis.codigoTipoFormaPagoAnalisis    = idTipoFormaPagoAnalisis;
-        analisis.codigoModeloAnalisis      = idModeloAnalisis;
+        analisis.codigoModeloAnalisis           = idModeloAnalisis;
         analisis.codigoMoneda           = idTipoMoneda;
         analisis.codigoTipoGenerador    = idTipoGenerador;
         analisis.indicadorCsd       = indicadorCsd;
@@ -577,9 +479,7 @@ export class AsociadosComponent implements OnInit {
         analisis.ancapCapacidadPago = ancapCapPago;
         analisis.ancapCalificacionFinal = ancapCalificacionFinal;
         analisis.ancapPuntajeFinal      = ancapPuntajeFinal;
-        analisis.adicionadoPor  = this.userObservable.identificacion;
-        analisis.fechaAdicion   = this.today ;
-            
+
         return analisis;
     }
 
@@ -588,10 +488,11 @@ export class AsociadosComponent implements OnInit {
         this.alertService.clear();
         this.submittedAnalisisForm = true;
 
-        if ( this.formAnalisis.invalid )
-            return;
+        if ( this.formAnalisis.invalid ) return;
         
         var analisis : MacAnalisisCapacidadPago = this.createAnalisisObjectForm();
+        analisis.adicionadoPor  = this.userObservable.identificacion;
+        analisis.fechaAdicion   = this.today ;
 
         this.macredService.postAnalisisCapPago(analisis)
             .pipe(first())
@@ -600,20 +501,11 @@ export class AsociadosComponent implements OnInit {
                 if (response) {
 
                     this._analisisCapacidadpago = response;
+                    this.inicializaFormDatosAnalisis();
 
-                    this.habilitaBtnGeneraNuevoAnalisis = false;
-                    this.habilitaBtnIngreso             = true;
+                    this.alertService.success( `Análisis ${ this._analisisCapacidadpago.codigoAnalisis } generado correctamente !` );
 
-                    this.habilitaBtnGuardarAnalisis     = true;
-
-                    this.alertService.success(
-                        `Análisis ${ this._analisisCapacidadpago.codigoAnalisis } generado correctamente !`
-                    );
-
-                } else {
-                    let message : string = 'Problemas al registrar el Análisis de Capacidad de Pago.';
-                    this.alertService.error(message);
-                }
+                } else { this.alertService.error(`Problemas al registrar el Análisis de Capacidad de Pago.`); }
             },
             error => {
                 let message : string = 'Problemas de conexión. Detalle: ' + error;
@@ -633,71 +525,69 @@ export class AsociadosComponent implements OnInit {
     habilitaFormularioIngreso() : void {
         this.habilitarItemSubMenu(  new Module(5, 'Ingresos', 'Ingresos', 'Ingresos', 'A', '.png', '.ico', 'http'));
         this.selectModule(          new Module(5, 'Ingresos', 'Ingresos', 'Ingresos', 'I', '.png', '.ico', 'http'));
-        this.habilitaBtnIngreso = false;
-    }
-
-    deleteIngreso(ingreso : MacIngresosXAnalisis) : void {
-
-        this.isDeleting = true;
     }
 
     openExtrasModal() : void {
 
         this.inicializaFormExtrasAplicables();
-
-        this.habilitarBtnSubmitExtras = true;
         
         $('#extrasModal').modal({backdrop: 'static', keyboard: false}, 'show');
     }
-    openHistorialanalisisHistorialModal() : void {
+    openHistorialModal() : void {
 
-        if (!this.listHistorialAnalisis) this.listHistorialAnalisis = [] ;
+        this.formHistorialAnalisis = this.formBuilder.group({
+            codigoAnalisisHistorial : [null, Validators.required]
+        });
 
         this.macredService.getHistorialAnlisis( this.companiaObservable.id )
             .pipe(first())
             .subscribe(response => { 
+                if (!this.listHistorialAnalisis) this.listHistorialAnalisis = [] ; 
+
                 this.listHistorialAnalisis = response; 
             });
             
-        this.formHistorialAnalisis = this.formBuilder.group({
-            codigoAnalisisHistorial  : [null, Validators.required]
-        });
-        
         $('#analisisHistorialModal').modal({backdrop: 'static', keyboard: false}, 'show');
     }
     openDeduccionesModal() : void {
 
-        this.inicializaFormDeduccionesAnalisis();
+        this.inicializaFormDeducciones();
 
         $('#deduccionesModal').modal({backdrop: 'static', keyboard: false}, 'show');
     }
+
+    selectDeduccionAnalisis(deduccion : MacDeduccionesAnalisis) : void {
+
+        // limpia formulario
+        if (this._deduccion && this._deduccion.id === deduccion.id) {
+            this._deduccion = null;
+            this.inicializaFormDeducciones();
+            return;
+        }
+        this._deduccion = deduccion ;
+        this.inicializaFormDeducciones();
+    }
     selectIngresoAnalisis(ingreso : MacIngresosXAnalisis) : void {
 
+        // limpia formulario
+        if (this._ingresoAnalisisSeleccionado && this._ingresoAnalisisSeleccionado.id === ingreso.id) {
+            
+            this._ingresoAnalisisSeleccionado   = null;
+            this._extrasAplicables              = null;
+            this._deduccion                     = null;
+            this.listDeduccionesAnalisis        = null;
+
+            this.inicializaFormIngreso();
+            return;
+        }
+
         this._ingresoAnalisisSeleccionado = ingreso ;
-
-        this.habilitaBtnActualizaIngreso        = true;
-        this.habilitaIcoOpenModalExtras         = true;
-        this.habilitaIcoOpenModalDeducciones    = true;
-
-        this.habilitaBtnRegistrarIngreso = false;
-
-        this._extrasAplicables = null;
-
-        this.formIngresos.setValue({
-            codigoTipoIngreso   : this.listTiposIngresos.find ( x => x.id === this._ingresoAnalisisSeleccionado.codigoTipoIngreso ),
-            montoBruto          : this._ingresoAnalisisSeleccionado.montoBruto,
-            montoExtras         : this._ingresoAnalisisSeleccionado.montoExtras,
-            porcentajeExtras    : this._ingresoAnalisisSeleccionado.porcentajeExtras,
-            cargasSociales      : this._ingresoAnalisisSeleccionado.cargasSociales,
-            impuestoRenta       : this._ingresoAnalisisSeleccionado.impuestoRenta,
-            montoNeto           : this._ingresoAnalisisSeleccionado.montoNeto,
-            montoDeducciones    : this._ingresoAnalisisSeleccionado.montoDeducciones
-        });
+        this.inicializaFormIngreso();
 
         this.obtenerExtrasAplicablesAnalisis();
         this.obtenerDeduccionesAnalisis();
     }
-
+    
     obtenerDeduccionesAnalisis() : void {
 
         this.macredService.getDeduccionesAnalisis(  this.companiaObservable.id,
@@ -713,7 +603,6 @@ export class AsociadosComponent implements OnInit {
                 this.totalizarDeducciones(false) ;
             });
     }
-
     obtenerExtrasAplicablesAnalisis() : void {
 
         this.macredService.getExtrasAnalisisIngreso(    this.companiaObservable.id,
@@ -721,105 +610,152 @@ export class AsociadosComponent implements OnInit {
                                                         this._ingresoAnalisisSeleccionado.id )
             .pipe(first())
             .subscribe(response => {
-
-                if (response) {
-
-                    this._extrasAplicables = response;
-
-                    this.formExtras = this.formBuilder.group({
-                        montoExtra                  : [this._extrasAplicables.montoExtras, Validators.required],
-                        desviacionEstandar          : this._extrasAplicables.desviacionEstandar,
-                        coeficienteVarianza         : this._extrasAplicables.coeficienteVarianza,
-                        porcentajeExtrasAplicable   : this._extrasAplicables.porcentajeExtrasAplicables,
-                        promedioExtrasAplicables    : this._extrasAplicables.promedioExtrasAplicables,
-                        mesesExtrasAplicables       : this._globalMesesAplicaExtras
-                    });
-
-                } else {
-
-                    this.formExtras = this.formBuilder.group({
-                        montoExtra                  : [0, Validators.required],
-                        desviacionEstandar          : 0,
-                        coeficienteVarianza         : 0,
-                        porcentajeExtrasAplicable   : 0,
-                        promedioExtrasAplicables    : 0,
-                        mesesExtrasAplicables       : this._globalMesesAplicaExtras
-                    });
-                }
+                this._extrasAplicables = response;
+                this.inicializaFormExtrasAplicables();
             });
     }
 
-    selectAnalisis(analisis : MacAnalisisCapacidadPago) : void {
+    selectAnalisisHistorial(analisis : MacAnalisisCapacidadPago) : void {
 
         this._analisisCapacidadpago = analisis ;
-
-        this.habilitaBtnGeneraNuevoAnalisis = false ;
-        this.habilitaBtnGuardarAnalisis     = true  ;
-        this.habilitaBtnIngreso             = true  ;
-
-        this._extrasAplicables      = null ;
-
-        this.listDeduccionesAnalisis    = null;
-        this.listIngresosAnalisis       = null;
-        this.listExtrasAplicables       = null;
-        
-        if(!this._analisisCapacidadpago.codigoNivelCapPago) this._analisisCapacidadpago.codigoNivelCapPago = 99;
-
-        this.formAnalisis.setValue({
-            tipoIngresoAnalisis     : this.listTipoIngresoAnalisis.find (   x => x.id === this._analisisCapacidadpago.codigoTipoIngresoAnalisis ),
-            tipoFormaPagoAnalisis   : this.listTipoFormaPagoAnalisis.find ( x => x.id === this._analisisCapacidadpago.codigoTipoFormaPagoAnalisis ),
-            capacidadPago           : this.listNivelesCapacidadpago.find (  x => x.id === this._analisisCapacidadpago.codigoNivelCapPago ),
-            modeloAnalisis          : this.listModelosAnalisis.find (       x => x.id === this._analisisCapacidadpago.codigoModeloAnalisis ),
-            tipoMoneda              : this.listTiposMonedas.find (          x => x.id === this._analisisCapacidadpago.codigoMoneda ),
-            tipoGenerador           : this.listTiposGeneradores.find (      x => x.id === this._analisisCapacidadpago.codigoTipoGenerador ),
-
-            fechaAnalisis       : this._analisisCapacidadpago.fechaAnalisis,
-            estado              : this._analisisCapacidadpago.estado,
-            analisisDefinitivo  : this._analisisCapacidadpago.analisisDefinitivo,
-            puntajeAnalisis     : this._analisisCapacidadpago.puntajeAnalisis,
-            calificacionCic     : this._analisisCapacidadpago.calificacionCic,
-            calificacionFinalCic: this._analisisCapacidadpago.puntajeFinalCic,
-            indicadorCsd        : this._analisisCapacidadpago.indicadorCsd,
-            ponderacionLvt      : this._analisisCapacidadpago.descPondLvt,
-            numeroDependientes  : this._analisisCapacidadpago.numeroDependientes,
-            observaciones       : this._analisisCapacidadpago.observaciones
-        });
+        this.inicializaFormDatosAnalisis();
 
         $('#analisisHistorialModal').modal('hide');
     }
 
-    inicializaFormDeduccionesAnalisis() : void {
-        this.formDeducciones = this.formBuilder.group({
-            codigoTipoDeduccion : [null,    Validators.required],
-            codigoTipoMoneda    : [null,    Validators.required],
-            tipoCambio          : [null,    Validators.required],
-            montoDeduccion      : [null,    Validators.required]
-        });
-    }
     inicializaFormDatosAnalisis()       : void {
-        this.formAnalisis = this.formBuilder.group({
-            fechaAnalisis           : [this.today,  Validators.required],
-            tipoIngresoAnalisis     : [null,        Validators.required],
-            tipoFormaPagoAnalisis   : [null,        Validators.required],
-    
-            tipoMoneda              : [this.listTiposMonedas.find(x => x.id === this._globalCodMonedaPrincipal),
-                                                    Validators.required],
-            analisisDefinitivo      : [false],
-            estado                  : [true],
-    
-            modeloAnalisis          : [this.listModelosAnalisis.find(x => x.id === 5),
-                                                    Validators.required],
-            indicadorCsd            : [null],
-            ponderacionLvt          : [null],
-    
-            capacidadPago           : [this.listNivelesCapacidadpago.find(x => x.id === 99)],
-            tipoGenerador           : [this.listTiposGeneradores.find(x => x.id === 99)],
-            numeroDependientes      : [0],
-            puntajeAnalisis         : [0],
-            calificacionCic         : ['0'],
-            calificacionFinalCic    : [0],
-            observaciones           : [null]
-        });
+
+        if (this._analisisCapacidadpago) {
+
+            this.habilitaBtnGeneraNuevoAnalisis = false;
+            this.habilitaBtnGuardarAnalisis     = true;
+            this.habilitaBtnIngreso             = true;
+
+            this._ingresoAnalisisSeleccionado   = null;
+            this._extrasAplicables              = null;
+            this._deduccion                     = null;
+
+            this.listDeduccionesAnalisis        = null;
+            this.listIngresosAnalisis           = null;
+            this.listExtrasAplicables           = null;
+
+            this.formAnalisis = this.formBuilder.group({
+                fechaAnalisis           : [this._analisisCapacidadpago.fechaAnalisis,  Validators.required],
+                tipoIngresoAnalisis     : [this.listTipoIngresoAnalisis.find(   x => x.id === this._analisisCapacidadpago.codigoTipoIngresoAnalisis ),      Validators.required],
+                tipoFormaPagoAnalisis   : [this.listTipoFormaPagoAnalisis.find( x => x.id === this._analisisCapacidadpago.codigoTipoFormaPagoAnalisis ),    Validators.required],
+        
+                tipoMoneda              : [this.listTiposMonedas.find( x => x.id === this._analisisCapacidadpago.codigoMoneda ), Validators.required],
+                analisisDefinitivo      : this._analisisCapacidadpago.analisisDefinitivo,
+                estado                  : this._analisisCapacidadpago.estado,
+        
+                modeloAnalisis          : [this.listModelosAnalisis.find ( x => x.id === this._analisisCapacidadpago.codigoModeloAnalisis ), Validators.required],
+                indicadorCsd            : this._analisisCapacidadpago.indicadorCsd,
+                ponderacionLvt          : this._analisisCapacidadpago.descPondLvt,
+        
+                capacidadPago           : this.listNivelesCapacidadpago.find (  x => x.id === this._analisisCapacidadpago.codigoNivelCapPago ),
+                tipoGenerador           : this.listTiposGeneradores.find (      x => x.id === this._analisisCapacidadpago.codigoTipoGenerador ),
+                numeroDependientes      : this._analisisCapacidadpago.numeroDependientes,
+                puntajeAnalisis         : this._analisisCapacidadpago.puntajeAnalisis,
+                calificacionCic         : this._analisisCapacidadpago.calificacionCic,
+                calificacionFinalCic    : this._analisisCapacidadpago.puntajeFinalCic,
+                observaciones           : this._analisisCapacidadpago.observaciones
+            });
+
+        } else {
+
+            let observacion : string = `Análisis generado el ` + this.today + ` por ` + this.userObservable.nombreCompleto + `.`;
+
+            this.habilitaBtnGeneraNuevoAnalisis = true;
+            this.habilitaBtnGuardarAnalisis     = false;
+            this.habilitaBtnIngreso             = false;
+
+            this.formAnalisis = this.formBuilder.group({
+                fechaAnalisis           : [this.today,  Validators.required],
+                tipoIngresoAnalisis     : [null,        Validators.required],
+                tipoFormaPagoAnalisis   : [null,        Validators.required],
+        
+                tipoMoneda              : [this.listTiposMonedas.find(x => x.id === this._globalCodMonedaPrincipal), Validators.required],
+                analisisDefinitivo      : false,
+                estado                  : true,
+        
+                modeloAnalisis          : [this.listModelosAnalisis.find(x => x.id === 5), Validators.required],
+                indicadorCsd            : null,
+                ponderacionLvt          : null,
+        
+                capacidadPago           : this.listNivelesCapacidadpago.find(x => x.id === 99),
+                tipoGenerador           : this.listTiposGeneradores.find(x => x.id === 99),
+                numeroDependientes      : 0,
+                puntajeAnalisis         : 0,
+                calificacionCic         : '0',
+                calificacionFinalCic    : 0,
+                observaciones           : observacion
+            });
+        }
+    }
+    inicializaFormIngreso() : void {
+
+        if (this._ingresoAnalisisSeleccionado) {
+
+            this.habilitaBtnActualizaIngreso = true;
+            this.habilitaBtnRegistrarIngreso = false;
+
+            this.habilitaIcoOpenModalExtras         = true;
+            this.habilitaIcoOpenModalDeducciones    = true;
+
+            this.formIngresos = this.formBuilder.group({
+                codigoTipoIngreso   : [this.listTiposIngresos.find ( x => x.id === this._ingresoAnalisisSeleccionado.codigoTipoIngreso ), Validators.required],
+                montoBruto          : [this._ingresoAnalisisSeleccionado.montoBruto, Validators.required],
+                montoExtras         : this._ingresoAnalisisSeleccionado.montoExtras,
+                porcentajeExtras    : this._ingresoAnalisisSeleccionado.porcentajeExtras,
+                cargasSociales      : this._ingresoAnalisisSeleccionado.cargasSociales,
+                impuestoRenta       : this._ingresoAnalisisSeleccionado.impuestoRenta,
+                montoNeto           : [this._ingresoAnalisisSeleccionado.montoNeto, Validators.required],
+                montoDeducciones    : this._ingresoAnalisisSeleccionado.montoDeducciones
+            });
+        } else {
+            this.habilitaBtnActualizaIngreso = false;
+            this.habilitaBtnRegistrarIngreso = true;
+
+            this.habilitaIcoOpenModalExtras         = false;
+            this.habilitaIcoOpenModalDeducciones    = false;
+
+            this.formIngresos = this.formBuilder.group({
+                codigoTipoIngreso   : [null, Validators.required],
+                montoBruto          : [null, Validators.required],
+                montoExtras         : 0,
+                porcentajeExtras    : 0,
+                cargasSociales      : 0,
+                impuestoRenta       : 0,
+                montoNeto           : [null, Validators.required],
+                montoDeducciones    : 0
+            });
+        }
+    }
+    inicializaFormDeducciones() : void {
+
+        if (this._deduccion) {
+
+            this.habilitarBtnActualizaDeduccion = true;
+            this.habilitarBtnRegistraDeduccion  = false;
+
+            this.formDeducciones = this.formBuilder.group({
+                codigoTipoDeduccion : [this.listTiposDeducciones.find( x => x.id === this._deduccion.codigoTipoDeduccion ), Validators.required],
+                codigoTipoMoneda    : [this.listTiposMonedas.find( x => x.id === this._deduccion.codigoMoneda ), Validators.required],
+                tipoCambio          : [this._deduccion.tipoCambio,  Validators.required],
+                montoDeduccion      : [this._deduccion.monto,       Validators.required]
+            });
+        } else {
+
+            this.habilitarBtnActualizaDeduccion = false;
+            this.habilitarBtnRegistraDeduccion  = true;
+
+            this.formDeducciones = this.formBuilder.group({
+                codigoTipoDeduccion : [null, Validators.required],
+                codigoTipoMoneda    : [null, Validators.required],
+                tipoCambio          : [null, Validators.required],
+                montoDeduccion      : [null, Validators.required]
+            });
+        }
     }
     inicializaFormPersonaAnalisis()     : void {
         this.formPersona = this.formBuilder.group({
@@ -830,19 +766,9 @@ export class AsociadosComponent implements OnInit {
             identificacion  : [this._personaMacred.identificacion,   Validators.required]
         });
     }
-    inicializaFormIngresosAnalisis()    : void {
-        this.formIngresos = this.formBuilder.group({
-            codigoTipoIngreso   : [null, Validators.required],
-            montoBruto          : [null, Validators.required],
-            montoExtras         : 0,
-            porcentajeExtras    : 0,
-            cargasSociales      : [null, Validators.required],
-            impuestoRenta       : [null, Validators.required],
-            montoNeto           : [null, Validators.required],
-            montoDeducciones    : 0
-        });
-    }
     inicializaFormExtrasAplicables()    : void {
+
+        this.habilitarBtnSubmitExtras = true;
 
         if (this._extrasAplicables) {
 
@@ -857,6 +783,9 @@ export class AsociadosComponent implements OnInit {
                 mesesExtrasAplicables       : this._globalMesesAplicaExtras
             });
         } else {
+
+            this.habilitarBtnEliminarExtras = false;
+            
             this.formExtras = this.formBuilder.group({
                 montoExtra                  : [0, Validators.required],
                 desviacionEstandar          : 0,
@@ -905,10 +834,7 @@ export class AsociadosComponent implements OnInit {
             .subscribe(response => {
 
                 if (response.exito) {
-
                     this._extrasAplicables = null;
-                    this.habilitarBtnEliminarExtras = false;
-
                     this.CerrarExtrasModal();
                     this.alertService.success( response.responseMesagge );
 
@@ -917,7 +843,74 @@ export class AsociadosComponent implements OnInit {
                 }
             });
     }
+    deleteIngreso(ingreso : MacIngresosXAnalisis) : void {
 
+        this.dialogo.open(DialogoConfirmacionComponent, {
+            data: `Seguro que desea eliminar el ingreso seleccionado ?`
+        })
+        .afterClosed()
+        .subscribe((confirmado: Boolean) => {
+
+            if (confirmado) {
+
+                // deleteextrasanalisis
+                // deletededuccionesingresos
+
+                this.macredService.deleteIngresoAnalisis( ingreso.id )
+                    .pipe(first())
+                    .subscribe(response => { 
+                        if (response.exito) {
+
+                            this.listIngresosAnalisis.splice(this.listIngresosAnalisis.findIndex( m => m.id == ingreso.id ), 1);
+
+                            if (this.listIngresosAnalisis.length === 0) this.listIngresosAnalisis = null;
+
+                            this._ingresoAnalisisSeleccionado = null;
+                            this.inicializaFormIngreso();
+
+                            this.alertService.success(response.responseMesagge);
+                            
+                        } else { this.alertService.error(response.responseMesagge); }
+                    });
+                
+            } else { return; }
+        });
+    }
+
+    deleteDeduccionIngreso(deduccion : MacDeduccionesAnalisis) : void {
+
+        this.dialogo.open(DialogoConfirmacionComponent, {
+            data: `Seguro que desea eliminar la deducción seleccionada ?`
+        })
+        .afterClosed()
+        .subscribe((confirmado: Boolean) => {
+
+            if (confirmado) {
+
+                this.macredService.deleteDeduccionIngreso( deduccion.id )
+                    .pipe(first())
+                    .subscribe(response => { 
+                        if (response.exito) {
+
+                            this.listDeduccionesAnalisis.splice(this.listDeduccionesAnalisis.findIndex( m => m.id == deduccion.id ), 1);
+                            this.totalizarDeducciones(false);
+
+                            this.habilitarBtnFinalizarDeducciones = true;
+
+                            if (this.listDeduccionesAnalisis.length === 0) this.listDeduccionesAnalisis = null;
+
+                            this._deduccion = null;
+                            this.inicializaFormDeducciones();
+
+                            this.alertService.success(response.responseMesagge);
+                            
+                        } else { this.alertService.error(response.responseMesagge); }
+                    });
+                
+            } else { return; }
+        });
+    }
+    
     FinalizarRegistroExtras() : void {
 
         var extrasAplicables : MacExtrasAplicables = new MacExtrasAplicables ;
@@ -946,15 +939,7 @@ export class AsociadosComponent implements OnInit {
                     this.habilitarBtnContinuarExtras = true  ;
 
                     this._extrasAplicables = response;
-
-                    this.formExtras.setValue({
-                        montoExtra                  : [this._extrasAplicables.montoExtras],
-                        desviacionEstandar          : [this._extrasAplicables.desviacionEstandar],
-                        coeficienteVarianza         : [this._extrasAplicables.coeficienteVarianza],
-                        porcentajeExtrasAplicable   : [this._extrasAplicables.porcentajeExtrasAplicables],
-                        promedioExtrasAplicables    : [this._extrasAplicables.promedioExtrasAplicables],
-                        mesesExtrasAplicables       : [this._globalMesesAplicaExtras]
-                    });
+                    this.inicializaFormExtrasAplicables();
 
                     this.alertService.success( `Registro de Extras realizado con éxito..` );
 
@@ -977,7 +962,7 @@ export class AsociadosComponent implements OnInit {
             });
     }
 
-    totalizarDeducciones(close : boolean = true) : void {   
+    totalizarDeducciones(close : boolean = true) : void {
         var totalDeducciones : number = 0;
         if (this.listDeduccionesAnalisis) {
             this.listDeduccionesAnalisis.forEach(element => {
@@ -1000,16 +985,7 @@ export class AsociadosComponent implements OnInit {
 
         if ( this.formDeducciones.invalid ) return;
 
-        var deduccion : MacDeduccionesAnalisis = new MacDeduccionesAnalisis ;
-        deduccion.codigoAnalisis        = this._analisisCapacidadpago.codigoAnalisis;
-        deduccion.codigoCompania        = this.companiaObservable.id;
-        deduccion.codigoIngreso         = this._ingresoAnalisisSeleccionado.id;
-
-        deduccion.codigoTipoDeduccion   = this.formDeducciones.controls['codigoTipoDeduccion'].value.id;
-        deduccion.codigoMoneda          = this.formDeducciones.controls['codigoTipoMoneda'].value.id;
-        deduccion.tipoCambio            = this.formDeducciones.controls['tipoCambio'].value;
-        deduccion.monto                 = this.formDeducciones.controls['montoDeduccion'].value;
-
+        var deduccion : MacDeduccionesAnalisis = this.createDeduccionObjectForm();
         deduccion.adicionadoPor = this.userObservable.identificacion;
         deduccion.fechaAdicion  = this.today;
 
@@ -1019,12 +995,7 @@ export class AsociadosComponent implements OnInit {
 
                 if (response) {
 
-                    this.formDeducciones.setValue({
-                        codigoTipoDeduccion     : null,
-                        codigoTipoMoneda        : null,
-                        tipoCambio              : null,
-                        montoDeduccion          : null
-                    });
+                    this.inicializaFormDeducciones();
 
                     if (!this.listDeduccionesAnalisis) this.listDeduccionesAnalisis = [];
 
@@ -1034,10 +1005,7 @@ export class AsociadosComponent implements OnInit {
 
                     this.alertService.success( `Registro de Deducciones realizado con éxito.` );
 
-                } else {
-                    let message : string = 'Problemas al registrar las Deducciones del Análisis de Capacidad de Pago.';
-                    this.alertService.error(message);
-                }
+                } else { this.alertService.error(`Problemas al registrar las Deducciones del Análisis de Capacidad de Pago.`); }
             });
     }
 
@@ -1065,26 +1033,17 @@ export class AsociadosComponent implements OnInit {
             this.listTempExtrasAplicables   = [] ;
             this.listExtrasAplicables       = [] ;
             this._extrasAplicables          = null;
+            this.habilitarBtnEliminarExtras = false;
         }
 
-        // inicializa listas para registro de extras
-        if (!this.listExtrasAplicables)
-            this.listExtrasAplicables = [] ;
+        if (!this.listExtrasAplicables)     this.listExtrasAplicables       = [] ;
 
-        if (!this.listTempExtrasAplicables)
-            this.listTempExtrasAplicables = [] ;
+        if (!this.listTempExtrasAplicables) this.listTempExtrasAplicables   = [] ;
     
-        // objeto extras
         var extrasTempAplicables : MacExtrasAplicables = new MacExtrasAplicables ;
         extrasTempAplicables.montoExtras = this.formExtras.controls['montoExtra'].value ;
 
-        // agrega extras a lista temporal
         this.listTempExtrasAplicables.push(extrasTempAplicables) ;
-
-        if (this.listTempExtrasAplicables.length === this._globalMesesAplicaExtras ) {
-            this.habilitarBtnSubmitExtras    = false ;
-            this.habilitarBtnContinuarExtras = true  ;
-        }
             
         this.listTempExtrasAplicables.forEach(extra => { sumatoriaMontoExtras += extra.montoExtras ; });
 
@@ -1109,19 +1068,11 @@ export class AsociadosComponent implements OnInit {
         var coeficienteVarianzaPorcentual = extrasTempAplicables.coeficienteVarianza * 100 ;
 
         this.listMatrizAceptacionIngreso.forEach(element => {
-            if (element.rangoDesviacion1 <= coeficienteVarianzaPorcentual && 
-                element.rangoDesviacion2 >= coeficienteVarianzaPorcentual)
-                    factorAceptacion = element.factor ;
+            if ( element.rangoDesviacion1   <= coeficienteVarianzaPorcentual && 
+                element.rangoDesviacion2    >= coeficienteVarianzaPorcentual   ) factorAceptacion = element.factor ;
         });
 
-        this.formExtras.patchValue({
-            montoExtra                  : 0,
-            desviacionEstandar          : 0,
-            coeficienteVarianza         : 0,
-            porcentajeExtrasAplicable   : 0,
-            promedioExtrasAplicables    : 0,
-            mesesExtrasAplicables   : [this._globalMesesAplicaExtras]
-        });
+        this.inicializaFormExtrasAplicables();
 
         var extrasAplicables : MacExtrasAplicables = new MacExtrasAplicables ;
         extrasAplicables.codigoAnalisis = this._analisisCapacidadpago.codigoAnalisis ;
@@ -1141,14 +1092,10 @@ export class AsociadosComponent implements OnInit {
         this.habilitarBtnFinalizarExtras = true ;
     }
 
-    SubmitFormIngresos() : void {
-
-        this.alertService.clear();
-        this.submittedIngresosForm = true;
-
-        if ( this.formIngresos.invalid ) return;
+    createIngresoObjectForm() : MacIngresosXAnalisis {
 
         var ingresoAnalisis : MacIngresosXAnalisis = new MacIngresosXAnalisis ;
+
         ingresoAnalisis.codigoAnalisis = this._analisisCapacidadpago.codigoAnalisis;
         ingresoAnalisis.codigoCompania = this.companiaObservable.id;
 
@@ -1162,10 +1109,36 @@ export class AsociadosComponent implements OnInit {
         ingresoAnalisis.montoNeto           = this.formIngresos.controls['montoNeto'].value;
         ingresoAnalisis.montoDeducciones    = this.formIngresos.controls['montoDeducciones'].value;
 
-        ingresoAnalisis.adicionadoPor   = this.userObservable.identificacion;
-        ingresoAnalisis.fechaAdicion    = this.today;
-        
-        this.macredService.postIngresosAnalisis(ingresoAnalisis)
+        return ingresoAnalisis;
+    }
+    createDeduccionObjectForm() : MacDeduccionesAnalisis {
+
+        var deduccion : MacDeduccionesAnalisis = new MacDeduccionesAnalisis ;
+
+        deduccion.codigoAnalisis        = this._analisisCapacidadpago.codigoAnalisis;
+        deduccion.codigoCompania        = this.companiaObservable.id;
+        deduccion.codigoIngreso         = this._ingresoAnalisisSeleccionado.id;
+
+        deduccion.codigoTipoDeduccion   = this.formDeducciones.controls['codigoTipoDeduccion'].value.id;
+        deduccion.codigoMoneda          = this.formDeducciones.controls['codigoTipoMoneda'].value.id;
+        deduccion.tipoCambio            = this.formDeducciones.controls['tipoCambio'].value;
+        deduccion.monto                 = this.formDeducciones.controls['montoDeduccion'].value;
+
+        return deduccion;
+    }
+    
+    RegistrarIngresoAnalisis() : void {
+
+        this.alertService.clear();
+        this.submittedIngresosForm = true;
+
+        if ( this.formIngresos.invalid ) return;
+
+        var ingreso : MacIngresosXAnalisis = this.createIngresoObjectForm();
+        ingreso.adicionadoPor   = this.userObservable.identificacion;
+        ingreso.fechaAdicion    = this.today;
+
+        this.macredService.postIngresosAnalisis(ingreso)
         .pipe(first())
         .subscribe(response => {
 
@@ -1175,23 +1148,11 @@ export class AsociadosComponent implements OnInit {
 
                 this.listIngresosAnalisis.push(response);
 
-                this.formIngresos.setValue({
-                    codigoTipoIngreso   : [null],
-                    montoBruto          : [null],
-                    montoExtras         : 0,
-                    porcentajeExtras    : 0,
-                    cargasSociales      : [null],
-                    impuestoRenta       : [null],
-                    montoNeto           : [null],
-                    montoDeducciones    : 0
-                });
+                this.inicializaFormIngreso();
 
-                this.alertService.success( `Registro de Ingreso realizado con éxito..` );
+                this.alertService.success( `Registro de Ingreso realizado con éxito.` );
 
-            } else {
-                let message : string = 'Problemas al registrar el ingreso del Análisis de Capacidad de Pago.';
-                this.alertService.error(message);
-            }
+            } else { this.alertService.error( `Ocurrió un error al registrar el ingreso para el análisis seleccionado.` ); }
         });
     }
     ActualizaFormIngresos() : void {
@@ -1201,52 +1162,58 @@ export class AsociadosComponent implements OnInit {
 
         if ( this.formIngresos.invalid ) return;
 
-        this._ingresoAnalisisSeleccionado.codigoTipoIngreso   = this.formIngresos.controls['codigoTipoIngreso'].value.id;
-        this._ingresoAnalisisSeleccionado.codigoTipoMoneda    = this._analisisCapacidadpago.codigoMoneda;
-        this._ingresoAnalisisSeleccionado.montoBruto          = this.formIngresos.controls['montoBruto'].value;
-        this._ingresoAnalisisSeleccionado.montoExtras         = this.formIngresos.controls['montoExtras'].value;
-        this._ingresoAnalisisSeleccionado.porcentajeExtras    = this.formIngresos.controls['porcentajeExtras'].value;
-        this._ingresoAnalisisSeleccionado.cargasSociales      = this.formIngresos.controls['cargasSociales'].value;
-        this._ingresoAnalisisSeleccionado.impuestoRenta       = this.formIngresos.controls['impuestoRenta'].value;
-        this._ingresoAnalisisSeleccionado.montoNeto           = this.formIngresos.controls['montoNeto'].value;
-        this._ingresoAnalisisSeleccionado.montoDeducciones    = this.formIngresos.controls['montoDeducciones'].value;
+        var ingreso : MacIngresosXAnalisis = this.createIngresoObjectForm();
+        ingreso.id                  = this._ingresoAnalisisSeleccionado.id;
+        ingreso.modificadoPor       = this.userObservable.identificacion;
+        ingreso.fechaModificacion   = this.today;
 
-        this._ingresoAnalisisSeleccionado.modificadoPor     = this.userObservable.identificacion;
-        this._ingresoAnalisisSeleccionado.fechaModificacion = this.today;
-        
-        this.macredService.putIngresosAnalisis(this._ingresoAnalisisSeleccionado)
+        this.macredService.putIngresosAnalisis(ingreso)
             .pipe(first())
             .subscribe(response => {
 
                 if (response.exito) {
 
-                    this.listIngresosAnalisis.splice(this.listIngresosAnalisis.findIndex( m => m.id == this._ingresoAnalisisSeleccionado.id ), 1);
-                    this.listIngresosAnalisis.push(this._ingresoAnalisisSeleccionado);
-
-                    this.formIngresos.setValue({
-                        codigoTipoIngreso   : null,
-                        montoBruto          : null,
-                        montoExtras         : 0,
-                        porcentajeExtras    : 0,
-                        cargasSociales      : null,
-                        impuestoRenta       : null,
-                        montoNeto           : null,
-                        montoDeducciones    : 0
-                    });
-
-                    this.habilitaBtnActualizaIngreso    = false;
-                    this.habilitaBtnRegistrarIngreso    = true ;
-                    
-                    this.habilitaIcoOpenModalExtras         = false;
-                    this.habilitaIcoOpenModalDeducciones    = false;
+                    this.listIngresosAnalisis.splice(this.listIngresosAnalisis.findIndex( m => m.id == ingreso.id ), 1);
+                    this.listIngresosAnalisis.push(ingreso);
 
                     this._ingresoAnalisisSeleccionado = null;
+                    this.inicializaFormIngreso();
 
                     this.alertService.success( response.responseMesagge );
 
-                } else {
-                    this.alertService.error(response.responseMesagge);
-                }
+                } else { this.alertService.error(response.responseMesagge); }
+            });
+    }
+    ActualizaFormDeducciones() : void {
+
+        this.alertService.clear();
+        this.submittedDeduccionesForm = true;
+
+        if ( this.formDeducciones.invalid ) return;
+
+        var deduccion : MacDeduccionesAnalisis = this.createDeduccionObjectForm();
+        deduccion.id                  = this._deduccion.id;
+        deduccion.modificadoPor       = this.userObservable.identificacion;
+        deduccion.fechaModificacion   = this.today;
+
+        this.macredService.putDeduccionAnalisis(deduccion)
+            .pipe(first())
+            .subscribe(response => {
+
+                if (response.exito) {
+
+                    this.listDeduccionesAnalisis.splice(this.listDeduccionesAnalisis.findIndex( m => m.id == deduccion.id ), 1);
+                    this.listDeduccionesAnalisis.push(deduccion);
+                    this.totalizarDeducciones(false);
+
+                    this.habilitarBtnFinalizarDeducciones = true;
+
+                    this._deduccion = null;
+                    this.inicializaFormDeducciones();
+
+                    this.alertService.success( response.responseMesagge );
+
+                } else { this.alertService.error(response.responseMesagge); }
             });
     }
 }
