@@ -1,7 +1,7 @@
 export class MacTipoGenero {
 
     id: number;
-    codigoTipoGenero: string;
+    codigoGenero: string;
     codigoCompania: number;
 
     descripcion: string;

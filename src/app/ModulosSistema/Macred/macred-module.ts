@@ -25,6 +25,14 @@ import { PersonasComponent } from './mantenimientos/Personas/personas-component'
 
 import {MatFormFieldModule} from '@angular/material/form-field';
 import { EstadosCivilesComponent } from './mantenimientos/Personas/estadosciviles-component';
+import { ParametrosGeneralesComponent } from './configuracion/parametrosgenerales-component';
+import { TiposPersonasComponent } from './mantenimientos/Personas/tipospersonas-component';
+import { CondicionesLaboralesComponent } from './mantenimientos/Personas/condicionceslaborales-component';
+import { TiposGenerosComponent } from './mantenimientos/Personas/tiposgeneros-component';
+import { TiposAsociadosComponent } from './mantenimientos/Personas/tiposasociados-component';
+import { TiposFormasPagoAnalisisComponent } from './mantenimientos/Obligaciones/tiposformaspagoanalisis-component';
+import { TipoIngresoAnalisisComponent } from './mantenimientos/AnalisisPersonas/tipoingresoanalisis-component';
+import { TipoIngresoComponent } from './mantenimientos/AnalisisPersonas/tipoingreso-component';
 
 @NgModule({
     imports: [
@@ -56,7 +64,15 @@ import { EstadosCivilesComponent } from './mantenimientos/Personas/estadoscivile
         MenuMacredComponent,
         AsociadosComponent,
         PersonasComponent,
-        EstadosCivilesComponent
+        EstadosCivilesComponent,
+        ParametrosGeneralesComponent,
+        TiposPersonasComponent,
+        CondicionesLaboralesComponent,
+        TiposGenerosComponent,
+        TiposAsociadosComponent,
+        TiposFormasPagoAnalisisComponent,
+        TipoIngresoAnalisisComponent,
+        TipoIngresoComponent
     ],
     entryComponents: [
         AsociadosComponent

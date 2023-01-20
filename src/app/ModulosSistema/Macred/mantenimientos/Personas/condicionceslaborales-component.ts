@@ -18,7 +18,6 @@ import { MacTipoGenerador } from '@app/_models/Macred/TipoGenerador';
 import { THIS_EXPR } from '@angular/compiler/src/output/output_ast';
 import { MatDialog } from '@angular/material/dialog';
 import { DialogoConfirmacionComponent } from '@app/_components/dialogo-confirmacion/dialogo-confirmacion.component';
-import { MacEstadoCivil } from '@app/_models/Macred/EstadoCivil';
 import { MacTipoPersona } from '@app/_models/Macred/TipoPersona';
 import { MacTipoGenero } from '@app/_models/Macred/TipoGenero';
 import { MacCondicionLaboral } from '@app/_models/Macred/CondicionLaboral';
@@ -30,27 +29,27 @@ import { valHooks } from 'jquery';
 declare var $: any;
 
 @Component({
-    templateUrl: 'HTML_EstadosCiviles.html',
+    templateUrl: 'HTML_CondicionesLaborales.html',
     styleUrls: ['../../../../../assets/scss/app.scss',
                 '../../../../../assets/scss/macred/app.scss'],
 })
-export class EstadosCivilesComponent implements OnInit {
+export class CondicionesLaboralesComponent implements OnInit {
     @ViewChild(MatSidenav) sidenav !: MatSidenav;
 
-    nombrePantalla : string = 'estados-civiles.html';
+    nombrePantalla : string = 'condiciones-laborales.html';
 
-    _estadoCivilMacred : MacEstadoCivil;
+    _condicionLaboralMacred : MacCondicionLaboral;
 
     userObservable: User;
     moduleObservable: Module;
     companiaObservable: Compania;
 
-    submittedEstadoCivilForm : boolean = false;
+    submittedCondicionLaboralForm : boolean = false;
     
-    // Estados Civiles
-    formEstadoCivil: FormGroup;
-    formEstadoCivilList: FormGroup;
-    listEstadosCiviles: MacEstadoCivil[];
+    // Condicion laboral
+    formCondicionLaboral: FormGroup;
+    formCondicionLaboralList: FormGroup;
+    listCondicionesLaborales: MacCondicionLaboral[];
     showList : boolean = false;
 
     submitted : boolean = false;
@@ -78,12 +77,12 @@ export class EstadosCivilesComponent implements OnInit {
 
     ngOnInit() {
 
-        this.formEstadoCivil = this.formBuilder.group({
-            id                  : [null],
-            codigoEstadoCivil   : [null],
-            codigoCompania      : [null],
-            descripcion         : [null],
-            estado              : [null]
+        this.formCondicionLaboral = this.formBuilder.group({
+            id                      : [null],
+            codigoCondicionLaboral  : [null],
+            codigoCompania          : [null],
+            descripcion             : [null],
+            estado                  : [null]
 
         });
         
@@ -100,97 +99,97 @@ export class EstadosCivilesComponent implements OnInit {
 
             });
 
-            this.consultaEstadosCivilesCompania();
+            this.consultaCondicionesLaboralesCompania();
     }
 
-    get f() { return this.formEstadoCivil.controls; }
+    get f() { return this.formCondicionLaboral.controls; }
 
     
-    consultaEstadosCivilesCompania() : void {
-        this.formEstadoCivilList = this.formBuilder.group({
-            id                  : [''],
-            codigoEstadoCivil   : [''],
-            codigoCompania      : [''],
-            descripcion         : [''],
-            estado              : ['']
+    consultaCondicionesLaboralesCompania() : void {
+        this.formCondicionLaboralList = this.formBuilder.group({
+            id                      : [''],
+            codigoCondicionLaboral  : [''],
+            codigoCompania          : [''],
+            descripcion             : [''],
+            estado                  : ['']
         });
 
-        this.macredService.getEstadosCivilesCompania(this.userObservable.empresa)
+        this.macredService.getCondicionesLaboralesCompania(this.userObservable.empresa)
         .pipe(first())
-        .subscribe(estadoCivilResponse => {
+        .subscribe(condicionLaboralResponse => {
 
-            if (estadoCivilResponse.length > 0) {
+            if (condicionLaboralResponse.length > 0) {
                 this.showList = true;
-                this.listEstadosCiviles = estadoCivilResponse;
+                this.listCondicionesLaborales = condicionLaboralResponse;
             }
         },
         error => {
-            let message : string = 'Problemas al consultar los estados civiles. ' + error;
+            let message : string = 'Problemas al consultar los tipos de personas. ' + error;
             this.alertService.error(message); 
         });
     }
 
-    addEstadoCivil() : void {
+    addCondicionLaboral() : void {
         this.alertService.clear();
         this.ngOnInit();
         this.add = true;
         this.tipoMovimiento = 'N'
-        this._estadoCivilMacred =  new MacEstadoCivil;
+        this._condicionLaboralMacred =  new MacCondicionLaboral;
 
-        $('#estadoCivilModal').modal({backdrop: 'static', keyboard: false}, 'show');
+        $('#condicionLaboralModal').modal({backdrop: 'static', keyboard: false}, 'show');
     }
 
-    editEstadoCivil(estadoCivil:MacEstadoCivil) : void {
+    editCondicionLaboral(condicionLaboral:MacCondicionLaboral) : void {
 
         this.update = true;
         this.buttomText = 'Actualizar';
         this.tipoMovimiento = 'E';
         
-        this._estadoCivilMacred = estadoCivil;
+        this._condicionLaboralMacred = condicionLaboral;
         
-        this.formEstadoCivil = this.formBuilder.group({
-            id: [estadoCivil.id,Validators.required],
-            codigoEstadoCivil : [estadoCivil.codigoEstadoCivil,Validators.required],
-            descripcion : [estadoCivil.descripcion,Validators.required],
-            estado : [estadoCivil.estado,Validators.required]
+        this.formCondicionLaboral = this.formBuilder.group({
+            id: [condicionLaboral.id,Validators.required],
+            codigoCondicionLaboral : [condicionLaboral.codigoCondicionLaboral,Validators.required],
+            descripcion : [condicionLaboral.descripcion,Validators.required],
+            estado : [condicionLaboral.estado,Validators.required]
         });
 
-        $('#estadoCivilModal').modal({backdrop: 'static', keyboard: false}, 'show');
+        $('#condicionLaboralModal').modal({backdrop: 'static', keyboard: false}, 'show');
     }
 
-    guardarEstadoCivil() : void {
+    guardarCondicionLaboral() : void {
 
         this.alertService.clear();
-        this.submittedEstadoCivilForm = true;
+        this.submittedCondicionLaboralForm = true;
 
-        if ( this.formEstadoCivil.invalid ){
+        if ( this.formCondicionLaboral.invalid ){
             return;
         }
         
-        var estadoCivil : MacEstadoCivil;
-        estadoCivil = this.createEstadoCivilModal();
+        var condicionLaboral : MacCondicionLaboral;
+        condicionLaboral = this.createCondicionLaboralModal();
         
         if (this.tipoMovimiento == 'N'){    
-            estadoCivil.codigoCompania = this.userObservable.empresa;
-            estadoCivil.adicionadoPor  = this.userObservable.identificacion;
-            estadoCivil.fechaAdicion   = this.today;
+            condicionLaboral.codigoCompania = this.userObservable.empresa;
+            condicionLaboral.adicionadoPor  = this.userObservable.identificacion;
+            condicionLaboral.fechaAdicion   = this.today;
 
-            this.macredService.postEstadoCivil(estadoCivil)
+            this.macredService.postCondicionLaboral(condicionLaboral)
             .pipe(first())
             .subscribe(response => {
 
                 if (response) {
 
-                    this._estadoCivilMacred = response;
+                    this._condicionLaboralMacred = response;
 
                     this.alertService.success(
-                        `Estado civil ${ this._estadoCivilMacred.codigoEstadoCivil } guardado correctamente!`
+                        `Condición laboral ${ this._condicionLaboralMacred.codigoCondicionLaboral } guardada correctamente!`
                     );
-                    $('#estadoCivilModal').modal('hide');
+                    $('#condicionLaboralModal').modal('hide');
                     this.ngOnInit();
 
                 } else {
-                    let message : string = 'Problemas al registrar el estado civil.';
+                    let message : string = 'Problemas al registrar la condición laboral.';
                     this.alertService.error(message);
                 }
             },
@@ -201,25 +200,25 @@ export class EstadosCivilesComponent implements OnInit {
 
         }
         else if (this.tipoMovimiento == 'E') {
-            estadoCivil.modificadoPor      = this.userObservable.identificacion;
-            estadoCivil.fechaModificacion  = this.today;
+            condicionLaboral.modificadoPor      = this.userObservable.identificacion;
+            condicionLaboral.fechaModificacion  = this.today;
 
-            this.macredService.putEstadoCivil(estadoCivil)
+            this.macredService.putCondicionLaboral(condicionLaboral)
             .pipe(first())
             .subscribe(response => {
 
                 if (response) {
 
-                    this._estadoCivilMacred = response;
+                    this._condicionLaboralMacred = response;
 
                     this.alertService.success(
-                        `Estado civil ${ this._estadoCivilMacred.codigoEstadoCivil } actualizado correctamente!`
+                        `Condición laboral ${ this._condicionLaboralMacred.codigoCondicionLaboral } actualizada correctamente!`
                     );
-                    $('#estadoCivilModal').modal('hide');
+                    $('#condicionLaboralModal').modal('hide');
                     this.ngOnInit();
 
                 } else {
-                    let message : string = 'Problemas al actualizar el estado civil.';
+                    let message : string = 'Problemas al actualizar la condición laboral.';
                     this.alertService.error(message);
                 }
             },
@@ -230,36 +229,36 @@ export class EstadosCivilesComponent implements OnInit {
         }
     }
 
-    createEstadoCivilModal() : MacEstadoCivil {
+    createCondicionLaboralModal() : MacCondicionLaboral {
 
-        var codigoEstadoCivil   = this.formEstadoCivil.controls['codigoEstadoCivil'].value;
-        var descripcion         = this.formEstadoCivil.controls['descripcion'].value;
-        var estado              = this.formEstadoCivil.controls['estado'].value
+        var codigoCondicionLaboral  = this.formCondicionLaboral.controls['codigoCondicionLaboral'].value;
+        var descripcion             = this.formCondicionLaboral.controls['descripcion'].value;
+        var estado                  = this.formCondicionLaboral.controls['estado'].value
 
 
-        var estadoCivil = this._estadoCivilMacred;
+        var condicionLaboral = this._condicionLaboralMacred;
 
-        estadoCivil.codigoEstadoCivil   = codigoEstadoCivil;
-        estadoCivil.descripcion         = descripcion;
-        estadoCivil.estado              = estado;
+        condicionLaboral.codigoCondicionLaboral = codigoCondicionLaboral;
+        condicionLaboral.descripcion            = descripcion;
+        condicionLaboral.estado                 = estado;
 
-        return estadoCivil;
+        return condicionLaboral;
     }
 
-    deleteEstadoCivil(idEstadoCivil:number){
+    deleteCondicionLaboral(idCondicionLaboral:number){
 
-        this.macredService.deleteEstadoCivil(idEstadoCivil)
+        this.macredService.deleteCondicionLaboral(idCondicionLaboral)
             .pipe(first())
             .subscribe(response => {
 
                 if (response) {
                     this.alertService.success(
-                        `Estado civil eliminado correctamente!`
+                        `Condición laboral eliminada correctamente!`
                     );
                     this.ngOnInit();
 
                 } else {
-                    let message : string = 'Problemas al eliminar el estado civil.';
+                    let message : string = 'Problemas al eliminar la condición laboral.';
                     this.alertService.error(message);
                 }
             },

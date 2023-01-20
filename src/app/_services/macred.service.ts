@@ -23,7 +23,8 @@ import { MacCondicionLaboral } from '@app/_models/Macred/CondicionLaboral';
 import { MacCategoriaCredito } from '@app/_models/Macred/CategoriaCredito';
 import { MacTipoAsociado } from '@app/_models/Macred/TipoAsociado';
 import { MacTipoHabitacion } from '@app/_models/Macred/TipoHabitacion';
-import { MacEstadoCivil } from '@app/_models/Macred/MacEstadoCivil';
+import { MacEstadoCivil } from '@app/_models/Macred/EstadoCivil';
+import { MacParametrosGenerales } from '@app/_models/Macred';
 
 
 @Injectable({ providedIn: 'root' })
@@ -61,33 +62,101 @@ export class MacredService {
     getTiposPersonasCompania(idCompania:number) {
         return this.http.get<MacTipoPersona[]>(`${environment.apiUrl}/macred/gettipospersonascompania?idCompania=${idCompania}`);
     }
+    postTipoPersona(tipoPersona:MacTipoPersona) {
+        return this.http.post<MacTipoPersona>(`${environment.apiUrl}/macred/createtipopersona`, tipoPersona);
+    }
+    putTipoPersona(tipoPersona:MacTipoPersona) {
+        return this.http.put<MacTipoPersona>(`${environment.apiUrl}/macred/updatetipopersona`, tipoPersona);
+    }
+    deleteTipoPesona(idTipoPersona:number) {
+        return this.http.delete<MacTipoPersona>(`${environment.apiUrl}/macred/deletetipopersona?idTipoPersona=${idTipoPersona}`);
+    }
     getTiposGenerosCompania(idCompania:number) {
         return this.http.get<MacTipoGenero[]>(`${environment.apiUrl}/macred/gettiposgeneroscompania?idCompania=${idCompania}`);
     }
+    postTipoGenero(tipoGenero:MacTipoGenero) {
+        return this.http.post<MacTipoGenero>(`${environment.apiUrl}/macred/createtipogenero`, tipoGenero);
+    }
+    putTipoGenero(tipoGenero:MacTipoGenero) {
+        return this.http.put<MacTipoGenero>(`${environment.apiUrl}/macred/updatetipogenero`, tipoGenero);
+    }
+    deleteTipoGenero(idTipoGenero:number) {
+        return this.http.delete<MacTipoGenero>(`${environment.apiUrl}/macred/deletetipogenero?idTipoGenero=${idTipoGenero}`);
+    }
+
     getCondicionesLaboralesCompania(idCompania:number) {
         return this.http.get<MacCondicionLaboral[]>(`${environment.apiUrl}/macred/getcondicioneslaboralescompania?idCompania=${idCompania}`);
     }
+    postCondicionLaboral(condicionLaboral:MacCondicionLaboral) {
+        return this.http.post<MacCondicionLaboral>(`${environment.apiUrl}/macred/createcondicionlaboral`, condicionLaboral);
+    }
+    putCondicionLaboral(condicionLaboral:MacCondicionLaboral) {
+        return this.http.put<MacCondicionLaboral>(`${environment.apiUrl}/macred/updatecondicionlaboral`, condicionLaboral);
+    }
+    deleteCondicionLaboral(idCondicionLaboral:number) {
+        return this.http.delete<MacCondicionLaboral>(`${environment.apiUrl}/macred/deletecondicionlaboral?idCondicionLaboral=${idCondicionLaboral}`);
+    }
+
+
     getCategoriasCreditosCompania(idCompania:number) {
         return this.http.get<MacCategoriaCredito[]>(`${environment.apiUrl}/macred/getcategoriascreditoscompania?idCompania=${idCompania}`);
     }
     getTiposAsociadosCompania(idCompania:number) {
         return this.http.get<MacTipoAsociado[]>(`${environment.apiUrl}/macred/gettiposasociadoscompania?idCompania=${idCompania}`);
     }
+    postTipoAsociado(tipoAsociado:MacTipoAsociado) {
+        return this.http.post<MacTipoAsociado>(`${environment.apiUrl}/macred/createtipoasociado`, tipoAsociado);
+    }
+    putTipoAsociado(tipoAsociado:MacTipoAsociado) {
+        return this.http.put<MacTipoAsociado>(`${environment.apiUrl}/macred/updatetipoasociado`, tipoAsociado);
+    }
+    deleteTipoAsociado(idTipoAsociado:number) {
+        return this.http.delete<MacTipoAsociado>(`${environment.apiUrl}/macred/deletetipoasociado?idTipoAsociado=${idTipoAsociado}`);
+    }
     getTiposHabitacionesCompania(idCompania:number) {
         return this.http.get<MacTipoHabitacion[]>(`${environment.apiUrl}/macred/gettiposhabitacionescompania?idCompania=${idCompania}`);
     }
-
-
-
     getTiposIngresoAnalisis(idCompania: number) {
         return this.http.get<MacTipoIngresoAnalisis[]>(`${environment.apiUrl}/macred/gettipoingresoanalisis?idCompania=${idCompania}`);
     }
+    postTipoIngresoAnalisis(TipoIngresoAnalisis:MacTipoIngresoAnalisis) {
+        return this.http.post<MacTipoIngresoAnalisis>(`${environment.apiUrl}/macred/createtipoingresoanalisis`, TipoIngresoAnalisis);
+    }
+    putTipoIngresoAnalisis(TipoIngresoAnalisis:MacTipoIngresoAnalisis) {
+        return this.http.put<MacTipoIngresoAnalisis>(`${environment.apiUrl}/macred/updatetipoingresoanalisis`, TipoIngresoAnalisis);
+    }
+    deleteTipoIngresoAnalisis(idTipoIngresoAnalisis:number) {
+        return this.http.delete<MacTipoIngresoAnalisis>(`${environment.apiUrl}/macred/deletetipoingresoanalisis?idTipoIngresoAnalisis=${idTipoIngresoAnalisis}`);
+    }
+
     getTiposFormaPagoAnalisis(idCompania: number) {
         return this.http.get<MacTipoFormaPagoAnalisis[]>(`${environment.apiUrl}/macred/gettipoformapagoanalisis?idCompania=${idCompania}`);
+    }
+    postTipoFormaPagoAnalisis(TipoFormaPagoAnalisis:MacTipoFormaPagoAnalisis) {
+        return this.http.post<MacTipoFormaPagoAnalisis>(`${environment.apiUrl}/macred/createtipoformapagoanalisis`, TipoFormaPagoAnalisis);
+    }
+    putTipoFormaPagoAnalisis(TipoFormaPagoAnalisis:MacTipoFormaPagoAnalisis) {
+        return this.http.put<MacTipoFormaPagoAnalisis>(`${environment.apiUrl}/macred/updatetipoformapagoanalisis`, TipoFormaPagoAnalisis);
+    }
+    deleteTipoFormaPagoAnalisis(idTipoFormaPagoAnalisis:number) {
+        return this.http.delete<MacTipoFormaPagoAnalisis>(`${environment.apiUrl}/macred/deletetipoformapagoanalisis?idTipoFormaPagoAnalisis=${idTipoFormaPagoAnalisis}`);
     }
     GetParametroGeneralVal1(idCompania: number, codParametro:string, esNumerico:boolean) {
         return this.http.get<string>(`${environment.apiUrl}/macred/getparametrogeneralval1?idCompania=${idCompania}&codParametro=${codParametro}&esNumerico=${esNumerico}`);
     }
+    getParametrosGeneralesCompania(idCompania:number) {
+        return this.http.get<MacParametrosGenerales[]>(`${environment.apiUrl}/macred/getparametrosgeneralescompania?idCompania=${idCompania}`);
+    }
+    postParametroGeneral(parametroGeneral:MacParametrosGenerales) {
+        return this.http.post<MacParametrosGenerales>(`${environment.apiUrl}/macred/createparametrogeneral`, parametroGeneral);
+    }
+    putParametroGeneral(parametroGeneral:MacParametrosGenerales) {
+        return this.http.put<MacParametrosGenerales>(`${environment.apiUrl}/macred/updateparametrogeneral`, parametroGeneral);
+    }
+    deleteParametroGeneral(idParametroGeneral:number) {
+        return this.http.delete<MacParametrosGenerales>(`${environment.apiUrl}/macred/deleteparametrogeneral?idParametroGeneral=${idParametroGeneral}`);
+    }
+
     getCodigoCategoriaCreditoPersona(idCompania: number, idPersona:number) {
         return this.http.get<string>(`${environment.apiUrl}/macred/getcodcategoriacredito?idCompania=${idCompania}&idPersona=${idPersona}`);
     }
@@ -113,6 +182,16 @@ export class MacredService {
     getTiposIngresos(idCompania: number, incluyeInactivos:boolean) {
         return this.http.get<MacTipoIngreso[]>(`${environment.apiUrl}/macred/gettiposingresos?idCompania=${idCompania}&incluyeInactivos=${incluyeInactivos}`);
     }
+    postTipoIngreso(TipoIngreso:MacTipoIngreso) {
+        return this.http.post<MacTipoIngreso>(`${environment.apiUrl}/macred/createtipoingreso`, TipoIngreso);
+    }
+    putTipoIngreso(TipoIngreso:MacTipoIngreso) {
+        return this.http.put<MacTipoIngreso>(`${environment.apiUrl}/macred/updatetipoingreso`, TipoIngreso);
+    }
+    deleteTipoIngreso(idTipoIngreso:number) {
+        return this.http.delete<MacTipoIngreso>(`${environment.apiUrl}/macred/deletetipoingreso?idTipoIngreso=${idTipoIngreso}`);
+    }
+
     getIngresosAnalisis(idCompania: number, codigoAnalisis:number) {
         return this.http.get<MacIngresosXAnalisis[]>(`${environment.apiUrl}/macred/getingresosanalisis?idCompania=${idCompania}&codigoAnalisis=${codigoAnalisis}`);
     }

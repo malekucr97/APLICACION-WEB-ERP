@@ -18,7 +18,7 @@ import { MacTipoGenerador } from '@app/_models/Macred/TipoGenerador';
 import { THIS_EXPR } from '@angular/compiler/src/output/output_ast';
 import { MatDialog } from '@angular/material/dialog';
 import { DialogoConfirmacionComponent } from '@app/_components/dialogo-confirmacion/dialogo-confirmacion.component';
-import { MacEstadoCivil } from '@app/_models/Macred/MacEstadoCivil';
+import { MacEstadoCivil } from '@app/_models/Macred/EstadoCivil';
 import { MacTipoPersona } from '@app/_models/Macred/TipoPersona';
 import { MacTipoGenero } from '@app/_models/Macred/TipoGenero';
 import { MacCondicionLaboral } from '@app/_models/Macred/CondicionLaboral';
