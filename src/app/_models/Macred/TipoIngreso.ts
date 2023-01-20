@@ -1,11 +1,11 @@
 export class MacTipoIngreso {
 
     id: number;
-    CodigoTipoIngreso: string;
+    codigoTipoIngreso: string;
     codigoCompania: number;
 
     descripcion: string;
-    AplicaDeduccionesLey: boolean;
+    aplicaDeduccionesLey: boolean;
     estado: boolean;
 
     adicionadoPor: string;

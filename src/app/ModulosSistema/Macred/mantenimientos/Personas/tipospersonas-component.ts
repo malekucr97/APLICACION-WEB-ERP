@@ -18,7 +18,6 @@ import { MacTipoGenerador } from '@app/_models/Macred/TipoGenerador';
 import { THIS_EXPR } from '@angular/compiler/src/output/output_ast';
 import { MatDialog } from '@angular/material/dialog';
 import { DialogoConfirmacionComponent } from '@app/_components/dialogo-confirmacion/dialogo-confirmacion.component';
-import { MacEstadoCivil } from '@app/_models/Macred/EstadoCivil';
 import { MacTipoPersona } from '@app/_models/Macred/TipoPersona';
 import { MacTipoGenero } from '@app/_models/Macred/TipoGenero';
 import { MacCondicionLaboral } from '@app/_models/Macred/CondicionLaboral';
@@ -30,27 +29,27 @@ import { valHooks } from 'jquery';
 declare var $: any;
 
 @Component({
-    templateUrl: 'HTML_EstadosCiviles.html',
+    templateUrl: 'HTML_TiposPersonas.html',
     styleUrls: ['../../../../../assets/scss/app.scss',
                 '../../../../../assets/scss/macred/app.scss'],
 })
-export class EstadosCivilesComponent implements OnInit {
+export class TiposPersonasComponent implements OnInit {
     @ViewChild(MatSidenav) sidenav !: MatSidenav;
 
-    nombrePantalla : string = 'estados-civiles.html';
+    nombrePantalla : string = 'tipos-personas.html';
 
-    _estadoCivilMacred : MacEstadoCivil;
+    _tipoPersonaMacred : MacTipoPersona;
 
     userObservable: User;
     moduleObservable: Module;
     companiaObservable: Compania;
 
-    submittedEstadoCivilForm : boolean = false;
+    submittedTipoPersonaForm : boolean = false;
     
-    // Estados Civiles
-    formEstadoCivil: FormGroup;
-    formEstadoCivilList: FormGroup;
-    listEstadosCiviles: MacEstadoCivil[];
+    // Tipo Persona
+    formTipoPersona: FormGroup;
+    formTipoPersonaList: FormGroup;
+    listTiposPersonas: MacTipoPersona[];
     showList : boolean = false;
 
     submitted : boolean = false;
@@ -78,9 +77,9 @@ export class EstadosCivilesComponent implements OnInit {
 
     ngOnInit() {
 
-        this.formEstadoCivil = this.formBuilder.group({
+        this.formTipoPersona = this.formBuilder.group({
             id                  : [null],
-            codigoEstadoCivil   : [null],
+            codigoTipoPersona   : [null],
             codigoCompania      : [null],
             descripcion         : [null],
             estado              : [null]
@@ -100,97 +99,97 @@ export class EstadosCivilesComponent implements OnInit {
 
             });
 
-            this.consultaEstadosCivilesCompania();
+            this.consultaTiposPersonasCompania();
     }
 
-    get f() { return this.formEstadoCivil.controls; }
+    get f() { return this.formTipoPersona.controls; }
 
     
-    consultaEstadosCivilesCompania() : void {
-        this.formEstadoCivilList = this.formBuilder.group({
+    consultaTiposPersonasCompania() : void {
+        this.formTipoPersonaList = this.formBuilder.group({
             id                  : [''],
-            codigoEstadoCivil   : [''],
+            codigoTipoPersona   : [''],
             codigoCompania      : [''],
             descripcion         : [''],
             estado              : ['']
         });
 
-        this.macredService.getEstadosCivilesCompania(this.userObservable.empresa)
+        this.macredService.getTiposPersonasCompania(this.userObservable.empresa)
         .pipe(first())
-        .subscribe(estadoCivilResponse => {
+        .subscribe(tipoPersonaResponse => {
 
-            if (estadoCivilResponse.length > 0) {
+            if (tipoPersonaResponse.length > 0) {
                 this.showList = true;
-                this.listEstadosCiviles = estadoCivilResponse;
+                this.listTiposPersonas = tipoPersonaResponse;
             }
         },
         error => {
-            let message : string = 'Problemas al consultar los estados civiles. ' + error;
+            let message : string = 'Problemas al consultar los tipos de personas. ' + error;
             this.alertService.error(message); 
         });
     }
 
-    addEstadoCivil() : void {
+    addTipoPersona() : void {
         this.alertService.clear();
         this.ngOnInit();
         this.add = true;
         this.tipoMovimiento = 'N'
-        this._estadoCivilMacred =  new MacEstadoCivil;
+        this._tipoPersonaMacred =  new MacTipoPersona;
 
-        $('#estadoCivilModal').modal({backdrop: 'static', keyboard: false}, 'show');
+        $('#tipoPersonaModal').modal({backdrop: 'static', keyboard: false}, 'show');
     }
 
-    editEstadoCivil(estadoCivil:MacEstadoCivil) : void {
+    editTipoPersona(tipoPersona:MacTipoPersona) : void {
 
         this.update = true;
         this.buttomText = 'Actualizar';
         this.tipoMovimiento = 'E';
         
-        this._estadoCivilMacred = estadoCivil;
+        this._tipoPersonaMacred = tipoPersona;
         
-        this.formEstadoCivil = this.formBuilder.group({
-            id: [estadoCivil.id,Validators.required],
-            codigoEstadoCivil : [estadoCivil.codigoEstadoCivil,Validators.required],
-            descripcion : [estadoCivil.descripcion,Validators.required],
-            estado : [estadoCivil.estado,Validators.required]
+        this.formTipoPersona = this.formBuilder.group({
+            id: [tipoPersona.id,Validators.required],
+            codigoTipoPersona : [tipoPersona.codigoTipoPersona,Validators.required],
+            descripcion : [tipoPersona.descripcion,Validators.required],
+            estado : [tipoPersona.estado,Validators.required]
         });
 
-        $('#estadoCivilModal').modal({backdrop: 'static', keyboard: false}, 'show');
+        $('#tipoPersonaModal').modal({backdrop: 'static', keyboard: false}, 'show');
     }
 
-    guardarEstadoCivil() : void {
+    guardarTipoPersona() : void {
 
         this.alertService.clear();
-        this.submittedEstadoCivilForm = true;
+        this.submittedTipoPersonaForm = true;
 
-        if ( this.formEstadoCivil.invalid ){
+        if ( this.formTipoPersona.invalid ){
             return;
         }
         
-        var estadoCivil : MacEstadoCivil;
-        estadoCivil = this.createEstadoCivilModal();
+        var tipoPersona : MacTipoPersona;
+        tipoPersona = this.createTipoPersonaModal();
         
         if (this.tipoMovimiento == 'N'){    
-            estadoCivil.codigoCompania = this.userObservable.empresa;
-            estadoCivil.adicionadoPor  = this.userObservable.identificacion;
-            estadoCivil.fechaAdicion   = this.today;
+            tipoPersona.codigoCompania = this.userObservable.empresa;
+            tipoPersona.adicionadoPor  = this.userObservable.identificacion;
+            tipoPersona.fechaAdicion   = this.today;
 
-            this.macredService.postEstadoCivil(estadoCivil)
+            this.macredService.postTipoPersona(tipoPersona)
             .pipe(first())
             .subscribe(response => {
 
                 if (response) {
 
-                    this._estadoCivilMacred = response;
+                    this._tipoPersonaMacred = response;
 
                     this.alertService.success(
-                        `Estado civil ${ this._estadoCivilMacred.codigoEstadoCivil } guardado correctamente!`
+                        `Tipo persona ${ this._tipoPersonaMacred.codigoTipoPersona } guardado correctamente!`
                     );
-                    $('#estadoCivilModal').modal('hide');
+                    $('#tipoPersonaModal').modal('hide');
                     this.ngOnInit();
 
                 } else {
-                    let message : string = 'Problemas al registrar el estado civil.';
+                    let message : string = 'Problemas al registrar el tipo de persona.';
                     this.alertService.error(message);
                 }
             },
@@ -201,25 +200,25 @@ export class EstadosCivilesComponent implements OnInit {
 
         }
         else if (this.tipoMovimiento == 'E') {
-            estadoCivil.modificadoPor      = this.userObservable.identificacion;
-            estadoCivil.fechaModificacion  = this.today;
+            tipoPersona.modificadoPor      = this.userObservable.identificacion;
+            tipoPersona.fechaModificacion  = this.today;
 
-            this.macredService.putEstadoCivil(estadoCivil)
+            this.macredService.putTipoPersona(tipoPersona)
             .pipe(first())
             .subscribe(response => {
 
                 if (response) {
 
-                    this._estadoCivilMacred = response;
+                    this._tipoPersonaMacred = response;
 
                     this.alertService.success(
-                        `Estado civil ${ this._estadoCivilMacred.codigoEstadoCivil } actualizado correctamente!`
+                        `Tipo persona ${ this._tipoPersonaMacred.codigoTipoPersona } actualizado correctamente!`
                     );
-                    $('#estadoCivilModal').modal('hide');
+                    $('#tipoPersonaModal').modal('hide');
                     this.ngOnInit();
 
                 } else {
-                    let message : string = 'Problemas al actualizar el estado civil.';
+                    let message : string = 'Problemas al actualizar el tipo de persona.';
                     this.alertService.error(message);
                 }
             },
@@ -230,36 +229,36 @@ export class EstadosCivilesComponent implements OnInit {
         }
     }
 
-    createEstadoCivilModal() : MacEstadoCivil {
+    createTipoPersonaModal() : MacTipoPersona {
 
-        var codigoEstadoCivil   = this.formEstadoCivil.controls['codigoEstadoCivil'].value;
-        var descripcion         = this.formEstadoCivil.controls['descripcion'].value;
-        var estado              = this.formEstadoCivil.controls['estado'].value
+        var codigoTipoPersona   = this.formTipoPersona.controls['codigoTipoPersona'].value;
+        var descripcion         = this.formTipoPersona.controls['descripcion'].value;
+        var estado              = this.formTipoPersona.controls['estado'].value
 
 
-        var estadoCivil = this._estadoCivilMacred;
+        var tipoPersona = this._tipoPersonaMacred;
 
-        estadoCivil.codigoEstadoCivil   = codigoEstadoCivil;
-        estadoCivil.descripcion         = descripcion;
-        estadoCivil.estado              = estado;
+        tipoPersona.codigoTipoPersona   = codigoTipoPersona;
+        tipoPersona.descripcion         = descripcion;
+        tipoPersona.estado              = estado;
 
-        return estadoCivil;
+        return tipoPersona;
     }
 
-    deleteEstadoCivil(idEstadoCivil:number){
+    deleteTipoPersona(idTipoPersona:number){
 
-        this.macredService.deleteEstadoCivil(idEstadoCivil)
+        this.macredService.deleteTipoPesona(idTipoPersona)
             .pipe(first())
             .subscribe(response => {
 
                 if (response) {
                     this.alertService.success(
-                        `Estado civil eliminado correctamente!`
+                        `Tipo persona eliminado correctamente!`
                     );
                     this.ngOnInit();
 
                 } else {
-                    let message : string = 'Problemas al eliminar el estado civil.';
+                    let message : string = 'Problemas al eliminar el tipo de persona.';
                     this.alertService.error(message);
                 }
             },

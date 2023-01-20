@@ -1,0 +1,147 @@
+<main>
+
+    <article class="bloq">
+        <div class="contenedor mat-elevation-z4">
+
+            <section>   <!-- header -->
+                <div class="contenedor__header">                    
+                    <div class="contenedor__header__prev">
+                        <h2 >Lista de Tipos de Personas </h2>
+                    </div>
+                    <div class="contenedor__header__next">  </div>
+                </div>
+            </section>
+
+            <section>   <!-- body -->
+                <div class="contenedor__body">
+                    <!-- *************** -->
+                    <mat-sidenav-container *ngIf="showList">
+                            
+                        <div class="content mat-elevation-z4">
+                            <main>
+                                
+                                <!--<h1 style="color:#1A5276;margin-top: 2%;">Personas</h1>-->
+                                
+                                <article>
+                                    <section class="content__menu">
+                            
+                                        <table class="table table-striped">
+                                            <thead>
+                                                <tr>
+                                                    <th style="width: 20%">Código</th>
+                                                    <th style="width: 60%">Descripción</th>
+                                                    <th style="width: 10%">Estado</th>
+                                                    <th style="width: 10%">
+                                                        <a style="margin-top: 3%;" class="btn btn-sm btn-outline-success float-left" matTooltip="Nuevo">
+                                                        <i class="fa fa-plus" aria-hidden="true" (click)="addTipoPersona()"></i></a> 
+                                                    </th>
+                                                </tr>
+                                            </thead>
+                    
+                                            <tbody>
+                                                <tr *ngFor="let tipoPersona of listTiposPersonas">
+                                                    <td>{{tipoPersona.codigoTipoPersona}}</td>
+                                                    <td>{{tipoPersona.descripcion}}</td>
+                                                    <td *ngIf="tipoPersona.estado==true">Activo</td>
+                                                    <td *ngIf="tipoPersona.estado==false">Inactivo</td>
+                                                    <td style="white-space: nowrap">
+                    
+                                                        <a style="margin-right: 5%;" (click)="editTipoPersona(tipoPersona)" class="btn btn-sm btn-outline-info" matTooltip="Editar">
+                                                            <i class="fa fa-edit"></i> </a>
+                                                    
+                                                        <a style="margin-left: 5%;" (click)="deleteTipoPersona(tipoPersona.id)" class="btn btn-sm btn-outline-danger" matTooltip="Eliminar">
+                                                            <i class="fa fa-trash"></i> </a>
+                                                    </td>
+                                                </tr>
+                                            </tbody>
+                                        </table>
+                    
+                                    </section>
+                                </article>
+                            </main>
+                        </div>
+                    </mat-sidenav-container>
+                    
+                    <!-- *************** -->
+                </div>
+            </section>
+
+            <section> <!-- footer -->
+                <div class="contenedor__footer">
+                    <section class="sectionmenu">
+                        <div class=" mat-elevation-z4">
+            
+                            
+                        </div>
+                    </section>
+
+                </div>
+            </section>
+
+        </div>
+    </article>
+</main>
+
+
+<article class="modal modal-config" id="tipoPersonaModal">
+
+    <div class="modal-content">
+
+        <section>
+            <div class="contenedor__header-modal" >
+                <div class="contenedor__header__prev">
+                    <h1 style="color:#1A5276">Registro de Tipos de Personas</h1>
+                </div>
+                <div class="contenedor__header__next">
+                    <button  style="color:red" type="button" class="close btn-close" data-dismiss="modal">&times;</button>
+                </div>
+            </div>
+        </section>
+
+
+        <section>
+
+            <div class="contenedor__body">
+
+                <form [formGroup]="formTipoPersona" class="row modal-config__formulario-body" >
+                    
+                    <div class="form-group col-md-3">
+                        <label for="codigoTipoPersona" class="form-label">Código</label>
+                        <input formControlName="codigoTipoPersona" class="form-control" type="text" id="id_codigo_tipo_persona"  
+                            [ngClass]="{ 'is-invalid': submitted && f.codigoTipoPersona.errors }" />
+                        <div *ngIf="submitted && f.codigoTipoPersona.errors" class="invalid-feedback">
+                            <div *ngIf="f.codigoTipoPersona.errors.required">El código del tipo de persona es requerido.</div>
+                        </div>
+                    </div>
+
+                    <div class="form-group col-md-3">
+                        <label for="descripcion" class="form-label">Descripción</label>
+                        <input formControlName="descripcion" class="form-control" type="text" id="id_descripcion_tipo_persona"  
+                            [ngClass]="{ 'is-invalid': submitted && f.descripcion.errors }" />
+                        <div *ngIf="submitted && f.descripcion.errors" class="invalid-feedback">
+                            <div *ngIf="f.descripcion.errors.required">La descripción es requerida.</div>
+                        </div>
+                    </div>
+
+                    <div class="form-group col-sm-1 margin-icos-mat margin-icos-mat__cbx">
+                        <mat-checkbox formControlName="estado">Estado</mat-checkbox>
+                    </div>
+
+                </form>
+
+            </div>
+        </section>
+
+        <section>   
+            <div class="contenedor__footer">
+                <div class="contenedor__footer__prev">
+                    <button  class="btn btn-success px-5" (click)="guardarTipoPersona()">
+                        Registrar </button>
+                </div>
+                <div class="contenedor__footer__next"> </div>
+            </div>
+        </section>
+
+    </div>
+
+</article>
