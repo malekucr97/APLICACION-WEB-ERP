@@ -15,7 +15,6 @@ import { MacTiposMoneda } from '@app/_models/Macred/TiposMoneda';
 import { MacModeloAnalisis } from '@app/_models/Macred/ModeloAnalisis';
 import { MacNivelCapacidadPago } from '@app/_models/Macred/NivelCapacidadPago';
 import { MacTipoGenerador } from '@app/_models/Macred/TipoGenerador';
-import { THIS_EXPR } from '@angular/compiler/src/output/output_ast';
 import { MatDialog } from '@angular/material/dialog';
 import { DialogoConfirmacionComponent } from '@app/_components/dialogo-confirmacion/dialogo-confirmacion.component';
 import { MacEstadoCivil } from '@app/_models/Macred/EstadoCivil';
@@ -47,7 +46,7 @@ export class ParametrosGeneralesComponent implements OnInit {
     companiaObservable: Compania;
 
     submittedParametroGeneralForm : boolean = false;
-    
+
     // Parametros Generales
     formParametroGeneral: FormGroup;
     formParametroGeneralList: FormGroup;
@@ -91,7 +90,7 @@ export class ParametrosGeneralesComponent implements OnInit {
             valor5              : [null]
 
         });
-        
+
         this.accountService.validateAccessUser( this.userObservable.id,
                                                 this.moduleObservable.id,
                                                 this.nombrePantalla,
@@ -110,7 +109,7 @@ export class ParametrosGeneralesComponent implements OnInit {
 
     get f() { return this.formParametroGeneral.controls; }
 
-    
+
     consultaParametrosGeneralesCompania() : void {
         this.formParametroGeneralList = this.formBuilder.group({
             id                  : [''],
@@ -135,7 +134,7 @@ export class ParametrosGeneralesComponent implements OnInit {
         },
         error => {
             let message : string = 'Problemas al consultar los parámetros generales. ' + error;
-            this.alertService.error(message); 
+            this.alertService.error(message);
         });
     }
 
@@ -154,9 +153,9 @@ export class ParametrosGeneralesComponent implements OnInit {
         this.update = true;
         this.buttomText = 'Actualizar';
         this.tipoMovimiento = 'E';
-        
+
         this._parametroGeneralMacred = parametroGeneral;
-        
+
         this.formParametroGeneral = this.formBuilder.group({
             id                  : [parametroGeneral.id,Validators.required],
             codigoParametro     : [parametroGeneral.codigoParametro,Validators.required],
@@ -180,10 +179,10 @@ export class ParametrosGeneralesComponent implements OnInit {
         if ( this.formParametroGeneral.invalid ){
             return;
         }
-        
+
         var parametroGeneral : MacParametrosGenerales;
         parametroGeneral = this.createParametroGeneralModal();
-        
+
         if (this.tipoMovimiento == 'N'){
 
             parametroGeneral.codigoCompania = this.userObservable.empresa;
@@ -264,7 +263,7 @@ export class ParametrosGeneralesComponent implements OnInit {
         parametroGeneral.valor2             = valor2;
         parametroGeneral.valor3             = valor3;
         parametroGeneral.valor4             = valor4;
-        parametroGeneral.valor5             = valor5;     
+        parametroGeneral.valor5             = valor5;
 
         return parametroGeneral;
     }
@@ -291,5 +290,5 @@ export class ParametrosGeneralesComponent implements OnInit {
                 this.alertService.error(message);
             });
     }
-   
+
 }

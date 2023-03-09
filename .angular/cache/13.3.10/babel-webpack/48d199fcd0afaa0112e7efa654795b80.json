@@ -1,0 +1,1 @@
+{"ast":null,"code":"export * from './alert';\nexport * from './module';\nexport * from './response';\nexport * from './role'; // -- objeto acceso a pantalla\n\nexport * from './admin/screenAccessUser'; // -- user observable\n\nexport * from './user'; // -- compania observable\n\nexport * from './modules/compania';","map":null,"metadata":{},"sourceType":"module"}
