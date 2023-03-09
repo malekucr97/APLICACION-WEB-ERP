@@ -145,5 +145,8 @@
       }
     }
   },
-  "defaultProject": "angular-9-registration-login-example"
+  "defaultProject": "angular-9-registration-login-example",
+  "cli": {
+    "analytics": false
+  }
 }
