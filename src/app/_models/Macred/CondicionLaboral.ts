@@ -1,11 +1,10 @@
-export class MacTipoIngreso {
+export class MacCondicionLaboral {
 
     id: number;
-    codigoTipoIngreso: string;
+    codigoCondicionLaboral: string;
     codigoCompania: number;
 
     descripcion: string;
-    aplicaDeduccionesLey: boolean;
     estado: boolean;
 
     adicionadoPor: string;

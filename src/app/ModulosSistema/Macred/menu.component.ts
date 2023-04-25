@@ -2,6 +2,7 @@ import { Component, ViewChild } from '@angular/core';
 import { AccountService }       from '@app/_services';
 import { MatSidenav }           from '@angular/material/sidenav';
 import { httpLandingIndexPage } from '../../../environments/environment-access-admin';
+
 import { FlatTreeControl}       from '@angular/cdk/tree';
 import { MatTreeFlatDataSource, MatTreeFlattener} from '@angular/material/tree';
 import { Module, User }   from '@app/_models';
@@ -56,11 +57,11 @@ const TREE_DATA: FoodNode[] = [
                 link: '', 
                 icon: '',
                 children: [{name: 'Datos Personas', link: ModulesSystem.macredbasehref + 'mantenimientos/personas/datos-personas.html', icon: ''},//monetization_on
-                          {name: 'Estado Civil', link: '/', icon: ''},//monetization_on
-                          {name: 'Condición Laboral', link: '/', icon: ''},//monetization_on
-                          {name: 'Tipos de Género', link: '/', icon: ''},//monetization_on
-                          {name: 'Tipos de Persona', link: '/', icon: ''},//monetization_on
-                          {name: 'Tipos de Asociado', link: '/', icon: ''}
+                          {name: 'Estado Civil', link: ModulesSystem.macredbasehref + 'mantenimientos/personas/estados-civiles.html', icon: ''},//monetization_on
+                          {name: 'Condición Laboral', link: ModulesSystem.macredbasehref + 'mantenimientos/personas/condiciones-laborales.html', icon: ''},//monetization_on
+                          {name: 'Tipos de Género', link: ModulesSystem.macredbasehref + 'mantenimientos/personas/tipos-generos.html', icon: ''},//monetization_on
+                          {name: 'Tipos de Persona', link: ModulesSystem.macredbasehref + 'mantenimientos/personas/tipos-personas.html', icon: ''},//monetization_on
+                          {name: 'Tipos de Asociado', link: ModulesSystem.macredbasehref + 'mantenimientos/personas/tipos-asociados.html', icon: ''}
                           ],
                 },
                 {name: 'Entidades', 
@@ -70,7 +71,7 @@ const TREE_DATA: FoodNode[] = [
                 {name: 'Obligaciones', 
                 link: '', 
                 icon: '',
-                children: [{name: 'Formas de Pago', link: '/', icon: ''},
+                children: [{name: 'Formas de Pago', link: ModulesSystem.macredbasehref + 'mantenimientos/obligaciones/tipos-forma-pago-analisis.html', icon: ''},
                           {name: 'Periodicidades', link: '/', icon: ''},
                           {name: 'Tipos de Línea de Crédito', link: '/', icon: ''},
                           {name: 'Tipos de Categoría de Riesgo', link: '/', icon: ''}
@@ -78,7 +79,8 @@ const TREE_DATA: FoodNode[] = [
                 {name: 'Análisis de Personas', 
                 link: '', 
                 icon: '',
-                children: [{name: 'Tipo de Ingreso', link: '/', icon: ''},
+                children: [{name: 'Tipo de Ingreso', link: ModulesSystem.macredbasehref + 'mantenimientos/analisispersonas/tipos-ingresos.html', icon: ''},
+                          {name: 'Tipo de Ingreso de Análisis', link: ModulesSystem.macredbasehref + 'mantenimientos/analisispersonas/tipos-ingresos-analisis.html', icon: ''},
                           {name: 'Tipo de Deducciones', link: '/', icon: ''},
                           {name: 'Factores de Gastos Inferibles', link: '/', icon: ''},
                           {name: 'Rangos para las Extras por Ingreso', link: '/', icon: ''},
@@ -125,7 +127,7 @@ const TREE_DATA: FoodNode[] = [
                           {name: 'Cambio Contraseña', link: '/', icon: ''}
                           ],
               },
-              {name: 'Parámetros', link: '/', icon: ''},//monetization_on
+              {name: 'Parámetros', link: ModulesSystem.macredbasehref + 'configuracion/parametros-generales.html', icon: ''},//monetization_on
               {name: 'Menú Principal', link: '/', icon: ''}
     ],
   },

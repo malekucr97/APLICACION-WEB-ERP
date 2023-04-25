@@ -2,7 +2,7 @@ export * from './AnalisisCapacidadPago';
 export * from './DeduccionAnalisis';
 export * from './ExtrasAplicables';
 export * from './IngresosXAnalisis';
-export * from './MacEstadoCivil';
+export * from './EstadoCivil';
 export * from './MatrizAceptacionIngreso';
 export * from './ModeloAnalisis';
 export * from './NivelCapacidadPago';

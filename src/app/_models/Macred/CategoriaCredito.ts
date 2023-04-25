@@ -1,11 +1,14 @@
-export class MacTipoIngreso {
+export class MacCategoriaCredito {
 
     id: number;
-    codigoTipoIngreso: string;
+    codigoCatCredito: string;
     codigoCompania: number;
 
+    PorcentajeEstimacion: number;
+    NumMesesCastigo: number;
+    PorcentajeValor: number;
+
     descripcion: string;
-    aplicaDeduccionesLey: boolean;
     estado: boolean;
 
     adicionadoPor: string;
