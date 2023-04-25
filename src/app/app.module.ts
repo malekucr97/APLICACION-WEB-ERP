@@ -27,7 +27,7 @@ import {LocationStrategy, HashLocationStrategy} from '@angular/common';
         HttpClientModule,
         AppRoutingModule,
         BrowserAnimationsModule,
-        
+
         MatTreeModule,
         MatNativeDateModule,
         MatTooltipModule,

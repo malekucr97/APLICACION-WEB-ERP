@@ -60,6 +60,9 @@ export const ModulesSystem = {
     cumplimientobasehref:   '/inra-sa/modulo-cumplimiento/',
 
     Identif_Macred:         'ID-BANKAP-MACRED',
-    macredbasehref:         '/inra-sa/modulo-macred/'
+    macredbasehref:         '/inra-sa/modulo-macred/',
+
+    Identif_RiesgoCredito:  'ID-BANKAP-RIESGO-CREDITO',
+    riesgocreditobasehref:  '/inra-sa/modulo-riesgo-credito/',
 
 };
