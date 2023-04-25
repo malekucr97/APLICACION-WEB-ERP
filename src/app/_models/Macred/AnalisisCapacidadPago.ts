@@ -22,15 +22,22 @@ export class MacAnalisisCapacidadPago {
     ancapCapacidadPago      : number;
     ancapCalificacionFinal  : number;
     ancapPuntajeFinal       : number;
-    adicionadoPor           : string;
-    fechaAdicion            : Date
-
+    
+    totalMontoAnalisis      : number;
+    totalIngresoBruto       : number;
+    totalIngresoNeto        : number;
+    totalCargaImpuestos     : number;
+    totalExtrasAplicables   : number;
+    totalDeducciones        : number;
+    
     codigoAnalisis : number;
     codModeloSc : number;
     
     tipoIngreso : string;
     formaPago : string;
-    
-    modificadoPor : string;
-    fechaModificacion : Date
+
+    adicionadoPor       : string;
+    fechaAdicion        : Date
+    modificadoPor       : string;
+    fechaModificacion   : Date
 }
