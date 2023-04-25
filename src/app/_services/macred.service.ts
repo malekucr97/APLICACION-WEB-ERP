@@ -83,7 +83,6 @@ export class MacredService {
     deleteTipoGenero(idTipoGenero:number) {
         return this.http.delete<MacTipoGenero>(`${environment.apiUrl}/macred/deletetipogenero?idTipoGenero=${idTipoGenero}`);
     }
-
     getCondicionesLaboralesCompania(idCompania:number) {
         return this.http.get<MacCondicionLaboral[]>(`${environment.apiUrl}/macred/getcondicioneslaboralescompania?idCompania=${idCompania}`);
     }
@@ -96,8 +95,6 @@ export class MacredService {
     deleteCondicionLaboral(idCondicionLaboral:number) {
         return this.http.delete<MacCondicionLaboral>(`${environment.apiUrl}/macred/deletecondicionlaboral?idCondicionLaboral=${idCondicionLaboral}`);
     }
-
-
     getCategoriasCreditosCompania(idCompania:number) {
         return this.http.get<MacCategoriaCredito[]>(`${environment.apiUrl}/macred/getcategoriascreditoscompania?idCompania=${idCompania}`);
     }
@@ -209,18 +206,19 @@ export class MacredService {
     }
     getExtrasAnalisisIngreso(idCompania: number, codigoAnalisis:number, idIngreso:number) {
         return this.http.get<MacExtrasAplicables>(`${environment.apiUrl}/macred/getextrasanalisisingreso?idCompania=${idCompania}&codigoAnalisis=${codigoAnalisis}&idIngreso=${idIngreso}`);
-    }
-    deleteExtrasAplicables(idExtras : number, idIngreso : number, idCompania : number) {
-        return this.http.delete<ResponseMessage>(`${environment.apiUrl}/macred/eliminarextrasaplicables?idExtras=${idExtras}&idIngreso=${idIngreso}&idCompania=${idCompania}`);
-    }
+    } 
+    
     getTiposDeducciones(idCompania: number, incluyeInactivos:boolean) {
         return this.http.get<MacTipoDeducciones[]>(`${environment.apiUrl}/macred/gettiposdeducciones?idCompania=${idCompania}&incluyeInactivos=${incluyeInactivos}`);
     }
     postDeduccionesAnalisis(deduccion:MacDeduccionesAnalisis) {
         return this.http.post<MacDeduccionesAnalisis>(`${environment.apiUrl}/macred/creatededuccionesanalisis`, deduccion);
     }
-    getDeduccionesAnalisis(idCompania: number, codigoAnalisis:number, idIngreso:number) {
-        return this.http.get<MacDeduccionesAnalisis[]>(`${environment.apiUrl}/macred/getdeduccionesanalisis?idCompania=${idCompania}&codigoAnalisis=${codigoAnalisis}&idIngreso=${idIngreso}`);
+    getDeduccionesAnalisisPorIngreso(idCompania: number, codigoAnalisis:number, idIngreso:number) {
+        return this.http.get<MacDeduccionesAnalisis[]>(`${environment.apiUrl}/macred/getdeduccionesanalisisingreso?idCompania=${idCompania}&codigoAnalisis=${codigoAnalisis}&idIngreso=${idIngreso}`);
+    }
+    getDeduccionesAnalisis(idCompania: number, codigoAnalisis:number) {
+        return this.http.get<MacDeduccionesAnalisis[]>(`${environment.apiUrl}/macred/getdeduccionesanalisis?idCompania=${idCompania}&codigoAnalisis=${codigoAnalisis}`);
     }
     postIngresosAnalisis(ingresoAnalisis:MacIngresosXAnalisis) {
         return this.http.post<MacIngresosXAnalisis>(`${environment.apiUrl}/macred/createingresosanalisis`, ingresoAnalisis);
@@ -231,10 +229,13 @@ export class MacredService {
     putDeduccionAnalisis(deduccionAnalisis:MacDeduccionesAnalisis) {
         return this.http.put<ResponseMessage>(`${environment.apiUrl}/macred/updatededuccionanalisis`, deduccionAnalisis);
     }
-    deleteDeduccionIngreso( idDeduccion : number ) {
+    deleteExtra( idExtras : number ) {
+        return this.http.delete<ResponseMessage>(`${environment.apiUrl}/macred/eliminarextrasaplicables?idExtras=${idExtras}`);
+    }
+    deleteDeduccion( idDeduccion : number ) {
         return this.http.delete<ResponseMessage>(`${environment.apiUrl}/macred/eliminardeduccioningreso?idDeduccion=${idDeduccion}`);
     }
-    deleteIngresoAnalisis( idIngreso : number ) {
+    deleteIngreso( idIngreso : number ) {
         return this.http.delete<ResponseMessage>(`${environment.apiUrl}/macred/eliminaringresoanalisis?idIngreso=${idIngreso}`);
     }
 }

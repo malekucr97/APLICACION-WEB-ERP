@@ -435,8 +435,13 @@
                             <div *ngIf="i.codigoTipoIngreso.errors.required">El Tipo de Ingreso es requerido</div>
                         </div>
                     </div>
-
-                    <div class="col-md-9"></div>
+                    <div class="col-md-5"></div>
+                    <!-- total ingreso para analisis -->
+                    <div class="form-group col-md-2">
+                        <label for="lblTotalMontoAnalisis" class="form-label">Total Ingreso de Análisis</label>
+                        <input formControlName="totalMontoAnalisis" class="form-control" type="number" id="id_totalMontoAnalisis"
+                            readonly />
+                    </div>
 
                     <div class="form-group col-md-3">
                         <label for="lblMontoBruto" class="form-label">Salario Monto Bruto</label>
@@ -455,8 +460,19 @@
                             <div *ngIf="i.montoNeto.errors.required">El monto neto es requerido</div>
                         </div>
                     </div>
-
-                    <div class="col-md-6"></div>
+                    <div class="col-md-2"></div>
+                    <!-- total ingreso bruto -->
+                    <div class="form-group col-md-2">
+                        <label for="lblTotalIngresoBruto" class="form-label">Total Ingreso Bruto</label>
+                        <input formControlName="totalIngresoBruto" class="form-control" type="number" id="id_totalIngresoBruto"
+                            readonly />
+                    </div>
+                    <!-- total ingreso neto -->
+                    <div class="form-group col-md-2">
+                        <label for="lblTotalingresoNeto" class="form-label">Total Ingreso Neto</label>
+                        <input formControlName="totalIngresoNeto" class="form-control" type="number" id="id_totalingresoNeto"
+                            readonly />
+                    </div>
 
                     <div class="form-group col-md-3">
                         <label for="lblCargasSociales" class="form-label">Cargas Sociales</label>
@@ -475,8 +491,13 @@
                             <div *ngIf="i.impuestoRenta.errors.required">El impuesto sobre la renta es requerido</div>
                         </div>
                     </div>
-
-                    <div class="col-md-6"></div>
+                    <div class="col-md-2"></div>
+                    <!-- total cargas impuestos -->
+                    <div class="form-group col-md-2">
+                        <label for="lblTotalCargaImpuestos" class="form-label">Total Cargas & Impuestos</label>
+                        <input formControlName="totalCargaImpuestos" class="form-control" type="number" id="id_totalCargaImpuestos"
+                            readonly />
+                    </div>
 
                     <div class="form-group col-md-3">
                         <label for="lblMontoExtras" class="form-label">Monto Extras Aplicables</label>
@@ -484,14 +505,14 @@
                             readonly />
                     </div>
 
-                    <div class="form-group col-md-3">
+                    <!-- <div class="col-md-3"></div> -->
+                    <!-- <div class="form-group col-md-3">
                         <label for="lblPorcentajeExtras" class="form-label">Porcentaje Extras Aplicables</label>
                         <input formControlName="porcentajeExtras" class="form-control" type="number" id="id_porcentajeExtras"
                             readonly />
 
-                    </div>
-
-                    <div class="col-md-3 margin-icos-mat item-list">
+                    </div> -->
+                    <div class="col-md-2 margin-icos-mat item-list">
                         <a *ngIf="habilitaIcoOpenModalExtras" class="item-list__edit"> 
                             <mat-icon (click)="openExtrasModal()">open_in_new</mat-icon> 
                         </a>
@@ -499,24 +520,36 @@
 
                     <div class="col-md-3"></div>
 
+                    <!-- total extras aplicables -->
+                    <div class="form-group col-md-2">
+                        <label for="lblTotalExtrasAplicables" class="form-label">Total Extras Aplicables</label>
+                        <input formControlName="totalExtrasAplicables" class="form-control" type="number" id="id_totalExtrasAplicables"
+                            readonly />
+                    </div>
+
                     <div class="form-group col-md-3">
                         <label for="lblMontoDeducciones" class="form-label">Monto Deducciones</label>
                         <input formControlName="montoDeducciones" class="form-control" type="number" id="id_montoDeducciones"
                             readonly />
-
                     </div>
-
-                    <div class="col-md-3 margin-icos-mat item-list">
+                    <div class="col-md-5 margin-icos-mat item-list">
                         <a *ngIf="habilitaIcoOpenModalDeducciones" class="item-list__edit">
                             <mat-icon (click)="openDeduccionesModal()">open_in_new</mat-icon> 
                         </a>
                     </div>
+                    <!-- total deducciones -->
+                    <div class="form-group col-md-2">
+                        <label for="lblTotalDeducciones" class="form-label">Total Deducciones</label>
+                        <input formControlName="totalDeducciones" class="form-control" type="number" id="id_totalDeducciones"
+                            readonly />
+                    </div>
+
                 </form>
 
             </div>
         </section>
 
-        <section>
+        <section> <!-- lista de ingresos del análisis -->
             <div class="contenedor__body">
     
                 <div *ngIf="listIngresosAnalisis">
@@ -524,14 +557,14 @@
                     <table class="table table-striped">
                         <thead>
                             <tr>
-                                <th style="width: 5%">Análisis</th>
+                                <th style="width: 5%">Ingreso</th>
                                 <th style="width: 10%">Tipo de Ingreso</th>
                                 <th style="width: 12%">Monto Bruto</th>
                                 <th style="width: 12%">Monto Neto</th>
                                 <th style="width: 8%">Cargas Sociales</th>
                                 <th style="width: 8%">Impuesto Renta</th>
                                 <th style="width: 8%">Extras Aplicables</th>
-                                <th style="width: 9%">Porcentaje Extras</th>
+                                <!-- <th style="width: 9%">Porcentaje Extras</th> -->
                                 <th style="width: 10%">Deducciones</th>
                                 <th style="width: 8%"></th>
                             </tr>
@@ -540,14 +573,14 @@
                         <tbody>
                             <tr *ngFor="let obj of listIngresosAnalisis" >
 
-                                <td>{{obj.codigoAnalisis}}</td>
+                                <td>{{obj.id}}</td>
                                 <td>{{obj.codigoTipoIngreso}}</td>
                                 <td>{{obj.montoBruto}}</td>
                                 <td>{{obj.montoNeto}}</td>
                                 <td>{{obj.cargasSociales}}</td>
                                 <td>{{obj.impuestoRenta}}</td>
                                 <td>{{obj.montoExtras}}</td>
-                                <td>{{obj.porcentajeExtras}}</td>
+                                <!-- <td>{{obj.porcentajeExtras}}</td> -->
                                 <td>{{obj.montoDeducciones}}</td>
 
                                 <td  style="white-space: nowrap">
@@ -585,8 +618,7 @@
             </div>
         </section>
 
-
-        <article class="modal modal-config" id="extrasModal"> <!-- inicio modal -->
+        <article class="modal modal-config" id="extrasModal"> <!-- inicio extrasModal -->
 
             <div class="modal-content">
 
@@ -650,7 +682,6 @@
                     </form>
                 </section>
 
-
                 <section>
                     <div class="contenedor__body">
 
@@ -697,7 +728,7 @@
                                     mat-flat-button color="primary" > Finalizar </button>
 
                             <button *ngIf="habilitarBtnEliminarExtras" 
-                                    (click)="EliminarRegistroExtras()" 
+                                    (click)="deleteExtra()" 
                                     class="btn btn-danger px-5 " 
                                     mat-flat-button color="primary" > Eliminar </button>
                         </div>
@@ -707,7 +738,7 @@
             </div>
         </article> <!-- fin modal -->
 
-        <article class="modal modal-config" id="deduccionesModal"> <!-- inicio modal -->
+        <article class="modal modal-config" id="deduccionesModal"> <!-- inicio deduccionesModal -->
 
             <div class="modal-content">
 
@@ -718,7 +749,7 @@
                                 <h1 style="color:#1A5276">Registro de Deducciones</h1>
                             </div>
                             <div class="contenedor__header__next">
-                                <button style="color:red" type="button" class="close btn-close" (click)="totalizarDeducciones()" >&times;</button>
+                                <button style="color:red" type="button" class="close btn-close" (click)="CerrarDeduccionesModal()" >&times;</button>
                             </div>
                         </div>
                     </div>
@@ -799,7 +830,7 @@
                                                 <a class="item-list__edit" (click)="selectDeduccionAnalisis(obj)"> 
                                                     <mat-icon>visibility</mat-icon>
                                                 </a>
-                                                <a class="item-list__delete" (click)="deleteDeduccionIngreso(obj)"> 
+                                                <a class="item-list__delete" (click)="eliminarDeduccion(obj)"> 
                                                     <mat-icon>clear</mat-icon>
                                                 </a>
                                             </div>
@@ -827,7 +858,7 @@
                         </div>
                         <div class="contenedor__footer__next">
                             <button *ngIf="habilitarBtnFinalizarDeducciones"
-                                    (click)="totalizarDeducciones()"
+                                    (click)="finalizarFormularioDeducciones()"
                                     class="btn btn-success px-5 "
                                     mat-flat-button color="primary" > Finalizar </button>
                         </div>
