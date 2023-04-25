@@ -15,7 +15,6 @@ import { MacTiposMoneda } from '@app/_models/Macred/TiposMoneda';
 import { MacModeloAnalisis } from '@app/_models/Macred/ModeloAnalisis';
 import { MacNivelCapacidadPago } from '@app/_models/Macred/NivelCapacidadPago';
 import { MacTipoGenerador } from '@app/_models/Macred/TipoGenerador';
-import { THIS_EXPR } from '@angular/compiler/src/output/output_ast';
 import { MatDialog } from '@angular/material/dialog';
 import { DialogoConfirmacionComponent } from '@app/_components/dialogo-confirmacion/dialogo-confirmacion.component';
 import { MacEstadoCivil } from '@app/_models/Macred/EstadoCivil';
@@ -47,7 +46,7 @@ export class PersonasComponent implements OnInit {
     companiaObservable: Compania;
 
     submittedPersonForm : boolean = false;
-    
+
     // Personas
     formPersona: FormGroup;
     formPersonaList: FormGroup;
@@ -135,7 +134,7 @@ export class PersonasComponent implements OnInit {
             codigoTipoHabitacion : [null]
 
         });
-        
+
         this.accountService.validateAccessUser( this.userObservable.id,
                                                 this.moduleObservable.id,
                                                 this.nombrePantalla,
@@ -268,7 +267,7 @@ export class PersonasComponent implements OnInit {
         },
         error => {
             let message : string = 'Problemas al consultar las personas. ' + error;
-            this.alertService.error(message); 
+            this.alertService.error(message);
         });
     }
 
@@ -285,7 +284,7 @@ export class PersonasComponent implements OnInit {
         },
         error => {
             let message : string = 'Problemas al consultar los estados civiles. ' + error;
-            this.alertService.error(message); 
+            this.alertService.error(message);
         });
     }
 
@@ -302,7 +301,7 @@ export class PersonasComponent implements OnInit {
         },
         error => {
             let message : string = 'Problemas al consultar los tipos de personas. ' + error;
-            this.alertService.error(message); 
+            this.alertService.error(message);
         });
     }
 
@@ -319,7 +318,7 @@ export class PersonasComponent implements OnInit {
         },
         error => {
             let message : string = 'Problemas al consultar los tipos de generos. ' + error;
-            this.alertService.error(message); 
+            this.alertService.error(message);
         });
     }
 
@@ -336,7 +335,7 @@ export class PersonasComponent implements OnInit {
         },
         error => {
             let message : string = 'Problemas al consultar las condiciones laborales. ' + error;
-            this.alertService.error(message); 
+            this.alertService.error(message);
         });
     }
 
@@ -353,7 +352,7 @@ export class PersonasComponent implements OnInit {
         },
         error => {
             let message : string = 'Problemas al consultar las categorias de créditos. ' + error;
-            this.alertService.error(message); 
+            this.alertService.error(message);
         });
     }
 
@@ -370,7 +369,7 @@ export class PersonasComponent implements OnInit {
         },
         error => {
             let message : string = 'Problemas al consultar los tipos de asociados. ' + error;
-            this.alertService.error(message); 
+            this.alertService.error(message);
         });
     }
 
@@ -387,7 +386,7 @@ export class PersonasComponent implements OnInit {
         },
         error => {
             let message : string = 'Problemas al consultar los tipos de habitaciones. ' + error;
-            this.alertService.error(message); 
+            this.alertService.error(message);
         });
     }
 
@@ -404,7 +403,7 @@ export class PersonasComponent implements OnInit {
         this.consultaTiposHabitacionesCompania();
 
         this._personaMacred = persona;
-        
+
         this.formPersona = this.formBuilder.group({
             identificacion: [persona.identificacion, Validators.required],
             nombre: [persona.nombre, Validators.required],
@@ -434,13 +433,13 @@ export class PersonasComponent implements OnInit {
         this.consultaTiposAsociadoCompania();
 
         this._personaMacred = persona;
-        
+
         this.formPersona = this.formBuilder.group({
             identificacion: [persona.identificacion, Validators.required],
             nombre: [persona.nombre, Validators.required],
             primerApellido: [persona.primerApellido, Validators.required],
             segundoApellido: [persona.segundoApellido, Validators.required],
-            
+
             // Información Crediticia
             cantidadFianzas             : [persona.cantidadFianzas],
             tiempoAfiliacion            : [persona.tiempoAfiliacion],
@@ -469,7 +468,7 @@ export class PersonasComponent implements OnInit {
     SubmitPerson() : void {
 
         this.alertService.clear();
-        this.cargaInformacionPersona(); 
+        this.cargaInformacionPersona();
     }
 
     addPersona() : void {
@@ -518,7 +517,7 @@ export class PersonasComponent implements OnInit {
         if ( this.formPersona.invalid ){
             return;
         }
-        
+
         var persona : MacPersona;
         if (this.tipoActualizacion == 'N'){
             persona = this.createPersonaForm();
@@ -552,7 +551,7 @@ export class PersonasComponent implements OnInit {
 
         } else {
             if (this.tipoActualizacion == 'P') {
-                persona = this.updatePersonaModal();  
+                persona = this.updatePersonaModal();
             } else if (this.tipoActualizacion = 'C') {
                 persona = this.updateCreditoModal();
             }
@@ -571,11 +570,11 @@ export class PersonasComponent implements OnInit {
                         `Persona ${ this._personaMacred.identificacion } actualizada correctamente!`
                     );
                     if (this.tipoActualizacion == 'P') {
-                        $('#personaModal').modal('hide'); 
+                        $('#personaModal').modal('hide');
                     } else if (this.tipoActualizacion = 'C') {
                         $('#infoCreiditiciaModal').modal('hide');
                     }
-                    
+
                     this.ngOnInit();
 
                 } else {
@@ -591,7 +590,7 @@ export class PersonasComponent implements OnInit {
     }
 
     createPersonaForm() : MacPersona {
-        
+
 
         //var codigoCompania = this.userObservable.empresa;
         var identificacion = this.formPersona.controls['identificacion'].value;
@@ -717,10 +716,10 @@ export class PersonasComponent implements OnInit {
         persona.diasAtrasoCorte = diasAtrasoCorte;
         persona.codigoCategoriaCredito = codigoCategoriaCredito;
         persona.codigoTipoAsociado = codigoTipoAsociado;
-        
+
 
         return persona;
     }
 
-    
+
 }

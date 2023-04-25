@@ -82,8 +82,8 @@ export class IndexContentPageComponent implements OnInit {
             var resp = responseListModules[0].pathLogo;
 
             responseListModules.forEach(module => {
-                
-                this.ListModules.push(new Module(   module.id, 
+
+                this.ListModules.push(new Module(   module.id,
                                                     module.identificador,
                                                     module.nombre,
                                                     module.descripcion,
@@ -128,6 +128,9 @@ export class IndexContentPageComponent implements OnInit {
                 break;
             case ModulesSystem.Identif_Macred:
                 indexHTTPModule = ModulesSystem.macredbasehref          + 'index.html'; // ## macred ## //
+                break;
+            case ModulesSystem.Identif_RiesgoCredito:
+                indexHTTPModule = ModulesSystem.riesgocreditobasehref   + 'index.html'; // ## riesgo crédito ## //
                 break;
             default: indexHTTPModule = '/';
         }
