@@ -9,13 +9,15 @@
     </section>
 
     <div class="tw-flex tw-flex-1 tw-justify-center">
+
       <section
-        class="tw-flex tw-flex-1 tw-flex-col tw-p-4 tw-m-1 tw-justify-center tw-items-center tw-bg-white tw-rounded tw-shadow-sm"
+        class="tw-flex tw-flex-col tw-p-4 tw-m-1 tw-justify-center tw-items-center tw-bg-white tw-rounded-lg tw-shadow-sm"
       >
         <p class="tw-text-base tw-font-semibold tw-mb-2">
           Agregar un archivo a la aplicación
         </p>
-        <input matInput type="file" accept="image/png, image/jpeg" />
+        <input class="tw-mb-4" matInput type="file" accept="image/png, image/jpeg" />
+        <button class="tw-border tw-p-2 tw-px-4 tw-rounded tw-text-white tw-bg-sky-500 ">Agregar</button>
       </section>
 
       <section
@@ -24,7 +26,7 @@
         <p class="tw-text-base tw-font-semibold tw-mb-2">
           Cargar información a la aplicación
         </p>
-        <p class="tw-mb-2">Archivos cargados a la aplicación</p>
+        <p class="tw-mb-2">Archivos cargados</p>
         <select
           class="tw-border-solid tw-border tw-border-black tw-p-2 tw-mb-2"
           matNativeControl
@@ -35,6 +37,7 @@
           <option value="mercedes">Mercedes</option>
           <option value="audi">Audi</option>
         </select>
+        <p class="tw-mb-2">Hojas del archivo</p>
         <select
           class="tw-border-solid tw-border tw-border-black tw-p-2 tw-mb-2"
           matNativeControl
@@ -45,7 +48,16 @@
           <option value="mercedes">Mercedes</option>
           <option value="audi">Audi</option>
         </select>
+        <p class="tw-mb-2">Periodo de carga</p>
+        <input type="date" class="tw-border tw-border-black tw-p-2 tw-mb-2" matInput placeholder="Ex. Pizza" value="Sushi">
+
+        <section class="tw-flex tw-flex-1 tw-justify-end">
+          <button class="tw-p-2 tw-px-4 tw-rounded tw-text-white tw-mx-1 tw-bg-sky-500">Cargar</button>
+          <button class="tw-border tw-border-rose-500 tw-p-2 tw-px-4 tw-rounded tw-text-rose-500 tw-mx-1">Cancelar</button>
+        </section>
+
       </section>
+
     </div>
   </div>
 </mat-sidenav-container>
