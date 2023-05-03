@@ -27,6 +27,7 @@ declare var $: any;
 })
 export class AsociadosComponent implements OnInit {
     @ViewChild(MatSidenav) sidenav !: MatSidenav;
+    @ViewChild(MatSidenav) sidenav2 : MatSidenav;
 
     private nombrePantalla  : string = 'calificacion-asociados.html';
     // listScreenAccessUser    : ScreenAccessUser[];
@@ -565,7 +566,8 @@ export class AsociadosComponent implements OnInit {
                 this.listHistorialAnalisis = response; 
             });
             
-        $('#analisisHistorialModal').modal({backdrop: 'static', keyboard: false}, 'show');
+        $('#analisisHistorialModal').modal('show');
+        // $('#analisisHistorialModal').modal({backdrop: 'static', keyboard: false}, 'show');
     }
     openDeduccionesModal() : void {
 
