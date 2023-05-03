@@ -7,6 +7,8 @@ import { IndexMacredComponent } from './index.component';
 import { MenuMacredComponent } from './menu.component';
 import { AsociadosComponent } from './asociados/asociados-component';
 
+import { MatListModule } from '@angular/material/list';
+
 import { MatToolbarModule } from '@angular/material/toolbar';
 import { MatSidenavModule } from '@angular/material/sidenav';
 import { MatButtonModule } from '@angular/material/button';
@@ -56,7 +58,9 @@ import { TipoIngresoComponent } from './mantenimientos/AnalisisPersonas/tipoingr
 
         MatDialogModule,
 
-        MatFormFieldModule
+        MatFormFieldModule,
+        
+        MatListModule
 
     ],
     declarations: [

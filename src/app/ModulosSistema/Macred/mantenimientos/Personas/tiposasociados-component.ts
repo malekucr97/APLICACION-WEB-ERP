@@ -15,7 +15,6 @@ import { MacTiposMoneda } from '@app/_models/Macred/TiposMoneda';
 import { MacModeloAnalisis } from '@app/_models/Macred/ModeloAnalisis';
 import { MacNivelCapacidadPago } from '@app/_models/Macred/NivelCapacidadPago';
 import { MacTipoGenerador } from '@app/_models/Macred/TipoGenerador';
-import { THIS_EXPR } from '@angular/compiler/src/output/output_ast';
 import { MatDialog } from '@angular/material/dialog';
 import { DialogoConfirmacionComponent } from '@app/_components/dialogo-confirmacion/dialogo-confirmacion.component';
 import { MacTipoPersona } from '@app/_models/Macred/TipoPersona';
@@ -45,7 +44,7 @@ export class TiposAsociadosComponent implements OnInit {
     companiaObservable: Compania;
 
     submittedTipoAsociadoForm : boolean = false;
-    
+
     // Tipo Asociado
     formTipoAsociado: FormGroup;
     formTipoAsociadoList: FormGroup;
@@ -85,7 +84,7 @@ export class TiposAsociadosComponent implements OnInit {
             estado              : [null]
 
         });
-        
+
         this.accountService.validateAccessUser( this.userObservable.id,
                                                 this.moduleObservable.id,
                                                 this.nombrePantalla,
@@ -104,7 +103,7 @@ export class TiposAsociadosComponent implements OnInit {
 
     get f() { return this.formTipoAsociado.controls; }
 
-    
+
     consultaTiposAsociadosCompania() : void {
         this.formTipoAsociadoList = this.formBuilder.group({
             id                  : [''],
@@ -125,7 +124,7 @@ export class TiposAsociadosComponent implements OnInit {
         },
         error => {
             let message : string = 'Problemas al consultar los tipos de asociados. ' + error;
-            this.alertService.error(message); 
+            this.alertService.error(message);
         });
     }
 
@@ -144,9 +143,9 @@ export class TiposAsociadosComponent implements OnInit {
         this.update = true;
         this.buttomText = 'Actualizar';
         this.tipoMovimiento = 'E';
-        
+
         this._tipoAsociadoMacred = tipoAsociado;
-        
+
         this.formTipoAsociado = this.formBuilder.group({
             id: [tipoAsociado.id,Validators.required],
             codigoTipoAsociado : [tipoAsociado.codigoTipoAsociado,Validators.required],
@@ -165,11 +164,11 @@ export class TiposAsociadosComponent implements OnInit {
         if ( this.formTipoAsociado.invalid ){
             return;
         }
-        
+
         var tipoAsociado : MacTipoAsociado;
         tipoAsociado = this.createTipoAsociadoModal();
-        
-        if (this.tipoMovimiento == 'N'){    
+
+        if (this.tipoMovimiento == 'N'){
             tipoAsociado.codigoCompania = this.userObservable.empresa;
             tipoAsociado.adicionadoPor  = this.userObservable.identificacion;
             tipoAsociado.fechaAdicion   = this.today;
@@ -267,5 +266,5 @@ export class TiposAsociadosComponent implements OnInit {
                 this.alertService.error(message);
             });
     }
-   
+
 }

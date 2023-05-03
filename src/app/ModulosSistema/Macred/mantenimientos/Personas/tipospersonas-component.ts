@@ -15,7 +15,6 @@ import { MacTiposMoneda } from '@app/_models/Macred/TiposMoneda';
 import { MacModeloAnalisis } from '@app/_models/Macred/ModeloAnalisis';
 import { MacNivelCapacidadPago } from '@app/_models/Macred/NivelCapacidadPago';
 import { MacTipoGenerador } from '@app/_models/Macred/TipoGenerador';
-import { THIS_EXPR } from '@angular/compiler/src/output/output_ast';
 import { MatDialog } from '@angular/material/dialog';
 import { DialogoConfirmacionComponent } from '@app/_components/dialogo-confirmacion/dialogo-confirmacion.component';
 import { MacTipoPersona } from '@app/_models/Macred/TipoPersona';
@@ -45,7 +44,7 @@ export class TiposPersonasComponent implements OnInit {
     companiaObservable: Compania;
 
     submittedTipoPersonaForm : boolean = false;
-    
+
     // Tipo Persona
     formTipoPersona: FormGroup;
     formTipoPersonaList: FormGroup;
@@ -85,7 +84,7 @@ export class TiposPersonasComponent implements OnInit {
             estado              : [null]
 
         });
-        
+
         this.accountService.validateAccessUser( this.userObservable.id,
                                                 this.moduleObservable.id,
                                                 this.nombrePantalla,
@@ -104,7 +103,7 @@ export class TiposPersonasComponent implements OnInit {
 
     get f() { return this.formTipoPersona.controls; }
 
-    
+
     consultaTiposPersonasCompania() : void {
         this.formTipoPersonaList = this.formBuilder.group({
             id                  : [''],
@@ -125,7 +124,7 @@ export class TiposPersonasComponent implements OnInit {
         },
         error => {
             let message : string = 'Problemas al consultar los tipos de personas. ' + error;
-            this.alertService.error(message); 
+            this.alertService.error(message);
         });
     }
 
@@ -144,9 +143,9 @@ export class TiposPersonasComponent implements OnInit {
         this.update = true;
         this.buttomText = 'Actualizar';
         this.tipoMovimiento = 'E';
-        
+
         this._tipoPersonaMacred = tipoPersona;
-        
+
         this.formTipoPersona = this.formBuilder.group({
             id: [tipoPersona.id,Validators.required],
             codigoTipoPersona : [tipoPersona.codigoTipoPersona,Validators.required],
@@ -165,11 +164,11 @@ export class TiposPersonasComponent implements OnInit {
         if ( this.formTipoPersona.invalid ){
             return;
         }
-        
+
         var tipoPersona : MacTipoPersona;
         tipoPersona = this.createTipoPersonaModal();
-        
-        if (this.tipoMovimiento == 'N'){    
+
+        if (this.tipoMovimiento == 'N'){
             tipoPersona.codigoCompania = this.userObservable.empresa;
             tipoPersona.adicionadoPor  = this.userObservable.identificacion;
             tipoPersona.fechaAdicion   = this.today;
@@ -267,5 +266,5 @@ export class TiposPersonasComponent implements OnInit {
                 this.alertService.error(message);
             });
     }
-   
+
 }

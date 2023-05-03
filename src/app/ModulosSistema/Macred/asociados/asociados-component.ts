@@ -27,6 +27,7 @@ declare var $: any;
 })
 export class AsociadosComponent implements OnInit {
     @ViewChild(MatSidenav) sidenav !: MatSidenav;
+    @ViewChild(MatSidenav) sidenav2 : MatSidenav;
 
     private nombrePantalla  : string = 'calificacion-asociados.html';
     // listScreenAccessUser    : ScreenAccessUser[];
@@ -149,7 +150,6 @@ export class AsociadosComponent implements OnInit {
     get d () {   return this.formDeducciones.controls; }
     
     ngOnInit() {
-
         this.formPersona    = this.formBuilder.group({
             id              : [null],
             nombre          : [null],
@@ -196,8 +196,9 @@ export class AsociadosComponent implements OnInit {
             desviacionEstandar          : [null],
             coeficienteVarianza         : [null],
             porcentajeExtrasAplicable   : [null],
-            promedioExtrasAplicables    : [null],
-            mesesExtrasAplicables       : [null]
+            promedioExtrasAplicables    : [null]
+            // ,
+            // mesesExtrasAplicables       : [null]
         });
         this.formHistorialAnalisis = this.formBuilder.group({
             codigoAnalisisHistorial  : [null]
@@ -237,24 +238,24 @@ export class AsociadosComponent implements OnInit {
                  this.macredService.getTiposIngresoAnalisis(this.companiaObservable.id)
                      .pipe(first())
                      .subscribe(response => { this.listTipoIngresoAnalisis = response; });
-                this.macredService.getModelosAnalisis(this.companiaObservable.id,           false )
+                this.macredService.getModelosAnalisis(this.companiaObservable.id, false )
                     .pipe(first())
                     .subscribe(response => { this.listModelosAnalisis = response; });
-                this.macredService.getNivelesCapacidadPago(this.companiaObservable.id,      false )
+                this.macredService.getNivelesCapacidadPago(this.companiaObservable.id, false )
                     .pipe(first())
                     .subscribe(response => { this.listNivelesCapacidadpago = response; });
-                this.macredService.getTiposGenerador(this.companiaObservable.id,            false )
+                this.macredService.getTiposGenerador(this.companiaObservable.id, false )
                     .pipe(first())
                     .subscribe(response => { this.listTiposGeneradores = response; });
                 // carga datos ingresos
-                this.macredService.getTiposIngresos(this.companiaObservable.id,             false )
+                this.macredService.getTiposIngresos(this.companiaObservable.id, false )
                     .pipe(first())
                     .subscribe(response => { this.listTiposIngresos = response; });
-                this.macredService.getTiposDeducciones(this.companiaObservable.id,          false )
+                this.macredService.getTiposDeducciones(this.companiaObservable.id, false )
                     .pipe(first())
                     .subscribe(response => { this.listTiposDeducciones = response; });
                 
-                this.macredService.getMatrizAceptacionIngreso( this.companiaObservable.id,  false )
+                this.macredService.getMatrizAceptacionIngreso( this.companiaObservable.id, false )
                     .pipe(first())
                     .subscribe(response => { this.listMatrizAceptacionIngreso = response; });
             });
@@ -565,7 +566,8 @@ export class AsociadosComponent implements OnInit {
                 this.listHistorialAnalisis = response; 
             });
             
-        $('#analisisHistorialModal').modal({backdrop: 'static', keyboard: false}, 'show');
+        $('#analisisHistorialModal').modal('show');
+        // $('#analisisHistorialModal').modal({backdrop: 'static', keyboard: false}, 'show');
     }
     openDeduccionesModal() : void {
 
@@ -769,11 +771,14 @@ export class AsociadosComponent implements OnInit {
 
             this.formIngresos = this.formBuilder.group({
                 codigoTipoIngreso       : [null, Validators.required],
-                montoBruto              : [null, Validators.required],
+                // codigoTipoIngreso       : [null, Validators.required],
+                montoBruto              : [0, Validators.required],
+                // montoBruto              : [null, Validators.required],
                 montoExtras             : 0,
                 cargasSociales          : 0,
                 impuestoRenta           : 0,
-                montoNeto               : [null, Validators.required],
+                montoNeto               : [0, Validators.required],
+                // montoNeto               : [null, Validators.required],
                 montoDeducciones        : 0,
 
                 totalMontoAnalisis      : 0,
@@ -820,51 +825,7 @@ export class AsociadosComponent implements OnInit {
             identificacion  : [this._personaMacred.identificacion,   Validators.required]
         });
     }
-    inicializaFormExtrasAplicables()    : void {
-
-        this.habilitarBtnSubmitExtras = true;
-
-        if (this._extrasAplicables) {
-
-            this.habilitarBtnEliminarExtras = true;
-
-            this.formExtras = this.formBuilder.group({
-                montoExtra                  : [this._extrasAplicables.montoExtras, Validators.required],
-                desviacionEstandar          : this._extrasAplicables.desviacionEstandar,
-                coeficienteVarianza         : this._extrasAplicables.coeficienteVarianza,
-                porcentajeExtrasAplicable   : this._extrasAplicables.porcentajeExtrasAplicables,
-                promedioExtrasAplicables    : this._extrasAplicables.promedioExtrasAplicables,
-                mesesExtrasAplicables       : this._globalMesesAplicaExtras
-            });
-        } else {
-
-            this.habilitarBtnEliminarExtras = false;
-            
-            this.formExtras = this.formBuilder.group({
-                montoExtra                  : [0, Validators.required],
-                desviacionEstandar          : 0,
-                coeficienteVarianza         : 0,
-                porcentajeExtrasAplicable   : 0,
-                promedioExtrasAplicables    : 0,
-                mesesExtrasAplicables       : this._globalMesesAplicaExtras
-            });
-        } 
-    }
-
-    // CerrarExtrasModal() : void {
-    //     if (this._extrasAplicables) {
-    //         this.setFormExtrasIngresosAnalisis();
-    //     } else {
-    //         this.setFormExtrasIngresosAnalisis(true);
-    //     }
-    //     this.listExtrasAplicables        = null;
-    //     this.listTempExtrasAplicables    = null;
-    //     this.habilitarBtnContinuarExtras = false;
-    //     this.habilitarBtnFinalizarExtras = false;
-    //     this.ActualizaFormIngresos();
-    //     $('#extrasModal').modal('hide');
-    // }
-
+    
     // setFormExtrasIngresosAnalisis(clearExtras : boolean = false) : void {
     //     if (clearExtras) {
     //         this.formIngresos.patchValue({ montoExtras  : 0 });
@@ -876,42 +837,6 @@ export class AsociadosComponent implements OnInit {
     CerrarExtrasModal()         : void { $('#extrasModal').modal('hide'); }
     CerrarDeduccionesModal()    : void { $('#deduccionesModal').modal('hide'); }
 
-    deleteExtra() : void {
-
-        this.alertService.clear();
-
-        this.dialogo.open(DialogoConfirmacionComponent, {
-            data: `Seguro que desea eliminar el registro de extras ?`
-        })
-        .afterClosed()
-        .subscribe((confirmado: Boolean) => {
-
-            if (confirmado) {
-
-                this.macredService.deleteExtra(  this._extrasAplicables.id )
-                .pipe(first())
-                .subscribe(response => {
-    
-                    if (response.exito) {
-    
-                        this._extrasAplicables = null;
-    
-                        this.listExtrasAplicables        = null;
-                        this.listTempExtrasAplicables    = null;
-                        this.habilitarBtnFinalizarExtras = false;
-    
-                        this.formIngresos.patchValue({ montoExtras  : 0 });
-    
-                        $('#extrasModal').modal('hide');
-
-                        this.alertService.success( response.responseMesagge );
-                    } 
-                    else { this.alertService.error(response.responseMesagge); }
-                });
-
-            } else { return; }
-        });
-    }
     deleteIngreso(ingreso : MacIngresosXAnalisis) : void {
 
         this.alertService.clear();
@@ -992,59 +917,6 @@ export class AsociadosComponent implements OnInit {
         });
     }
     
-    FinalizarRegistroExtras() : void {
-
-        this.alertService.clear();
-        var extrasAplicables : MacExtrasAplicables = new MacExtrasAplicables ;
-
-        // registro automático meses aplicables
-        if (this.listExtrasAplicables.length > 1) {
-            if (this.listExtrasAplicables.length < this._globalMesesAplicaExtras ) {
-                var iteraciones = this._globalMesesAplicaExtras - this.listExtrasAplicables.length;
-                for ( let index = 0; index < iteraciones ; index++ ) { this.SubmitFormExtras(true); }
-            }
-        }
-
-        extrasAplicables = this.listExtrasAplicables[this.listExtrasAplicables.length - 1];
-        
-        this.macredService.postExtrasAplicables(extrasAplicables)
-            .pipe(first())
-            .subscribe(response => {
-
-                if (response) {
-
-                    this.listExtrasAplicables     = null;
-                    this.listTempExtrasAplicables = null;
-
-                    this.habilitarBtnFinalizarExtras = false ;
-                    this.habilitarBtnSubmitExtras    = false ;
-                    // this.habilitarBtnContinuarExtras = true  ;
-
-                    this._extrasAplicables = response;
-                    this.inicializaFormExtrasAplicables();
-
-                    this.formIngresos.patchValue({ montoExtras  : this._extrasAplicables.montoExtras });
-
-                    this.alertService.success( `Registro de Extras realizado con éxito..` );
-
-                } else {
-                    let message : string = 'Problemas al registrar el Análisis de Capacidad de Pago.';
-                    this.alertService.error(message);
-                }
-        });
-    }
-
-    // elimina registros de forma interna para el ingreso y ejecución de procesos sin confirmación
-    eliminarRegistroExtra(idExtras : number) : void {
-        this.macredService.deleteExtra( idExtras )
-            .pipe(first())
-            .subscribe(response => { 
-                if (!response.exito) {
-                    this.alertService.error(response.responseMesagge);
-                    return;
-                }
-            });
-    }
     eliminarRegistroDeduccion(idDeduccion : number) : void {
         this.macredService.deleteDeduccion( idDeduccion )
             .pipe(first())
@@ -1129,7 +1001,85 @@ export class AsociadosComponent implements OnInit {
                 } else { this.alertService.error(`Problemas al registrar las Deducciones del Análisis de Capacidad de Pago.`); }
             });
     }
-    SubmitFormExtras( registroAutomatico : boolean = false ) : void {
+
+    inicializaFormExtrasAplicables()    : void {
+
+        this.habilitarBtnSubmitExtras = true;
+
+        if (this._extrasAplicables) {
+
+            this.habilitarBtnEliminarExtras = true;
+
+            this.formExtras = this.formBuilder.group({
+                montoExtra                  : [this._extrasAplicables.montoExtras, Validators.required],
+                desviacionEstandar          : this._extrasAplicables.desviacionEstandar,
+                coeficienteVarianza         : this._extrasAplicables.coeficienteVarianza,
+                porcentajeExtrasAplicable   : this._extrasAplicables.porcentajeExtrasAplicables,
+                promedioExtrasAplicables    : this._extrasAplicables.promedioExtrasAplicables
+                // ,
+                // mesesExtrasAplicables       : this._globalMesesAplicaExtras
+            });
+        } else {
+
+            this.habilitarBtnEliminarExtras = false;
+            
+            this.formExtras = this.formBuilder.group({
+                montoExtra                  : [0, Validators.required],
+                desviacionEstandar          : 0,
+                coeficienteVarianza         : 0,
+                porcentajeExtrasAplicable   : 0,
+                promedioExtrasAplicables    : 0
+                // ,
+                // mesesExtrasAplicables       : this._globalMesesAplicaExtras
+            });
+        } 
+    }
+    FinalizarRegistroExtras() : void {
+
+        this.alertService.clear();
+        var extrasAplicables : MacExtrasAplicables = new MacExtrasAplicables ;
+
+        var sumatoriaMontoExtras    : number = 0.00 ;
+
+        // registro automático meses aplicables
+        // if (this.listExtrasAplicables.length > 1) {
+        //     if (this.listExtrasAplicables.length < this._globalMesesAplicaExtras ) {
+        //         var iteraciones = this._globalMesesAplicaExtras - this.listExtrasAplicables.length;
+        //         for ( let index = 0; index < iteraciones ; index++ ) { this.SubmitFormExtras(true); }
+        //     }
+        // }
+
+        this.listTempExtrasAplicables.forEach(extra => { sumatoriaMontoExtras += extra.montoExtras ; });
+
+        extrasAplicables = this.listExtrasAplicables[this.listExtrasAplicables.length - 1];
+        extrasAplicables.montoExtras = sumatoriaMontoExtras ;
+
+        this.macredService.postExtrasAplicables(extrasAplicables)
+            .pipe(first())
+            .subscribe(response => {
+
+                if (response) {
+
+                    this.listExtrasAplicables     = null;
+                    this.listTempExtrasAplicables = null;
+
+                    this.habilitarBtnFinalizarExtras = false ;
+                    this.habilitarBtnSubmitExtras    = false ;
+
+                    this._extrasAplicables = response;
+                    this.inicializaFormExtrasAplicables();
+
+                    this.formIngresos.patchValue({ montoExtras  : this._extrasAplicables.porcentajeExtrasAplicables });
+
+                    this.alertService.success( `Registro de Extras realizado con éxito..` );
+
+                } else {
+                    let message : string = 'Problemas al registrar el Análisis de Capacidad de Pago.';
+                    this.alertService.error(message);
+                }
+        });
+    }
+    SubmitFormExtras() : void {
 
         this.alertService.clear();
         this.submittedExtrasForm = true;
@@ -1137,11 +1087,13 @@ export class AsociadosComponent implements OnInit {
         var sumatoriaMontoExtras    : number = 0.00 ;
         var potenciaSaldo           : number = 0.0  ;
         var promedioExtras          : number = 0.0  ;
-        var factorAceptacion        : number = 0    ;
+        // var factorAceptacion        : number = 0    ;
+
+        var cantidadRegistrosExtras : number = 0 ;
 
         if ( this.formExtras.invalid ) return;
 
-        if (this.formExtras.controls['montoExtra'].value === 0 && !registroAutomatico) {
+        if (this.formExtras.controls['montoExtra'].value === 0) {
             this.formExtras.controls['montoExtra'].setErrors({'error': true});
             return;
         }
@@ -1160,35 +1112,54 @@ export class AsociadosComponent implements OnInit {
     
         var extrasTempAplicables : MacExtrasAplicables = new MacExtrasAplicables ;
         extrasTempAplicables.montoExtras = this.formExtras.controls['montoExtra'].value ;
+        
+        this.listTempExtrasAplicables.push(extrasTempAplicables);
+        cantidadRegistrosExtras = this.listTempExtrasAplicables.length;
 
-        this.listTempExtrasAplicables.push(extrasTempAplicables) ;
-            
-        this.listTempExtrasAplicables.forEach(extra => { sumatoriaMontoExtras += extra.montoExtras ; });
-
-        var temPromedioTotalExtrasPermitidas = sumatoriaMontoExtras / this._globalMesesAplicaExtras ;
-        promedioExtras  = this.listTempExtrasAplicables.length  === 1 
-                                                                ? sumatoriaMontoExtras 
-                                                                : temPromedioTotalExtrasPermitidas ;
-        extrasTempAplicables.promedioExtrasAplicables = promedioExtras;
-
-        this.listTempExtrasAplicables.forEach(extra => {
-            potenciaSaldo += Math.pow(extra.montoExtras - promedioExtras, 2) ;
+        // sumatoria total extras
+        this.listTempExtrasAplicables.forEach(extra => { 
+            sumatoriaMontoExtras += extra.montoExtras ; 
         });
 
-        var tempDesviacionEstandar = Math.sqrt( potenciaSaldo / (this._globalMesesAplicaExtras - 1) ) ;
-        extrasTempAplicables.desviacionEstandar = tempDesviacionEstandar != null ? tempDesviacionEstandar : 0 ;
+        if (cantidadRegistrosExtras == 1) {
 
-        var tempCoeficienteVarianza = extrasTempAplicables.desviacionEstandar / promedioExtras ;
-        tempCoeficienteVarianza     = tempCoeficienteVarianza >= 1 ? 1 : tempCoeficienteVarianza ;
-        extrasTempAplicables.coeficienteVarianza = tempCoeficienteVarianza ;
-        extrasTempAplicables.porcentajeExtrasAplicables = (100 - extrasTempAplicables.coeficienteVarianza);
+            promedioExtras = sumatoriaMontoExtras ;
 
-        var coeficienteVarianzaPorcentual = extrasTempAplicables.coeficienteVarianza * 100 ;
+            extrasTempAplicables.desviacionEstandar         = 0 ;
+            extrasTempAplicables.coeficienteVarianza        = 0 ;
 
-        this.listMatrizAceptacionIngreso.forEach(element => {
-            if ( element.rangoDesviacion1   <= coeficienteVarianzaPorcentual && 
-                element.rangoDesviacion2    >= coeficienteVarianzaPorcentual   ) factorAceptacion = element.factor ;
-        });
+            extrasTempAplicables.promedioExtrasAplicables   = sumatoriaMontoExtras ;
+            extrasTempAplicables.porcentajeExtrasAplicables = sumatoriaMontoExtras ;
+
+        } else { 
+
+            var temPromedioTotalExtrasPermitidas = sumatoriaMontoExtras / cantidadRegistrosExtras ;
+
+            promedioExtras = temPromedioTotalExtrasPermitidas ;
+
+            this.listTempExtrasAplicables.forEach(extra => {
+                potenciaSaldo += Math.pow(extra.montoExtras - promedioExtras, 2) ;
+            });
+
+            var tempDesviacionEstandar = Math.sqrt( potenciaSaldo / (cantidadRegistrosExtras - 1) ) ;
+            extrasTempAplicables.desviacionEstandar = tempDesviacionEstandar ;
+
+            var tempCoeficienteVarianza = extrasTempAplicables.desviacionEstandar / promedioExtras ;
+            extrasTempAplicables.coeficienteVarianza = tempCoeficienteVarianza * 100 ;
+
+            var tempCoeficienteVarianzaPorcentual = extrasTempAplicables.coeficienteVarianza ;
+
+            tempCoeficienteVarianzaPorcentual     = tempCoeficienteVarianzaPorcentual >= 1 ? 1 : tempCoeficienteVarianzaPorcentual ;
+
+            // this.listMatrizAceptacionIngreso.forEach(element => { 
+            //     if ( element.rangoDesviacion1   <= tempCoeficienteVarianzaPorcentual && 
+            //         element.rangoDesviacion2    >= tempCoeficienteVarianzaPorcentual   ) factorAceptacion = element.factor ;
+            // });
+
+            extrasTempAplicables.promedioExtrasAplicables = promedioExtras ;
+
+            extrasTempAplicables.porcentajeExtrasAplicables = extrasTempAplicables.promedioExtrasAplicables * (1 - (extrasTempAplicables.coeficienteVarianza / 100)) ;
+        }
 
         this.inicializaFormExtrasAplicables();
 
@@ -1199,15 +1170,62 @@ export class AsociadosComponent implements OnInit {
         extrasAplicables.adicionadoPor  = this.userObservable.identificacion ;
         extrasAplicables.fechaAdicion   = this.today ;
 
-        extrasAplicables.montoExtras                = extrasTempAplicables.promedioExtrasAplicables * factorAceptacion ;
+        extrasAplicables.montoExtras                = extrasTempAplicables.montoExtras;
         extrasAplicables.desviacionEstandar         = extrasTempAplicables.desviacionEstandar;
         extrasAplicables.coeficienteVarianza        = extrasTempAplicables.coeficienteVarianza;
         extrasAplicables.porcentajeExtrasAplicables = extrasTempAplicables.porcentajeExtrasAplicables;
         extrasAplicables.promedioExtrasAplicables   = extrasTempAplicables.promedioExtrasAplicables;
 
         this.listExtrasAplicables.push(extrasAplicables);
-
+        
         this.habilitarBtnFinalizarExtras = true ;
+    }
+    deleteExtra() : void {
+
+        this.alertService.clear();
+
+        this.dialogo.open(DialogoConfirmacionComponent, {
+            data: `Seguro que desea eliminar el registro de extras ?`
+        })
+        .afterClosed()
+        .subscribe((confirmado: Boolean) => {
+
+            if (confirmado) {
+
+                this.macredService.deleteExtra(  this._extrasAplicables.id )
+                .pipe(first())
+                .subscribe(response => {
+    
+                    if (response.exito) {
+    
+                        this._extrasAplicables = null;
+    
+                        this.listExtrasAplicables        = null;
+                        this.listTempExtrasAplicables    = null;
+                        this.habilitarBtnFinalizarExtras = false;
+    
+                        this.formIngresos.patchValue({ montoExtras  : 0 });
+    
+                        $('#extrasModal').modal('hide');
+
+                        this.alertService.success( response.responseMesagge );
+                    } 
+                    else { this.alertService.error(response.responseMesagge); }
+                });
+
+            } else { return; }
+        });
+    }
+    // elimina registros de forma interna para el ingreso y ejecución de procesos sin confirmación
+    eliminarRegistroExtra(idExtras : number) : void {
+        this.macredService.deleteExtra( idExtras )
+            .pipe(first())
+            .subscribe(response => { 
+                if (!response.exito) {
+                    this.alertService.error(response.responseMesagge);
+                    return;
+                }
+            });
     }
 
     createIngresoObjectForm() : MacIngresosXAnalisis {
@@ -1251,6 +1269,11 @@ export class AsociadosComponent implements OnInit {
         this.submittedIngresosForm = true;
 
         if ( this.formIngresos.invalid ) return;
+
+        if (this.formIngresos.controls['montoBruto'].value === 0) {
+            this.formIngresos.controls['montoBruto'].setErrors({'error': true});
+            return;
+        }
 
         var ingreso : MacIngresosXAnalisis = this.createIngresoObjectForm();
         ingreso.adicionadoPor   = this.userObservable.identificacion;

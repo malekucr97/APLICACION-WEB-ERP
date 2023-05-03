@@ -15,7 +15,6 @@ import { MacTiposMoneda } from '@app/_models/Macred/TiposMoneda';
 import { MacModeloAnalisis } from '@app/_models/Macred/ModeloAnalisis';
 import { MacNivelCapacidadPago } from '@app/_models/Macred/NivelCapacidadPago';
 import { MacTipoGenerador } from '@app/_models/Macred/TipoGenerador';
-import { THIS_EXPR } from '@angular/compiler/src/output/output_ast';
 import { MatDialog } from '@angular/material/dialog';
 import { DialogoConfirmacionComponent } from '@app/_components/dialogo-confirmacion/dialogo-confirmacion.component';
 import { MacTipoPersona } from '@app/_models/Macred/TipoPersona';
@@ -45,7 +44,7 @@ export class CondicionesLaboralesComponent implements OnInit {
     companiaObservable: Compania;
 
     submittedCondicionLaboralForm : boolean = false;
-    
+
     // Condicion laboral
     formCondicionLaboral: FormGroup;
     formCondicionLaboralList: FormGroup;
@@ -85,7 +84,7 @@ export class CondicionesLaboralesComponent implements OnInit {
             estado                  : [null]
 
         });
-        
+
         this.accountService.validateAccessUser( this.userObservable.id,
                                                 this.moduleObservable.id,
                                                 this.nombrePantalla,
@@ -104,7 +103,7 @@ export class CondicionesLaboralesComponent implements OnInit {
 
     get f() { return this.formCondicionLaboral.controls; }
 
-    
+
     consultaCondicionesLaboralesCompania() : void {
         this.formCondicionLaboralList = this.formBuilder.group({
             id                      : [''],
@@ -125,7 +124,7 @@ export class CondicionesLaboralesComponent implements OnInit {
         },
         error => {
             let message : string = 'Problemas al consultar los tipos de personas. ' + error;
-            this.alertService.error(message); 
+            this.alertService.error(message);
         });
     }
 
@@ -144,9 +143,9 @@ export class CondicionesLaboralesComponent implements OnInit {
         this.update = true;
         this.buttomText = 'Actualizar';
         this.tipoMovimiento = 'E';
-        
+
         this._condicionLaboralMacred = condicionLaboral;
-        
+
         this.formCondicionLaboral = this.formBuilder.group({
             id: [condicionLaboral.id,Validators.required],
             codigoCondicionLaboral : [condicionLaboral.codigoCondicionLaboral,Validators.required],
@@ -165,11 +164,11 @@ export class CondicionesLaboralesComponent implements OnInit {
         if ( this.formCondicionLaboral.invalid ){
             return;
         }
-        
+
         var condicionLaboral : MacCondicionLaboral;
         condicionLaboral = this.createCondicionLaboralModal();
-        
-        if (this.tipoMovimiento == 'N'){    
+
+        if (this.tipoMovimiento == 'N'){
             condicionLaboral.codigoCompania = this.userObservable.empresa;
             condicionLaboral.adicionadoPor  = this.userObservable.identificacion;
             condicionLaboral.fechaAdicion   = this.today;
@@ -267,5 +266,5 @@ export class CondicionesLaboralesComponent implements OnInit {
                 this.alertService.error(message);
             });
     }
-   
+
 }

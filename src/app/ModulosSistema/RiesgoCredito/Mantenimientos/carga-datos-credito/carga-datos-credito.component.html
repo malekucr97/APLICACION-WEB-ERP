@@ -1,0 +1,51 @@
+<mat-sidenav-container>
+  <div
+    class="container tw-flex tw-flex-col tw-w-screen tw-px-3 tw-py-4 tw-my-4 tw-rounded"
+  >
+    <section
+      class="tw-flex tw-flex-1 tw-justify-center tw-items-center tw-pb-2"
+    >
+      <h1 class="tw-text-xl tw-font-medium">Carga de datos de crédito</h1>
+    </section>
+
+    <div class="tw-flex tw-flex-1 tw-justify-center">
+      <section
+        class="tw-flex tw-flex-1 tw-flex-col tw-p-4 tw-m-1 tw-justify-center tw-items-center tw-bg-white tw-rounded tw-shadow-sm"
+      >
+        <p class="tw-text-base tw-font-semibold tw-mb-2">
+          Agregar un archivo a la aplicación
+        </p>
+        <input matInput type="file" accept="image/png, image/jpeg" />
+      </section>
+
+      <section
+        class="tw-flex tw-flex-1 tw-flex-col tw-p-4 tw-m-1 tw-bg-white tw-rounded tw-shadow-sm"
+      >
+        <p class="tw-text-base tw-font-semibold tw-mb-2">
+          Cargar información a la aplicación
+        </p>
+        <p class="tw-mb-2">Archivos cargados a la aplicación</p>
+        <select
+          class="tw-border-solid tw-border tw-border-black tw-p-2 tw-mb-2"
+          matNativeControl
+          required
+        >
+          <option value="volvo">Volvo</option>
+          <option value="saab">Saab</option>
+          <option value="mercedes">Mercedes</option>
+          <option value="audi">Audi</option>
+        </select>
+        <select
+          class="tw-border-solid tw-border tw-border-black tw-p-2 tw-mb-2"
+          matNativeControl
+          required
+        >
+          <option value="volvo">Volvo</option>
+          <option value="saab">Saab</option>
+          <option value="mercedes">Mercedes</option>
+          <option value="audi">Audi</option>
+        </select>
+      </section>
+    </div>
+  </div>
+</mat-sidenav-container>

@@ -65,7 +65,8 @@
                 </div>
             </section>
 
-            <section> <!-- footer -->
+            <!-- footer -->
+            <!-- <section> 
                 <div class="contenedor__footer">
                     <section class="sectionmenu">
                         <div *ngIf="_personaMacred" class="menuitems mat-elevation-z4">
@@ -75,7 +76,7 @@
                         </div>
                     </section>
                 </div>
-            </section>
+            </section> -->
 
         </div>
     </article>
@@ -88,12 +89,459 @@
         </section>
     </article>
 
-    <!-- -- -->
-    <article *ngIf="datosAnalisis" class="bloq">
 
-        <div  class="contenedor mat-elevation-z4">
+
+    <article *ngIf="datosAnalisis" class="contenedor1 mat-elevation-z4">
+        <section>
+
+            <div class="contenedor1__header">
                 
-            <section>   <!-- header -->
+                <div class="contenedor1__header__prev">
+
+                    <section>   <!-- header -->
+                        <div class="contenedor1__header" >
+                            <!-- <div class="contenedor__header__prev" >  </div>
+                            <div class="contenedor__header__next">   </div> -->
+                        </div>
+                    </section>
+
+
+                    <section>   <!-- body -->
+                        <div class="contenedor1__body">
+
+                            <div *ngFor="let module of listSubMenu">
+                                <p class="contenedor1__header__prev__items__titulo" (click)="selectModule(module)">{{module.nombre}}</p>
+                            </div>
+
+                        </div>
+                    </section>
+
+                    <section>   <!-- footer --> 
+                        <div class="contenedor1__footer">
+                            <div class="contenedor__footer__prev"></div>
+                            <div class="contenedor__footer__next"></div>
+                        </div>
+                    </section>
+                    
+                </div>
+
+
+                <div class="contenedor1__header__next">
+
+                    <section>   <!-- header -->
+                        <div class="contenedor__header" >
+                            <div class="contenedor__header__prev" >
+                                <h2 *ngIf="!_analisisCapacidadpago">Información de Análisis</h2>
+                                <h2 *ngIf="_analisisCapacidadpago">codigo de análisis: {{_analisisCapacidadpago.codigoAnalisis}}</h2>
+                            </div>
+                            <div class="contenedor__header__next">
+                                <button *ngIf="habilitaBtnHistoprialIngreso" (click)="openHistorialModal()" class="btn btn-dark px-5 " >
+                                    Historial       </button>
+                                <button *ngIf="habilitaBtnRegistroDeudor" class="btn btn-dark px-5 " >
+                                    Nuevo Deudor    </button>
+                            </div>
+                        </div>
+                    </section>
+        
+                    <section>   <!-- body -->
+                        <div class="contenedor__body">
+                            <form [formGroup]="formAnalisis" class="row">
+                                
+                                <div class="col-md-3">
+                                    <label for="lblFechaAnalisis" class="form-label">Fecha de Análisis</label>
+                                    <input formControlName="fechaAnalisis" class="form-control" matInput [matDatepicker]="picker" >
+                                    <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+                                    <mat-datepicker #picker></mat-datepicker>
+                                </div>
+        
+                                <div class="form-group col-sm-1 margin-icos-mat margin-icos-mat__cbx">
+                                    <mat-checkbox formControlName="estado">Estado</mat-checkbox>
+                                </div>
+                                <div class="form-group col-sm-1 margin-icos-mat">
+                                    <mat-checkbox formControlName="analisisDefinitivo" >Análisis definitivo ?</mat-checkbox>
+                                </div>
+        
+                                <div class="col-sm-7"> </div>
+        
+                                <div class="form-group col-md-6">
+                                    <label for="lblCapacidadPago" class="form-label">Nivel de Capacidad de Pago</label>
+                                    <select formControlName="capacidadPago" class="form-control" name="selectCapacidadPago" readonly >
+                                            <option [disabled]="true" [ngValue]="objeto" *ngFor="let objeto of listNivelesCapacidadpago">{{objeto.descripcion}}</option>
+                                    </select>
+                                    <div *ngIf="submittedAnalisisForm && g.capacidadPago.errors" class="invalid-feedback">
+                                        <div *ngIf="g.capacidadPago.errors.required">El Nivel de Capacidad de Pago es requerido</div>
+                                    </div>
+                                </div>
+                                
+                                <div class="form-group col-md-2">
+                                    <label for="lblPuntajeAnalisis" class="form-label">Puntaje del Análisis</label>
+                                    <input formControlName="puntajeAnalisis" class="form-control" type="text" id="id_puntajeAnalisis"
+                                    readonly />
+                                </div>
+                                <div class="form-group col-md-2">
+                                    <label for="lblCalificacionCic" class="form-label">Calificación CIC</label>
+                                    <input formControlName="calificacionCic" class="form-control" type="text" id="id_calificacionCic"
+                                    readonly />
+                                </div>
+                                <div class="form-group col-md-2">
+                                    <label for="lblCalificacionFinalCic" class="form-label">Calificación FINAL CIC</label>
+                                    <input formControlName="calificacionFinalCic" class="form-control" type="text" id="id_calificacionFinalCic"
+                                    readonly />
+                                </div>
+        
+                                <div class="form-group col-md-3">
+                                    <label for="lblTipoIngresoAnalisis" class="form-label">Tipo de Ingreso de Análisis</label>
+                                    <select formControlName="tipoIngresoAnalisis" class="form-control" name="selectTipoIngresoAnalisis"
+                                        [ngClass]="{ 'is-invalid': submittedAnalisisForm && g.tipoIngresoAnalisis.errors }" >
+                                            <option [ngValue]="objeto" *ngFor="let objeto of listTipoIngresoAnalisis">{{objeto.id}} - {{objeto.descripcion}}</option>
+                                    </select>
+                                    <div *ngIf="submittedAnalisisForm && g.tipoIngresoAnalisis.errors" class="invalid-feedback">
+                                        <div *ngIf="g.tipoIngresoAnalisis.errors.required">El Tipo de Ingreso es requerido</div>
+                                    </div>
+                                </div>
+                                <div class="form-group col-md-3">
+                                    <label for="tipoFormaPagoAnalisis" class="form-label">Forma de Pago de Análisis</label>
+                                    <select formControlName="tipoFormaPagoAnalisis" class="form-control" name="tipoFormaPagoAnalisis"
+                                        [ngClass]="{ 'is-invalid': submittedAnalisisForm && g.tipoFormaPagoAnalisis.errors }" >
+                                            <option [ngValue]="objeto" *ngFor="let objeto of listTipoFormaPagoAnalisis">{{objeto.id}} - {{objeto.descripcion}}</option>
+                                    </select>
+                                    <div *ngIf="submittedAnalisisForm && g.tipoFormaPagoAnalisis.errors" class="invalid-feedback">
+                                        <div *ngIf="g.tipoFormaPagoAnalisis.errors.required">La Forma de Pago es requerida</div>
+                                    </div>
+                                </div>
+                                
+                                <div class="form-group col-md-4">
+                                    <label for="lblModeloAnalisis" class="form-label">Modelo de Análisis</label>
+                                    <select formControlName="modeloAnalisis" class="form-control" name="selectModeloAnalisis"
+                                        [ngClass]="{ 'is-invalid': submittedAnalisisForm && g.modeloAnalisis.errors }" >
+                                            <option [ngValue]="objeto" *ngFor="let objeto of listModelosAnalisis">{{objeto.id}} - {{objeto.descripcion}}</option>
+                                    </select>
+                                    <div *ngIf="submittedAnalisisForm && g.modeloAnalisis.errors" class="invalid-feedback">
+                                        <div *ngIf="g.modeloAnalisis.errors.required">El Modelo de Análisis es requerido</div>
+                                    </div>
+                                </div>
+        
+                                <div class="form-group col-md-2">
+                                    <label for="tipoMoneda" class="form-label">Moneda</label>
+                                    <select formControlName="tipoMoneda" class="form-control" name="tipoMoneda"
+                                        [ngClass]="{ 'is-invalid': submittedAnalisisForm && g.tipoMoneda.errors }" >
+                                            <option [ngValue]="objeto" *ngFor="let objeto of listTiposMonedas">{{objeto.simbolo}} {{objeto.descripcion}}</option>
+                                    </select>
+                                    <div *ngIf="submittedAnalisisForm && g.tipoMoneda.errors" class="invalid-feedback">
+                                        <div *ngIf="g.tipoMoneda.errors.required">La Moneda es requerida</div>
+                                    </div>
+                                </div>
+        
+                                <div class="form-group col-md-3">
+                                    <label for="lblTipoGenerador" class="form-label">Tipo de Generador</label>
+                                    <select formControlName="tipoGenerador" class="form-control" name="selectTipoGenerador"
+                                        [ngClass]="{ 'is-invalid': submittedAnalisisForm && g.tipoGenerador.errors }" >
+                                            <option [ngValue]="objeto" *ngFor="let objeto of listTiposGeneradores">{{objeto.codigoGenerador}} - {{objeto.descripcion}}</option>
+                                    </select>
+                                    <div *ngIf="submittedAnalisisForm && g.tipoGenerador.errors" class="invalid-feedback">
+                                        <div *ngIf="g.tipoGenerador.errors.required">El Tipo de Generador es requerido</div>
+                                    </div>
+                                </div>
+        
+                                <div class="form-group col-md-3">
+                                    <label for="lblIndicadorCsd" class="form-label">Indicador CSD</label>
+                                    <input formControlName="indicadorCsd" class="form-control" type="number" id="id_indicadorcsd"
+                                        [ngClass]="{ 'is-invalid': submittedAnalisisForm && g.indicadorCsd.errors }" />
+                                    <div *ngIf="submittedAnalisisForm && g.indicadorCsd.errors" class="invalid-feedback">
+                                        <div *ngIf="g.indicadorCsd.errors.required">El Indicador CSD es requerido</div>
+                                    </div>
+                                </div>
+        
+                                <div class="form-group col-md-4">
+                                    <label for="lblPonderacionLvt" class="form-label">Ponderación LVT</label>
+                                    <input formControlName="ponderacionLvt" class="form-control" type="text" id="id_ponderacionLvt"
+                                        [ngClass]="{ 'is-invalid': submittedAnalisisForm && g.ponderacionLvt.errors }" />
+                                    <div *ngIf="submittedAnalisisForm && g.ponderacionLvt.errors" class="invalid-feedback">
+                                        <div *ngIf="g.ponderacionLvt.errors.required">La ponderación LVT es requerida</div>
+                                    </div>
+                                </div>
+        
+                                <div class="form-group col-md-2">
+                                    <label for="lblNumeroDependientes" class="form-label">Número de Dependientes</label>
+                                    <input formControlName="numeroDependientes" class="form-control" type="number" id="id_numeroDependientes"
+                                        [ngClass]="{ 'is-invalid': submittedAnalisisForm && g.numeroDependientes.errors }" />
+                                    <div *ngIf="submittedAnalisisForm && g.numeroDependientes.errors" class="invalid-feedback">
+                                        <div *ngIf="g.numeroDependientes.errors.required">El Número de Dependientes es requerido</div>
+                                    </div>
+                                </div>
+        
+                                <div class="form-group col-md-12">
+                                    <hr>
+                                    <textarea matInput  formControlName="observaciones" 
+                                                        class="form-control"
+                                                        id="id_observaciones"
+                                                        placeholder="Ingrese las observaciones..."></textarea>
+                                    <hr>
+                                </div>
+                            </form>
+                        </div>
+        
+                    </section>
+        
+                    <section>   <!-- footer --> 
+                        <div class="contenedor__footer">
+                            <div class="contenedor__footer__prev">
+                                <button *ngIf="habilitaBtnGeneraNuevoAnalisis" 
+                                        (click)="SubmitNuevoAnalisis()" 
+                                        class="btn btn-success px-5 " 
+                                        mat-flat-button color="primary" > Registrar </button>
+        
+                                <button *ngIf="habilitaBtnGuardarAnalisis" 
+                                        (click)="GuardarAnalisis()" 
+                                        class="btn btn-success px-5 "
+                                        mat-flat-button color="primary" > Guardar Cambios </button>
+                            </div>
+                            <div class="contenedor__footer__next">
+                                <button *ngIf="habilitaBtnIngreso" 
+                                        (click)="habilitaFormularioIngreso()" 
+                                        class="btn px-5 btn-info" 
+                                        mat-flat-button color="primary" > Ingresos </button>
+                            </div>
+                        </div>
+                    </section>
+        
+                    <article class="modal modal-config" id="analisisHistorialModal">
+                        <div class="modal-content">
+        
+                            <section>
+                                <div class="modal-header ">
+                                    <div class="contenedor__header-modal " >
+                                        <div class="contenedor__header__prev">
+                                            <h1 style="color:#1A5276">Historial de Análisis de Capacida de Pago</h1>
+                                        </div>
+                                        <div class="contenedor__header__next">
+                                            <button style="color:red" type="button" class="close btn-close" data-dismiss="modal">&times;</button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </section>
+        
+                            <section>
+                                <form [formGroup]="formHistorialAnalisis" class="row modal-config__formulario-header" >
+                                    <div class="form-group col-md-3">
+                                        <label for="lblCodigoAnalisisHistorial" class="form-label">Código de Análisis del Historial</label>
+                                        <input formControlName="codigoAnalisisHistorial" class="form-control" type="number" id="id_codigoAnalisisHistorial"
+                                            [ngClass]="{ 'is-invalid': submittedHistorialAnalisisForm && h.codigoAnalisisHistorial.errors }" />
+                                        <div *ngIf="submittedHistorialAnalisisForm && h.codigoAnalisisHistorial.errors" class="invalid-feedback">
+                                            <div *ngIf="h.codigoAnalisisHistorial.errors.required">El Código de Análisis del Historial es requerido</div>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-3 margin-icos-mat item-list">
+                                        <a class="item-list__edit"> <mat-icon>filter_list</mat-icon> </a>
+                                    </div>
+                                </form>
+                            </section>
+                            
+                            <section>    <!-- body -->
+                                <div class="contenedor__body" >
+                                    <div *ngIf="listHistorialAnalisis" >
+                                        <table  class="table table-striped">
+                                            <thead>
+                                                <tr>
+                                                    <th style="width: 5%">Análisis</th>
+                                                    <th style="width: 12%">Fecha de Análisis</th>
+                                                    <th style="width: 12%">Cód. Nivel Cap pago</th>
+                                                    <th style="width: 7%">Estado</th>
+                                                    <th style="width: 8%">¿Definitivo?</th>
+                                                    <th style="width: 10%">Scoring Análisis</th>
+                                                    <th style="width: 10%">Puntaje Final CIC</th>
+                                                    <th style="width: 10%">Moneda</th>
+                                                    <th style="width: 26%">Observaciones</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                <tr *ngFor="let obj of listHistorialAnalisis" class="item-list__confirm" (click)="selectAnalisisHistorial(obj)" >
+                                                    <td>{{obj.codigoAnalisis}}</td>
+                                                    <td>{{obj.fechaAnalisis}}</td>
+                                                    <td>{{obj.codigoNivelCapPago}}</td>
+                                                    <td>{{obj.estado}}</td>
+                                                    <td>{{obj.analisisDefinitivo}}</td>
+                                                    <td>{{obj.puntajeAnalisis}}</td>
+                                                    <td>{{obj.puntajeFinalCic}}</td>
+                                                    <td>{{obj.codigoMoneda}}</td>
+                                                    <td>{{obj.observaciones}}</td>
+                                                </tr>
+                                            </tbody>
+                                        </table>
+                                    </div>
+        
+                                </div>
+                            </section> 
+                            
+                            <section>   <!-- footer --> 
+                <div class="contenedor__footer">
+                    <div class="contenedor__footer__prev">
+                        <button *ngIf="habilitaBtnGeneraNuevoAnalisis" 
+                                (click)="SubmitNuevoAnalisis()" 
+                                class="btn btn-success px-5 " 
+                                mat-flat-button color="primary" > Registrar </button>
+
+                        <button *ngIf="habilitaBtnGuardarAnalisis" 
+                                (click)="GuardarAnalisis()" 
+                                class="btn btn-success px-5 "
+                                mat-flat-button color="primary" > Guardar Cambios </button>
+                    </div>
+                    <div class="contenedor__footer__next">
+                        <button *ngIf="habilitaBtnIngreso" 
+                                (click)="habilitaFormularioIngreso()" 
+                                class="btn px-5 btn-info" 
+                                mat-flat-button color="primary" > Ingresos </button>
+                    </div>
+                </div>
+                            </section>
+
+                            <article class="modal modal-config" id="analisisHistorialModal">
+                                <div class="modal-content">
+
+                                    <section>
+                                        <div class="modal-header ">
+                                            <div class="contenedor__header-modal " >
+                                                <div class="contenedor__header__prev">
+                                                    <h1 style="color:#1A5276">Historial de Análisis de Capacida de Pago</h1>
+                                                </div>
+                                                <div class="contenedor__header__next">
+                                                    <button style="color:red" type="button" class="close btn-close" data-dismiss="modal">&times;</button>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </section>
+
+                                    <section>
+                                        <form [formGroup]="formHistorialAnalisis" class="row modal-config__formulario-header" >
+                                            <div class="form-group col-md-3">
+                                                <label for="lblCodigoAnalisisHistorial" class="form-label">Código de Análisis del Historial</label>
+                                                <input formControlName="codigoAnalisisHistorial" class="form-control" type="number" id="id_codigoAnalisisHistorial"
+                                                    [ngClass]="{ 'is-invalid': submittedHistorialAnalisisForm && h.codigoAnalisisHistorial.errors }" />
+                                                <div *ngIf="submittedHistorialAnalisisForm && h.codigoAnalisisHistorial.errors" class="invalid-feedback">
+                                                    <div *ngIf="h.codigoAnalisisHistorial.errors.required">El Código de Análisis del Historial es requerido</div>
+                                                </div>
+                                            </div>
+                                            <div class="col-md-3 margin-icos-mat item-list">
+                                                <a class="item-list__edit"> <mat-icon>filter_list</mat-icon> </a>
+                                            </div>
+                                        </form>
+                                    </section>
+                                    
+                                    <section>    <!-- body -->
+                                        <div class="contenedor__body" >
+                                            <div *ngIf="listHistorialAnalisis" >
+                                                <table  class="table table-striped">
+                                                    <thead>
+                                                        <tr>
+                                                            <th style="width: 5%">Análisis</th>
+                                                            <th style="width: 12%">Fecha de Análisis</th>
+                                                            <th style="width: 12%">Cód. Nivel Cap pago</th>
+                                                            <th style="width: 7%">Estado</th>
+                                                            <th style="width: 8%">¿ Definitivo ?</th>
+                                                            <th style="width: 10%">Scoring Análisis</th>
+                                                            <th style="width: 10%">Puntaje Final CIC</th>
+                                                            <th style="width: 10%">Moneda</th>
+                                                            <th style="width: 26%">Observaciones</th>
+                                                        </tr>
+                                                    </thead>
+                                                    <tbody>
+                                                        <tr *ngFor="let obj of listHistorialAnalisis" class="item-list__confirm" (click)="selectAnalisisHistorial(obj)" >
+                                                            <td>{{obj.codigoAnalisis}}</td>
+                                                            <td>{{obj.fechaAnalisis}}</td>
+                                                            <td>{{obj.codigoNivelCapPago}}</td>
+                                                            <td>{{obj.estado}}</td>
+                                                            <td>{{obj.analisisDefinitivo}}</td>
+                                                            <td>{{obj.puntajeAnalisis}}</td>
+                                                            <td>{{obj.puntajeFinalCic}}</td>
+                                                            <td>{{obj.codigoMoneda}}</td>
+                                                            <td>{{obj.observaciones}}</td>
+                                                        </tr>
+                                                    </tbody>
+                                                </table>
+                                            </div>
+
+                                        </div>
+                                    </section>  
+
+                                </div>
+                            </article>
+        
+                        </div>
+                    </article>
+
+                </div>
+
+            </div>
+        </section>
+
+
+
+        <!-- <article> -->
+
+        <!-- <section>
+
+            <div class="">
+
+                <div class="contenedor-menu-asociados__nav">
+
+                    <div class="" *ngFor="let module of listSubMenu">
+                        <p class="contenedor-menu-asociados__nav__items__titulo" (click)="selectModule(module)">{{module.nombre}}</p>
+                    </div>
+
+                </div>
+
+                <div class="contenedor-menu-asociados__contenido">
+                    
+                    
+        
+                </div>
+
+            </div>
+
+        </section> -->
+
+        <!-- <section>
+            <div class="contenedor mat-elevation-z4">
+
+                <mat-sidenav-container class="example-container" autosize >
+                    
+                    <mat-sidenav #sidenav2 class="menuitems-menumacred" mode="side" opened="true">
+                        
+                        <mat-nav-list class="menuitems__items">
+                        
+                            <mat-list-item *ngFor="let module of listSubMenu" class="menuitems__items__titulo">
+                                <span class="" (click)="selectModule(module)" >{{module.nombre}}</span>
+                                <mat-icon mat-list-icon>home</mat-icon>
+            
+            
+                            </mat-list-item>
+                        </mat-nav-list>
+                    
+                    </mat-sidenav>
+                    
+                    
+
+                </mat-sidenav-container>
+            </div>
+        </section> -->
+
+
+
+        <!-- <section> 
+            <div class="contenedor">
+                <section class="sectionmenu">
+                    <div *ngIf="_personaMacred" class="menuitems-menumacred mat-elevation-z4">
+                        <div class="menuitems__items" *ngFor="let module of listSubMenu">
+                            <p class="menuitems__items__titulo" (click)="selectModule(module)">{{module.nombre}}</p>
+                        </div>
+                    </div>
+                </section>
+            </div>
+        </section> -->
+
+        <!-- <div class="contenedor"> -->
+                
+            <!-- <section>
                 <div class="contenedor__header">
                     <div class="contenedor__header__prev">
                         <h2 *ngIf="!_analisisCapacidadpago">Información de Análisis</h2>
@@ -106,9 +554,9 @@
                             Nuevo Deudor    </button>
                     </div>
                 </div>
-            </section>
+            </section> -->
 
-            <section>   <!-- body -->
+            <!-- <section>
                 <div class="contenedor__body">
                     <form [formGroup]="formAnalisis" class="row">
                         
@@ -246,104 +694,15 @@
                     </form>
                 </div>
 
-            </section>
+            </section> -->
 
-            <section>   <!-- footer --> 
-                <div class="contenedor__footer">
-                    <div class="contenedor__footer__prev">
-                        <button *ngIf="habilitaBtnGeneraNuevoAnalisis" 
-                                (click)="SubmitNuevoAnalisis()" 
-                                class="btn btn-success px-5 " 
-                                mat-flat-button color="primary" > Registrar </button>
+            
 
-                        <button *ngIf="habilitaBtnGuardarAnalisis" 
-                                (click)="GuardarAnalisis()" 
-                                class="btn btn-success px-5 "
-                                mat-flat-button color="primary" > Guardar Cambios </button>
-                    </div>
-                    <div class="contenedor__footer__next">
-                        <button *ngIf="habilitaBtnIngreso" 
-                                (click)="habilitaFormularioIngreso()" 
-                                class="btn px-5 btn-info" 
-                                mat-flat-button color="primary" > Ingresos </button>
-                    </div>
-                </div>
-            </section>
-
-            <article class="modal modal-config" id="analisisHistorialModal">
-                <div class="modal-content">
-
-                    <section>
-                        <div class="modal-header ">
-                            <div class="contenedor__header-modal " >
-                                <div class="contenedor__header__prev">
-                                    <h1 style="color:#1A5276">Historial de Análisis de Capacida de Pago</h1>
-                                </div>
-                                <div class="contenedor__header__next">
-                                    <button style="color:red" type="button" class="close btn-close" data-dismiss="modal">&times;</button>
-                                </div>
-                            </div>
-                        </div>
-                    </section>
-
-                    <section>
-                        <form [formGroup]="formHistorialAnalisis" class="row modal-config__formulario-header" >
-                            <div class="form-group col-md-3">
-                                <label for="lblCodigoAnalisisHistorial" class="form-label">Código de Análisis del Historial</label>
-                                <input formControlName="codigoAnalisisHistorial" class="form-control" type="number" id="id_codigoAnalisisHistorial"
-                                    [ngClass]="{ 'is-invalid': submittedHistorialAnalisisForm && h.codigoAnalisisHistorial.errors }" />
-                                <div *ngIf="submittedHistorialAnalisisForm && h.codigoAnalisisHistorial.errors" class="invalid-feedback">
-                                    <div *ngIf="h.codigoAnalisisHistorial.errors.required">El Código de Análisis del Historial es requerido</div>
-                                </div>
-                            </div>
-                            <div class="col-md-3 margin-icos-mat item-list">
-                                <a class="item-list__edit"> <mat-icon>filter_list</mat-icon> </a>
-                            </div>
-                        </form>
-                    </section>
-                    
-                    <section>    <!-- body -->
-                        <div class="contenedor__body" >
-                            <div *ngIf="listHistorialAnalisis" >
-                                <table  class="table table-striped">
-                                    <thead>
-                                        <tr>
-                                            <th style="width: 5%">Análisis</th>
-                                            <th style="width: 12%">Fecha de Análisis</th>
-                                            <th style="width: 12%">Cód. Nivel Cap pago</th>
-                                            <th style="width: 7%">Estado</th>
-                                            <th style="width: 8%">¿ Definitivo ?</th>
-                                            <th style="width: 10%">Scoring Análisis</th>
-                                            <th style="width: 10%">Puntaje Final CIC</th>
-                                            <th style="width: 10%">Moneda</th>
-                                            <th style="width: 26%">Observaciones</th>
-                                        </tr>
-                                    </thead>
-                                    <tbody>
-                                        <tr *ngFor="let obj of listHistorialAnalisis" class="item-list__confirm" (click)="selectAnalisisHistorial(obj)" >
-                                            <td>{{obj.codigoAnalisis}}</td>
-                                            <td>{{obj.fechaAnalisis}}</td>
-                                            <td>{{obj.codigoNivelCapPago}}</td>
-                                            <td>{{obj.estado}}</td>
-                                            <td>{{obj.analisisDefinitivo}}</td>
-                                            <td>{{obj.puntajeAnalisis}}</td>
-                                            <td>{{obj.puntajeFinalCic}}</td>
-                                            <td>{{obj.codigoMoneda}}</td>
-                                            <td>{{obj.observaciones}}</td>
-                                        </tr>
-                                    </tbody>
-                                </table>
-                            </div>
-
-                        </div>
-                    </section>  
-
-                </div>
-            </article>
-
-        </div>
+        <!-- </div> -->
         
     </article>
+
+<!-- </article> -->
 
 
 <div class="col-md-12 mt-5" *ngIf="flujoCaja">
@@ -647,11 +1006,11 @@
                             </div>
                         </div>
 
-                        <div class="form-group col-md-2">
+                        <!-- <div class="form-group col-md-2">
                             <label for="lblMesesExtrasAplicables" class="form-label">Meses Aplicables</label>
                             <input formControlName="mesesExtrasAplicables" class="form-control" type="number" id="id_mesesExtrasAplicables"
                             readonly />
-                        </div>
+                        </div> -->
                         
                         <div class="col-md-7"></div>
 

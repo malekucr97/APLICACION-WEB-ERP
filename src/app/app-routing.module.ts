@@ -28,6 +28,8 @@ const CumplimientoModule = () => import(
     './ModulosSistema/Cumplimiento/cumplimiento-module').then( x => x.CumplimientoModule );     // ## CUMPLIMIENTO      ## //
 const MacredModule = () => import(
     './ModulosSistema/Macred/macred-module').then( x => x.MacredModule );                       // ## MACRED            ## //
+const RiesgoCreditoModule = () => import(
+    './ModulosSistema/RiesgoCredito/riesgo-credito-module').then( x => x.RiesgoCreditoModule ); // ## RIESGO CREDITO            ## //
 
 const routes: Routes = [
 
@@ -52,7 +54,8 @@ const routes: Routes = [
     { path: 'inra-sa/modulo-inventario',        loadChildren: InventarioModule,     canActivate: [AuthGuard] },
     { path: 'inra-sa/modulo-cumplimiento',      loadChildren: CumplimientoModule,   canActivate: [AuthGuard] },
     { path: 'inra-sa/modulo-macred',            loadChildren: MacredModule,         canActivate: [AuthGuard] },
-    
+    { path: 'inra-sa/modulo-riesgo-credito',    loadChildren: RiesgoCreditoModule,  canActivate: [AuthGuard] },
+
     // default
     { path: '**', redirectTo: '' }
 ];

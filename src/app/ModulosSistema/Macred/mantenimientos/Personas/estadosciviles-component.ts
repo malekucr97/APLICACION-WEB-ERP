@@ -15,7 +15,6 @@ import { MacTiposMoneda } from '@app/_models/Macred/TiposMoneda';
 import { MacModeloAnalisis } from '@app/_models/Macred/ModeloAnalisis';
 import { MacNivelCapacidadPago } from '@app/_models/Macred/NivelCapacidadPago';
 import { MacTipoGenerador } from '@app/_models/Macred/TipoGenerador';
-import { THIS_EXPR } from '@angular/compiler/src/output/output_ast';
 import { MatDialog } from '@angular/material/dialog';
 import { DialogoConfirmacionComponent } from '@app/_components/dialogo-confirmacion/dialogo-confirmacion.component';
 import { MacEstadoCivil } from '@app/_models/Macred/EstadoCivil';
@@ -46,7 +45,7 @@ export class EstadosCivilesComponent implements OnInit {
     companiaObservable: Compania;
 
     submittedEstadoCivilForm : boolean = false;
-    
+
     // Estados Civiles
     formEstadoCivil: FormGroup;
     formEstadoCivilList: FormGroup;
@@ -86,7 +85,7 @@ export class EstadosCivilesComponent implements OnInit {
             estado              : [null]
 
         });
-        
+
         this.accountService.validateAccessUser( this.userObservable.id,
                                                 this.moduleObservable.id,
                                                 this.nombrePantalla,
@@ -105,7 +104,7 @@ export class EstadosCivilesComponent implements OnInit {
 
     get f() { return this.formEstadoCivil.controls; }
 
-    
+
     consultaEstadosCivilesCompania() : void {
         this.formEstadoCivilList = this.formBuilder.group({
             id                  : [''],
@@ -126,7 +125,7 @@ export class EstadosCivilesComponent implements OnInit {
         },
         error => {
             let message : string = 'Problemas al consultar los estados civiles. ' + error;
-            this.alertService.error(message); 
+            this.alertService.error(message);
         });
     }
 
@@ -145,9 +144,9 @@ export class EstadosCivilesComponent implements OnInit {
         this.update = true;
         this.buttomText = 'Actualizar';
         this.tipoMovimiento = 'E';
-        
+
         this._estadoCivilMacred = estadoCivil;
-        
+
         this.formEstadoCivil = this.formBuilder.group({
             id: [estadoCivil.id,Validators.required],
             codigoEstadoCivil : [estadoCivil.codigoEstadoCivil,Validators.required],
@@ -166,11 +165,11 @@ export class EstadosCivilesComponent implements OnInit {
         if ( this.formEstadoCivil.invalid ){
             return;
         }
-        
+
         var estadoCivil : MacEstadoCivil;
         estadoCivil = this.createEstadoCivilModal();
-        
-        if (this.tipoMovimiento == 'N'){    
+
+        if (this.tipoMovimiento == 'N'){
             estadoCivil.codigoCompania = this.userObservable.empresa;
             estadoCivil.adicionadoPor  = this.userObservable.identificacion;
             estadoCivil.fechaAdicion   = this.today;
@@ -268,5 +267,5 @@ export class EstadosCivilesComponent implements OnInit {
                 this.alertService.error(message);
             });
     }
-   
+
 }
