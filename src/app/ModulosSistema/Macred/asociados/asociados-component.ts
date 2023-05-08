@@ -5,7 +5,7 @@ import { MatSidenav }                               from '@angular/material/side
 import { Router }                                   from '@angular/router';
 import { first }                                    from 'rxjs/operators';
 
-import { ScreenAccessUser, User, Module, Compania } from '@app/_models';
+import { User, Module, Compania }                   from '@app/_models';
 
 import { MatDialog }                                from '@angular/material/dialog';
 import { DialogoConfirmacionComponent }             from '@app/_components/dialogo-confirmacion/dialogo-confirmacion.component';
@@ -23,13 +23,14 @@ declare var $: any;
 
 @Component({
     templateUrl: 'HTML_Asociados.html',
-    styleUrls: ['../../../../assets/scss/app.scss',
-                '../../../../assets/scss/macred/app.scss'],
+    styleUrls: ['../../../../assets/scss/app.scss', '../../../../assets/scss/macred/app.scss'],
 })
 export class AsociadosComponent implements OnInit {
     @ViewChild(MatSidenav) sidenav !: MatSidenav;
+    @ViewChild(MatSidenav) sidenav2 : MatSidenav;
 
-    private nombrePantalla : string = 'calificacion-asociados.html';
+    private nombrePantalla  : string = 'calificacion-asociados.html';
+    // listScreenAccessUser    : ScreenAccessUser[];
 
     _globalCodMonedaPrincipal : number ;
     _globalMesesAplicaExtras : number ;
@@ -57,6 +58,7 @@ export class AsociadosComponent implements OnInit {
     submittedDeduccionesForm : boolean = false;
     // ## -- ------------------ -- ## //
 
+    muestraTabs                 : boolean = false;
     datosAnalisis               : boolean = false;
     flujoCaja                   : boolean = false;
     pd                          : boolean = false;
@@ -71,13 +73,13 @@ export class AsociadosComponent implements OnInit {
     isDeleting                  : boolean = false;
 
     // ## -- habilita botones -- ## //
-    habilitaBtnIngreso          : boolean = false;
-    habilitaBtnHistoprialIngreso: boolean = true;
-    habilitaBtnRegistroDeudor   : boolean = false;
-    habilitarBtnSubmitExtras    : boolean = false;
-    habilitarBtnFinalizarExtras : boolean = false;
-    habilitarBtnEliminarExtras  : boolean = false;
-    habilitarBtnContinuarExtras : boolean = false;
+    habilitaBtnIngreso              : boolean = false;
+    habilitaBtnHistoprialIngreso    : boolean = true;
+    habilitaBtnRegistroDeudor       : boolean = false;
+    habilitarBtnSubmitExtras        : boolean = false;
+    habilitarBtnFinalizarExtras     : boolean = false;
+    habilitarBtnEliminarExtras      : boolean = false;
+    // habilitarBtnContinuarExtras     : boolean = false;
     habilitarBtnFinalizarDeducciones: boolean = false;
 
     habilitaBtnGeneraNuevoAnalisis  : boolean = true;
@@ -95,33 +97,35 @@ export class AsociadosComponent implements OnInit {
     public listSubMenu  : Module[]  = [];
     public menuItem     : Module    = null;
 
-    listScreenAccessUser: ScreenAccessUser[];
-
-    // listas analisis
+    // ## -- listas analisis -- ## //
     listTipoIngresoAnalisis:    MacTipoIngresoAnalisis[];
     listTipoFormaPagoAnalisis:  MacTipoFormaPagoAnalisis[];
     listTiposMonedas:           MacTiposMoneda[];
     listModelosAnalisis:        MacModeloAnalisis[];
     listNivelesCapacidadpago:   MacNivelCapacidadPago[];
     listTiposGeneradores:       MacTipoGenerador[];
+    // ## -- *************** -- ## //
 
-    // listas ingresos
+    // ## -- listas ingresos -- ## //
     listTiposIngresos           : MacTipoIngreso[];
     listIngresosAnalisis        : MacIngresosXAnalisis[];
     listHistorialAnalisis       : MacAnalisisCapacidadPago[];
     listMatrizAceptacionIngreso : MacMatrizAceptacionIngreso[];
     listTiposDeducciones        : MacTipoDeducciones[];
-
     listExtrasAplicables        : MacExtrasAplicables[];
     listTempExtrasAplicables    : MacExtrasAplicables[];
     listDeduccionesAnalisis     : MacDeduccionesAnalisis[];
+    listTotalDeduccionesAnalisis: MacDeduccionesAnalisis[];
+    // ## -- *************** -- ## //
 
+    // ## -- formularios -- ## //
     formPersona             : FormGroup;
     formAnalisis            : FormGroup;
     formIngresos            : FormGroup;
     formExtras              : FormGroup;
     formHistorialAnalisis   : FormGroup;
     formDeducciones         : FormGroup;
+    // ## -- *********** -- ## //
 
     public today : Date ;
 
@@ -130,8 +134,8 @@ export class AsociadosComponent implements OnInit {
                     private accountService:    AccountService,
                     private alertService:      AlertService,
                     private router:            Router,
-                    private dialogo:           MatDialog )
-    {
+                    private dialogo:           MatDialog ) {
+
         this.userObservable = this.accountService.userValue;
         this.moduleObservable = this.accountService.moduleValue;
         this.companiaObservable = this.accountService.businessValue;
@@ -147,7 +151,6 @@ export class AsociadosComponent implements OnInit {
     get d () {   return this.formDeducciones.controls; }
     
     ngOnInit() {
-
         this.formPersona    = this.formBuilder.group({
             id              : [null],
             nombre          : [null],
@@ -177,19 +180,26 @@ export class AsociadosComponent implements OnInit {
             codigoTipoIngreso   : [null],
             montoBruto          : [null],
             montoExtras         : [null],
-            porcentajeExtras    : [null],
             cargasSociales      : [null],
             impuestoRenta       : [null],
             montoNeto           : [null],
-            montoDeducciones    : [null]
+            montoDeducciones    : [null],
+
+            totalMontoAnalisis      : [null],
+            totalIngresoBruto       : [null],
+            totalIngresoNeto        : [null],
+            totalCargaImpuestos     : [null],
+            totalExtrasAplicables   : [null],
+            totalDeducciones        : [null]
         });
         this.formExtras     = this.formBuilder.group({
             montoExtra                  : [null],
             desviacionEstandar          : [null],
             coeficienteVarianza         : [null],
             porcentajeExtrasAplicable   : [null],
-            promedioExtrasAplicables    : [null],
-            mesesExtrasAplicables       : [null]
+            promedioExtrasAplicables    : [null]
+            // ,
+            // mesesExtrasAplicables       : [null]
         });
         this.formHistorialAnalisis = this.formBuilder.group({
             codigoAnalisisHistorial  : [null]
@@ -229,26 +239,27 @@ export class AsociadosComponent implements OnInit {
                  this.macredService.getTiposIngresoAnalisis(this.companiaObservable.id)
                      .pipe(first())
                      .subscribe(response => { this.listTipoIngresoAnalisis = response; });
-                this.macredService.getModelosAnalisis(this.companiaObservable.id,           false )
+                this.macredService.getModelosAnalisis(this.companiaObservable.id, false )
                     .pipe(first())
                     .subscribe(response => { this.listModelosAnalisis = response; });
-                this.macredService.getNivelesCapacidadPago(this.companiaObservable.id,      false )
+                this.macredService.getNivelesCapacidadPago(this.companiaObservable.id, false )
                     .pipe(first())
                     .subscribe(response => { this.listNivelesCapacidadpago = response; });
-                this.macredService.getTiposGenerador(this.companiaObservable.id,            false )
+                this.macredService.getTiposGenerador(this.companiaObservable.id, false )
                     .pipe(first())
                     .subscribe(response => { this.listTiposGeneradores = response; });
                 // carga datos ingresos
-                this.macredService.getTiposIngresos(this.companiaObservable.id,             false )
+                this.macredService.getTiposIngresos(this.companiaObservable.id, false )
                     .pipe(first())
                     .subscribe(response => { this.listTiposIngresos = response; });
-                this.macredService.getTiposDeducciones(this.companiaObservable.id,          false )
+                this.macredService.getTiposDeducciones(this.companiaObservable.id, false )
                     .pipe(first())
-                    .subscribe(response => { this.listTiposDeducciones = response; });    
-                });
-                this.macredService.getMatrizAceptacionIngreso( this.companiaObservable.id,  false )
+                    .subscribe(response => { this.listTiposDeducciones = response; });
+                
+                this.macredService.getMatrizAceptacionIngreso( this.companiaObservable.id, false )
                     .pipe(first())
                     .subscribe(response => { this.listMatrizAceptacionIngreso = response; });
+            });
     }
 
     addListMenu(modItem:Module) : void {
@@ -264,6 +275,8 @@ export class AsociadosComponent implements OnInit {
         // this.listSubMenu.push(new Module(10,'Escenarios FCL','Escenarios FCL','Escenarios FCL','I','.png','.ico','http'));
     }
     habilitaTab(mod: Module) {
+
+        this.datosAnalisis = false; this.ingresos = false;
 
         switch (mod.id) {
 
@@ -333,10 +346,10 @@ export class AsociadosComponent implements OnInit {
 
         this.limpiarTabs();
 
-        if(this.menuItem && mod.id == this.menuItem.id) {
-            this.menuItem = null;
-            return;
-        }
+        // if(this.menuItem && mod.id == this.menuItem.id) {
+        //     this.menuItem = null;
+        //     return;
+        // }
 
         this.menuItem = this.listSubMenu.find(x => x.id === mod.id);
         this.habilitaTab(this.menuItem);
@@ -370,6 +383,8 @@ export class AsociadosComponent implements OnInit {
                     
                     this.cargaInformacionPersona(identificacionPersona);
                     this.inicializaFormDatosAnalisis();
+
+                    this.muestraTabs = true;
 
                 } else { return; }
             });
@@ -413,6 +428,13 @@ export class AsociadosComponent implements OnInit {
         analisis.codigoAnalisis     = this._analisisCapacidadpago.codigoAnalisis;
         analisis.modificadoPor      = this.userObservable.identificacion;
         analisis.fechaModificacion  = this.today;
+
+        analisis.totalMontoAnalisis      = this._analisisCapacidadpago.totalMontoAnalisis;
+        analisis.totalIngresoBruto       = this._analisisCapacidadpago.totalIngresoBruto;
+        analisis.totalIngresoNeto        = this._analisisCapacidadpago.totalIngresoNeto;
+        analisis.totalCargaImpuestos     = this._analisisCapacidadpago.totalCargaImpuestos;
+        analisis.totalExtrasAplicables   = this._analisisCapacidadpago.totalExtrasAplicables;
+        analisis.totalDeducciones        = this._analisisCapacidadpago.totalDeducciones;
 
         this.macredService.putAnalisisCapPago(analisis)
             .pipe(first())
@@ -472,11 +494,11 @@ export class AsociadosComponent implements OnInit {
         analisis.codigoModeloAnalisis           = idModeloAnalisis;
         analisis.codigoMoneda           = idTipoMoneda;
         analisis.codigoTipoGenerador    = idTipoGenerador;
-        analisis.indicadorCsd       = indicadorCsd;
-        analisis.descPondLvt        = ponderacionLvt;
-        analisis.numeroDependientes = numeroDependientes;
-        analisis.observaciones      = observaciones;
-        analisis.ancapCapacidadPago = ancapCapPago;
+        analisis.indicadorCsd           = indicadorCsd;
+        analisis.descPondLvt            = ponderacionLvt;
+        analisis.numeroDependientes     = numeroDependientes;
+        analisis.observaciones          = observaciones;
+        analisis.ancapCapacidadPago     = ancapCapPago;
         analisis.ancapCalificacionFinal = ancapCalificacionFinal;
         analisis.ancapPuntajeFinal      = ancapPuntajeFinal;
 
@@ -489,7 +511,7 @@ export class AsociadosComponent implements OnInit {
         this.submittedAnalisisForm = true;
 
         if ( this.formAnalisis.invalid ) return;
-        
+
         var analisis : MacAnalisisCapacidadPago = this.createAnalisisObjectForm();
         analisis.adicionadoPor  = this.userObservable.identificacion;
         analisis.fechaAdicion   = this.today ;
@@ -523,8 +545,11 @@ export class AsociadosComponent implements OnInit {
         this.listSubMenu.push(modTemp);
     }
     habilitaFormularioIngreso() : void {
+
         this.habilitarItemSubMenu(  new Module(5, 'Ingresos', 'Ingresos', 'Ingresos', 'A', '.png', '.ico', 'http'));
         this.selectModule(          new Module(5, 'Ingresos', 'Ingresos', 'Ingresos', 'I', '.png', '.ico', 'http'));
+
+        this.habilitaBtnIngreso = false;
     }
 
     openExtrasModal() : void {
@@ -547,6 +572,7 @@ export class AsociadosComponent implements OnInit {
                 this.listHistorialAnalisis = response; 
             });
             
+        // $('#analisisHistorialModal').modal('show');
         $('#analisisHistorialModal').modal({backdrop: 'static', keyboard: false}, 'show');
     }
     openDeduccionesModal() : void {
@@ -587,20 +613,30 @@ export class AsociadosComponent implements OnInit {
         this.obtenerExtrasAplicablesAnalisis();
         this.obtenerDeduccionesAnalisis();
     }
-    
+
+    /*
+     * OBTENER DEDUCCIONES
+     */
     obtenerDeduccionesAnalisis() : void {
 
+        this.listTotalDeduccionesAnalisis   = [] ;
+        this.listDeduccionesAnalisis        = [] ;
+
         this.macredService.getDeduccionesAnalisis(  this.companiaObservable.id,
-                                                    this._analisisCapacidadpago.codigoAnalisis,
-                                                    this._ingresoAnalisisSeleccionado.id )
+                                                    this._analisisCapacidadpago.codigoAnalisis )
             .pipe(first())
             .subscribe(response => {
 
-                if (!this.listDeduccionesAnalisis) this.listDeduccionesAnalisis = [] ;
+                this.listTotalDeduccionesAnalisis = response ;
 
-                this.listDeduccionesAnalisis = response ;
+                this.listTotalDeduccionesAnalisis.forEach(element => {
 
-                this.totalizarDeducciones(false) ;
+                    if (element.codigoIngreso === this._ingresoAnalisisSeleccionado.id) 
+                        this.listDeduccionesAnalisis.push(element);
+
+                });
+                
+                this.totalizarDeducciones() ;
             });
     }
     obtenerExtrasAplicablesAnalisis() : void {
@@ -636,9 +672,8 @@ export class AsociadosComponent implements OnInit {
             this._deduccion                     = null;
 
             this.listDeduccionesAnalisis        = null;
-            this.listIngresosAnalisis           = null;
             this.listExtrasAplicables           = null;
-
+            
             this.formAnalisis = this.formBuilder.group({
                 fechaAnalisis           : [this._analisisCapacidadpago.fechaAnalisis,  Validators.required],
                 tipoIngresoAnalisis     : [this.listTipoIngresoAnalisis.find(   x => x.id === this._analisisCapacidadpago.codigoTipoIngresoAnalisis ),      Validators.required],
@@ -661,6 +696,15 @@ export class AsociadosComponent implements OnInit {
                 observaciones           : this._analisisCapacidadpago.observaciones
             });
 
+            this.formIngresos.patchValue({
+                totalMontoAnalisis      : this._analisisCapacidadpago.totalMontoAnalisis,
+                totalIngresoBruto       : this._analisisCapacidadpago.totalIngresoBruto,
+                totalIngresoNeto        : this._analisisCapacidadpago.totalIngresoNeto,
+                totalCargaImpuestos     : this._analisisCapacidadpago.totalCargaImpuestos,
+                totalExtrasAplicables   : this._analisisCapacidadpago.totalExtrasAplicables,
+                totalDeducciones        : this._analisisCapacidadpago.totalDeducciones
+            });
+
         } else {
 
             let observacion : string = `Análisis generado el ` + this.today + ` por ` + this.userObservable.nombreCompleto + `.`;
@@ -668,6 +712,10 @@ export class AsociadosComponent implements OnInit {
             this.habilitaBtnGeneraNuevoAnalisis = true;
             this.habilitaBtnGuardarAnalisis     = false;
             this.habilitaBtnIngreso             = false;
+
+            this.listDeduccionesAnalisis        = null;
+            this.listIngresosAnalisis           = null;
+            this.listExtrasAplicables           = null;
 
             this.formAnalisis = this.formBuilder.group({
                 fechaAnalisis           : [this.today,  Validators.required],
@@ -706,13 +754,21 @@ export class AsociadosComponent implements OnInit {
                 codigoTipoIngreso   : [this.listTiposIngresos.find ( x => x.id === this._ingresoAnalisisSeleccionado.codigoTipoIngreso ), Validators.required],
                 montoBruto          : [this._ingresoAnalisisSeleccionado.montoBruto, Validators.required],
                 montoExtras         : this._ingresoAnalisisSeleccionado.montoExtras,
-                porcentajeExtras    : this._ingresoAnalisisSeleccionado.porcentajeExtras,
                 cargasSociales      : this._ingresoAnalisisSeleccionado.cargasSociales,
                 impuestoRenta       : this._ingresoAnalisisSeleccionado.impuestoRenta,
                 montoNeto           : [this._ingresoAnalisisSeleccionado.montoNeto, Validators.required],
-                montoDeducciones    : this._ingresoAnalisisSeleccionado.montoDeducciones
+                montoDeducciones    : this._ingresoAnalisisSeleccionado.montoDeducciones,
+
+                totalMontoAnalisis      : this._analisisCapacidadpago.totalMontoAnalisis,
+                totalIngresoBruto       : this._analisisCapacidadpago.totalIngresoBruto,
+                totalIngresoNeto        : this._analisisCapacidadpago.totalIngresoNeto,
+                totalCargaImpuestos     : this._analisisCapacidadpago.totalCargaImpuestos,
+                totalExtrasAplicables   : this._analisisCapacidadpago.totalExtrasAplicables,
+                totalDeducciones        : this._analisisCapacidadpago.totalDeducciones
             });
+
         } else {
+
             this.habilitaBtnActualizaIngreso = false;
             this.habilitaBtnRegistrarIngreso = true;
 
@@ -720,14 +776,23 @@ export class AsociadosComponent implements OnInit {
             this.habilitaIcoOpenModalDeducciones    = false;
 
             this.formIngresos = this.formBuilder.group({
-                codigoTipoIngreso   : [null, Validators.required],
-                montoBruto          : [null, Validators.required],
-                montoExtras         : 0,
-                porcentajeExtras    : 0,
-                cargasSociales      : 0,
-                impuestoRenta       : 0,
-                montoNeto           : [null, Validators.required],
-                montoDeducciones    : 0
+                codigoTipoIngreso       : [null, Validators.required],
+                // codigoTipoIngreso       : [null, Validators.required],
+                montoBruto              : [0, Validators.required],
+                // montoBruto              : [null, Validators.required],
+                montoExtras             : 0,
+                cargasSociales          : 0,
+                impuestoRenta           : 0,
+                montoNeto               : [0, Validators.required],
+                // montoNeto               : [null, Validators.required],
+                montoDeducciones        : 0,
+
+                totalMontoAnalisis      : 0,
+                totalIngresoBruto       : 0,
+                totalIngresoNeto        : 0,
+                totalCargaImpuestos     : 0,
+                totalExtrasAplicables   : 0,
+                totalDeducciones        : 0
             });
         }
     }
@@ -751,8 +816,8 @@ export class AsociadosComponent implements OnInit {
 
             this.formDeducciones = this.formBuilder.group({
                 codigoTipoDeduccion : [null, Validators.required],
-                codigoTipoMoneda    : [null, Validators.required],
-                tipoCambio          : [null, Validators.required],
+                codigoTipoMoneda    : [this.listTiposMonedas.find( x => x.id === this._globalCodMonedaPrincipal ), Validators.required],
+                tipoCambio          : [1, Validators.required],
                 montoDeduccion      : [null, Validators.required]
             });
         }
@@ -766,84 +831,21 @@ export class AsociadosComponent implements OnInit {
             identificacion  : [this._personaMacred.identificacion,   Validators.required]
         });
     }
-    inicializaFormExtrasAplicables()    : void {
+    
+    // setFormExtrasIngresosAnalisis(clearExtras : boolean = false) : void {
+    //     if (clearExtras) {
+    //         this.formIngresos.patchValue({ montoExtras  : 0 });
+    //     } else {
+    //         this.formIngresos.patchValue({ montoExtras  : this._extrasAplicables.montoExtras });
+    //     }
+    // }
+    
+    CerrarExtrasModal()         : void { $('#extrasModal').modal('hide'); }
+    CerrarDeduccionesModal()    : void { $('#deduccionesModal').modal('hide'); }
 
-        this.habilitarBtnSubmitExtras = true;
-
-        if (this._extrasAplicables) {
-
-            this.habilitarBtnEliminarExtras = true;
-
-            this.formExtras = this.formBuilder.group({
-                montoExtra                  : [this._extrasAplicables.montoExtras, Validators.required],
-                desviacionEstandar          : this._extrasAplicables.desviacionEstandar,
-                coeficienteVarianza         : this._extrasAplicables.coeficienteVarianza,
-                porcentajeExtrasAplicable   : this._extrasAplicables.porcentajeExtrasAplicables,
-                promedioExtrasAplicables    : this._extrasAplicables.promedioExtrasAplicables,
-                mesesExtrasAplicables       : this._globalMesesAplicaExtras
-            });
-        } else {
-
-            this.habilitarBtnEliminarExtras = false;
-            
-            this.formExtras = this.formBuilder.group({
-                montoExtra                  : [0, Validators.required],
-                desviacionEstandar          : 0,
-                coeficienteVarianza         : 0,
-                porcentajeExtrasAplicable   : 0,
-                promedioExtrasAplicables    : 0,
-                mesesExtrasAplicables       : this._globalMesesAplicaExtras
-            });
-        } 
-    }
-
-    setFormExtrasIngresosAnalisis(clearExtras : boolean = false) : void {
-        if (clearExtras) {
-            this.formIngresos.patchValue({
-                montoExtras         : 0,
-                porcentajeExtras    : 0
-            });
-        } else {
-            this.formIngresos.patchValue({
-                montoExtras         : this._extrasAplicables.montoExtras,
-                porcentajeExtras    : this._extrasAplicables.porcentajeExtrasAplicables
-            });
-        } 
-    }
-    CerrarExtrasModal() : void {
-
-        if (this._extrasAplicables) {
-            this.setFormExtrasIngresosAnalisis();
-        } else {
-            this.setFormExtrasIngresosAnalisis(true);
-        }
-        this.listExtrasAplicables        = null;
-        this.listTempExtrasAplicables    = null;
-        this.habilitarBtnContinuarExtras = false;
-        this.habilitarBtnFinalizarExtras = false;
-
-        $('#extrasModal').modal('hide');
-    }
-
-    EliminarRegistroExtras() : void {
-
-        this.macredService.deleteExtrasAplicables(  this._extrasAplicables.id, 
-                                                    this._extrasAplicables.codigoIngreso, 
-                                                    this._extrasAplicables.codigoCompania )
-            .pipe(first())
-            .subscribe(response => {
-
-                if (response.exito) {
-                    this._extrasAplicables = null;
-                    this.CerrarExtrasModal();
-                    this.alertService.success( response.responseMesagge );
-
-                } else {
-                    this.alertService.error(response.responseMesagge);
-                }
-            });
-    }
     deleteIngreso(ingreso : MacIngresosXAnalisis) : void {
+
+        this.alertService.clear();
 
         this.dialogo.open(DialogoConfirmacionComponent, {
             data: `Seguro que desea eliminar el ingreso seleccionado ?`
@@ -853,10 +855,18 @@ export class AsociadosComponent implements OnInit {
 
             if (confirmado) {
 
-                // deleteextrasanalisis
-                // deletededuccionesingresos
+                // elimina registros de dependencia del ingreso: deducciones y extras aplicables 
+                if (this.listDeduccionesAnalisis) {
+                    this.listDeduccionesAnalisis.forEach(element => {
+                        if ( element.codigoIngreso == ingreso.id ) this.eliminarRegistroDeduccion(element.id);
+                    });
+                }
+                if (this._extrasAplicables && this._extrasAplicables.codigoIngreso == ingreso.id ) {
+                    this.eliminarRegistroExtra( this._extrasAplicables.id );
+                }
+                // *** 
 
-                this.macredService.deleteIngresoAnalisis( ingreso.id )
+                this.macredService.deleteIngreso( ingreso.id )
                     .pipe(first())
                     .subscribe(response => { 
                         if (response.exito) {
@@ -865,7 +875,10 @@ export class AsociadosComponent implements OnInit {
 
                             if (this.listIngresosAnalisis.length === 0) this.listIngresosAnalisis = null;
 
-                            this._ingresoAnalisisSeleccionado = null;
+                            this._ingresoAnalisisSeleccionado   = null;
+                            this._deduccion                     = null;
+                            this._extrasAplicables              = null;
+
                             this.inicializaFormIngreso();
 
                             this.alertService.success(response.responseMesagge);
@@ -877,7 +890,9 @@ export class AsociadosComponent implements OnInit {
         });
     }
 
-    deleteDeduccionIngreso(deduccion : MacDeduccionesAnalisis) : void {
+    eliminarDeduccion(deduccion : MacDeduccionesAnalisis) : void {
+
+        this.alertService.clear();
 
         this.dialogo.open(DialogoConfirmacionComponent, {
             data: `Seguro que desea eliminar la deducción seleccionada ?`
@@ -887,17 +902,14 @@ export class AsociadosComponent implements OnInit {
 
             if (confirmado) {
 
-                this.macredService.deleteDeduccionIngreso( deduccion.id )
+                this.macredService.deleteDeduccion( deduccion.id )
                     .pipe(first())
                     .subscribe(response => { 
                         if (response.exito) {
 
-                            this.listDeduccionesAnalisis.splice(this.listDeduccionesAnalisis.findIndex( m => m.id == deduccion.id ), 1);
-                            this.totalizarDeducciones(false);
+                            this.obtenerDeduccionesAnalisis();
 
                             this.habilitarBtnFinalizarDeducciones = true;
-
-                            if (this.listDeduccionesAnalisis.length === 0) this.listDeduccionesAnalisis = null;
 
                             this._deduccion = null;
                             this.inicializaFormDeducciones();
@@ -911,71 +923,56 @@ export class AsociadosComponent implements OnInit {
         });
     }
     
-    FinalizarRegistroExtras() : void {
-
-        var extrasAplicables : MacExtrasAplicables = new MacExtrasAplicables ;
-
-        // registro automático meses aplicables
-        if (this.listExtrasAplicables.length > 1) {
-            if (this.listExtrasAplicables.length < this._globalMesesAplicaExtras ) {
-                var iteraciones = this._globalMesesAplicaExtras - this.listExtrasAplicables.length;
-                for ( let index = 0; index < iteraciones ; index++ ) { this.SubmitFormExtras(true); }
-            }
-        }
-
-        extrasAplicables = this.listExtrasAplicables[this.listExtrasAplicables.length - 1];
-        
-        this.macredService.postExtrasAplicables(extrasAplicables)
+    eliminarRegistroDeduccion(idDeduccion : number) : void {
+        this.macredService.deleteDeduccion( idDeduccion )
             .pipe(first())
             .subscribe(response => {
-
-                if (response) {
-
-                    this.listExtrasAplicables     = null;
-                    this.listTempExtrasAplicables = null;
-
-                    this.habilitarBtnFinalizarExtras = false ;
-                    this.habilitarBtnSubmitExtras    = false ;
-                    this.habilitarBtnContinuarExtras = true  ;
-
-                    this._extrasAplicables = response;
-                    this.inicializaFormExtrasAplicables();
-
-                    this.alertService.success( `Registro de Extras realizado con éxito..` );
-
-                } else {
-                    let message : string = 'Problemas al registrar el Análisis de Capacidad de Pago.';
-                    this.alertService.error(message);
-                }
-        });
-    }
-
-    eliminarRegistroExtra(idExtras : number, idIngreso : number, idCompania : number) : void {
-        this.macredService.deleteExtrasAplicables( idExtras, idIngreso, idCompania )
-            .pipe(first())
-            .subscribe(response => { 
                 if (!response.exito) {
                     this.alertService.error(response.responseMesagge);
-                    $('#extrasModal').modal('hide');
                     return;
                 }
             });
     }
+    // *** //
 
-    totalizarDeducciones(close : boolean = true) : void {
-        var totalDeducciones : number = 0;
-        if (this.listDeduccionesAnalisis) {
-            this.listDeduccionesAnalisis.forEach(element => {
-                totalDeducciones += element.monto;
-            });
-        }
-        this.formIngresos.patchValue({
-            montoDeducciones : totalDeducciones
-        });
+    totalizarDeducciones() : void {
+
+        var totalDeducciones        : number = 0;
+        var totalDeduccionesIngreso : number = 0;
+
+        this.formIngresos.patchValue({ montoDeducciones : 0 });
+        this.formIngresos.patchValue({ totalDeducciones : 0 });
+        
+        if (this.listDeduccionesAnalisis)       this.listDeduccionesAnalisis.forEach(element => { totalDeduccionesIngreso += element.monto; });
+
+        if (this.listTotalDeduccionesAnalisis)  this.listTotalDeduccionesAnalisis.forEach(element => { totalDeducciones += element.monto; });
+        
+        this.formIngresos.patchValue({ montoDeducciones : totalDeduccionesIngreso });
+        this.formIngresos.patchValue({ totalDeducciones : totalDeducciones });
+
+        // this.habilitarBtnFinalizarDeducciones = false;
+    }
+
+    finalizarFormularioDeducciones() : void {
+
+        var totalDeducciones        : number = 0;
+        var totalDeduccionesIngreso : number = 0;
+
+        this.formIngresos.patchValue({ montoDeducciones : 0 });
+        this.formIngresos.patchValue({ totalDeducciones : 0 });
+        
+        if (this.listDeduccionesAnalisis)       this.listDeduccionesAnalisis.forEach(element => { totalDeduccionesIngreso += element.monto; });
+
+        if (this.listTotalDeduccionesAnalisis)  this.listTotalDeduccionesAnalisis.forEach(element => { totalDeducciones += element.monto; });
+        
+        this.formIngresos.patchValue({ montoDeducciones : totalDeduccionesIngreso });
+        this.formIngresos.patchValue({ totalDeducciones : totalDeducciones });
 
         this.habilitarBtnFinalizarDeducciones = false;
 
-        if (close) $('#deduccionesModal').modal('hide');
+        this.ActualizaFormIngresos();
+
+        $('#deduccionesModal').modal('hide');
     }
 
     SubmitFormDeducciones() : void {
@@ -995,11 +992,13 @@ export class AsociadosComponent implements OnInit {
 
                 if (response) {
 
+                    this.obtenerDeduccionesAnalisis();
+
                     this.inicializaFormDeducciones();
 
-                    if (!this.listDeduccionesAnalisis) this.listDeduccionesAnalisis = [];
+                    // if (!this.listDeduccionesAnalisis) this.listDeduccionesAnalisis = [];
 
-                    this.listDeduccionesAnalisis.push(response);
+                    // this.listDeduccionesAnalisis.push(response);
 
                     this.habilitarBtnFinalizarDeducciones = true;
 
@@ -1009,7 +1008,84 @@ export class AsociadosComponent implements OnInit {
             });
     }
 
-    SubmitFormExtras( registroAutomatico : boolean = false ) : void {
+    inicializaFormExtrasAplicables()    : void {
+
+        this.habilitarBtnSubmitExtras = true;
+
+        if (this._extrasAplicables) {
+
+            this.habilitarBtnEliminarExtras = true;
+
+            this.formExtras = this.formBuilder.group({
+                montoExtra                  : [this._extrasAplicables.montoExtras, Validators.required],
+                desviacionEstandar          : this._extrasAplicables.desviacionEstandar,
+                coeficienteVarianza         : this._extrasAplicables.coeficienteVarianza,
+                porcentajeExtrasAplicable   : this._extrasAplicables.porcentajeExtrasAplicables,
+                promedioExtrasAplicables    : this._extrasAplicables.promedioExtrasAplicables
+                // ,
+                // mesesExtrasAplicables       : this._globalMesesAplicaExtras
+            });
+        } else {
+
+            this.habilitarBtnEliminarExtras = false;
+            
+            this.formExtras = this.formBuilder.group({
+                montoExtra                  : [0, Validators.required],
+                desviacionEstandar          : 0,
+                coeficienteVarianza         : 0,
+                porcentajeExtrasAplicable   : 0,
+                promedioExtrasAplicables    : 0
+                // ,
+                // mesesExtrasAplicables       : this._globalMesesAplicaExtras
+            });
+        } 
+    }
+    FinalizarRegistroExtras() : void {
+
+        this.alertService.clear();
+        var extrasAplicables : MacExtrasAplicables = new MacExtrasAplicables ;
+
+        var sumatoriaMontoExtras    : number = 0.00 ;
+
+        // registro automático meses aplicables
+        // if (this.listExtrasAplicables.length > 1) {
+        //     if (this.listExtrasAplicables.length < this._globalMesesAplicaExtras ) {
+        //         var iteraciones = this._globalMesesAplicaExtras - this.listExtrasAplicables.length;
+        //         for ( let index = 0; index < iteraciones ; index++ ) { this.SubmitFormExtras(true); }
+        //     }
+        // }
+
+        this.listTempExtrasAplicables.forEach(extra => { sumatoriaMontoExtras += extra.montoExtras ; });
+
+        extrasAplicables = this.listExtrasAplicables[this.listExtrasAplicables.length - 1];
+        extrasAplicables.montoExtras = sumatoriaMontoExtras ;
+
+        this.macredService.postExtrasAplicables(extrasAplicables)
+            .pipe(first())
+            .subscribe(response => {
+
+                if (response) {
+
+                    this.listExtrasAplicables     = null;
+                    this.listTempExtrasAplicables = null;
+
+                    this.habilitarBtnFinalizarExtras = false ;
+                    this.habilitarBtnSubmitExtras    = false ;
+
+                    this._extrasAplicables = response;
+                    this.inicializaFormExtrasAplicables();
+
+                    this.formIngresos.patchValue({ montoExtras  : this._extrasAplicables.porcentajeExtrasAplicables });
+
+                    this.alertService.success( `Registro de Extras realizado con éxito..` );
+
+                } else {
+                    let message : string = 'Problemas al registrar el Análisis de Capacidad de Pago.';
+                    this.alertService.error(message);
+                }
+        });
+    }
+    SubmitFormExtras() : void {
 
         this.alertService.clear();
         this.submittedExtrasForm = true;
@@ -1017,19 +1093,19 @@ export class AsociadosComponent implements OnInit {
         var sumatoriaMontoExtras    : number = 0.00 ;
         var potenciaSaldo           : number = 0.0  ;
         var promedioExtras          : number = 0.0  ;
-        var factorAceptacion        : number = 0    ;
+        // var factorAceptacion        : number = 0    ;
+
+        var cantidadRegistrosExtras : number = 0 ;
 
         if ( this.formExtras.invalid ) return;
 
-        if (this.formExtras.controls['montoExtra'].value === 0 && !registroAutomatico) {
+        if (this.formExtras.controls['montoExtra'].value === 0) {
             this.formExtras.controls['montoExtra'].setErrors({'error': true});
             return;
         }
         
         if (this._extrasAplicables) {
-            this.eliminarRegistroExtra( this._extrasAplicables.id,
-                                        this._ingresoAnalisisSeleccionado.id,
-                                        this.companiaObservable.id );
+            this.eliminarRegistroExtra( this._extrasAplicables.id );
             this.listTempExtrasAplicables   = [] ;
             this.listExtrasAplicables       = [] ;
             this._extrasAplicables          = null;
@@ -1042,35 +1118,54 @@ export class AsociadosComponent implements OnInit {
     
         var extrasTempAplicables : MacExtrasAplicables = new MacExtrasAplicables ;
         extrasTempAplicables.montoExtras = this.formExtras.controls['montoExtra'].value ;
+        
+        this.listTempExtrasAplicables.push(extrasTempAplicables);
+        cantidadRegistrosExtras = this.listTempExtrasAplicables.length;
 
-        this.listTempExtrasAplicables.push(extrasTempAplicables) ;
-            
-        this.listTempExtrasAplicables.forEach(extra => { sumatoriaMontoExtras += extra.montoExtras ; });
-
-        var temPromedioTotalExtrasPermitidas = sumatoriaMontoExtras / this._globalMesesAplicaExtras ;
-        promedioExtras  = this.listTempExtrasAplicables.length  === 1 
-                                                                ? sumatoriaMontoExtras 
-                                                                : temPromedioTotalExtrasPermitidas ;
-        extrasTempAplicables.promedioExtrasAplicables = promedioExtras;
-
-        this.listTempExtrasAplicables.forEach(extra => {
-            potenciaSaldo += Math.pow(extra.montoExtras - promedioExtras, 2) ;
+        // sumatoria total extras
+        this.listTempExtrasAplicables.forEach(extra => { 
+            sumatoriaMontoExtras += extra.montoExtras ; 
         });
 
-        var tempDesviacionEstandar = Math.sqrt( potenciaSaldo / (this._globalMesesAplicaExtras - 1) ) ;
-        extrasTempAplicables.desviacionEstandar = tempDesviacionEstandar != null ? tempDesviacionEstandar : 0 ;
+        if (cantidadRegistrosExtras == 1) {
 
-        var tempCoeficienteVarianza = extrasTempAplicables.desviacionEstandar / promedioExtras ;
-        tempCoeficienteVarianza     = tempCoeficienteVarianza >= 1 ? 1 : tempCoeficienteVarianza ;
-        extrasTempAplicables.coeficienteVarianza = tempCoeficienteVarianza ;
-        extrasTempAplicables.porcentajeExtrasAplicables = (100 - extrasTempAplicables.coeficienteVarianza);
+            promedioExtras = sumatoriaMontoExtras ;
 
-        var coeficienteVarianzaPorcentual = extrasTempAplicables.coeficienteVarianza * 100 ;
+            extrasTempAplicables.desviacionEstandar         = 0 ;
+            extrasTempAplicables.coeficienteVarianza        = 0 ;
 
-        this.listMatrizAceptacionIngreso.forEach(element => {
-            if ( element.rangoDesviacion1   <= coeficienteVarianzaPorcentual && 
-                element.rangoDesviacion2    >= coeficienteVarianzaPorcentual   ) factorAceptacion = element.factor ;
-        });
+            extrasTempAplicables.promedioExtrasAplicables   = sumatoriaMontoExtras ;
+            extrasTempAplicables.porcentajeExtrasAplicables = sumatoriaMontoExtras ;
+
+        } else { 
+
+            var temPromedioTotalExtrasPermitidas = sumatoriaMontoExtras / cantidadRegistrosExtras ;
+
+            promedioExtras = temPromedioTotalExtrasPermitidas ;
+
+            this.listTempExtrasAplicables.forEach(extra => {
+                potenciaSaldo += Math.pow(extra.montoExtras - promedioExtras, 2) ;
+            });
+
+            var tempDesviacionEstandar = Math.sqrt( potenciaSaldo / (cantidadRegistrosExtras - 1) ) ;
+            extrasTempAplicables.desviacionEstandar = tempDesviacionEstandar ;
+
+            var tempCoeficienteVarianza = extrasTempAplicables.desviacionEstandar / promedioExtras ;
+            extrasTempAplicables.coeficienteVarianza = tempCoeficienteVarianza * 100 ;
+
+            var tempCoeficienteVarianzaPorcentual = extrasTempAplicables.coeficienteVarianza ;
+
+            tempCoeficienteVarianzaPorcentual     = tempCoeficienteVarianzaPorcentual >= 1 ? 1 : tempCoeficienteVarianzaPorcentual ;
+
+            // this.listMatrizAceptacionIngreso.forEach(element => { 
+            //     if ( element.rangoDesviacion1   <= tempCoeficienteVarianzaPorcentual && 
+            //         element.rangoDesviacion2    >= tempCoeficienteVarianzaPorcentual   ) factorAceptacion = element.factor ;
+            // });
+
+            extrasTempAplicables.promedioExtrasAplicables = promedioExtras ;
+
+            extrasTempAplicables.porcentajeExtrasAplicables = extrasTempAplicables.promedioExtrasAplicables * (1 - (extrasTempAplicables.coeficienteVarianza / 100)) ;
+        }
 
         this.inicializaFormExtrasAplicables();
 
@@ -1081,15 +1176,62 @@ export class AsociadosComponent implements OnInit {
         extrasAplicables.adicionadoPor  = this.userObservable.identificacion ;
         extrasAplicables.fechaAdicion   = this.today ;
 
-        extrasAplicables.montoExtras                = extrasTempAplicables.promedioExtrasAplicables * factorAceptacion ;
+        extrasAplicables.montoExtras                = extrasTempAplicables.montoExtras;
         extrasAplicables.desviacionEstandar         = extrasTempAplicables.desviacionEstandar;
         extrasAplicables.coeficienteVarianza        = extrasTempAplicables.coeficienteVarianza;
         extrasAplicables.porcentajeExtrasAplicables = extrasTempAplicables.porcentajeExtrasAplicables;
         extrasAplicables.promedioExtrasAplicables   = extrasTempAplicables.promedioExtrasAplicables;
 
         this.listExtrasAplicables.push(extrasAplicables);
-
+        
         this.habilitarBtnFinalizarExtras = true ;
+    }
+    deleteExtra() : void {
+
+        this.alertService.clear();
+
+        this.dialogo.open(DialogoConfirmacionComponent, {
+            data: `Seguro que desea eliminar el registro de extras ?`
+        })
+        .afterClosed()
+        .subscribe((confirmado: Boolean) => {
+
+            if (confirmado) {
+
+                this.macredService.deleteExtra(  this._extrasAplicables.id )
+                .pipe(first())
+                .subscribe(response => {
+    
+                    if (response.exito) {
+    
+                        this._extrasAplicables = null;
+    
+                        this.listExtrasAplicables        = null;
+                        this.listTempExtrasAplicables    = null;
+                        this.habilitarBtnFinalizarExtras = false;
+    
+                        this.formIngresos.patchValue({ montoExtras  : 0 });
+    
+                        $('#extrasModal').modal('hide');
+
+                        this.alertService.success( response.responseMesagge );
+                    } 
+                    else { this.alertService.error(response.responseMesagge); }
+                });
+
+            } else { return; }
+        });
+    }
+    // elimina registros de forma interna para el ingreso y ejecución de procesos sin confirmación
+    eliminarRegistroExtra(idExtras : number) : void {
+        this.macredService.deleteExtra( idExtras )
+            .pipe(first())
+            .subscribe(response => { 
+                if (!response.exito) {
+                    this.alertService.error(response.responseMesagge);
+                    return;
+                }
+            });
     }
 
     createIngresoObjectForm() : MacIngresosXAnalisis {
@@ -1099,15 +1241,14 @@ export class AsociadosComponent implements OnInit {
         ingresoAnalisis.codigoAnalisis = this._analisisCapacidadpago.codigoAnalisis;
         ingresoAnalisis.codigoCompania = this.companiaObservable.id;
 
-        ingresoAnalisis.codigoTipoIngreso   = this.formIngresos.controls['codigoTipoIngreso'].value.id;
-        ingresoAnalisis.codigoTipoMoneda    = this._analisisCapacidadpago.codigoMoneda;
-        ingresoAnalisis.montoBruto          = this.formIngresos.controls['montoBruto'].value;
-        ingresoAnalisis.montoExtras         = this.formIngresos.controls['montoExtras'].value;
-        ingresoAnalisis.porcentajeExtras    = this.formIngresos.controls['porcentajeExtras'].value;
-        ingresoAnalisis.cargasSociales      = this.formIngresos.controls['cargasSociales'].value;
-        ingresoAnalisis.impuestoRenta       = this.formIngresos.controls['impuestoRenta'].value;
-        ingresoAnalisis.montoNeto           = this.formIngresos.controls['montoNeto'].value;
-        ingresoAnalisis.montoDeducciones    = this.formIngresos.controls['montoDeducciones'].value;
+        ingresoAnalisis.codigoTipoIngreso       = this.formIngresos.controls['codigoTipoIngreso'].value.id;
+        ingresoAnalisis.codigoTipoMoneda        = this._analisisCapacidadpago.codigoMoneda;
+        ingresoAnalisis.montoBruto              = this.formIngresos.controls['montoBruto'].value;
+        ingresoAnalisis.montoExtras             = this.formIngresos.controls['montoExtras'].value;
+        ingresoAnalisis.cargasSociales          = this.formIngresos.controls['cargasSociales'].value;
+        ingresoAnalisis.impuestoRenta           = this.formIngresos.controls['impuestoRenta'].value;
+        ingresoAnalisis.montoNeto               = this.formIngresos.controls['montoNeto'].value;
+        ingresoAnalisis.montoDeducciones        = this.formIngresos.controls['montoDeducciones'].value;
 
         return ingresoAnalisis;
     }
@@ -1130,9 +1271,15 @@ export class AsociadosComponent implements OnInit {
     RegistrarIngresoAnalisis() : void {
 
         this.alertService.clear();
+
         this.submittedIngresosForm = true;
 
         if ( this.formIngresos.invalid ) return;
+
+        if (this.formIngresos.controls['montoBruto'].value === 0) {
+            this.formIngresos.controls['montoBruto'].setErrors({'error': true});
+            return;
+        }
 
         var ingreso : MacIngresosXAnalisis = this.createIngresoObjectForm();
         ingreso.adicionadoPor   = this.userObservable.identificacion;
@@ -1148,7 +1295,12 @@ export class AsociadosComponent implements OnInit {
 
                 this.listIngresosAnalisis.push(response);
 
+                this.totalizarMontosIngreso();
+
+                this._ingresoAnalisisSeleccionado = null;
                 this.inicializaFormIngreso();
+
+                this.GuardarAnalisis();
 
                 this.alertService.success( `Registro de Ingreso realizado con éxito.` );
 
@@ -1158,6 +1310,7 @@ export class AsociadosComponent implements OnInit {
     ActualizaFormIngresos() : void {
 
         this.alertService.clear();
+
         this.submittedIngresosForm = true;
 
         if ( this.formIngresos.invalid ) return;
@@ -1176,10 +1329,14 @@ export class AsociadosComponent implements OnInit {
                     this.listIngresosAnalisis.splice(this.listIngresosAnalisis.findIndex( m => m.id == ingreso.id ), 1);
                     this.listIngresosAnalisis.push(ingreso);
 
+                    this.totalizarMontosIngreso();
+
                     this._ingresoAnalisisSeleccionado = null;
                     this.inicializaFormIngreso();
 
-                    this.alertService.success( response.responseMesagge );
+                    this.GuardarAnalisis();
+
+                    this.alertService.success( response.responseMesagge + '. ID Ingreso Actualizado: ' + ingreso.id );
 
                 } else { this.alertService.error(response.responseMesagge); }
             });
@@ -1201,10 +1358,8 @@ export class AsociadosComponent implements OnInit {
             .subscribe(response => {
 
                 if (response.exito) {
-
-                    this.listDeduccionesAnalisis.splice(this.listDeduccionesAnalisis.findIndex( m => m.id == deduccion.id ), 1);
-                    this.listDeduccionesAnalisis.push(deduccion);
-                    this.totalizarDeducciones(false);
+                    
+                    this.obtenerDeduccionesAnalisis();
 
                     this.habilitarBtnFinalizarDeducciones = true;
 
@@ -1215,5 +1370,39 @@ export class AsociadosComponent implements OnInit {
 
                 } else { this.alertService.error(response.responseMesagge); }
             });
+    }
+
+    totalizarMontosIngreso() : void {
+
+        let totalDeducciones        : number = 0;
+        let totalIngresoBruto       : number = 0;
+        let totalCargasImpuestos    : number = 0;
+        let totalExtrasAplicables   : number = 0;
+
+        let totalIngresoNeto        : number = 0;
+        let totalIngresoAnalisis    : number = 0;
+
+        if (this.listTotalDeduccionesAnalisis) {
+            this.listTotalDeduccionesAnalisis.forEach(deduccion => {
+                totalDeducciones += deduccion.monto;
+            });
+        }
+        
+        this.listIngresosAnalisis.forEach(ingreso => {
+            totalIngresoBruto += ingreso.montoBruto;
+            totalCargasImpuestos += ingreso.cargasSociales + ingreso.impuestoRenta;
+
+            totalExtrasAplicables += ingreso.montoExtras;
+        });
+
+        totalIngresoNeto        = totalIngresoBruto - totalCargasImpuestos ;
+        totalIngresoAnalisis    = totalIngresoNeto  + totalExtrasAplicables;
+
+        this._analisisCapacidadpago.totalCargaImpuestos    = totalCargasImpuestos;;
+        this._analisisCapacidadpago.totalDeducciones       = totalDeducciones;
+        this._analisisCapacidadpago.totalExtrasAplicables  = totalExtrasAplicables;
+        this._analisisCapacidadpago.totalIngresoBruto      = totalIngresoBruto;
+        this._analisisCapacidadpago.totalIngresoNeto       = totalIngresoNeto;
+        this._analisisCapacidadpago.totalMontoAnalisis     = totalIngresoAnalisis;
     }
 }

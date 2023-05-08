@@ -5,6 +5,8 @@
 @mixin bg-color-skyblue { background-color: #00AEEF; }
 @mixin bg-color-light-gray { background-color: #B3B3B3; } 
 
+
+
 .margin-icos-mat {
     margin: 30px 0 25px 0;
 
@@ -54,6 +56,94 @@
                 color: #00AEEF;
                 cursor: pointer;
             }
+        }
+    }
+}
+
+
+.contenedor-menu-asociados {
+
+    height: 600px;
+
+    margin: 1% 1% 1% 1%;
+    border-radius: 10px;
+
+    padding: 0.2% 1% 0.4% 1%;
+
+    width: 100% ;
+
+    border-bottom: 1px solid rgb(202, 202, 202);
+
+    &__nav {
+
+        width: 20%;
+        padding: 0 0 0 2%;
+
+        display: inline-block;
+        text-align: left;
+
+        &__items{
+
+            &__titulo{
+
+                color: #005188;
+                font-size: 1rem;
+                font-weight: 700;
+                transition: color 0.2s ease-in-out;
+                &:hover {
+                    color: #00AEEF;
+                    cursor: pointer;
+                }
+            }
+        }
+    }
+
+    &__contenido {
+        width: 80%;
+
+        padding: 0 2% 0 0;
+        display: inline-block;
+        text-align: right;
+    }
+}
+
+
+
+
+.contenedor-analisis {
+    
+    margin: 1% 1% 1% 1%;
+    border-radius: 10px;
+
+    &__menu {
+        width: 18%;
+        display: inline-block;
+        text-align: center;
+
+        &__body {
+            padding: 0.5% 2% 0.5% 2%;
+        }
+
+        &__items {
+            &__titulo{
+                color: #005188;
+                font-size: 1rem;
+                font-weight: 700;
+                transition: color 0.2s ease-in-out;
+                &:hover {
+                    color: #00AEEF;
+                    cursor: pointer;
+                }
+            }
+        }
+    }
+
+    &__tabletas {
+        width: 82%;
+        display: inline-block;
+
+        &__body {
+            padding: 0.5% 2% 0.5% 2%;
         }
     }
 }
