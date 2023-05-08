@@ -12,10 +12,10 @@ import { GrupoComponent } from './mantenimiento/calificacion-riesgo/Grupo-compon
 import { MovimientoDebeComponent } from './mantenimiento/calificacion-riesgo/MovimientoDebe-component';
 import { MovimientoHaberComponent } from './mantenimiento/calificacion-riesgo/MovimientoHaber-component';
 import { NivelRiesgoComponent } from './mantenimiento/calificacion-riesgo/NivelRiesgo-component';
-import { PaisComponent } from './mantenimiento/calificacion-riesgo/pais-component';
 import { ProductoFinancieroComponent } from './mantenimiento/calificacion-riesgo/ProductoFinanciero-component';
 import { ProfesionComponent } from './mantenimiento/calificacion-riesgo/Profesion-component';
 import { MenuCumplimientoComponent } from './menu.component';
+import { PaisComponent } from './mantenimiento/calificacion-riesgo/Pais-component';
 
 const routes: Routes = [
     {

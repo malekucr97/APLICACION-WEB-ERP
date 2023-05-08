@@ -58,6 +58,7 @@ export class AsociadosComponent implements OnInit {
     submittedDeduccionesForm : boolean = false;
     // ## -- ------------------ -- ## //
 
+    muestraTabs                 : boolean = false;
     datosAnalisis               : boolean = false;
     flujoCaja                   : boolean = false;
     pd                          : boolean = false;
@@ -275,6 +276,8 @@ export class AsociadosComponent implements OnInit {
     }
     habilitaTab(mod: Module) {
 
+        this.datosAnalisis = false; this.ingresos = false;
+
         switch (mod.id) {
 
             case 1:                     this.datosAnalisis = true;
@@ -343,10 +346,10 @@ export class AsociadosComponent implements OnInit {
 
         this.limpiarTabs();
 
-        if(this.menuItem && mod.id == this.menuItem.id) {
-            this.menuItem = null;
-            return;
-        }
+        // if(this.menuItem && mod.id == this.menuItem.id) {
+        //     this.menuItem = null;
+        //     return;
+        // }
 
         this.menuItem = this.listSubMenu.find(x => x.id === mod.id);
         this.habilitaTab(this.menuItem);
@@ -380,6 +383,8 @@ export class AsociadosComponent implements OnInit {
                     
                     this.cargaInformacionPersona(identificacionPersona);
                     this.inicializaFormDatosAnalisis();
+
+                    this.muestraTabs = true;
 
                 } else { return; }
             });
@@ -540,6 +545,7 @@ export class AsociadosComponent implements OnInit {
         this.listSubMenu.push(modTemp);
     }
     habilitaFormularioIngreso() : void {
+
         this.habilitarItemSubMenu(  new Module(5, 'Ingresos', 'Ingresos', 'Ingresos', 'A', '.png', '.ico', 'http'));
         this.selectModule(          new Module(5, 'Ingresos', 'Ingresos', 'Ingresos', 'I', '.png', '.ico', 'http'));
 
@@ -566,8 +572,8 @@ export class AsociadosComponent implements OnInit {
                 this.listHistorialAnalisis = response; 
             });
             
-        $('#analisisHistorialModal').modal('show');
-        // $('#analisisHistorialModal').modal({backdrop: 'static', keyboard: false}, 'show');
+        // $('#analisisHistorialModal').modal('show');
+        $('#analisisHistorialModal').modal({backdrop: 'static', keyboard: false}, 'show');
     }
     openDeduccionesModal() : void {
 

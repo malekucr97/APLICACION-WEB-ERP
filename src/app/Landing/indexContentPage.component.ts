@@ -132,6 +132,9 @@ export class IndexContentPageComponent implements OnInit {
             case ModulesSystem.Identif_RiesgoCredito:
                 indexHTTPModule = ModulesSystem.riesgocreditobasehref   + 'index.html'; // ## riesgo crédito ## //
                 break;
+            case ModulesSystem.Identif_Inversiones:
+                indexHTTPModule = ModulesSystem.inversionesbasehref     + 'index.html'; // ## inversiones transitorias ## //
+                break;
             default: indexHTTPModule = '/';
         }
         return indexHTTPModule;
