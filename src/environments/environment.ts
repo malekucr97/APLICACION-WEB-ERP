@@ -64,6 +64,9 @@ export const ModulesSystem = {
 
     Identif_RiesgoCredito:  'ID-BANKAP-RIESGO-CREDITO',
     riesgocreditobasehref:  '/inra-sa/modulo-riesgo-credito/',
+
+    Identif_Inversiones:  'ID-BANKAP-INVERSIONES',
+    inversionesbasehref:  '/inra-sa/modulo-inversiones/',
 };
 
 /*

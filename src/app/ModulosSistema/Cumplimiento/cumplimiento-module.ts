@@ -19,7 +19,7 @@ import { GrupoComponent } from './mantenimiento/calificacion-riesgo/Grupo-compon
 import { NivelRiesgoComponent } from './mantenimiento/calificacion-riesgo/NivelRiesgo-component';
 import { ActividadEconomicaComponent } from './mantenimiento/calificacion-riesgo/ActividadEconomica-component';
 import { ProfesionComponent } from './mantenimiento/calificacion-riesgo/Profesion-component';
-import { PaisComponent } from './mantenimiento/calificacion-riesgo/pais-component';
+import { PaisComponent } from './mantenimiento/calificacion-riesgo/Pais-component';
 import { MovimientoDebeComponent } from './mantenimiento/calificacion-riesgo/MovimientoDebe-component';
 import { MovimientoHaberComponent } from './mantenimiento/calificacion-riesgo/MovimientoHaber-component';
 import { CantidadDebeComponent } from './mantenimiento/calificacion-riesgo/CantidadDebe-component';
