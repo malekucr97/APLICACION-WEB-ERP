@@ -138,6 +138,40 @@
     }
 }
 
+mat-toolbar {
+    background: linear-gradient(#00AEEF 1%, #005188, #053254 40%);
+    color: white;
+}
+
+
+// newversion 5 9 2023 - mlopez
+
+// ************************************
+// landing no logins pages
+// ************************************
+.articulo {
+
+    padding: 1.2% 2% 1.4% 2%;
+
+    &__contenedor {
+
+        display:         flex;
+        flex-direction:  row;
+        justify-content: center;
+        align-items:     center;
+        flex-wrap:       wrap;
+
+        text-align: center;
+
+        margin: 1% 1% 1% 1%;
+        border-radius: 10px;
+
+        &__body {
+            padding: 1.5% 3% 1.5% 3%;
+        }
+    } 
+}
+
 .btn-redirect-login {
     margin-top: 10%;
     padding: 0 2%;
@@ -149,8 +183,4 @@
     font-size: 16px;
     color: #fff;
     line-height: 1.2;
-}
-mat-toolbar {
-    background: linear-gradient(#00AEEF 1%, #005188, #053254 40%);
-    color: white;
 }

@@ -27,7 +27,6 @@ declare var $: any;
 })
 export class AsociadosComponent implements OnInit {
     @ViewChild(MatSidenav) sidenav !: MatSidenav;
-    @ViewChild(MatSidenav) sidenav2 : MatSidenav;
 
     private nombrePantalla  : string = 'calificacion-asociados.html';
     // listScreenAccessUser    : ScreenAccessUser[];
