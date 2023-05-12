@@ -150,6 +150,16 @@
         }
     }
     &__confirm {
+
+        color: #053254;
+        transition: color 0.2s ease-in-out;
+        &:hover {
+            color: #129523;
+            cursor: pointer;
+        }
+    }
+    &__search {
+        
         color: #053254;
         transition: color 0.2s ease-in-out;
         &:hover {

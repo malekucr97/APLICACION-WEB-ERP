@@ -3,6 +3,7 @@ import { HttpClient } from '@angular/common/http';
 
 import { ResponseMessage } from '@app/_models';
 import { environment } from '@environments/environment';
+
 import { MacPersona } from '@app/_models/Macred/Persona';
 import { MacTipoIngresoAnalisis } from '@app/_models/Macred/TipoIngresoAnalisis';
 import { MacTipoFormaPagoAnalisis } from '@app/_models/Macred/TipoFormaPagoAnalisis';
@@ -25,7 +26,6 @@ import { MacTipoAsociado } from '@app/_models/Macred/TipoAsociado';
 import { MacTipoHabitacion } from '@app/_models/Macred/TipoHabitacion';
 import { MacEstadoCivil } from '@app/_models/Macred/EstadoCivil';
 import { MacParametrosGenerales } from '@app/_models/Macred';
-
 
 @Injectable({ providedIn: 'root' })
 export class MacredService {

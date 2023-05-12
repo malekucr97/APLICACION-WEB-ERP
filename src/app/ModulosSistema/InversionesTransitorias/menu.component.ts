@@ -19,14 +19,15 @@ import { ModulesSystem } from '@environments/environment';
     name: 'Mantenimientos',
     link: '',
     icon: '',
-    children: [{name: 'Parámetros', link: '/', icon: ''}, 
-               {name: 'Calificación Riesgo',
-               link: '', 
-               icon: '',
-               children: [{name: 'Grupos',      link: ModulesSystem.cumplimientobasehref + '', icon: ''}, 
-                          {name: 'Criterios',   link: '/', icon: ''},
-                          {name: 'Calificación SUGEF',        link: '/', icon: ''}
-                        ]}],
+    children: [ {name: 'Monedas', link: ModulesSystem.inversionesbasehref + 'mantenimientos/tipos-monedas.html', icon: ''}, 
+                {name: 'Opc2',    link: '/', icon: ''}, 
+                {name: 'Opc3',
+                link: '', 
+                icon: '',
+                children: [ {name: 'Opc3.1',      link: ModulesSystem.cumplimientobasehref + '', icon: ''}, 
+                            {name: 'Opc3.2',   link: '/', icon: ''},
+                            {name: 'Opc3.3',        link: '/', icon: ''}
+                          ]}],
   },
   {
     name: 'Procesos',

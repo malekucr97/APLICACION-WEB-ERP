@@ -7,8 +7,6 @@ import { IndexMacredComponent } from './index.component';
 import { MenuMacredComponent } from './menu.component';
 import { AsociadosComponent } from './asociados/asociados-component';
 
-import { MatListModule } from '@angular/material/list';
-
 import { MatToolbarModule } from '@angular/material/toolbar';
 import { MatSidenavModule } from '@angular/material/sidenav';
 import { MatButtonModule } from '@angular/material/button';
@@ -18,14 +16,16 @@ import { MatDividerModule } from '@angular/material/divider';
 import {MatTreeModule} from '@angular/material/tree';
 import {MatTooltipModule} from '@angular/material/tooltip';
 
-import { MatDatepickerModule } from '@angular/material/datepicker';
 import { MatNativeDateModule } from '@angular/material/core';
+import { MatDatepickerModule } from '@angular/material/datepicker';
 import { MatCheckboxModule } from '@angular/material/checkbox';
 
 import { MatDialogModule } from '@angular/material/dialog';
+import { MatFormFieldModule}  from '@angular/material/form-field';
+import { MatListModule } from '@angular/material/list';
+
 import { PersonasComponent } from './mantenimientos/Personas/personas-component';
 
-import {MatFormFieldModule} from '@angular/material/form-field';
 import { EstadosCivilesComponent } from './mantenimientos/Personas/estadosciviles-component';
 import { ParametrosGeneralesComponent } from './configuracion/parametrosgenerales-component';
 import { TiposPersonasComponent } from './mantenimientos/Personas/tipospersonas-component';
@@ -57,9 +57,7 @@ import { TipoIngresoComponent } from './mantenimientos/AnalisisPersonas/tipoingr
         MatCheckboxModule,
 
         MatDialogModule,
-
         MatFormFieldModule,
-        
         MatListModule
 
     ],

@@ -67,6 +67,7 @@ export class LoginComponent implements OnInit {
                     }
 
                     responseObjectLogin.esAdmin = false;
+
                     this.accountService.getRoleById(responseObjectLogin.idRol)
                     .pipe(first())
                     .subscribe( responseObjectRol => {
@@ -92,7 +93,7 @@ export class LoginComponent implements OnInit {
                 }
             },
             (error) => {
-                this.alertService.error('Problemas al obtener respuesta del Servidor. Por favor contacte al administrador.');
+                this.alertService.error('Problemas al obtener respuesta del Servidor. Por favor contacte al administrador.' + error);
             });
     }
 }

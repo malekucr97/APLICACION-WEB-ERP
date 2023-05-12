@@ -44,9 +44,9 @@ export const httpLandingIndexPage = {
     // -- >> Langing Pages Index Application
     indexHTTP: '/inra-sa/index.html',
     // -- >> Langing No Loggin Application
-    indexHTTPPendingUser:       '/_/PendingPage/index.html',
-    indexHTTPNotRolUser:        '/_/NotRolPage/index.html',
-    indexHTTPInactiveUser:      '/_/InactiveUserPage/index.html',
-    indexHTTPInactiveRolUser:   '/_/InactiveRolPage/index.html',
-    urlPageNotBusiness:         '/_/NotBusinessPage/index.html'
+    indexHTTPPendingUser:       '/inra-sa/PendingPage/index.html',
+    indexHTTPNotRolUser:        '/inra-sa/NotRolPage/index.html',
+    indexHTTPInactiveUser:      '/inra-sa/InactiveUserPage/index.html',
+    indexHTTPInactiveRolUser:   '/inra-sa/InactiveRolPage/index.html',
+    urlPageNotBusiness:         '/inra-sa/NotBusinessPage/index.html'
 };

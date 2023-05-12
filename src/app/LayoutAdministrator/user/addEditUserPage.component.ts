@@ -72,8 +72,6 @@ export class AddEditUserComponent implements OnInit {
                 email: ['', Validators.required],
                 numeroTelefono: ['', Validators.required],
                 role: [''],
-                // bus: [''],
-                // roles: [''],
                 password: ['',  [Validators.required, Validators.minLength(6)]]
             });
         }
@@ -88,8 +86,6 @@ export class AddEditUserComponent implements OnInit {
                 email: ['', Validators.required],
                 numeroTelefono: ['', Validators.required],
                 role: [''],
-                // bus: [''],
-                // roles: [''],
                 password: ['']
             });
 
