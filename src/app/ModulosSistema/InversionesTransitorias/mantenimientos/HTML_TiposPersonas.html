@@ -11,23 +11,20 @@
                     <div class="articulo__contenedor__header__prev" > 
                         <button *ngIf="habilitaBtnNuevo" class="px-5 articulo__contenedor__header__prev__btns__new" 
                                 mat-flat-button
-                                (click)="limpiarFormularioMoneda()">Nuevo</button>
+                                (click)="limpiarFormularioTipoPersona()">Nuevo</button>
 
                         <button *ngIf="habilitaBtnActualiza" class="px-5 articulo__contenedor__header__prev__btns__warn" 
                                 mat-flat-button
-                                (click)="actualizaMoneda()">Actualizar Información</button>
+                                (click)="actualizaTipoPersona()">Actualizar Información</button>
                         <button *ngIf="habilitaBtnRegistro" class="px-5 articulo__contenedor__header__prev__btns__ok" 
                                 mat-flat-button
-                                (click)="submitMoneda()">Registrar Moneda</button>
+                                (click)="submitTipoPersona()">Registrar Tipo Persona</button>
                         <button *ngIf="habilitaBtnElimibar" class="px-5 articulo__contenedor__header__prev__btns__danger" 
                                 mat-flat-button
-                                (click)="eliminarMoneda()">Eliminar Registro</button>
+                                (click)="eliminarTipoPersona()">Eliminar Registro</button>
                     </div>
 
-                    <div class="articulo__contenedor__header__next" >
-
-                        
-                    </div>
+                    <div class="articulo__contenedor__header__next" > </div>
 
                 </div>
             </section>
@@ -39,48 +36,48 @@
 
                     <div class="articulo__contenedor__body__prev" >
 
-                        <form [formGroup]="formTipoMoneda" class="row">
+                        <form [formGroup]="formTipoPersona" class="row">
 
                             <div class="col-sm-1 margin-icos-mat"> </div>
+
+                            <!-- id -->
 
                             <div class="form-group col-md-3">
                                 <label for="id" class="form-label">Id</label>
                                 <input formControlName="id" class="form-control" type="text" id="id_id" readonly />
                             </div>
+
+                            <!-- search campos -->
                             
-                            <div class="form-group col-md-5">
-                                <label for="lblCodigoMoneda" class="form-label">Código de Moneda</label>
-                                <input formControlName="codigo_moneda" class="form-control" type="text" id="id_codigo_moneda"
-                                    [ngClass]="{ 'is-invalid': submittedTipoMonedaForm && m.codigo_moneda.errors }" />
-                                <div *ngIf="submittedTipoMonedaForm && m.codigo_moneda.errors" class="invalid-feedback">
-                                    <div *ngIf="m.codigo_moneda.errors.required">El código de la moneda es requerido .</div>
+                            <div class="form-group col-md-7">
+                                <label for="lblDescripcion" class="form-label">Descripción</label>
+                                <input formControlName="descripcion" class="form-control" type="text" id="id_descripcion"
+                                    [ngClass]="{ 'is-invalid': submittedTipoPersonaForm && m.descripcion.errors }" />
+                                <div *ngIf="submittedTipoPersonaForm && m.descripcion.errors" class="invalid-feedback">
+                                    <div *ngIf="m.descripcion.errors.required">La descripcion es requerida .</div>
                                 </div>
                             </div>
 
                             <div class="col-sm-1 margin-icos-mat">
-                                <a class="item-list__search"> <mat-icon (click)="buscarMoneda()">search</mat-icon> </a>
+                                <a class="item-list__search"> <mat-icon (click)="buscarTiposPersona()">search</mat-icon> </a>
                             </div>
 
-                            <div class="col-sm-2 margin-icos-mat"> </div>
+                            <!-- <div class="col-sm-3 margin-icos-mat"> </div> -->
 
+                            <!-- search campos -->
+
+                            <!-- actualiza form -->
+
+                            <!-- linea 1 -->
 
                             <div class="col-sm-1 margin-icos-mat"> </div>
 
                             <div class="form-group col-md-3">
-                                <label for="simbolo" class="form-label">Símbolo</label>
-                                <input formControlName="simbolo" class="form-control" type="text" id="id_simbolo"
-                                    [ngClass]="{ 'is-invalid': submittedTipoMonedaForm && m.simbolo.errors }" />
-                                <div *ngIf="submittedTipoMonedaForm && m.simbolo.errors" class="invalid-feedback">
-                                    <div *ngIf="m.simbolo.errors.required">El símbolo de la moneda es requerido .</div>
-                                </div>
-                            </div>
-
-                            <div class="form-group col-md-5">
-                                <label for="descripcion" class="form-label">Descripción de Moneda</label>
-                                <input formControlName="descripcion" class="form-control" type="text" id="id_descripcion"
-                                    [ngClass]="{ 'is-invalid': submittedTipoMonedaForm && m.descripcion.errors }" />
-                                <div *ngIf="submittedTipoMonedaForm && m.descripcion.errors" class="invalid-feedback">
-                                    <div *ngIf="m.descripcion.errors.required">La descripción de la moneda es requerida .</div>
+                                <label for="mascaraIdentificacion" class="form-label">Máscara para la identificación</label>
+                                <input formControlName="mascaraIdentificacion" class="form-control" type="text" id="id_mascara_identificacion"
+                                    [ngClass]="{ 'is-invalid': submittedTipoPersonaForm && m.mascaraIdentificacion.errors }" />
+                                <div *ngIf="submittedTipoPersonaForm && m.mascaraIdentificacion.errors" class="invalid-feedback">
+                                    <div *ngIf="m.mascaraIdentificacion.errors.required">La máscara para la identificación es requerida .</div>
                                 </div>
                             </div>
 
@@ -88,7 +85,13 @@
                                 <mat-checkbox formControlName="estado">Estado</mat-checkbox>
                             </div>
 
-                            <div class="col-sm-2 margin-icos-mat"> </div>
+                            <div class="col-sm-6 margin-icos-mat"> </div>
+
+                            <!-- linea 1 -->
+
+                            <!-- linea 2 -->
+
+                            <!-- linea 2 -->
 
                         </form>
                     </div>
@@ -96,25 +99,23 @@
 
                     <div class="articulo__contenedor__body__next">
 
-                            <div *ngIf="listTiposMonedas" class="articulo__contenedor__body__next__tabla">
+                            <div *ngIf="listTiposPersonas" class="articulo__contenedor__body__next__tabla">
                                 <table class="table table-striped">
                                     <thead>
                                         <tr>
                                             <th style="width: 10%">Id</th>
-                                            <th style="width: 20%">Código Moneda</th>
                                             <th style="width: 25%">Descripción</th>
-                                            <th style="width: 10%">Símbolo</th>
+                                            <th style="width: 10%">mascaraIdentificacion</th>
                                             <th style="width: 10%">Estado</th>
                                             <th style="width: 10%">Modificado</th>
                                             <th style="width: 15%">Se actualizó</th>
                                         </tr>
                                     </thead>
                                     <tbody>
-                                        <tr *ngFor="let obj of listTiposMonedas" class="item-list__confirm" (click)="selectMoneda(obj)" >
+                                        <tr *ngFor="let obj of listTiposPersonas" class="item-list__confirm" (click)="selectTipoPersona(obj)" >
                                             <td>{{obj.id}}</td>
-                                            <td>{{obj.codigoMoneda}}</td>
                                             <td>{{obj.descripcion}}</td>
-                                            <td>{{obj.simbolo}}</td>
+                                            <td>{{obj.mascaraIdentificacion}}</td>
                                             <td>{{obj.estado}}</td>
                                             <td>{{obj.modificadoPor}}</td>
                                             <td>{{obj.fechaModificacion}}</td>

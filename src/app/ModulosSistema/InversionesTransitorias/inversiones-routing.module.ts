@@ -4,7 +4,8 @@ import { Routes, RouterModule } from '@angular/router';
 import { IndexInversionesComponent } from './index.component';
 import { MenuInversionesComponent } from './menu.component';
 
-import {InvTiposMonedasComponent} from './mantenimientos/inv-tiposmonedas-component';
+import {InvTiposMonedasComponent} from './mantenimientos/tiposmonedas-component';
+import { InvTiposPersonasComponent } from './mantenimientos/tipospersonas-component';
 
 const routes: Routes = [
     {
@@ -12,7 +13,8 @@ const routes: Routes = [
         children: [
             { path: '', component:              IndexInversionesComponent },
             { path: 'index.html', component:    IndexInversionesComponent },
-            { path: 'mantenimientos/tipos-monedas.html', component:    InvTiposMonedasComponent }
+            { path: 'mantenimientos/tipos-monedas.html', component:    InvTiposMonedasComponent },
+            { path: 'mantenimientos/tipos-personas.html', component:    InvTiposPersonasComponent }
         ]
     }
 ];
