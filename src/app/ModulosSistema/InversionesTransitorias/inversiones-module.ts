@@ -23,7 +23,8 @@ import { MatDialogModule } from '@angular/material/dialog';
 import { MatFormFieldModule}  from '@angular/material/form-field';
 import { MatListModule } from '@angular/material/list';
 
-import {InvTiposMonedasComponent} from './mantenimientos/inv-tiposmonedas-component';
+import {InvTiposMonedasComponent} from './mantenimientos/tiposmonedas-component';
+import { InvTiposPersonasComponent } from './mantenimientos/tipospersonas-component';
 
 @NgModule({
     imports: [
@@ -53,8 +54,11 @@ import {InvTiposMonedasComponent} from './mantenimientos/inv-tiposmonedas-compon
         IndexInversionesComponent,
         MenuInversionesComponent,
 
-        // ** manteniminto / tipo de moneda
-        InvTiposMonedasComponent
+        // ** manteniminto
+        // / ** tipo de moneda
+        InvTiposMonedasComponent,
+        // / ** tipo de persona
+        InvTiposPersonasComponent
     ],
     entryComponents: [
         InvTiposMonedasComponent

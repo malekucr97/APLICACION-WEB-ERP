@@ -20,7 +20,7 @@ import { ModulesSystem } from '@environments/environment';
     link: '',
     icon: '',
     children: [ {name: 'Monedas', link: ModulesSystem.inversionesbasehref + 'mantenimientos/tipos-monedas.html', icon: ''}, 
-                {name: 'Opc2',    link: '/', icon: ''}, 
+                {name: 'Tipos de Personas',    link: ModulesSystem.inversionesbasehref + 'mantenimientos/tipos-personas.html', icon: ''}, 
                 {name: 'Opc3',
                 link: '', 
                 icon: '',

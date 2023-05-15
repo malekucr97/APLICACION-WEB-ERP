@@ -36,7 +36,7 @@ export class InvTiposMonedasComponent implements OnInit {
     submittedTipoMonedaForm     : boolean = false;
 
     // ## -- habilita botones -- ## //
-    habilitaBtnRegistro     : boolean = false;
+    habilitaBtnRegistro     : boolean = true;
     habilitaBtnActualiza    : boolean = false;
     habilitaBtnNuevo        : boolean = false;
     habilitaBtnElimibar     : boolean = false;
@@ -84,7 +84,7 @@ export class InvTiposMonedasComponent implements OnInit {
 
         if (getAllMonedas) codigoMoneda = "%%" ;
 
-        this.inversionesService.getTiposMonedasInversiones(codigoMoneda, this.companiaObservable.id, true)
+        this.inversionesService.getTiposMonedas(codigoMoneda, this.companiaObservable.id, true)
             .pipe(first())
             .subscribe(response => {
 
@@ -102,7 +102,7 @@ export class InvTiposMonedasComponent implements OnInit {
             });
     }
 
-    selectAnalisisHistorial(moneda : InvTipoMoneda) : void {
+    selectMoneda(moneda : InvTipoMoneda) : void {
 
         this.inicializaFormTipoMoneda(moneda);
     }
@@ -193,24 +193,22 @@ export class InvTiposMonedasComponent implements OnInit {
 
         if ( this.formTipoMoneda.invalid ) return;
 
-        var monedaForm : InvTipoMoneda = this.crearMonedaObjectForm();
-
-        var idMoneda : number = this.formTipoMoneda.controls['id'].value;
+        var id : number = this.formTipoMoneda.controls['id'].value;
 
         this.dialogo.open(DialogoConfirmacionComponent, {
-            data: `Segur@ que desea eliminar la moneda para siempre ?`
+            data: `Segur@ que desea eliminar el registro para siempre ?`
         })
         .afterClosed()
         .subscribe((confirmado: Boolean) => {
 
             if (confirmado) {
 
-                this.inversionesService.deleteTipoMoneda( idMoneda )
+                this.inversionesService.deleteTipoMoneda( id )
                     .pipe(first())
                     .subscribe(response => {
                         if (response.exito) {
 
-                            this.listTiposMonedas.splice(this.listTiposMonedas.findIndex( m => m.id == idMoneda ), 1);
+                            this.listTiposMonedas.splice(this.listTiposMonedas.findIndex( m => m.id == id ), 1);
 
                             this.inicializaFormTipoMoneda();
 
@@ -257,7 +255,7 @@ export class InvTiposMonedasComponent implements OnInit {
 
                     this.alertService.success( `Moneda ${response.codigoMoneda} actualizada con éxito.` );
 
-                } else { this.alertService.error(`No fue posible actualizar la moneda .`); }
+                } else { this.alertService.error(`No fue posible actualizar el registro .`); }
 
             }, error => {
                 this.alertService.error( `Problemas al establecer la conexión con el servidor. Detalle: ${ error }` );
