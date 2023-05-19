@@ -10,19 +10,21 @@ import { DialogoConfirmacionComponent }             from '@app/_components/dialo
 
 // ## -- servicio macred http -- ## //
 import { InversionesService }                       from '@app/_services/inversiones.service';
+import { InvTipoMoneda } from '@app/_models/Inversiones/TipoMoneda';
 import { first } from 'rxjs/operators';
-import { InvTipoPersona } from '@app/_models/Inversiones/TipoPersona';
+import { InvTipoCambio } from '@app/_models/Inversiones/TipoCambio';
+import { InvTipoAnio } from '@app/_models/Inversiones/TipoAnio';
 
 declare var $: any;
 
 @Component({
-    templateUrl: 'HTML_TiposPersonas.html',
+    templateUrl: 'HTML_TiposAnios.html',
     styleUrls: ['../../../../assets/scss/app.scss', '../../../../assets/scss/inversiones/app.scss'],
 })
-export class InvTiposPersonasComponent implements OnInit {
+export class InvTiposAniosComponent implements OnInit {
     @ViewChild(MatSidenav) sidenav !: MatSidenav;
 
-    private nombrePantalla  : string = 'HTML_TiposPersonas.html';
+    private nombrePantalla  : string = 'HTML_TiposAnios.html';
     public nombreModulo     : string ;
 
     // ## -- objetos suscritos -- ## //
@@ -31,10 +33,10 @@ export class InvTiposPersonasComponent implements OnInit {
     private companiaObservable  : Compania;
 
     // ## -- formularios -- ## //
-    formTipoPersona              : FormGroup;
+    formulario  : FormGroup;
 
     // ## -- submit formularios -- ## //
-    submittedTipoPersonaForm     : boolean = false;
+    submittedForm     : boolean = false;
 
     // ## -- habilita botones -- ## //
     habilitaBtnRegistro     : boolean = true;
@@ -42,7 +44,8 @@ export class InvTiposPersonasComponent implements OnInit {
     habilitaBtnNuevo        : boolean = false;
     habilitaBtnElimibar     : boolean = false;
 
-    public listTiposPersonas  : InvTipoPersona[]  = [];
+    // ## -- listas analisis -- ## //
+    public listObjetos  : InvTipoAnio[]  = [];
 
     public today : Date ;
 
@@ -59,44 +62,45 @@ export class InvTiposPersonasComponent implements OnInit {
         this.today = new Date();
     }
 
-    get m () {   return this.formTipoPersona.controls;  }
+    get m () {   return this.formulario.controls;  }
 
 
     ngOnInit() {
 
-        this.formTipoPersona    = this.formBuilder.group({
-            id                      : [null],
-            descripcion             : [null],
-            mascaraIdentificacion   : [null],
-            estado                  : [true]
+        this.formulario    = this.formBuilder.group({
+            id                  : [null],
+            descripcion         : [null],
+            dias                : [null],
+            estado              : [null]
         });
         this.nombreModulo = this.moduleObservable.nombre ;
 
-        this.buscarTiposPersona(true);
+        this.buscarObjeto(true);
     }
 
-    buscarTiposPersona(getAllPersonas : boolean = false) : void {
+    buscarObjeto(getAll : boolean = false) : void {
 
         this.alertService.clear();
-        this.submittedTipoPersonaForm = true;
+        this.submittedForm = true;
 
-        let descripcion = this.formTipoPersona.controls['descripcion'].value ;
+        let descripcion = this.formulario.controls['descripcion'].value ;
 
-        if (getAllPersonas) descripcion = "%%" ;
+        if (getAll) descripcion = "%%" ;
 
-        this.inversionesService.getTiposPersonaDescripcion(descripcion, this.companiaObservable.id, true)
+        this.inversionesService.getTipoAnio(descripcion, this.companiaObservable.id, false)
             .pipe(first())
             .subscribe(response => {
 
                 if ( response && response.length > 0 ) {
                     
-                    this.inicializaformTipoPersona(response[0]);
+                    this.inicializaFormulario(response[0]);
 
-                    this.listTiposPersonas = response ;
+                    this.listObjetos = response ;
 
                 } else { 
-                    this.inicializaformTipoPersona(response[0]);
-                    this.alertService.info('No se encontraron registros .'); 
+                
+                    this.inicializaFormulario();
+                    this.alertService.info('No se encontraron registros .');
                 }
             },
             error => {
@@ -104,13 +108,7 @@ export class InvTiposPersonasComponent implements OnInit {
                 this.alertService.error(message);
             });
     }
-
-    selectTipoPersona(moneda : InvTipoPersona) : void {
-
-        this.inicializaformTipoPersona(moneda);
-    }
-
-    inicializaformTipoPersona(objeto : InvTipoPersona = null)       : void {
+    inicializaFormulario(objeto : InvTipoAnio = null)       : void {
 
         if (objeto) {
 
@@ -119,11 +117,11 @@ export class InvTiposPersonasComponent implements OnInit {
             this.habilitaBtnNuevo = true ;
             this.habilitaBtnElimibar = true;
 
-            this.formTipoPersona    = this.formBuilder.group({
-                id                      : [objeto.id],
-                descripcion             : [objeto.descripcion, Validators.required],
-                mascaraIdentificacion   : [objeto.mascaraIdentificacion],
-                estado                  : [objeto.estado, Validators.required]
+            this.formulario    = this.formBuilder.group({
+                id                  : [objeto.id],
+                descripcion         : [objeto.descripcion, Validators.required],
+                dias                : [objeto.dias, Validators.required],
+                estado              : [objeto.estado, Validators.required]
             });
         } else {
 
@@ -132,65 +130,70 @@ export class InvTiposPersonasComponent implements OnInit {
             this.habilitaBtnNuevo = false ;
             this.habilitaBtnElimibar = false;
 
-            this.formTipoPersona    = this.formBuilder.group({
-                id                      : [null],
-                descripcion             : [null, Validators.required],
-                mascaraIdentificacion   : [null],
-                estado                  : [true, Validators.required]
+            this.formulario    = this.formBuilder.group({
+                id                  : [null],
+                descripcion         : [null, Validators.required],
+                dias                : [null, Validators.required],
+                estado              : [true, Validators.required]
             });
         }
     }
 
-    crearTipoPersonaObjectForm() : InvTipoPersona {
+    selectObjeto(objeto : InvTipoAnio) : void {
 
-        var descripcion             = this.formTipoPersona.controls['descripcion'].value;
-        var mascaraIdentificacion   = this.formTipoPersona.controls['mascaraIdentificacion'].value;
-        var estado                  = this.formTipoPersona.controls['estado'].value;
-
-        var objectForm = new InvTipoPersona (this.companiaObservable.id, descripcion, mascaraIdentificacion, estado) ;
-
-        return objectForm ;
+        this.inicializaFormulario(objeto);
     }
 
-    submitTipoPersona() : void {
+    crearObjectForm() : InvTipoAnio {
+
+        var descripcion     = this.formulario.controls['descripcion'].value;
+        var dias = this.formulario.controls['dias'].value;
+        var estado          = this.formulario.controls['estado'].value;
+
+        var objForm = new InvTipoAnio (this.companiaObservable.id, descripcion, dias, estado) ;
+
+        return objForm ;
+    }
+
+    submit() : void {
 
         this.alertService.clear();
-        this.submittedTipoPersonaForm = true;
+        this.submittedForm = true;
 
-        if ( this.formTipoPersona.invalid ) return;
+        if ( this.formulario.invalid ) return;
 
-        var objectForm : InvTipoPersona = this.crearTipoPersonaObjectForm();
+        var objectForm : InvTipoAnio = this.crearObjectForm();
         
         objectForm.adicionadoPor    = this.userObservable.identificacion;
         objectForm.fechaAdicion     = this.today;
 
-        this.inversionesService.postTipoPersona(objectForm)
+        this.inversionesService.postTipoAnio(objectForm)
             .pipe(first())
             .subscribe(response => {
 
                 if ( response ) {
 
-                    this.listTiposPersonas.push(response);
+                    this.listObjetos.push(response);
 
-                    this.inicializaformTipoPersona();
+                    this.inicializaFormulario();
 
-                    this.alertService.success( `Tipo de persona ${response.descripcion} registrado con éxito.` );
+                    this.alertService.success( `Registro exitoso .` );
 
-                } else { this.alertService.error(`No fue posible registrar el tipo de persona .`); }
+                } else { this.alertService.error(`No fue posible registrar la moneda .`); }
 
             }, error => {
                 this.alertService.error( `Problemas al establecer la conexión con el servidor. Detalle: ${ error }` );
             });
     }
 
-    eliminarTipoPersona() : void {
+    eliminarObjeto() : void {
 
         this.alertService.clear();
-        this.submittedTipoPersonaForm = true;
+        this.submittedForm = true;
 
-        if ( this.formTipoPersona.invalid ) return;
+        if ( this.formulario.invalid ) return;
 
-        var id : number = this.formTipoPersona.controls['id'].value;
+        var id : number = this.formulario.controls['id'].value;
 
         this.dialogo.open(DialogoConfirmacionComponent, {
             data: `Segur@ que desea eliminar el registro para siempre ?`
@@ -200,14 +203,14 @@ export class InvTiposPersonasComponent implements OnInit {
 
             if (confirmado) {
 
-                this.inversionesService.deleteTipoPersona( id )
+                this.inversionesService.deleteTipoAnio( id )
                     .pipe(first())
                     .subscribe(response => {
                         if (response.exito) {
 
-                            this.listTiposPersonas.splice(this.listTiposPersonas.findIndex( m => m.id == id ), 1);
+                            this.listObjetos.splice(this.listObjetos.findIndex( m => m.id == id ), 1);
 
-                            this.inicializaformTipoPersona();
+                            this.inicializaFormulario();
 
                             this.alertService.success(response.responseMesagge);
                             
@@ -218,39 +221,39 @@ export class InvTiposPersonasComponent implements OnInit {
         });
     }
 
-    limpiarFormularioTipoPersona() : void {
+    limpiarFormulario() : void {
 
-        this.inicializaformTipoPersona();
+        this.inicializaFormulario();
     }
 
-    actualizaTipoPersona() : void {
+    actualizaObjeto() : void {
 
         this.alertService.clear();
-        this.submittedTipoPersonaForm = true;
+        this.submittedForm = true;
 
-        if ( this.formTipoPersona.invalid ) return;
+        if ( this.formulario.invalid ) return;
 
-        var objectForm : InvTipoPersona = this.crearTipoPersonaObjectForm();
+        var objectForm : InvTipoAnio = this.crearObjectForm();
 
-        objectForm.id = this.formTipoPersona.controls['id'].value;
+        objectForm.id = this.formulario.controls['id'].value;
         
         objectForm.modificadoPor        = this.userObservable.identificacion;
         objectForm.fechaModificacion    = this.today;
 
-        this.inversionesService.putTipoPersona(objectForm)
+        this.inversionesService.putTipoAnio(objectForm)
             .pipe(first())
             .subscribe(response => {
 
                 if ( response ) {
 
-                    if( this.listTiposPersonas.find( m => m.id == response.id ) ) {
-                        this.listTiposPersonas.splice(this.listTiposPersonas.findIndex( m => m.id == response.id ), 1);
+                    if( this.listObjetos.find( m => m.id == response.id ) ) {
+                        this.listObjetos.splice(this.listObjetos.findIndex( m => m.id == response.id ), 1);
                     }
-                    this.listTiposPersonas.push(response);
+                    this.listObjetos.push(response);
 
-                    this.inicializaformTipoPersona();
+                    this.inicializaFormulario();
 
-                    this.alertService.success( `Tipo de persona ${response.descripcion} actualizado con éxito.` );
+                    this.alertService.success( `Registro actualizado con éxito con éxito.` );
 
                 } else { this.alertService.error(`No fue posible actualizar el registro .`); }
 

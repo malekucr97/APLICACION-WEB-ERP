@@ -1,0 +1,332 @@
+<main>
+    <article class="articulo">
+
+        <div class="articulo__contenedor mat-elevation-z4">
+
+            <!-- // ************
+            // ** HEADER ** -->
+            <section>
+                <div class="articulo__contenedor__header">
+
+                    <div class="articulo__contenedor__header__prev" >
+
+                        <p>{{nombreModulo}} / Mantenimiento de Periocidades</p>
+
+                    </div>
+
+                    <div class="articulo__contenedor__header__next" > </div>
+
+                </div>
+            </section>
+
+            <!-- // **********
+            // ** BODY ** -->
+
+            <!-- ********************** -->
+            <!-- SECCIÓN MERCADOS       -->
+            <!-- ********************** -->
+
+            <section >
+                <div class="articulo__contenedor__body">
+
+                    <div class="articulo__contenedor__body__prev" >
+
+                        <article>
+                            <div>
+                                <section>
+                                    <div class="articulo__contenedor__body__prev__form">
+
+                                        <div class="articulo__contenedor__body__prev__form__header"> 
+                                            
+                                            <div class="articulo__contenedor__body__prev__form__header__prev" > 
+                                                <p class="articulo__contenedor__body__prev__form__header__titulo">Tipos de Mercados</p>
+                                            </div>
+
+                                            <div class="articulo__contenedor__body__prev__form__header__next" > 
+
+                                                <button *ngIf="habilitaBtnNuevoMercado" class="articulo__contenedor__body__prev__form__header__prev__btns__new" 
+                                                        mat-flat-button
+                                                        (click)="limpiarFormularioMercado()">Nuevo</button>
+
+                                                <button *ngIf="habilitaBtnActualizaMercado" class="articulo__contenedor__header__prev__btns__warn" 
+                                                        mat-flat-button
+                                                        (click)="actualizaObjetoMercado()">Actualizar</button>
+                                                <button *ngIf="habilitaBtnRegistroMercado" class="articulo__contenedor__header__prev__btns__ok" 
+                                                        mat-flat-button
+                                                        (click)="submitMercado()">Registrar</button>
+                                                <button *ngIf="habilitaBtnElimibarMercado" class="articulo__contenedor__header__prev__btns__danger" 
+                                                        mat-flat-button
+                                                        (click)="eliminarObjetoMercado()">Eliminar</button>
+
+                                            </div>
+                                        
+                                        </div>
+
+                                        <div class="articulo__contenedor__body__prev__form__content">
+
+                                            <form [formGroup]="formularioMercado" class="row">
+                    
+                                                <div class="form-group col-md-2">
+                                                    <label for="lblIdMercado" class="form-label">Id</label>
+                                                    <input formControlName="idMercado" class="form-control" type="text" id="id_idMercado" readonly />
+                                                </div>
+                                                
+                                                <div class="form-group col-md-6">
+                                                    <label for="lblCodigoMercado" class="form-label">Código Interno</label>
+                                                    <input formControlName="codigoMercado" class="form-control" type="text" id="id_codigoMercado"
+                                                        [ngClass]="{ 'is-invalid': submittedFormMercado && m.codigoMercado.errors }" />
+                                                    <div *ngIf="submittedFormMercado && m.codigoMercado.errors" class="invalid-feedback">
+                                                        <div *ngIf="m.codigoMercado.errors.required">El código de la periocidad es requerido .</div>
+                                                    </div>
+                                                </div>
+                    
+                                                <div class="col-sm-4 margin-icos-mat">
+                                                    <a class="item-list__search"> <mat-icon (click)="buscarObjetoMercado()">search</mat-icon> </a>
+                                                </div>
+                    
+                                                <div class="form-group col-md-6">
+                                                    <label for="lblDescripcionMercado" class="form-label">Descripción</label>
+                                                    <input formControlName="descripcionMercado" class="form-control" type="text" id="id_descripcionMercado"
+                                                        [ngClass]="{ 'is-invalid': submittedFormMercado && m.descripcionMercado.errors }" />
+                                                    <div *ngIf="submittedFormMercado && m.descripcionMercado.errors" class="invalid-feedback">
+                                                        <div *ngIf="m.descripcionMercado.errors.required">La descripción del mercado es requerida .</div>
+                                                    </div>
+                                                </div>
+                    
+                                                <div class="form-group col-sm-1 margin-icos-mat">
+                                                    <mat-checkbox formControlName="estado">Estado</mat-checkbox>
+                                                </div>
+                    
+                                            </form>
+
+                                        </div>
+
+                                    </div>
+                                </section>
+                            </div>
+                        </article>
+
+                    </div>
+                    
+
+                    <div class="articulo__contenedor__body__next">
+
+                        <article>
+                            <div>
+                                <section>
+                                    <div class="articulo__contenedor__body__next__list">
+
+                                        <div class="articulo__contenedor__body__next__list__header"> 
+                                            
+                                            <div class="articulo__contenedor__body__next__list__header__prev" > 
+                                                <p class="articulo__contenedor__body__next__list__header__titulo">Listado de Mercados</p>
+                                            </div>
+
+                                            <div class="articulo__contenedor__body__next__list__header__next" > </div>
+                                        
+                                        </div>
+
+                                        <div class="articulo__contenedor__body__next__list__content">
+
+                                            <div *ngIf="listObjetosMercados" class="articulo__contenedor__body__next__tabla">
+                                                <table class="table table-striped">
+                                                    <thead>
+                                                        <tr>
+                                                            <th style="width: 5%"></th>
+                                                            
+                                                            <th style="width: 8%">Código interno</th>
+                                                            <th style="width: 12%">Descripción</th>
+                                                            <th style="width: 10%">Estado</th>
+                                                            <th style="width: 12%">Modificado</th>
+                                                            <th style="width: 15%">Se actualizó</th>
+                                                        </tr>
+                                                    </thead>
+                                                    <tbody>
+                                                        <tr *ngFor="let obj of listObjetosMercados" class="item-list__list" (click)="selectObjetoMercado(obj)" >
+                                                            <td  style="white-space: nowrap" class="item-list__view">
+                                                                <div> <a > <mat-icon>swap_horiz</mat-icon> </a> </div>
+                                                            </td>
+                                                            
+                                                            <td>{{obj.codigoMercado}}</td>
+                                                            <td>{{obj.descripcion}}</td>
+                                                            <td>{{obj.estado}}</td>
+                                                            <td>{{obj.modificadoPor}}</td>
+                                                            <td>{{obj.fechaModificacion}}</td>
+                                                        </tr>
+                                                    </tbody>
+                                                </table>
+                                            </div>
+                        
+                                        </div>
+
+                                    </div>
+                                </section>
+                            </div>
+                        </article>
+
+                    </div>
+                    
+                </div>
+            </section>
+
+            <!-- ********************** -->
+            <!-- SECCIÓN SECTORES       -->
+            <!-- ********************** -->
+
+            <section >
+                <div class="articulo__contenedor__body">
+
+                    <div class="articulo__contenedor__body__prev" >
+
+                        <article>
+                            <div>
+                                <section>
+                                    <div class="articulo__contenedor__body__prev__form">
+
+                                        <div class="articulo__contenedor__body__prev__form__header"> 
+                                            
+                                            <div class="articulo__contenedor__body__prev__form__header__prev" > 
+                                                <p class="articulo__contenedor__body__prev__form__header__titulo">Tipos de Sectores</p>
+                                            </div>
+
+                                            <div class="articulo__contenedor__body__prev__form__header__next" > 
+
+                                                <button *ngIf="habilitaBtnNuevoSector" class="articulo__contenedor__body__prev__form__header__prev__btns__new" 
+                                                        mat-flat-button
+                                                        (click)="limpiarFormularioSector()">Nuevo</button>
+
+                                                <button *ngIf="habilitaBtnActualizaSector" class="articulo__contenedor__header__prev__btns__warn" 
+                                                        mat-flat-button
+                                                        (click)="actualizaObjetoSector()">Actualizar</button>
+                                                <button *ngIf="habilitaBtnRegistroSector" class="articulo__contenedor__header__prev__btns__ok" 
+                                                        mat-flat-button
+                                                        (click)="submitSector()">Registrar</button>
+                                                <button *ngIf="habilitaBtnElimibarSector" class="articulo__contenedor__header__prev__btns__danger" 
+                                                        mat-flat-button
+                                                        (click)="eliminarObjetoSector()">Eliminar</button>
+
+                                            </div>
+                                        
+                                        </div>
+
+                                        <div class="articulo__contenedor__body__prev__form__content">
+
+                                            <form [formGroup]="formularioSector" class="row">
+                    
+                                                <div class="form-group col-md-2">
+                                                    <label for="lblIdSector" class="form-label">Id</label>
+                                                    <input formControlName="idSector" class="form-control" type="text" id="id_idSector" readonly />
+                                                </div>
+                                                
+                                                <div class="form-group col-md-6">
+                                                    <label for="lblCodigoSector" class="form-label">Código Interno</label>
+                                                    <input formControlName="codigoSector" class="form-control" type="text" id="id_codigoSector"
+                                                        [ngClass]="{ 'is-invalid': submittedFormSector && s.codigoSector.errors }" />
+                                                    <div *ngIf="submittedFormSector && s.codigoSector.errors" class="invalid-feedback">
+                                                        <div *ngIf="s.codigoSector.errors.required">El código del sector es requerido .</div>
+                                                    </div>
+                                                </div>
+                    
+                                                <div class="col-sm-4 margin-icos-mat">
+                                                    <a class="item-list__search"> <mat-icon (click)="buscarObjetoMercado()">search</mat-icon> </a>
+                                                </div>
+                    
+                                                <div class="form-group col-md-6">
+                                                    <label for="lblDescripcionSector" class="form-label">Descripción</label>
+                                                    <input formControlName="descripcionSector" class="form-control" type="text" id="id_descripcionSector"
+                                                        [ngClass]="{ 'is-invalid': submittedFormSector && s.descripcionSector.errors }" />
+                                                    <div *ngIf="submittedFormSector && s.descripcionSector.errors" class="invalid-feedback">
+                                                        <div *ngIf="s.descripcionSector.errors.required">La descripción del sector es requerida .</div>
+                                                    </div>
+                                                </div>
+                    
+                                                <div class="form-group col-sm-1 margin-icos-mat">
+                                                    <mat-checkbox formControlName="estado">Estado</mat-checkbox>
+                                                </div>
+                    
+                                            </form>
+
+                                        </div>
+
+                                    </div>
+                                </section>
+                            </div>
+                        </article>
+
+                    </div>
+                    
+
+                    <div class="articulo__contenedor__body__next">
+
+                        <article>
+                            <div>
+                                <section>
+                                    <div class="articulo__contenedor__body__next__list">
+
+                                        <div class="articulo__contenedor__body__next__list__header"> 
+                                            
+                                            <div class="articulo__contenedor__body__next__list__header__prev" > 
+                                                <p class="articulo__contenedor__body__next__list__header__titulo">Listado de Sectores</p>
+                                            </div>
+
+                                            <div class="articulo__contenedor__body__next__list__header__next" > </div>
+                                        
+                                        </div>
+
+                                        <div class="articulo__contenedor__body__next__list__content">
+
+                                            <div *ngIf="listObjetosSectores" class="articulo__contenedor__body__next__tabla">
+                                                <table class="table table-striped">
+                                                    <thead>
+                                                        <tr>
+                                                            <th style="width: 5%"></th>
+                                                            
+                                                            <th style="width: 8%">Código interno</th>
+                                                            <th style="width: 12%">Descripción</th>
+                                                            <th style="width: 10%">Estado</th>
+                                                            <th style="width: 12%">Modificado</th>
+                                                            <th style="width: 15%">Se actualizó</th>
+                                                        </tr>
+                                                    </thead>
+                                                    <tbody>
+                                                        <tr *ngFor="let obj of listObjetosSectores" class="item-list__list" (click)="selectObjetoSector(obj)" >
+                                                            <td  style="white-space: nowrap" class="item-list__view">
+                                                                <div> <a > <mat-icon>swap_horiz</mat-icon> </a> </div>
+                                                            </td>
+                                                            
+                                                            <td>{{obj.codigoSector}}</td>
+                                                            <td>{{obj.descripcion}}</td>
+                                                            <td>{{obj.estado}}</td>
+                                                            <td>{{obj.modificadoPor}}</td>
+                                                            <td>{{obj.fechaModificacion}}</td>
+                                                        </tr>
+                                                    </tbody>
+                                                </table>
+                                            </div>
+                        
+                                        </div>
+
+                                    </div>
+                                </section>
+                            </div>
+                        </article>
+
+                    </div>
+                    
+                </div>
+            </section>
+
+            <!-- // ************
+            // ** FOOTER ** -->
+            <section>
+                <div class="articulo__contenedor__footer">
+                    <div class="articulo__contenedor__footer__prev" > </div>
+
+                    <div class="articulo__contenedor__footer__next" > </div>
+                </div>
+            </section>
+
+        </div>
+
+    </article>
+</main>

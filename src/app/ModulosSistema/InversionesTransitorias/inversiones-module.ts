@@ -25,6 +25,10 @@ import { MatListModule } from '@angular/material/list';
 
 import {InvTiposMonedasComponent} from './mantenimientos/tiposmonedas-component';
 import { InvTiposPersonasComponent } from './mantenimientos/tipospersonas-component';
+import { InvPersonasComponent } from './mantenimientos/personas-component';
+import { InvPeriocidadesComponent } from './mantenimientos/periocidades-component';
+import { InvTiposAniosComponent } from './mantenimientos/tiposanios-component';
+import { InvTMercadosTSectoresComponent } from './mantenimientos/tmercadostsectores-component';
 
 @NgModule({
     imports: [
@@ -58,7 +62,15 @@ import { InvTiposPersonasComponent } from './mantenimientos/tipospersonas-compon
         // / ** tipo de moneda
         InvTiposMonedasComponent,
         // / ** tipo de persona
-        InvTiposPersonasComponent
+        InvTiposPersonasComponent,
+        // / ** tipo de persona
+        InvPersonasComponent,
+        // / ** periocidades
+        InvPeriocidadesComponent,
+        // / ** tipos de años
+        InvTiposAniosComponent,
+        // / ** tipos de mercados & sectores
+        InvTMercadosTSectoresComponent
     ],
     entryComponents: [
         InvTiposMonedasComponent
