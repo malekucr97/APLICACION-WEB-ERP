@@ -137,6 +137,30 @@
             cursor: pointer;
         }
     }
+    &__view {
+
+        color: #053254;
+        transition: color 0.2s ease-in-out;
+
+        text-align: center;
+
+        &:hover {
+            color: #129523;
+            cursor: pointer;
+        }
+    }
+    &__list {
+
+        color: #053254;
+        transition: color 0.2s ease-in-out;
+
+        // text-align: center;
+
+        &:hover {
+            color: #F9A01B;
+            cursor: pointer;
+        }
+    }
     &__delete {
 
         padding: 0 0 0 5px;
@@ -159,6 +183,15 @@
         }
     }
     &__search {
+        
+        color: #053254;
+        transition: color 0.2s ease-in-out;
+        &:hover {
+            color: #129523;
+            cursor: pointer;
+        }
+    }
+    &__calendar {
         
         color: #053254;
         transition: color 0.2s ease-in-out;

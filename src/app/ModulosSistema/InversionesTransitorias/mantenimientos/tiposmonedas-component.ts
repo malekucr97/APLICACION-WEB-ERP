@@ -12,6 +12,7 @@ import { DialogoConfirmacionComponent }             from '@app/_components/dialo
 import { InversionesService }                       from '@app/_services/inversiones.service';
 import { InvTipoMoneda } from '@app/_models/Inversiones/TipoMoneda';
 import { first } from 'rxjs/operators';
+import { InvTipoCambio } from '@app/_models/Inversiones/TipoCambio';
 
 declare var $: any;
 
@@ -23,6 +24,7 @@ export class InvTiposMonedasComponent implements OnInit {
     @ViewChild(MatSidenav) sidenav !: MatSidenav;
 
     private nombrePantalla  : string = 'HTML_TiposMonedas.html';
+    public nombreModulo     : string ;
 
     // ## -- objetos suscritos -- ## //
     private userObservable      : User;
@@ -31,17 +33,30 @@ export class InvTiposMonedasComponent implements OnInit {
 
     // ## -- formularios -- ## //
     formTipoMoneda              : FormGroup;
+    formTipoCambio              : FormGroup;
 
     // ## -- submit formularios -- ## //
     submittedTipoMonedaForm     : boolean = false;
+    submittedFormTipoCambio     : boolean = false;
 
     // ## -- habilita botones -- ## //
     habilitaBtnRegistro     : boolean = true;
     habilitaBtnActualiza    : boolean = false;
     habilitaBtnNuevo        : boolean = false;
     habilitaBtnElimibar     : boolean = false;
+    habilitaBtnRegistroTC     : boolean = true;
+    habilitaBtnActualizaTC    : boolean = false;
+    habilitaBtnNuevoTC        : boolean = false;
+    habilitaBtnEliminarTC     : boolean = false;
 
+    // ## -- habilita grids -- ## //
+    habilitaTipoCambioMoneda    : boolean = false;
+    habilitaFormularioTipoCambio : boolean = false;
+    habilitaListaTipoCambio : boolean = false;
+
+    // ## -- listas analisis -- ## //
     public listTiposMonedas  : InvTipoMoneda[]  = [];
+    public listObjetosTipoCambio  : InvTipoCambio[]  = [];
 
     public today : Date ;
 
@@ -59,30 +74,114 @@ export class InvTiposMonedasComponent implements OnInit {
     }
 
     get m () {   return this.formTipoMoneda.controls;  }
+    get t () {   return this.formTipoCambio.controls;  }
 
 
     ngOnInit() {
 
         this.formTipoMoneda    = this.formBuilder.group({
-            id              : [null],
-            codigo_moneda   : [null],
-            simbolo         : [null],
-            descripcion     : [null],
-            valorRiesgo     : [null],
-            estado          : [true]
+            id                  : [null],
+            codigo_moneda       : [null],
+            simbolo             : [null],
+            descripcion         : [null],
+            bccrIndicadorCompra : [null],
+            bccrIndicadorVenta  : [null],
+            estado              : [true]
         });
+        this.formTipoCambio    = this.formBuilder.group({
+            id              : [null],
+            idMoneda        : [null],
+            montoCompra     : [null],
+            montoVenta      : [null],
+            fechaConsulta   : [null]
+
+        });
+        this.nombreModulo = this.moduleObservable.nombre ;
 
         this.buscarMoneda(true);
     }
 
-    buscarMoneda(getAllMonedas : boolean = false) : void {
+    obtieneFechaConsultaWebServiceTipoCambio() : string {
+
+        if (!this.formTipoCambio.controls['fechaConsulta'].value) return "%%" ;
+
+        let fechaConsulta = new Date(this.formTipoCambio.controls['fechaConsulta'].value);
+    
+        let date    = fechaConsulta.getDate();
+        let month   = fechaConsulta.getMonth() + 1;
+        let year    = fechaConsulta.getFullYear();
+    
+        let dia     : string = "" ;
+        let mes     : string = "" ;
+        let anio    : string = year.toString() ;
+    
+        dia = date.toString();
+        if (date < 10) dia = '0' + date.toString();
+          
+        mes = month.toString();
+        if (month < 10) mes = '0' + month.toString();
+        
+        let fechaConsultaCompleta : string = dia + '/' + mes + '/' + anio ;
+
+        return fechaConsultaCompleta ;
+    }
+
+    consultarWSBCCRTipoCambio() : void {
+
+        this.alertService.clear();
+        this.submittedTipoMonedaForm = true;
+
+        let poseeIndicadoresBCCR : Boolean = false ;
+
+        if ( this.formTipoMoneda.invalid ) return;
+
+        let idMoneda = this.formTipoMoneda.controls['id'].value ;
+        let bccrIndicadorCompra = this.formTipoMoneda.controls['bccrIndicadorCompra'].value ;
+        let bccrIndicadorVenta = this.formTipoMoneda.controls['bccrIndicadorVenta'].value ;
+
+        if (isNaN(+bccrIndicadorCompra) == false && bccrIndicadorCompra > 0) poseeIndicadoresBCCR = true ;
+
+        if (isNaN(+bccrIndicadorVenta) == false && bccrIndicadorVenta > 0 && poseeIndicadoresBCCR) poseeIndicadoresBCCR = true ;
+
+        if(!poseeIndicadoresBCCR){
+            this.alertService.error( `Debe de registrar los Indicadores del tipo de cambio de Compra y Venta asignados por el BCCR a la moneda que corresponde.` );
+            return ;
+        }
+
+        let fechaConsultaCompleta : string = this.obtieneFechaConsultaWebServiceTipoCambio();
+        
+        this.inversionesService.requestTipoCambioBCCR(bccrIndicadorCompra, bccrIndicadorVenta, idMoneda, this.companiaObservable.id, fechaConsultaCompleta)
+            .pipe(first())
+            .subscribe(responseTiposCambioBCCR => {
+
+                if ( responseTiposCambioBCCR ) {
+
+                    this.habilitaListaTipoCambio = true ;
+
+                    this.inicializaFormularioTipoCambio(responseTiposCambioBCCR);
+
+                    if (!this.listObjetosTipoCambio) this.listObjetosTipoCambio = [] ;
+                    this.listObjetosTipoCambio.push(responseTiposCambioBCCR) ;
+
+                } else { 
+
+                    this.listObjetosTipoCambio = null ;
+
+                    this.habilitaListaTipoCambio = false ;
+
+                    this.inicializaFormularioTipoCambio();
+                }
+            });
+    }
+
+    buscarMoneda(getAll : boolean = false) : void {
 
         this.alertService.clear();
         this.submittedTipoMonedaForm = true;
 
         let codigoMoneda = this.formTipoMoneda.controls['codigo_moneda'].value ;
 
-        if (getAllMonedas) codigoMoneda = "%%" ;
+        if (getAll) codigoMoneda = "%%" ;
 
         this.inversionesService.getTiposMonedas(codigoMoneda, this.companiaObservable.id, true)
             .pipe(first())
@@ -94,7 +193,53 @@ export class InvTiposMonedasComponent implements OnInit {
 
                     this.listTiposMonedas = response ;
 
-                } else { this.alertService.info('No se encontraron registros .'); }
+                    // CONSULTA LOS TIPOS DE CAMBIO DE LA MONEDA
+                    this.consultaTiposCambio(response[0]);
+
+                } else { 
+                
+                    this.inicializaFormTipoMoneda();
+                    this.alertService.info('No se encontraron registros .'); 
+                
+                }
+            },
+            error => {
+                let message : string = 'Problemas de conexión: ' + error;
+                this.alertService.error(message);
+            });
+    }
+    buscarTipoCambio(getAll : boolean = false) : void {
+
+        this.alertService.clear();
+        this.submittedTipoMonedaForm = true;
+
+        let idMoneda = this.formTipoMoneda.controls['id'].value ;
+
+        let fechaConsultaCompleta : string = this.obtieneFechaConsultaWebServiceTipoCambio();
+
+        if (getAll) fechaConsultaCompleta = "%%" ;
+
+        this.inversionesService.getTipoCambio(idMoneda, this.companiaObservable.id, fechaConsultaCompleta)
+            .pipe(first())
+            .subscribe(response => {
+
+                if ( response && response.length > 0 ) {
+                    
+                    this.inicializaFormularioTipoCambio(response[0]);
+
+                    this.listObjetosTipoCambio = response ;
+                    this.habilitaListaTipoCambio = true ;
+
+                    this.inicializaFormularioTipoCambio(response[0]);
+
+                } else { 
+
+                    this.listObjetosTipoCambio = null ;
+                    this.habilitaListaTipoCambio = false ;
+                
+                    this.inicializaFormularioTipoCambio();
+                    this.alertService.info('No se encontraron registros para el ' + fechaConsultaCompleta);
+                }
             },
             error => {
                 let message : string = 'Problemas de conexión: ' + error;
@@ -102,9 +247,40 @@ export class InvTiposMonedasComponent implements OnInit {
             });
     }
 
+    consultaTiposCambio(obj: InvTipoMoneda) : void {
+
+        this.inversionesService.getTipoCambio(obj.id, this.companiaObservable.id, '%%')
+            .pipe(first())
+            .subscribe(responseTiposCambio => {
+
+                if ( responseTiposCambio && responseTiposCambio.length > 0 ) {
+
+                    this.habilitaListaTipoCambio = true ;
+
+                    this.inicializaFormularioTipoCambio(responseTiposCambio[0]);
+
+                    if (!this.listObjetosTipoCambio) this.listObjetosTipoCambio = [] ;
+                    this.listObjetosTipoCambio = responseTiposCambio ;
+
+                } else { 
+
+                    this.listObjetosTipoCambio = null ;
+
+                    this.habilitaListaTipoCambio = false ;
+
+                    this.inicializaFormularioTipoCambio();
+                }
+            });
+    }
+
     selectMoneda(moneda : InvTipoMoneda) : void {
 
         this.inicializaFormTipoMoneda(moneda);
+        this.consultaTiposCambio(moneda);
+    }
+    selectObjectListTipoCambio(objeto : InvTipoCambio) : void {
+
+        this.inicializaFormularioTipoCambio(objeto);
     }
 
     inicializaFormTipoMoneda(objetoMoneda : InvTipoMoneda = null)       : void {
@@ -121,7 +297,8 @@ export class InvTiposMonedasComponent implements OnInit {
                 codigo_moneda   : [objetoMoneda.codigoMoneda, Validators.required],
                 simbolo         : [objetoMoneda.simbolo, Validators.required],
                 descripcion     : [objetoMoneda.descripcion, Validators.required],
-                valorRiesgo     : [objetoMoneda.valorRiesgo],
+                bccrIndicadorCompra : [objetoMoneda.bccrIndicadorCompra, Validators.required],
+                bccrIndicadorVenta   : [objetoMoneda.bccrIndicadorVenta, Validators.required],
                 estado          : [objetoMoneda.estado, Validators.required]
             });
         } else {
@@ -136,8 +313,45 @@ export class InvTiposMonedasComponent implements OnInit {
                 codigo_moneda   : [null, Validators.required],
                 simbolo         : [null, Validators.required],
                 descripcion     : [null, Validators.required],
-                valorRiesgo     : [null],
+                bccrIndicadorCompra : [null, Validators.required],
+                bccrIndicadorVenta   : [null, Validators.required],
                 estado          : [true, Validators.required]
+            });
+        }
+    }
+
+    inicializaFormularioTipoCambio(objeto : InvTipoCambio = null) : void {
+
+        this.habilitaTipoCambioMoneda = true ;
+        this.habilitaFormularioTipoCambio =  true ;
+
+        if (objeto) {
+
+            this.habilitaBtnRegistroTC = false ;
+            this.habilitaBtnActualizaTC = true ;
+            this.habilitaBtnNuevoTC = true ;
+            this.habilitaBtnEliminarTC = true;
+
+            this.formTipoCambio    = this.formBuilder.group({
+                id              : [objeto.id],
+                idMoneda        : [this.listTiposMonedas.find( x => x.id === objeto.idMoneda )],
+                montoCompra     : [objeto.montoCompra, Validators.required],
+                montoVenta      : [objeto.montoVenta, Validators.required],
+                fechaConsulta   : [objeto.fechaConsulta, Validators.required]
+            });
+        } else {
+
+            this.habilitaBtnRegistroTC = true ;
+            this.habilitaBtnActualizaTC= false;
+            this.habilitaBtnNuevoTC = false ;
+            this.habilitaBtnEliminarTC = false;
+
+            this.formTipoCambio    = this.formBuilder.group({
+                id              : [null],
+                idMoneda        : [null],
+                montoCompra     : [null, Validators.required],
+                montoVenta      : [null, Validators.required],
+                fechaConsulta   : [this.today, Validators.required]
             });
         }
     }
@@ -147,12 +361,26 @@ export class InvTiposMonedasComponent implements OnInit {
         var codigo_moneda   = this.formTipoMoneda.controls['codigo_moneda'].value;
         var simbolo         = this.formTipoMoneda.controls['simbolo'].value;
         var descripcion     = this.formTipoMoneda.controls['descripcion'].value;
-        var valorRiesgo     = this.formTipoMoneda.controls['valorRiesgo'].value;
+        var bccrIndicadorCompra = this.formTipoMoneda.controls['bccrIndicadorCompra'].value;
+        var bccrIndicadorVenta   = this.formTipoMoneda.controls['bccrIndicadorVenta'].value;
         var estado          = this.formTipoMoneda.controls['estado'].value;
 
-        var monedaForm = new InvTipoMoneda (codigo_moneda, this.companiaObservable.id, descripcion, simbolo, valorRiesgo, estado) ;
+        var monedaForm = new InvTipoMoneda (codigo_moneda, this.companiaObservable.id, descripcion, simbolo, bccrIndicadorCompra, bccrIndicadorVenta, estado) ;
 
         return monedaForm ;
+    }
+    createObjectFormTipoCambio() : InvTipoCambio {
+
+        // toma la moneda del formulario del tipo de moneda
+        var idMoneda        = this.formTipoMoneda.controls['id'].value;
+
+        var montoCompra     = this.formTipoCambio.controls['montoCompra'].value;
+        var montoVenta      = this.formTipoCambio.controls['montoVenta'].value;
+        var fechaConsulta   = this.formTipoCambio.controls['fechaConsulta'].value;
+
+        var objectForm = new InvTipoCambio (this.companiaObservable.id, idMoneda, montoCompra, montoVenta, fechaConsulta) ;
+
+        return objectForm ;
     }
 
     submitMoneda() : void {
@@ -185,6 +413,40 @@ export class InvTiposMonedasComponent implements OnInit {
                 this.alertService.error( `Problemas al establecer la conexión con el servidor. Detalle: ${ error }` );
             });
     }
+    submitFormTipoCambio() : void {
+
+        this.alertService.clear();
+        this.submittedFormTipoCambio = true;
+
+        if ( this.formTipoCambio.invalid ) return;
+
+        var objectForm : InvTipoCambio = this.createObjectFormTipoCambio();
+        
+        objectForm.adicionadoPor    = this.userObservable.identificacion;
+        objectForm.fechaAdicion     = this.today;
+
+        this.inversionesService.postTipoCambio(objectForm)
+            .pipe(first())
+            .subscribe(response => {
+
+                if ( response ) {
+
+                    if (!this.listObjetosTipoCambio) this.listObjetosTipoCambio = [] ;
+
+                    this.listObjetosTipoCambio.push(response);
+
+                    this.inicializaFormularioTipoCambio();
+
+                    this.habilitaListaTipoCambio = true ;
+
+                    this.alertService.success( `Registro exitoso .` );
+
+                } else { this.alertService.error(`No fue posible realizar el registro .`); }
+
+            }, error => {
+                this.alertService.error( `Problemas al establecer la conexión con el servidor. Detalle: ${ error }` );
+            });
+    }
 
     eliminarMoneda() : void {
 
@@ -210,7 +472,45 @@ export class InvTiposMonedasComponent implements OnInit {
 
                             this.listTiposMonedas.splice(this.listTiposMonedas.findIndex( m => m.id == id ), 1);
 
+                            if (this.listTiposMonedas.length===0) this.habilitaListaTipoCambio = false ;
+
                             this.inicializaFormTipoMoneda();
+
+                            this.alertService.success(response.responseMesagge);
+                            
+                        } else { this.alertService.error(response.responseMesagge); }
+                    });
+                
+            } else { return; }
+        });
+    }
+    eliminarTipoCambio() : void {
+
+        this.alertService.clear();
+        this.submittedFormTipoCambio = true;
+
+        if ( this.formTipoCambio.invalid ) return;
+
+        var id : number = this.formTipoCambio.controls['id'].value;
+
+        this.dialogo.open(DialogoConfirmacionComponent, {
+            data: `Segur@ que desea eliminar el registro para siempre ?`
+        })
+        .afterClosed()
+        .subscribe((confirmado: Boolean) => {
+
+            if (confirmado) {
+
+                this.inversionesService.deleteTipoCambio( id )
+                    .pipe(first())
+                    .subscribe(response => {
+                        if (response.exito) {
+
+                            this.listObjetosTipoCambio.splice(this.listObjetosTipoCambio.findIndex( m => m.id == id ), 1);
+
+                            if (this.listObjetosTipoCambio.length === 0) this.habilitaListaTipoCambio = false ;
+
+                            this.inicializaFormularioTipoCambio();
 
                             this.alertService.success(response.responseMesagge);
                             
@@ -224,6 +524,10 @@ export class InvTiposMonedasComponent implements OnInit {
     limpiarFormularioMoneda() : void {
 
         this.inicializaFormTipoMoneda();
+    }
+    limpiarFormularioTipoCambio() : void {
+
+        this.inicializaFormularioTipoCambio();
     }
 
     actualizaMoneda() : void {
@@ -254,6 +558,41 @@ export class InvTiposMonedasComponent implements OnInit {
                     this.inicializaFormTipoMoneda();
 
                     this.alertService.success( `Moneda ${response.codigoMoneda} actualizada con éxito.` );
+
+                } else { this.alertService.error(`No fue posible actualizar el registro .`); }
+
+            }, error => {
+                this.alertService.error( `Problemas al establecer la conexión con el servidor. Detalle: ${ error }` );
+            });
+    }
+    actualizaObjetoMontoPersona() : void {
+
+        this.alertService.clear();
+        this.submittedFormTipoCambio = true;
+
+        if ( this.formTipoCambio.invalid ) return;
+
+        var objectForm : InvTipoCambio = this.createObjectFormTipoCambio();
+
+        objectForm.id =  this.formTipoCambio.controls['id'].value;
+        
+        objectForm.modificadoPor        = this.userObservable.identificacion;
+        objectForm.fechaModificacion    = this.today;
+
+        this.inversionesService.putTipoCambio(objectForm)
+            .pipe(first())
+            .subscribe(response => {
+
+                if ( response ) {
+
+                    if( this.listObjetosTipoCambio.find( m => m.id == response.id ) ) {
+                        this.listObjetosTipoCambio.splice(this.listObjetosTipoCambio.findIndex( m => m.id == response.id ), 1);
+                    }
+                    this.listObjetosTipoCambio.push(response);
+
+                    this.inicializaFormularioTipoCambio();
+
+                    this.alertService.success( `Registro actulizado con éxito .` );
 
                 } else { this.alertService.error(`No fue posible actualizar el registro .`); }
 

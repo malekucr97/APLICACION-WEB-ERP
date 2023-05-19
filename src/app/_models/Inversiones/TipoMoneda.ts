@@ -12,7 +12,8 @@ export class InvTipoMoneda {
 
                     public descripcion:string,
                     public simbolo:string,
-                    public valorRiesgo:number,
+                    public bccrIndicadorCompra:number,
+                    public bccrIndicadorVenta:number,
                     public estado:boolean
 
                     ) {

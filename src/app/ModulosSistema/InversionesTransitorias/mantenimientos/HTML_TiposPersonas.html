@@ -8,20 +8,10 @@
             <section>
                 <div class="articulo__contenedor__header">
 
-                    <div class="articulo__contenedor__header__prev" > 
-                        <button *ngIf="habilitaBtnNuevo" class="px-5 articulo__contenedor__header__prev__btns__new" 
-                                mat-flat-button
-                                (click)="limpiarFormularioTipoPersona()">Nuevo</button>
+                    <div class="articulo__contenedor__header__prev" >
 
-                        <button *ngIf="habilitaBtnActualiza" class="px-5 articulo__contenedor__header__prev__btns__warn" 
-                                mat-flat-button
-                                (click)="actualizaTipoPersona()">Actualizar Información</button>
-                        <button *ngIf="habilitaBtnRegistro" class="px-5 articulo__contenedor__header__prev__btns__ok" 
-                                mat-flat-button
-                                (click)="submitTipoPersona()">Registrar Tipo Persona</button>
-                        <button *ngIf="habilitaBtnElimibar" class="px-5 articulo__contenedor__header__prev__btns__danger" 
-                                mat-flat-button
-                                (click)="eliminarTipoPersona()">Eliminar Registro</button>
+                        <p>{{nombreModulo}} / Mantenimiento de Tipos de Persona</p>
+
                     </div>
 
                     <div class="articulo__contenedor__header__next" > </div>
@@ -31,98 +21,181 @@
 
             <!-- // **********
             // ** BODY ** -->
-            <section>
+
+            <!-- *************** -->
+            <!-- SECCIÓN PERSONA -->
+            <!-- *************** -->
+
+            
+            <!-- ********************** -->
+            <!-- SECCIÓN MONTOS MÁXIMOS -->
+            <!-- ********************** -->
+
+            <section >
                 <div class="articulo__contenedor__body">
 
                     <div class="articulo__contenedor__body__prev" >
 
-                        <form [formGroup]="formTipoPersona" class="row">
+                        <article>
+                            <div>
+                                <section>
+                                    <div class="articulo__contenedor__body__prev__form">
 
-                            <div class="col-sm-1 margin-icos-mat"> </div>
+                                        <div class="articulo__contenedor__body__prev__form__header"> 
+                                            
+                                            <div class="articulo__contenedor__body__prev__form__header__prev" > 
+                                                <p class="articulo__contenedor__body__prev__form__header__titulo">Tipos de Personas</p>
+                                            </div>
 
-                            <!-- id -->
+                                            <div class="articulo__contenedor__body__prev__form__header__next" > 
 
-                            <div class="form-group col-md-3">
-                                <label for="id" class="form-label">Id</label>
-                                <input formControlName="id" class="form-control" type="text" id="id_id" readonly />
+                                                <button *ngIf="habilitaBtnNuevo" class="articulo__contenedor__header__prev__btns__new" 
+                                                        mat-flat-button
+                                                        (click)="limpiarFormularioTipoPersona()">Nuevo</button>
+
+                                                <button *ngIf="habilitaBtnActualiza" class="articulo__contenedor__header__prev__btns__warn" 
+                                                        mat-flat-button
+                                                        (click)="actualizaTipoPersona()">Actualizar</button>
+                                                <button *ngIf="habilitaBtnRegistro" class="articulo__contenedor__header__prev__btns__ok" 
+                                                        mat-flat-button
+                                                        (click)="submitTipoPersona()">Registrar</button>
+                                                <button *ngIf="habilitaBtnElimibar" class="articulo__contenedor__header__prev__btns__danger" 
+                                                        mat-flat-button
+                                                        (click)="eliminarTipoPersona()">Eliminar</button>
+
+                                            </div>
+                                        
+                                        </div>
+
+                                        <div class="articulo__contenedor__body__prev__form__content">
+
+                                            <form [formGroup]="formTipoPersona" class="row">
+
+                                                <!-- <div class="col-sm-1 margin-icos-mat"> </div> -->
+                    
+                                                <!-- id -->
+                    
+                                                <div class="form-group col-md-3">
+                                                    <label for="id" class="form-label">Id</label>
+                                                    <input formControlName="id" class="form-control" type="text" id="id_id" readonly />
+                                                </div>
+                    
+                                                <!-- search campos -->
+                                                
+                                                <div class="form-group col-md-7">
+                                                    <label for="lblDescripcion" class="form-label">Descripción</label>
+                                                    <input formControlName="descripcion" class="form-control" type="text" id="id_descripcion"
+                                                        [ngClass]="{ 'is-invalid': submittedTipoPersonaForm && m.descripcion.errors }" />
+                                                    <div *ngIf="submittedTipoPersonaForm && m.descripcion.errors" class="invalid-feedback">
+                                                        <div *ngIf="m.descripcion.errors.required">La descripcion es requerida .</div>
+                                                    </div>
+                                                </div>
+                    
+                                                <div class="col-sm-1 margin-icos-mat">
+                                                    <a class="item-list__search"> <mat-icon (click)="buscarTiposPersona()">search</mat-icon> </a>
+                                                </div>
+                    
+                                                <!-- <div class="col-sm-3 margin-icos-mat"> </div> -->
+                    
+                                                <!-- search campos -->
+                    
+                                                <!-- actualiza form -->
+                    
+                                                <!-- linea 1 -->
+                    
+                                                <!-- <div class="col-sm-1 margin-icos-mat"> </div> -->
+                    
+                                                <div class="form-group col-md-3">
+                                                    <label for="mascaraIdentificacion" class="form-label">Máscara para la identificación</label>
+                                                    <input formControlName="mascaraIdentificacion" class="form-control" type="text" id="id_mascara_identificacion"
+                                                        [ngClass]="{ 'is-invalid': submittedTipoPersonaForm && m.mascaraIdentificacion.errors }" />
+                                                    <div *ngIf="submittedTipoPersonaForm && m.mascaraIdentificacion.errors" class="invalid-feedback">
+                                                        <div *ngIf="m.mascaraIdentificacion.errors.required">La máscara para la identificación es requerida .</div>
+                                                    </div>
+                                                </div>
+                    
+                                                <div class="form-group col-sm-1 margin-icos-mat">
+                                                    <mat-checkbox formControlName="estado">Estado</mat-checkbox>
+                                                </div>
+                    
+                                                <!-- <div class="col-sm-6 margin-icos-mat"> </div> -->
+                    
+                                                <!-- linea 1 -->
+                    
+                                                <!-- linea 2 -->
+                    
+                                                <!-- linea 2 -->
+                    
+                                            </form>
+
+                                        </div>
+
+                                    </div>
+                                </section>
                             </div>
+                        </article>
 
-                            <!-- search campos -->
-                            
-                            <div class="form-group col-md-7">
-                                <label for="lblDescripcion" class="form-label">Descripción</label>
-                                <input formControlName="descripcion" class="form-control" type="text" id="id_descripcion"
-                                    [ngClass]="{ 'is-invalid': submittedTipoPersonaForm && m.descripcion.errors }" />
-                                <div *ngIf="submittedTipoPersonaForm && m.descripcion.errors" class="invalid-feedback">
-                                    <div *ngIf="m.descripcion.errors.required">La descripcion es requerida .</div>
-                                </div>
-                            </div>
-
-                            <div class="col-sm-1 margin-icos-mat">
-                                <a class="item-list__search"> <mat-icon (click)="buscarTiposPersona()">search</mat-icon> </a>
-                            </div>
-
-                            <!-- <div class="col-sm-3 margin-icos-mat"> </div> -->
-
-                            <!-- search campos -->
-
-                            <!-- actualiza form -->
-
-                            <!-- linea 1 -->
-
-                            <div class="col-sm-1 margin-icos-mat"> </div>
-
-                            <div class="form-group col-md-3">
-                                <label for="mascaraIdentificacion" class="form-label">Máscara para la identificación</label>
-                                <input formControlName="mascaraIdentificacion" class="form-control" type="text" id="id_mascara_identificacion"
-                                    [ngClass]="{ 'is-invalid': submittedTipoPersonaForm && m.mascaraIdentificacion.errors }" />
-                                <div *ngIf="submittedTipoPersonaForm && m.mascaraIdentificacion.errors" class="invalid-feedback">
-                                    <div *ngIf="m.mascaraIdentificacion.errors.required">La máscara para la identificación es requerida .</div>
-                                </div>
-                            </div>
-
-                            <div class="form-group col-sm-1 margin-icos-mat">
-                                <mat-checkbox formControlName="estado">Estado</mat-checkbox>
-                            </div>
-
-                            <div class="col-sm-6 margin-icos-mat"> </div>
-
-                            <!-- linea 1 -->
-
-                            <!-- linea 2 -->
-
-                            <!-- linea 2 -->
-
-                        </form>
                     </div>
                     
 
                     <div class="articulo__contenedor__body__next">
 
-                            <div *ngIf="listTiposPersonas" class="articulo__contenedor__body__next__tabla">
-                                <table class="table table-striped">
-                                    <thead>
-                                        <tr>
-                                            <th style="width: 10%">Id</th>
-                                            <th style="width: 25%">Descripción</th>
-                                            <th style="width: 10%">mascaraIdentificacion</th>
-                                            <th style="width: 10%">Estado</th>
-                                            <th style="width: 10%">Modificado</th>
-                                            <th style="width: 15%">Se actualizó</th>
-                                        </tr>
-                                    </thead>
-                                    <tbody>
-                                        <tr *ngFor="let obj of listTiposPersonas" class="item-list__confirm" (click)="selectTipoPersona(obj)" >
-                                            <td>{{obj.id}}</td>
-                                            <td>{{obj.descripcion}}</td>
-                                            <td>{{obj.mascaraIdentificacion}}</td>
-                                            <td>{{obj.estado}}</td>
-                                            <td>{{obj.modificadoPor}}</td>
-                                            <td>{{obj.fechaModificacion}}</td>
-                                        </tr>
-                                    </tbody>
-                                </table>
+                        <article>
+                            <div>
+                                <section>
+                                    <div class="articulo__contenedor__body__next__list">
+
+                                        <div class="articulo__contenedor__body__next__list__header"> 
+                                            
+                                            <div class="articulo__contenedor__body__next__list__header__prev" > 
+                                                <p class="articulo__contenedor__body__next__list__header__titulo">Listado de Tipos de Monedas</p>
+                                            </div>
+
+                                            <div class="articulo__contenedor__body__next__list__header__next" > </div>
+                                        
+                                        </div>
+
+                                        <div class="articulo__contenedor__body__next__list__content">
+
+
+
+                                            <!-- <div class="articulo__contenedor__body__next"> -->
+
+                                                <div *ngIf="listTiposPersonas" class="articulo__contenedor__body__next__tabla">
+                                                    <table class="table table-striped">
+                                                        <thead>
+                                                            <tr>
+                                                                <th style="width: 10%">Id</th>
+                                                                <th style="width: 25%">Descripción</th>
+                                                                <th style="width: 10%">Máscara de Identificación</th>
+                                                                <th style="width: 10%">Estado</th>
+                                                                <th style="width: 10%">Modificado</th>
+                                                                <th style="width: 15%">Se actualizó</th>
+                                                            </tr>
+                                                        </thead>
+                                                        <tbody>
+                                                            <tr *ngFor="let obj of listTiposPersonas" class="item-list__confirm" (click)="selectTipoPersona(obj)" >
+                                                                <td>{{obj.id}}</td>
+                                                                <td>{{obj.descripcion}}</td>
+                                                                <td>{{obj.mascaraIdentificacion}}</td>
+                                                                <td>{{obj.estado}}</td>
+                                                                <td>{{obj.modificadoPor}}</td>
+                                                                <td>{{obj.fechaModificacion}}</td>
+                                                            </tr>
+                                                        </tbody>
+                                                    </table>
+                                                </div>
+                        
+                                            <!-- </div> -->
+
+
+
+                                        </div>
+
+                                    </div>
+                                </section>
                             </div>
+                        </article>
 
                     </div>
                     

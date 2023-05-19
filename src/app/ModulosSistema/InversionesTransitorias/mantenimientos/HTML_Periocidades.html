@@ -1,0 +1,201 @@
+<main>
+    <article class="articulo">
+
+        <div class="articulo__contenedor mat-elevation-z4">
+
+            <!-- // ************
+            // ** HEADER ** -->
+            <section>
+                <div class="articulo__contenedor__header">
+
+                    <div class="articulo__contenedor__header__prev" >
+
+                        <p>{{nombreModulo}} / Mantenimiento de Periocidades</p>
+
+                    </div>
+
+                    <div class="articulo__contenedor__header__next" > </div>
+
+                </div>
+            </section>
+
+            <!-- // **********
+            // ** BODY ** -->
+
+            <!-- *************** -->
+            <!-- SECCIÓN PERSONA -->
+            <!-- *************** -->
+
+            
+            <!-- ********************** -->
+            <!-- SECCIÓN MONTOS MÁXIMOS -->
+            <!-- ********************** -->
+
+            <section >
+                <div class="articulo__contenedor__body">
+
+                    <div class="articulo__contenedor__body__prev" >
+
+                        <article>
+                            <div>
+                                <section>
+                                    <div class="articulo__contenedor__body__prev__form">
+
+                                        <div class="articulo__contenedor__body__prev__form__header"> 
+                                            
+                                            <div class="articulo__contenedor__body__prev__form__header__prev" > 
+                                                <p class="articulo__contenedor__body__prev__form__header__titulo">Tipos de Monedas</p>
+                                            </div>
+
+                                            <div class="articulo__contenedor__body__prev__form__header__next" > 
+
+                                                <button *ngIf="habilitaBtnNuevo" class="articulo__contenedor__body__prev__form__header__prev__btns__new" 
+                                                        mat-flat-button
+                                                        (click)="limpiarFormulario()">Nuevo</button>
+
+                                                <button *ngIf="habilitaBtnActualiza" class="articulo__contenedor__header__prev__btns__warn" 
+                                                        mat-flat-button
+                                                        (click)="actualizaObjeto()">Actualizar</button>
+                                                <button *ngIf="habilitaBtnRegistro" class="articulo__contenedor__header__prev__btns__ok" 
+                                                        mat-flat-button
+                                                        (click)="submit()">Registrar</button>
+                                                <button *ngIf="habilitaBtnElimibar" class="articulo__contenedor__header__prev__btns__danger" 
+                                                        mat-flat-button
+                                                        (click)="eliminarObjeto()">Eliminar</button>
+
+                                            </div>
+                                        
+                                        </div>
+
+                                        <div class="articulo__contenedor__body__prev__form__content">
+
+                                            <form [formGroup]="formulario" class="row">
+                    
+                                                <div class="form-group col-md-2">
+                                                    <label for="id" class="form-label">Id</label>
+                                                    <input formControlName="id" class="form-control" type="text" id="id_id" readonly />
+                                                </div>
+                                                
+                                                <div class="form-group col-md-6">
+                                                    <label for="lblCodigoPeriocidad" class="form-label">Código Interno</label>
+                                                    <input formControlName="codigoPeriocidad" class="form-control" type="text" id="id_codigoPeriocidad"
+                                                        [ngClass]="{ 'is-invalid': submittedForm && m.codigoPeriocidad.errors }" />
+                                                    <div *ngIf="submittedForm && m.codigoPeriocidad.errors" class="invalid-feedback">
+                                                        <div *ngIf="m.codigoPeriocidad.errors.required">El código de la periocidad es requerido .</div>
+                                                    </div>
+                                                </div>
+                    
+                                                <div class="col-sm-4 margin-icos-mat">
+                                                    <a class="item-list__search"> <mat-icon (click)="buscarObjeto()">search</mat-icon> </a>
+                                                </div>
+                    
+                                                <div class="form-group col-md-6">
+                                                    <label for="lblDescripcion" class="form-label">Descripción</label>
+                                                    <input formControlName="descripcion" class="form-control" type="text" id="id_descripcion"
+                                                        [ngClass]="{ 'is-invalid': submittedForm && m.descripcion.errors }" />
+                                                    <div *ngIf="submittedForm && m.descripcion.errors" class="invalid-feedback">
+                                                        <div *ngIf="m.descripcion.errors.required">La descripción de la periocidad es requerida .</div>
+                                                    </div>
+                                                </div>
+
+                                                <div class="form-group col-md-2">
+                                                    <label for="lblVecesxAnio" class="form-label">Veces por Año</label>
+                                                    <input formControlName="vecesxAnio" class="form-control" type="text" id="id_vecesxAnio"
+                                                        [ngClass]="{ 'is-invalid': submittedForm && m.vecesxAnio.errors }" />
+                                                    <div *ngIf="submittedForm && m.vecesxAnio.errors" class="invalid-feedback">
+                                                        <div *ngIf="m.vecesxAnio.errors.required">La cantidad de veces por año para la periocidad es requerida .</div>
+                                                    </div>
+                                                </div>
+                    
+                                                <div class="form-group col-sm-1 margin-icos-mat">
+                                                    <mat-checkbox formControlName="estado">Estado</mat-checkbox>
+                                                </div>
+                    
+                                            </form>
+
+                                        </div>
+
+                                    </div>
+                                </section>
+                            </div>
+                        </article>
+
+                    </div>
+                    
+
+                    <div class="articulo__contenedor__body__next">
+
+                        <article>
+                            <div>
+                                <section>
+                                    <div class="articulo__contenedor__body__next__list">
+
+                                        <div class="articulo__contenedor__body__next__list__header"> 
+                                            
+                                            <div class="articulo__contenedor__body__next__list__header__prev" > 
+                                                <p class="articulo__contenedor__body__next__list__header__titulo">Listado de Periocidades</p>
+                                            </div>
+
+                                            <div class="articulo__contenedor__body__next__list__header__next" > </div>
+                                        
+                                        </div>
+
+                                        <div class="articulo__contenedor__body__next__list__content">
+
+                                            <div *ngIf="listObjetos" class="articulo__contenedor__body__next__tabla">
+                                                <table class="table table-striped">
+                                                    <thead>
+                                                        <tr>
+                                                            <th style="width: 5%"></th>
+                                                            
+                                                            <th style="width: 8%">Código interno</th>
+                                                            <th style="width: 12%">Descripción</th>
+                                                            <th style="width: 13%">Veces por año</th>
+                                                            <th style="width: 10%">Estado</th>
+                                                            <th style="width: 12%">Modificado</th>
+                                                            <th style="width: 15%">Se actualizó</th>
+                                                        </tr>
+                                                    </thead>
+                                                    <tbody>
+                                                        <tr *ngFor="let obj of listObjetos" class="item-list__list" (click)="selectObjeto(obj)" >
+                                                            <td  style="white-space: nowrap" class="item-list__view">
+                                                                <div> <a > <mat-icon>swap_horiz</mat-icon> </a> </div>
+                                                            </td>
+                                                            
+                                                            <td>{{obj.codigoPeriocidad}}</td>
+                                                            <td>{{obj.descripcion}}</td>
+                                                            <td>{{obj.vecesxAnio}}</td>
+                                                            <td>{{obj.estado}}</td>
+                                                            <td>{{obj.modificadoPor}}</td>
+                                                            <td>{{obj.fechaModificacion}}</td>
+                                                        </tr>
+                                                    </tbody>
+                                                </table>
+                                            </div>
+                        
+                                        </div>
+
+                                    </div>
+                                </section>
+                            </div>
+                        </article>
+
+                    </div>
+                    
+                </div>
+            </section>
+
+            <!-- // ************
+            // ** FOOTER ** -->
+            <section>
+                <div class="articulo__contenedor__footer">
+                    <div class="articulo__contenedor__footer__prev" > </div>
+
+                    <div class="articulo__contenedor__footer__next" > </div>
+                </div>
+            </section>
+
+        </div>
+
+    </article>
+</main>

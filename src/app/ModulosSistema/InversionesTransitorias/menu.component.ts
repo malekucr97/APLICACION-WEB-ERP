@@ -19,15 +19,13 @@ import { ModulesSystem } from '@environments/environment';
     name: 'Mantenimientos',
     link: '',
     icon: '',
-    children: [ {name: 'Monedas', link: ModulesSystem.inversionesbasehref + 'mantenimientos/tipos-monedas.html', icon: ''}, 
-                {name: 'Tipos de Personas',    link: ModulesSystem.inversionesbasehref + 'mantenimientos/tipos-personas.html', icon: ''}, 
-                {name: 'Opc3',
-                link: '', 
-                icon: '',
-                children: [ {name: 'Opc3.1',      link: ModulesSystem.cumplimientobasehref + '', icon: ''}, 
-                            {name: 'Opc3.2',   link: '/', icon: ''},
-                            {name: 'Opc3.3',        link: '/', icon: ''}
-                          ]}],
+    children: [ {name: 'Tipos de Monedas',          link: ModulesSystem.inversionesbasehref + 'mantenimientos/tipos-monedas.html',        icon: ''}, 
+                {name: 'Tipos de Personas',         link: ModulesSystem.inversionesbasehref + 'mantenimientos/tipos-personas.html',       icon: ''}, 
+                {name: 'Tipos de Años',             link: ModulesSystem.inversionesbasehref + 'mantenimientos/tipos-anios.html',          icon: ''}, 
+                {name: 'Periocidades',              link: ModulesSystem.inversionesbasehref + 'mantenimientos/periocidades.html',         icon: ''},
+                {name: 'Mercados & Sectores',       link: ModulesSystem.inversionesbasehref + 'mantenimientos/tmercados-tsectores.html',  icon: ''},
+                {name: 'Personas',                  link: ModulesSystem.inversionesbasehref + 'mantenimientos/personas.html',             icon: ''}]
+                
   },
   {
     name: 'Procesos',
