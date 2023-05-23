@@ -24,6 +24,8 @@ import { ModulesSystem } from '@environments/environment';
                 {name: 'Tipos de Años',             link: ModulesSystem.inversionesbasehref + 'mantenimientos/tipos-anios.html',          icon: ''}, 
                 {name: 'Periocidades',              link: ModulesSystem.inversionesbasehref + 'mantenimientos/periocidades.html',         icon: ''},
                 {name: 'Mercados & Sectores',       link: ModulesSystem.inversionesbasehref + 'mantenimientos/tmercados-tsectores.html',  icon: ''},
+                {name: 'Emisores',                  link: ModulesSystem.inversionesbasehref + 'mantenimientos/emisores.html',             icon: ''},
+                {name: 'Plazos de Inversión',       link: ModulesSystem.inversionesbasehref + 'mantenimientos/plazos-inversiones.html',             icon: ''},
                 {name: 'Personas',                  link: ModulesSystem.inversionesbasehref + 'mantenimientos/personas.html',             icon: ''}]
                 
   },

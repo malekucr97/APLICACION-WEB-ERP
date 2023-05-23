@@ -12,6 +12,8 @@ import { InvPeriocidad } from '@app/_models/Inversiones/Periocidad';
 import { InvTipoAnio } from '@app/_models/Inversiones/TipoAnio';
 import { InvTipoMercado } from '@app/_models/Inversiones/TipoMercado';
 import { InvTipoSector } from '@app/_models/Inversiones/TipoSector';
+import { InvEmisor } from '@app/_models/Inversiones/Emisor';
+import { InvPlazoInversion } from '@app/_models/Inversiones/PlazoInversion';
 
 @Injectable({ providedIn: 'root' })
 export class InversionesService {
@@ -154,6 +156,36 @@ export class InversionesService {
     }
     deleteTipoSector( id : number ) {
         return this.http.delete<ResponseMessage>(`${environment.apiUrl}/inversiones/deletetiposector?id=${id}`);
+    }
+    // *********************************
+    // *********************************
+    // MANTENIMIENTO DE EMISORES
+    getEmisor(descripcion: string, idCompania:number, soloActivos : boolean) {
+        return this.http.get<InvEmisor[]>(`${environment.apiUrl}/inversiones/getemisor?descripcion=${descripcion}&idCompania=${idCompania}&soloActivos=${soloActivos}`);
+    }
+    postEmisor(objeto:InvEmisor) {
+        return this.http.post<InvEmisor>(`${environment.apiUrl}/inversiones/createemisor`, objeto);
+    }
+    putEmisor(objeto:InvEmisor) {
+        return this.http.put<InvEmisor>(`${environment.apiUrl}/inversiones/updateemisor`, objeto);
+    }
+    deleteEmisor( id : number ) {
+        return this.http.delete<ResponseMessage>(`${environment.apiUrl}/inversiones/deleteemisor?id=${id}`);
+    }
+    // *********************************
+    // *********************************
+    // MANTENIMIENTO DE PLAZOS DE INVERSIÓN
+    getPlazoInversion(descripcion: string, idCompania:number, soloActivos : boolean) {
+        return this.http.get<InvPlazoInversion[]>(`${environment.apiUrl}/inversiones/getplazoinversion?descripcion=${descripcion}&idCompania=${idCompania}&soloActivos=${soloActivos}`);
+    }
+    postPlazoInversion(objeto:InvPlazoInversion) {
+        return this.http.post<InvPlazoInversion>(`${environment.apiUrl}/inversiones/createplazoinversion`, objeto);
+    }
+    putPlazoInversion(objeto:InvPlazoInversion) {
+        return this.http.put<InvPlazoInversion>(`${environment.apiUrl}/inversiones/updateplazoinversion`, objeto);
+    }
+    deletePlazoInversion( id : number ) {
+        return this.http.delete<ResponseMessage>(`${environment.apiUrl}/inversiones/deleteplazoinversion?id=${id}`);
     }
     // *********************************
 }

@@ -81,13 +81,13 @@ export class InvTMercadosTSectoresComponent implements OnInit {
             idMercado              : [null],
             codigoMercado   : [null],
             descripcionMercado     : [null],
-            estado          : [null]
+            estadoMercado          : [null]
         });
         this.formularioSector    = this.formBuilder.group({
             idSector              : [null],
             codigoSector   : [null],
             descripcionSector     : [null],
-            estado          : [null]
+            estadoSector          : [null]
         });
         this.nombreModulo = this.moduleObservable.nombre ;
 
@@ -168,7 +168,7 @@ export class InvTMercadosTSectoresComponent implements OnInit {
                 idMercado              : [objeto.id],
                 codigoMercado   : [objeto.codigoMercado, Validators.required],
                 descripcionMercado     : [objeto.descripcion, Validators.required],
-                estado          : [objeto.estado, Validators.required]
+                estadoMercado          : [objeto.estado, Validators.required]
             });
         } else {
 
@@ -181,7 +181,7 @@ export class InvTMercadosTSectoresComponent implements OnInit {
                 idMercado              : [null],
                 codigoMercado   : [null, Validators.required],
                 descripcionMercado     : [null, Validators.required],
-                estado          : [true, Validators.required]
+                estadoMercado          : [true, Validators.required]
             });
         }
     }
@@ -198,7 +198,7 @@ export class InvTMercadosTSectoresComponent implements OnInit {
                 idSector              : [objeto.id],
                 codigoSector   : [objeto.codigoSector, Validators.required],
                 descripcionSector     : [objeto.descripcion, Validators.required],
-                estado          : [objeto.estado, Validators.required]
+                estadoSector          : [objeto.estado, Validators.required]
             });
         } else {
 
@@ -211,7 +211,7 @@ export class InvTMercadosTSectoresComponent implements OnInit {
                 idSector              : [null],
                 codigoSector   : [null, Validators.required],
                 descripcionSector     : [null, Validators.required],
-                estado          : [true, Validators.required]
+                estadoSector          : [true, Validators.required]
             });
         }
     }
@@ -229,7 +229,7 @@ export class InvTMercadosTSectoresComponent implements OnInit {
 
         var codigoMercado   = this.formularioMercado.controls['codigoMercado'].value;
         var descripcion     = this.formularioMercado.controls['descripcionMercado'].value;
-        var estado          = this.formularioMercado.controls['estado'].value;
+        var estado          = this.formularioMercado.controls['estadoMercado'].value;
 
         var objForm = new InvTipoMercado (this.companiaObservable.id, codigoMercado, descripcion, estado) ;
 
@@ -239,7 +239,7 @@ export class InvTMercadosTSectoresComponent implements OnInit {
 
         var codigoSector   = this.formularioSector.controls['codigoSector'].value;
         var descripcion     = this.formularioSector.controls['descripcionSector'].value;
-        var estado          = this.formularioSector.controls['estado'].value;
+        var estado          = this.formularioSector.controls['estadoSector'].value;
 
         var objForm = new InvTipoSector (this.companiaObservable.id, codigoSector, descripcion, estado) ;
 

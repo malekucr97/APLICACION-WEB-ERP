@@ -1,0 +1,198 @@
+<main>
+    <article class="articulo">
+
+        <div class="articulo__contenedor mat-elevation-z4">
+
+            <!-- // ************
+            // ** HEADER ** -->
+            <section>
+                <div class="articulo__contenedor__header">
+
+                    <div class="articulo__contenedor__header__prev" >
+
+                        <p>{{nombreModulo}} / Mantenimiento de Plazos de Inversión</p>
+
+                    </div>
+
+                    <div class="articulo__contenedor__header__next" > </div>
+
+                </div>
+            </section>
+
+            <!-- // **********
+            // ** BODY ** -->
+
+            <!-- ********************** -->
+            <!-- SECCIÓN EMISORES       -->
+            <!-- ********************** -->
+
+            <section >
+                <div class="articulo__contenedor__body">
+
+                    <div class="articulo__contenedor__body__prev" >
+
+                        <article>
+                            <div>
+                                <section>
+                                    <div class="articulo__contenedor__body__prev__form">
+
+                                        <div class="articulo__contenedor__body__prev__form__header"> 
+                                            
+                                            <div class="articulo__contenedor__body__prev__form__header__prev" > 
+                                                <p class="articulo__contenedor__body__prev__form__header__titulo">Plazos de Inversión</p>
+                                            </div>
+
+                                            <div class="articulo__contenedor__body__prev__form__header__next" > 
+
+                                                <button *ngIf="habilitaBtnNuevoPlazoInversion" class="articulo__contenedor__body__prev__form__header__prev__btns__new" 
+                                                        mat-flat-button
+                                                        (click)="limpiarFormularioPlazoInversion()">Nuevo</button>
+
+                                                <button *ngIf="habilitaBtnActualizaPlazoInversion" class="articulo__contenedor__header__prev__btns__warn" 
+                                                        mat-flat-button
+                                                        (click)="actualizaObjetoPlazoInversion()">Actualizar</button>
+                                                <button *ngIf="habilitaBtnRegistroPlazoInversion" class="articulo__contenedor__header__prev__btns__ok" 
+                                                        mat-flat-button
+                                                        (click)="submitPlazoInversion()">Registrar</button>
+                                                <button *ngIf="habilitaBtnEliminarPlazoInversion" class="articulo__contenedor__header__prev__btns__danger" 
+                                                        mat-flat-button
+                                                        (click)="eliminarObjetoEmisor()">Eliminar</button>
+
+                                            </div>
+                                        
+                                        </div>
+
+                                        <div class="articulo__contenedor__body__prev__form__content">
+
+                                            <form [formGroup]="formularioPlazoInversion" class="row">
+                    
+                                                <div class="form-group col-md-1">
+                                                    <label for="lblIdMercado" class="form-label">Id</label>
+                                                    <input formControlName="idPlazoInversion" class="form-control" type="text" id="id_idEmisor" readonly />
+                                                </div>
+
+                                                <div class="form-group col-md-9">
+                                                    <label for="lblDescripcionPlazoInversion" class="form-label">Descripción</label>
+                                                    <input formControlName="descripcionPlazoInversion" class="form-control" type="text" id="id_descripcionPlazoInversion"
+                                                        [ngClass]="{ 'is-invalid': submittedFormPlazoInversion && m.descripcionPlazoInversion.errors }" />
+                                                    <div *ngIf="submittedFormPlazoInversion && m.descripcionPlazoInversion.errors" class="invalid-feedback">
+                                                        <div *ngIf="m.descripcionPlazoInversion.errors.required">La descripción del plazo es requerida .</div>
+                                                    </div>
+                                                </div>
+                    
+                                                <div class="col-sm-2 margin-icos-mat">
+                                                    <a class="item-list__search"> <mat-icon (click)="buscarObjetoPlazoInversion()">search</mat-icon> </a>
+                                                </div>
+
+                                                <div class="form-group col-md-5">
+                                                    <label for="lblMinimoPlazoInversion" class="form-label">Mínimo</label>
+                                                    <input formControlName="minimoPlazoInversion" class="form-control" type="text" id="id_minimoPlazoInversion"
+                                                        [ngClass]="{ 'is-invalid': submittedFormPlazoInversion && m.minimoPlazoInversion.errors }" />
+                                                    <div *ngIf="submittedFormPlazoInversion && m.minimoPlazoInversion.errors" class="invalid-feedback">
+                                                        <div *ngIf="m.minimoPlazoInversion.errors.required">El mínimo de inversión es requerido .</div>
+                                                    </div>
+                                                </div>
+
+                                                <div class="form-group col-md-5">
+                                                    <label for="lblMaximoPlazoInversion" class="form-label">Máximo</label>
+                                                    <input formControlName="maximoPlazoInversion" class="form-control" type="text" id="id_maximoPlazoInversion"
+                                                        [ngClass]="{ 'is-invalid': submittedFormPlazoInversion && m.maximoPlazoInversion.errors }" />
+                                                    <div *ngIf="submittedFormPlazoInversion && m.maximoPlazoInversion.errors" class="invalid-feedback">
+                                                        <div *ngIf="m.maximoPlazoInversion.errors.required">El máximo de inversión es requerido .</div>
+                                                    </div>
+                                                </div>
+
+                                                <div class="form-group col-sm-1 margin-icos-mat">
+                                                    <mat-checkbox formControlName="estadoPlazoInversion">Estado</mat-checkbox>
+                                                </div>
+                    
+                                            </form>
+
+                                        </div>
+
+                                    </div>
+                                </section>
+                            </div>
+                        </article>
+
+                    </div>
+                    
+
+                    <div class="articulo__contenedor__body__next">
+
+                        <article>
+                            <div>
+                                <section>
+                                    <div class="articulo__contenedor__body__next__list">
+
+                                        <div class="articulo__contenedor__body__next__list__header"> 
+                                            
+                                            <div class="articulo__contenedor__body__next__list__header__prev" > 
+                                                <p class="articulo__contenedor__body__next__list__header__titulo">Listado de Plazos de Inversión</p>
+                                            </div>
+
+                                            <div class="articulo__contenedor__body__next__list__header__next" > </div>
+                                        
+                                        </div>
+
+                                        <div class="articulo__contenedor__body__next__list__content">
+
+                                            <div *ngIf="listObjetosPlazosInversiones" class="articulo__contenedor__body__next__tabla">
+                                                <table class="table table-striped">
+                                                    <thead>
+                                                        <tr>
+                                                            <th style="width: 5%"></th>
+                                                            
+                                                            <th style="width: 15%">Descripción</th>
+
+                                                            <th style="width: 10%">Mínimo</th>
+                                                            <th style="width: 10%">Máximo</th>
+
+                                                            <th style="width: 10%">Estado</th>
+                                                            <th style="width: 12%">Modificado</th>
+                                                            <th style="width: 15%">Se actualizó</th>
+                                                        </tr>
+                                                    </thead>
+                                                    <tbody>
+                                                        <tr *ngFor="let obj of listObjetosPlazosInversiones" class="item-list__list" (click)="selectObjetoPlazoInversion(obj)" >
+                                                            <td  style="white-space: nowrap" class="item-list__view">
+                                                                <div> <a > <mat-icon>swap_horiz</mat-icon> </a> </div>
+                                                            </td>
+                                                            
+                                                            <td>{{obj.descripcion}}</td>
+                                                            <td>{{obj.minimo}}</td>
+                                                            <td>{{obj.maximo}}</td>
+                                                            <td>{{obj.estado}}</td>
+                                                            <td>{{obj.modificadoPor}}</td>
+                                                            <td>{{obj.fechaModificacion}}</td>
+                                                        </tr>
+                                                    </tbody>
+                                                </table>
+                                            </div>
+                        
+                                        </div>
+
+                                    </div>
+                                </section>
+                            </div>
+                        </article>
+
+                    </div>
+                    
+                </div>
+            </section>
+
+            <!-- // ************
+            // ** FOOTER ** -->
+            <section>
+                <div class="articulo__contenedor__footer">
+                    <div class="articulo__contenedor__footer__prev" > </div>
+
+                    <div class="articulo__contenedor__footer__next" > </div>
+                </div>
+            </section>
+
+        </div>
+
+    </article>
+</main>

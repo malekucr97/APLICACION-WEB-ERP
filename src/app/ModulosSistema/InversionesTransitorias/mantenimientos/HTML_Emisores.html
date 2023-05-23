@@ -1,0 +1,230 @@
+<main>
+    <article class="articulo">
+
+        <div class="articulo__contenedor mat-elevation-z4">
+
+            <!-- // ************
+            // ** HEADER ** -->
+            <section>
+                <div class="articulo__contenedor__header">
+
+                    <div class="articulo__contenedor__header__prev" >
+
+                        <p>{{nombreModulo}} / Mantenimiento de Emisores</p>
+
+                    </div>
+
+                    <div class="articulo__contenedor__header__next" > </div>
+
+                </div>
+            </section>
+
+            <!-- // **********
+            // ** BODY ** -->
+
+            <!-- ********************** -->
+            <!-- SECCIÓN EMISORES       -->
+            <!-- ********************** -->
+
+            <section >
+                <div class="articulo__contenedor__body">
+
+                    <div class="articulo__contenedor__body__prev" >
+
+                        <article>
+                            <div>
+                                <section>
+                                    <div class="articulo__contenedor__body__prev__form">
+
+                                        <div class="articulo__contenedor__body__prev__form__header"> 
+                                            
+                                            <div class="articulo__contenedor__body__prev__form__header__prev" > 
+                                                <p class="articulo__contenedor__body__prev__form__header__titulo">Emisores</p>
+                                            </div>
+
+                                            <div class="articulo__contenedor__body__prev__form__header__next" > 
+
+                                                <button *ngIf="habilitaBtnNuevoEmisor" class="articulo__contenedor__body__prev__form__header__prev__btns__new" 
+                                                        mat-flat-button
+                                                        (click)="limpiarFormularioEmisor()">Nuevo</button>
+
+                                                <button *ngIf="habilitaBtnActualizaEmisor" class="articulo__contenedor__header__prev__btns__warn" 
+                                                        mat-flat-button
+                                                        (click)="actualizaObjetoEmisor()">Actualizar</button>
+                                                <button *ngIf="habilitaBtnRegistroEmisor" class="articulo__contenedor__header__prev__btns__ok" 
+                                                        mat-flat-button
+                                                        (click)="submitEmisor()">Registrar</button>
+                                                <button *ngIf="habilitaBtnElimibarEmisor" class="articulo__contenedor__header__prev__btns__danger" 
+                                                        mat-flat-button
+                                                        (click)="eliminarObjetoEmisor()">Eliminar</button>
+
+                                            </div>
+                                        
+                                        </div>
+
+                                        <div class="articulo__contenedor__body__prev__form__content">
+
+                                            <form [formGroup]="formularioEmisor" class="row">
+                    
+                                                <div class="form-group col-md-1">
+                                                    <label for="lblIdMercado" class="form-label">Id</label>
+                                                    <input formControlName="idEmisor" class="form-control" type="text" id="id_idEmisor" readonly />
+                                                </div>
+                                                
+                                                <div class="form-group col-md-3">
+                                                    <label for="lblCodigoEmisor" class="form-label">Código Interno</label>
+                                                    <input formControlName="codigoEmisor" class="form-control" type="text" id="id_codigoEmisor"
+                                                        [ngClass]="{ 'is-invalid': submittedFormEmisor && m.codigoEmisor.errors }" />
+                                                    <div *ngIf="submittedFormEmisor && m.codigoEmisor.errors" class="invalid-feedback">
+                                                        <div *ngIf="m.codigoEmisor.errors.required">El código del emisor es requerido .</div>
+                                                    </div>
+                                                </div>
+
+                                                <div class="form-group col-md-7">
+                                                    <label for="lblDescripcionEmisor" class="form-label">Descripción</label>
+                                                    <input formControlName="descripcionEmisor" class="form-control" type="text" id="id_descripcionEmisor"
+                                                        [ngClass]="{ 'is-invalid': submittedFormEmisor && m.descripcionEmisor.errors }" />
+                                                    <div *ngIf="submittedFormEmisor && m.descripcionEmisor.errors" class="invalid-feedback">
+                                                        <div *ngIf="m.descripcionEmisor.errors.required">La descripción del emisor es requerida .</div>
+                                                    </div>
+                                                </div>
+                    
+                                                <div class="col-sm-1 margin-icos-mat">
+                                                    <a class="item-list__search"> <mat-icon (click)="buscarObjetoEmisor()">search</mat-icon> </a>
+                                                </div>
+
+
+                                                <div class="form-group col-md-4">
+                                                    <label for="lblIdTipoPersonaEmisor" class="form-label">Tipo de Persona</label>
+                                                    <select formControlName="idTipoPersonaEmisor" class="form-control" name="selectIdTipoPersonaEmisor"
+                                                        [ngClass]="{ 'is-invalid': submittedFormEmisor && m.idTipoPersonaEmisor.errors }" >
+                                                            <option [ngValue]="objeto" *ngFor="let objeto of listTiposPersonas">{{objeto.id}} - {{objeto.descripcion}}</option>
+                                                    </select>
+                                                    <div *ngIf="submittedFormEmisor && m.idTipoPersonaEmisor.errors" class="invalid-feedback">
+                                                        <div *ngIf="m.idTipoPersonaEmisor.errors.required">El Tipo de Persona es requerido</div>
+                                                    </div>
+                                                </div>
+
+                                                <div class="form-group col-md-4">
+                                                    <label for="lblIdTipoSectorEmisor" class="form-label">Tipo de Sector</label>
+                                                    <select formControlName="idTipoSectorEmisor" class="form-control" name="selectIdTipoSectorEmisor"
+                                                        [ngClass]="{ 'is-invalid': submittedFormEmisor && m.idTipoSectorEmisor.errors }" >
+                                                            <option [ngValue]="objeto" *ngFor="let objeto of listSectores">{{objeto.id}} - {{objeto.descripcion}}</option>
+                                                    </select>
+                                                    <div *ngIf="submittedFormEmisor && m.idTipoSectorEmisor.errors" class="invalid-feedback">
+                                                        <div *ngIf="m.idTipoSectorEmisor.errors.required">El Tipo de Persona es requerido</div>
+                                                    </div>
+                                                </div>
+
+                                                <div class="form-group col-md-3">
+                                                    <label for="lblIdentificacionEmisor" class="form-label">Identificación del Emisor</label>
+                                                    <input formControlName="identificacionEmisor" class="form-control" type="text" id="id_identificacionEmisor"
+                                                        [ngClass]="{ 'is-invalid': submittedFormEmisor && m.identificacionEmisor.errors }" />
+                                                    <div *ngIf="submittedFormEmisor && m.identificacionEmisor.errors" class="invalid-feedback">
+                                                        <div *ngIf="m.identificacionEmisor.errors.required">La identificación del emisor es requerida .</div>
+                                                    </div>
+                                                </div>
+
+                                                <div class="form-group col-md-10">
+                                                    <label for="lblOtrasResenasEmisor" class="form-label">Otras reseñas</label>
+                                                    <textarea formControlName="otrasResenasEmisor" class="form-control" type="textarea" id="id_otrasResenasEmisor"
+                                                        [ngClass]="{ 'is-invalid': submittedFormEmisor && m.otrasResenasEmisor.errors }" > </textarea>
+                                                    <div *ngIf="submittedFormEmisor && m.otrasResenasEmisor.errors" class="invalid-feedback">   
+                                                        <div *ngIf="m.otrasResenasEmisor.errors.required">Las reseñas del emisor son requeridas .</div>
+                                                    </div>
+                                                </div>
+
+                                                <div class="form-group col-sm-1 margin-icos-mat">
+                                                    <mat-checkbox formControlName="estadoEmisor">Estado</mat-checkbox>
+                                                </div>
+                    
+                                            </form>
+
+                                        </div>
+
+                                    </div>
+                                </section>
+                            </div>
+                        </article>
+
+                    </div>
+                    
+
+                    <div class="articulo__contenedor__body__next">
+
+                        <article>
+                            <div>
+                                <section>
+                                    <div class="articulo__contenedor__body__next__list">
+
+                                        <div class="articulo__contenedor__body__next__list__header"> 
+                                            
+                                            <div class="articulo__contenedor__body__next__list__header__prev" > 
+                                                <p class="articulo__contenedor__body__next__list__header__titulo">Listado de Emisores</p>
+                                            </div>
+
+                                            <div class="articulo__contenedor__body__next__list__header__next" > </div>
+                                        
+                                        </div>
+
+                                        <div class="articulo__contenedor__body__next__list__content">
+
+                                            <div *ngIf="listObjetosEmisores" class="articulo__contenedor__body__next__tabla">
+                                                <table class="table table-striped">
+                                                    <thead>
+                                                        <tr>
+                                                            <th style="width: 5%"></th>
+                                                            
+                                                            <th style="width: 8%">Código</th>
+                                                            <th style="width: 15%">Descripción</th>
+                                                            <th style="width: 10%">Persona</th>
+                                                            <th style="width: 10%">Sector</th>
+                                                            <th style="width: 10%">Estado</th>
+                                                            <th style="width: 12%">Modificado</th>
+                                                            <th style="width: 15%">Se actualizó</th>
+                                                        </tr>
+                                                    </thead>
+                                                    <tbody>
+                                                        <tr *ngFor="let obj of listObjetosEmisores" class="item-list__list" (click)="selectObjetoEmisor(obj)" >
+                                                            <td  style="white-space: nowrap" class="item-list__view">
+                                                                <div> <a > <mat-icon>swap_horiz</mat-icon> </a> </div>
+                                                            </td>
+                                                            
+                                                            <td>{{obj.codigoEmisor}}</td>
+                                                            <td>{{obj.descripcion}}</td>
+                                                            <td>{{obj.idTipoPersona}}</td>
+                                                            <td>{{obj.idTipoSector}}</td>
+                                                            <td>{{obj.estado}}</td>
+                                                            <td>{{obj.modificadoPor}}</td>
+                                                            <td>{{obj.fechaModificacion}}</td>
+                                                        </tr>
+                                                    </tbody>
+                                                </table>
+                                            </div>
+                        
+                                        </div>
+
+                                    </div>
+                                </section>
+                            </div>
+                        </article>
+
+                    </div>
+                    
+                </div>
+            </section>
+
+            <!-- // ************
+            // ** FOOTER ** -->
+            <section>
+                <div class="articulo__contenedor__footer">
+                    <div class="articulo__contenedor__footer__prev" > </div>
+
+                    <div class="articulo__contenedor__footer__next" > </div>
+                </div>
+            </section>
+
+        </div>
+
+    </article>
+</main>

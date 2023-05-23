@@ -29,6 +29,8 @@ import { InvPersonasComponent } from './mantenimientos/personas-component';
 import { InvPeriocidadesComponent } from './mantenimientos/periocidades-component';
 import { InvTiposAniosComponent } from './mantenimientos/tiposanios-component';
 import { InvTMercadosTSectoresComponent } from './mantenimientos/tmercadostsectores-component';
+import { InvEmisoresComponent } from './mantenimientos/emisores-component';
+import { InvPlazosInversionesComponent } from './mantenimientos/plazosinversiones-component';
 
 @NgModule({
     imports: [
@@ -70,7 +72,11 @@ import { InvTMercadosTSectoresComponent } from './mantenimientos/tmercadostsecto
         // / ** tipos de años
         InvTiposAniosComponent,
         // / ** tipos de mercados & sectores
-        InvTMercadosTSectoresComponent
+        InvTMercadosTSectoresComponent,
+        // / ** emisores
+        InvEmisoresComponent,
+        // / ** plazos de inversiones
+        InvPlazosInversionesComponent
     ],
     entryComponents: [
         InvTiposMonedasComponent
