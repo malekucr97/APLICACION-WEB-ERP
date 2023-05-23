@@ -10,6 +10,8 @@ import { InvPersonasComponent } from './mantenimientos/personas-component';
 import { InvPeriocidadesComponent } from './mantenimientos/periocidades-component';
 import { InvTiposAniosComponent } from './mantenimientos/tiposanios-component';
 import { InvTMercadosTSectoresComponent } from './mantenimientos/tmercadostsectores-component';
+import { InvEmisoresComponent } from './mantenimientos/emisores-component';
+import { InvPlazosInversionesComponent } from './mantenimientos/plazosinversiones-component';
 
 const routes: Routes = [
     {
@@ -17,12 +19,14 @@ const routes: Routes = [
         children: [
             { path: '', component:              IndexInversionesComponent },
             { path: 'index.html', component:    IndexInversionesComponent },
-            { path: 'mantenimientos/tipos-monedas.html', component:     InvTiposMonedasComponent },
-            { path: 'mantenimientos/tipos-personas.html', component:    InvTiposPersonasComponent },
-            { path: 'mantenimientos/personas.html', component:          InvPersonasComponent },
-            { path: 'mantenimientos/periocidades.html', component:      InvPeriocidadesComponent },
-            { path: 'mantenimientos/tipos-anios.html', component:      InvTiposAniosComponent },
-            { path: 'mantenimientos/tmercados-tsectores.html', component:      InvTMercadosTSectoresComponent }
+            { path: 'mantenimientos/tipos-monedas.html',        component:  InvTiposMonedasComponent },
+            { path: 'mantenimientos/tipos-personas.html',       component:  InvTiposPersonasComponent },
+            { path: 'mantenimientos/personas.html',             component:  InvPersonasComponent },
+            { path: 'mantenimientos/periocidades.html',         component:  InvPeriocidadesComponent },
+            { path: 'mantenimientos/tipos-anios.html',          component:  InvTiposAniosComponent },
+            { path: 'mantenimientos/tmercados-tsectores.html',  component:  InvTMercadosTSectoresComponent },
+            { path: 'mantenimientos/emisores.html',             component:  InvEmisoresComponent },
+            { path: 'mantenimientos/plazos-inversiones.html',   component:  InvPlazosInversionesComponent }
 
         ]
     }
