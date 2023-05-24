@@ -1,18 +1,10 @@
-export const environment = {
-    apiUrlAccessAdmin: 'http://localhost:4000'
-};
-export const administrator = {
-    esAdministrador: 1,
-    id: 'adminboss'
-};
-export const amdinBusiness = {
-    adminSociedad: 'admin-e'
-};
-export const AuthStatesApp = {
-    active: 'Activo',
-    inactive: 'Inactivo',
-    pending: 'Pendiente'
-};
+export const environment    = { apiUrlAccessAdmin: 'http://localhost:4000' };
+export const administrator  = { esAdministrador: 1,
+                                id: 'adminboss' };
+export const amdinBusiness  = { adminSociedad: 'admin-e' };
+export const AuthStatesApp  = { active: 'Activo',
+                                inactive: 'Inactivo',
+                                pending: 'Pendiente' };
 
 export const httpAccessAdminPage = {
     
@@ -24,17 +16,17 @@ export const httpAccessAdminPage = {
     // *************************************************
     // -- >> Págia de Administración del Sistema *******
     // *************************************************
-    urlPageAdministrator:       '/_AdminModule/AdminUserPage/',
-    urlPageConfigUser:          '/_AdminModule/AddEditUserPage/',
-    urlPageAddEditUser:         '/_AdminModule/AddEditUserPage/',
-    urlPageListUsers:           '/_AdminModule/AdminListUserPage/',
-    urlPageAddBUser:            '/_AdminModule/AddBusinessUserPage/',
-    urlPageAddRUser:            '/_AdminModule/AddRoleUserPage/',
-    urlPageListBusiness:        '/_AdminModule/AdminListBusinessPage/',
-    urlPageListModule:          '/_AdminModule/AdminListModulePage/',
-    urlPageListBusinessModule:  '/_AdminModule/AdminListModuleBusinessPage/',
-    urlPageListRole:            '/_AdminModule/AdminListRolePage/',
-    urlPageAddModuleRol:        '/_AdminModule/AddModuleRolePage/'
+    urlPageListModule:          '/admin-module/adminpage-listmodules.html/',
+    urlPageAdministrator:       '/admin-module/adminpage-indexadmin.html/',
+    urlPageAddEditBusiness:     '/admin-module/adminpage-addeditbusiness.html/',
+    urlPageListBusinessModule:  '/admin-module/adminpage-listmodulebusiness.html/',
+    urlPageListBusiness:        '/admin-module/adminpage-listbusiness.html/',
+    urlPageListRole:            '/admin-module/adminpage-listroles.html/',
+    urlPageListUsers:           '/admin-module/adminpage-listusers.html',
+    urlPageAddEditUser:         '/admin-module/adminpage-addedituser.html/',
+    urlPageAddBUser:            '/admin-module/adminpage-addbusinessuser.html/', 
+    urlPageAddRUser:            '/admin-module/adminpage-addroleuser.html/',
+    urlPageAddModuleRol:        '/admin-module/adminpage-addmodulerol.html/'
 };
 
 export const httpLandingIndexPage = {

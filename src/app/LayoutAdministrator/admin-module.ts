@@ -9,7 +9,7 @@ import { AdminUserComponent } from './user/adminUserPage.component';
 import { AddEditUserComponent } from './user/addEditUserPage.component';
 import { ListUserComponent } from './user/listUserPage.component';
 // -- empresa
-import { AdminBusinessComponent } from './business/adminBusinessPage.component';
+// import { AdminBusinessComponent } from './business/adminBusinessPage.component';
 import { ListBusinessComponent } from './business/listBusinessPage.component';
 import { AddEditBusinessComponent } from './business/addEditBusinessPage.component';
 import { AddBusinessUserComponent } from './business/addBusinessUserPage.component';
@@ -21,17 +21,20 @@ import { AddRoleUserComponent } from './role/addRoleUserPage.component';
 import { ListModuleComponent } from './module/listModulePage.component';
 import { AddModuleRoleComponent } from './module/addModuleRolePage.component';
 import { ListModuleBusinessComponent } from './module/listModuleBusinessPage.component';
+import { MatButtonModule } from '@angular/material/button';
 
 @NgModule({
     imports: [
         CommonModule,
         ReactiveFormsModule,
-        AdminRoutingModule
+        AdminRoutingModule,
+        // update mlopez 22 05 2023
+        MatButtonModule
     ],
     declarations: [
         LayoutAdministratorComponent,
         AdminUserComponent,
-        AdminBusinessComponent,
+        // AdminBusinessComponent,
         AddEditUserComponent,
         ListUserComponent,
         ListBusinessComponent,

@@ -18,7 +18,7 @@ import { Compania } from '../../_models/modules/compania';
     link: '',
     icon: '',
     children: [{name: 'Generales', link: '/', icon: ''}, 
-               {name: 'Compañías',link: '/_GeneralesModule/ConfiguracionCompania.html', icon: ''}],
+               {name: 'Compañías',link: '/modulo-generales/ConfiguracionCompania.html', icon: ''}],
   },
   {
     name: 'Monedas',

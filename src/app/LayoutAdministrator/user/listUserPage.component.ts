@@ -35,10 +35,7 @@ export class ListUserComponent implements OnInit {
 
     ngOnInit() {
 
-        if (!this.businessObservable) {
-            this.router.navigate([this.Home]);
-            return;
-        }
+        if (!this.businessObservable) { this.router.navigate([this.Home]); return; }
 
         if (this.userObservable.esAdmin) {
 
@@ -59,6 +56,7 @@ export class ListUserComponent implements OnInit {
             });
         } else { this.router.navigate([this.Home]); }
     }
+
     deleteUser(identificacionUsuario: string, idUser: number) {
 
         this.alertService.clear();

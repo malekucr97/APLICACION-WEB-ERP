@@ -2,42 +2,42 @@
 <h4>Lista de compañías registradas en el sistema</h4>
 <a routerLink="{{URLAdministratorPage}}" class="btn btn-light mb-2 mr-3">Volver</a>
 
-
 <div class="card">
     <div class="card-body">
-        <a routerLink="/_AdminModule/AddEditBusinessPage" class="btn btn-sm btn-outline-success mb-2 float-right">Registrar Empresa</a>
 
-<table class="table table-striped">
-    <thead>
-        <tr>
-            <th style="width: 15%">Identificación</th>
-            <th style="width: 25%">Nombre de la Compañía</th>
-            <th style="width: 15%">Correo Electrónico</th>
-            <th style="width: 15%">Número de Teléfono</th>
-            <th style="width: 10%"></th>
-        </tr>
-    </thead>
-    <tbody>
-        <tr *ngFor="let business of listBusiness">
-            <td>{{business.cedulaJuridica}}</td>
-            <td>{{business.nombre}}</td>
-            <td>{{business.correoElectronico}}</td>
-            <td>{{business.telefono}}</td>
-            <td style="white-space: nowrap">
-                <a routerLink="/_AdminModule/AdminListModuleBusinessPage/{{business.id}}" class="btn btn-sm btn-outline-dark mr-1">Módulos Asociados</a>
-                <!-- <button (click)="deleteBusiness(business.id)" class="btn btn-sm btn-danger mr-1" [disabled]="business.isDeleting">
-                    <span *ngIf="business.isDeleting" class="spinner-border spinner-border-sm"></span>
-                    <span *ngIf="!business.isDeleting">Eliminar</span>
-                </button> -->
-            </td>
-        </tr>
-        <tr *ngIf="!listBusiness">
-            <td colspan="4" class="text-center">
-                <span class="spinner-border spinner-border-lg align-center"></span>
-            </td>
-        </tr>
-    </tbody>
-</table>
+        <button class="items__btns__header__ok" mat-flat-button routerLink="{{urlPageAddEditBusiness}}">
+            Registrar Empresa</button>
+            
+        <table class="table table-striped">
+            <thead>
+                <tr>
+                    <th style="width: 15%">Identificación</th>
+                    <th style="width: 25%">Nombre de la Compañía</th>
+                    <th style="width: 15%">Correo Electrónico</th>
+                    <th style="width: 15%">Número de Teléfono</th>
+                    <th style="width: 10%"></th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr *ngFor="let business of listBusiness">
+                    <td>{{business.cedulaJuridica}}</td>
+                    <td>{{business.nombre}}</td>
+                    <td>{{business.correoElectronico}}</td>
+                    <td>{{business.telefono}}</td>
+                    <td style="white-space: nowrap">
 
-</div>
+                        <button class="items__btns__list__otro" mat-flat-button routerLink="{{urlPageListBusinessModules}}{{business.id}}">
+                            Módulos de Compañía</button>
+                            
+                    </td>
+                </tr>
+                <tr *ngIf="!listBusiness">
+                    <td colspan="4" class="text-center">
+                        <span class="spinner-border spinner-border-lg align-center"></span>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+
+    </div>
 </div>

@@ -221,17 +221,17 @@ export class AccountService {
     getModulesBusiness(idEmpresa: number) {
         return this.http.get<Module[]>(`${environment.apiUrl}/users/modulossociedad?idEmpresa=${idEmpresa}`);
     }
-    activateModule(idModule: number, idBusiness: number) {
+    activateModule(idModule: number, idEmpresa:number) {
         let activateMod : ModuleRolBusiness = new ModuleRolBusiness();
         activateMod.IdModulo = idModule;
-        activateMod.IdBusiness = idBusiness;
+        activateMod.IdBusiness = idEmpresa;
 
         return this.http.put<ResponseMessage>(`${environment.apiUrl}/users/activarmodulo`, activateMod);
     }
-    inActivateModule(idModule: number, idBusiness: number) {
+    inActivateModule(idModule: number) {
         let inActivateMod : ModuleRolBusiness = new ModuleRolBusiness();
         inActivateMod.IdModulo = idModule;
-        inActivateMod.IdBusiness = idBusiness;
+        // inActivateMod.IdBusiness = idBusiness;
 
         return this.http.put<ResponseMessage>(`${environment.apiUrl}/users/inactivarmodulo`, inActivateMod);
     }
@@ -242,8 +242,8 @@ export class AccountService {
 
         return this.http.post<ResponseMessage>(`${environment.apiUrl}/users/asignarmodulosociedad`, moduleToBusiness);
     }
-    desAssignModuleToBusiness(moduleId:number, idBusiness:number) {
-        return this.http.delete<ResponseMessage>(`${environment.apiUrl}/users/desasigmodsociedad?idModulo=${moduleId}&idEmpresa=${idBusiness}`);
+    desAssignModuleToBusiness(moduleId:number, idEmpresa:number) {
+        return this.http.delete<ResponseMessage>(`${environment.apiUrl}/users/desasigmodsociedad?idModulo=${moduleId}&idEmpresa=${idEmpresa}`);
     }
     getModulesActiveBusiness(idEmpresa: number) {
         return this.http.get<Module[]>(`${environment.apiUrl}/users/modulosactsociedad?idEmpresa=${idEmpresa}`);
