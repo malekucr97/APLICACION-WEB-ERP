@@ -5,9 +5,13 @@ import { first } from 'rxjs/operators';
 import { AccountService, AlertService } from '@app/_services';
 import { Compania } from '../../_models/modules/compania';
 import { User } from '@app/_models';
+import { httpAccessAdminPage } from '@environments/environment-access-admin';
 
 @Component({ templateUrl: 'HTML_AddEditBusinessPage.html' })
 export class AddEditBusinessComponent implements OnInit {
+
+    public urladminListBusiness : string = httpAccessAdminPage.urlPageListBusiness;
+
     form: FormGroup;
     userObserver: User;
 
@@ -21,13 +25,12 @@ export class AddEditBusinessComponent implements OnInit {
     updateBusiness: boolean;
     addBusiness: boolean;
 
-    constructor(
-        private formBuilder: FormBuilder,
-        private route: ActivatedRoute,
-        private router: Router,
-        private accountService: AccountService,
-        private alertService: AlertService
-    ) { 
+    constructor(    private formBuilder: FormBuilder,
+                    private route: ActivatedRoute,
+                    private router: Router,
+                    private accountService: AccountService,
+                    private alertService: AlertService ) {
+
         this.userObserver = this.accountService.userValue;
     }
 
@@ -94,7 +97,7 @@ export class AddEditBusinessComponent implements OnInit {
             .subscribe(
                 response => {
 
-                    this.router.navigate(['/_AdminModule/AdminListBusinessPage'], { relativeTo: this.route });
+                    this.router.navigate([this.urladminListBusiness], { relativeTo: this.route });
 
                     if (response.exito) {
                         this.alertService.success(response.responseMesagge, { keepAfterRouteChange: true });
@@ -118,7 +121,7 @@ export class AddEditBusinessComponent implements OnInit {
             .subscribe(
                 response => {
 
-                    this.router.navigate(['/_AdminModule/AdminListBusinessPage'], { relativeTo: this.route });
+                    this.router.navigate([this.urladminListBusiness], { relativeTo: this.route });
 
                     if (response.exito) {
                         this.alertService.success(response.responseMesagge, { keepAfterRouteChange: true });

@@ -43,7 +43,7 @@ const routes: Routes = [
 
     // -- inicio se sesión & pantallas de administración
     { path: 'account',              loadChildren: accountModule },
-    { path: '_AdminModule',         loadChildren: AdminModule,      canActivate: [AuthGuard] },
+    { path: 'admin-module',         loadChildren: AdminModule,      canActivate: [AuthGuard] },
 
     // -- módulos del sistema
     { path: 'inra-sa/modulo-generales',                 loadChildren: GeneralesModule,      canActivate: [AuthGuard] },

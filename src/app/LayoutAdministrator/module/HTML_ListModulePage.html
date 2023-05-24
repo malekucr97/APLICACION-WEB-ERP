@@ -1,29 +1,48 @@
 <h1 style="color:#1A5276">Módulos </h1>
-<h4 *ngIf="!listModulesBusiness">Listado de módulos registrados en el sistema</h4>
+<h4 *ngIf="!listModules">Listado de módulos registrados en el sistema</h4>
 
-<a routerLink="/_AdminModule/AdminUserPage/" class="btn btn-light mb-2 mr-3">Volver</a>
+<a routerLink="{{URLIndexAdminPage}}" class="btn btn-light mb-2 mr-3">Volver</a>
 
 <div class="card">
     <div class="card-body">
 
         <div>
             <br>
-            <h4 *ngIf="seleccionEmpresa" style="color:#1A5276">Seleccione los módulos a los que se les dará acceso en {{business.nombre}}</h4>
+            <!-- <h4 *ngIf="seleccionEmpresa" style="color:#1A5276">Seleccione los módulos a los que se les dará acceso en {{business.nombre}}</h4> -->
             <table class="table table-striped">
                 <thead>
                     <tr>
-                        <th style="width: 25%">Identificador</th>
-                        <th style="width: 25%">Nombre</th>
-                        <th style="width: 30%">Descripción</th>
+                        <th style="width: 10%">Identificador</th>
+                        <th style="width: 15%">Nombre</th>
+                        <th style="width: 20%">Descripción</th>
                         <th style="width: 10%">Estado</th>
+
+                        <th style="width: 10%"></th>
                     </tr>
                 </thead>
                 <tbody>
-                    <tr *ngFor="let module of listModulesSystem">
+                    <tr *ngFor="let module of listModules">
                         <td>{{module.identificador}}</td>
                         <td>{{module.nombre}}</td>
                         <td>{{module.descripcion}}</td>
                         <td>{{module.estado}}</td>
+
+                        
+
+                        <td style="white-space: nowrap">
+
+                            <button *ngIf="module.estado!='Activo'"  
+                                (click)="activate(module.identificador)" 
+                                class="items__btns__list__ok" mat-flat-button > Activar </button>
+                        
+                        <button *ngIf="module.estado=='Activo'"  
+                                (click)="inActivate(module.identificador)" 
+                                class="items__btns__list__warn" mat-flat-button> Inactivar </button>
+
+                            <button class="items__btns__list__otro" mat-flat-button >
+                                Pantallas y Accesos</button>
+            
+                        </td>
                     </tr>
 
                 </tbody>

@@ -11,7 +11,7 @@ export class AdminUserComponent implements OnInit {
     userObservable: User;
     businessObservable: Compania;
 
-    URLConfigureUserPage: string = httpAccessAdminPage.urlPageConfigUser;
+    URLConfigureUserPage: string = httpAccessAdminPage.urlPageAddEditUser;
     URLListUserPage: string = httpAccessAdminPage.urlPageListUsers;
     URLListBusinessPage: string = httpAccessAdminPage.urlPageListBusiness;
     URLListModulePage: string = httpAccessAdminPage.urlPageListModule;

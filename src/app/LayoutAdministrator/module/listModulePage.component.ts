@@ -4,78 +4,57 @@ import { Router } from '@angular/router';
 import { AccountService, AlertService } from '@app/_services';
 import { User, Module } from '@app/_models';
 import { Compania } from '../../_models/modules/compania';
-import { httpLandingIndexPage } from '@environments/environment-access-admin';
+import { amdinBusiness, httpAccessAdminPage, httpLandingIndexPage } from '@environments/environment-access-admin';
 
-@Component({ templateUrl: 'HTML_ListModulePage.html' })
+@Component({    templateUrl: 'HTML_ListModulePage.html',
+                styleUrls: ['../../../assets/scss/app.scss'] 
+})
 export class ListModuleComponent implements OnInit {
     
     userObservable: User;
     businessObservable: Compania;
 
-    business: Compania;
+    listModules : Module[] = [];
+    listModulesSystem : Module[] = [];
 
-    listModulesBusiness: Module[] = [];
-    listModulesSystem: Module[] = [];
-    
-    listBusiness: Compania[] = [];
-    
+    private Home    : string = httpLandingIndexPage.homeHTTP;
 
-    isActivating: boolean = false;
-    isInActivating: boolean = false;
-    isAssigning: boolean = false;
-    isDesAssigning: boolean = false;
-
-    adminBoss: boolean;
-    adminBusiness: boolean;
-
-    URLAddEditUsertPage: string;
-    URLAddBusinessUsertPage: string;
-    URLAddRoleUsertPage: string;
-    idBusiness: string;
-
-    seleccionEmpresa: boolean = false;
-
-    private Home : string = httpLandingIndexPage.homeHTTP;
-    private Index : string = httpLandingIndexPage.indexHTTP;
-
-    listBusinessSubject : Compania[];
+    public URLIndexAdminPage: string = httpAccessAdminPage.urlPageAdministrator;
 
     constructor(private accountService: AccountService,
                 private alertService: AlertService,
                 private router: Router) { 
             
-            this.userObservable = this.accountService.userValue;
+            this.userObservable     = this.accountService.userValue;
             this.businessObservable = this.accountService.businessValue;
-            this.listBusinessSubject = this.accountService.businessListValue;
-        }
+    }
 
     ngOnInit() {
 
-        this.alertService.clear();
+        if (!this.businessObservable) { this.router.navigate([this.Home]); return; }
 
-        if (!this.userObservable.esAdmin) {
-            this.router.navigate([this.Index]);
-            return;
-        }
-        if (!this.businessObservable) {
-            this.router.navigate([this.Home]);
-            return;
-        }
+        // if (this.userObservable.esAdmin && this.userObservable.idRol || this.userObservable.idRol === amdinBusiness.adminSociedad) {
+
         this.accountService.getModulesSystem()
-        .pipe(first())
-        .subscribe(responseModulesActive => { 
-            this.listModulesSystem = responseModulesActive;
-        });
+            .pipe(first())
+            .subscribe(response => { this.listModulesSystem = response; });
+                    
+        // } else if (this.userObservable.idRol && this.userObservable.idRol === amdinBusiness.adminSociedad) {
+
+        this.accountService.getModulesBusiness(this.businessObservable.id)
+            .pipe(first())
+            .subscribe(response => { this.listModules = response; });
+
+        // } else { this.router.navigate([this.Home]); }
     }
 
-    activateModuleSystem(idModule: number) {
+    activate(identificadorModulo: string) {
 
         this.alertService.clear();
-        this.isActivating = true;
 
-        let moduleList = this.listModulesBusiness.find(x => x.id === idModule);
+        let moduleList = this.listModulesSystem.find(x => x.identificador === identificadorModulo);
         
-        this.accountService.activateModule(idModule, this.business.id)
+        this.accountService.activateModule(moduleList.id, this.businessObservable.id)
             .pipe(first())
             .subscribe( responseActivate => {
 
@@ -84,29 +63,26 @@ export class ListModuleComponent implements OnInit {
                     this.alertService.success(responseActivate.responseMesagge);
                     
                     moduleList.estado = 'Activo';
-                    this.listModulesBusiness.splice(this.listModulesBusiness.findIndex( m => m.id == moduleList.id ), 1);
-                    this.listModulesBusiness.push(moduleList);
+                    this.listModules.splice(this.listModules.findIndex( m => m.identificador == identificadorModulo ), 1);
+                    this.listModules.push(moduleList);
 
                 } else { 
                     this.alertService.error(responseActivate.responseMesagge);
                 }
-                this.isActivating = false;
             },
             (error) => {
-                this.isActivating = false;
                 let message : string = 'Problemas al activar el estado del módulo seleccionado.' + error;
                 this.alertService.error(message);
             });
     }
 
-    inActivateModuleSystem(idModule: number) {
+    inActivate(identificadorModulo: string) {
 
         this.alertService.clear();
-        this.isInActivating = true;
 
-        let moduleList = this.listModulesBusiness.find(x => x.id === idModule);
+        let moduleList = this.listModules.find(x => x.identificador === identificadorModulo);
         
-        this.accountService.inActivateModule(idModule, this.business.id)
+        this.accountService.inActivateModule(moduleList.id)
             .pipe(first())
             .subscribe( responseInActivate => {
 
@@ -115,16 +91,14 @@ export class ListModuleComponent implements OnInit {
                     this.alertService.success(responseInActivate.responseMesagge);
 
                     moduleList.estado = 'Inactivo';
-                    this.listModulesBusiness.splice(this.listModulesBusiness.findIndex( m => m.id == moduleList.id ), 1);
-                    this.listModulesBusiness.push(moduleList);
+                    this.listModules.splice(this.listModules.findIndex( m => m.id == moduleList.id ), 1);
+                    this.listModules.push(moduleList);
 
                 } else { 
                     this.alertService.error(responseInActivate.responseMesagge); 
                 }
-                this.isInActivating = false;
             },
             (error) => {
-                this.isInActivating = false;
                 let message : string = 'Problemas al inactivar el estado del módulo seleccionado.' + error;
                 this.alertService.error(message);
             });

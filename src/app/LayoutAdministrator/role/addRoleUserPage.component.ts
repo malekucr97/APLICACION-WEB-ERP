@@ -19,7 +19,7 @@ export class AddRoleUserComponent implements OnInit {
     isAsignRole: boolean;
 
     private Index:string = httpLandingIndexPage.indexHTTP;
-    private HTTPListUserPage : string = httpAccessAdminPage.urlPageListUsers;
+    public HTTPListUserPage : string = httpAccessAdminPage.urlPageListUsers;
 
     listUserSubject : User[];
 

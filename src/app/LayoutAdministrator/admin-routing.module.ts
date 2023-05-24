@@ -7,7 +7,7 @@ import { AdminUserComponent } from './user/adminUserPage.component';
 import { ListUserComponent } from './user/listUserPage.component';
 import { AddEditUserComponent } from './user/addEditUserPage.component';
 // -- empresa
-import { AdminBusinessComponent } from './business/adminBusinessPage.component';
+// import { AdminBusinessComponent } from './business/adminBusinessPage.component';
 import { AddEditBusinessComponent } from './business/addEditBusinessPage.component';
 import { ListBusinessComponent } from './business/listBusinessPage.component';
 import { AddBusinessUserComponent } from './business/addBusinessUserPage.component';
@@ -33,27 +33,27 @@ const routes: Routes = [
             // -- layout principal
             { path: '', component: LayoutAdministratorComponent },
             // -- usuarios
-            { path: 'AdminUserPage', component: AdminUserComponent },
-            { path: 'AdminListUserPage', component: ListUserComponent },
-            { path: 'AddEditUserPage', component: AddEditUserComponent },
-            { path: 'AddEditUserPage/:id', component: AddEditUserComponent },
+            { path: 'adminpage-indexadmin.html', component: AdminUserComponent },
+            { path: 'adminpage-listusers.html', component: ListUserComponent },
+            { path: 'adminpage-addedituser.html', component: AddEditUserComponent },
+            { path: 'adminpage-addedituser.html/:id', component: AddEditUserComponent },
             // -- empresa
-            { path: 'AdminBusinessPage', component: AdminBusinessComponent },
-            { path: 'AddEditBusinessPage', component: AddEditBusinessComponent },
-            { path: 'AddEditBusinessPage/:pidBusiness', component: AddEditBusinessComponent },
-            { path: 'AdminListBusinessPage', component: ListBusinessComponent },
-            { path: 'AddBusinessUserPage/:id', component: AddBusinessUserComponent },
+            // { path: 'AdminBusinessPage', component: AdminBusinessComponent },
+            { path: 'adminpage-addeditbusiness.html', component: AddEditBusinessComponent },
+            { path: 'adminpage-addeditbusiness.html/:pidBusiness', component: AddEditBusinessComponent },
+            { path: 'adminpage-listbusiness.html', component: ListBusinessComponent },
+            { path: 'adminpage-addbusinessuser.html/:id', component: AddBusinessUserComponent },
             
             // -- roles
-            { path: 'AddRoleUserPage/:id', component: AddRoleUserComponent },
-            { path: 'AdminListRolePage', component: ListRoleComponent },
+            { path: 'adminpage-addroleuser.html/:id', component: AddRoleUserComponent },
+            { path: 'adminpage-listroles.html', component: ListRoleComponent },
             // -- modulos
-            { path: 'AdminListModuleBusinessPage/:pidBusiness', component: ListModuleBusinessComponent },
-            { path: 'AdminListModulePage', component: ListModuleComponent },
-            { path: 'AddModuleRolePage/:pidRole', component: AddModuleRoleComponent },
+            { path: 'adminpage-listmodulebusiness.html/:pidBusiness', component: ListModuleBusinessComponent },
+            { path: 'adminpage-listmodules.html', component: ListModuleComponent },
+            { path: 'adminpage-addmodulerol.html/:pidRole', component: AddModuleRoleComponent },
 
             // ## ********* GENERALES -> PARÁMETROS********* ## //
-            { path: 'ConfiguracionCompania/:pidBusiness', component: ConfigurationCompaniaComponent },
+            { path: 'ConfiguracionCompania.html/:pidBusiness', component: ConfigurationCompaniaComponent },
         ]
     }
 ];

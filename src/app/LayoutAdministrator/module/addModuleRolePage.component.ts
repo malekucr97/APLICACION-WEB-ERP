@@ -25,7 +25,8 @@ export class AddModuleRoleComponent implements OnInit {
 
     private Home : string = httpLandingIndexPage.homeHTTP;
     private Index : string = httpLandingIndexPage.indexHTTP;
-    private HTTPListRolPage : string = httpAccessAdminPage.urlPageListRole;
+
+    public urladminListRole : string = httpAccessAdminPage.urlPageListRole;
     
     listRolesSubject : Role[];
 
@@ -43,29 +44,16 @@ export class AddModuleRoleComponent implements OnInit {
 
         this.alertService.clear();
 
-        if (!this.accountService.rolListValue) {
-            this.router.navigate([this.HTTPListRolPage]);
-            return;
-        }
-        if (!this.userObservable.esAdmin) {
-            this.router.navigate([this.Index]);
-            return;
-        }
-        if (!this.businessObservable) {
-            this.router.navigate([this.Home]);
-            return;
-        }
-        if (!this.route.snapshot.params.pidRole) {
-            this.router.navigate([this.HTTPListRolPage]);
-            return;
-        }
+        if (!this.accountService.rolListValue) { this.router.navigate([this.urladminListRole]);     return; }
+        if (!this.userObservable.esAdmin) { this.router.navigate([this.Index]);                     return; }
+        if (!this.businessObservable) { this.router.navigate([this.Home]);                          return; }
+        if (!this.route.snapshot.params.pidRole) { this.router.navigate([this.urladminListRole]);   return; }
 
-        let roleId = this.route.snapshot.params.pidRole;
-        this.role = this.listRolesSubject.find(x => x.id === roleId);
+        let roleId  = this.route.snapshot.params.pidRole;
+        this.role   = this.listRolesSubject.find(x => x.id === roleId);
 
         if (this.role.esAdministrador !== administrator.esAdministrador) {
 
-            // this.accountService.getModulesSystem()
             this.accountService.getModulesBusiness(this.businessObservable.id)
                 .pipe(first())
                 .subscribe(responseModulesSystem => {
@@ -133,14 +121,10 @@ export class AddModuleRoleComponent implements OnInit {
                     // Actualiza las listas acceso
                     this.listModulesBusiness.splice(this.listModulesBusiness.findIndex( m => m.id == idModule ), 1);
 
-                    if (this.listModulesBusiness.length == 0) {
-                        this.listModulesBusiness = null;
-                    }
-
-                    if (!this.listModulesRol) {
-                        this.listModulesRol = [];
-                    }
-
+                    if (this.listModulesBusiness.length == 0) this.listModulesBusiness = null;
+                    
+                    if (!this.listModulesRol) this.listModulesRol = [];
+                    
                     this.listModulesRol.push(module);
 
                 } else { this.alertService.error(response.responseMesagge); }

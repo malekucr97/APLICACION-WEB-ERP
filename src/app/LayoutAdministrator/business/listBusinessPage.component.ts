@@ -6,16 +6,20 @@ import { Compania } from '../../_models/modules/compania';
 import { User } from '@app/_models';
 import { Router } from '@angular/router';
 
-@Component({ templateUrl: 'HTML_ListBusinessPage.html' })
+@Component({    templateUrl: 'HTML_ListBusinessPage.html',
+                styleUrls: ['../../../assets/scss/app.scss'] 
+})
 export class ListBusinessComponent implements OnInit {
     
-    userObservable: User;
-    businessObservable: Compania;
+    userObservable      : User;
+    businessObservable  : Compania;
 
-    private Home : string = httpLandingIndexPage.homeHTTP;
-    private Index : string = httpLandingIndexPage.indexHTTP;
+    private Home    : string = httpLandingIndexPage.homeHTTP;
+    private Index   : string = httpLandingIndexPage.indexHTTP;
 
-    URLAdministratorPage: string = httpAccessAdminPage.urlPageAdministrator;
+    public URLAdministratorPage         : string = httpAccessAdminPage.urlPageAdministrator;
+    public urlPageAddEditBusiness       : string = httpAccessAdminPage.urlPageAddEditBusiness;
+    public urlPageListBusinessModules   : string = httpAccessAdminPage.urlPageListBusinessModule;
 
     listBusiness: Compania[] = [];
 
@@ -28,14 +32,8 @@ export class ListBusinessComponent implements OnInit {
 
     ngOnInit() {
 
-        if (!this.userObservable.esAdmin) {
-            this.router.navigate([this.Index]);
-            return;
-        }
-        if (!this.businessObservable) {
-            this.router.navigate([this.Home]);
-            return;
-        }
+        if (!this.userObservable.esAdmin) { this.router.navigate([this.Index]); return; }
+        if (!this.businessObservable) { this.router.navigate([this.Home]); return; }
 
         this.accountService.getAllBusiness()
             .pipe(first())
@@ -43,14 +41,5 @@ export class ListBusinessComponent implements OnInit {
                 this.listBusiness = response;
                 this.accountService.suscribeListBusiness(this.listBusiness);
             });
-    }
-
-    // ajustar eliminacion de emprsa
-    deleteBusiness(id: number) {
-        let business = this.listBusiness.find(x => x.id === id);
-        // business.isDeleting = true;
-        // this.accountService.deleteUser(id)
-        //     .pipe(first())
-        //     .subscribe(() => { this.businesss = this.businesss.filter(x => x.id !== id); });
     }
 }

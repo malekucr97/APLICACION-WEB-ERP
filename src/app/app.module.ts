@@ -1,6 +1,5 @@
 ﻿import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
-import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { AppRoutingModule } from './app-routing.module';
 import { JwtInterceptor, ErrorInterceptor } from './_helpers';
@@ -22,18 +21,20 @@ import {LocationStrategy, HashLocationStrategy} from '@angular/common';
 @NgModule({
     imports: [
         BrowserModule,
-        ReactiveFormsModule,
-        FormsModule,
         HttpClientModule,
         AppRoutingModule,
-        BrowserAnimationsModule,
-
-        MatTreeModule,
-        MatNativeDateModule,
-        MatTooltipModule,
-
         MatIconModule,
+        
+        BrowserAnimationsModule,
+        MatTreeModule,
+        MatTooltipModule,
         MatToolbarModule
+
+        // actualización mlopez 05 22 2023
+        // ** se comentan las siguientes importaciones
+        // ReactiveFormsModule,
+        // FormsModule,
+        // MatNativeDateModule,
     ],
     declarations: [
         AppComponent,

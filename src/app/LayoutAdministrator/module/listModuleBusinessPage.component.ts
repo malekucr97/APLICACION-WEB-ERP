@@ -37,7 +37,8 @@ export class ListModuleBusinessComponent implements OnInit {
 
     private Home : string = httpLandingIndexPage.homeHTTP;
     private Index : string = httpLandingIndexPage.indexHTTP;
-    private HTTPListBusinessPage : string = httpAccessAdminPage.urlPageListBusiness;
+
+    public HTTPListBusinessPage : string = httpAccessAdminPage.urlPageListBusiness;
 
     listBusinessSubject : Compania[];
 
@@ -46,9 +47,9 @@ export class ListModuleBusinessComponent implements OnInit {
                 private alertService: AlertService,
                 private router: Router) { 
             
-            this.userObservable = this.accountService.userValue;
-            this.businessObservable = this.accountService.businessValue;
-            this.listBusinessSubject = this.accountService.businessListValue;
+            this.userObservable         = this.accountService.userValue;
+            this.businessObservable     = this.accountService.businessValue;
+            this.listBusinessSubject    = this.accountService.businessListValue;
         }
 
     ngOnInit() {
@@ -61,18 +62,9 @@ export class ListModuleBusinessComponent implements OnInit {
 
             this.business = new Compania;
 
-            if (!this.accountService.businessListValue) {
-                this.router.navigate([this.HTTPListBusinessPage]);
-                return;
-            }
-            if (!this.userObservable.esAdmin) {
-                this.router.navigate([this.Index]);
-                return;
-            }
-            if (!this.businessObservable) {
-                this.router.navigate([this.Home]);
-                return;
-            }
+            if (!this.accountService.businessListValue) { this.router.navigate([this.HTTPListBusinessPage]);    return; }
+            if (!this.userObservable.esAdmin) { this.router.navigate([this.Index]);                             return; }
+            if (!this.businessObservable) { this.router.navigate([this.Home]);                                  return; }
     
             this.seleccionEmpresa = true;
             this.business = this.listBusinessSubject.find(x => x.id === +pidBusiness);
@@ -95,16 +87,14 @@ export class ListModuleBusinessComponent implements OnInit {
                                 
                                 this.listModulesBusiness.forEach((modBusiness) => {
 
-                                    this.listModulesSystem.splice(this.listModulesSystem.findIndex( m => m.id == modBusiness.id ), 1);
+                                    this.listModulesSystem.splice(this.listModulesSystem.findIndex( m => m.identificador == modBusiness.identificador ), 1);
                                         
                                 });
     
                             } else { this.listModulesSystem = null; }
                         } else { this.listModulesBusiness = null; }
                     },
-                    (error) => {
-                        console.log(error);
-                    });
+                    (error) => { console.log(error); });
             });
         }
     }
@@ -125,13 +115,11 @@ export class ListModuleBusinessComponent implements OnInit {
                     this.alertService.success(response.responseMesagge);
 
                     this.listModulesSystem.splice(this.listModulesSystem.findIndex( m => m.id == module.id ), 1);
-                    if (this.listModulesSystem.length == 0) {
-                        this.listModulesSystem = null;
-                    }
+                    
+                    if (this.listModulesSystem.length == 0) this.listModulesSystem = null;
 
-                    if (!this.listModulesBusiness) {
-                        this.listModulesBusiness = [];
-                    }
+                    if (!this.listModulesBusiness) this.listModulesBusiness = [];
+
                     this.listModulesBusiness.push(module);
 
                 } else { this.alertService.error(response.responseMesagge); }
@@ -150,7 +138,7 @@ export class ListModuleBusinessComponent implements OnInit {
 
         let module : Module = this.listModulesBusiness.find(x => x.id === idModule);
 
-        this.accountService.desAssignModuleToBusiness(module.id, this.business.id)
+        this.accountService.desAssignModuleToBusiness(module.id, this.businessObservable.id)
             .pipe(first())
             .subscribe( response => {
 

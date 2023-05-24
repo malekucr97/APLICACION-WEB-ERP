@@ -4,7 +4,7 @@ import { Router, ActivatedRoute } from '@angular/router';
 import { AccountService } from '@app/_services';
 import { User, Module } from '@app/_models';
 import { ModulesSystem } from '@environments/environment';
-import { amdinBusiness } from '@environments/environment-access-admin';
+import { amdinBusiness, httpAccessAdminPage } from '@environments/environment-access-admin';
 import { MatSidenav } from '@angular/material/sidenav';
 import { Compania } from '@app/_models/modules/compania';
 
@@ -14,6 +14,8 @@ import { Compania } from '@app/_models/modules/compania';
                 '../../assets/scss/landing/app.scss']
 })
 export class IndexContentPageComponent implements OnInit {
+
+    public URLIndexAdminPage: string = httpAccessAdminPage.urlPageAdministrator;
 
     constructor(private accountService: AccountService,
                 private router: Router,
