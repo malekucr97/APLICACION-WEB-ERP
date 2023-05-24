@@ -33,19 +33,13 @@ export class ListModuleComponent implements OnInit {
 
         if (!this.businessObservable) { this.router.navigate([this.Home]); return; }
 
-        // if (this.userObservable.esAdmin && this.userObservable.idRol || this.userObservable.idRol === amdinBusiness.adminSociedad) {
-
         this.accountService.getModulesSystem()
             .pipe(first())
             .subscribe(response => { this.listModulesSystem = response; });
                     
-        // } else if (this.userObservable.idRol && this.userObservable.idRol === amdinBusiness.adminSociedad) {
-
         this.accountService.getModulesBusiness(this.businessObservable.id)
             .pipe(first())
             .subscribe(response => { this.listModules = response; });
-
-        // } else { this.router.navigate([this.Home]); }
     }
 
     activate(identificadorModulo: string) {
