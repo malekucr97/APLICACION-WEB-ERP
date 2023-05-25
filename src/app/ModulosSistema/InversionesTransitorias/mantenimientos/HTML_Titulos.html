@@ -10,7 +10,7 @@
 
                     <div class="articulo__contenedor__header__prev" >
 
-                        <p>{{nombreModulo}} / Mantenimiento de Tipos de Años</p>
+                        <p>{{nombreModulo}} / Mantenimiento de Títulos CDPS</p>
 
                     </div>
 
@@ -44,7 +44,7 @@
                                         <div class="articulo__contenedor__body__prev__form__header"> 
                                             
                                             <div class="articulo__contenedor__body__prev__form__header__prev" > 
-                                                <p class="articulo__contenedor__body__prev__form__header__titulo">Tipos de Años</p>
+                                                <p class="articulo__contenedor__body__prev__form__header__titulo">Títulos CDPS</p>
                                             </div>
 
                                             <div class="articulo__contenedor__body__prev__form__header__next" > 
@@ -71,36 +71,45 @@
 
                                             <form [formGroup]="formulario" class="row">
                     
+                                                <div class="form-group col-md-2">
+                                                    <label for="lblIdTitulo" class="form-label">Id</label>
+                                                    <input formControlName="idTitulo" class="form-control" type="text" id="id_idTitulo" readonly />
+                                                </div>
+
                                                 <div class="form-group col-md-3">
-                                                    <label for="id" class="form-label">Id</label>
-                                                    <input formControlName="id" class="form-control" type="text" id="id_id" readonly />
+                                                    <label for="lblCodigoTitulo" class="form-label">Código Interno</label>
+                                                    <input formControlName="codigoTitulo" class="form-control" type="text" id="id_codigoTitulo"
+                                                        [ngClass]="{ 'is-invalid': submittedForm && m.codigoTitulo.errors }" />
+                                                    <div *ngIf="submittedForm && m.codigoTitulo.errors" class="invalid-feedback">
+                                                        <div *ngIf="m.codigoTitulo.errors.required">El código interno para el título es requerido requeridos .</div>
+                                                    </div>
                                                 </div>
                                                 
                                                 <div class="form-group col-md-6">
-                                                    <label for="lblDescripcion" class="form-label">Descripción</label>
-                                                    <input formControlName="descripcion" class="form-control" type="text" id="id_descripcion"
-                                                        [ngClass]="{ 'is-invalid': submittedForm && m.descripcion.errors }" />
-                                                    <div *ngIf="submittedForm && m.descripcion.errors" class="invalid-feedback">
-                                                        <div *ngIf="m.descripcion.errors.required">La descripción del tipo de año es requerida .</div>
+                                                    <label for="lblDescripcionTitulo" class="form-label">Descripción</label>
+                                                    <input formControlName="descripcionTitulo" class="form-control" type="text" id="id_descripcionTitulo"
+                                                        [ngClass]="{ 'is-invalid': submittedForm && m.descripcionTitulo.errors }" />
+                                                    <div *ngIf="submittedForm && m.descripcionTitulo.errors" class="invalid-feedback">
+                                                        <div *ngIf="m.descripcionTitulo.errors.required">La descripción del título es requerida .</div>
                                                     </div>
                                                 </div>
                     
-                                                <div class="col-sm-3 margin-icos-mat">
+                                                <div class="col-sm-1 margin-icos-mat">
                                                     <a class="item-list__search"> <mat-icon (click)="buscarObjeto()">search</mat-icon> </a>
                                                 </div>
                     
                                                 
-                                                <div class="form-group col-md-3">
-                                                    <label for="lblDias" class="form-label">Cantidad de días del año</label>
-                                                    <input formControlName="dias" class="form-control" type="text" id="id_dias"
-                                                        [ngClass]="{ 'is-invalid': submittedForm && m.dias.errors }" />
-                                                    <div *ngIf="submittedForm && m.dias.errors" class="invalid-feedback">
-                                                        <div *ngIf="m.dias.errors.required">Los días del año son requeridos .</div>
+                                                <div class="form-group col-md-2">
+                                                    <label for="lblPorcentajeInteresTitulo" class="form-label">% Interés</label>
+                                                    <input formControlName="porcentajeInteresTitulo" class="form-control" type="text" id="id_porcentajeInteresTitulo"
+                                                        [ngClass]="{ 'is-invalid': submittedForm && m.porcentajeInteresTitulo.errors }" />
+                                                    <div *ngIf="submittedForm && m.porcentajeInteresTitulo.errors" class="invalid-feedback">
+                                                        <div *ngIf="m.porcentajeInteresTitulo.errors.required">El porcentaje de interés es requerido .</div>
                                                     </div>
                                                 </div>
                     
                                                 <div class="form-group col-sm-1 margin-icos-mat">
-                                                    <mat-checkbox formControlName="estado">Estado</mat-checkbox>
+                                                    <mat-checkbox formControlName="estadoTitulo">Estado</mat-checkbox>
                                                 </div>
                     
                                             </form>
@@ -125,7 +134,7 @@
                                         <div class="articulo__contenedor__body__next__list__header"> 
                                             
                                             <div class="articulo__contenedor__body__next__list__header__prev" > 
-                                                <p class="articulo__contenedor__body__next__list__header__titulo">Listado de Periocidades</p>
+                                                <p class="articulo__contenedor__body__next__list__header__titulo">Listado de Títulos</p>
                                             </div>
 
                                             <div class="articulo__contenedor__body__next__list__header__next" > </div>
@@ -140,8 +149,9 @@
                                                         <tr>
                                                             <th style="width: 5%"></th>
                                                             
+                                                            <th style="width: 15%">Código Interno</th>
                                                             <th style="width: 15%">Descripción</th>
-                                                            <th style="width: 15%">Cantidad de días del año</th>
+                                                            <th style="width: 15%">% de Interés</th>
                                                             <th style="width: 10%">Estado</th>
                                                             <th style="width: 12%">Modificado</th>
                                                             <th style="width: 15%">Se actualizó</th>
@@ -153,8 +163,9 @@
                                                                 <div> <a > <mat-icon>swap_horiz</mat-icon> </a> </div>
                                                             </td>
                                                             
+                                                            <td>{{obj.codigoTitulo}}</td>
                                                             <td>{{obj.descripcion}}</td>
-                                                            <td>{{obj.dias}}</td>
+                                                            <td>{{obj.porcentajeInteresTitulo}}</td>
                                                             <td>{{obj.estado}}</td>
                                                             <td>{{obj.modificadoPor}}</td>
                                                             <td>{{obj.fechaModificacion}}</td>
