@@ -16,7 +16,7 @@ import { HomeComponent } from './home';
 import {MatIconModule} from '@angular/material/icon';
 import {MatToolbarModule} from '@angular/material/toolbar';
 
-import {LocationStrategy, HashLocationStrategy} from '@angular/common';
+import {LocationStrategy, HashLocationStrategy} from '@angular/common';;
 
 @NgModule({
     imports: [

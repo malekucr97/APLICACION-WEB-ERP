@@ -9,3 +9,5 @@ export * from './admin/screenAccessUser';
 export * from './user';
 // -- compania observable
 export * from './modules/compania';
+
+export * from './modules/archivoCarga';

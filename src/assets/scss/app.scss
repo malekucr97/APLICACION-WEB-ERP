@@ -33,7 +33,7 @@
     &__item {
         display: flex;
         justify-content: flex-end;
-        &__p {  
+        &__p {
             margin-right: 1%;
             color: white;
             &:hover {
@@ -84,7 +84,7 @@
     flex-wrap:       wrap;
     padding: 5% 0 5% 0;
     &__card {
-        &__header { 
+        &__header {
             @include font-aero;
             &__titulo {
                 color: #053254;
@@ -286,7 +286,7 @@
 .contenedor {
     margin: 1% 1% 1% 1%;
     border-radius: 10px;
-    
+
     &__header-modal {
         width: 100%;
     }

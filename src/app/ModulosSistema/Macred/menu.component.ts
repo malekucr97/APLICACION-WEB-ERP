@@ -35,15 +35,15 @@ const TREE_DATA: FoodNode[] = [
     name: 'Procesos',
     link: '',
     icon: '',
-    children: [{name: 'Carga de Datos', 
-                link: '', 
+    children: [{name: 'Carga de Datos',
+                link: '',
                 icon: '',
                 children: [{name: 'Cargar Personas', link: '/', icon: ''},//monetization_on
                           {name: 'Cargar Obligaciones', link: '/', icon: ''}
                           ],
                 },
-                {name: 'Reportes', 
-                link: '', 
+                {name: 'Reportes',
+                link: '',
                 icon: '',
                 children: [{name: 'Análisis de Capacidad de Pago', link: '/', icon: ''}
                           ],}
@@ -53,8 +53,8 @@ const TREE_DATA: FoodNode[] = [
     name: 'Mantenimientos',
     link: '',
     icon: '',
-    children: [{name: 'Personas', 
-                link: '', 
+    children: [{name: 'Personas',
+                link: '',
                 icon: '',
                 children: [{name: 'Datos Personas', link: ModulesSystem.macredbasehref + 'mantenimientos/personas/datos-personas.html', icon: ''},//monetization_on
                           {name: 'Estado Civil', link: ModulesSystem.macredbasehref + 'mantenimientos/personas/estados-civiles.html', icon: ''},//monetization_on
@@ -64,20 +64,20 @@ const TREE_DATA: FoodNode[] = [
                           {name: 'Tipos de Asociado', link: ModulesSystem.macredbasehref + 'mantenimientos/personas/tipos-asociados.html', icon: ''}
                           ],
                 },
-                {name: 'Entidades', 
-                  link: '/', 
+                {name: 'Entidades',
+                  link: '/',
                   icon: ''
                 },
-                {name: 'Obligaciones', 
-                link: '', 
+                {name: 'Obligaciones',
+                link: '',
                 icon: '',
                 children: [{name: 'Formas de Pago', link: ModulesSystem.macredbasehref + 'mantenimientos/obligaciones/tipos-forma-pago-analisis.html', icon: ''},
                           {name: 'Periodicidades', link: '/', icon: ''},
                           {name: 'Tipos de Línea de Crédito', link: '/', icon: ''},
                           {name: 'Tipos de Categoría de Riesgo', link: '/', icon: ''}
                           ],},
-                {name: 'Análisis de Personas', 
-                link: '', 
+                {name: 'Análisis de Personas',
+                link: '',
                 icon: '',
                 children: [{name: 'Tipo de Ingreso', link: ModulesSystem.macredbasehref + 'mantenimientos/analisispersonas/tipos-ingresos.html', icon: ''},
                           {name: 'Tipo de Ingreso de Análisis', link: ModulesSystem.macredbasehref + 'mantenimientos/analisispersonas/tipos-ingresos-analisis.html', icon: ''},
@@ -86,12 +86,12 @@ const TREE_DATA: FoodNode[] = [
                           {name: 'Rangos para las Extras por Ingreso', link: '/', icon: ''},
                           {name: 'Niveles Ponderación Riesgo', link: '/', icon: ''}
                           ],},
-                {name: 'Monedas y Tipo de Cambio', 
-                  link: '/', 
+                {name: 'Monedas y Tipo de Cambio',
+                  link: '/',
                   icon: ''
                 },
-                {name: 'Modelos de Calificación', 
-                link: '', 
+                {name: 'Modelos de Calificación',
+                link: '',
                 icon: '',
                 children: [{name: 'Indicadores Relevantes', link: '/', icon: ''},
                           {name: 'Configuración de Modelos', link: '/', icon: ''},
@@ -99,14 +99,14 @@ const TREE_DATA: FoodNode[] = [
                           {name: 'Escenarios de Riesgos', link: '/', icon: ''},
                           {name: 'Niveles Capacidad Pago (Global)', link: '/', icon: ''}
                           ],},
-                {name: 'Parámetros', 
-                link: '', 
+                {name: 'Parámetros',
+                link: '',
                 icon: '',
-                children: [{name: 'Configuración de Modelos', link: '/', icon: ''},
+                children: [{name: 'Configuración de Modelos', link: ModulesSystem.macredbasehref + 'mantenimientos/parametros/configuracion-modelos.html', icon: ''},
                           {name: 'Variables de Análisis PD', link: '/', icon: ''}
                           ],},
-                {name: 'Parámetros Scoring', 
-                link: '', 
+                {name: 'Parámetros Scoring',
+                link: '',
                 icon: '',
                 children: [{name: 'Configuración de Modelos', link: '/', icon: ''},
                           {name: 'Indicadores Relevantes', link: '/', icon: ''},
@@ -119,8 +119,8 @@ const TREE_DATA: FoodNode[] = [
     name: 'Configuración',
     link: '',
     icon: '',
-    children: [{name: 'Seguridad', 
-                link: '', 
+    children: [{name: 'Seguridad',
+                link: '',
                 icon: '',
                 children: [{name: 'Usuarios', link: '/', icon: ''},
                           {name: 'Roles y Programas', link: '/', icon: ''},
@@ -132,7 +132,7 @@ const TREE_DATA: FoodNode[] = [
     ],
   },
 ];
-  
+
 @Component({
     templateUrl: '../menu.html',
     styleUrls: ['../../../assets/scss/app.scss',
