@@ -31,6 +31,7 @@ import { InvTiposAniosComponent } from './mantenimientos/tiposanios-component';
 import { InvTMercadosTSectoresComponent } from './mantenimientos/tmercadostsectores-component';
 import { InvEmisoresComponent } from './mantenimientos/emisores-component';
 import { InvPlazosInversionesComponent } from './mantenimientos/plazosinversiones-component';
+import { InvTitulosComponent } from './mantenimientos/titulos-component';
 
 @NgModule({
     imports: [
@@ -76,7 +77,9 @@ import { InvPlazosInversionesComponent } from './mantenimientos/plazosinversione
         // / ** emisores
         InvEmisoresComponent,
         // / ** plazos de inversiones
-        InvPlazosInversionesComponent
+        InvPlazosInversionesComponent,
+        // / ** títulos cdps
+        InvTitulosComponent
     ],
     entryComponents: [
         InvTiposMonedasComponent
