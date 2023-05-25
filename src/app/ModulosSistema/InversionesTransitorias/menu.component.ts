@@ -19,15 +19,16 @@ import { ModulesSystem } from '@environments/environment';
     name: 'Mantenimientos',
     link: '',
     icon: '',
-    children: [ {name: 'Tipos de Monedas',          link: ModulesSystem.inversionesbasehref + 'mantenimientos/tipos-monedas.html',        icon: ''}, 
-                {name: 'Tipos de Personas',         link: ModulesSystem.inversionesbasehref + 'mantenimientos/tipos-personas.html',       icon: ''}, 
-                {name: 'Tipos de Años',             link: ModulesSystem.inversionesbasehref + 'mantenimientos/tipos-anios.html',          icon: ''}, 
-                {name: 'Títulos CDPS',              link: ModulesSystem.inversionesbasehref + 'mantenimientos/titulos.html',              icon: ''}, 
-                {name: 'Periocidades',              link: ModulesSystem.inversionesbasehref + 'mantenimientos/periocidades.html',         icon: ''},
-                {name: 'Mercados & Sectores',       link: ModulesSystem.inversionesbasehref + 'mantenimientos/tmercados-tsectores.html',  icon: ''},
-                {name: 'Emisores',                  link: ModulesSystem.inversionesbasehref + 'mantenimientos/emisores.html',             icon: ''},
-                {name: 'Plazos de Inversión',       link: ModulesSystem.inversionesbasehref + 'mantenimientos/plazos-inversiones.html',   icon: ''},
-                {name: 'Personas',                  link: ModulesSystem.inversionesbasehref + 'mantenimientos/personas.html',             icon: ''}]
+    children: [ {name: 'Tipos de Monedas',              link: ModulesSystem.inversionesbasehref + 'mantenimientos/tipos-monedas.html',            icon: ''}, 
+                {name: 'Tipos de Personas',             link: ModulesSystem.inversionesbasehref + 'mantenimientos/tipos-personas.html',           icon: ''}, 
+                {name: 'Tipos de Años',                 link: ModulesSystem.inversionesbasehref + 'mantenimientos/tipos-anios.html',              icon: ''},
+                {name: 'Tasas',                         link: ModulesSystem.inversionesbasehref + 'mantenimientos/tasas.html',                    icon: ''},       
+                {name: 'Títulos CDPS',                  link: ModulesSystem.inversionesbasehref + 'mantenimientos/titulos.html',                  icon: ''}, 
+                {name: 'Periocidades',                  link: ModulesSystem.inversionesbasehref + 'mantenimientos/periocidades.html',             icon: ''},
+                {name: 'Mercados & Sectores',           link: ModulesSystem.inversionesbasehref + 'mantenimientos/tmercados-tsectores.html',      icon: ''},
+                {name: 'Clases & Plazos de Inversión',  link: ModulesSystem.inversionesbasehref + 'mantenimientos/clasesplazos-inversiones.html', icon: ''},
+                {name: 'Emisores',                      link: ModulesSystem.inversionesbasehref + 'mantenimientos/emisores.html',                 icon: ''},
+                {name: 'Personas',                      link: ModulesSystem.inversionesbasehref + 'mantenimientos/personas.html',                 icon: ''}]
                 
   },
   {

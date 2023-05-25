@@ -30,8 +30,9 @@ import { InvPeriocidadesComponent } from './mantenimientos/periocidades-componen
 import { InvTiposAniosComponent } from './mantenimientos/tiposanios-component';
 import { InvTMercadosTSectoresComponent } from './mantenimientos/tmercadostsectores-component';
 import { InvEmisoresComponent } from './mantenimientos/emisores-component';
-import { InvPlazosInversionesComponent } from './mantenimientos/plazosinversiones-component';
 import { InvTitulosComponent } from './mantenimientos/titulos-component';
+import { InvTasasComponent } from './mantenimientos/tasas-component';
+import { InvClasesPlazosInversionesComponent } from './mantenimientos/clasesplazosinversiones-component';
 
 @NgModule({
     imports: [
@@ -76,10 +77,13 @@ import { InvTitulosComponent } from './mantenimientos/titulos-component';
         InvTMercadosTSectoresComponent,
         // / ** emisores
         InvEmisoresComponent,
-        // / ** plazos de inversiones
-        InvPlazosInversionesComponent,
         // / ** títulos cdps
-        InvTitulosComponent
+        InvTitulosComponent,
+        // / ** tasas
+        InvTasasComponent,
+        // / ** clases plazos inversiones
+        InvClasesPlazosInversionesComponent
+
     ],
     entryComponents: [
         InvTiposMonedasComponent

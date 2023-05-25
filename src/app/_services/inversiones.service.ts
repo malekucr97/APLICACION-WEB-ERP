@@ -15,6 +15,8 @@ import { InvTipoSector } from '@app/_models/Inversiones/TipoSector';
 import { InvEmisor } from '@app/_models/Inversiones/Emisor';
 import { InvPlazoInversion } from '@app/_models/Inversiones/PlazoInversion';
 import { InvTitulo } from '@app/_models/Inversiones/Titulo';
+import { InvClaseInversion } from '@app/_models/Inversiones/ClaseInversion';
+import { InvTasa } from '@app/_models/Inversiones/Tasa';
 
 @Injectable({ providedIn: 'root' })
 export class InversionesService {
@@ -202,6 +204,36 @@ export class InversionesService {
     }
     deleteTitulo( id : number ) {
         return this.http.delete<ResponseMessage>(`${environment.apiUrl}/inversiones/deletetitulo?id=${id}`);
+    }
+    // *********************************
+    // *********************************
+    // MANTENIMIENTO DE CLASES DE INVERSIÓN
+    getClaseInversion(descripcion: string, idCompania:number, soloActivos : boolean) {
+        return this.http.get<InvClaseInversion[]>(`${environment.apiUrl}/inversiones/getclaseinversion?descripcion=${descripcion}&idCompania=${idCompania}&soloActivos=${soloActivos}`);
+    }
+    postClaseInversion(objeto:InvClaseInversion) {
+        return this.http.post<InvClaseInversion>(`${environment.apiUrl}/inversiones/createclaseinversion`, objeto);
+    }
+    putClaseInversion(objeto:InvClaseInversion) {
+        return this.http.put<InvClaseInversion>(`${environment.apiUrl}/inversiones/updateclaseinversion`, objeto);
+    }
+    deleteClaseInversion( id : number ) {
+        return this.http.delete<ResponseMessage>(`${environment.apiUrl}/inversiones/deleteclaseinversion?id=${id}`);
+    }
+    // *********************************
+    // *********************************
+    // MANTENIMIENTO DE TASAS
+    getTasa(descripcion: string, idCompania:number, soloActivos : boolean) {
+        return this.http.get<InvTasa[]>(`${environment.apiUrl}/inversiones/gettasa?descripcion=${descripcion}&idCompania=${idCompania}&soloActivos=${soloActivos}`);
+    }
+    postTasa(objeto:InvTasa) {
+        return this.http.post<InvTasa>(`${environment.apiUrl}/inversiones/createtasa`, objeto);
+    }
+    putTasa(objeto:InvTasa) {
+        return this.http.put<InvTasa>(`${environment.apiUrl}/inversiones/updatetasa`, objeto);
+    }
+    deleteTasa( id : number ) {
+        return this.http.delete<ResponseMessage>(`${environment.apiUrl}/inversiones/deletetasa?id=${id}`);
     }
     // *********************************
 }
