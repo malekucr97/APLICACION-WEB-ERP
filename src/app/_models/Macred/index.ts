@@ -14,3 +14,4 @@ export * from './TipoGenerador';
 export * from './TipoIngreso';
 export * from './TipoIngresoAnalisis';
 export * from './TiposMoneda';
+export * from './ModelosPD';

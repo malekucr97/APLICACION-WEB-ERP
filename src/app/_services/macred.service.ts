@@ -24,7 +24,7 @@ import { MacCategoriaCredito } from '@app/_models/Macred/CategoriaCredito';
 import { MacTipoAsociado } from '@app/_models/Macred/TipoAsociado';
 import { MacTipoHabitacion } from '@app/_models/Macred/TipoHabitacion';
 import { MacEstadoCivil } from '@app/_models/Macred/EstadoCivil';
-import { MacParametrosGenerales } from '@app/_models/Macred';
+import { MacParametrosGenerales, ModelosPD } from '@app/_models/Macred';
 
 
 @Injectable({ providedIn: 'root' })
@@ -206,8 +206,8 @@ export class MacredService {
     }
     getExtrasAnalisisIngreso(idCompania: number, codigoAnalisis:number, idIngreso:number) {
         return this.http.get<MacExtrasAplicables>(`${environment.apiUrl}/macred/getextrasanalisisingreso?idCompania=${idCompania}&codigoAnalisis=${codigoAnalisis}&idIngreso=${idIngreso}`);
-    } 
-    
+    }
+
     getTiposDeducciones(idCompania: number, incluyeInactivos:boolean) {
         return this.http.get<MacTipoDeducciones[]>(`${environment.apiUrl}/macred/gettiposdeducciones?idCompania=${idCompania}&incluyeInactivos=${incluyeInactivos}`);
     }
@@ -238,4 +238,20 @@ export class MacredService {
     deleteIngreso( idIngreso : number ) {
         return this.http.delete<ResponseMessage>(`${environment.apiUrl}/macred/eliminaringresoanalisis?idIngreso=${idIngreso}`);
     }
+
+    //#region Parametos PD Modelos
+
+    getPDModelos(idCompania: number) {
+      return this.http.get<ModelosPD[]>(`${environment.apiUrl}/macred/getPDModelos?idCompania=${idCompania}`);
+    }
+
+    createUpdatePDModelo(inModeloPD: ModelosPD) {
+      return this.http.post<ResponseMessage>(`${environment.apiUrl}/macred/createUpdatePDModelo`, inModeloPD);
+    }
+
+    deletePDModelo(idModeloPd: number) {
+      return this.http.delete<ResponseMessage>(`${environment.apiUrl}/macred/deletePDModelo?idModeloPD=${idModeloPd}`);
+    }
+
+    //#endregion
 }

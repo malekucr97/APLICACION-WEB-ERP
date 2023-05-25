@@ -35,6 +35,7 @@ import { TiposAsociadosComponent } from './mantenimientos/Personas/tiposasociado
 import { TiposFormasPagoAnalisisComponent } from './mantenimientos/Obligaciones/tiposformaspagoanalisis-component';
 import { TipoIngresoAnalisisComponent } from './mantenimientos/AnalisisPersonas/tipoingresoanalisis-component';
 import { TipoIngresoComponent } from './mantenimientos/AnalisisPersonas/tipoingreso-component';
+import { ConfiguracionModelosComponent } from './mantenimientos/Parametros/configuracion-modelos/configuracion-modelos.component';
 
 @NgModule({
     imports: [
@@ -59,7 +60,7 @@ import { TipoIngresoComponent } from './mantenimientos/AnalisisPersonas/tipoingr
         MatDialogModule,
 
         MatFormFieldModule,
-        
+
         MatListModule
 
     ],
@@ -76,7 +77,8 @@ import { TipoIngresoComponent } from './mantenimientos/AnalisisPersonas/tipoingr
         TiposAsociadosComponent,
         TiposFormasPagoAnalisisComponent,
         TipoIngresoAnalisisComponent,
-        TipoIngresoComponent
+        TipoIngresoComponent,
+        ConfiguracionModelosComponent
     ],
     entryComponents: [
         AsociadosComponent
