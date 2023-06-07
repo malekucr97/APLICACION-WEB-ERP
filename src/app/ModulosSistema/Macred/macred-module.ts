@@ -36,31 +36,29 @@ import { TiposFormasPagoAnalisisComponent } from './mantenimientos/Obligaciones/
 import { TipoIngresoAnalisisComponent } from './mantenimientos/AnalisisPersonas/tipoingresoanalisis-component';
 import { TipoIngresoComponent } from './mantenimientos/AnalisisPersonas/tipoingreso-component';
 import { ConfiguracionModelosComponent } from './mantenimientos/Parametros/configuracion-modelos/configuracion-modelos.component';
+import { ConfiguracionParametrosPdComponent } from './mantenimientos/Parametros/configuracion-parametros-pd/configuracion-parametros-pd.component';
+import { MatSelectModule } from '@angular/material/select';
 
 @NgModule({
     imports: [
         CommonModule,
         ReactiveFormsModule,
         MacredRoutingModule,
-
         MatToolbarModule,
         MatSidenavModule,
         MatButtonModule,
         MatIconModule,
         MatDividerModule,
-
         MatTreeModule,
         MatTooltipModule,
-
         FormsModule,
         MatNativeDateModule,
         MatDatepickerModule,
         MatCheckboxModule,
-
         MatDialogModule,
         MatFormFieldModule,
-
-        MatListModule
+        MatListModule,
+        MatSelectModule
 
     ],
     declarations: [
@@ -77,7 +75,8 @@ import { ConfiguracionModelosComponent } from './mantenimientos/Parametros/confi
         TiposFormasPagoAnalisisComponent,
         TipoIngresoAnalisisComponent,
         TipoIngresoComponent,
-        ConfiguracionModelosComponent
+        ConfiguracionModelosComponent,
+        ConfiguracionParametrosPdComponent
     ],
     entryComponents: [
         AsociadosComponent

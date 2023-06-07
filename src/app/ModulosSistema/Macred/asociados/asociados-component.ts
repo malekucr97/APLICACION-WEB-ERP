@@ -14,6 +14,8 @@ import { DialogoConfirmacionComponent } from '@app/_components/dialogo-confirmac
 import { MacredService } from '@app/_services/macred.service';
 // ## -- objetos macred analisis de capacidad de pago -- ## //
 import {
+  AnalisisHistoricoPD,
+  GruposPD,
   MacAnalisisCapacidadPago,
   MacDeduccionesAnalisis,
   MacEstadoCivil,
@@ -29,6 +31,7 @@ import {
   MacTipoIngreso,
   MacTipoIngresoAnalisis,
   MacTiposMoneda,
+  ModelosPD,
 } from '@app/_models/Macred';
 import { MacTipoGenero } from '@app/_models/Macred/TipoGenero';
 import { MacTipoHabitacion } from '@app/_models/Macred/TipoHabitacion';
@@ -181,6 +184,9 @@ export class AsociadosComponent implements OnInit {
   }
   get d() {
     return this.formDeducciones.controls;
+  }
+  get j() {
+    return this.formPD.controls;
   }
 
   ngOnInit() {
@@ -359,7 +365,6 @@ export class AsociadosComponent implements OnInit {
           .subscribe((response) => {
             this.listMatrizAceptacionIngreso = response;
           });
-
 
         this.cargarDatosPD();
       });
@@ -1449,6 +1454,9 @@ export class AsociadosComponent implements OnInit {
         observaciones: observacion,
       });
     }
+
+    // GENERAR EL ANALISIS PARA EL CALCULO DEL PD
+    this.procesarAnalisisPDInicial();
   }
 
   GuardarAnalisis(): void {
@@ -1755,17 +1763,89 @@ export class AsociadosComponent implements OnInit {
 
   //#region PD
 
+  _analisisPD: AnalisisHistoricoPD = undefined;
+
   listTipoGenero: MacTipoGenero[];
   lstEstadoCivil: MacEstadoCivil[];
   listTipoHabitaciones: MacTipoHabitacion[];
+  lstModelosPD: ModelosPD[] = [];
+  modeloPDSeleccionado: ModelosPD = undefined;
+  lstGruposPD: GruposPD[] = [];
+  grupoPDSeleccionado: GruposPD = undefined;
 
   habilitarBtnEditarDatos: boolean = false;
   habilitarBtnGuardarDatos: boolean = false;
+  habilitarBtnCalcularDatosPD: boolean = false;
+  habilitarBtnPD_ContinuarScoring: boolean = false;
   disabledDatosPD: boolean = true;
 
+  private procesarAnalisisPDInicial() {
+    if (this._analisisCapacidadpago) {
+      this.obtenerAnalisisPD();
+    }
+  }
+
+  private crearAnalisisPD() {
+    let oAnalisisPD: AnalisisHistoricoPD = {
+      pdhCodAnalisisPd: 0,
+      codAnalisis: this._analisisCapacidadpago.codigoAnalisis,
+      codPersona: this._personaMacred.id,
+      identificacion: this._personaMacred.identificacion,
+      fechaCreacion: new Date(),
+      usuarioCreacion: this.userObservable.nombreCompleto,
+      codModeloPd: 0,
+      codGrupoPd: 0,
+      datoHabitacasa: 0,
+      datoProvincia: 0,
+      pdhAnalisisDefinitivo: false,
+      pdhEstado: false,
+      edadAsociado: 0,
+      cantidadHijos: 0,
+      anosLaborales: 0,
+      salarioBruto: 0,
+      atrasoMaximo: 0,
+      nCreditosVigentes: 0,
+      saldoTotal: 0,
+      codGenero: 0,
+      codEstadoCivil: 0,
+      codCondicionLaboral: 0,
+    };
+
+    this.macredService
+      .postAnalisisPD(oAnalisisPD)
+      .pipe(first())
+      .subscribe(
+        (response) => {
+          this._analisisPD = response;
+        },
+        (error) => {
+          let message: string = 'Problemas de conexión. Detalle: ' + error;
+          this.alertService.error(message);
+        }
+      );
+  }
+
+  private obtenerAnalisisPD() {
+    this.macredService
+      .getAnalisisPD(this._analisisCapacidadpago.codigoAnalisis)
+      .pipe(first())
+      .subscribe(
+        (response) => {
+          if (response) {
+            this._analisisPD = response;
+            this.inicializarFormPD();
+          } else {
+            this.crearAnalisisPD();
+          }
+        },
+        (error) => {
+          let message: string = 'Problemas de conexión. Detalle: ' + error;
+          this.alertService.error(message);
+        }
+      );
+  }
 
   private cargarDatosPD() {
-
     this.macredService
       .getTiposGenerosCompania(this.companiaObservable.id)
       .pipe(first())
@@ -1780,57 +1860,258 @@ export class AsociadosComponent implements OnInit {
         this.lstEstadoCivil = response;
       });
 
-      this.macredService.getTiposHabitacionesCompania(this.userObservable.empresa)
-        .pipe(first())
-        .subscribe(tipoHabitacionResponse => {
-          this.listTipoHabitaciones = tipoHabitacionResponse;
-        });
+    this.macredService
+      .getTiposHabitacionesCompania(this.userObservable.empresa)
+      .pipe(first())
+      .subscribe((tipoHabitacionResponse) => {
+        this.listTipoHabitaciones = tipoHabitacionResponse;
+      });
 
+    this.macredService
+      .getPDModelos(this.userObservable.empresa)
+      .pipe(first())
+      .subscribe((lstModelosPD) => {
+        this.lstModelosPD = lstModelosPD;
+      });
   }
 
-  private inicializarFormPD(){
+  private cargarGruposPD(inModeloPD: ModelosPD) {
+    return new Promise((resolve, reject) => {
+      //OBTENER LOS GRUPOS ASOCIADOS AL MODELO
+      this.macredService
+        .getGruposPDVariable(inModeloPD.id)
+        .pipe(first())
+        .subscribe(
+          (response) => {
+            resolve(response);
+          },
+          (error) => {
+            reject('Problemas de conexión. Detalle: ' + error);
+          }
+        );
+    });
+  }
 
+  private inicializarFormPD() {
     this.habilitarBtnEditarDatos = true;
     this.disabledDatosPD = true;
-
     this.formPD = this.formBuilder.group({
-      codigoGenero: [this.listTipoGenero.find(
-        (x) => x.id === this._personaMacred.codigoGenero
-      )],
-      codigoEstadoCivil: [this.lstEstadoCivil.find(
-        (x) => x.id === this._personaMacred.codigoEstadoCivil
-      )],
-      codigoTipoHabitacion: [this.listTipoHabitaciones.find(
-        (x) => x.id === this._personaMacred.codigoTipoHabitacion
-      )],
+      codigoGenero: [
+        this.listTipoGenero.find(
+          (x) => x.id === this._personaMacred.codigoGenero
+        ),
+      ],
+      codigoEstadoCivil: [
+        this.lstEstadoCivil.find(
+          (x) => x.id === this._personaMacred.codigoEstadoCivil
+        ),
+      ],
+      codigoTipoHabitacion: [
+        this.listTipoHabitaciones.find(
+          (x) => x.id === this._personaMacred.codigoTipoHabitacion
+        ),
+      ],
       edad: [this._personaMacred.edad ?? 0],
-      tienePropiedades: [false],
-      tieneVehiculo: [false],
+      tienePropiedades: [this._personaMacred.pdTienePropiedad ?? false],
+      tieneVehiculo: [this._personaMacred.pdTieneVehiculo ?? false],
       numeroHijos: [this._personaMacred.cantidadHijos ?? 0],
       numeroFianzas: [this._personaMacred.cantidadFianzas ?? 0],
       creditosActivos: [this._personaMacred.nCreditosVigentes ?? 0],
-      csd: [0],
+      csd: [this._personaMacred.pdCsd ?? 0],
       segmento: [this._personaMacred.perSegmentoAsociado ?? 0],
       salarioBruto: [this._personaMacred.salarioBruto ?? 0],
       montoAprobadoTotal: [this._personaMacred.montoAprobadoTotal ?? 0],
       endeudamientoTotalCIC: [this._personaMacred.perEndeudamientoTotal ?? 0],
       constante: [this._personaMacred.constante ?? 0],
-      modeloAnalisis: [""],
-      modeloAnalisisConglomerado: [""],
-      zScore: [0],
-      pdResult: [0]
+      modeloAnalisis: [''],
+      modeloAnalisisConglomerado: [''],
+      zScore: [this._analisisPD.pdhDZscore ?? 0],
+      pdResult: [this._analisisPD.pdhDPdFinal ?? 0],
     });
 
+    // EL ANALISIS YA ESTA CREADO
+    if (this._analisisPD.pdhEstado) {
+      // SE DEBE OCULTAR LOS BOTONES DE EDITAR Y CALCULAR Y CONTINUAR CON EL SIGUIENTE TAB
+      let modeloAnalisis = this.lstModelosPD.find(
+        (x) => x.id == this._analisisPD.codModeloPd
+      );
+      this.formPD.patchValue({ modeloAnalisis: modeloAnalisis.descripcion });
+
+      this.cargarGruposPD(modeloAnalisis).then((respuesta: GruposPD[]) => {
+        let grupoAsignado = respuesta.find(
+          (x) => x.idGrupoPd == this._analisisPD.codGrupoPd
+        );
+        this.formPD.patchValue({
+          modeloAnalisisConglomerado: grupoAsignado.descripcion,
+        });
+        this.habilitarBtnCalcularDatosPD = false;
+        this.habilitarBtnPD_ContinuarScoring = true;
+      });
+    } else {
+      // EN CASO QUE NO SE HA GENERADO EL PD
+      // SE DESACTIVA EL BOTON DE CALCULAR.
+      this.habilitarBtnCalcularDatosPD = true;
+      this.habilitarBtnPD_ContinuarScoring = false;
+    }
   }
 
-  habilitarCamposPDEditar (_estado:boolean) {
+  habilitarCamposPDEditar(_estado: boolean) {
     this.habilitarBtnEditarDatos = !_estado;
     this.disabledDatosPD = !_estado;
     this.habilitarBtnGuardarDatos = _estado;
   }
 
-  procesoGuardarDatosPD(){
-    this.habilitarCamposPDEditar(false);
+  procesoGuardarDatosPD() {
+    // SE OBTIENE LA INFORMACIÓN A GUARDAR DE LA PERSONA
+    this.alertService.clear();
+    this.submittedPDForm = true;
+
+    if (this.formPD.invalid) {
+      this.alertService.error('La información indicada no es válida.');
+      return;
+    }
+
+    // SE OBTIENE LA INFORMACIÓN INGRESADA DEL USUARIO
+    const {
+      codigoGenero,
+      codigoEstadoCivil,
+      codigoTipoHabitacion,
+      edad,
+      tienePropiedades,
+      tieneVehiculo,
+      numeroHijos,
+      numeroFianzas,
+      creditosActivos,
+      csd,
+      segmento,
+      salarioBruto,
+      montoAprobadoTotal,
+      endeudamientoTotalCIC,
+      constante,
+    } = this.formPD.controls;
+
+    let oPersonaActualizar: MacPersona = {
+      ...this._personaMacred,
+      codigoGenero: codigoGenero.value.id,
+      codigoEstadoCivil: codigoEstadoCivil.value.id,
+      codigoTipoHabitacion: codigoTipoHabitacion.value.id,
+      edad: edad.value,
+      cantidadHijos: numeroHijos.value,
+      cantidadFianzas: numeroFianzas.value,
+      nCreditosVigentes: creditosActivos.value,
+      perSegmentoAsociado: segmento.value,
+      salarioBruto: salarioBruto.value,
+      montoAprobadoTotal: montoAprobadoTotal.value,
+      perEndeudamientoTotal: endeudamientoTotalCIC.value,
+      constante: constante.value,
+      pdCsd: csd.value,
+      pdTienePropiedad: tienePropiedades.value,
+      pdTieneVehiculo: tieneVehiculo.value,
+    };
+
+    // SE GUARDA LOS DATOS DE LA PERSONA.
+    this.macredService
+      .putPersona(oPersonaActualizar)
+      .pipe(first())
+      .subscribe(
+        (response) => {
+          if (response) {
+            this._personaMacred = response;
+
+            this.alertService.success(
+              `Persona ${this._personaMacred.identificacion} actualizada correctamente!`
+            );
+            this.habilitarCamposPDEditar(false);
+          } else {
+            let message: string = 'Problemas al actualizar la persona.';
+            this.alertService.error(message);
+          }
+        },
+        (error) => {
+          let message: string = 'Problemas de conexión. Detalle: ' + error;
+          this.alertService.error(message);
+        }
+      );
+  }
+
+  procesoCalculaPD() {
+    $('#modalModelosPD').modal({ backdrop: 'static', keyboard: false }, 'show');
+  }
+
+  handleModalPDSelececionarModelo(inModeloPD: ModelosPD) {
+    this.alertService.clear();
+
+    if (!inModeloPD) {
+      this.alertService.error('No se ha seleccionado un modelo correcto.');
+      return;
+    }
+
+    // CERRAR EL MODAL DE LOS MODELOS
+    $('#modalModelosPD').modal('hide');
+
+    // ASIGNAR LAS VARIABLES
+    this.modeloPDSeleccionado = inModeloPD;
+    this.formPD.patchValue({ modeloAnalisis: inModeloPD.descripcion });
+
+    this.cargarGruposPD(this.modeloPDSeleccionado)
+      .then((respuesta: GruposPD[]) => {
+        this.lstGruposPD = respuesta;
+        // ACTIVAR EL MODAL DE LOS GRUPOS ASIGNADOS AL MODELO
+        $('#modalGruposPD').modal(
+          { backdrop: 'static', keyboard: false },
+          'show'
+        );
+      })
+      .catch((error) => {
+        this.alertService.error(error);
+      });
+  }
+
+  handleModalPDSeleccionarGrupo(inGruposPD: GruposPD) {
+    this.alertService.clear();
+
+    if (!inGruposPD) {
+      this.alertService.error('No se ha seleccionado un grupo correcto.');
+      return;
+    }
+
+    // CERRAR EL MODAL DE LOS MODELOS
+    $('#modalGruposPD').modal('hide');
+
+    // ASIGNAR LAS VARIABLES
+    this.grupoPDSeleccionado = inGruposPD;
+    this.formPD.patchValue({
+      modeloAnalisisConglomerado: inGruposPD.descripcion,
+    });
+
+    //SE GENERA LA INFORMACIÓN DEL PD
+    const oAnalisisPD = {
+      codAnalisis: this._analisisCapacidadpago.codigoAnalisis,
+      codModeloPd: this.modeloPDSeleccionado.id,
+      codGrupoPd: this.grupoPDSeleccionado.idGrupoPd,
+      codPersona: this._personaMacred.id,
+      identificacion: this._personaMacred.identificacion,
+      usuarioCreacion: this.userObservable.nombreCompleto,
+      pdhEstado: true,
+    } as AnalisisHistoricoPD;
+
+    // PROCESO PARA GENERAR UN NUEVO CALCULO DE PD
+    this.macredService
+      .calculoAnalisisPD(oAnalisisPD)
+      .pipe(first())
+      .subscribe(
+        (response) => {
+          if (response.exito) {
+            this.obtenerAnalisisPD();
+          } else {
+            this.alertService.error(response.responseMesagge);
+          }
+        },
+        (error) => {
+          let message: string = 'Problemas de conexión. Detalle: ' + error;
+          this.alertService.error(message);
+        }
+      );
   }
 
   //#endregion

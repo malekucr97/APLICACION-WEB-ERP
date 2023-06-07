@@ -25,7 +25,7 @@ import { MacCategoriaCredito } from '@app/_models/Macred/CategoriaCredito';
 import { MacTipoAsociado } from '@app/_models/Macred/TipoAsociado';
 import { MacTipoHabitacion } from '@app/_models/Macred/TipoHabitacion';
 import { MacEstadoCivil } from '@app/_models/Macred/EstadoCivil';
-import { MacParametrosGenerales, ModelosPD } from '@app/_models/Macred';
+import { AnalisisHistoricoPD, GruposPD, IndicadoresPorGrupoPD, MacParametrosGenerales, ModelosPD, VariablesPD } from '@app/_models/Macred';
 
 @Injectable({ providedIn: 'root' })
 export class MacredService {
@@ -241,6 +241,20 @@ export class MacredService {
 
     //#region Parametos PD Modelos
 
+    calculoAnalisisPD(inAnalisisPD: AnalisisHistoricoPD) {
+      return this.http.post<ResponseMessage>(`${environment.apiUrl}/macred/calculoAnalisisPD`, inAnalisisPD);
+    }
+
+    getAnalisisPD(idAnalisisCapacidadPago: number) {
+      return this.http.get<AnalisisHistoricoPD>(`${environment.apiUrl}/macred/getAnalisisPD/${idAnalisisCapacidadPago}`);
+    }
+
+    postAnalisisPD(inAnalisisPD: AnalisisHistoricoPD) {
+      return this.http.post<AnalisisHistoricoPD>(`${environment.apiUrl}/macred/postAnalisisPD`, inAnalisisPD);
+    }
+
+    //#region MODELOS
+
     getPDModelos(idCompania: number) {
       return this.http.get<ModelosPD[]>(`${environment.apiUrl}/macred/getPDModelos?idCompania=${idCompania}`);
     }
@@ -254,4 +268,68 @@ export class MacredService {
     }
 
     //#endregion
+
+    //#region VARIABLES
+
+    getPDVariables(idCompania: number) {
+      return this.http.get<VariablesPD[]>(`${environment.apiUrl}/macred/getPDVariables?idCompania=${idCompania}`);
+    }
+
+    createUpdatePDVariable(inVariablePD: VariablesPD) {
+      return this.http.post<ResponseMessage>(`${environment.apiUrl}/macred/createUpdatePDVariable`, inVariablePD);
+    }
+
+    deletePDVariable(idPDVariable: number) {
+      return this.http.delete<ResponseMessage>(`${environment.apiUrl}/macred/deletePDVariable?idPDVariable=${idPDVariable}`);
+    }
+
+    //#endregion
+
+    //#region GRUPOS PD
+
+    getGruposPDVariable(idModelo: number) {
+      return this.http.get<GruposPD[]>(`${environment.apiUrl}/macred/getGruposPDVariable?idModelo=${idModelo}`);
+    }
+
+    getGrupoPDVariable(idGrupo: number) {
+      return this.http.get<GruposPD>(`${environment.apiUrl}/macred/getGrupoPDVariable?id=${idGrupo}`);
+    }
+
+    postGrupoPDVariable(inGrupoPD: GruposPD) {
+      return this.http.post<ResponseMessage>(`${environment.apiUrl}/macred/postGrupoPDVariable`, inGrupoPD);
+    }
+
+    putGrupoPDVariable(idGrupo: number, inGrupoPD: GruposPD) {
+      return this.http.put<ResponseMessage>(`${environment.apiUrl}/macred/putGrupoPDVariable/${idGrupo}`, inGrupoPD);
+    }
+
+    deleteGrupoPDVariable(idGrupo: number) {
+      return this.http.delete<ResponseMessage>(`${environment.apiUrl}/macred/deleteGrupoPDVariable/${idGrupo}`);
+    }
+
+    //#endregion
+
+    //#region INDICADORES POR GRUPO
+
+    getIndicadoresGrupoPD(idGrupo: number) {
+        return this.http.get<IndicadoresPorGrupoPD[]>(`${environment.apiUrl}/macred/getIndicadoresGrupoPD/${idGrupo}`);
+    }
+
+    getIndicadorGrupoPD(idIndicador:number,idGrupo: number) {
+        return this.http.get<IndicadoresPorGrupoPD>(`${environment.apiUrl}/macred/getIndicadoresGrupoPD/${idIndicador}/${idGrupo}`);
+    }
+
+    postIndicadorGrupoPD(inIndicadorGrupoPD: IndicadoresPorGrupoPD) {
+        return this.http.post<ResponseMessage>(`${environment.apiUrl}/macred/postIndicadorGrupoPD`, inIndicadorGrupoPD);
+    }
+
+    deleteIndicadorGrupoPD(idIndicador:number,idGrupo: number) {
+        return this.http.delete<ResponseMessage>(`${environment.apiUrl}/macred/deleteIndicadorGrupoPD/${idIndicador}/${idGrupo}`);
+    }
+
+    //#endregion
+
+    //#endregion
+
+
 }

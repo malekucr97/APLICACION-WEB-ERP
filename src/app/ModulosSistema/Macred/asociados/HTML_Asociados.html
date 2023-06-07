@@ -1543,7 +1543,7 @@
                   class="form-control"
                   name="selectcodigoGenero"
                   [attr.disabled]="disabledDatosPD ? '' : null"
-                  [ngClass]="{ 'is-invalid': submittedPDForm && i.codigoGenero.errors }"
+                  [ngClass]="{ 'is-invalid': submittedPDForm && j.codigoGenero.errors }"
                 >
                   <option
                     [ngValue]="genero"
@@ -1554,10 +1554,10 @@
                 </select>
 
                 <div
-                  *ngIf="submittedPDForm && i.codigoGenero.errors"
+                  *ngIf="submittedPDForm && j.codigoGenero.errors"
                   class="invalid-feedback"
                 >
-                  <div *ngIf="i.codigoGenero.errors.required">
+                  <div *ngIf="j.codigoGenero.errors.required">
                     El Género es requerido
                   </div>
                 </div>
@@ -1571,7 +1571,7 @@
                   class="form-control"
                   name="selectcodigoEstadoCivil"
                   [attr.disabled]="disabledDatosPD ? '' : null"
-                  [ngClass]="{ 'is-invalid': submittedPDForm && i.codigoEstadoCivil.errors }"
+                  [ngClass]="{ 'is-invalid': submittedPDForm && j.codigoEstadoCivil.errors }"
                 >
                   <option
                     [ngValue]="estadoCivil"
@@ -1582,10 +1582,10 @@
                 </select>
 
                 <div
-                  *ngIf="submittedPDForm && i.codigoEstadoCivil.errors"
+                  *ngIf="submittedPDForm && j.codigoEstadoCivil.errors"
                   class="invalid-feedback"
                 >
-                  <div *ngIf="i.codigoEstadoCivil.errors.required">
+                  <div *ngIf="j.codigoEstadoCivil.errors.required">
                     El Estado Civil es requerido
                   </div>
                 </div>
@@ -1601,7 +1601,7 @@
                   class="form-control"
                   name="selectcodigoTipoHabitacion"
                   [attr.disabled]="disabledDatosPD ? '' : null"
-                  [ngClass]="{ 'is-invalid': submittedPDForm && i.codigoTipoHabitacion.errors }"
+                  [ngClass]="{ 'is-invalid': submittedPDForm && j.codigoTipoHabitacion.errors }"
                 >
                   <option
                     [ngValue]="tipoHabitacion"
@@ -1612,10 +1612,10 @@
                 </select>
 
                 <div
-                  *ngIf="submittedPDForm && i.codigoTipoHabitacion.errors"
+                  *ngIf="submittedPDForm && j.codigoTipoHabitacion.errors"
                   class="invalid-feedback"
                 >
-                  <div *ngIf="i.codigoTipoHabitacion.errors.required">
+                  <div *ngIf="j.codigoTipoHabitacion.errors.required">
                     El Tipo de Habitación es requerido
                   </div>
                 </div>
@@ -1631,14 +1631,14 @@
                   id="id_edad"
                   min="0"
                   max="200"
-                  [ngClass]="{ 'is-invalid': submittedPDForm && i.edad.errors }"
+                  [ngClass]="{ 'is-invalid': submittedPDForm && j.edad.errors }"
                   [readOnly]="disabledDatosPD"
                 />
                 <div
-                  *ngIf="submittedPDForm && i.edad.errors"
+                  *ngIf="submittedPDForm && j.edad.errors"
                   class="invalid-feedback"
                 >
-                  <div *ngIf="i.edad.errors.required">La edad es requerida</div>
+                  <div *ngIf="j.edad.errors.required">La edad es requerida</div>
                 </div>
               </div>
 
@@ -1650,6 +1650,7 @@
                     type="checkbox"
                     name="tienePropiedades"
                     class="chk m-right-5"
+                    [readOnly]="disabledDatosPD"
                   />
                   <label for="tienePropiedades">Tiene Propiedades?</label>
                 </section>
@@ -1660,6 +1661,7 @@
                     type="checkbox"
                     name="tieneVehiculo"
                     class="chk m-right-5"
+                    [readOnly]="disabledDatosPD"
                   />
                   <label for="tieneVehiculo">Tiene Vehículo?</label>
                 </section>
@@ -1675,14 +1677,14 @@
                   class="form-control"
                   type="number"
                   id="id_numeroHijos"
-                  [ngClass]="{ 'is-invalid': submittedPDForm && i.numeroHijos.errors }"
+                  [ngClass]="{ 'is-invalid': submittedPDForm && j.numeroHijos.errors }"
                   [readOnly]="disabledDatosPD"
                 />
                 <div
-                  *ngIf="submittedPDForm && i.numeroHijos.errors"
+                  *ngIf="submittedPDForm && j.numeroHijos.errors"
                   class="invalid-feedback"
                 >
-                  <div *ngIf="i.numeroHijos.errors.required">
+                  <div *ngIf="j.numeroHijos.errors.required">
                     El Número de Hijos es requerido
                   </div>
                 </div>
@@ -1698,14 +1700,14 @@
                   class="form-control"
                   type="number"
                   id="id_numeroFianzas"
-                  [ngClass]="{ 'is-invalid': submittedPDForm && i.numeroFianzas.errors }"
-                  [readOnly]="true"
+                  [ngClass]="{ 'is-invalid': submittedPDForm && j.numeroFianzas.errors }"
+                  [readOnly]="disabledDatosPD"
                 />
                 <div
-                  *ngIf="submittedPDForm && i.numeroFianzas.errors"
+                  *ngIf="submittedPDForm && j.numeroFianzas.errors"
                   class="invalid-feedback"
                 >
-                  <div *ngIf="i.numeroFianzas.errors.required">
+                  <div *ngIf="j.numeroFianzas.errors.required">
                     El número de fianzas es requerido
                   </div>
                 </div>
@@ -1721,14 +1723,14 @@
                   class="form-control"
                   type="number"
                   id="id_creditosActivos"
-                  [ngClass]="{ 'is-invalid': submittedPDForm && i.creditosActivos.errors }"
-                  [readOnly]="true"
+                  [ngClass]="{ 'is-invalid': submittedPDForm && j.creditosActivos.errors }"
+                  [readOnly]="disabledDatosPD"
                 />
                 <div
-                  *ngIf="submittedPDForm && i.creditosActivos.errors"
+                  *ngIf="submittedPDForm && j.creditosActivos.errors"
                   class="invalid-feedback"
                 >
-                  <div *ngIf="i.creditosActivos.errors.required">
+                  <div *ngIf="j.creditosActivos.errors.required">
                     Los créditos activos son requeridos
                   </div>
                 </div>
@@ -1742,14 +1744,14 @@
                   class="form-control"
                   type="number"
                   id="id_csd"
-                  [ngClass]="{ 'is-invalid': submittedPDForm && i.csd.errors }"
-                  [readOnly]="true"
+                  [ngClass]="{ 'is-invalid': submittedPDForm && j.csd.errors }"
+                  [readOnly]="disabledDatosPD"
                 />
                 <div
-                  *ngIf="submittedPDForm && i.csd.errors"
+                  *ngIf="submittedPDForm && j.csd.errors"
                   class="invalid-feedback"
                 >
-                  <div *ngIf="i.csd.errors.required">El CSD es requerido</div>
+                  <div *ngIf="j.csd.errors.required">El CSD es requerido</div>
                 </div>
               </div>
 
@@ -1763,14 +1765,14 @@
                   class="form-control"
                   type="number"
                   id="id_segmento"
-                  [ngClass]="{ 'is-invalid': submittedPDForm && i.segmento.errors }"
+                  [ngClass]="{ 'is-invalid': submittedPDForm && j.segmento.errors }"
                   [readOnly]="disabledDatosPD"
                 />
                 <div
-                  *ngIf="submittedPDForm && i.segmento.errors"
+                  *ngIf="submittedPDForm && j.segmento.errors"
                   class="invalid-feedback"
                 >
-                  <div *ngIf="i.segmento.errors.required">
+                  <div *ngIf="j.segmento.errors.required">
                     El Segmento es requerido
                   </div>
                 </div>
@@ -1786,14 +1788,14 @@
                   class="form-control"
                   type="number"
                   id="id_salarioBruto"
-                  [ngClass]="{ 'is-invalid': submittedPDForm && i.salarioBruto.errors }"
-                  [readOnly]="true"
+                  [ngClass]="{ 'is-invalid': submittedPDForm && j.salarioBruto.errors }"
+                  [readOnly]="disabledDatosPD"
                 />
                 <div
-                  *ngIf="submittedPDForm && i.salarioBruto.errors"
+                  *ngIf="submittedPDForm && j.salarioBruto.errors"
                   class="invalid-feedback"
                 >
-                  <div *ngIf="i.salarioBruto.errors.required">
+                  <div *ngIf="j.salarioBruto.errors.required">
                     El Salario Bruto es requerido
                   </div>
                 </div>
@@ -1809,14 +1811,14 @@
                   class="form-control"
                   type="number"
                   id="id_montoAprobadoTotal"
-                  [ngClass]="{ 'is-invalid': submittedPDForm && i.montoAprobadoTotal.errors }"
-                  [readOnly]="true"
+                  [ngClass]="{ 'is-invalid': submittedPDForm && j.montoAprobadoTotal.errors }"
+                  [readOnly]="disabledDatosPD"
                 />
                 <div
-                  *ngIf="submittedPDForm && i.montoAprobadoTotal.errors"
+                  *ngIf="submittedPDForm && j.montoAprobadoTotal.errors"
                   class="invalid-feedback"
                 >
-                  <div *ngIf="i.montoAprobadoTotal.errors.required">
+                  <div *ngIf="j.montoAprobadoTotal.errors.required">
                     El Monto Aprobado es requerido
                   </div>
                 </div>
@@ -1832,14 +1834,14 @@
                   class="form-control"
                   type="number"
                   id="id_endeudamientoTotalCIC"
-                  [ngClass]="{ 'is-invalid': submittedPDForm && i.endeudamientoTotalCIC.errors }"
-                  [readOnly]="true"
+                  [ngClass]="{ 'is-invalid': submittedPDForm && j.endeudamientoTotalCIC.errors }"
+                  [readOnly]="disabledDatosPD"
                 />
                 <div
-                  *ngIf="submittedPDForm && i.endeudamientoTotalCIC.errors"
+                  *ngIf="submittedPDForm && j.endeudamientoTotalCIC.errors"
                   class="invalid-feedback"
                 >
-                  <div *ngIf="i.endeudamientoTotalCIC.errors.required">
+                  <div *ngIf="j.endeudamientoTotalCIC.errors.required">
                     El Endeudamiento Total CIC es requerido
                   </div>
                 </div>
@@ -1853,20 +1855,19 @@
                   class="form-control"
                   type="number"
                   id="id_constante"
-                  [ngClass]="{ 'is-invalid': submittedPDForm && i.constante.errors }"
-                  [readOnly]="true"
+                  [ngClass]="{ 'is-invalid': submittedPDForm && j.constante.errors }"
+                  [readOnly]="disabledDatosPD"
                 />
                 <div
-                  *ngIf="submittedPDForm && i.constante.errors"
+                  *ngIf="submittedPDForm && j.constante.errors"
                   class="invalid-feedback"
                 >
-                  <div *ngIf="i.constante.errors.required">
+                  <div *ngIf="j.constante.errors.required">
                     La constante es requerida
                   </div>
                 </div>
               </div>
 
-              <section></section>
               <section></section>
 
               <div class="form-group">
@@ -1878,7 +1879,7 @@
                   class="form-control"
                   type="text"
                   id="id_modeloAnalisis"
-                  [ngClass]="{ 'is-invalid': submittedPDForm && i.modeloAnalisis.errors }"
+                  [ngClass]="{ 'is-invalid': submittedPDForm && j.modeloAnalisis.errors }"
                   readonly
                 />
                 <input
@@ -1886,7 +1887,7 @@
                   class="form-control"
                   type="text"
                   id="id_modeloAnalisisConglomerado"
-                  [ngClass]="{ 'is-invalid': submittedPDForm && i.modeloAnalisisConglomerado.errors }"
+                  [ngClass]="{ 'is-invalid': submittedPDForm && j.modeloAnalisisConglomerado.errors }"
                   readonly
                 />
               </div>
@@ -1897,7 +1898,7 @@
                   class="form-control"
                   type="number"
                   id="id_zScore"
-                  [ngClass]="{ 'is-invalid': submittedPDForm && i.zScore.errors }"
+                  [ngClass]="{ 'is-invalid': submittedPDForm && j.zScore.errors }"
                   readonly
                 />
               </div>
@@ -1910,7 +1911,7 @@
                   class="form-control"
                   type="number"
                   id="id_pdResult"
-                  [ngClass]="{ 'is-invalid': submittedPDForm && i.pdResult.errors }"
+                  [ngClass]="{ 'is-invalid': submittedPDForm && j.pdResult.errors }"
                   readonly
                 />
               </div>
@@ -1922,25 +1923,25 @@
               <button
                 *ngIf="habilitarBtnEditarDatos"
                 (click)="habilitarCamposPDEditar(true)"
-                class="btn btn-success px-5"
+                class="btn btn-success px-5 mx-1"
                 mat-flat-button
                 color="primary"
               >
                 Editar
               </button>
               <button
-                *ngIf="habilitarBtnGuardarDatos"
+                *ngIf=""
                 (click)="procesoGuardarDatosPD()"
-                class="btn btn-success px-5"
+                class="btn btn-success px-5 mx-1"
                 mat-flat-button
                 color="primary"
               >
                 Guardar
               </button>
               <button
-                *ngIf="habilitarBtnEditarDatos"
-                (click)="procesoGuardarDatosPD()"
-                class="btn btn-success px-5"
+                *ngIf="habilitarBtnCalcularDatosPD"
+                (click)="procesoCalculaPD()"
+                class="btn btn-success px-5 mx-1"
                 mat-flat-button
                 color="primary"
               >
@@ -1949,7 +1950,7 @@
             </div>
             <div class="contenedor__footer__next">
               <button
-                *ngIf="habilitaBtnPD"
+                *ngIf="habilitarBtnPD_ContinuarScoring"
                 (click)="habilitarFormPD()"
                 class="btn px-5 btn-info"
                 mat-flat-button
@@ -1959,6 +1960,121 @@
               </button>
             </div>
           </div>
+
+          <!-- ****************************** -->
+          <!-- MODAL DE MODELOS DE PD -->
+          <!-- ****************************** -->
+          <article class="modal modal-config" id="modalModelosPD">
+            <div class="modal-content">
+              <section>
+                <div class="modal-header">
+                  <div class="contenedor__header-modal">
+                    <div class="contenedor__header__prev">
+                      <h1 style="color: #1a5276">
+                        Modelos de análisis PD
+                      </h1>
+                    </div>
+                    <div class="contenedor__header__next">
+                      <button
+                        style="color: red"
+                        type="button"
+                        class="close btn-close"
+                        data-dismiss="modal"
+                      >
+                        &times;
+                      </button>
+                    </div>
+                  </div>
+                </div>
+              </section>
+
+              <section>
+                <!-- body -->
+                <div class="contenedor__body">
+                  <div *ngIf="lstModelosPD">
+                    <p>Por favor seleccionar un modelo para el cálculo.</p>
+                    <table class="table table-striped">
+                      <thead>
+                        <tr>
+                          <th style="width: 50%">Modelo</th>
+                          <th style="width: 50%">Fecha de creación</th>
+                        </tr>
+                      </thead>
+                      <tbody>
+                        <tr
+                          *ngFor="let obj of lstModelosPD"
+                          class="item-list__confirm"
+                          (click)="handleModalPDSelececionarModelo(obj)"
+                        >
+                          <td>{{obj.descripcion}}</td>
+                          <td>{{obj.fechaCreacion}}</td>
+                        </tr>
+                      </tbody>
+                    </table>
+                  </div>
+                </div>
+              </section>
+
+            </div>
+          </article>
+
+          <!-- ****************************** -->
+          <!-- MODAL DE GRUPOS DE PD -->
+          <!-- ****************************** -->
+          <article class="modal modal-config" id="modalGruposPD">
+            <div class="modal-content">
+              <section>
+                <div class="modal-header">
+                  <div class="contenedor__header-modal">
+                    <div class="contenedor__header__prev">
+                      <h1 style="color: #1a5276">
+                        Grupos asignados al modelo PD
+                      </h1>
+                    </div>
+                    <div class="contenedor__header__next">
+                      <button
+                        style="color: red"
+                        type="button"
+                        class="close btn-close"
+                        data-dismiss="modal"
+                      >
+                        &times;
+                      </button>
+                    </div>
+                  </div>
+                </div>
+              </section>
+
+              <section>
+                <!-- body -->
+                <div class="contenedor__body">
+                  <div *ngIf="lstGruposPD">
+                    <p>Por favor seleccionar un grupo para el cálculo.</p>
+                    <table class="table table-striped">
+                      <thead>
+                        <tr>
+                          <th style="width: 50%">Nombre del grupo</th>
+                          <th style="width: 50%">Fecha de creación</th>
+                        </tr>
+                      </thead>
+                      <tbody>
+                        <tr
+                          *ngFor="let obj of lstGruposPD"
+                          class="item-list__confirm"
+                          (click)="handleModalPDSeleccionarGrupo(obj)"
+                        >
+                          <td>{{obj.descripcion}}</td>
+                          <td>{{obj.fechaCreacion}}</td>
+                        </tr>
+                      </tbody>
+                    </table>
+                  </div>
+                </div>
+              </section>
+
+            </div>
+          </article>
+
         </section>
       </article>
     </div>

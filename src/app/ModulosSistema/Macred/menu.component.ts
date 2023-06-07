@@ -103,7 +103,7 @@ const TREE_DATA: FoodNode[] = [
                 link: '',
                 icon: '',
                 children: [{name: 'Configuración de Modelos', link: ModulesSystem.macredbasehref + 'mantenimientos/parametros/configuracion-modelos.html', icon: ''},
-                          {name: 'Variables de Análisis PD', link: '/', icon: ''}
+                          {name: 'Variables de Análisis PD', link: ModulesSystem.macredbasehref + 'mantenimientos/parametros/configuracion-parametros-pd.html', icon: ''}
                           ],},
                 {name: 'Parámetros Scoring',
                 link: '',

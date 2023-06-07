@@ -1,135 +1,502 @@
-<main>
-  <article class="bloq">
-    <div class="contenedor mat-elevation-z4">
-      <section>
-        <!-- header -->
-        <div class="contenedor__header">
-          <div class="contenedor__header__prev">
-            <h2>Crear Modelo PD</h2>
-          </div>
-          <div class="contenedor__header__next"></div>
-        </div>
-      </section>
-
-      <section>
-        <!-- body -->
-        <div class="contenedor__body">
-          <form [formGroup]="formModeloPD" class="row">
-            <div class="form-group col-md-3">
-              <label for="id" class="form-label">Código del modelo</label>
-              <input
-                formControlName="codigoModeloPD"
-                class="form-control"
-                type="text"
-                id="id_codigoModeloPD"
-                readonly
-              />
+<main class="tw-flex-col">
+  <!-- MODELOS -->
+  <section class="tw-flex">
+    <article class="tw-m-2 tw-my-6 tw-w-1/4">
+      <div class="tw-border tw-shadow tw-rounded-lg tw-shadow">
+        <section>
+          <!-- header -->
+          <div class="contenedor__header">
+            <div class="contenedor__header__prev">
+              <h2>Crear Modelo PD</h2>
             </div>
+            <div class="contenedor__header__next"></div>
+          </div>
+        </section>
 
-            <div class="form-group col-md-6">
-              <label for="lbldescripcion" class="form-label"
-                >Nombre del modelo</label
-              >
-              <input
-                formControlName="descripcion"
-                class="form-control"
-                type="text"
-                id="id_descripcion"
-                [ngClass]="{
-                  'is-invalid': submittedModeloPDForm && f.descripcion.errors
-                }"
-              />
-              <div
-                *ngIf="submittedModeloPDForm && f.descripcion.errors"
-                class="invalid-feedback"
-              >
-                <div *ngIf="f.descripcion.errors.required">
-                  El modelo es requerido
+        <section>
+          <!-- body -->
+          <div class="contenedor__body">
+            <form [formGroup]="formModeloPD" class="row">
+              <div class="form-group col-md-12">
+                <label for="id" class="form-label">Código del modelo</label>
+                <input
+                  formControlName="codigoModeloPD"
+                  class="form-control tw-border tw-shadow"
+                  type="text"
+                  id="id_codigoModeloPD"
+                  readonly
+                />
+              </div>
+
+              <div class="form-group col-md-12">
+                <label for="lbldescripcion" class="form-label"
+                  >Nombre del modelo</label
+                >
+                <input
+                  formControlName="descripcion"
+                  class="form-control tw-border tw-shadow"
+                  type="text"
+                  id="id_descripcion"
+                  [ngClass]="{
+                    'is-invalid': submittedModeloPDForm && f.descripcion.errors
+                  }"
+                />
+                <div
+                  *ngIf="submittedModeloPDForm && f.descripcion.errors"
+                  class="invalid-feedback"
+                >
+                  <div *ngIf="f.descripcion.errors.required">
+                    El modelo es requerido
+                  </div>
                 </div>
               </div>
-            </div>
 
-            <div class="col-md-3 margin-icos-mat">
-              <a
-                (click)="handleRegistrarModelo()"
-                class="btn btn-sm btn-outline-success"
-                matTooltip="Añadir"
-              >
-                <i class="fa fa-plus"></i>
-              </a>
-            </div>
-          </form>
-        </div>
-      </section>
-    </div>
-  </article>
+              <div class="form-group col-md-12 tw-flex tw-items-center">
+                <label for="estado" class="form-label">Estado</label>
+                <input
+                  type="checkbox"
+                  class="tw-w-6 tw-h-6 tw-mx-2"
+                  formControlName="estado"
+                />
+                <div
+                  *ngIf="submittedModeloPDForm && f.estado.errors"
+                  class="invalid-feedback"
+                >
+                  <div *ngIf="f.estado.errors.required">
+                    El estado debe estar definido
+                  </div>
+                </div>
+              </div>
 
-  <article class="bloq">
-    <div class="contenedor mat-elevation-z4">
-      <section>
-        <!-- header -->
-        <div class="contenedor__header">
-          <div class="contenedor__header__prev">
-            <h2>Lista de Modelos PD</h2>
+              <div class="col-md-3 tw-my-2">
+                <a
+                  (click)="handleRegistrarModelo()"
+                  class="btn btn-sm tw-border-2 tw-border-green-600"
+                  matTooltip="Añadir"
+                >
+                  <i class="fa fa-plus tw-text-green-600"></i>
+                </a>
+              </div>
+            </form>
           </div>
-          <div class="contenedor__header__next"></div>
-        </div>
-      </section>
+        </section>
+      </div>
+    </article>
 
-      <section>
-        <!-- body -->
-        <div class="contenedor__body">
-          <!-- *************** -->
-          <mat-sidenav-container *ngIf="mostrarLista">
-            <div class="content mat-elevation-z4">
-              <main>
-                <article>
-                  <section class="content__menu">
-                    <table class="table table-striped">
-                      <thead>
-                        <tr>
-                          <th style="width: 40%">Nombre</th>
-                          <th style="width: 15%">Usuario Crea</th>
-                          <th style="width: 15%">Usuario Modifica</th>
-                          <th style="width: 15%">Estado</th>
-                          <th style="width: 15%"></th>
-                        </tr>
-                      </thead>
-                      <tbody>
-                        <tr *ngFor="let modelo of lstModelos">
-                          <td>{{ modelo.descripcion }}</td>
-                          <td>{{ modelo.usuarioCreacion }}</td>
-                          <td>{{ modelo.usuarioModificacion }}</td>
-                          <td *ngIf="modelo.estado == true">Activo</td>
-                          <td *ngIf="modelo.estado == false">Inactivo</td>
-                          <td style="white-space: nowrap">
-                            <a
-                              (click)="handleEditarModelo(modelo)"
-                              class="btn btn-sm btn-outline-primary"
-                              matTooltip="Información Crediticia"
-                            >
-                              <i class="fa fa-edit"></i>
-                            </a>
-                            <a
-                              (click)="handleEliminarModelo(modelo.id)"
-                              style="margin-left: 5%"
-                              class="btn btn-sm btn-outline-danger"
-                              matTooltip="Eliminar"
-                            >
-                              <i class="fa fa-trash"></i>
-                            </a>
-                          </td>
-                        </tr>
-                      </tbody>
-                    </table>
-                  </section>
-                </article>
-              </main>
+    <article class="tw-m-2 tw-my-6 tw-flex-1">
+      <div class="tw-border tw-shadow tw-rounded-lg tw-shadow">
+        <section>
+          <!-- header -->
+          <div class="contenedor__header">
+            <div class="contenedor__header__prev">
+              <h2>Lista de Modelos PD</h2>
             </div>
-          </mat-sidenav-container>
-          <!-- *************** -->
-        </div>
-      </section>
-    </div>
-  </article>
+            <div class="contenedor__header__next"></div>
+          </div>
+        </section>
+
+        <section>
+          <!-- body -->
+          <div class="contenedor__body">
+            <!-- *************** -->
+            <mat-sidenav-container *ngIf="mostrarLista">
+              <div class="content mat-elevation-z4">
+                <main>
+                  <article>
+                    <section class="content__menu">
+                      <table class="table table-striped">
+                        <thead>
+                          <tr>
+                            <th style="width: 40%">Nombre</th>
+                            <th style="width: 15%">Usuario Crea</th>
+                            <th style="width: 15%">Usuario Modifica</th>
+                            <th style="width: 15%">Estado</th>
+                            <th style="width: 15%"></th>
+                          </tr>
+                        </thead>
+                        <tbody>
+                          <tr *ngFor="let modelo of lstModelos">
+                            <td>{{ modelo.descripcion }}</td>
+                            <td>{{ modelo.usuarioCreacion }}</td>
+                            <td>{{ modelo.usuarioModificacion }}</td>
+                            <td *ngIf="modelo.estado == true">Activo</td>
+                            <td *ngIf="modelo.estado == false">Inactivo</td>
+                            <td style="white-space: nowrap">
+                              <a
+                                (click)="CargarDatosGruposPD(modelo)"
+                                class="btn btn-sm tw-border-2 tw-border-cyan-600"
+                                matTooltip="Seleccionar el modelo"
+                              >
+                                <i class="fa fa-check tw-text-cyan-600"></i>
+                              </a>
+                              <a
+                                (click)="handleEditarModelo(modelo)"
+                                style="margin-left: 5%"
+                                class="btn btn-sm tw-border-2 tw-border-blue-600"
+                                matTooltip="Editar el modelo"
+                              >
+                                <i class="fa fa-edit tw-text-blue-600"></i>
+                              </a>
+                              <a
+                                (click)="handleEliminarModelo(modelo.id)"
+                                style="margin-left: 5%"
+                                class="btn btn-sm tw-border-2 tw-border-red-600"
+                                matTooltip="Eliminar"
+                              >
+                                <i class="fa fa-trash tw-text-red-600"></i>
+                              </a>
+                            </td>
+                          </tr>
+                        </tbody>
+                      </table>
+                    </section>
+                  </article>
+                </main>
+              </div>
+            </mat-sidenav-container>
+            <!-- *************** -->
+          </div>
+        </section>
+      </div>
+    </article>
+  </section>
+
+  <!-- GRUPOS -->
+  <section class="tw-flex" *ngIf="habilitarGrupos">
+    <article class="tw-m-2 tw-my-6 tw-w-1/4">
+      <div class="tw-border tw-shadow tw-rounded-lg tw-shadow">
+        <section>
+          <!-- header -->
+          <div class="contenedor__header">
+            <div class="contenedor__header__prev">
+              <h2>Crear Grupo PD</h2>
+            </div>
+            <div class="contenedor__header__next"></div>
+          </div>
+        </section>
+
+        <section>
+          <!-- body -->
+          <div class="contenedor__body">
+            <form [formGroup]="formGrupoPD" class="row">
+              <div class="form-group col-md-12">
+                <label for="codigoGrupoPD" class="form-label"
+                  >Código del grupo</label
+                >
+                <input
+                  formControlName="codigoGrupoPD"
+                  class="form-control tw-border tw-shadow"
+                  type="text"
+                  id="id_codigoGrupoPD"
+                  readonly
+                />
+              </div>
+
+              <div class="form-group col-md-12">
+                <label for="modelo" class="form-label"
+                  >Modelo al que se debe asociar</label
+                >
+                <input
+                  formControlName="modelo"
+                  class="form-control tw-border tw-shadow"
+                  type="text"
+                  id="id_modelo"
+                  [ngClass]="{
+                    'is-invalid': submittedGrupoPDForm && g.modelo.errors
+                  }"
+                  readonly
+                />
+                <div
+                  *ngIf="submittedGrupoPDForm && g.modelo.errors"
+                  class="invalid-feedback"
+                >
+                  <div *ngIf="g.modelo.errors.required">
+                    El modelo es requerido
+                  </div>
+                </div>
+              </div>
+
+              <div class="form-group col-md-12">
+                <label for="nombreGrupo" class="form-label"
+                  >Nombre del grupo</label
+                >
+                <input
+                  formControlName="nombreGrupo"
+                  class="form-control tw-border tw-shadow"
+                  type="text"
+                  id="id_nombreGrupo"
+                  [ngClass]="{
+                    'is-invalid': submittedGrupoPDForm && g.nombreGrupo.errors
+                  }"
+                />
+                <div
+                  *ngIf="submittedGrupoPDForm && g.nombreGrupo.errors"
+                  class="invalid-feedback"
+                >
+                  <div *ngIf="g.nombreGrupo.errors.required">
+                    El nombre del grupo es requerido
+                  </div>
+                </div>
+              </div>
+
+              <div class="form-group col-md-12 tw-flex tw-items-center">
+                <label for="estado" class="form-label">Estado</label>
+                <input
+                  type="checkbox"
+                  class="tw-w-6 tw-h-6 tw-mx-2"
+                  formControlName="estado"
+                />
+                <div
+                  *ngIf="submittedGrupoPDForm && g.estado.errors"
+                  class="invalid-feedback"
+                >
+                  <div *ngIf="g.estado.errors.required">
+                    El estado debe estar definido
+                  </div>
+                </div>
+              </div>
+
+              <div class="col-md-3 tw-my-2">
+                <a
+                  (click)="handleRegistrarGrupo()"
+                  class="btn btn-sm tw-border-2 tw-border-green-600"
+                  matTooltip="Añadir"
+                >
+                  <i class="fa fa-plus tw-text-green-600"></i>
+                </a>
+              </div>
+            </form>
+          </div>
+        </section>
+      </div>
+    </article>
+
+    <article class="tw-m-2 tw-my-6 tw-flex-1">
+      <div class="tw-border tw-shadow tw-rounded-lg tw-shadow">
+        <section>
+          <!-- header -->
+          <div class="contenedor__header">
+            <div class="contenedor__header__prev">
+              <h2>Lista de grupos</h2>
+            </div>
+            <div class="contenedor__header__next"></div>
+          </div>
+        </section>
+
+        <section>
+          <!-- body -->
+          <div class="contenedor__body">
+            <!-- *************** -->
+            <mat-sidenav-container *ngIf="mostrarLista">
+              <div class="content mat-elevation-z4">
+                <main>
+                  <article>
+                    <section class="content__menu">
+                      <table class="table table-striped">
+                        <thead>
+                          <tr>
+                            <th style="width: 40%">Nombre</th>
+                            <th style="width: 15%">Usuario Crea</th>
+                            <th style="width: 15%">Usuario Modifica</th>
+                            <th style="width: 15%">Estado</th>
+                            <th style="width: 15%"></th>
+                          </tr>
+                        </thead>
+                        <tbody>
+                          <tr *ngFor="let grupo of lstGruposDelModelo">
+                            <td>{{ grupo.descripcion }}</td>
+                            <td>{{ grupo.usuarioCreacion }}</td>
+                            <td>{{ grupo.usuarioModificacion }}</td>
+                            <td *ngIf="grupo.estado == true">Activo</td>
+                            <td *ngIf="grupo.estado == false">Inactivo</td>
+                            <td style="white-space: nowrap">
+                              <a
+                                (click)="CargarDatosVariablesPorGruposPD(grupo)"
+                                class="btn btn-sm tw-border-2 tw-border-cyan-600"
+                                matTooltip="Seleccionar el grupo"
+                              >
+                                <i class="fa fa-check tw-text-cyan-600"></i>
+                              </a>
+                              <a
+                                (click)="handleEditarGrupo(grupo)"
+                                style="margin-left: 5%"
+                                class="btn btn-sm tw-border-2 tw-border-blue-600"
+                                matTooltip="Editar el grupo"
+                              >
+                                <i class="fa fa-edit tw-text-blue-600"></i>
+                              </a>
+                              <a
+                                (click)="handleEliminarGrupo(grupo)"
+                                style="margin-left: 5%"
+                                class="btn btn-sm tw-border-2 tw-border-red-600"
+                                matTooltip="Eliminar"
+                              >
+                                <i class="fa fa-trash tw-text-red-600"></i>
+                              </a>
+                            </td>
+                          </tr>
+                        </tbody>
+                      </table>
+                    </section>
+                  </article>
+                </main>
+              </div>
+            </mat-sidenav-container>
+            <!-- *************** -->
+          </div>
+        </section>
+      </div>
+    </article>
+  </section>
+
+  <!-- VARIABLES POR GRUPO -->
+  <section class="tw-flex" *ngIf="habilitarVariablesPorGrupos">
+    <article class="tw-m-2 tw-my-6 tw-w-1/4">
+      <div class="tw-border tw-shadow tw-rounded-lg tw-shadow">
+        <section>
+          <!-- header -->
+          <div class="contenedor__header">
+            <div class="contenedor__header__prev">
+              <h2>Asignar indicadores</h2>
+            </div>
+            <div class="contenedor__header__next"></div>
+          </div>
+        </section>
+
+        <section>
+          <!-- body -->
+          <div class="contenedor__body">
+            <form [formGroup]="formIndicadorGrupoPD" class="row">
+
+              <div class="form-group col-md-12">
+                <label for="grupo" class="form-label"
+                  >Grupo al que se debe asociar</label
+                >
+                <input
+                  formControlName="grupo"
+                  class="form-control tw-border tw-shadow"
+                  type="text"
+                  id="id_grupo"
+                  [ngClass]="{
+                    'is-invalid':
+                      submittedIndicadorGrupoPDForm && ig.grupo.errors
+                  }"
+                  readonly
+                />
+                <div
+                  *ngIf="submittedIndicadorGrupoPDForm && ig.grupo.errors"
+                  class="invalid-feedback"
+                >
+                  <div *ngIf="ig.grupo.errors.required">
+                    El grupo es requerido
+                  </div>
+                </div>
+              </div>
+
+              <div class="form-group col-md-12">
+                <label for="indicador" class="form-label"
+                  >Indicador a asociar</label
+                >
+                <mat-select
+                  formControlName="indicador"
+                  id="id_indicador"
+                  class="tw-border-solid tw-border tw-border-black tw-p-2 tw-mb-2"
+                  [ngClass]="{
+                    'is-invalid':
+                      submittedIndicadorGrupoPDForm && ig.indicador.errors
+                  }"
+                  required
+                >
+                  <mat-option
+                    *ngFor="let variable of lstVariablesDisponible"
+                    [value]="variable.id"
+                  >
+                    {{ variable.descripcionVariable }}
+                  </mat-option>
+                </mat-select>
+
+                <div
+                  *ngIf="submittedIndicadorGrupoPDForm && ig.indicador.errors"
+                  class="invalid-feedback"
+                >
+                  <div *ngIf="ig.indicador.errors.required">
+                    El indicador es requerido
+                  </div>
+                </div>
+              </div>
+
+              <div class="col-md-3 tw-my-2">
+                <a
+                  (click)="handleRegistrarIndicadorPorGrupo()"
+                  class="btn btn-sm tw-border-2 tw-border-green-600"
+                  matTooltip="Añadir"
+                >
+                  <i class="fa fa-plus tw-text-green-600"></i>
+                </a>
+              </div>
+            </form>
+          </div>
+        </section>
+      </div>
+    </article>
+
+    <article class="tw-m-2 tw-my-6 tw-flex-1">
+      <div class="tw-border tw-shadow tw-rounded-lg tw-shadow">
+        <section>
+          <!-- header -->
+          <div class="contenedor__header">
+            <div class="contenedor__header__prev">
+              <h2>Lista de indicadores por grupo</h2>
+            </div>
+            <div class="contenedor__header__next"></div>
+          </div>
+        </section>
+
+        <section>
+          <!-- body -->
+          <div class="contenedor__body">
+            <!-- *************** -->
+            <mat-sidenav-container *ngIf="mostrarLista">
+              <div class="content mat-elevation-z4">
+                <main>
+                  <article>
+                    <section class="content__menu">
+                      <table class="table table-striped">
+                        <thead>
+                          <tr>
+                            <th style="width: 30%">Modelo</th>
+                            <th style="width: 30%">Indicador</th>
+                            <th style="width: 25%">Usuario</th>
+                            <th style="width: 15%"></th>
+                          </tr>
+                        </thead>
+                        <tbody>
+                          <tr *ngFor="let indicadorGrupo of lstIndicadoresPorGrupo">
+                            <td>{{ indicadorGrupo.grupo?.descripcion }}</td>
+                            <td>{{ indicadorGrupo.indicador?.descripcionVariable }}</td>
+                            <td>{{ indicadorGrupo.usuarioModificacion }}</td>
+                            <td style="white-space: nowrap">
+                              <a
+                                (click)="handleEliminarIndicadorPorGrupo(indicadorGrupo)"
+                                style="margin-left: 5%"
+                                class="btn btn-sm tw-border-2 tw-border-red-600"
+                                matTooltip="Eliminar"
+                              >
+                                <i class="fa fa-trash tw-text-red-600"></i>
+                              </a>
+                            </td>
+                          </tr>
+                        </tbody>
+                      </table>
+                    </section>
+                  </article>
+                </main>
+              </div>
+            </mat-sidenav-container>
+            <!-- *************** -->
+          </div>
+        </section>
+      </div>
+    </article>
+  </section>
 </main>
