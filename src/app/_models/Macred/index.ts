@@ -14,3 +14,8 @@ export * from './TipoGenerador';
 export * from './TipoIngreso';
 export * from './TipoIngresoAnalisis';
 export * from './TiposMoneda';
+export * from './ModelosPD';
+export * from './VariablesPD';
+export * from './GruposPD';
+export * from './IndicadoresPorGrupoPD';
+export * from './AnalisisHistoricoPD';

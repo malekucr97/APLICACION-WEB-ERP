@@ -6,6 +6,8 @@ import { IndexMacredComponent } from './index.component';
 import { TipoIngresoComponent } from './mantenimientos/AnalisisPersonas/tipoingreso-component';
 import { TipoIngresoAnalisisComponent } from './mantenimientos/AnalisisPersonas/tipoingresoanalisis-component';
 import { TiposFormasPagoAnalisisComponent } from './mantenimientos/Obligaciones/tiposformaspagoanalisis-component';
+import { ConfiguracionModelosComponent } from './mantenimientos/Parametros/configuracion-modelos/configuracion-modelos.component';
+import { ConfiguracionParametrosPdComponent } from './mantenimientos/Parametros/configuracion-parametros-pd/configuracion-parametros-pd.component';
 import { CondicionesLaboralesComponent } from './mantenimientos/Personas/condicionceslaborales-component';
 import { EstadosCivilesComponent } from './mantenimientos/Personas/estadosciviles-component';
 import { PersonasComponent } from './mantenimientos/Personas/personas-component';
@@ -33,6 +35,8 @@ const routes: Routes = [
             { path: 'mantenimientos/obligaciones/tipos-forma-pago-analisis.html',  component: TiposFormasPagoAnalisisComponent },
             { path: 'mantenimientos/analisispersonas/tipos-ingresos.html',  component: TipoIngresoComponent },
             { path: 'mantenimientos/analisispersonas/tipos-ingresos-analisis.html',  component: TipoIngresoAnalisisComponent },
+            { path: 'mantenimientos/parametros/configuracion-modelos.html',  component: ConfiguracionModelosComponent },
+            { path: 'mantenimientos/parametros/configuracion-parametros-pd.html',  component: ConfiguracionParametrosPdComponent },
             // configuracion
             { path: 'configuracion/parametros-generales.html', component: ParametrosGeneralesComponent}
         ]
