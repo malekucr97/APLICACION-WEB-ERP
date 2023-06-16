@@ -1,0 +1,690 @@
+<article>
+  <section>
+    <div class="contenedor__header">
+      <div class="contenedor__header__prev">
+        <h2 *ngIf="_analisisCapacidadpago">
+          codigo de análisis: {{ _analisisCapacidadpago.codigoAnalisis }}
+        </h2>
+      </div>
+      <div class="contenedor__header__next">
+        <h2>Flujo de Caja Libre</h2>
+      </div>
+    </div>
+
+    <div class="contenedor-analisis__tabletas__body">
+      <form [formGroup]="formularioFCL" class="gridContainer">
+        <!-- actividadEconomica -->
+        <div class="form-group">
+          <label for="lblactividadEconomica" class="form-label"
+            >Actividad Económica</label
+          >
+          <select
+            formControlName="actividadEconomica"
+            class="form-control"
+            name="selectactividadEconomica"
+            [attr.disabled]="editarCamposFCL ? '' : null"
+            [ngClass]="{
+              'is-invalid': submittedFCLForm && j.actividadEconomica.errors
+            }"
+          >
+            <option
+              *ngFor="let actividad of lstTiposActividadEconomica"
+              [value]="actividad.codActividadEconomica"
+            >
+              {{ actividad.codActividadEconomica }} -
+              {{ actividad.descripcion }}
+            </option>
+          </select>
+          <div
+            *ngIf="submittedFCLForm && j.actividadEconomica.errors"
+            class="invalid-feedback"
+          >
+            <div *ngIf="j.actividadEconomica.errors.required">
+              La actividad económica es requerida
+            </div>
+          </div>
+        </div>
+
+        <!-- proyeccionMeses -->
+        <div class="form-group">
+          <label for="lblproyeccionMeses" class="form-label"
+            >Proyección(meses)</label
+          >
+          <input
+            formControlName="proyeccionMeses"
+            class="form-control"
+            type="number"
+            id="id_proyeccionMeses"
+            [ngClass]="{
+              'is-invalid': submittedFCLForm && j.proyeccionMeses.errors
+            }"
+            [readOnly]="editarCamposFCL"
+          />
+          <div
+            *ngIf="submittedFCLForm && j.proyeccionMeses.errors"
+            class="invalid-feedback"
+          >
+            <div *ngIf="j.proyeccionMeses.errors.required">
+              La proyección es requerida
+            </div>
+          </div>
+        </div>
+
+        <!-- ajusteSalario -->
+        <div class="form-group">
+          <label for="lblajusteSalario" class="form-label"
+            >Ajuste salario(%)</label
+          >
+          <input
+            formControlName="ajusteSalario"
+            class="form-control"
+            type="number"
+            id="id_ajusteSalario"
+            [ngClass]="{
+              'is-invalid': submittedFCLForm && j.ajusteSalario.errors
+            }"
+            [readOnly]="editarCamposFCL"
+          />
+          <div
+            *ngIf="submittedFCLForm && j.ajusteSalario.errors"
+            class="invalid-feedback"
+          >
+            <div *ngIf="j.ajusteSalario.errors.required">
+              El ajuste es requerido
+            </div>
+          </div>
+        </div>
+
+        <article class="fcl_cards">
+          <aside class="encabezado">
+            <p class="titulo">Efectivo Inicial</p>
+          </aside>
+
+          <!-- flujoEfectivoInicial -->
+          <div class="form-group">
+            <label for="lblflujoEfectivoInicial" class="form-label"
+              >Flujo de efectivo inicial</label
+            >
+            <input
+              formControlName="flujoEfectivoInicial"
+              class="form-control"
+              type="number"
+              id="id_flujoEfectivoInicial"
+              [ngClass]="{
+                'is-invalid': submittedFCLForm && j.flujoEfectivoInicial.errors
+              }"
+              [readOnly]="editarCamposFCL"
+            />
+            <div
+              *ngIf="submittedFCLForm && j.flujoEfectivoInicial.errors"
+              class="invalid-feedback"
+            >
+              <div *ngIf="j.flujoEfectivoInicial.errors.required">
+                El flujo de efectivo es requerido
+              </div>
+            </div>
+          </div>
+        </article>
+
+        <article class="fcl_cards">
+          <aside class="encabezado">
+            <p class="titulo">Capital de Trabajo</p>
+          </aside>
+
+          <!-- requerimientoCT -->
+          <div class="form-group">
+            <label for="lblrequerimientoCT" class="form-label"
+              >Requerimiento CT (%)</label
+            >
+            <input
+              formControlName="requerimientoCT"
+              class="form-control"
+              type="number"
+              id="id_requerimientoCT"
+              [ngClass]="{
+                'is-invalid': submittedFCLForm && j.requerimientoCT.errors
+              }"
+              [readOnly]="editarCamposFCL"
+            />
+            <div
+              *ngIf="submittedFCLForm && j.requerimientoCT.errors"
+              class="invalid-feedback"
+            >
+              <div *ngIf="j.requerimientoCT.errors.required">
+                El Requerimiento CT es requerido
+              </div>
+            </div>
+          </div>
+        </article>
+
+        <article class="fcl_cards">
+          <aside class="encabezado"><p class="titulo">Ingresos</p></aside>
+
+          <!-- ingresosMensuales -->
+          <div class="form-group">
+            <label for="lblingresosMensuales" class="form-label"
+              >Ingresos mensuales (Actividad):</label
+            >
+            <input
+              formControlName="ingresosMensuales"
+              class="form-control"
+              type="number"
+              id="id_ingresosMensuales"
+              [ngClass]="{
+                'is-invalid': submittedFCLForm && j.ingresosMensuales.errors
+              }"
+              [readOnly]="editarCamposFCL"
+            />
+            <div
+              *ngIf="submittedFCLForm && j.ingresosMensuales.errors"
+              class="invalid-feedback"
+            >
+              <div *ngIf="j.ingresosMensuales.errors.required">
+                Ingresos mensuales es requerido
+              </div>
+            </div>
+          </div>
+        </article>
+
+        <article class="fcl_cards">
+          <aside class="encabezado">
+            <p class="titulo">Otros Ingresos y Gastos</p>
+          </aside>
+
+          <!-- ingsIngresosIndirectos -->
+          <div class="form-group">
+            <label for="lblingsIngresosIndirectos" class="form-label"
+              >Ingresos indirectos:</label
+            >
+            <input
+              formControlName="ingsIngresosIndirectos"
+              class="form-control"
+              type="number"
+              id="id_ingsIngresosIndirectos"
+              [ngClass]="{
+                'is-invalid':
+                  submittedFCLForm && j.ingsIngresosIndirectos.errors
+              }"
+              [readOnly]="editarCamposFCL"
+            />
+            <div
+              *ngIf="submittedFCLForm && j.ingsIngresosIndirectos.errors"
+              class="invalid-feedback"
+            >
+              <div *ngIf="j.ingsIngresosIndirectos.errors.required">
+                El dato es requerido
+              </div>
+            </div>
+          </div>
+
+          <!-- ingsMejoradorCrediticio -->
+          <div class="form-group">
+            <label for="lblingsMejoradorCrediticio" class="form-label"
+              >Mejorador crediticio:</label
+            >
+            <input
+              formControlName="ingsMejoradorCrediticio"
+              class="form-control"
+              type="number"
+              id="id_ingsMejoradorCrediticio"
+              [ngClass]="{
+                'is-invalid':
+                  submittedFCLForm && j.ingsMejoradorCrediticio.errors
+              }"
+              [readOnly]="editarCamposFCL"
+            />
+            <div
+              *ngIf="submittedFCLForm && j.ingsMejoradorCrediticio.errors"
+              class="invalid-feedback"
+            >
+              <div *ngIf="j.ingsMejoradorCrediticio.errors.required">
+                El dato es requerido
+              </div>
+            </div>
+          </div>
+
+          <!-- ingsAporteEfectivo -->
+          <div class="form-group">
+            <label for="lblingsAporteEfectivo" class="form-label"
+              >Aporte en efectivo:</label
+            >
+            <input
+              formControlName="ingsAporteEfectivo"
+              class="form-control"
+              type="number"
+              id="id_ingsAporteEfectivo"
+              [ngClass]="{
+                'is-invalid': submittedFCLForm && j.ingsAporteEfectivo.errors
+              }"
+              [readOnly]="editarCamposFCL"
+            />
+            <div
+              *ngIf="submittedFCLForm && j.ingsAporteEfectivo.errors"
+              class="invalid-feedback"
+            >
+              <div *ngIf="j.ingsAporteEfectivo.errors.required">
+                El dato es requerido
+              </div>
+            </div>
+          </div>
+
+          <!-- ingsGastosIndirectos -->
+          <div class="form-group">
+            <label for="lblingsGastosIndirectos" class="form-label"
+              >Gastos indirectos:</label
+            >
+            <input
+              formControlName="ingsGastosIndirectos"
+              class="form-control"
+              type="number"
+              id="id_ingsGastosIndirectos"
+              [ngClass]="{
+                'is-invalid': submittedFCLForm && j.ingsGastosIndirectos.errors
+              }"
+              [readOnly]="editarCamposFCL"
+            />
+            <div
+              *ngIf="submittedFCLForm && j.ingsGastosIndirectos.errors"
+              class="invalid-feedback"
+            >
+              <div *ngIf="j.ingsGastosIndirectos.errors.required">
+                El dato es requerido
+              </div>
+            </div>
+          </div>
+        </article>
+
+        <article class="fcl_cards">
+          <aside class="encabezado"><p class="titulo">Gastos</p></aside>
+
+          <!-- gastosNegocio -->
+          <div class="form-group">
+            <label for="lblgastosNegocio" class="form-label"
+              >Del negocio:</label
+            >
+            <input
+              formControlName="gastosNegocio"
+              class="form-control"
+              type="number"
+              id="id_gastosNegocio"
+              [ngClass]="{
+                'is-invalid': submittedFCLForm && j.gastosNegocio.errors
+              }"
+              [readOnly]="editarCamposFCL"
+            />
+            <div
+              *ngIf="submittedFCLForm && j.gastosNegocio.errors"
+              class="invalid-feedback"
+            >
+              <div *ngIf="j.gastosNegocio.errors.required">
+                Gastos del negocio es requerido
+              </div>
+            </div>
+          </div>
+
+          <!-- gastosPersonalesFamiliares -->
+          <div class="form-group">
+            <label for="lblgastosPersonalesFamiliares" class="form-label"
+              >Personales y familiar:</label
+            >
+            <input
+              formControlName="gastosPersonalesFamiliares"
+              class="form-control"
+              type="number"
+              id="id_gastosPersonalesFamiliares"
+              [ngClass]="{
+                'is-invalid':
+                  submittedFCLForm && j.gastosPersonalesFamiliares.errors
+              }"
+              [readOnly]="editarCamposFCL"
+            />
+            <div
+              *ngIf="submittedFCLForm && j.gastosPersonalesFamiliares.errors"
+              class="invalid-feedback"
+            >
+              <div *ngIf="j.gastosPersonalesFamiliares.errors.required">
+                Gastos personales y de familia es requerido
+              </div>
+            </div>
+          </div>
+        </article>
+
+        <article class="fcl_cards span2">
+          <aside class="encabezado"><p class="titulo">Estimaciones:</p></aside>
+
+          <!-- estimacionesSaldoTotalDeudaUno -->
+          <div class="form-group">
+            <label for="lblestimacionesSaldoTotalDeudaUno" class="form-label"
+              >Saldo total deudas año 1:</label
+            >
+            <input
+              formControlName="estimacionesSaldoTotalDeudaUno"
+              class="form-control"
+              type="number"
+              id="id_estimacionesSaldoTotalDeudaUno"
+              [ngClass]="{
+                'is-invalid':
+                  submittedFCLForm && j.estimacionesSaldoTotalDeudaUno.errors
+              }"
+              [readOnly]="editarCamposFCL"
+            />
+            <div
+              *ngIf="
+                submittedFCLForm && j.estimacionesSaldoTotalDeudaUno.errors
+              "
+              class="invalid-feedback"
+            >
+              <div *ngIf="j.estimacionesSaldoTotalDeudaUno.errors.required">
+                El dato es requerido
+              </div>
+            </div>
+          </div>
+
+          <!-- estimacionesSaldoTotalDeudaDos -->
+          <div class="form-group">
+            <label for="lblestimacionesSaldoTotalDeudaDos" class="form-label"
+              >Saldo total deudas año 2:</label
+            >
+            <input
+              formControlName="estimacionesSaldoTotalDeudaDos"
+              class="form-control"
+              type="number"
+              id="id_estimacionesSaldoTotalDeudaDos"
+              [ngClass]="{
+                'is-invalid':
+                  submittedFCLForm && j.estimacionesSaldoTotalDeudaDos.errors
+              }"
+              [readOnly]="editarCamposFCL"
+            />
+            <div
+              *ngIf="
+                submittedFCLForm && j.estimacionesSaldoTotalDeudaDos.errors
+              "
+              class="invalid-feedback"
+            >
+              <div *ngIf="j.estimacionesSaldoTotalDeudaDos.errors.required">
+                El dato es requerido
+              </div>
+            </div>
+          </div>
+
+          <!-- estimacionesValorPatrimonialActual -->
+          <div class="form-group">
+            <label
+              for="lblestimacionesValorPatrimonialActual"
+              class="form-label"
+              >Valor patrimonio actual:</label
+            >
+            <input
+              formControlName="estimacionesValorPatrimonialActual"
+              class="form-control"
+              type="number"
+              id="id_estimacionesValorPatrimonialActual"
+              [ngClass]="{
+                'is-invalid':
+                  submittedFCLForm &&
+                  j.estimacionesValorPatrimonialActual.errors
+              }"
+              [readOnly]="editarCamposFCL"
+            />
+            <div
+              *ngIf="
+                submittedFCLForm && j.estimacionesValorPatrimonialActual.errors
+              "
+              class="invalid-feedback"
+            >
+              <div *ngIf="j.estimacionesValorPatrimonialActual.errors.required">
+                El dato es requerido
+              </div>
+            </div>
+          </div>
+
+          <!-- estimacionesValorPatrimonialFuturo -->
+          <div class="form-group">
+            <label
+              for="lblestimacionesValorPatrimonialFuturo"
+              class="form-label"
+              >Valor patrimonio futuro:</label
+            >
+            <input
+              formControlName="estimacionesValorPatrimonialFuturo"
+              class="form-control"
+              type="number"
+              id="id_estimacionesValorPatrimonialFuturo"
+              [ngClass]="{
+                'is-invalid':
+                  submittedFCLForm &&
+                  j.estimacionesValorPatrimonialFuturo.errors
+              }"
+              [readOnly]="editarCamposFCL"
+            />
+            <div
+              *ngIf="
+                submittedFCLForm && j.estimacionesValorPatrimonialFuturo.errors
+              "
+              class="invalid-feedback"
+            >
+              <div *ngIf="j.estimacionesValorPatrimonialFuturo.errors.required">
+                El dato es requerido
+              </div>
+            </div>
+          </div>
+
+          <!-- estimacionesCuotaMonedaExtranjeraAnoUno -->
+          <div class="form-group">
+            <label
+              for="lblestimacionesCuotaMonedaExtranjeraAnoUno"
+              class="form-label"
+              >Cuota Moneda Extranjera Año 1:</label
+            >
+            <input
+              formControlName="estimacionesCuotaMonedaExtranjeraAnoUno"
+              class="form-control"
+              type="number"
+              id="id_estimacionesCuotaMonedaExtranjeraAnoUno"
+              [ngClass]="{
+                'is-invalid':
+                  submittedFCLForm &&
+                  j.estimacionesCuotaMonedaExtranjeraAnoUno.errors
+              }"
+              [readOnly]="editarCamposFCL"
+            />
+            <div
+              *ngIf="
+                submittedFCLForm &&
+                j.estimacionesCuotaMonedaExtranjeraAnoUno.errors
+              "
+              class="invalid-feedback"
+            >
+              <div
+                *ngIf="
+                  j.estimacionesCuotaMonedaExtranjeraAnoUno.errors.required
+                "
+              >
+                El dato es requerido
+              </div>
+            </div>
+          </div>
+
+          <!-- estimacionesCuotaMonedaExtranjeraAnoDos -->
+          <div class="form-group">
+            <label
+              for="lblestimacionesCuotaMonedaExtranjeraAnoDos"
+              class="form-label"
+              >Cuota Moneda Extranjera Año 2:</label
+            >
+            <input
+              formControlName="estimacionesCuotaMonedaExtranjeraAnoDos"
+              class="form-control"
+              type="number"
+              id="id_estimacionesCuotaMonedaExtranjeraAnoDos"
+              [ngClass]="{
+                'is-invalid':
+                  submittedFCLForm &&
+                  j.estimacionesCuotaMonedaExtranjeraAnoDos.errors
+              }"
+              [readOnly]="editarCamposFCL"
+            />
+            <div
+              *ngIf="
+                submittedFCLForm &&
+                j.estimacionesCuotaMonedaExtranjeraAnoDos.errors
+              "
+              class="invalid-feedback"
+            >
+              <div
+                *ngIf="
+                  j.estimacionesCuotaMonedaExtranjeraAnoDos.errors.required
+                "
+              >
+                El dato es requerido
+              </div>
+            </div>
+          </div>
+        </article>
+
+        <article class="fcl_cards">
+          <aside class="encabezado"><p class="titulo">Obligaciones</p></aside>
+
+          <!-- obligacionesCuotasPrestamos -->
+          <div class="form-group">
+            <label for="lblobligacionesCuotasPrestamos" class="form-label"
+              >Cuotas préstamos (Sistema):</label
+            >
+            <input
+              formControlName="obligacionesCuotasPrestamos"
+              class="form-control"
+              type="number"
+              id="id_obligacionesCuotasPrestamos"
+              [ngClass]="{
+                'is-invalid':
+                  submittedFCLForm && j.obligacionesCuotasPrestamos.errors
+              }"
+              [readOnly]="editarCamposFCL"
+            />
+            <div
+              *ngIf="submittedFCLForm && j.obligacionesCuotasPrestamos.errors"
+              class="invalid-feedback"
+            >
+              <div *ngIf="j.obligacionesCuotasPrestamos.errors.required">
+                El dato es requerido
+              </div>
+            </div>
+          </div>
+
+          <!-- obligacionesNuevaObligacion -->
+          <div class="form-group">
+            <label for="lblobligacionesNuevaObligacion" class="form-label"
+              >Nueva obligación:</label
+            >
+            <input
+              formControlName="obligacionesNuevaObligacion"
+              class="form-control"
+              type="number"
+              id="id_obligacionesNuevaObligacion"
+              [ngClass]="{
+                'is-invalid':
+                  submittedFCLForm && j.obligacionesNuevaObligacion.errors
+              }"
+              [readOnly]="editarCamposFCL"
+            />
+            <div
+              *ngIf="submittedFCLForm && j.obligacionesNuevaObligacion.errors"
+              class="invalid-feedback"
+            >
+              <div *ngIf="j.obligacionesNuevaObligacion.errors.required">
+                El dato es requerido
+              </div>
+            </div>
+          </div>
+
+          <!-- obligacionAhorroGenerado -->
+          <div class="form-group">
+            <label for="lblobligacionAhorroGenerado" class="form-label"
+              >Ahorro generado:</label
+            >
+            <input
+              formControlName="obligacionAhorroGenerado"
+              class="form-control"
+              type="number"
+              id="id_obligacionAhorroGenerado"
+              [ngClass]="{
+                'is-invalid':
+                  submittedFCLForm && j.obligacionAhorroGenerado.errors
+              }"
+              [readOnly]="editarCamposFCL"
+            />
+            <div
+              *ngIf="submittedFCLForm && j.obligacionAhorroGenerado.errors"
+              class="invalid-feedback"
+            >
+              <div *ngIf="j.obligacionAhorroGenerado.errors.required">
+                El dato es requerido
+              </div>
+            </div>
+          </div>
+        </article>
+
+        <!-- observaciones -->
+        <div class="form-group">
+          <label for="lblobservaciones" class="form-label"
+            >Observaciones:</label
+          >
+          <textarea
+            formControlName="observaciones"
+            class="form-control"
+            type="number"
+            rows="10"
+            id="id_observaciones"
+            [ngClass]="{
+              'is-invalid': submittedFCLForm && j.observaciones.errors
+            }"
+            [readOnly]="editarCamposFCL"
+          ></textarea>
+          <div
+            *ngIf="submittedFCLForm && j.observaciones.errors"
+            class="invalid-feedback"
+          >
+            <div *ngIf="j.observaciones.errors.required">
+              El dato es requerido
+            </div>
+          </div>
+        </div>
+      </form>
+    </div>
+
+    <div class="contenedor__footer">
+      <div class="contenedor__footer__prev">
+        <button
+          *ngIf="editarCamposFCL"
+          (click)="handleEditarCampos()"
+          class="btn btn-success px-5 mx-1"
+          mat-flat-button
+          color="primary"
+        >
+          Editar
+        </button>
+        <button
+          *ngIf="!editarCamposFCL"
+          (click)="handleGuardarInformacion()"
+          class="btn btn-success px-5 mx-1"
+          mat-flat-button
+          color="primary"
+        >
+          Guardar
+        </button>
+      </div>
+      <div class="contenedor__footer__next">
+        <button
+          *ngIf="editarCamposFCL && habilitarFinalizacion"
+          (click)="handleOnEscenariosFCL()"
+          class="btn px-5 btn-info"
+          mat-flat-button
+          color="primary"
+        >
+          Esenarios FCL
+        </button>
+      </div>
+    </div>
+  </section>
+</article>
