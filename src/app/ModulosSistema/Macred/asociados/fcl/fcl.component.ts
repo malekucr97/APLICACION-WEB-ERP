@@ -210,7 +210,7 @@ export class FclComponent implements OnInit {
           Validators.max(999999999999999),
         ],
       ],
-      observaciones: ['', [Validators.required]],
+      observaciones: ['Observación Generación FCL Inicial', [Validators.required]],
     });
   }
 
