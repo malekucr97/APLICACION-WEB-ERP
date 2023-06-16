@@ -159,6 +159,11 @@ $paddingLength:(2,5,10,15,30,45,50);
               display: grid;
               grid-template-columns: repeat(3, 1fr);
               grid-gap: 10px;
+
+              .span2{
+                grid-row: 3/ span 2;
+                grid-column: 1;
+              }
             }
 
             .flex{
@@ -170,6 +175,34 @@ $paddingLength:(2,5,10,15,30,45,50);
             }
         }
     }
+}
+
+.fcl_cards{
+  background-color: white;
+  margin: 2px;
+  padding: 4px 10px;
+  display: flex;
+  flex-direction: column;
+  border-radius: 5px;
+  border-width: 1.5px;
+  border-color: #B3B3B3;
+  border-style: solid;
+
+  .encabezado{
+    border-width: 0px;
+    border-style: solid;
+    border-bottom-width: 1px;
+    border-bottom-color: #053254;
+    margin-bottom: 10px;
+    margin-top: 10px;
+
+    .titulo{
+      color: #1c1c1c;
+      font-weight: bold;
+    }
+
+  }
+
 }
 
 

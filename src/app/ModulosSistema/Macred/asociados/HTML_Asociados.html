@@ -1930,7 +1930,7 @@
                 Editar
               </button>
               <button
-                *ngIf=""
+                *ngIf="habilitarBtnGuardarDatos"
                 (click)="procesoGuardarDatosPD()"
                 class="btn btn-success px-5 mx-1"
                 mat-flat-button
@@ -1957,6 +1957,15 @@
                 color="primary"
               >
                 Scoring
+              </button>
+              <button
+                *ngIf="habilitarBtnPD_ContinuarFCL"
+                (click)="habilitarFormFCL()"
+                class="btn px-5 btn-info"
+                mat-flat-button
+                color="primary"
+              >
+                Flujo de Caja Libre
               </button>
             </div>
           </div>
@@ -2077,28 +2086,27 @@
 
         </section>
       </article>
+
+      <!-- ************************** -->
+      <!-- ARTÍCULO FCL               -->
+      <!-- ************************** -->
+      <app-fcl
+      *ngIf="flujoCaja"
+      [_analisisCapacidadpago]="_analisisCapacidadpago"
+      [_personaAnalisis]="_personaMacred"
+      (onEscenariosFCL)="handleHabilitarEscenariosFCL($event)"
+      ></app-fcl>
+
+      <!-- ************************** -->
+      <!-- ARTÍCULO ESCENARIO FCL     -->
+      <!-- ************************** -->
+      <app-escenariofcl
+      *ngIf="escenariosFcl"
+      ></app-escenariofcl>
+
     </div>
   </article>
 
-  <div class="col-md-12 mt-5" *ngIf="flujoCaja">
-    <mat-sidenav-container>
-      <div class="asociado_content mat-elevation-z4">
-        <main>
-          <article>
-            <section>
-              <br />
-              <br />
-
-              <div>
-                <p>Administración de Flujo de Caja !</p>
-              </div>
-              <br />
-            </section>
-          </article>
-        </main>
-      </div>
-    </mat-sidenav-container>
-  </div>
 
   <div class="col-md-12 mt-5" *ngIf="scoring">
     <mat-sidenav-container>
@@ -2200,23 +2208,4 @@
     </mat-sidenav-container>
   </div>
 
-  <div class="col-md-12 mt-5" *ngIf="escenariosFcl">
-    <mat-sidenav-container>
-      <div class="asociado_content mat-elevation-z4">
-        <main>
-          <article>
-            <section>
-              <br />
-              <br />
-
-              <div>
-                <p>Administración de Escenarios FCL !</p>
-              </div>
-              <br />
-            </section>
-          </article>
-        </main>
-      </div>
-    </mat-sidenav-container>
-  </div>
 </main>

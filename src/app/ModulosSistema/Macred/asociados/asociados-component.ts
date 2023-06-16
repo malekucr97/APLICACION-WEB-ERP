@@ -32,6 +32,7 @@ import {
   MacTipoIngresoAnalisis,
   MacTiposMoneda,
   ModelosPD,
+  ScoringFlujoCajaLibre,
 } from '@app/_models/Macred';
 import { MacTipoGenero } from '@app/_models/Macred/TipoGenero';
 import { MacTipoHabitacion } from '@app/_models/Macred/TipoHabitacion';
@@ -1239,12 +1240,12 @@ export class AsociadosComponent implements OnInit {
     switch (mod.id) {
       case 1:
         this.datosAnalisis = true;
-
         break;
 
       case 2:
         this.flujoCaja = true;
         break;
+
       case 3:
         this.inicializarFormPD();
         this.pd = true;
@@ -1777,6 +1778,7 @@ export class AsociadosComponent implements OnInit {
   habilitarBtnGuardarDatos: boolean = false;
   habilitarBtnCalcularDatosPD: boolean = false;
   habilitarBtnPD_ContinuarScoring: boolean = false;
+  habilitarBtnPD_ContinuarFCL: boolean = false;
   disabledDatosPD: boolean = true;
 
   private procesarAnalisisPDInicial() {
@@ -1895,6 +1897,10 @@ export class AsociadosComponent implements OnInit {
   private inicializarFormPD() {
     this.habilitarBtnEditarDatos = true;
     this.disabledDatosPD = true;
+    this.habilitarBtnPD_ContinuarScoring = false;
+    this.habilitarBtnPD_ContinuarFCL = false;
+    this.habilitarBtnCalcularDatosPD = true;
+
     this.formPD = this.formBuilder.group({
       codigoGenero: [
         this.listTipoGenero.find(
@@ -1944,19 +1950,29 @@ export class AsociadosComponent implements OnInit {
         this.formPD.patchValue({
           modeloAnalisisConglomerado: grupoAsignado.descripcion,
         });
+
+        this.habilitarBtnEditarDatos = false;
         this.habilitarBtnCalcularDatosPD = false;
-        this.habilitarBtnPD_ContinuarScoring = true;
+        this.habilitarBotonParaContinuar();
       });
-    } else {
-      // EN CASO QUE NO SE HA GENERADO EL PD
-      // SE DESACTIVA EL BOTON DE CALCULAR.
-      this.habilitarBtnCalcularDatosPD = true;
-      this.habilitarBtnPD_ContinuarScoring = false;
     }
+  }
+
+  private habilitarBotonParaContinuar() {
+    if (this.listTipoIngresoAnalisis
+        .find(x=>x.id == this._analisisCapacidadpago.codigoTipoIngresoAnalisis)
+        .descripcion.toLocaleLowerCase() == 'independiente') {
+          this.habilitarBtnPD_ContinuarFCL = true;
+    }
+    else {
+      this.habilitarBtnPD_ContinuarScoring = true;
+    }
+
   }
 
   habilitarCamposPDEditar(_estado: boolean) {
     this.habilitarBtnEditarDatos = !_estado;
+    this.habilitarBtnCalcularDatosPD = !_estado;
     this.disabledDatosPD = !_estado;
     this.habilitarBtnGuardarDatos = _estado;
   }
@@ -2114,5 +2130,72 @@ export class AsociadosComponent implements OnInit {
       );
   }
 
+  habilitarFormFCL(): void {
+    this.habilitarItemSubMenu(
+      new Module(
+        2,
+        'FCL',
+        'Flujo de Caja Libre',
+        'Flujo de Caja Libre',
+        'A',
+        '.png',
+        '.ico',
+        'http'
+      )
+    );
+    this.selectModule(
+      new Module(
+        2,
+        'FCL',
+        'Flujo de Caja Libre',
+        'Flujo de Caja Libre',
+        'I',
+        '.png',
+        '.ico',
+        'http'
+      )
+    );
+    this.habilitaBtnPD = false;
+  }
+
   //#endregion
+
+  //#region FCL
+
+  _analisisScoringFCL: ScoringFlujoCajaLibre = undefined;
+
+  handleHabilitarEscenariosFCL(inScoring: ScoringFlujoCajaLibre) {
+    this._analisisScoringFCL =  inScoring;
+    this.habilitarItemSubMenu(
+      new Module(
+        10,
+        'EscenariosFCL',
+        'Escenarios FCL',
+        'Escenarios FCL',
+        'A',
+        '.png',
+        '.ico',
+        'http'
+      )
+    );
+    this.selectModule(
+      new Module(
+        10,
+        'EscenariosFCL',
+        'Escenarios FCL',
+        'Escenarios FCL',
+        'I',
+        '.png',
+        '.ico',
+        'http'
+      )
+    );
+  }
+
+  //#endregion
+
+  //#region ESCENARIOS FCL
+
+  //#endregion
+
 }

@@ -25,7 +25,7 @@ import { MacCategoriaCredito } from '@app/_models/Macred/CategoriaCredito';
 import { MacTipoAsociado } from '@app/_models/Macred/TipoAsociado';
 import { MacTipoHabitacion } from '@app/_models/Macred/TipoHabitacion';
 import { MacEstadoCivil } from '@app/_models/Macred/EstadoCivil';
-import { AnalisisHistoricoPD, GruposPD, IndicadoresPorGrupoPD, MacParametrosGenerales, ModelosPD, VariablesPD } from '@app/_models/Macred';
+import { AnalisisHistoricoPD, GruposPD, IndicadoresPorGrupoPD, MacParametrosGenerales, ModelosPD, ScoringFlujoCajaLibre, TipoActividadEconomica, VariablesPD } from '@app/_models/Macred';
 
 @Injectable({ providedIn: 'root' })
 export class MacredService {
@@ -331,5 +331,48 @@ export class MacredService {
 
     //#endregion
 
+    //#region MODELO FCL
+
+    //#region FCL_SCORING
+
+    getFlujoCajaLibre(idFlujoCapacidadPago: number) {
+      return this.http.get<ScoringFlujoCajaLibre>(`${environment.apiUrl}/macred/getFlujoCajaLibre/${idFlujoCapacidadPago}`);
+    }
+
+    postFlujoCajaLibre(inScoringFlujoCaja: ScoringFlujoCajaLibre) {
+      return this.http.post<ScoringFlujoCajaLibre>(`${environment.apiUrl}/macred/postFlujoCajaLibre`, inScoringFlujoCaja);
+    }
+
+    putFlujoCajaLibre(inScoringFlujoCaja: ScoringFlujoCajaLibre) {
+      return this.http.put<ResponseMessage>(`${environment.apiUrl}/macred/putFlujoCajaLibre/${inScoringFlujoCaja.codScoringFlujoCaja}`, inScoringFlujoCaja);
+    }
+
+    //#endregion
+
+    //#region  TIPO ACTIVIDADES ECONOMICAS
+
+    getTiposActividadesEconomicas(idCompania: number) {
+      return this.http.get<TipoActividadEconomica[]>(`${environment.apiUrl}/macred/getTiposActividadesEconomicas?idCompania=${idCompania}`);
+    }
+
+    getTipoActividadEconomico(idTipoActividadEconomica: number, idCompania: number) {
+      return this.http.get<TipoActividadEconomica>(`${environment.apiUrl}/macred/getTipoActividadEconomico/${idTipoActividadEconomica}/${idCompania}`);
+    }
+
+    postTipoActividadEconomico(inTipoActividadEconomica: TipoActividadEconomica) {
+      return this.http.post<ResponseMessage>(`${environment.apiUrl}/macred/postTipoActividadEconomico`, inTipoActividadEconomica);
+    }
+
+    putTipoActividadEconomico(idTipoActividadEconomica: number, inTipoActividadEconomica: TipoActividadEconomica) {
+      return this.http.put<ResponseMessage>(`${environment.apiUrl}/macred/putTipoActividadEconomico/${idTipoActividadEconomica}`, inTipoActividadEconomica);
+    }
+
+    deleteTipoActividadEconomico(idTipoActividadEconomica: number, idCompania: number) {
+      return this.http.delete<ResponseMessage>(`${environment.apiUrl}/macred/deleteTipoActividadEconomico/${idTipoActividadEconomica}/${idCompania}`);
+    }
+
+    //#endregion
+
+    //#endregion
 
 }

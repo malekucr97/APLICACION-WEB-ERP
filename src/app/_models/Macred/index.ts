@@ -19,3 +19,6 @@ export * from './VariablesPD';
 export * from './GruposPD';
 export * from './IndicadoresPorGrupoPD';
 export * from './AnalisisHistoricoPD';
+export * from './TipoActividadEconomica';
+export * from './TipoActividadEconomica';
+export * from './ScoringFlujoCajaLibre';
