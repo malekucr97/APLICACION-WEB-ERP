@@ -36,8 +36,9 @@
                                 (click)="inActivate(module.identificador)" 
                                 class="items__btns__list__warn" mat-flat-button> Inactivar </button>
 
-                            <button class="items__btns__list__otro" mat-flat-button >
-                                Pantallas y Accesos</button>
+                            <button class="items__btns__list__otro" 
+                                    (click)="selectModuleScreenUser(module.id)"         
+                                    mat-flat-button > Pantallas y Accesos </button>
             
                         </td>
                     </tr>

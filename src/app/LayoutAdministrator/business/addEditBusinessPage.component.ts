@@ -55,15 +55,15 @@ export class AddEditBusinessComponent implements OnInit {
         if (this.updateBusiness){
 
             this.accountService.getBusinessById(this.pidBusiness)
-            .pipe(first())
-            .subscribe(responseBusiness => {
+                .pipe(first())
+                .subscribe(responseBusiness => {
 
-                this.f.nombre.setValue(responseBusiness.nombre);
-                this.f.cedulajuridica.setValue(responseBusiness.cedulaJuridica);
-            },
-            error => {
-                this.alertService.error(error);
-            });
+                    this.f.nombre.setValue(responseBusiness.nombre);
+                    this.f.cedulajuridica.setValue(responseBusiness.cedulaJuridica);
+                },
+                error => {
+                    this.alertService.error(error);
+                });
         }
     }
 

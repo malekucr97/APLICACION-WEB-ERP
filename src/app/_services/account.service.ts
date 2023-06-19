@@ -8,6 +8,7 @@ import { User } from '@app/_models';
 import { Module, Role, ModuleRolBusiness, ResponseMessage, AssignRoleObject } from '@app/_models/';
 import { Compania, CompaniaUsuario } from '@app/_models/modules/compania';
 import { ScreenAccessUser } from '@app/_models/admin/screenAccessUser';
+import { ScreenModule } from '@app/_models/admin/screenModule';
 
 @Injectable({ providedIn: 'root' })
 export class AccountService {
@@ -199,10 +200,18 @@ export class AccountService {
         return this.http.post<ResponseMessage>(`${environment.apiUrl}/users/desasignallsociedu`, desAssignUserBusiness); 
     }
 
-    // -- >> Procedientos Modulos
+    // **********************************************************************************************
+    // -- >> MODULOS
     getModulesSystem() {
         return this.http.get<Module[]>(`${environment.apiUrl}/users/modulossistema`);
     }
+    getModulesBusiness(idEmpresa: number) {
+        return this.http.get<Module[]>(`${environment.apiUrl}/users/modulossociedad?idEmpresa=${idEmpresa}`);
+    }
+    getModuleId(idModule: number) {
+        return this.http.get<Module>(`${environment.apiUrl}/users/getmoduloid?idModule=${idModule}`);
+    }
+
     getModulesByRolAndBusiness(idRol: string, idEmpresa: number) {
         return this.http.get<Module[]>(`${environment.apiUrl}/users/modulosrolempresa?idEmpresa=${idEmpresa}&idRol=${idRol}`);
     }
@@ -218,9 +227,7 @@ export class AccountService {
 
         return this.http.post<ResponseMessage>(`${environment.apiUrl}/users/otorgaraccesoamodulo`, accessMod);
     }
-    getModulesBusiness(idEmpresa: number) {
-        return this.http.get<Module[]>(`${environment.apiUrl}/users/modulossociedad?idEmpresa=${idEmpresa}`);
-    }
+    
     activateModule(idModule: number, idEmpresa:number) {
         let activateMod : ModuleRolBusiness = new ModuleRolBusiness();
         activateMod.IdModulo = idModule;
@@ -228,10 +235,10 @@ export class AccountService {
 
         return this.http.put<ResponseMessage>(`${environment.apiUrl}/users/activarmodulo`, activateMod);
     }
-    inActivateModule(idModule: number) {
+    inActivateModule(idModule: number, idBusiness: number) {
         let inActivateMod : ModuleRolBusiness = new ModuleRolBusiness();
         inActivateMod.IdModulo = idModule;
-        // inActivateMod.IdBusiness = idBusiness;
+        inActivateMod.IdBusiness = idBusiness;
 
         return this.http.put<ResponseMessage>(`${environment.apiUrl}/users/inactivarmodulo`, inActivateMod);
     }
@@ -251,13 +258,39 @@ export class AccountService {
     getModulesActiveUser(idEmpresa: number, idRol: string) {
         return this.http.get<Module[]>(`${environment.apiUrl}/users/modulosactusuario?idEmpresa=${idEmpresa}&idRol=${idRol}`);
     }
-    
     addModuleRol(module: Module) {
         return this.http.post<Module>(`${environment.apiUrl}/users/registrarmodulo`, module);
     }
     deleteModule(idModulo: number) {
         return this.http.delete<ResponseMessage>(`${environment.apiUrl}/users/eliminarmodulo?idModulo=${idModulo}`);
     }
+    
+    // *********************************
+    // *********************************
+    // MANTENIMIENTO DE PANTALLAS DE ACCEDO POR MÓDULO
+    getPantallasModulo(idModulo : number, idEmpresa: number, soloActivos : boolean) {
+        return this.http.get<ScreenModule[]>(`${environment.apiUrl}/users/getpantallasmoduloempresa?idModulo=${idModulo}&idEmpresa=${idEmpresa}&soloActivos=${soloActivos}`);
+    }
+    getPantallasNombre(nombrePantalla : string, idEmpresa: number, soloActivos : boolean) {
+        return this.http.get<ScreenModule[]>(`${environment.apiUrl}/users/getpantallasnombreempresa?nombrePantalla=${nombrePantalla}&idEmpresa=${idEmpresa}&soloActivos=${soloActivos}`);
+    }
+    postPantallaModulo(objeto: ScreenModule) {
+        return this.http.post<ScreenModule>(`${environment.apiUrl}/users/createpantallamodulo`, objeto);
+    }
+    deletePantallaModulo( id : number ) {
+        return this.http.delete<ResponseMessage>(`${environment.apiUrl}/users/deletepantallamodulo?id=${id}`);
+    }
+    deleteAccesoPantallaUsuario( idUsuario : number, idPantalla : number, idEmpresa : number ) {
+        return this.http.delete<ResponseMessage>(`${environment.apiUrl}/users/deleteaccesspantallausuario?idUsuario=${idUsuario}&idPantalla=${idPantalla}&idEmpresa=${idEmpresa}`);
+    }
+    putPantallaModulo(objeto:ScreenModule) {
+        return this.http.put<ScreenModule>(`${environment.apiUrl}/users/updatepantallamodulo`, objeto);
+    }
+    postPantallaAccesoUsuario(objeto: ScreenAccessUser) {
+        return this.http.post<ScreenAccessUser>(`${environment.apiUrl}/users/createaccesspantallausuario`, objeto);
+    }
+    // *********************************
+
     addUser(user: User) { 
         return this.http.post<ResponseMessage>(`${environment.apiUrl}/users/registrarusuario`, user); 
     }
@@ -292,6 +325,9 @@ export class AccountService {
     }
     getUsersBusiness(idEmpresa: number) {
         return this.http.get<User[]>(`${environment.apiUrl}/users/usuariosempresa?idEmpresa=${idEmpresa}`);
+    }
+    getUsersBusinessScreenModule(idPantalla : number, idEmpresa: number, soloActivos : boolean) {
+        return this.http.get<User[]>(`${environment.apiUrl}/users/getusuariosaccesopantalla?idPantalla=${idPantalla}&idEmpresa=${idEmpresa}&soloActivos=${soloActivos}`);
     }
     activateUser(user: User) {
         return this.http.put<ResponseMessage>(`${environment.apiUrl}/users/activarcuenta`, user);

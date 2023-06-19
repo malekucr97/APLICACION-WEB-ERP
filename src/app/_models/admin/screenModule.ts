@@ -1,4 +1,4 @@
-export class ScreenAccessUser {
+export class ScreenModule {
 
     public id:number;
     public adicionadoPor:string;
@@ -7,7 +7,8 @@ export class ScreenAccessUser {
     public fechaModificacion:Date;
 
     constructor(public idCompania:number,
-                public idUsuario:number,
-                public idPantalla:number,
-                public estado: boolean) {}
+                public idModulo: number,
+                public codigo:string,
+                public nombre: string,
+                public estado: string) {}
 }

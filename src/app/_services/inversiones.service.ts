@@ -17,6 +17,8 @@ import { InvPlazoInversion } from '@app/_models/Inversiones/PlazoInversion';
 import { InvTitulo } from '@app/_models/Inversiones/Titulo';
 import { InvClaseInversion } from '@app/_models/Inversiones/ClaseInversion';
 import { InvTasa } from '@app/_models/Inversiones/Tasa';
+import { InvInversionEncabezado } from '@app/_models/Inversiones/InversionEncabezado';
+import { InvInversionDetalle } from '@app/_models/Inversiones/InversionDetalle';
 
 @Injectable({ providedIn: 'root' })
 export class InversionesService {
@@ -234,6 +236,36 @@ export class InversionesService {
     }
     deleteTasa( id : number ) {
         return this.http.delete<ResponseMessage>(`${environment.apiUrl}/inversiones/deletetasa?id=${id}`);
+    }
+    // *********************************
+    // *********************************
+    // MANTENIMIENTO DE ENCABEZADOS DE INVERSIÓN
+    getEncabezadoInversion(numero: string, idCompania:number, soloActivos : boolean) {
+        return this.http.get<InvInversionEncabezado[]>(`${environment.apiUrl}/inversiones/getencabezadoinversion?numero=${numero}&idCompania=${idCompania}&soloActivos=${soloActivos}`);
+    }
+    postEncabezadoInversion(objeto:InvInversionEncabezado) {
+        return this.http.post<InvInversionEncabezado>(`${environment.apiUrl}/inversiones/createencabezadoinversion`, objeto);
+    }
+    putEncabezadoInversion(objeto:InvInversionEncabezado) {
+        return this.http.put<InvInversionEncabezado>(`${environment.apiUrl}/inversiones/updateencabezadoinversion`, objeto);
+    }
+    deleteEncabezadoInversion( id : number ) {
+        return this.http.delete<ResponseMessage>(`${environment.apiUrl}/inversiones/deleteencabezadoinversion?id=${id}`);
+    }
+    // *********************************
+    // *********************************
+    // MANTENIMIENTO DE DETALLES DE INVERSIÓN
+    getDetalleInversion(idEncabezado: number, idCompania:number, soloActivos : boolean) {
+        return this.http.get<InvInversionDetalle[]>(`${environment.apiUrl}/inversiones/getdetalleinversion?idEncabezado=${idEncabezado}&idCompania=${idCompania}&soloActivos=${soloActivos}`);
+    }
+    postDetalleInversion(objeto:InvInversionDetalle) {
+        return this.http.post<InvInversionDetalle>(`${environment.apiUrl}/inversiones/createdetalleinversion`, objeto);
+    }
+    putDetalleInversion(objeto:InvInversionDetalle) {
+        return this.http.put<InvInversionDetalle>(`${environment.apiUrl}/inversiones/updatedetalleinversion`, objeto);
+    }
+    deleteDetalleInversion( id : number ) {
+        return this.http.delete<ResponseMessage>(`${environment.apiUrl}/inversiones/deletedetalleinversion?id=${id}`);
     }
     // *********************************
 }

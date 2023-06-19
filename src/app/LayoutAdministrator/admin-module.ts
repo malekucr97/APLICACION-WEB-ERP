@@ -1,5 +1,5 @@
 import { NgModule } from '@angular/core';
-import { ReactiveFormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
 // -- core principal
 import { AdminRoutingModule } from './admin-routing.module';
@@ -22,6 +22,19 @@ import { ListModuleComponent } from './module/listModulePage.component';
 import { AddModuleRoleComponent } from './module/addModuleRolePage.component';
 import { ListModuleBusinessComponent } from './module/listModuleBusinessPage.component';
 import { MatButtonModule } from '@angular/material/button';
+import { AddAccessUserModuleComponent } from './module/addAccessUserModulePage.component';
+import { MatIconModule } from '@angular/material/icon';
+import { MatToolbarModule } from '@angular/material/toolbar';
+import { MatSidenavModule } from '@angular/material/sidenav';
+import { MatDividerModule } from '@angular/material/divider';
+import { MatTreeModule } from '@angular/material/tree';
+import { MatTooltipModule } from '@angular/material/tooltip';
+import { MatNativeDateModule } from '@angular/material/core';
+import { MatDatepickerModule } from '@angular/material/datepicker';
+import { MatCheckboxModule } from '@angular/material/checkbox';
+import { MatDialogModule } from '@angular/material/dialog';
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatListModule } from '@angular/material/list';
 
 @NgModule({
     imports: [
@@ -29,7 +42,23 @@ import { MatButtonModule } from '@angular/material/button';
         ReactiveFormsModule,
         AdminRoutingModule,
         // update mlopez 22 05 2023
-        MatButtonModule
+        MatToolbarModule,
+        MatSidenavModule,
+        MatButtonModule,
+        MatIconModule,
+        MatDividerModule,
+
+        MatTreeModule,
+        MatTooltipModule,
+
+        FormsModule,
+        MatNativeDateModule,
+        MatDatepickerModule,
+        MatCheckboxModule,
+
+        MatDialogModule,
+        MatFormFieldModule,
+        MatListModule
     ],
     declarations: [
         LayoutAdministratorComponent,
@@ -44,7 +73,8 @@ import { MatButtonModule } from '@angular/material/button';
         ListRoleComponent,
         ListModuleComponent,
         ListModuleBusinessComponent,
-        AddModuleRoleComponent
+        AddModuleRoleComponent,
+        AddAccessUserModuleComponent
     ]
 })
 export class AdminModule { }

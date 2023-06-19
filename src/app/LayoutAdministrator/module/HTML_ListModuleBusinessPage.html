@@ -24,7 +24,7 @@
                         <td>{{module.descripcion}}</td>
                         <td style="white-space: nowrap">
 
-                            <button *ngIf="seleccionEmpresa" (click)="desAssignModuleBusiness(module.id)"  class="btn btn-sm btn-outline-danger mr-1">
+                            <button *ngIf="seleccionEmpresa" (click)="desAssignModuleBusiness(module.identificador)"  class="btn btn-sm btn-outline-danger mr-1">
                                 <span *ngIf="isDesAssigning" class="spinner-border spinner-border-sm"></span>
                                 <span *ngIf="!isDesAssigning">Eliminar Acceso</span>
                             </button>
@@ -55,7 +55,7 @@
                         <td style="white-space: nowrap">
             
                             <div *ngIf="seleccionEmpresa">
-                                <button (click)="assignModuleBusiness(module.id)"  class="btn btn-sm btn-outline-success">
+                                <button (click)="assignModuleBusiness(module.identificador)"  class="btn btn-sm btn-outline-success">
                                     <span *ngIf="isAssigning" class="spinner-border spinner-border-sm"></span>
                                     <span *ngIf="!isAssigning">Otorgar Acceso</span>
                                 </button>

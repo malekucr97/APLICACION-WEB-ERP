@@ -25,6 +25,7 @@ import { ListModuleBusinessComponent } from './module/listModuleBusinessPage.com
 
 // ## ********* GENERALES -> PARÁMETROS********* ## //
 import { ConfigurationCompaniaComponent } from '../ModulosSistema/Generales/parametros/ConfigurationCompania-component';
+import { AddAccessUserModuleComponent } from './module/addAccessUserModulePage.component';
 
 const routes: Routes = [
     {
@@ -51,9 +52,10 @@ const routes: Routes = [
             { path: 'adminpage-listmodulebusiness.html/:pidBusiness', component: ListModuleBusinessComponent },
             { path: 'adminpage-listmodules.html', component: ListModuleComponent },
             { path: 'adminpage-addmodulerol.html/:pidRole', component: AddModuleRoleComponent },
+            { path: 'adminpage-addaccessuserpagemodule.html/:pidModule', component: AddAccessUserModuleComponent },
 
             // ## ********* GENERALES -> PARÁMETROS********* ## //
-            { path: 'ConfiguracionCompania.html/:pidBusiness', component: ConfigurationCompaniaComponent },
+            { path: 'ConfiguracionCompania.html', component: ConfigurationCompaniaComponent },
         ]
     }
 ];

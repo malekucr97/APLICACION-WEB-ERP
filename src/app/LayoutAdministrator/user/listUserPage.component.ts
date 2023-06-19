@@ -51,8 +51,10 @@ export class ListUserComponent implements OnInit {
             this.accountService.getUsersBusiness(this.userObservable.empresa)
             .pipe(first())
             .subscribe(users => {
-                this.listUsers = users;
-                this.accountService.suscribeListUser(this.listUsers);
+                if (users && users.length > 0) {
+                    this.listUsers = users;
+                    this.accountService.suscribeListUser(this.listUsers);
+                } 
             });
         } else { this.router.navigate([this.Home]); }
     }
