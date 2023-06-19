@@ -1,5 +1,4 @@
 export interface ScoringFlujoCajaLibre {
-
   codScoringFlujoCaja: number,
   codAnalisis: number,
   codActividadEconomica?: number,
@@ -32,5 +31,4 @@ export interface ScoringFlujoCajaLibre {
   usuarioCreacion: string,
   usuarioModificacion?: string,
   observacionValorPatrimonio: string,
-
 }

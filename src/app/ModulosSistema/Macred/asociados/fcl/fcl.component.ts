@@ -5,7 +5,7 @@ import {
   MacAnalisisCapacidadPago,
   MacPersona,
   ScoringFlujoCajaLibre,
-  TipoActividadEconomica,
+  TipoActividadEconomica
 } from '@app/_models/Macred';
 import { AccountService, AlertService } from '@app/_services';
 import { MacredService } from '@app/_services/macred.service';
@@ -210,7 +210,10 @@ export class FclComponent implements OnInit {
           Validators.max(999999999999999),
         ],
       ],
-      observaciones: ['Observación Generación FCL Inicial', [Validators.required]],
+      observaciones: [
+        'Observación Generación FCL Inicial',
+        [Validators.required],
+      ],
     });
   }
 
@@ -243,19 +246,22 @@ export class FclComponent implements OnInit {
   }
 
   private inicializarFormularioFCL() {
-
     if (this.analisisFlujoCajaLibre.scofclEstado) {
       this.habilitarFinalizacion = true;
     }
 
     this.formularioFCL.patchValue({
-      actividadEconomica:
-        this.lstTiposActividadEconomica.find(
-          (x) =>
-            x.codActividadEconomica ==
-            this.analisisFlujoCajaLibre.codActividadEconomica
-        ).codActividadEconomica ??
-        this.lstTiposActividadEconomica[0].codActividadEconomica,
+      actividadEconomica: this.lstTiposActividadEconomica.find(
+        (x) =>
+          x.codActividadEconomica ==
+          this.analisisFlujoCajaLibre.codActividadEconomica
+      )
+        ? this.lstTiposActividadEconomica.find(
+            (x) =>
+              x.codActividadEconomica ==
+              this.analisisFlujoCajaLibre.codActividadEconomica
+          ).codActividadEconomica
+        : this.lstTiposActividadEconomica[0].codActividadEconomica,
     });
     this.formularioFCL.patchValue({
       proyeccionMeses:
@@ -453,5 +459,4 @@ export class FclComponent implements OnInit {
         }
       });
   }
-
 }

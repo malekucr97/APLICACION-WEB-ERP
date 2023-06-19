@@ -94,11 +94,11 @@ const TREE_DATA: FoodNode[] = [
                 {name: 'Modelos de Calificación',
                 link: '',
                 icon: '',
-                children: [{name: 'Indicadores Relevantes', link: '/', icon: ''},
+                children: [{name: 'Indicadores Relevantes', link: ModulesSystem.macredbasehref + 'mantenimientos/modeloscalificacion/indicadores-relevantes.html', icon: ''},
                           {name: 'Configuración de Modelos', link: '/', icon: ''},
                           {name: 'Variables Críticas', link: '/', icon: ''},
                           {name: 'Escenarios de Riesgos', link: '/', icon: ''},
-                          {name: 'Niveles Capacidad Pago (Global)', link: '/', icon: ''}
+                          {name: 'Niveles Capacidad Pago (Global)', link: ModulesSystem.macredbasehref + 'mantenimientos/modeloscalificacion/niveles-capacidad-pago.html', icon: ''}
                           ],},
                 {name: 'Parámetros',
                 link: '',

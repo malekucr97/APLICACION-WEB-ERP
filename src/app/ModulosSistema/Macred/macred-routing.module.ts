@@ -5,6 +5,8 @@ import { ParametrosGeneralesComponent } from './configuracion/parametrosgenerale
 import { IndexMacredComponent } from './index.component';
 import { TipoIngresoComponent } from './mantenimientos/AnalisisPersonas/tipoingreso-component';
 import { TipoIngresoAnalisisComponent } from './mantenimientos/AnalisisPersonas/tipoingresoanalisis-component';
+import { IndicadoresRelevantesComponent } from './mantenimientos/ModelosCalificacion/indicadores-relevantes/indicadores-relevantes.component';
+import { NivelesCapacidadPagoComponent } from './mantenimientos/ModelosCalificacion/niveles-capacidad-pago/niveles-capacidad-pago.component';
 import { TiposFormasPagoAnalisisComponent } from './mantenimientos/Obligaciones/tiposformaspagoanalisis-component';
 import { ConfiguracionModelosComponent } from './mantenimientos/Parametros/configuracion-modelos/configuracion-modelos.component';
 import { ConfiguracionParametrosPdComponent } from './mantenimientos/Parametros/configuracion-parametros-pd/configuracion-parametros-pd.component';
@@ -39,6 +41,8 @@ const routes: Routes = [
             { path: 'mantenimientos/parametros/configuracion-modelos.html',  component: ConfiguracionModelosComponent },
             { path: 'mantenimientos/parametros/configuracion-parametros-pd.html',  component: ConfiguracionParametrosPdComponent },
             { path: 'mantenimientos/personas/mantenimiento-tipo-actividad-economica.html',  component: MantenimientoTipoActividadEconomicaComponent },
+            { path: 'mantenimientos/modeloscalificacion/indicadores-relevantes.html',  component: IndicadoresRelevantesComponent },
+            { path: 'mantenimientos/modeloscalificacion/niveles-capacidad-pago.html',  component: NivelesCapacidadPagoComponent },
             // configuracion
             { path: 'configuracion/parametros-generales.html', component: ParametrosGeneralesComponent}
         ]
