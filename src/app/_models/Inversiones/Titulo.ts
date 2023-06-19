@@ -9,7 +9,19 @@ export class InvTitulo {
     constructor(    public codigoCompania:number,
                     public codigoTitulo:string,
                     public descripcion:string,
-                    public porcentajeInteres:number,
+                    public tasaImpuestoRenta:number,
+
+                    public idTasa:number,
+                    public idClase:number,
+                    public idPlazo:number,
+                    public idMercado:number,
+                    public idSector:number,
+                    public idEmisor:number,
+                    public idMoneda:number,
+
+                    public calculaIntereses:boolean,
+                    public calculaImpuestos:boolean,
+                    public calculaCupones:boolean,
 
                     public estado:boolean
 

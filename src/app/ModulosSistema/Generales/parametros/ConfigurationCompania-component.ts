@@ -108,8 +108,6 @@ export class ConfigurationCompaniaComponent implements OnInit {
         companiaForm.modificadoPor = this.userObservable.identificacion;
         companiaForm.fechaModificacion = today;
 
-        // let adn = createObjectADNCompania(companiaForm, operationName, module, entityName);
-
         this.generalesSerice.putCompania(companiaForm)
             .pipe(first())
             .subscribe( responseAddCompania => {
@@ -133,115 +131,115 @@ export class ConfigurationCompaniaComponent implements OnInit {
     }
 }
 
-function createObjectADNCompania(companiaForm: Compania, operationName:string, module:string, entityName:string) : string {
+// function createObjectADNCompania(companiaForm: Compania, operationName:string, module:string, entityName:string) : string {
     
-    let req : string = `{
-                    "OperationName":"${ operationName }",
-                    "Module":"${ module }",
-                    "ObjectToProcess":[{
-                            "EntityName":"${entityName}",
-                            "Attributes":[
-                            {
-                                "Name":"ID",
-                                "Type":1,
-                                "ObjectValue":"${companiaForm.id}"
-                            },
-                            {
-                                "Name":"NOMBRE",
-                                "Type":0,
-                                "ObjectValue":"${companiaForm.nombre}"
-                            },
-                            {
-                                "Name":"TIPO_IDENTIFICACION",
-                                "Type":0,
-                                "ObjectValue":"${companiaForm.tipoIdentificacion}"
-                            },
-                            {
-                                "Name":"CEDULA_JURIDICA",
-                                "Type":0,
-                                "ObjectValue":"${companiaForm.cedulaJuridica}"
-                            },
-                            {
-                                "Name":"DESCRIPCION_COMPANIA",
-                                "Type":0,
-                                "ObjectValue":"${companiaForm.descripcionCompania}"
-                            },
-                            {
-                                "Name":"CORREO_ELECTRONICO",
-                                "Type": 0,
-                                "ObjectValue":"${companiaForm.correoElectronico}"
-                            },
-                            {
-                                "Name":"CODIGO_PAIS",
-                                "Type":0,
-                                "ObjectValue":"${companiaForm.codigoPaisUbicacion}"
-                            },
-                            {
-                                "Name":"PROVINCIA",
-                                "Type":0,
-                                "ObjectValue":"${companiaForm.provincia}"
-                            },
-                            {
-                                "Name":"CANTON",
-                                "Type":0,
-                                "ObjectValue":"${companiaForm.canton}"
-                            },
-                            {
-                                "Name":"DISTRITO",
-                                "Type":0,
-                                "ObjectValue":"${companiaForm.distrito}"
-                            },
-                            {
-                                "Name":"BARRIO",
-                                "Type":0,
-                                "ObjectValue":"${companiaForm.barrio}"
-                            },
-                            {
-                                "Name":"DETALLE_DIRECCION",
-                                "Type":0,
-                                "ObjectValue":"${companiaForm.detalleDireccion}"
-                            },
-                            {
-                                "Name":"CODIGO_TELEFONO",
-                                "Type":0,
-                                "ObjectValue":"${companiaForm.codigoTelefono}"
-                            },
-                            {
-                                "Name":"TELEFONO",
-                                "Type":0,
-                                "ObjectValue":"${companiaForm.telefono}"
-                            },
-                            {
-                                "Name":"CLAVE_CORREO",
-                                "Type":0,
-                                "ObjectValue":"${companiaForm.claveCorreo}"
-                            },
-                            {
-                                "Name":"HOST_CORREO",
-                                "Type":0,
-                                "ObjectValue":"${companiaForm.hostCorreo}"
-                            },
-                            {
-                                "Name":"PUERTO_CORREO",
-                                "Type":0,
-                                "ObjectValue":"${companiaForm.puertoCorreo}"
-                            },
-                            {
-                                "Name":"MODIFICADO_POR",
-                                "Type":0,
-                                "ObjectValue": "${companiaForm.modificadoPor}"
-                            },
-                            {
-                                "Name":"FECHA_MODIFICACION",
-                                "Type":2,
-                                "ObjectValue":"${companiaForm.fechaModificacion}"
-                            }]
-                    }]
-                }`;
+//     let req : string = `{
+//                     "OperationName":"${ operationName }",
+//                     "Module":"${ module }",
+//                     "ObjectToProcess":[{
+//                             "EntityName":"${entityName}",
+//                             "Attributes":[
+//                             {
+//                                 "Name":"ID",
+//                                 "Type":1,
+//                                 "ObjectValue":"${companiaForm.id}"
+//                             },
+//                             {
+//                                 "Name":"NOMBRE",
+//                                 "Type":0,
+//                                 "ObjectValue":"${companiaForm.nombre}"
+//                             },
+//                             {
+//                                 "Name":"TIPO_IDENTIFICACION",
+//                                 "Type":0,
+//                                 "ObjectValue":"${companiaForm.tipoIdentificacion}"
+//                             },
+//                             {
+//                                 "Name":"CEDULA_JURIDICA",
+//                                 "Type":0,
+//                                 "ObjectValue":"${companiaForm.cedulaJuridica}"
+//                             },
+//                             {
+//                                 "Name":"DESCRIPCION_COMPANIA",
+//                                 "Type":0,
+//                                 "ObjectValue":"${companiaForm.descripcionCompania}"
+//                             },
+//                             {
+//                                 "Name":"CORREO_ELECTRONICO",
+//                                 "Type": 0,
+//                                 "ObjectValue":"${companiaForm.correoElectronico}"
+//                             },
+//                             {
+//                                 "Name":"CODIGO_PAIS",
+//                                 "Type":0,
+//                                 "ObjectValue":"${companiaForm.codigoPaisUbicacion}"
+//                             },
+//                             {
+//                                 "Name":"PROVINCIA",
+//                                 "Type":0,
+//                                 "ObjectValue":"${companiaForm.provincia}"
+//                             },
+//                             {
+//                                 "Name":"CANTON",
+//                                 "Type":0,
+//                                 "ObjectValue":"${companiaForm.canton}"
+//                             },
+//                             {
+//                                 "Name":"DISTRITO",
+//                                 "Type":0,
+//                                 "ObjectValue":"${companiaForm.distrito}"
+//                             },
+//                             {
+//                                 "Name":"BARRIO",
+//                                 "Type":0,
+//                                 "ObjectValue":"${companiaForm.barrio}"
+//                             },
+//                             {
+//                                 "Name":"DETALLE_DIRECCION",
+//                                 "Type":0,
+//                                 "ObjectValue":"${companiaForm.detalleDireccion}"
+//                             },
+//                             {
+//                                 "Name":"CODIGO_TELEFONO",
+//                                 "Type":0,
+//                                 "ObjectValue":"${companiaForm.codigoTelefono}"
+//                             },
+//                             {
+//                                 "Name":"TELEFONO",
+//                                 "Type":0,
+//                                 "ObjectValue":"${companiaForm.telefono}"
+//                             },
+//                             {
+//                                 "Name":"CLAVE_CORREO",
+//                                 "Type":0,
+//                                 "ObjectValue":"${companiaForm.claveCorreo}"
+//                             },
+//                             {
+//                                 "Name":"HOST_CORREO",
+//                                 "Type":0,
+//                                 "ObjectValue":"${companiaForm.hostCorreo}"
+//                             },
+//                             {
+//                                 "Name":"PUERTO_CORREO",
+//                                 "Type":0,
+//                                 "ObjectValue":"${companiaForm.puertoCorreo}"
+//                             },
+//                             {
+//                                 "Name":"MODIFICADO_POR",
+//                                 "Type":0,
+//                                 "ObjectValue": "${companiaForm.modificadoPor}"
+//                             },
+//                             {
+//                                 "Name":"FECHA_MODIFICACION",
+//                                 "Type":2,
+//                                 "ObjectValue":"${companiaForm.fechaModificacion}"
+//                             }]
+//                     }]
+//                 }`;
 
-                console.log(req);
+//                 console.log(req);
 
-                let obj = JSON.parse(req);
+//                 let obj = JSON.parse(req);
                 
-                return req;
-}
+//                 return req;
+// }

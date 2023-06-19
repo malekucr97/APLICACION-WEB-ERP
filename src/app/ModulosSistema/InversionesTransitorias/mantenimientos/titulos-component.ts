@@ -14,6 +14,12 @@ import { InvTipoMoneda } from '@app/_models/Inversiones/TipoMoneda';
 import { first } from 'rxjs/operators';
 import { InvTipoCambio } from '@app/_models/Inversiones/TipoCambio';
 import { InvTitulo } from '@app/_models/Inversiones/Titulo';
+import { InvTipoSector } from '@app/_models/Inversiones/TipoSector';
+import { InvTasa } from '@app/_models/Inversiones/Tasa';
+import { InvClaseInversion } from '@app/_models/Inversiones/ClaseInversion';
+import { InvPlazoInversion } from '@app/_models/Inversiones/PlazoInversion';
+import { InvTipoMercado } from '@app/_models/Inversiones/TipoMercado';
+import { InvEmisor } from '@app/_models/Inversiones/Emisor';
 
 declare var $: any;
 
@@ -47,6 +53,14 @@ export class InvTitulosComponent implements OnInit {
     // ## -- listas analisis -- ## //
     public listObjetos  : InvTitulo[]  = [];
 
+    public listSectores         : InvTipoSector[]       = [];
+    public listTasas            : InvTasa[]             = [];
+    public listClasesInversion  : InvClaseInversion[]   = [];
+    public listPlazosInversion  : InvPlazoInversion[]   = [];
+    public listMercados         : InvTipoMercado[]      = [];
+    public listEmisores         : InvEmisor[]           = [];
+    public listMonedas          : InvTipoMoneda[]       = [];
+
     public today : Date ;
 
     constructor (   private alertService:      AlertService,
@@ -70,10 +84,50 @@ export class InvTitulosComponent implements OnInit {
             idTitulo                : [null],
             codigoTitulo            : [null],
             descripcionTitulo       : [null],
-            porcentajeInteresTitulo : [null],
+
+            tasaImpuestoRenta       : [null],
+            idTasa       : [null],
+            idClase       : [null],
+            idPlazo       : [null],
+            idMercado       : [null],
+            idSector       : [null],
+            idEmisor       : [null],
+            idMoneda       : [null],
+            calculaIntereses       : [null],
+            calculaImpuestos       : [null],
+            calculaCupones       : [null],
+
             estadoTitulo            : [null]
         });
         this.nombreModulo = this.moduleObservable.nombre ;
+
+        this.inversionesService.getTipoSector('%%', this.companiaObservable.id, false)
+            .pipe(first())
+            .subscribe(response => { this.listSectores = response ; });
+
+        this.inversionesService.getTasa('%%', this.companiaObservable.id, false)
+            .pipe(first())
+            .subscribe(response => { this.listTasas = response ; });
+
+        this.inversionesService.getClaseInversion('%%', this.companiaObservable.id, false)
+            .pipe(first())
+            .subscribe(response => { this.listClasesInversion = response ; });
+
+        this.inversionesService.getPlazoInversion('%%', this.companiaObservable.id, false)
+            .pipe(first())
+            .subscribe(response => { this.listPlazosInversion = response ; });
+
+        this.inversionesService.getTipoMercado('%%', this.companiaObservable.id, false)
+            .pipe(first())
+            .subscribe(response => { this.listMercados = response ; });
+
+        this.inversionesService.getEmisor('%%', this.companiaObservable.id, false)
+            .pipe(first())
+            .subscribe(response => { this.listEmisores = response ; });
+
+        this.inversionesService.getTiposMonedas('%%', this.companiaObservable.id, false)
+            .pipe(first())
+            .subscribe(response => { this.listMonedas = response ; });
 
         this.buscarObjeto(true);
     }
@@ -108,20 +162,34 @@ export class InvTitulosComponent implements OnInit {
                 this.alertService.error(message);
             });
     }
-    inicializaFormulario(objeto : InvTitulo = null)       : void {
+    
+    inicializaFormulario(objeto : InvTitulo = null) : void {
 
         if (objeto) {
 
-            this.habilitaBtnRegistro = false ;
-            this.habilitaBtnActualiza= true ;
-            this.habilitaBtnNuevo = true ;
-            this.habilitaBtnElimibar = true;
+            this.habilitaBtnRegistro    = false ;
+            this.habilitaBtnActualiza   = true ;
+            this.habilitaBtnNuevo       = true ;
+            this.habilitaBtnElimibar    = true;
 
             this.formulario    = this.formBuilder.group({
                 idTitulo                : [objeto.id],
                 codigoTitulo            : [objeto.codigoTitulo, Validators.required],
                 descripcionTitulo       : [objeto.descripcion, Validators.required],
-                porcentajeInteresTitulo : [objeto.porcentajeInteres, Validators.required],
+                tasaImpuestoRenta : [objeto.tasaImpuestoRenta, Validators.required],
+
+                idTasa : [this.listTasas.find( x => x.id === objeto.idTasa ), Validators.required],
+                idClase : [this.listClasesInversion.find( x => x.id === objeto.idClase ), Validators.required],
+                idPlazo : [this.listPlazosInversion.find( x => x.id === objeto.idPlazo ), Validators.required],
+                idMercado : [this.listMercados.find( x => x.id === objeto.idMercado ), Validators.required],
+                idSector : [this.listSectores.find( x => x.id === objeto.idSector ), Validators.required],
+                idEmisor : [this.listEmisores.find( x => x.id === objeto.idEmisor ), Validators.required],
+                idMoneda : [this.listMonedas.find( x => x.id === objeto.idMoneda ), Validators.required],
+
+                calculaIntereses : [objeto.calculaIntereses, Validators.required],
+                calculaImpuestos : [objeto.calculaImpuestos, Validators.required],
+                calculaCupones : [objeto.calculaCupones, Validators.required],
+
                 estadoTitulo            : [objeto.estado, Validators.required]
             });
         } else {
@@ -135,7 +203,20 @@ export class InvTitulosComponent implements OnInit {
                 idTitulo                : [null],
                 codigoTitulo            : [null, Validators.required],
                 descripcionTitulo       : [null, Validators.required],
-                porcentajeInteresTitulo : [null, Validators.required],
+                tasaImpuestoRenta : [null, Validators.required],
+
+                idTasa : [null, Validators.required],
+                idClase : [null, Validators.required],
+                idPlazo : [null, Validators.required],
+                idMercado : [null, Validators.required],
+                idSector : [null, Validators.required],
+                idEmisor : [null, Validators.required],
+                idMoneda : [null, Validators.required],
+
+                calculaIntereses : [true, Validators.required],
+                calculaImpuestos : [true, Validators.required],
+                calculaCupones : [true, Validators.required],
+
                 estadoTitulo            : [true, Validators.required]
             });
         }
@@ -148,12 +229,34 @@ export class InvTitulosComponent implements OnInit {
 
     crearObjectForm() : InvTitulo {
 
-        var codigoTitulo            = this.formulario.controls['codigoTitulo'].value;
-        var descripcionTitulo       = this.formulario.controls['descripcionTitulo'].value;
-        var porcentajeInteresTitulo = this.formulario.controls['porcentajeInteresTitulo'].value;
+        var codigoTitulo        = this.formulario.controls['codigoTitulo'].value;
+        var descripcionTitulo   = this.formulario.controls['descripcionTitulo'].value;
+        var tasaImpuestoRenta   = this.formulario.controls['tasaImpuestoRenta'].value;
+
+        var idTasa = this.formulario.controls['idTasa'].value.id;
+        var idClase = this.formulario.controls['idClase'].value.id;
+        var idPlazo = this.formulario.controls['idPlazo'].value.id;
+        var idMercado = this.formulario.controls['idMercado'].value.id;
+        var idSector = this.formulario.controls['idSector'].value.id;
+        var idEmisor = this.formulario.controls['idEmisor'].value.id;
+        var idMoneda = this.formulario.controls['idMoneda'].value.id;
+        var calculaIntereses = this.formulario.controls['calculaIntereses'].value;
+        var calculaImpuestos = this.formulario.controls['calculaImpuestos'].value;
+        var calculaCupones = this.formulario.controls['calculaCupones'].value;
+
         var estadoTitulo            = this.formulario.controls['estadoTitulo'].value;
 
-        var objForm = new InvTitulo (this.companiaObservable.id, codigoTitulo, descripcionTitulo, porcentajeInteresTitulo, estadoTitulo) ;
+        var objForm = new InvTitulo (this.companiaObservable.id, codigoTitulo, descripcionTitulo, tasaImpuestoRenta, idTasa,
+            idClase,
+            idPlazo,
+            idMercado,
+            idSector,
+            idEmisor,
+            idMoneda,
+            calculaIntereses,
+            calculaImpuestos,
+            calculaCupones,
+            estadoTitulo) ;
 
         return objForm ;
     }

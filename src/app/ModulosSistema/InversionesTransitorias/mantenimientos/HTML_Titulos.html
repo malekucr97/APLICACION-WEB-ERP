@@ -22,10 +22,6 @@
             <!-- // **********
             // ** BODY ** -->
 
-            <!-- *************** -->
-            <!-- SECCIÓN PERSONA -->
-            <!-- *************** -->
-
             
             <!-- ********************** -->
             <!-- SECCIÓN MONTOS MÁXIMOS -->
@@ -99,16 +95,106 @@
                                                 </div>
                     
                                                 
-                                                <div class="form-group col-md-2">
-                                                    <label for="lblPorcentajeInteresTitulo" class="form-label">% Interés</label>
-                                                    <input formControlName="porcentajeInteresTitulo" class="form-control" type="text" id="id_porcentajeInteresTitulo"
-                                                        [ngClass]="{ 'is-invalid': submittedForm && m.porcentajeInteresTitulo.errors }" />
-                                                    <div *ngIf="submittedForm && m.porcentajeInteresTitulo.errors" class="invalid-feedback">
-                                                        <div *ngIf="m.porcentajeInteresTitulo.errors.required">El porcentaje de interés es requerido .</div>
+                                                <div class="form-group col-md-5">
+                                                    <label for="lblTasaImpuestoRenta" class="form-label">Impuesto de Renta</label>
+                                                    <input formControlName="tasaImpuestoRenta" class="form-control" type="text" id="id_tasaImpuestoRenta"
+                                                        [ngClass]="{ 'is-invalid': submittedForm && m.tasaImpuestoRenta.errors }" />
+                                                    <div *ngIf="submittedForm && m.tasaImpuestoRenta.errors" class="invalid-feedback">
+                                                        <div *ngIf="m.tasaImpuestoRenta.errors.required">La tasa de impuesto para el impuesto de renta es requerido .</div>
                                                     </div>
                                                 </div>
+                                                
+
+                                                <div class="form-group col-md-6">
+                                                    <label for="lblIdTasa" class="form-label">Tasa de Interés</label>
+                                                    <select formControlName="idTasa" class="form-control" name="selectIdTasa"
+                                                        [ngClass]="{ 'is-invalid': submittedForm && m.idTasa.errors }" >
+                                                            <option [ngValue]="objeto" *ngFor="let objeto of listTasas">{{objeto.id}} - {{objeto.descripcion}}</option>
+                                                    </select>
+                                                    <div *ngIf="submittedForm && m.idTasa.errors" class="invalid-feedback">
+                                                        <div *ngIf="m.idTasa.errors.required">La tasa de interés es requerida .</div>
+                                                    </div>
+                                                </div>
+
+                                                <div class="form-group col-md-5">
+                                                    <label for="lblIdClase" class="form-label">Clase de Inversión</label>
+                                                    <select formControlName="idClase" class="form-control" name="selectIdClase"
+                                                        [ngClass]="{ 'is-invalid': submittedForm && m.idClase.errors }" >
+                                                            <option [ngValue]="objeto" *ngFor="let objeto of listClasesInversion">{{objeto.id}} - {{objeto.descripcion}}</option>
+                                                    </select>
+                                                    <div *ngIf="submittedForm && m.idClase.errors" class="invalid-feedback">
+                                                        <div *ngIf="m.idClase.errors.required">La clase de inversión es requerida .</div>
+                                                    </div>
+                                                </div>
+
+                                                <div class="form-group col-md-6">
+                                                    <label for="lblIdPlazo" class="form-label">Plazo de Inversión</label>
+                                                    <select formControlName="idPlazo" class="form-control" name="selectIdPlazo"
+                                                        [ngClass]="{ 'is-invalid': submittedForm && m.idPlazo.errors }" >
+                                                            <option [ngValue]="objeto" *ngFor="let objeto of listPlazosInversion">{{objeto.id}} - {{objeto.descripcion}}</option>
+                                                    </select>
+                                                    <div *ngIf="submittedForm && m.idPlazo.errors" class="invalid-feedback">
+                                                        <div *ngIf="m.idPlazo.errors.required">El plazo de inversión es requerido .</div>
+                                                    </div>
+                                                </div>
+
+                                                <div class="form-group col-md-5">
+                                                    <label for="lblIdMercado" class="form-label">Mercado</label>
+                                                    <select formControlName="idMercado" class="form-control" name="selectIdMercado"
+                                                        [ngClass]="{ 'is-invalid': submittedForm && m.idMercado.errors }" >
+                                                            <option [ngValue]="objeto" *ngFor="let objeto of listMercados">{{objeto.id}} - {{objeto.descripcion}}</option>
+                                                    </select>
+                                                    <div *ngIf="submittedForm && m.idMercado.errors" class="invalid-feedback">
+                                                        <div *ngIf="m.idMercado.errors.required">El mercado es requerido .</div>
+                                                    </div>
+                                                </div>
+
+                                                <div class="form-group col-md-6">
+                                                    <label for="lblIdSector" class="form-label">Sector</label>
+                                                    <select formControlName="idSector" class="form-control" name="selectIdSector"
+                                                        [ngClass]="{ 'is-invalid': submittedForm && m.idSector.errors }" >
+                                                            <option [ngValue]="objeto" *ngFor="let objeto of listSectores">{{objeto.id}} - {{objeto.descripcion}}</option>
+                                                    </select>
+                                                    <div *ngIf="submittedForm && m.idSector.errors" class="invalid-feedback">
+                                                        <div *ngIf="m.idSector.errors.required">El sector es requerido .</div>
+                                                    </div>
+                                                </div>
+
+                                                <div class="form-group col-md-11">
+                                                    <label for="lblIdEmisor" class="form-label">Emisor</label>
+                                                    <select formControlName="idEmisor" class="form-control" name="selectIdEmisor"
+                                                        [ngClass]="{ 'is-invalid': submittedForm && m.idEmisor.errors }" >
+                                                            <option [ngValue]="objeto" *ngFor="let objeto of listEmisores">{{objeto.id}} - {{objeto.descripcion}}</option>
+                                                    </select>
+                                                    <div *ngIf="submittedForm && m.idEmisor.errors" class="invalid-feedback">
+                                                        <div *ngIf="m.idEmisor.errors.required">El emisor es requerido .</div>
+                                                    </div>
+                                                </div>
+
+                                                <div class="form-group col-md-5">
+                                                    <label for="lblIdMoneda" class="form-label">Moneda</label>
+                                                    <select formControlName="idMoneda" class="form-control" name="selectIdMoneda"
+                                                        [ngClass]="{ 'is-invalid': submittedForm && m.idMoneda.errors }" >
+                                                            <option [ngValue]="objeto" *ngFor="let objeto of listMonedas">{{objeto.id}} - {{objeto.descripcion}}</option>
+                                                    </select>
+                                                    <div *ngIf="submittedForm && m.idMoneda.errors" class="invalid-feedback">
+                                                        <div *ngIf="m.idMoneda.errors.required">La moneda es requerida .</div>
+                                                    </div>
+                                                </div>
+
+                                                <div class="form-group col-md-6"></div>
+
+                                                <div class="form-group col-sm-3 margin-icos-mat">
+                                                    <mat-checkbox formControlName="calculaIntereses">Calcula Interés ?</mat-checkbox>
+                                                </div>
+                                                <div class="form-group col-sm-3 margin-icos-mat">
+                                                    <mat-checkbox formControlName="calculaImpuestos">Calcula Impuesto ?</mat-checkbox>
+                                                </div>
+                                                <div class="form-group col-sm-3 margin-icos-mat">
+                                                    <mat-checkbox formControlName="calculaCupones">Calcula Cupones ?</mat-checkbox>
+                                                </div>
                     
-                                                <div class="form-group col-sm-1 margin-icos-mat">
+                                                <div class="form-group col-sm-3 margin-icos-mat">
                                                     <mat-checkbox formControlName="estadoTitulo">Estado</mat-checkbox>
                                                 </div>
                     
@@ -149,11 +235,15 @@
                                                         <tr>
                                                             <th style="width: 5%"></th>
                                                             
-                                                            <th style="width: 15%">Código Interno</th>
                                                             <th style="width: 15%">Descripción</th>
-                                                            <th style="width: 15%">% de Interés</th>
-                                                            <th style="width: 10%">Estado</th>
-                                                            <th style="width: 12%">Modificado</th>
+                                                            <th style="width: 3%">Impuesto Renta</th>
+                                                            <th style="width: 3%">Moneda</th>
+                                                            <th style="width: 5%">Calcula Intereses</th>
+                                                            <th style="width: 5%">Calcula Impuestos</th>
+                                                            <th style="width: 5%">Calcula Cupones</th>
+
+                                                            <th style="width: 3%">Estado</th>
+                                                            <th style="width: 5%">Modificado</th>
                                                             <th style="width: 15%">Se actualizó</th>
                                                         </tr>
                                                     </thead>
@@ -163,9 +253,13 @@
                                                                 <div> <a > <mat-icon>swap_horiz</mat-icon> </a> </div>
                                                             </td>
                                                             
-                                                            <td>{{obj.codigoTitulo}}</td>
                                                             <td>{{obj.descripcion}}</td>
-                                                            <td>{{obj.porcentajeInteresTitulo}}</td>
+                                                            <td>{{obj.tasaImpuestoRenta}}</td>
+                                                            <td>{{obj.idMoneda}}</td>
+                                                            <td>{{obj.calculaIntereses}}</td>
+                                                            <td>{{obj.calculaImpuestos}}</td>
+                                                            <td>{{obj.calculaCupones}}</td>
+
                                                             <td>{{obj.estado}}</td>
                                                             <td>{{obj.modificadoPor}}</td>
                                                             <td>{{obj.fechaModificacion}}</td>

@@ -14,6 +14,7 @@ import { InvEmisoresComponent } from './mantenimientos/emisores-component';
 import { InvTitulosComponent } from './mantenimientos/titulos-component';
 import { InvTasasComponent } from './mantenimientos/tasas-component';
 import { InvClasesPlazosInversionesComponent } from './mantenimientos/clasesplazosinversiones-component';
+import { InvInclusionInversionOperacionesComponent } from './transacciones/operacionesPlazo/inclusionOperacionInversiones-component';
 
 const routes: Routes = [
     {
@@ -28,9 +29,10 @@ const routes: Routes = [
             { path: 'mantenimientos/tipos-anios.html',          component:  InvTiposAniosComponent },
             { path: 'mantenimientos/tmercados-tsectores.html',  component:  InvTMercadosTSectoresComponent },
             { path: 'mantenimientos/emisores.html',             component:  InvEmisoresComponent },
-            { path: 'mantenimientos/clasesplazos-inversiones.html',   component:  InvClasesPlazosInversionesComponent },
-            { path: 'mantenimientos/titulos.html',              component:  InvTitulosComponent },
-            { path: 'mantenimientos/tasas.html',               component:   InvTasasComponent }
+            { path: 'mantenimientos/clasesplazos-inversiones.html',                         component:  InvClasesPlazosInversionesComponent },
+            { path: 'mantenimientos/titulos.html',                                          component:  InvTitulosComponent },
+            { path: 'mantenimientos/tasas.html',                                            component:   InvTasasComponent },
+            { path: 'transacciones/operaciones-plazo/inclusionoperaciones-inversiones.html',component:   InvInclusionInversionOperacionesComponent }
 
         ]
     }

@@ -150,8 +150,6 @@
             }
         }
         
-        
-        
         &__new{
             color: #053254;
             transition: color 0.2s ease-in-out;
@@ -206,8 +204,6 @@
         color: #053254;
         transition: color 0.2s ease-in-out;
 
-        // text-align: center;
-
         &:hover {
             color: #F9A01B;
             cursor: pointer;
@@ -215,7 +211,7 @@
     }
     &__delete {
 
-        padding: 0 0 0 5px;
+        padding: 10px 0 0 5px;
         display: inline-block;
 
         color: #053254;
@@ -270,8 +266,6 @@
         cursor: pointer;
     }
 }
-
-
 
 .center-menu-items {
     display:         flex;
