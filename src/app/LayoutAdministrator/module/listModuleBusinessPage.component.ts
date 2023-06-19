@@ -56,11 +56,14 @@ export class ListModuleBusinessComponent implements OnInit {
 
         this.alertService.clear();
 
-        let pidBusiness = this.route.snapshot.params.pidBusiness;
+        // let pidBusiness = this.route.snapshot.params.pidBusiness;
 
-        if (pidBusiness) {
+        if (this.route.snapshot.params.pidBusiness) {
+        // if (pidBusiness) {
 
             this.business = new Compania;
+
+            let pidBusiness = this.route.snapshot.params.pidBusiness;
 
             if (!this.accountService.businessListValue) { this.router.navigate([this.HTTPListBusinessPage]);    return; }
             if (!this.userObservable.esAdmin) { this.router.navigate([this.Index]);                             return; }
@@ -76,35 +79,42 @@ export class ListModuleBusinessComponent implements OnInit {
                     this.listModulesSystem = listModulesSystemResponse;
     
                     this.accountService.getModulesBusiness(this.business.id)
-                    .pipe(first())
-                    .subscribe(listModulesResponse => {
-    
-                        this.listModulesBusiness = listModulesResponse;
-    
-                        if (this.listModulesBusiness && this.listModulesBusiness.length > 0) {
-    
-                            if (this.listModulesSystem.length !== this.listModulesBusiness.length) {
-                                
-                                this.listModulesBusiness.forEach((modBusiness) => {
+                        .pipe(first())
+                        .subscribe(listModulesResponse => {
 
-                                    this.listModulesSystem.splice(this.listModulesSystem.findIndex( m => m.identificador == modBusiness.identificador ), 1);
-                                        
-                                });
-    
-                            } else { this.listModulesSystem = null; }
-                        } else { this.listModulesBusiness = null; }
-                    },
-                    (error) => { console.log(error); });
-            });
+                            if (listModulesResponse && listModulesResponse.length > 0) {
+                                
+                                this.listModulesBusiness = listModulesResponse;
+
+                                if (this.listModulesSystem.length !== this.listModulesBusiness.length) {
+                                    
+                                    this.listModulesBusiness.forEach((modBusiness) => {
+
+                                        this.listModulesSystem.splice(this.listModulesSystem.findIndex( m => m.identificador == modBusiness.identificador ), 1);
+                                    });
+
+                                } else { this.listModulesSystem = null; }
+                                
+                            } else { this.listModulesBusiness = null; }
+                            // if (this.listModulesBusiness && this.listModulesBusiness.length > 0) {
+                            //     if (this.listModulesSystem.length !== this.listModulesBusiness.length) {
+                            //         this.listModulesBusiness.forEach((modBusiness) => {
+                            //             this.listModulesSystem.splice(this.listModulesSystem.findIndex( m => m.identificador == modBusiness.identificador ), 1);
+                            //         });
+                            //     } else { this.listModulesSystem = null; }
+                            // } else { this.listModulesBusiness = null; }
+                        },
+                        (error) => { console.log(error); });
+                });
         }
     }
 
-    assignModuleBusiness(idModule: number) : void {
+    assignModuleBusiness(identificadorModulo: string) : void {
 
         this.alertService.clear();
         this.isAssigning = true;
 
-        let module : Module = this.listModulesSystem.find(x => x.id === idModule);
+        let module : Module = this.listModulesSystem.find(x => x.identificador === identificadorModulo);
 
         this.accountService.assignModuleToBusiness(module.id, this.business.id)
             .pipe(first())
@@ -131,14 +141,14 @@ export class ListModuleBusinessComponent implements OnInit {
                 this.alertService.error(error);
             });
     }
-    desAssignModuleBusiness(idModule: number) : void {
+    desAssignModuleBusiness(identificadorModulo: string) : void {
 
         this.alertService.clear();
         this.isDesAssigning = true;
 
-        let module : Module = this.listModulesBusiness.find(x => x.id === idModule);
+        let module : Module = this.listModulesBusiness.find(x => x.identificador === identificadorModulo);
 
-        this.accountService.desAssignModuleToBusiness(module.id, this.businessObservable.id)
+        this.accountService.desAssignModuleToBusiness(module.id, this.business.id)
             .pipe(first())
             .subscribe( response => {
 
@@ -146,17 +156,14 @@ export class ListModuleBusinessComponent implements OnInit {
 
                     this.alertService.success(response.responseMesagge);
 
-                    this.listModulesBusiness.splice(this.listModulesBusiness.findIndex( m => m.id == module.id ), 1);
+                    this.listModulesBusiness.splice(this.listModulesBusiness.findIndex( m => m.identificador == identificadorModulo ), 1);
                     
-                    if (!this.listModulesSystem) {
-                        this.listModulesSystem = [];
-                    }
+                    if (!this.listModulesSystem) this.listModulesSystem = [];
+                    
                     this.listModulesSystem.push(module);
 
-                    if (this.listModulesBusiness.length==0) {
-                        this.listModulesBusiness = null;
-                    }
-
+                    if (this.listModulesBusiness.length==0) this.listModulesBusiness = null;
+                    
                 } else { this.alertService.warn(response.responseMesagge, { keepAfterRouteChange: true }); }
 
                 this.isDesAssigning = false;

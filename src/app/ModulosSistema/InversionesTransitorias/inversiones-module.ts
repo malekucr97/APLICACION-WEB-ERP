@@ -33,6 +33,7 @@ import { InvEmisoresComponent } from './mantenimientos/emisores-component';
 import { InvTitulosComponent } from './mantenimientos/titulos-component';
 import { InvTasasComponent } from './mantenimientos/tasas-component';
 import { InvClasesPlazosInversionesComponent } from './mantenimientos/clasesplazosinversiones-component';
+import { InvInclusionInversionOperacionesComponent } from './transacciones/operacionesPlazo/inclusionOperacionInversiones-component';
 
 @NgModule({
     imports: [
@@ -82,7 +83,10 @@ import { InvClasesPlazosInversionesComponent } from './mantenimientos/clasesplaz
         // / ** tasas
         InvTasasComponent,
         // / ** clases plazos inversiones
-        InvClasesPlazosInversionesComponent
+        InvClasesPlazosInversionesComponent,
+        // ** transacciones
+        // / ** operaciones a plazo
+        InvInclusionInversionOperacionesComponent
 
     ],
     entryComponents: [

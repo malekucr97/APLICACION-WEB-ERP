@@ -49,15 +49,18 @@ export class IndexContentPageComponent implements OnInit {
 
                 // lista los módulos activos de una compañía
                 this.accountService.getModulesActiveBusiness(this.businessObservable.id)
-                .pipe(first())
-                .subscribe(responseListModules => {
-                    // this.conexion = true;
-                    this.setListModules(responseListModules);
-                },
-                exception => {
-                    // si hay algun problema redirecciona a home
-                    this.router.navigate([this.UrlHome], { relativeTo: this.route });
-                });
+                    .pipe(first())
+                    .subscribe(responseListModules => {
+
+                        if (responseListModules && responseListModules.length > 0) this.setListModules(responseListModules);
+                            
+                        // this.conexion = true;
+                        // this.setListModules(responseListModules);
+                    },
+                    error => {
+                        // si hay algun problema redirecciona a home
+                        this.router.navigate([this.UrlHome], { relativeTo: this.route });
+                    });
 
             // lista los módulos activos de un usuario
             } else {
@@ -65,8 +68,11 @@ export class IndexContentPageComponent implements OnInit {
                 this.accountService.getModulesActiveUser(this.businessObservable.id, this.userObservable.idRol)
                 .pipe(first())
                 .subscribe(responseListModules => {
+
+                    if (responseListModules && responseListModules.length > 0) this.setListModules(responseListModules);
+
                     // this.conexion = true;
-                    this.setListModules(responseListModules);
+                    // this.setListModules(responseListModules);
                 },
                 error => {
                     // si hay algun problema redirecciona a home
@@ -79,6 +85,7 @@ export class IndexContentPageComponent implements OnInit {
     }
 
     private setListModules(responseListModules:Module[]=null) : void {
+        
         if ( responseListModules ) {
 
             var resp = responseListModules[0].pathLogo;

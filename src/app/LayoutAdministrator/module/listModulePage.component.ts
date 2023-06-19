@@ -4,26 +4,26 @@ import { Router } from '@angular/router';
 import { AccountService, AlertService } from '@app/_services';
 import { User, Module } from '@app/_models';
 import { Compania } from '../../_models/modules/compania';
-import { amdinBusiness, httpAccessAdminPage, httpLandingIndexPage } from '@environments/environment-access-admin';
+import { httpAccessAdminPage, httpLandingIndexPage } from '@environments/environment-access-admin';
 
 @Component({    templateUrl: 'HTML_ListModulePage.html',
                 styleUrls: ['../../../assets/scss/app.scss'] 
 })
 export class ListModuleComponent implements OnInit {
     
-    userObservable: User;
-    businessObservable: Compania;
+    userObservable : User;
+    businessObservable : Compania;
 
     listModules : Module[] = [];
     listModulesSystem : Module[] = [];
 
-    private Home    : string = httpLandingIndexPage.homeHTTP;
+    private Home : string = httpLandingIndexPage.homeHTTP;
 
-    public URLIndexAdminPage: string = httpAccessAdminPage.urlPageAdministrator;
+    public URLIndexAdminPage : string = httpAccessAdminPage.urlPageAdministrator;
 
     constructor(private accountService: AccountService,
                 private alertService: AlertService,
-                private router: Router) { 
+                private router: Router) {
             
             this.userObservable     = this.accountService.userValue;
             this.businessObservable = this.accountService.businessValue;
@@ -36,7 +36,7 @@ export class ListModuleComponent implements OnInit {
         this.accountService.getModulesSystem()
             .pipe(first())
             .subscribe(response => { this.listModulesSystem = response; });
-                    
+
         this.accountService.getModulesBusiness(this.businessObservable.id)
             .pipe(first())
             .subscribe(response => { this.listModules = response; });
@@ -74,9 +74,9 @@ export class ListModuleComponent implements OnInit {
 
         this.alertService.clear();
 
-        let moduleList = this.listModules.find(x => x.identificador === identificadorModulo);
+        let moduleList = this.listModulesSystem.find(x => x.identificador === identificadorModulo);
         
-        this.accountService.inActivateModule(moduleList.id)
+        this.accountService.inActivateModule(moduleList.id, this.businessObservable.id)
             .pipe(first())
             .subscribe( responseInActivate => {
 
@@ -85,7 +85,7 @@ export class ListModuleComponent implements OnInit {
                     this.alertService.success(responseInActivate.responseMesagge);
 
                     moduleList.estado = 'Inactivo';
-                    this.listModules.splice(this.listModules.findIndex( m => m.id == moduleList.id ), 1);
+                    this.listModules.splice(this.listModules.findIndex( m => m.identificador == identificadorModulo ), 1);
                     this.listModules.push(moduleList);
 
                 } else { 
@@ -97,5 +97,11 @@ export class ListModuleComponent implements OnInit {
                 this.alertService.error(message);
             });
     }
-  
+
+    selectModuleScreenUser(idModule: number) {
+
+
+        this.router.navigate(['/admin-module/adminpage-addaccessuserpagemodule.html/' + idModule]);
+
+    }
 }

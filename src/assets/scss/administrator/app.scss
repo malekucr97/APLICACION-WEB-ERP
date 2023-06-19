@@ -178,3 +178,385 @@ mat-divider {
     background-color: rgba(255, 255, 255, 0.5);
 }
 // -- >> FIN CAMBIOS DEL MENÚ HAMBURGUESA
+
+
+.articulo {
+
+    padding: 0.2% 1% 0.4% 1%;
+
+    &__contenedor {
+
+        // height: 800px;
+
+        margin: 1% 1% 1% 1%;
+        border-radius: 10px;
+
+        // ************
+        // ** HEADER **
+        &__header {
+
+            padding-bottom: 10px;
+            border-bottom: 1px solid rgb(202, 202, 202);
+
+            &__prev {
+                width: 50%;
+                
+                padding-left: 1%;
+                padding-top: 1%;
+
+                display: inline-block;
+
+                &__btns{
+                    color: #053254;
+                    transition: color 0.2s ease-in-out;
+                    
+                    &__ok{
+                        margin-left: 0.2%;
+                        margin-right: 0.2%;
+                        &:hover {
+                            color: #129523;
+                            cursor: pointer;
+                        }
+                    }
+                    &__warn{
+                        margin-left: 0.2%;
+                        margin-right: 0.2%;
+                        &:hover {
+                            color: #F9A01B;
+                            cursor: pointer;
+                        }
+                    }
+                    &__new{
+                        margin-left: 0.2%;
+                        margin-right: 0.2%;
+                        &:hover {
+                            color: #B3B3B3;
+                            cursor: pointer;
+                        }
+                    }
+                    &__danger{
+                        margin-left: 0.2%;
+                        margin-right: 0.2%;
+                        &:hover {
+                            color: #b82424;
+                            cursor: pointer;
+                        }
+                    }
+                }
+            }
+            &__next {
+                width: 50%;
+                padding: 0.5% 2% 0 0;
+                display: inline-block;
+                text-align: right;
+            }
+        }
+        
+        // **********
+        // ** BODY **
+        &__body {
+
+            padding-top: 2%;
+            padding-bottom: 2%;
+            padding-left: 1%;
+            padding-right: 1%;
+
+            display: flex;
+
+            &__prev_list{
+                background-color: white;
+
+                border-radius: 10px;
+
+                width: 49%;
+
+                display: flex;
+                flex-direction: column;
+
+                margin-right: 1%;
+            }
+            &__prev {
+
+                background-color: #254156;
+                color: white;
+
+                width: 50%;
+
+                display: flex;
+                flex-direction: column;
+
+                border-radius: 10px;
+
+                &__form {
+
+                    &__header {
+
+                        &__titulo{
+                            color: white;
+                        }
+
+                        border-bottom: 1px solid white;
+
+                        &__prev {
+                            width: 35%;
+                            padding-left: 2%;
+                            
+                            display: inline-block;
+                            text-align: left;
+                            
+                            &__btns{
+                                color: #053254;
+                                transition: color 0.2s ease-in-out;
+                                
+                                &__ok{
+                                    margin-left: 0.2%;
+                                    margin-right: 0.2%;
+                                    &:hover {
+                                        color: #129523;
+                                        cursor: pointer;
+                                    }
+                                }
+                                &__warn{
+                                    margin-left: 0.2%;
+                                    margin-right: 0.2%;
+                                    &:hover {
+                                        color: #F9A01B;
+                                        cursor: pointer;
+                                    }
+                                }
+                                &__new{
+                                    margin-left: 0.2%;
+                                    margin-right: 0.2%;
+                                    &:hover {
+                                        color: #005188;
+                                        cursor: pointer;
+                                    }
+                                }
+                                &__danger{
+                                    margin-left: 0.2%;
+                                    margin-right: 0.2%;
+                                    &:hover {
+                                        color: #b82424;
+                                        cursor: pointer;
+                                    }
+                                }
+                                &__otro{
+                                    margin-left: 0.2%;
+                                    margin-right: 0.2%;
+                                    &:hover {
+                                        color: #00AEEF;
+                                        cursor: pointer;
+                                    }
+                                }
+                            }
+                        }
+                        &__next {
+                            width: 65%;
+
+                            padding-right   : 2%;
+                            padding-top: 0.5%;
+
+                            display: inline-block;
+                            text-align: right;
+                        }
+                    }
+
+                    &__content{
+                        width: 100%;
+
+                        padding-left: 4%;
+                        padding-right: 4%;
+
+                        &__div_icon_search {
+                            text-align: center;
+                            padding-top: 35px;
+
+                            // &__space{
+                            //     width: 20px;
+                            // }
+                        }
+                    }
+                }
+                &__list {
+
+                    &__header {
+
+                        &__titulo{
+                            color: #053254;
+                        }
+
+                        &__prev {
+
+                            width: 90%;
+                            padding-left: 1%;
+                            display: inline-block;
+                            text-align: left;
+                            padding-top: 1%;
+                            
+                            &__btns{
+                                color: #053254;
+                                transition: color 0.2s ease-in-out;
+                                
+                                &__ok{
+                                    margin-left: 0.2%;
+                                    margin-right: 0.2%;
+                                    &:hover {
+                                        color: #129523;
+                                        cursor: pointer;
+                                    }
+                                }
+                                &__warn{
+                                    margin-left: 0.2%;
+                                    margin-right: 0.2%;
+                                    &:hover {
+                                        color: #F9A01B;
+                                        cursor: pointer;
+                                    }
+                                }
+                                &__new{
+                                    margin-left: 0.2%;
+                                    margin-right: 0.2%;
+                                    &:hover {
+                                        color: #B3B3B3;
+                                        cursor: pointer;
+                                    }
+                                }
+                                &__danger{
+                                    margin-left: 0.2%;
+                                    margin-right: 0.2%;
+                                    &:hover {
+                                        color: #b82424;
+                                        cursor: pointer;
+                                    }
+                                }
+                            }
+                        }
+                        &__next {
+                            width: 10%;
+
+                            padding-right   : 2%;
+                            display: inline-block;
+                            text-align: right;
+                        }
+                    }
+                    &__content{
+                        width: 100%;
+                    }
+                }
+                
+            }
+            &__next_list {
+                background-color: white;
+
+                border-radius: 10px;
+
+                width: 49%;
+
+                display: flex;
+                flex-direction: column;
+
+                margin-left: 1%;
+            }
+            &__next {
+
+                background-color: white;
+
+                border-radius: 10px;
+
+                width: 50%;
+
+                display: flex;
+                flex-direction: column;
+
+                &__list {
+
+                    &__header {
+
+                        &__titulo{
+                            color: #053254;
+                        }
+
+                        &__prev {
+
+                            width: 90%;
+                            padding-left: 1%;
+                            display: inline-block;
+                            text-align: left;
+                            padding-top: 1%;
+                            
+                            &__btns{
+                                color: #053254;
+                                transition: color 0.2s ease-in-out;
+                                
+                                &__ok{
+                                    margin-left: 0.2%;
+                                    margin-right: 0.2%;
+                                    &:hover {
+                                        color: #129523;
+                                        cursor: pointer;
+                                    }
+                                }
+                                &__warn{
+                                    margin-left: 0.2%;
+                                    margin-right: 0.2%;
+                                    &:hover {
+                                        color: #F9A01B;
+                                        cursor: pointer;
+                                    }
+                                }
+                                &__new{
+                                    margin-left: 0.2%;
+                                    margin-right: 0.2%;
+                                    &:hover {
+                                        color: #B3B3B3;
+                                        cursor: pointer;
+                                    }
+                                }
+                                &__danger{
+                                    margin-left: 0.2%;
+                                    margin-right: 0.2%;
+                                    &:hover {
+                                        color: #b82424;
+                                        cursor: pointer;
+                                    }
+                                }
+                            }
+                        }
+                        &__next {
+                            width: 10%;
+
+                            padding-right   : 2%;
+                            display: inline-block;
+                            text-align: right;
+                        }
+                    }
+                    &__content{
+                        width: 100%;
+                    }
+                }
+            }
+        }
+        // ************
+        // ** FOOTER **
+        &__footer {
+
+            border-top: 1px solid rgb(202, 202, 202);
+            &__prev {
+                width: 50%;
+                padding: 1% 0 0.5% 2%;
+                display: inline-block;
+                text-align: left;
+            }
+            &__next {
+                width: 50%;
+                padding: 1% 2% 0.5% 0;
+                display: inline-block;
+                text-align: right;
+            }
+        }
+    } 
+}
+
+.margin-icos-mat {
+    padding-top: 35px;
+}

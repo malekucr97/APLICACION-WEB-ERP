@@ -10,10 +10,7 @@ import { DialogoConfirmacionComponent }             from '@app/_components/dialo
 
 // ## -- servicio macred http -- ## //
 import { InversionesService }                       from '@app/_services/inversiones.service';
-import { InvTipoMoneda } from '@app/_models/Inversiones/TipoMoneda';
 import { first } from 'rxjs/operators';
-import { InvTipoCambio } from '@app/_models/Inversiones/TipoCambio';
-import { InvPeriocidad } from '@app/_models/Inversiones/Periocidad';
 import { InvTipoSector } from '@app/_models/Inversiones/TipoSector';
 import { InvEmisor } from '@app/_models/Inversiones/Emisor';
 import { InvTipoPersona } from '@app/_models/Inversiones/TipoPersona';
