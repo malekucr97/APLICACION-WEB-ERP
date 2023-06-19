@@ -7,17 +7,17 @@ import { MacredService } from '@app/_services/macred.service';
 import { first } from 'rxjs/operators';
 
 @Component({
-  selector: 'app-mantenimiento-tipo-actividad-economica',
-  templateUrl: './mantenimiento-tipo-actividad-economica.component.html',
+  selector: 'app-tipo-actividad-economica',
+  templateUrl: './Tipo-actividad-economica.component.html',
   styleUrls: [
     '../../../../../../assets/scss/app.scss',
     '../../../../../../assets/scss/macred/app.scss',
     '../../../../../../assets/scss/tailwind.scss',
   ],
 })
-export class MantenimientoTipoActividadEconomicaComponent implements OnInit {
+export class TipoActividadEconomicaComponent implements OnInit {
   private nombrePantalla: string =
-    'mantenimiento-tipo-actividad-economica.html';
+    'tipo-actividad-economica.html';
 
   // ## -- objetos suscritos -- ## //
   private userObservable: User;
