@@ -1,7 +1,7 @@
 export class MacPersona {
     id: number;
     codigoCompania: number;
-    
+
     identificacion: string;
     nombre: string;
     primerApellido: string;
@@ -58,4 +58,9 @@ export class MacPersona {
     fechaAdicion: Date;
     modificadoPor: string;
     fechaModificacion: Date;
+
+    pdCsd?: number;
+    pdTienePropiedad?: boolean;
+    pdTieneVehiculo?: boolean;
+
 }

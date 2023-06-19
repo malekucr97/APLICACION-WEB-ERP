@@ -36,20 +36,9 @@ export class AddRoleUserComponent implements OnInit {
 
         this.alertService.clear();
 
-        if (!this.accountService.userListValue) {
-            this.router.navigate([this.HTTPListUserPage]);
-            return;
-        }
-        
-        if (!this.userObservable.esAdmin) {
-            this.router.navigate([this.Index]);
-            return;
-        }
-
-        if (!this.route.snapshot.params.id) {
-            this.router.navigate([this.HTTPListUserPage]);
-            return;
-        }
+        if (!this.accountService.userListValue) { this.router.navigate([this.HTTPListUserPage]); return; }
+        if (!this.userObservable.esAdmin) { this.router.navigate([this.Index]); return; }
+        if (!this.route.snapshot.params.id) { this.router.navigate([this.HTTPListUserPage]); return; }
 
         let pUserId : string = this.route.snapshot.params.id;
 

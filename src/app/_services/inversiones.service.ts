@@ -14,6 +14,11 @@ import { InvTipoMercado } from '@app/_models/Inversiones/TipoMercado';
 import { InvTipoSector } from '@app/_models/Inversiones/TipoSector';
 import { InvEmisor } from '@app/_models/Inversiones/Emisor';
 import { InvPlazoInversion } from '@app/_models/Inversiones/PlazoInversion';
+import { InvTitulo } from '@app/_models/Inversiones/Titulo';
+import { InvClaseInversion } from '@app/_models/Inversiones/ClaseInversion';
+import { InvTasa } from '@app/_models/Inversiones/Tasa';
+import { InvInversionEncabezado } from '@app/_models/Inversiones/InversionEncabezado';
+import { InvInversionDetalle } from '@app/_models/Inversiones/InversionDetalle';
 
 @Injectable({ providedIn: 'root' })
 export class InversionesService {
@@ -186,6 +191,81 @@ export class InversionesService {
     }
     deletePlazoInversion( id : number ) {
         return this.http.delete<ResponseMessage>(`${environment.apiUrl}/inversiones/deleteplazoinversion?id=${id}`);
+    }
+    // *********************************
+    // *********************************
+    // MANTENIMIENTO DE TITULOS
+    getTitulo(descripcion: string, idCompania:number, soloActivos : boolean) {
+        return this.http.get<InvTitulo[]>(`${environment.apiUrl}/inversiones/gettitulo?descripcion=${descripcion}&idCompania=${idCompania}&soloActivos=${soloActivos}`);
+    }
+    postTitulo(objeto:InvTitulo) {
+        return this.http.post<InvTitulo>(`${environment.apiUrl}/inversiones/createtitulo`, objeto);
+    }
+    putTitulo(objeto:InvTitulo) {
+        return this.http.put<InvTitulo>(`${environment.apiUrl}/inversiones/updatetitulo`, objeto);
+    }
+    deleteTitulo( id : number ) {
+        return this.http.delete<ResponseMessage>(`${environment.apiUrl}/inversiones/deletetitulo?id=${id}`);
+    }
+    // *********************************
+    // *********************************
+    // MANTENIMIENTO DE CLASES DE INVERSIÓN
+    getClaseInversion(descripcion: string, idCompania:number, soloActivos : boolean) {
+        return this.http.get<InvClaseInversion[]>(`${environment.apiUrl}/inversiones/getclaseinversion?descripcion=${descripcion}&idCompania=${idCompania}&soloActivos=${soloActivos}`);
+    }
+    postClaseInversion(objeto:InvClaseInversion) {
+        return this.http.post<InvClaseInversion>(`${environment.apiUrl}/inversiones/createclaseinversion`, objeto);
+    }
+    putClaseInversion(objeto:InvClaseInversion) {
+        return this.http.put<InvClaseInversion>(`${environment.apiUrl}/inversiones/updateclaseinversion`, objeto);
+    }
+    deleteClaseInversion( id : number ) {
+        return this.http.delete<ResponseMessage>(`${environment.apiUrl}/inversiones/deleteclaseinversion?id=${id}`);
+    }
+    // *********************************
+    // *********************************
+    // MANTENIMIENTO DE TASAS
+    getTasa(descripcion: string, idCompania:number, soloActivos : boolean) {
+        return this.http.get<InvTasa[]>(`${environment.apiUrl}/inversiones/gettasa?descripcion=${descripcion}&idCompania=${idCompania}&soloActivos=${soloActivos}`);
+    }
+    postTasa(objeto:InvTasa) {
+        return this.http.post<InvTasa>(`${environment.apiUrl}/inversiones/createtasa`, objeto);
+    }
+    putTasa(objeto:InvTasa) {
+        return this.http.put<InvTasa>(`${environment.apiUrl}/inversiones/updatetasa`, objeto);
+    }
+    deleteTasa( id : number ) {
+        return this.http.delete<ResponseMessage>(`${environment.apiUrl}/inversiones/deletetasa?id=${id}`);
+    }
+    // *********************************
+    // *********************************
+    // MANTENIMIENTO DE ENCABEZADOS DE INVERSIÓN
+    getEncabezadoInversion(numero: string, idCompania:number, soloActivos : boolean) {
+        return this.http.get<InvInversionEncabezado[]>(`${environment.apiUrl}/inversiones/getencabezadoinversion?numero=${numero}&idCompania=${idCompania}&soloActivos=${soloActivos}`);
+    }
+    postEncabezadoInversion(objeto:InvInversionEncabezado) {
+        return this.http.post<InvInversionEncabezado>(`${environment.apiUrl}/inversiones/createencabezadoinversion`, objeto);
+    }
+    putEncabezadoInversion(objeto:InvInversionEncabezado) {
+        return this.http.put<InvInversionEncabezado>(`${environment.apiUrl}/inversiones/updateencabezadoinversion`, objeto);
+    }
+    deleteEncabezadoInversion( id : number ) {
+        return this.http.delete<ResponseMessage>(`${environment.apiUrl}/inversiones/deleteencabezadoinversion?id=${id}`);
+    }
+    // *********************************
+    // *********************************
+    // MANTENIMIENTO DE DETALLES DE INVERSIÓN
+    getDetalleInversion(idEncabezado: number, idCompania:number, soloActivos : boolean) {
+        return this.http.get<InvInversionDetalle[]>(`${environment.apiUrl}/inversiones/getdetalleinversion?idEncabezado=${idEncabezado}&idCompania=${idCompania}&soloActivos=${soloActivos}`);
+    }
+    postDetalleInversion(objeto:InvInversionDetalle) {
+        return this.http.post<InvInversionDetalle>(`${environment.apiUrl}/inversiones/createdetalleinversion`, objeto);
+    }
+    putDetalleInversion(objeto:InvInversionDetalle) {
+        return this.http.put<InvInversionDetalle>(`${environment.apiUrl}/inversiones/updatedetalleinversion`, objeto);
+    }
+    deleteDetalleInversion( id : number ) {
+        return this.http.delete<ResponseMessage>(`${environment.apiUrl}/inversiones/deletedetalleinversion?id=${id}`);
     }
     // *********************************
 }

@@ -13,17 +13,18 @@ import { InversionesService }   from '@app/_services/inversiones.service';
 import { first }                from 'rxjs/operators';
 
 import { InvPlazoInversion }    from '@app/_models/Inversiones/PlazoInversion';
+import { InvClaseInversion } from '@app/_models/Inversiones/ClaseInversion';
 
 declare var $: any;
 
 @Component({
-    templateUrl: 'HTML_PlazosInversiones.html',
+    templateUrl: 'HTML_ClasesPlazosInversiones.html',
     styleUrls: ['../../../../assets/scss/app.scss', '../../../../assets/scss/inversiones/app.scss'],
 })
-export class InvPlazosInversionesComponent implements OnInit {
+export class InvClasesPlazosInversionesComponent implements OnInit {
     @ViewChild(MatSidenav) sidenav !: MatSidenav;
 
-    private nombrePantalla  : string = 'HTML_PlazosInversiones.html';
+    private nombrePantalla  : string = 'HTML_ClasesPlazosInversiones.html';
     public nombreModulo     : string ;
 
     // ## -- objetos suscritos -- ## //
@@ -33,18 +34,25 @@ export class InvPlazosInversionesComponent implements OnInit {
 
     // ## -- formularios -- ## //
     formularioPlazoInversion  : FormGroup;
+    formulario  : FormGroup;
 
     // ## -- submitPlazoInversion formularios -- ## //
     submittedFormPlazoInversion    : boolean = false;
+    submittedForm     : boolean = false;
     
     // ## -- habilita botones -- ## //
     habilitaBtnRegistroPlazoInversion     : boolean = true;
     habilitaBtnActualizaPlazoInversion    : boolean = false;
     habilitaBtnNuevoPlazoInversion        : boolean = false;
     habilitaBtnEliminarPlazoInversion     : boolean = false;
+    habilitaBtnRegistro     : boolean = true;
+    habilitaBtnActualiza    : boolean = false;
+    habilitaBtnNuevo        : boolean = false;
+    habilitaBtnElimibar     : boolean = false;
 
     // ## -- listas analisis -- ## //
     public listObjetosPlazosInversiones  : InvPlazoInversion[];
+    public listObjetos  : InvClaseInversion[]  = [];
     
     public today : Date ;
 
@@ -62,6 +70,7 @@ export class InvPlazosInversionesComponent implements OnInit {
     }
 
     get m () {   return this.formularioPlazoInversion.controls;  }
+    get f () {   return this.formulario.controls;  }
 
     ngOnInit() {
 
@@ -75,9 +84,16 @@ export class InvPlazosInversionesComponent implements OnInit {
 
             estadoPlazoInversion        : [null]
         });
+        this.formulario    = this.formBuilder.group({
+            idClase             : [null],
+            codigoClase         : [null],
+            descripcionClase    : [null],
+            estadoClase         : [null]
+        });
         this.nombreModulo = this.moduleObservable.nombre ;
 
         this.buscarObjetoPlazoInversion(true);
+        this.buscarObjeto(true);
     }
 
     buscarObjetoPlazoInversion(getAll : boolean = false) : void {
@@ -271,6 +287,191 @@ export class InvPlazosInversionesComponent implements OnInit {
                     this.inicializaFormularioPlazoInversion();
 
                     this.alertService.success( `Registro actualizado con éxito.` );
+
+                } else { this.alertService.error(`No fue posible actualizar el registro .`); }
+
+            }, error => {
+                this.alertService.error( `Problemas al establecer la conexión con el servidor. Detalle: ${ error }` );
+            });
+    }
+
+
+    buscarObjeto(getAll : boolean = false) : void {
+
+        this.alertService.clear();
+        this.submittedForm = true;
+
+        let descripcion = this.formulario.controls['descripcionClase'].value ;
+
+        if (getAll) descripcion = "%%" ;
+
+        this.inversionesService.getClaseInversion(descripcion, this.companiaObservable.id, false)
+            .pipe(first())
+            .subscribe(response => {
+
+                if ( response && response.length > 0 ) {
+                    
+                    this.inicializaFormulario(response[0]);
+
+                    this.listObjetos = response ;
+
+                } else { 
+                
+                    this.inicializaFormulario();
+                    this.alertService.info('No se encontraron registros .');
+                }
+            },
+            error => {
+                let message : string = 'Problemas de conexión: ' + error;
+                this.alertService.error(message);
+            });
+    }
+    inicializaFormulario(objeto : InvClaseInversion = null)       : void {
+
+        if (objeto) {
+
+            this.habilitaBtnRegistro = false ;
+            this.habilitaBtnActualiza= true ;
+            this.habilitaBtnNuevo = true ;
+            this.habilitaBtnElimibar = true;
+
+            this.formulario    = this.formBuilder.group({
+                idClase                : [objeto.id],
+                codigoClase            : [objeto.codigoClase, Validators.required],
+                descripcionClase       : [objeto.descripcion, Validators.required],
+                estadoClase            : [objeto.estado, Validators.required]
+            });
+        } else {
+
+            this.habilitaBtnRegistro = true ;
+            this.habilitaBtnActualiza= false;
+            this.habilitaBtnNuevo = false ;
+            this.habilitaBtnElimibar = false;
+
+            this.formulario    = this.formBuilder.group({
+                idClase                : [null],
+                codigoClase            : [null, Validators.required],
+                descripcionClase       : [null, Validators.required],
+                estadoClase            : [true, Validators.required]
+            });
+        }
+    }
+
+    selectObjeto(objeto : InvClaseInversion) : void {
+
+        this.inicializaFormulario(objeto);
+    }
+
+    crearObjectForm() : InvClaseInversion {
+
+        var codigoClase            = this.formulario.controls['codigoClase'].value;
+        var descripcionClase       = this.formulario.controls['descripcionClase'].value;
+        var estadoClase            = this.formulario.controls['estadoClase'].value;
+
+        var objForm = new InvClaseInversion (this.companiaObservable.id, codigoClase, descripcionClase, estadoClase) ;
+
+        return objForm ;
+    }
+
+    submit() : void {
+
+        this.alertService.clear();
+        this.submittedForm = true;
+
+        if ( this.formulario.invalid ) return;
+
+        var objectForm : InvClaseInversion = this.crearObjectForm();
+        
+        objectForm.adicionadoPor    = this.userObservable.identificacion;
+        objectForm.fechaAdicion     = this.today;
+
+        this.inversionesService.postClaseInversion(objectForm)
+            .pipe(first())
+            .subscribe(response => {
+
+                if ( response ) {
+
+                    this.listObjetos.push(response);
+
+                    this.inicializaFormulario();
+
+                    this.alertService.success( `Registro exitoso .` );
+
+                } else { this.alertService.error(`No fue posible registrar la moneda .`); }
+
+            }, error => {
+                this.alertService.error( `Problemas al establecer la conexión con el servidor. Detalle: ${ error }` );
+            });
+    }
+
+    eliminarObjeto() : void {
+
+        this.alertService.clear();
+        this.submittedForm = true;
+
+        if ( this.formulario.invalid ) return;
+
+        var id : number = this.formulario.controls['idClase'].value;
+
+        this.dialogo.open(DialogoConfirmacionComponent, {
+            data: `Segur@ que desea eliminar el registro para siempre ?`
+        })
+        .afterClosed()
+        .subscribe((confirmado: Boolean) => {
+
+            if (confirmado) {
+
+                this.inversionesService.deleteClaseInversion( id )
+                    .pipe(first())
+                    .subscribe(response => {
+                        if (response.exito) {
+
+                            this.listObjetos.splice(this.listObjetos.findIndex( m => m.id == id ), 1);
+
+                            this.inicializaFormulario();
+
+                            this.alertService.success(response.responseMesagge);
+                            
+                        } else { this.alertService.error(response.responseMesagge); }
+                    });
+                
+            } else { return; }
+        });
+    }
+
+    limpiarFormulario() : void {
+
+        this.inicializaFormulario();
+    }
+
+    actualizaObjeto() : void {
+
+        this.alertService.clear();
+        this.submittedForm = true;
+
+        if ( this.formulario.invalid ) return;
+
+        var objectForm : InvClaseInversion = this.crearObjectForm();
+
+        objectForm.id = this.formulario.controls['idClase'].value;
+        
+        objectForm.modificadoPor        = this.userObservable.identificacion;
+        objectForm.fechaModificacion    = this.today;
+
+        this.inversionesService.putClaseInversion(objectForm)
+            .pipe(first())
+            .subscribe(response => {
+
+                if ( response ) {
+
+                    if( this.listObjetos.find( m => m.id == response.id ) ) {
+                        this.listObjetos.splice(this.listObjetos.findIndex( m => m.id == response.id ), 1);
+                    }
+                    this.listObjetos.push(response);
+
+                    this.inicializaFormulario();
+
+                    this.alertService.success( `Registro actualizado con éxito con éxito.` );
 
                 } else { this.alertService.error(`No fue posible actualizar el registro .`); }
 

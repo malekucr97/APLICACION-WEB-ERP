@@ -1,1120 +1,2211 @@
 <main>
-
-    <!-- *************************** -->
-    <!-- FORMULARIO DATOS PERSONA    -->
-    <!-- *************************** -->
-    <article class="bloq">
-
-        <div class="contenedor mat-elevation-z4">
-            
-            <section>   <!-- header -->
-                <div class="contenedor__header">                    
-                    <div class="contenedor__header__prev">
-                        <h2 >Consulta de Personas </h2>
-                    </div>
-                    <div class="contenedor__header__next">  </div>
-                </div>
-            </section>
-
-            <section>   <!-- body -->
-                <div class="contenedor__body">
-
-                    <form [formGroup]="formPersona" class="row">
-
-                        <div class="form-group col-md-3">
-                            <label for="id" class="form-label">Id</label>
-                            <input formControlName="id" class="form-control" type="text" id="id_id" readonly />
-                        </div>
-                        
-                        <div class="form-group col-md-6">
-                            <label for="lblIdentificacion" class="form-label">Número de Identificación</label>
-                            <input formControlName="identificacion" class="form-control" type="text" id="id_identificacion"
-                                [ngClass]="{ 'is-invalid': submittedPersonForm && f.identificacion.errors }" />
-                            <div *ngIf="submittedPersonForm && f.identificacion.errors" class="invalid-feedback">
-                                <div *ngIf="f.identificacion.errors.required">La identificación es requerida</div>
-                            </div>
-                        </div>
-
-                        <div class="col-md-3 margin-icos-mat item-list">
-                            <a class="item-list__confirm"> <mat-icon (click)="SubmitPerson()">search</mat-icon> </a>
-                        </div>
-
-                        <div class="form-group col-md-6">
-                            <label for="nombre" class="form-label">Nombre</label>
-                            <input formControlName="nombre" class="form-control" type="text" id="id_nombre"
-                                [ngClass]="{ 'is-invalid': submittedPersonForm && f.nombre.errors }" />
-                            <div *ngIf="submittedPersonForm && f.nombre.errors" class="invalid-feedback">
-                                <div *ngIf="f.nombre.errors.required">El nombre es requerido</div>
-                            </div>
-                        </div>
-                        <div class="form-group col-md-3">
-                            <label for="primerApellido" class="form-label">Primer Apellido</label>
-                            <input formControlName="primerApellido" class="form-control" type="text" id="id_nombre"
-                                [ngClass]="{ 'is-invalid': submittedPersonForm && f.primerApellido.errors }" />
-                            <div *ngIf="submittedPersonForm && f.primerApellido.errors" class="invalid-feedback">
-                                <div *ngIf="f.primerApellido.errors.required">El primer apellido es requerido</div>
-                            </div>
-                        </div>
-                        <div class="form-group col-md-3">
-                            <label for="segundoApellido" class="form-label">Segundo Apellido</label>
-                            <input formControlName="segundoApellido" class="form-control" type="text" id="id_nombre"
-                                [ngClass]="{ 'is-invalid': submittedPersonForm && f.segundoApellido.errors }" />
-                            <div *ngIf="submittedPersonForm && f.segundoApellido.errors" class="invalid-feedback">
-                                <div *ngIf="f.segundoApellido.errors.required">El segundo apellido es requerido</div>
-                            </div>
-                        </div>
-                        <button class="item-list__search" type="submit" (click)="SubmitPerson()"></button>
-                    </form>
-                </div>
-            </section>
-
+  <!-- *************************** -->
+  <!-- FORMULARIO DATOS PERSONA    -->
+  <!-- *************************** -->
+  <article class="bloq">
+    <div class="contenedor mat-elevation-z4">
+      <section>
+        <!-- header -->
+        <div class="contenedor__header">
+          <div class="contenedor__header__prev">
+            <h2>Consulta de Personas</h2>
+          </div>
+          <div class="contenedor__header__next"></div>
         </div>
+      </section>
 
-    </article>
-
-    <!-- *************************** -->
-    <!-- TÍTULO DE MENÚ SELECCIONADO -->
-    <!-- *************************** -->
-    <article class="bloq">
-        <section *ngIf="menuItem">
-            <div class="center-menu-items item-list">
-                <p class="item-list__edit titulo-menu-seleccionado">{{menuItem.nombre}}</p>
+      <section>
+        <!-- body -->
+        <div class="contenedor__body">
+          <form [formGroup]="formPersona" class="row">
+            <div class="form-group col-md-3">
+              <label for="id" class="form-label">Id</label>
+              <input
+                formControlName="id"
+                class="form-control"
+                type="text"
+                id="id_id"
+                readonly
+              />
             </div>
-        </section>
-    </article>
 
-
-    <article *ngIf="menuItem" class="contenedor-analisis mat-elevation-z4">
-                
-        <!-- ************************** -->
-        <!-- ARTÍCULO DATOS DE ANALISIS -->
-        <!-- ************************** -->
-        <div class="contenedor-analisis__menu">
-            <div class="contenedor-analisis__menu__body" *ngFor="let module of listSubMenu">
-                <p class="contenedor-analisis__menu__items__titulo" (click)="selectModule(module)">{{module.nombre}}</p>
+            <div class="form-group col-md-6">
+              <label for="lblIdentificacion" class="form-label"
+                >Número de Identificación</label
+              >
+              <input
+                formControlName="identificacion"
+                class="form-control"
+                type="text"
+                id="id_identificacion"
+                [ngClass]="{ 'is-invalid': submittedPersonForm && f.identificacion.errors }"
+              />
+              <div
+                *ngIf="submittedPersonForm && f.identificacion.errors"
+                class="invalid-feedback"
+              >
+                <div *ngIf="f.identificacion.errors.required">
+                  La identificación es requerida
+                </div>
+              </div>
             </div>
-        </div> 
 
-        
-        <div class="contenedor-analisis__tabletas">
+            <div class="col-md-3 margin-icos-mat item-list">
+              <a class="item-list__confirm">
+                <mat-icon (click)="SubmitPerson()">search</mat-icon>
+              </a>
+            </div>
 
-            <!-- ************************** -->
-            <!-- ARTÍCULO DATOS DE ANALISIS -->
-            <!-- ************************** -->
-            <article *ngIf="datosAnalisis" >
-                <section>
-                    <div class="contenedor__header" >
-                        <div class="contenedor__header__prev" >
-                            <h2 *ngIf="!_analisisCapacidadpago">Información de Análisis</h2>
-                            <h2 *ngIf="_analisisCapacidadpago">codigo de análisis: {{_analisisCapacidadpago.codigoAnalisis}}</h2>
-                        </div>
-                        <div class="contenedor__header__next">
-                            <button *ngIf="habilitaBtnHistoprialIngreso" (click)="openHistorialModal()" class="btn btn-dark px-5 " >
-                                Historial       </button>
-                            <button *ngIf="habilitaBtnRegistroDeudor" class="btn btn-dark px-5 " >
-                                Nuevo Deudor    </button>
-                        </div>
+            <div class="form-group col-md-6">
+              <label for="nombre" class="form-label">Nombre</label>
+              <input
+                formControlName="nombre"
+                class="form-control"
+                type="text"
+                id="id_nombre"
+                [ngClass]="{ 'is-invalid': submittedPersonForm && f.nombre.errors }"
+              />
+              <div
+                *ngIf="submittedPersonForm && f.nombre.errors"
+                class="invalid-feedback"
+              >
+                <div *ngIf="f.nombre.errors.required">
+                  El nombre es requerido
+                </div>
+              </div>
+            </div>
+            <div class="form-group col-md-3">
+              <label for="primerApellido" class="form-label"
+                >Primer Apellido</label
+              >
+              <input
+                formControlName="primerApellido"
+                class="form-control"
+                type="text"
+                id="id_nombre"
+                [ngClass]="{ 'is-invalid': submittedPersonForm && f.primerApellido.errors }"
+              />
+              <div
+                *ngIf="submittedPersonForm && f.primerApellido.errors"
+                class="invalid-feedback"
+              >
+                <div *ngIf="f.primerApellido.errors.required">
+                  El primer apellido es requerido
+                </div>
+              </div>
+            </div>
+            <div class="form-group col-md-3">
+              <label for="segundoApellido" class="form-label"
+                >Segundo Apellido</label
+              >
+              <input
+                formControlName="segundoApellido"
+                class="form-control"
+                type="text"
+                id="id_nombre"
+                [ngClass]="{ 'is-invalid': submittedPersonForm && f.segundoApellido.errors }"
+              />
+              <div
+                *ngIf="submittedPersonForm && f.segundoApellido.errors"
+                class="invalid-feedback"
+              >
+                <div *ngIf="f.segundoApellido.errors.required">
+                  El segundo apellido es requerido
+                </div>
+              </div>
+            </div>
+            <button
+              class="item-list__confirm"
+              type="submit"
+              (click)="SubmitPerson()"
+            ></button>
+          </form>
+        </div>
+      </section>
+    </div>
+  </article>
+
+  <!-- *************************** -->
+  <!-- TÍTULO DE MENÚ SELECCIONADO -->
+  <!-- *************************** -->
+  <article class="bloq">
+    <section *ngIf="menuItem">
+      <div class="center-menu-items item-list">
+        <p class="item-list__edit titulo-menu-seleccionado">
+          {{menuItem.nombre}}
+        </p>
+      </div>
+    </section>
+  </article>
+
+  <article *ngIf="menuItem" class="contenedor-analisis mat-elevation-z4">
+    <!-- ************************** -->
+    <!-- ARTÍCULO DATOS DE ANALISIS -->
+    <!-- ************************** -->
+    <div class="contenedor-analisis__menu">
+      <div
+        class="contenedor-analisis__menu__body"
+        *ngFor="let module of listSubMenu"
+      >
+        <p
+          class="contenedor-analisis__menu__items__titulo"
+          (click)="selectModule(module)"
+        >
+          {{module.nombre}}
+        </p>
+      </div>
+    </div>
+
+    <div class="contenedor-analisis__tabletas">
+      <!-- ************************** -->
+      <!-- ARTÍCULO DATOS DE ANALISIS -->
+      <!-- ************************** -->
+      <article *ngIf="datosAnalisis">
+        <section>
+          <div class="contenedor__header">
+            <div class="contenedor__header__prev">
+              <h2 *ngIf="!_analisisCapacidadpago">Información de Análisis</h2>
+              <h2 *ngIf="_analisisCapacidadpago">
+                codigo de análisis: {{_analisisCapacidadpago.codigoAnalisis}}
+              </h2>
+            </div>
+            <div class="contenedor__header__next">
+              <button
+                *ngIf="habilitaBtnHistoprialIngreso"
+                (click)="openHistorialModal()"
+                class="btn btn-dark px-5"
+              >
+                Historial
+              </button>
+              <button
+                *ngIf="habilitaBtnRegistroDeudor"
+                class="btn btn-dark px-5"
+              >
+                Nuevo Deudor
+              </button>
+            </div>
+          </div>
+
+          <div class="contenedor-analisis__tabletas__body">
+            <form [formGroup]="formAnalisis" class="row">
+              <div class="col-md-3">
+                <label for="lblFechaAnalisis" class="form-label"
+                  >Fecha de Análisis</label
+                >
+                <input
+                  formControlName="fechaAnalisis"
+                  class="form-control"
+                  matInput
+                  [matDatepicker]="picker"
+                />
+                <mat-datepicker-toggle
+                  matSuffix
+                  [for]="picker"
+                ></mat-datepicker-toggle>
+                <mat-datepicker #picker></mat-datepicker>
+              </div>
+
+              <div
+                class="form-group col-sm-1 margin-icos-mat margin-icos-mat__cbx"
+              >
+                <mat-checkbox formControlName="estado">Estado</mat-checkbox>
+              </div>
+              <div class="form-group col-sm-1 margin-icos-mat">
+                <mat-checkbox formControlName="analisisDefinitivo"
+                  >Análisis definitivo ?</mat-checkbox
+                >
+              </div>
+
+              <div class="col-sm-7"></div>
+
+              <div class="form-group col-md-6">
+                <label for="lblCapacidadPago" class="form-label"
+                  >Nivel de Capacidad de Pago</label
+                >
+                <select
+                  formControlName="capacidadPago"
+                  class="form-control"
+                  name="selectCapacidadPago"
+                  readonly
+                >
+                  <option
+                    [disabled]="true"
+                    [ngValue]="objeto"
+                    *ngFor="let objeto of listNivelesCapacidadpago"
+                  >
+                    {{objeto.descripcion}}
+                  </option>
+                </select>
+                <div
+                  *ngIf="submittedAnalisisForm && g.capacidadPago.errors"
+                  class="invalid-feedback"
+                >
+                  <div *ngIf="g.capacidadPago.errors.required">
+                    El Nivel de Capacidad de Pago es requerido
+                  </div>
+                </div>
+              </div>
+
+              <div class="form-group col-md-2">
+                <label for="lblPuntajeAnalisis" class="form-label"
+                  >Puntaje del Análisis</label
+                >
+                <input
+                  formControlName="puntajeAnalisis"
+                  class="form-control"
+                  type="text"
+                  id="id_puntajeAnalisis"
+                  readonly
+                />
+              </div>
+              <div class="form-group col-md-2">
+                <label for="lblCalificacionCic" class="form-label"
+                  >Calificación CIC</label
+                >
+                <input
+                  formControlName="calificacionCic"
+                  class="form-control"
+                  type="text"
+                  id="id_calificacionCic"
+                  readonly
+                />
+              </div>
+              <div class="form-group col-md-2">
+                <label for="lblCalificacionFinalCic" class="form-label"
+                  >Calificación FINAL CIC</label
+                >
+                <input
+                  formControlName="calificacionFinalCic"
+                  class="form-control"
+                  type="text"
+                  id="id_calificacionFinalCic"
+                  readonly
+                />
+              </div>
+
+              <div class="form-group col-md-3">
+                <label for="lblTipoIngresoAnalisis" class="form-label"
+                  >Tipo de Ingreso de Análisis</label
+                >
+                <select
+                  formControlName="tipoIngresoAnalisis"
+                  class="form-control"
+                  name="selectTipoIngresoAnalisis"
+                  [ngClass]="{ 'is-invalid': submittedAnalisisForm && g.tipoIngresoAnalisis.errors }"
+                >
+                  <option
+                    [ngValue]="objeto"
+                    *ngFor="let objeto of listTipoIngresoAnalisis"
+                  >
+                    {{objeto.id}} - {{objeto.descripcion}}
+                  </option>
+                </select>
+                <div
+                  *ngIf="submittedAnalisisForm && g.tipoIngresoAnalisis.errors"
+                  class="invalid-feedback"
+                >
+                  <div *ngIf="g.tipoIngresoAnalisis.errors.required">
+                    El Tipo de Ingreso es requerido
+                  </div>
+                </div>
+              </div>
+              <div class="form-group col-md-3">
+                <label for="tipoFormaPagoAnalisis" class="form-label"
+                  >Forma de Pago de Análisis</label
+                >
+                <select
+                  formControlName="tipoFormaPagoAnalisis"
+                  class="form-control"
+                  name="tipoFormaPagoAnalisis"
+                  [ngClass]="{ 'is-invalid': submittedAnalisisForm && g.tipoFormaPagoAnalisis.errors }"
+                >
+                  <option
+                    [ngValue]="objeto"
+                    *ngFor="let objeto of listTipoFormaPagoAnalisis"
+                  >
+                    {{objeto.id}} - {{objeto.descripcion}}
+                  </option>
+                </select>
+                <div
+                  *ngIf="submittedAnalisisForm && g.tipoFormaPagoAnalisis.errors"
+                  class="invalid-feedback"
+                >
+                  <div *ngIf="g.tipoFormaPagoAnalisis.errors.required">
+                    La Forma de Pago es requerida
+                  </div>
+                </div>
+              </div>
+
+              <div class="form-group col-md-4">
+                <label for="lblModeloAnalisis" class="form-label"
+                  >Modelo de Análisis</label
+                >
+                <select
+                  formControlName="modeloAnalisis"
+                  class="form-control"
+                  name="selectModeloAnalisis"
+                  [ngClass]="{ 'is-invalid': submittedAnalisisForm && g.modeloAnalisis.errors }"
+                >
+                  <option
+                    [ngValue]="objeto"
+                    *ngFor="let objeto of listModelosAnalisis"
+                  >
+                    {{objeto.id}} - {{objeto.descripcion}}
+                  </option>
+                </select>
+                <div
+                  *ngIf="submittedAnalisisForm && g.modeloAnalisis.errors"
+                  class="invalid-feedback"
+                >
+                  <div *ngIf="g.modeloAnalisis.errors.required">
+                    El Modelo de Análisis es requerido
+                  </div>
+                </div>
+              </div>
+
+              <div class="form-group col-md-2">
+                <label for="tipoMoneda" class="form-label">Moneda</label>
+                <select
+                  formControlName="tipoMoneda"
+                  class="form-control"
+                  name="tipoMoneda"
+                  [ngClass]="{ 'is-invalid': submittedAnalisisForm && g.tipoMoneda.errors }"
+                >
+                  <option
+                    [ngValue]="objeto"
+                    *ngFor="let objeto of listTiposMonedas"
+                  >
+                    {{objeto.simbolo}} {{objeto.descripcion}}
+                  </option>
+                </select>
+                <div
+                  *ngIf="submittedAnalisisForm && g.tipoMoneda.errors"
+                  class="invalid-feedback"
+                >
+                  <div *ngIf="g.tipoMoneda.errors.required">
+                    La Moneda es requerida
+                  </div>
+                </div>
+              </div>
+
+              <div class="form-group col-md-3">
+                <label for="lblTipoGenerador" class="form-label"
+                  >Tipo de Generador</label
+                >
+                <select
+                  formControlName="tipoGenerador"
+                  class="form-control"
+                  name="selectTipoGenerador"
+                  [ngClass]="{ 'is-invalid': submittedAnalisisForm && g.tipoGenerador.errors }"
+                >
+                  <option
+                    [ngValue]="objeto"
+                    *ngFor="let objeto of listTiposGeneradores"
+                  >
+                    {{objeto.codigoGenerador}} - {{objeto.descripcion}}
+                  </option>
+                </select>
+                <div
+                  *ngIf="submittedAnalisisForm && g.tipoGenerador.errors"
+                  class="invalid-feedback"
+                >
+                  <div *ngIf="g.tipoGenerador.errors.required">
+                    El Tipo de Generador es requerido
+                  </div>
+                </div>
+              </div>
+
+              <div class="form-group col-md-3">
+                <label for="lblIndicadorCsd" class="form-label"
+                  >Indicador CSD</label
+                >
+                <input
+                  formControlName="indicadorCsd"
+                  class="form-control"
+                  type="number"
+                  id="id_indicadorcsd"
+                  [ngClass]="{ 'is-invalid': submittedAnalisisForm && g.indicadorCsd.errors }"
+                />
+                <div
+                  *ngIf="submittedAnalisisForm && g.indicadorCsd.errors"
+                  class="invalid-feedback"
+                >
+                  <div *ngIf="g.indicadorCsd.errors.required">
+                    El Indicador CSD es requerido
+                  </div>
+                </div>
+              </div>
+
+              <div class="form-group col-md-4">
+                <label for="lblPonderacionLvt" class="form-label"
+                  >Ponderación LVT</label
+                >
+                <input
+                  formControlName="ponderacionLvt"
+                  class="form-control"
+                  type="text"
+                  id="id_ponderacionLvt"
+                  [ngClass]="{ 'is-invalid': submittedAnalisisForm && g.ponderacionLvt.errors }"
+                />
+                <div
+                  *ngIf="submittedAnalisisForm && g.ponderacionLvt.errors"
+                  class="invalid-feedback"
+                >
+                  <div *ngIf="g.ponderacionLvt.errors.required">
+                    La ponderación LVT es requerida
+                  </div>
+                </div>
+              </div>
+
+              <div class="form-group col-md-2">
+                <label for="lblNumeroDependientes" class="form-label"
+                  >Número de Dependientes</label
+                >
+                <input
+                  formControlName="numeroDependientes"
+                  class="form-control"
+                  type="number"
+                  id="id_numeroDependientes"
+                  [ngClass]="{ 'is-invalid': submittedAnalisisForm && g.numeroDependientes.errors }"
+                />
+                <div
+                  *ngIf="submittedAnalisisForm && g.numeroDependientes.errors"
+                  class="invalid-feedback"
+                >
+                  <div *ngIf="g.numeroDependientes.errors.required">
+                    El Número de Dependientes es requerido
+                  </div>
+                </div>
+              </div>
+
+              <div class="form-group col-md-12">
+                <hr />
+                <textarea
+                  matInput
+                  formControlName="observaciones"
+                  class="form-control"
+                  id="id_observaciones"
+                  placeholder="Ingrese las observaciones..."
+                ></textarea>
+                <hr />
+              </div>
+            </form>
+          </div>
+
+          <div class="contenedor__footer">
+            <div class="contenedor__footer__prev">
+              <button
+                *ngIf="habilitaBtnGeneraNuevoAnalisis"
+                (click)="SubmitNuevoAnalisis()"
+                class="btn btn-success px-5"
+                mat-flat-button
+                color="primary"
+              >
+                Registrar
+              </button>
+
+              <button
+                *ngIf="habilitaBtnGuardarAnalisis"
+                (click)="GuardarAnalisis()"
+                class="btn btn-success px-5"
+                mat-flat-button
+                color="primary"
+              >
+                Guardar Cambios
+              </button>
+            </div>
+            <div class="contenedor__footer__next">
+              <button
+                *ngIf="habilitaBtnIngreso"
+                (click)="habilitaFormularioIngreso()"
+                class="btn px-5 btn-info"
+                mat-flat-button
+                color="primary"
+              >
+                Ingresos
+              </button>
+            </div>
+          </div>
+
+          <!-- ****************************** -->
+          <!-- MODAL DE HISTORIAL DE ANÁLISIS -->
+          <!-- ****************************** -->
+          <article class="modal modal-config" id="analisisHistorialModal">
+            <div class="modal-content">
+              <section>
+                <div class="modal-header">
+                  <div class="contenedor__header-modal">
+                    <div class="contenedor__header__prev">
+                      <h1 style="color: #1a5276">
+                        Historial de Análisis de Capacida de Pago
+                      </h1>
                     </div>
-        
-                    <div class="contenedor-analisis__tabletas__body">
-                        <form [formGroup]="formAnalisis" class="row">
-                            
-                            <div class="col-md-3">
-                                <label for="lblFechaAnalisis" class="form-label">Fecha de Análisis</label>
-                                <input formControlName="fechaAnalisis" class="form-control" matInput [matDatepicker]="picker" >
-                                <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
-                                <mat-datepicker #picker></mat-datepicker>
-                            </div>
-        
-                            <div class="form-group col-sm-1 margin-icos-mat margin-icos-mat__cbx">
-                                <mat-checkbox formControlName="estado">Estado</mat-checkbox>
-                            </div>
-                            <div class="form-group col-sm-1 margin-icos-mat">
-                                <mat-checkbox formControlName="analisisDefinitivo" >Análisis definitivo ?</mat-checkbox>
-                            </div>
-        
-                            <div class="col-sm-7"> </div>
-        
-                            <div class="form-group col-md-6">
-                                <label for="lblCapacidadPago" class="form-label">Nivel de Capacidad de Pago</label>
-                                <select formControlName="capacidadPago" class="form-control" name="selectCapacidadPago" readonly >
-                                        <option [disabled]="true" [ngValue]="objeto" *ngFor="let objeto of listNivelesCapacidadpago">{{objeto.descripcion}}</option>
-                                </select>
-                                <div *ngIf="submittedAnalisisForm && g.capacidadPago.errors" class="invalid-feedback">
-                                    <div *ngIf="g.capacidadPago.errors.required">El Nivel de Capacidad de Pago es requerido</div>
-                                </div>
-                            </div>
-                            
-                            <div class="form-group col-md-2">
-                                <label for="lblPuntajeAnalisis" class="form-label">Puntaje del Análisis</label>
-                                <input formControlName="puntajeAnalisis" class="form-control" type="text" id="id_puntajeAnalisis"
-                                readonly />
-                            </div>
-                            <div class="form-group col-md-2">
-                                <label for="lblCalificacionCic" class="form-label">Calificación CIC</label>
-                                <input formControlName="calificacionCic" class="form-control" type="text" id="id_calificacionCic"
-                                readonly />
-                            </div>
-                            <div class="form-group col-md-2">
-                                <label for="lblCalificacionFinalCic" class="form-label">Calificación FINAL CIC</label>
-                                <input formControlName="calificacionFinalCic" class="form-control" type="text" id="id_calificacionFinalCic"
-                                readonly />
-                            </div>
-        
-                            <div class="form-group col-md-3">
-                                <label for="lblTipoIngresoAnalisis" class="form-label">Tipo de Ingreso de Análisis</label>
-                                <select formControlName="tipoIngresoAnalisis" class="form-control" name="selectTipoIngresoAnalisis"
-                                    [ngClass]="{ 'is-invalid': submittedAnalisisForm && g.tipoIngresoAnalisis.errors }" >
-                                        <option [ngValue]="objeto" *ngFor="let objeto of listTipoIngresoAnalisis">{{objeto.id}} - {{objeto.descripcion}}</option>
-                                </select>
-                                <div *ngIf="submittedAnalisisForm && g.tipoIngresoAnalisis.errors" class="invalid-feedback">
-                                    <div *ngIf="g.tipoIngresoAnalisis.errors.required">El Tipo de Ingreso es requerido</div>
-                                </div>
-                            </div>
-                            <div class="form-group col-md-3">
-                                <label for="tipoFormaPagoAnalisis" class="form-label">Forma de Pago de Análisis</label>
-                                <select formControlName="tipoFormaPagoAnalisis" class="form-control" name="tipoFormaPagoAnalisis"
-                                    [ngClass]="{ 'is-invalid': submittedAnalisisForm && g.tipoFormaPagoAnalisis.errors }" >
-                                        <option [ngValue]="objeto" *ngFor="let objeto of listTipoFormaPagoAnalisis">{{objeto.id}} - {{objeto.descripcion}}</option>
-                                </select>
-                                <div *ngIf="submittedAnalisisForm && g.tipoFormaPagoAnalisis.errors" class="invalid-feedback">
-                                    <div *ngIf="g.tipoFormaPagoAnalisis.errors.required">La Forma de Pago es requerida</div>
-                                </div>
-                            </div>
-                            
-                            <div class="form-group col-md-4">
-                                <label for="lblModeloAnalisis" class="form-label">Modelo de Análisis</label>
-                                <select formControlName="modeloAnalisis" class="form-control" name="selectModeloAnalisis"
-                                    [ngClass]="{ 'is-invalid': submittedAnalisisForm && g.modeloAnalisis.errors }" >
-                                        <option [ngValue]="objeto" *ngFor="let objeto of listModelosAnalisis">{{objeto.id}} - {{objeto.descripcion}}</option>
-                                </select>
-                                <div *ngIf="submittedAnalisisForm && g.modeloAnalisis.errors" class="invalid-feedback">
-                                    <div *ngIf="g.modeloAnalisis.errors.required">El Modelo de Análisis es requerido</div>
-                                </div>
-                            </div>
-        
-                            <div class="form-group col-md-2">
-                                <label for="tipoMoneda" class="form-label">Moneda</label>
-                                <select formControlName="tipoMoneda" class="form-control" name="tipoMoneda"
-                                    [ngClass]="{ 'is-invalid': submittedAnalisisForm && g.tipoMoneda.errors }" >
-                                        <option [ngValue]="objeto" *ngFor="let objeto of listTiposMonedas">{{objeto.simbolo}} {{objeto.descripcion}}</option>
-                                </select>
-                                <div *ngIf="submittedAnalisisForm && g.tipoMoneda.errors" class="invalid-feedback">
-                                    <div *ngIf="g.tipoMoneda.errors.required">La Moneda es requerida</div>
-                                </div>
-                            </div>
-        
-                            <div class="form-group col-md-3">
-                                <label for="lblTipoGenerador" class="form-label">Tipo de Generador</label>
-                                <select formControlName="tipoGenerador" class="form-control" name="selectTipoGenerador"
-                                    [ngClass]="{ 'is-invalid': submittedAnalisisForm && g.tipoGenerador.errors }" >
-                                        <option [ngValue]="objeto" *ngFor="let objeto of listTiposGeneradores">{{objeto.codigoGenerador}} - {{objeto.descripcion}}</option>
-                                </select>
-                                <div *ngIf="submittedAnalisisForm && g.tipoGenerador.errors" class="invalid-feedback">
-                                    <div *ngIf="g.tipoGenerador.errors.required">El Tipo de Generador es requerido</div>
-                                </div>
-                            </div>
-        
-                            <div class="form-group col-md-3">
-                                <label for="lblIndicadorCsd" class="form-label">Indicador CSD</label>
-                                <input formControlName="indicadorCsd" class="form-control" type="number" id="id_indicadorcsd"
-                                    [ngClass]="{ 'is-invalid': submittedAnalisisForm && g.indicadorCsd.errors }" />
-                                <div *ngIf="submittedAnalisisForm && g.indicadorCsd.errors" class="invalid-feedback">
-                                    <div *ngIf="g.indicadorCsd.errors.required">El Indicador CSD es requerido</div>
-                                </div>
-                            </div>
-        
-                            <div class="form-group col-md-4">
-                                <label for="lblPonderacionLvt" class="form-label">Ponderación LVT</label>
-                                <input formControlName="ponderacionLvt" class="form-control" type="text" id="id_ponderacionLvt"
-                                    [ngClass]="{ 'is-invalid': submittedAnalisisForm && g.ponderacionLvt.errors }" />
-                                <div *ngIf="submittedAnalisisForm && g.ponderacionLvt.errors" class="invalid-feedback">
-                                    <div *ngIf="g.ponderacionLvt.errors.required">La ponderación LVT es requerida</div>
-                                </div>
-                            </div>
-        
-                            <div class="form-group col-md-2">
-                                <label for="lblNumeroDependientes" class="form-label">Número de Dependientes</label>
-                                <input formControlName="numeroDependientes" class="form-control" type="number" id="id_numeroDependientes"
-                                    [ngClass]="{ 'is-invalid': submittedAnalisisForm && g.numeroDependientes.errors }" />
-                                <div *ngIf="submittedAnalisisForm && g.numeroDependientes.errors" class="invalid-feedback">
-                                    <div *ngIf="g.numeroDependientes.errors.required">El Número de Dependientes es requerido</div>
-                                </div>
-                            </div>
-        
-                            <div class="form-group col-md-12">
-                                <hr>
-                                <textarea matInput  formControlName="observaciones" 
-                                                    class="form-control"
-                                                    id="id_observaciones"
-                                                    placeholder="Ingrese las observaciones..."></textarea>
-                                <hr>
-                            </div>
-                        </form>
+                    <div class="contenedor__header__next">
+                      <button
+                        style="color: red"
+                        type="button"
+                        class="close btn-close"
+                        data-dismiss="modal"
+                      >
+                        &times;
+                      </button>
                     </div>
-        
-                    <div class="contenedor__footer">
-                        <div class="contenedor__footer__prev">
-                            <button *ngIf="habilitaBtnGeneraNuevoAnalisis" 
-                                    (click)="SubmitNuevoAnalisis()" 
-                                    class="btn btn-success px-5 " 
-                                    mat-flat-button color="primary" > Registrar </button>
-        
-                            <button *ngIf="habilitaBtnGuardarAnalisis" 
-                                    (click)="GuardarAnalisis()" 
-                                    class="btn btn-success px-5 "
-                                    mat-flat-button color="primary" > Guardar Cambios </button>
-                        </div>
-                        <div class="contenedor__footer__next">
-                            <button *ngIf="habilitaBtnIngreso" 
-                                    (click)="habilitaFormularioIngreso()" 
-                                    class="btn px-5 btn-info" 
-                                    mat-flat-button color="primary" > Ingresos </button>
-                        </div>
+                  </div>
+                </div>
+              </section>
+
+              <section>
+                <form
+                  [formGroup]="formHistorialAnalisis"
+                  class="row modal-config__formulario-header"
+                >
+                  <div class="form-group col-md-3">
+                    <label for="lblCodigoAnalisisHistorial" class="form-label"
+                      >Código de Análisis del Historial</label
+                    >
+                    <input
+                      formControlName="codigoAnalisisHistorial"
+                      class="form-control"
+                      type="number"
+                      id="id_codigoAnalisisHistorial"
+                      [ngClass]="{ 'is-invalid': submittedHistorialAnalisisForm && h.codigoAnalisisHistorial.errors }"
+                    />
+                    <div
+                      *ngIf="submittedHistorialAnalisisForm && h.codigoAnalisisHistorial.errors"
+                      class="invalid-feedback"
+                    >
+                      <div *ngIf="h.codigoAnalisisHistorial.errors.required">
+                        El Código de Análisis del Historial es requerido
+                      </div>
                     </div>
+                  </div>
+                  <div class="col-md-3 margin-icos-mat item-list">
+                    <a class="item-list__edit">
+                      <mat-icon>filter_list</mat-icon>
+                    </a>
+                  </div>
+                </form>
+              </section>
 
-                    <!-- ****************************** -->
-                    <!-- MODAL DE HISTORIAL DE ANÁLISIS -->
-                    <!-- ****************************** -->
-                    <article class="modal modal-config" id="analisisHistorialModal">
-                        <div class="modal-content">
+              <section>
+                <!-- body -->
+                <div class="contenedor__body">
+                  <div *ngIf="listHistorialAnalisis">
+                    <table class="table table-striped">
+                      <thead>
+                        <tr>
+                          <th style="width: 5%">Análisis</th>
+                          <th style="width: 12%">Fecha de Análisis</th>
+                          <th style="width: 12%">Cód. Nivel Cap pago</th>
+                          <th style="width: 7%">Estado</th>
+                          <th style="width: 8%">¿Definitivo?</th>
+                          <th style="width: 10%">Scoring Análisis</th>
+                          <th style="width: 10%">Puntaje Final CIC</th>
+                          <th style="width: 10%">Moneda</th>
+                          <th style="width: 26%">Observaciones</th>
+                        </tr>
+                      </thead>
+                      <tbody>
+                        <tr
+                          *ngFor="let obj of listHistorialAnalisis"
+                          class="item-list__confirm"
+                          (click)="selectAnalisisHistorial(obj)"
+                        >
+                          <td>{{obj.codigoAnalisis}}</td>
+                          <td>{{obj.fechaAnalisis}}</td>
+                          <td>{{obj.codigoNivelCapPago}}</td>
+                          <td>{{obj.estado}}</td>
+                          <td>{{obj.analisisDefinitivo}}</td>
+                          <td>{{obj.puntajeAnalisis}}</td>
+                          <td>{{obj.puntajeFinalCic}}</td>
+                          <td>{{obj.codigoMoneda}}</td>
+                          <td>{{obj.observaciones}}</td>
+                        </tr>
+                      </tbody>
+                    </table>
+                  </div>
+                </div>
+              </section>
 
-                            <section>
-                                <div class="modal-header ">
-                                    <div class="contenedor__header-modal " >
-                                        <div class="contenedor__header__prev">
-                                            <h1 style="color:#1A5276">Historial de Análisis de Capacida de Pago</h1>
-                                        </div>
-                                        <div class="contenedor__header__next">
-                                            <button style="color:red" type="button" class="close btn-close" data-dismiss="modal">&times;</button>
-                                        </div>
-                                    </div>
-                                </div>
-                            </section>
+              <section>
+                <!-- footer -->
+                <div class="contenedor__footer">
+                  <div class="contenedor__footer__prev">
+                    <button
+                      *ngIf="habilitaBtnGeneraNuevoAnalisis"
+                      (click)="SubmitNuevoAnalisis()"
+                      class="btn btn-success px-5"
+                      mat-flat-button
+                      color="primary"
+                    >
+                      Registrar
+                    </button>
 
-                            <section>
-                                <form [formGroup]="formHistorialAnalisis" class="row modal-config__formulario-header" >
-                                    <div class="form-group col-md-3">
-                                        <label for="lblCodigoAnalisisHistorial" class="form-label">Código de Análisis del Historial</label>
-                                        <input formControlName="codigoAnalisisHistorial" class="form-control" type="number" id="id_codigoAnalisisHistorial"
-                                            [ngClass]="{ 'is-invalid': submittedHistorialAnalisisForm && h.codigoAnalisisHistorial.errors }" />
-                                        <div *ngIf="submittedHistorialAnalisisForm && h.codigoAnalisisHistorial.errors" class="invalid-feedback">
-                                            <div *ngIf="h.codigoAnalisisHistorial.errors.required">El Código de Análisis del Historial es requerido</div>
-                                        </div>
-                                    </div>
-                                    <div class="col-md-3 margin-icos-mat item-list">
-                                        <a class="item-list__edit"> <mat-icon>filter_list</mat-icon> </a>
-                                    </div>
-                                </form>
-                            </section>
-                            
-                            <section>    <!-- body -->
-                                <div class="contenedor__body" >
-                                    <div *ngIf="listHistorialAnalisis" >
-                                        <table  class="table table-striped">
-                                            <thead>
-                                                <tr>
-                                                    <th style="width: 5%">Análisis</th>
-                                                    <th style="width: 12%">Fecha de Análisis</th>
-                                                    <th style="width: 12%">Cód. Nivel Cap pago</th>
-                                                    <th style="width: 7%">Estado</th>
-                                                    <th style="width: 8%">¿Definitivo?</th>
-                                                    <th style="width: 10%">Scoring Análisis</th>
-                                                    <th style="width: 10%">Puntaje Final CIC</th>
-                                                    <th style="width: 10%">Moneda</th>
-                                                    <th style="width: 26%">Observaciones</th>
-                                                </tr>
-                                            </thead>
-                                            <tbody>
-                                                <tr *ngFor="let obj of listHistorialAnalisis" class="item-list__confirm" (click)="selectAnalisisHistorial(obj)" >
-                                                    <td>{{obj.codigoAnalisis}}</td>
-                                                    <td>{{obj.fechaAnalisis}}</td>
-                                                    <td>{{obj.codigoNivelCapPago}}</td>
-                                                    <td>{{obj.estado}}</td>
-                                                    <td>{{obj.analisisDefinitivo}}</td>
-                                                    <td>{{obj.puntajeAnalisis}}</td>
-                                                    <td>{{obj.puntajeFinalCic}}</td>
-                                                    <td>{{obj.codigoMoneda}}</td>
-                                                    <td>{{obj.observaciones}}</td>
-                                                </tr>
-                                            </tbody>
-                                        </table>
-                                    </div>
+                    <button
+                      *ngIf="habilitaBtnGuardarAnalisis"
+                      (click)="GuardarAnalisis()"
+                      class="btn btn-success px-5"
+                      mat-flat-button
+                      color="primary"
+                    >
+                      Guardar Cambios
+                    </button>
+                  </div>
+                  <div class="contenedor__footer__next">
+                    <button
+                      *ngIf="habilitaBtnIngreso"
+                      (click)="habilitaFormularioIngreso()"
+                      class="btn px-5 btn-info"
+                      mat-flat-button
+                      color="primary"
+                    >
+                      Ingresos
+                    </button>
+                  </div>
+                </div>
+              </section>
 
-                                </div>
-                            </section> 
-                            
-                            <section>   <!-- footer --> 
-                                <div class="contenedor__footer">
-                                    <div class="contenedor__footer__prev">
-                                        <button *ngIf="habilitaBtnGeneraNuevoAnalisis" 
-                                                (click)="SubmitNuevoAnalisis()" 
-                                                class="btn btn-success px-5 " 
-                                                mat-flat-button color="primary" > Registrar </button>
-
-                                        <button *ngIf="habilitaBtnGuardarAnalisis" 
-                                                (click)="GuardarAnalisis()" 
-                                                class="btn btn-success px-5 "
-                                                mat-flat-button color="primary" > Guardar Cambios </button>
-                                    </div>
-                                    <div class="contenedor__footer__next">
-                                        <button *ngIf="habilitaBtnIngreso" 
-                                                (click)="habilitaFormularioIngreso()" 
-                                                class="btn px-5 btn-info" 
-                                                mat-flat-button color="primary" > Ingresos </button>
-                                    </div>
-                                </div>
-                            </section>
-
-                            <article class="modal modal-config" id="analisisHistorialModal">
-                                <div class="modal-content">
-
-                                    <section>
-                                        <div class="modal-header ">
-                                            <div class="contenedor__header-modal " >
-                                                <div class="contenedor__header__prev">
-                                                    <h1 style="color:#1A5276">Historial de Análisis de Capacida de Pago</h1>
-                                                </div>
-                                                <div class="contenedor__header__next">
-                                                    <button style="color:red" type="button" class="close btn-close" data-dismiss="modal">&times;</button>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </section>
-
-                                    <section>
-                                        <form [formGroup]="formHistorialAnalisis" class="row modal-config__formulario-header" >
-                                            <div class="form-group col-md-3">
-                                                <label for="lblCodigoAnalisisHistorial" class="form-label">Código de Análisis del Historial</label>
-                                                <input formControlName="codigoAnalisisHistorial" class="form-control" type="number" id="id_codigoAnalisisHistorial"
-                                                    [ngClass]="{ 'is-invalid': submittedHistorialAnalisisForm && h.codigoAnalisisHistorial.errors }" />
-                                                <div *ngIf="submittedHistorialAnalisisForm && h.codigoAnalisisHistorial.errors" class="invalid-feedback">
-                                                    <div *ngIf="h.codigoAnalisisHistorial.errors.required">El Código de Análisis del Historial es requerido</div>
-                                                </div>
-                                            </div>
-                                            <div class="col-md-3 margin-icos-mat item-list">
-                                                <a class="item-list__edit"> <mat-icon>filter_list</mat-icon> </a>
-                                            </div>
-                                        </form>
-                                    </section>
-                                    
-                                    <section>    <!-- body -->
-                                        <div class="contenedor__body" >
-                                            <div *ngIf="listHistorialAnalisis" >
-                                                <table  class="table table-striped">
-                                                    <thead>
-                                                        <tr>
-                                                            <th style="width: 5%">Análisis</th>
-                                                            <th style="width: 12%">Fecha de Análisis</th>
-                                                            <th style="width: 12%">Cód. Nivel Cap pago</th>
-                                                            <th style="width: 7%">Estado</th>
-                                                            <th style="width: 8%">¿ Definitivo ?</th>
-                                                            <th style="width: 10%">Scoring Análisis</th>
-                                                            <th style="width: 10%">Puntaje Final CIC</th>
-                                                            <th style="width: 10%">Moneda</th>
-                                                            <th style="width: 26%">Observaciones</th>
-                                                        </tr>
-                                                    </thead>
-                                                    <tbody>
-                                                        <tr *ngFor="let obj of listHistorialAnalisis" class="item-list__confirm" (click)="selectAnalisisHistorial(obj)" >
-                                                            <td>{{obj.codigoAnalisis}}</td>
-                                                            <td>{{obj.fechaAnalisis}}</td>
-                                                            <td>{{obj.codigoNivelCapPago}}</td>
-                                                            <td>{{obj.estado}}</td>
-                                                            <td>{{obj.analisisDefinitivo}}</td>
-                                                            <td>{{obj.puntajeAnalisis}}</td>
-                                                            <td>{{obj.puntajeFinalCic}}</td>
-                                                            <td>{{obj.codigoMoneda}}</td>
-                                                            <td>{{obj.observaciones}}</td>
-                                                        </tr>
-                                                    </tbody>
-                                                </table>
-                                            </div>
-
-                                        </div>
-                                    </section>  
-
-                                </div>
-                            </article>
-
-                        </div>
-                    </article>
-
-                </section>
-            </article >
-
-            <!-- ************************** -->
-            <!-- ARTÍCULO INGRESOS          -->
-            <!-- ************************** -->
-            <article *ngIf="ingresos">
-                <section>
-
-                    <div class="contenedor__header">
+              <article class="modal modal-config" id="analisisHistorialModal">
+                <div class="modal-content">
+                  <section>
+                    <div class="modal-header">
+                      <div class="contenedor__header-modal">
                         <div class="contenedor__header__prev">
-                            <h2 *ngIf="_analisisCapacidadpago">codigo de análisis: {{_analisisCapacidadpago.codigoAnalisis}}</h2>
+                          <h1 style="color: #1a5276">
+                            Historial de Análisis de Capacida de Pago
+                          </h1>
                         </div>
                         <div class="contenedor__header__next">
-                            <h2 >Información de Ingresos</h2>
+                          <button
+                            style="color: red"
+                            type="button"
+                            class="close btn-close"
+                            data-dismiss="modal"
+                          >
+                            &times;
+                          </button>
                         </div>
+                      </div>
                     </div>
+                  </section>
 
-                    <div class="contenedor-analisis__tabletas__body">
-                        <form [formGroup]="formIngresos" class="row">
-        
-                            <div class="form-group col-md-3">
-                                <label for="lblCodigoTipoIngreso" class="form-label">Tipo de Ingreso</label>
-                                <select formControlName="codigoTipoIngreso" class="form-control" name="selectCodigoTipoIngreso"
-                                [ngClass]="{ 'is-invalid': submittedIngresosForm && i.codigoTipoIngreso.errors }" >
-                                        <option [ngValue]="objeto" *ngFor="let objeto of listTiposIngresos">{{objeto.id}} - {{objeto.descripcion}}</option>
-                                </select>
-                                <div *ngIf="submittedIngresosForm && i.codigoTipoIngreso.errors" class="invalid-feedback">
-                                    <div *ngIf="i.codigoTipoIngreso.errors.required">El Tipo de Ingreso es requerido</div>
-                                </div>
-                            </div>
-                            <div class="col-md-5"></div>
-                            <!-- total ingreso para analisis -->
-                            <div class="form-group col-md-2">
-                                <label for="lblTotalMontoAnalisis" class="form-label">Total Ingreso de Análisis</label>
-                                <input formControlName="totalMontoAnalisis" class="form-control" type="number" id="id_totalMontoAnalisis"
-                                    readonly />
-                            </div>
-        
-                            <div class="form-group col-md-3">
-                                <label for="lblMontoBruto" class="form-label">Salario Monto Bruto</label>
-                                <input formControlName="montoBruto" class="form-control" type="number" id="id_montoBruto"
-                                    [ngClass]="{ 'is-invalid': submittedIngresosForm && i.montoBruto.errors }" />
-                                <div *ngIf="submittedIngresosForm && i.montoBruto.errors" class="invalid-feedback">
-                                    <div *ngIf="i.montoBruto.errors.required">El Salario Monto Bruto es requerido</div>
-                                </div>
-                            </div>
-        
-                            <div class="form-group col-md-3">
-                                <label for="lblMontoNeto" class="form-label">Salario Monto Neto</label>
-                                <input formControlName="montoNeto" class="form-control" type="number" id="id_montoNeto"
-                                    [ngClass]="{ 'is-invalid': submittedIngresosForm && i.montoNeto.errors }" />
-                                <div *ngIf="submittedIngresosForm && i.montoNeto.errors" class="invalid-feedback">
-                                    <div *ngIf="i.montoNeto.errors.required">El monto neto es requerido</div>
-                                </div>
-                            </div>
-                            <div class="col-md-2"></div>
-                            <!-- total ingreso bruto -->
-                            <div class="form-group col-md-2">
-                                <label for="lblTotalIngresoBruto" class="form-label">Total Ingreso Bruto</label>
-                                <input formControlName="totalIngresoBruto" class="form-control" type="number" id="id_totalIngresoBruto"
-                                    readonly />
-                            </div>
-                            <!-- total ingreso neto -->
-                            <div class="form-group col-md-2">
-                                <label for="lblTotalingresoNeto" class="form-label">Total Ingreso Neto</label>
-                                <input formControlName="totalIngresoNeto" class="form-control" type="number" id="id_totalingresoNeto"
-                                    readonly />
-                            </div>
-        
-                            <div class="form-group col-md-3">
-                                <label for="lblCargasSociales" class="form-label">Cargas Sociales</label>
-                                <input formControlName="cargasSociales" class="form-control" type="number" id="id_cargasSociales"
-                                    [ngClass]="{ 'is-invalid': submittedIngresosForm && i.cargasSociales.errors }" />
-                                <div *ngIf="submittedIngresosForm && i.cargasSociales.errors" class="invalid-feedback">
-                                    <div *ngIf="i.cargasSociales.errors.required">Ingrese 0 si no aplican extras</div>
-                                </div>
-                            </div>
-        
-                            <div class="form-group col-md-3">
-                                <label for="lblImpuestoRenta" class="form-label">Impuesto de Renta</label>
-                                <input formControlName="impuestoRenta" class="form-control" type="number" id="id_impuestoRenta"
-                                    [ngClass]="{ 'is-invalid': submittedIngresosForm && i.impuestoRenta.errors }" />
-                                <div *ngIf="submittedIngresosForm && i.impuestoRenta.errors" class="invalid-feedback">
-                                    <div *ngIf="i.impuestoRenta.errors.required">El impuesto sobre la renta es requerido</div>
-                                </div>
-                            </div>
-                            <div class="col-md-2"></div>
-                            <!-- total cargas impuestos -->
-                            <div class="form-group col-md-2">
-                                <label for="lblTotalCargaImpuestos" class="form-label">Total Cargas & Impuestos</label>
-                                <input formControlName="totalCargaImpuestos" class="form-control" type="number" id="id_totalCargaImpuestos"
-                                    readonly />
-                            </div>
-        
-                            <div class="form-group col-md-3">
-                                <label for="lblMontoExtras" class="form-label">Monto Extras Aplicables</label>
-                                <input formControlName="montoExtras" class="form-control" type="number" id="id_montoExtras"
-                                    readonly />
-                            </div>
-        
-                            <!-- <div class="col-md-3"></div> -->
-                            <!-- <div class="form-group col-md-3">
+                  <section>
+                    <form
+                      [formGroup]="formHistorialAnalisis"
+                      class="row modal-config__formulario-header"
+                    >
+                      <div class="form-group col-md-3">
+                        <label
+                          for="lblCodigoAnalisisHistorial"
+                          class="form-label"
+                          >Código de Análisis del Historial</label
+                        >
+                        <input
+                          formControlName="codigoAnalisisHistorial"
+                          class="form-control"
+                          type="number"
+                          id="id_codigoAnalisisHistorial"
+                          [ngClass]="{ 'is-invalid': submittedHistorialAnalisisForm && h.codigoAnalisisHistorial.errors }"
+                        />
+                        <div
+                          *ngIf="submittedHistorialAnalisisForm && h.codigoAnalisisHistorial.errors"
+                          class="invalid-feedback"
+                        >
+                          <div
+                            *ngIf="h.codigoAnalisisHistorial.errors.required"
+                          >
+                            El Código de Análisis del Historial es requerido
+                          </div>
+                        </div>
+                      </div>
+                      <div class="col-md-3 margin-icos-mat item-list">
+                        <a class="item-list__edit">
+                          <mat-icon>filter_list</mat-icon>
+                        </a>
+                      </div>
+                    </form>
+                  </section>
+
+                  <section>
+                    <!-- body -->
+                    <div class="contenedor__body">
+                      <div *ngIf="listHistorialAnalisis">
+                        <table class="table table-striped">
+                          <thead>
+                            <tr>
+                              <th style="width: 5%">Análisis</th>
+                              <th style="width: 12%">Fecha de Análisis</th>
+                              <th style="width: 12%">Cód. Nivel Cap pago</th>
+                              <th style="width: 7%">Estado</th>
+                              <th style="width: 8%">¿ Definitivo ?</th>
+                              <th style="width: 10%">Scoring Análisis</th>
+                              <th style="width: 10%">Puntaje Final CIC</th>
+                              <th style="width: 10%">Moneda</th>
+                              <th style="width: 26%">Observaciones</th>
+                            </tr>
+                          </thead>
+                          <tbody>
+                            <tr
+                              *ngFor="let obj of listHistorialAnalisis"
+                              class="item-list__confirm"
+                              (click)="selectAnalisisHistorial(obj)"
+                            >
+                              <td>{{obj.codigoAnalisis}}</td>
+                              <td>{{obj.fechaAnalisis}}</td>
+                              <td>{{obj.codigoNivelCapPago}}</td>
+                              <td>{{obj.estado}}</td>
+                              <td>{{obj.analisisDefinitivo}}</td>
+                              <td>{{obj.puntajeAnalisis}}</td>
+                              <td>{{obj.puntajeFinalCic}}</td>
+                              <td>{{obj.codigoMoneda}}</td>
+                              <td>{{obj.observaciones}}</td>
+                            </tr>
+                          </tbody>
+                        </table>
+                      </div>
+                    </div>
+                  </section>
+                </div>
+              </article>
+            </div>
+          </article>
+        </section>
+      </article>
+
+      <!-- ************************** -->
+      <!-- ARTÍCULO INGRESOS          -->
+      <!-- ************************** -->
+      <article *ngIf="ingresos">
+        <section>
+          <div class="contenedor__header">
+            <div class="contenedor__header__prev">
+              <h2 *ngIf="_analisisCapacidadpago">
+                codigo de análisis: {{_analisisCapacidadpago.codigoAnalisis}}
+              </h2>
+            </div>
+            <div class="contenedor__header__next">
+              <h2>Información de Ingresos</h2>
+            </div>
+          </div>
+
+          <div class="contenedor-analisis__tabletas__body">
+            <form [formGroup]="formIngresos" class="row">
+              <div class="form-group col-md-3">
+                <label for="lblCodigoTipoIngreso" class="form-label"
+                  >Tipo de Ingreso</label
+                >
+                <select
+                  formControlName="codigoTipoIngreso"
+                  class="form-control"
+                  name="selectCodigoTipoIngreso"
+                  [ngClass]="{ 'is-invalid': submittedIngresosForm && i.codigoTipoIngreso.errors }"
+                >
+                  <option
+                    [ngValue]="objeto"
+                    *ngFor="let objeto of listTiposIngresos"
+                  >
+                    {{objeto.id}} - {{objeto.descripcion}}
+                  </option>
+                </select>
+                <div
+                  *ngIf="submittedIngresosForm && i.codigoTipoIngreso.errors"
+                  class="invalid-feedback"
+                >
+                  <div *ngIf="i.codigoTipoIngreso.errors.required">
+                    El Tipo de Ingreso es requerido
+                  </div>
+                </div>
+              </div>
+              <div class="col-md-5"></div>
+              <!-- total ingreso para analisis -->
+              <div class="form-group col-md-2">
+                <label for="lblTotalMontoAnalisis" class="form-label"
+                  >Total Ingreso de Análisis</label
+                >
+                <input
+                  formControlName="totalMontoAnalisis"
+                  class="form-control"
+                  type="number"
+                  id="id_totalMontoAnalisis"
+                  readonly
+                />
+              </div>
+
+              <div class="form-group col-md-3">
+                <label for="lblMontoBruto" class="form-label"
+                  >Salario Monto Bruto</label
+                >
+                <input
+                  formControlName="montoBruto"
+                  class="form-control"
+                  type="number"
+                  id="id_montoBruto"
+                  [ngClass]="{ 'is-invalid': submittedIngresosForm && i.montoBruto.errors }"
+                />
+                <div
+                  *ngIf="submittedIngresosForm && i.montoBruto.errors"
+                  class="invalid-feedback"
+                >
+                  <div *ngIf="i.montoBruto.errors.required">
+                    El Salario Monto Bruto es requerido
+                  </div>
+                </div>
+              </div>
+
+              <div class="form-group col-md-3">
+                <label for="lblMontoNeto" class="form-label"
+                  >Salario Monto Neto</label
+                >
+                <input
+                  formControlName="montoNeto"
+                  class="form-control"
+                  type="number"
+                  id="id_montoNeto"
+                  [ngClass]="{ 'is-invalid': submittedIngresosForm && i.montoNeto.errors }"
+                />
+                <div
+                  *ngIf="submittedIngresosForm && i.montoNeto.errors"
+                  class="invalid-feedback"
+                >
+                  <div *ngIf="i.montoNeto.errors.required">
+                    El monto neto es requerido
+                  </div>
+                </div>
+              </div>
+              <div class="col-md-2"></div>
+              <!-- total ingreso bruto -->
+              <div class="form-group col-md-2">
+                <label for="lblTotalIngresoBruto" class="form-label"
+                  >Total Ingreso Bruto</label
+                >
+                <input
+                  formControlName="totalIngresoBruto"
+                  class="form-control"
+                  type="number"
+                  id="id_totalIngresoBruto"
+                  readonly
+                />
+              </div>
+              <!-- total ingreso neto -->
+              <div class="form-group col-md-2">
+                <label for="lblTotalingresoNeto" class="form-label"
+                  >Total Ingreso Neto</label
+                >
+                <input
+                  formControlName="totalIngresoNeto"
+                  class="form-control"
+                  type="number"
+                  id="id_totalingresoNeto"
+                  readonly
+                />
+              </div>
+
+              <div class="form-group col-md-3">
+                <label for="lblCargasSociales" class="form-label"
+                  >Cargas Sociales</label
+                >
+                <input
+                  formControlName="cargasSociales"
+                  class="form-control"
+                  type="number"
+                  id="id_cargasSociales"
+                  [ngClass]="{ 'is-invalid': submittedIngresosForm && i.cargasSociales.errors }"
+                />
+                <div
+                  *ngIf="submittedIngresosForm && i.cargasSociales.errors"
+                  class="invalid-feedback"
+                >
+                  <div *ngIf="i.cargasSociales.errors.required">
+                    Ingrese 0 si no aplican extras
+                  </div>
+                </div>
+              </div>
+
+              <div class="form-group col-md-3">
+                <label for="lblImpuestoRenta" class="form-label"
+                  >Impuesto de Renta</label
+                >
+                <input
+                  formControlName="impuestoRenta"
+                  class="form-control"
+                  type="number"
+                  id="id_impuestoRenta"
+                  [ngClass]="{ 'is-invalid': submittedIngresosForm && i.impuestoRenta.errors }"
+                />
+                <div
+                  *ngIf="submittedIngresosForm && i.impuestoRenta.errors"
+                  class="invalid-feedback"
+                >
+                  <div *ngIf="i.impuestoRenta.errors.required">
+                    El impuesto sobre la renta es requerido
+                  </div>
+                </div>
+              </div>
+              <div class="col-md-2"></div>
+              <!-- total cargas impuestos -->
+              <div class="form-group col-md-2">
+                <label for="lblTotalCargaImpuestos" class="form-label"
+                  >Total Cargas & Impuestos</label
+                >
+                <input
+                  formControlName="totalCargaImpuestos"
+                  class="form-control"
+                  type="number"
+                  id="id_totalCargaImpuestos"
+                  readonly
+                />
+              </div>
+
+              <div class="form-group col-md-3">
+                <label for="lblMontoExtras" class="form-label"
+                  >Monto Extras Aplicables</label
+                >
+                <input
+                  formControlName="montoExtras"
+                  class="form-control"
+                  type="number"
+                  id="id_montoExtras"
+                  readonly
+                />
+              </div>
+
+              <!-- <div class="col-md-3"></div> -->
+              <!-- <div class="form-group col-md-3">
                                 <label for="lblPorcentajeExtras" class="form-label">Porcentaje Extras Aplicables</label>
                                 <input formControlName="porcentajeExtras" class="form-control" type="number" id="id_porcentajeExtras"
                                     readonly />
-        
+
                             </div> -->
-                            <div class="col-md-2 margin-icos-mat item-list">
-                                <a *ngIf="habilitaIcoOpenModalExtras" class="item-list__edit"> 
-                                    <mat-icon (click)="openExtrasModal()">open_in_new</mat-icon> 
-                                </a>
-                            </div>
-        
-                            <div class="col-md-3"></div>
-        
-                            <!-- total extras aplicables -->
-                            <div class="form-group col-md-2">
-                                <label for="lblTotalExtrasAplicables" class="form-label">Total Extras Aplicables</label>
-                                <input formControlName="totalExtrasAplicables" class="form-control" type="number" id="id_totalExtrasAplicables"
-                                    readonly />
-                            </div>
-        
-                            <div class="form-group col-md-3">
-                                <label for="lblMontoDeducciones" class="form-label">Monto Deducciones</label>
-                                <input formControlName="montoDeducciones" class="form-control" type="number" id="id_montoDeducciones"
-                                    readonly />
-                            </div>
-                            <div class="col-md-5 margin-icos-mat item-list">
-                                <a *ngIf="habilitaIcoOpenModalDeducciones" class="item-list__edit">
-                                    <mat-icon (click)="openDeduccionesModal()">open_in_new</mat-icon> 
-                                </a>
-                            </div>
-                            <!-- total deducciones -->
-                            <div class="form-group col-md-2">
-                                <label for="lblTotalDeducciones" class="form-label">Total Deducciones</label>
-                                <input formControlName="totalDeducciones" class="form-control" type="number" id="id_totalDeducciones"
-                                    readonly />
-                            </div>
-        
-                        </form>
-        
-                    </div>
-                    <div class="contenedor-analisis__tabletas__body">
-    
-                        <div *ngIf="listIngresosAnalisis">
-                            
-                            <table class="table table-striped">
-                                <thead>
-                                    <tr>
-                                        <th style="width: 5%">Ingreso</th>
-                                        <th style="width: 10%">Tipo de Ingreso</th>
-                                        <th style="width: 12%">Monto Bruto</th>
-                                        <th style="width: 12%">Monto Neto</th>
-                                        <th style="width: 8%">Cargas Sociales</th>
-                                        <th style="width: 8%">Impuesto Renta</th>
-                                        <th style="width: 8%">Extras Aplicables</th>
-                                        <th style="width: 10%">Deducciones</th>
-                                        <th style="width: 8%"></th>
-                                    </tr>
-                                </thead>
-        
-                                <tbody>
-                                    <tr *ngFor="let obj of listIngresosAnalisis" >
-        
-                                        <td>{{obj.id}}</td>
-                                        <td>{{obj.codigoTipoIngreso}}</td>
-                                        <td>{{obj.montoBruto}}</td>
-                                        <td>{{obj.montoNeto}}</td>
-                                        <td>{{obj.cargasSociales}}</td>
-                                        <td>{{obj.impuestoRenta}}</td>
-                                        <td>{{obj.montoExtras}}</td>
-                                        <td>{{obj.montoDeducciones}}</td>
-        
-                                        <td  style="white-space: nowrap">
-                                            <div class="item-list">
-                                                <a class="item-list__edit" (click)="selectIngresoAnalisis(obj)"> 
-                                                    <mat-icon>visibility</mat-icon>
-                                                </a>
-                                                <a class="item-list__delete" (click)="deleteIngreso(obj)"> 
-                                                    <mat-icon>clear</mat-icon>
-                                                </a>
-                                            </div>
-                                        </td>
-        
-                                    </tr>
-                                </tbody>
-                            </table>
-                    
-                        </div>
-                    </div>
+              <div class="col-md-2 margin-icos-mat item-list">
+                <a *ngIf="habilitaIcoOpenModalExtras" class="item-list__edit">
+                  <mat-icon (click)="openExtrasModal()">open_in_new</mat-icon>
+                </a>
+              </div>
 
-                    <div class="contenedor__footer">
-                        <div class="contenedor__footer__prev">
-                            <button *ngIf="habilitaBtnRegistrarIngreso"
-                                    (click)="RegistrarIngresoAnalisis()" 
-                                    class="btn btn-success px-5 " 
-                                    mat-flat-button color="primary" > Registrar Ingreso </button>
-                            <button *ngIf="habilitaBtnActualizaIngreso" 
-                                    (click)="ActualizaFormIngresos()" 
-                                    class="btn btn-success px-5 "
-                                    mat-flat-button color="primary" > Guardar Cambios </button>
-                        </div>
-                        <div class="contenedor__footer__next"></div>
+              <div class="col-md-3"></div>
+
+              <!-- total extras aplicables -->
+              <div class="form-group col-md-2">
+                <label for="lblTotalExtrasAplicables" class="form-label"
+                  >Total Extras Aplicables</label
+                >
+                <input
+                  formControlName="totalExtrasAplicables"
+                  class="form-control"
+                  type="number"
+                  id="id_totalExtrasAplicables"
+                  readonly
+                />
+              </div>
+
+              <div class="form-group col-md-3">
+                <label for="lblMontoDeducciones" class="form-label"
+                  >Monto Deducciones</label
+                >
+                <input
+                  formControlName="montoDeducciones"
+                  class="form-control"
+                  type="number"
+                  id="id_montoDeducciones"
+                  readonly
+                />
+              </div>
+              <div class="col-md-5 margin-icos-mat item-list">
+                <a
+                  *ngIf="habilitaIcoOpenModalDeducciones"
+                  class="item-list__edit"
+                >
+                  <mat-icon (click)="openDeduccionesModal()"
+                    >open_in_new</mat-icon
+                  >
+                </a>
+              </div>
+              <!-- total deducciones -->
+              <div class="form-group col-md-2">
+                <label for="lblTotalDeducciones" class="form-label"
+                  >Total Deducciones</label
+                >
+                <input
+                  formControlName="totalDeducciones"
+                  class="form-control"
+                  type="number"
+                  id="id_totalDeducciones"
+                  readonly
+                />
+              </div>
+            </form>
+          </div>
+          <div class="contenedor-analisis__tabletas__body">
+            <div *ngIf="listIngresosAnalisis">
+              <table class="table table-striped">
+                <thead>
+                  <tr>
+                    <th style="width: 5%">Ingreso</th>
+                    <th style="width: 10%">Tipo de Ingreso</th>
+                    <th style="width: 12%">Monto Bruto</th>
+                    <th style="width: 12%">Monto Neto</th>
+                    <th style="width: 8%">Cargas Sociales</th>
+                    <th style="width: 8%">Impuesto Renta</th>
+                    <th style="width: 8%">Extras Aplicables</th>
+                    <th style="width: 10%">Deducciones</th>
+                    <th style="width: 8%"></th>
+                  </tr>
+                </thead>
+
+                <tbody>
+                  <tr *ngFor="let obj of listIngresosAnalisis">
+                    <td>{{obj.id}}</td>
+                    <td>{{obj.codigoTipoIngreso}}</td>
+                    <td>{{obj.montoBruto}}</td>
+                    <td>{{obj.montoNeto}}</td>
+                    <td>{{obj.cargasSociales}}</td>
+                    <td>{{obj.impuestoRenta}}</td>
+                    <td>{{obj.montoExtras}}</td>
+                    <td>{{obj.montoDeducciones}}</td>
+
+                    <td style="white-space: nowrap">
+                      <div class="item-list">
+                        <a
+                          class="item-list__edit"
+                          (click)="selectIngresoAnalisis(obj)"
+                        >
+                          <mat-icon>visibility</mat-icon>
+                        </a>
+                        <a
+                          class="item-list__delete"
+                          (click)="deleteIngreso(obj)"
+                        >
+                          <mat-icon>clear</mat-icon>
+                        </a>
+                      </div>
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+
+          <div class="contenedor__footer">
+            <div class="contenedor__footer__prev">
+              <button
+                *ngIf="habilitaBtnRegistrarIngreso"
+                (click)="RegistrarIngresoAnalisis()"
+                class="btn btn-success px-5"
+                mat-flat-button
+                color="primary"
+              >
+                Registrar Ingreso
+              </button>
+              <button
+                *ngIf="habilitaBtnActualizaIngreso"
+                (click)="ActualizaFormIngresos()"
+                class="btn btn-success px-5"
+                mat-flat-button
+                color="primary"
+              >
+                Guardar Cambios
+              </button>
+            </div>
+            <div class="contenedor__footer__next">
+              <button
+                *ngIf="habilitaBtnPD"
+                (click)="habilitarFormPD()"
+                class="btn px-5 btn-info"
+                mat-flat-button
+                color="primary"
+              >
+                PD
+              </button>
+            </div>
+          </div>
+
+          <!-- ****************************** -->
+          <!-- MODAL DE REGISTRO DE EXTRAS -->
+          <!-- ****************************** -->
+          <article class="modal modal-config" id="extrasModal">
+            <div class="modal-content">
+              <section>
+                <div class="modal-header">
+                  <div class="contenedor__header-modal">
+                    <div class="contenedor__header__prev">
+                      <h1 style="color: #1a5276">
+                        Registro de Extras Aplicables
+                      </h1>
                     </div>
+                    <div class="contenedor__header__next">
+                      <button
+                        style="color: red"
+                        type="button"
+                        class="close btn-close"
+                        (click)="CerrarExtrasModal()"
+                      >
+                        &times;
+                      </button>
+                    </div>
+                  </div>
+                </div>
+              </section>
 
-                    <!-- ****************************** -->
-                    <!-- MODAL DE REGISTRO DE EXTRAS -->
-                    <!-- ****************************** -->
-                    <article class="modal modal-config" id="extrasModal">
+              <section>
+                <form
+                  [formGroup]="formExtras"
+                  class="row modal-config__formulario-header"
+                >
+                  <div class="form-group col-md-3">
+                    <label for="lblMontoExtras" class="form-label"
+                      >Monto de las Extras</label
+                    >
+                    <input
+                      formControlName="montoExtra"
+                      class="form-control"
+                      type="number"
+                      id="id_montoExtra"
+                      [ngClass]="{ 'is-invalid': submittedExtrasForm && e.montoExtra.errors }"
+                    />
+                    <div
+                      *ngIf="submittedExtrasForm && e.montoExtra.errors"
+                      class="invalid-feedback"
+                    >
+                      <div *ngIf="e.montoExtra.errors.required">
+                        El Monto de las Extras es requerido
+                      </div>
+                    </div>
+                  </div>
 
-                        <div class="modal-content">
-            
-                            <section>
-                                <div class="modal-header">
-                                    <div class="contenedor__header-modal">
-                                        <div class="contenedor__header__prev">
-                                            <h1 style="color:#1A5276">Registro de Extras Aplicables</h1>
-                                        </div>
-                                        <div class="contenedor__header__next">
-                                            <button style="color:red" type="button" class="close btn-close" (click)="CerrarExtrasModal()" >&times;</button>
-                                        </div>
-                                    </div>
-                                </div>
-                            </section>
-            
-                            <section>
-                                <form [formGroup]="formExtras" class="row modal-config__formulario-header" >
-            
-                                    <div class="form-group col-md-3">
-                                        <label for="lblMontoExtras" class="form-label">Monto de las Extras</label>
-                                        <input formControlName="montoExtra" class="form-control" type="number" id="id_montoExtra"
-                                            [ngClass]="{ 'is-invalid': submittedExtrasForm && e.montoExtra.errors }" />
-                                        <div *ngIf="submittedExtrasForm && e.montoExtra.errors" class="invalid-feedback">
-                                            <div *ngIf="e.montoExtra.errors.required">El Monto de las Extras es requerido</div>
-                                        </div>
-                                    </div>
-            
-                                    <!-- <div class="form-group col-md-2">
+                  <!-- <div class="form-group col-md-2">
                                         <label for="lblMesesExtrasAplicables" class="form-label">Meses Aplicables</label>
                                         <input formControlName="mesesExtrasAplicables" class="form-control" type="number" id="id_mesesExtrasAplicables"
                                         readonly />
                                     </div> -->
-                                    
-                                    <div class="col-md-7"></div>
-            
-                                    <div class="form-group col-md-3">
-                                        <label for="lblPorcentajeExtrasAplicable" class="form-label">Porcentaje de Extras Aplicables</label>
-                                        <input formControlName="porcentajeExtrasAplicable" class="form-control" type="number" id="id_porcentajeExtrasAplicable"
-                                        readonly />
-                                    </div>
-            
-                                    <div class="form-group col-md-3">
-                                        <label for="lblDesviacionEstandar" class="form-label">Desviación Estándar</label>
-                                        <input formControlName="desviacionEstandar" class="form-control" type="number" id="id_desviacionEstandar"
-                                        readonly />
-                                    </div>
-            
-                                    <div class="form-group col-md-3">
-                                        <label for="lblCoeficienteVarianza" class="form-label">Coeficiente Varianza</label>
-                                        <input formControlName="coeficienteVarianza" class="form-control" type="number" id="id_coeficienteVarianza"
-                                        readonly />
-                                    </div>
-            
-                                    <div class="form-group col-md-3">
-                                        <label for="lblPromedioExtrasAplicables" class="form-label">Promedio de Extras Aplicables</label>
-                                        <input formControlName="promedioExtrasAplicables" class="form-control" type="number" id="id_promedioExtrasAplicables"
-                                        readonly />
-                                    </div>
-            
-                                </form>
-                            </section>
-            
-                            <section>
-                                <div class="contenedor__body">
-            
-                                    <div *ngIf="listExtrasAplicables">
-            
-                                        <table class="table table-striped">
-                                            <thead>
-                                                <tr>
-                                                    <th style="width: 20%">Monto Extras</th>
-                                                    <th style="width: 20%">Desviación Estándar</th>
-                                                    <th style="width: 20%">Coeficiente de Varianza</th>
-                                                    <th style="width: 20%">Porcentaje de Extras Aplicables</th>
-                                                    <th style="width: 20%">Promedio de Extras Aplicables</th>
-                                                </tr>
-                                            </thead>
-                                            <tbody>
-                                                <tr *ngFor="let obj of listExtrasAplicables">
-                    
-                                                    <td>{{obj.montoExtras}}</td>
-                                                    <td>{{obj.desviacionEstandar}}</td>
-                                                    <td>{{obj.coeficienteVarianza}}</td>
-                                                    <td>{{obj.porcentajeExtrasAplicables}}</td>
-                                                    <td>{{obj.promedioExtrasAplicables}}</td>
-                                                </tr>
-                                            </tbody>
-                                        </table>
-            
-                                    </div>
-                                </div>
-                            </section>
-            
-                            <section>   <!-- footer -->
-                                <div class="contenedor__footer">
-                                    <div class="contenedor__footer__prev">
-                                        <button *ngIf="habilitarBtnSubmitExtras" 
-                                                (click)="SubmitFormExtras()" 
-                                                class="btn btn-success px-5 " 
-                                                mat-flat-button color="primary" > Registrar </button>
-                                    </div>
-                                    <div class="contenedor__footer__next"> 
-                                        <button *ngIf="habilitarBtnFinalizarExtras" 
-                                                (click)="FinalizarRegistroExtras()" 
-                                                class="btn btn-success px-5 " 
-                                                mat-flat-button color="primary" > Finalizar </button>
-            
-                                        <button *ngIf="habilitarBtnEliminarExtras" 
-                                                (click)="deleteExtra()" 
-                                                class="btn btn-danger px-5 " 
-                                                mat-flat-button color="primary" > Eliminar </button>
-                                    </div>
-                                </div>
-                            </section>
-            
-                        </div>
-                    </article>
 
-                    <!-- ****************************** -->
-                    <!-- MODAL DE REGISTRO DE DEDUCCIONES -->
-                    <!-- ****************************** -->
-                    <article class="modal modal-config" id="deduccionesModal">
+                  <div class="col-md-7"></div>
 
-                        <div class="modal-content">
-            
-                            <section>
-                                <div class="modal-header">
-                                    <div class="contenedor__header-modal">
-                                        <div class="contenedor__header__prev">
-                                            <h1 style="color:#1A5276">Registro de Deducciones</h1>
-                                        </div>
-                                        <div class="contenedor__header__next">
-                                            <button style="color:red" type="button" class="close btn-close" (click)="CerrarDeduccionesModal()" >&times;</button>
-                                        </div>
-                                    </div>
-                                </div>
-                            </section>
-            
-                            <section>
-                                <form [formGroup]="formDeducciones" class="row modal-config__formulario-header" >
-            
-                                    <div class="form-group col-md-3">
-                                        <label for="lblCodigoTipoDeduccion" class="form-label">Tipo de Deducción</label>
-                                        <select formControlName="codigoTipoDeduccion" class="form-control" name="selectCodigoTipoDeduccion"
-                                        [ngClass]="{ 'is-invalid': submittedDeduccionesForm && d.codigoTipoDeduccion.errors }" >
-                                                <option [ngValue]="objeto" *ngFor="let objeto of listTiposDeducciones">{{objeto.id}} - {{objeto.descripcion}}</option>
-                                        </select>
-                                        <div *ngIf="submittedDeduccionesForm && d.codigoTipoDeduccion.errors" class="invalid-feedback">
-                                            <div *ngIf="d.codigoTipoDeduccion.errors.required">El Tipo de Deducciones es requerido</div>
-                                        </div>
-                                    </div>
-            
-                                    <div class="form-group col-md-2">
-                                        <label for="lblCodigoTipoMoneda" class="form-label">Tipo de Moneda</label>
-                                        <select formControlName="codigoTipoMoneda" class="form-control" name="selectCodigoTipoMoneda"
-                                            [ngClass]="{ 'is-invalid': submittedDeduccionesForm && d.codigoTipoMoneda.errors }" >
-                                                <option [ngValue]="objeto" *ngFor="let objeto of listTiposMonedas">{{objeto.simbolo}} {{objeto.descripcion}}</option>
-                                        </select>
-                                        <div *ngIf="submittedDeduccionesForm && d.codigoTipoMoneda.errors" class="invalid-feedback">
-                                            <div *ngIf="d.codigoTipoMoneda.errors.required">El Tipo de Moneda es requerido</div>
-                                        </div>
-                                    </div>
-            
-                                    <div class="form-group col-md-3">
-                                        <label for="lblTipoCambio" class="form-label">Tipo de Cambio</label>
-                                        <input formControlName="tipoCambio" class="form-control" type="number" id="id_tipoCambio"
-                                            [ngClass]="{ 'is-invalid': submittedDeduccionesForm && d.tipoCambio.errors }" />
-                                        <div *ngIf="submittedDeduccionesForm && d.tipoCambio.errors" class="invalid-feedback">
-                                            <div *ngIf="d.tipoCambio.errors.required">El Tipo de Cambio es requerido</div>
-                                        </div>
-                                    </div>
-            
-                                    <div class="form-group col-md-3">
-                                        <label for="lblMonto" class="form-label">Monto de la Deducción</label>
-                                        <input formControlName="montoDeduccion" class="form-control" type="number" id="id_montoDeduccion"
-                                            [ngClass]="{ 'is-invalid': submittedDeduccionesForm && d.montoDeduccion.errors }" />
-                                        <div *ngIf="submittedDeduccionesForm && d.montoDeduccion.errors" class="invalid-feedback">
-                                            <div *ngIf="d.montoDeduccion.errors.required">El Monto de la Deducción es requerido</div>
-                                        </div>
-                                    </div>
-            
-                                </form>
-                            </section>
-            
-            
-                            <section>
-                                <div class="contenedor__body">
-            
-                                    <div *ngIf="listDeduccionesAnalisis">
-            
-                                        <table class="table table-striped">
-                                            <thead>
-                                                <tr>
-                                                    <th style="width: 20%">Tipo de Deducción</th>
-                                                    <th style="width: 20%">Tipo de Moneda</th>
-                                                    <th style="width: 20%">Tipo de Cambio</th>
-                                                    <th style="width: 20%">Monto de la Deducción</th>
-                                                    <th style="width: 10%"></th>
-                                                </tr>
-                                            </thead>
-                                            <tbody>
-                                                <tr *ngFor="let obj of listDeduccionesAnalisis">
-                    
-                                                    <td>{{obj.codigoTipoDeduccion}}</td>
-                                                    <td>{{obj.codigoMoneda}}</td>
-                                                    <td>{{obj.tipoCambio}}</td>
-                                                    <td>{{obj.monto}}</td>
-            
-                                                    <td  style="white-space: nowrap">
-                                                        <div class="item-list">
-                                                            <a class="item-list__edit" (click)="selectDeduccionAnalisis(obj)"> 
-                                                                <mat-icon>visibility</mat-icon>
-                                                            </a>
-                                                            <a class="item-list__delete" (click)="eliminarDeduccion(obj)"> 
-                                                                <mat-icon>clear</mat-icon>
-                                                            </a>
-                                                        </div>
-                                                    </td>
-                                                    
-                                                </tr>
-                                            </tbody>
-                                        </table>
-            
-                                    </div>
-                                </div>
-                            </section>
-            
-                            <section>   <!-- footer -->
-                                <div class="contenedor__footer">
-                                    <div class="contenedor__footer__prev">
-                                        <button *ngIf="habilitarBtnRegistraDeduccion"
-                                                (click)="SubmitFormDeducciones()"
-                                                class="btn btn-success px-5 "
-                                                mat-flat-button color="primary" > Registrar </button>
-                                        <button *ngIf="habilitarBtnActualizaDeduccion"
-                                                (click)="ActualizaFormDeducciones()"
-                                                class="btn btn-success px-5 "
-                                                mat-flat-button color="primary" > Guardar </button>
-                                    </div>
-                                    <div class="contenedor__footer__next">
-                                        <button *ngIf="habilitarBtnFinalizarDeducciones"
-                                                (click)="finalizarFormularioDeducciones()"
-                                                class="btn btn-success px-5 "
-                                                mat-flat-button color="primary" > Finalizar </button>
-                                    </div>
-                                </div>
-                            </section>
-            
-                        </div>
-                    </article>
+                  <div class="form-group col-md-3">
+                    <label for="lblPorcentajeExtrasAplicable" class="form-label"
+                      >Porcentaje de Extras Aplicables</label
+                    >
+                    <input
+                      formControlName="porcentajeExtrasAplicable"
+                      class="form-control"
+                      type="number"
+                      id="id_porcentajeExtrasAplicable"
+                      readonly
+                    />
+                  </div>
 
+                  <div class="form-group col-md-3">
+                    <label for="lblDesviacionEstandar" class="form-label"
+                      >Desviación Estándar</label
+                    >
+                    <input
+                      formControlName="desviacionEstandar"
+                      class="form-control"
+                      type="number"
+                      id="id_desviacionEstandar"
+                      readonly
+                    />
+                  </div>
+
+                  <div class="form-group col-md-3">
+                    <label for="lblCoeficienteVarianza" class="form-label"
+                      >Coeficiente Varianza</label
+                    >
+                    <input
+                      formControlName="coeficienteVarianza"
+                      class="form-control"
+                      type="number"
+                      id="id_coeficienteVarianza"
+                      readonly
+                    />
+                  </div>
+
+                  <div class="form-group col-md-3">
+                    <label for="lblPromedioExtrasAplicables" class="form-label"
+                      >Promedio de Extras Aplicables</label
+                    >
+                    <input
+                      formControlName="promedioExtrasAplicables"
+                      class="form-control"
+                      type="number"
+                      id="id_promedioExtrasAplicables"
+                      readonly
+                    />
+                  </div>
+                </form>
+              </section>
+
+              <section>
+                <div class="contenedor__body">
+                  <div *ngIf="listExtrasAplicables">
+                    <table class="table table-striped">
+                      <thead>
+                        <tr>
+                          <th style="width: 20%">Monto Extras</th>
+                          <th style="width: 20%">Desviación Estándar</th>
+                          <th style="width: 20%">Coeficiente de Varianza</th>
+                          <th style="width: 20%">
+                            Porcentaje de Extras Aplicables
+                          </th>
+                          <th style="width: 20%">
+                            Promedio de Extras Aplicables
+                          </th>
+                        </tr>
+                      </thead>
+                      <tbody>
+                        <tr *ngFor="let obj of listExtrasAplicables">
+                          <td>{{obj.montoExtras}}</td>
+                          <td>{{obj.desviacionEstandar}}</td>
+                          <td>{{obj.coeficienteVarianza}}</td>
+                          <td>{{obj.porcentajeExtrasAplicables}}</td>
+                          <td>{{obj.promedioExtrasAplicables}}</td>
+                        </tr>
+                      </tbody>
+                    </table>
+                  </div>
+                </div>
+              </section>
+
+              <section>
+                <!-- footer -->
+                <div class="contenedor__footer">
+                  <div class="contenedor__footer__prev">
+                    <button
+                      *ngIf="habilitarBtnSubmitExtras"
+                      (click)="SubmitFormExtras()"
+                      class="btn btn-success px-5"
+                      mat-flat-button
+                      color="primary"
+                    >
+                      Registrar
+                    </button>
+                  </div>
+                  <div class="contenedor__footer__next">
+                    <button
+                      *ngIf="habilitarBtnFinalizarExtras"
+                      (click)="FinalizarRegistroExtras()"
+                      class="btn btn-success px-5"
+                      mat-flat-button
+                      color="primary"
+                    >
+                      Finalizar
+                    </button>
+
+                    <button
+                      *ngIf="habilitarBtnEliminarExtras"
+                      (click)="deleteExtra()"
+                      class="btn btn-danger px-5"
+                      mat-flat-button
+                      color="primary"
+                    >
+                      Eliminar
+                    </button>
+                  </div>
+                </div>
+              </section>
+            </div>
+          </article>
+
+          <!-- ****************************** -->
+          <!-- MODAL DE REGISTRO DE DEDUCCIONES -->
+          <!-- ****************************** -->
+          <article class="modal modal-config" id="deduccionesModal">
+            <div class="modal-content">
+              <section>
+                <div class="modal-header">
+                  <div class="contenedor__header-modal">
+                    <div class="contenedor__header__prev">
+                      <h1 style="color: #1a5276">Registro de Deducciones</h1>
+                    </div>
+                    <div class="contenedor__header__next">
+                      <button
+                        style="color: red"
+                        type="button"
+                        class="close btn-close"
+                        (click)="CerrarDeduccionesModal()"
+                      >
+                        &times;
+                      </button>
+                    </div>
+                  </div>
+                </div>
+              </section>
+
+              <section>
+                <form
+                  [formGroup]="formDeducciones"
+                  class="row modal-config__formulario-header"
+                >
+                  <div class="form-group col-md-3">
+                    <label for="lblCodigoTipoDeduccion" class="form-label"
+                      >Tipo de Deducción</label
+                    >
+                    <select
+                      formControlName="codigoTipoDeduccion"
+                      class="form-control"
+                      name="selectCodigoTipoDeduccion"
+                      [ngClass]="{ 'is-invalid': submittedDeduccionesForm && d.codigoTipoDeduccion.errors }"
+                    >
+                      <option
+                        [ngValue]="objeto"
+                        *ngFor="let objeto of listTiposDeducciones"
+                      >
+                        {{objeto.id}} - {{objeto.descripcion}}
+                      </option>
+                    </select>
+                    <div
+                      *ngIf="submittedDeduccionesForm && d.codigoTipoDeduccion.errors"
+                      class="invalid-feedback"
+                    >
+                      <div *ngIf="d.codigoTipoDeduccion.errors.required">
+                        El Tipo de Deducciones es requerido
+                      </div>
+                    </div>
+                  </div>
+
+                  <div class="form-group col-md-2">
+                    <label for="lblCodigoTipoMoneda" class="form-label"
+                      >Tipo de Moneda</label
+                    >
+                    <select
+                      formControlName="codigoTipoMoneda"
+                      class="form-control"
+                      name="selectCodigoTipoMoneda"
+                      [ngClass]="{ 'is-invalid': submittedDeduccionesForm && d.codigoTipoMoneda.errors }"
+                    >
+                      <option
+                        [ngValue]="objeto"
+                        *ngFor="let objeto of listTiposMonedas"
+                      >
+                        {{objeto.simbolo}} {{objeto.descripcion}}
+                      </option>
+                    </select>
+                    <div
+                      *ngIf="submittedDeduccionesForm && d.codigoTipoMoneda.errors"
+                      class="invalid-feedback"
+                    >
+                      <div *ngIf="d.codigoTipoMoneda.errors.required">
+                        El Tipo de Moneda es requerido
+                      </div>
+                    </div>
+                  </div>
+
+                  <div class="form-group col-md-3">
+                    <label for="lblTipoCambio" class="form-label"
+                      >Tipo de Cambio</label
+                    >
+                    <input
+                      formControlName="tipoCambio"
+                      class="form-control"
+                      type="number"
+                      id="id_tipoCambio"
+                      [ngClass]="{ 'is-invalid': submittedDeduccionesForm && d.tipoCambio.errors }"
+                    />
+                    <div
+                      *ngIf="submittedDeduccionesForm && d.tipoCambio.errors"
+                      class="invalid-feedback"
+                    >
+                      <div *ngIf="d.tipoCambio.errors.required">
+                        El Tipo de Cambio es requerido
+                      </div>
+                    </div>
+                  </div>
+
+                  <div class="form-group col-md-3">
+                    <label for="lblMonto" class="form-label"
+                      >Monto de la Deducción</label
+                    >
+                    <input
+                      formControlName="montoDeduccion"
+                      class="form-control"
+                      type="number"
+                      id="id_montoDeduccion"
+                      [ngClass]="{ 'is-invalid': submittedDeduccionesForm && d.montoDeduccion.errors }"
+                    />
+                    <div
+                      *ngIf="submittedDeduccionesForm && d.montoDeduccion.errors"
+                      class="invalid-feedback"
+                    >
+                      <div *ngIf="d.montoDeduccion.errors.required">
+                        El Monto de la Deducción es requerido
+                      </div>
+                    </div>
+                  </div>
+                </form>
+              </section>
+
+              <section>
+                <div class="contenedor__body">
+                  <div *ngIf="listDeduccionesAnalisis">
+                    <table class="table table-striped">
+                      <thead>
+                        <tr>
+                          <th style="width: 20%">Tipo de Deducción</th>
+                          <th style="width: 20%">Tipo de Moneda</th>
+                          <th style="width: 20%">Tipo de Cambio</th>
+                          <th style="width: 20%">Monto de la Deducción</th>
+                          <th style="width: 10%"></th>
+                        </tr>
+                      </thead>
+                      <tbody>
+                        <tr *ngFor="let obj of listDeduccionesAnalisis">
+                          <td>{{obj.codigoTipoDeduccion}}</td>
+                          <td>{{obj.codigoMoneda}}</td>
+                          <td>{{obj.tipoCambio}}</td>
+                          <td>{{obj.monto}}</td>
+
+                          <td style="white-space: nowrap">
+                            <div class="item-list">
+                              <a
+                                class="item-list__edit"
+                                (click)="selectDeduccionAnalisis(obj)"
+                              >
+                                <mat-icon>visibility</mat-icon>
+                              </a>
+                              <a
+                                class="item-list__delete"
+                                (click)="eliminarDeduccion(obj)"
+                              >
+                                <mat-icon>clear</mat-icon>
+                              </a>
+                            </div>
+                          </td>
+                        </tr>
+                      </tbody>
+                    </table>
+                  </div>
+                </div>
+              </section>
+
+              <section>
+                <!-- footer -->
+                <div class="contenedor__footer">
+                  <div class="contenedor__footer__prev">
+                    <button
+                      *ngIf="habilitarBtnRegistraDeduccion"
+                      (click)="SubmitFormDeducciones()"
+                      class="btn btn-success px-5"
+                      mat-flat-button
+                      color="primary"
+                    >
+                      Registrar
+                    </button>
+                    <button
+                      *ngIf="habilitarBtnActualizaDeduccion"
+                      (click)="ActualizaFormDeducciones()"
+                      class="btn btn-success px-5"
+                      mat-flat-button
+                      color="primary"
+                    >
+                      Guardar
+                    </button>
+                  </div>
+                  <div class="contenedor__footer__next">
+                    <button
+                      *ngIf="habilitarBtnFinalizarDeducciones"
+                      (click)="finalizarFormularioDeducciones()"
+                      class="btn btn-success px-5"
+                      mat-flat-button
+                      color="primary"
+                    >
+                      Finalizar
+                    </button>
+                  </div>
+                </div>
+              </section>
+            </div>
+          </article>
+        </section>
+      </article>
+
+      <!-- ************************** -->
+      <!-- ARTÍCULO PD                -->
+      <!-- ************************** -->
+      <article *ngIf="pd">
+        <section>
+          <div class="contenedor__header">
+            <div class="contenedor__header__prev">
+              <h2 *ngIf="_analisisCapacidadpago">
+                codigo de análisis: {{_analisisCapacidadpago.codigoAnalisis}}
+              </h2>
+            </div>
+            <div class="contenedor__header__next">
+              <h2>Información de PD</h2>
+            </div>
+          </div>
+
+          <div class="contenedor-analisis__tabletas__body">
+            <form [formGroup]="formPD" class="gridContainer">
+              <!-- GENERO -->
+              <div class="form-group">
+                <label for="lblGenero" class="form-label">Género</label>
+                <select
+                  formControlName="codigoGenero"
+                  class="form-control"
+                  name="selectcodigoGenero"
+                  [attr.disabled]="disabledDatosPD ? '' : null"
+                  [ngClass]="{ 'is-invalid': submittedPDForm && j.codigoGenero.errors }"
+                >
+                  <option
+                    [ngValue]="genero"
+                    *ngFor="let genero of listTipoGenero"
+                  >
+                    {{genero.id}} - {{genero.descripcion}}
+                  </option>
+                </select>
+
+                <div
+                  *ngIf="submittedPDForm && j.codigoGenero.errors"
+                  class="invalid-feedback"
+                >
+                  <div *ngIf="j.codigoGenero.errors.required">
+                    El Género es requerido
+                  </div>
+                </div>
+              </div>
+
+              <!-- ESTADO CIVIL -->
+              <div class="form-group">
+                <label for="lblGenero" class="form-label">Estado Civil</label>
+                <select
+                  formControlName="codigoEstadoCivil"
+                  class="form-control"
+                  name="selectcodigoEstadoCivil"
+                  [attr.disabled]="disabledDatosPD ? '' : null"
+                  [ngClass]="{ 'is-invalid': submittedPDForm && j.codigoEstadoCivil.errors }"
+                >
+                  <option
+                    [ngValue]="estadoCivil"
+                    *ngFor="let estadoCivil of lstEstadoCivil"
+                  >
+                    {{estadoCivil.id}} - {{estadoCivil.descripcion}}
+                  </option>
+                </select>
+
+                <div
+                  *ngIf="submittedPDForm && j.codigoEstadoCivil.errors"
+                  class="invalid-feedback"
+                >
+                  <div *ngIf="j.codigoEstadoCivil.errors.required">
+                    El Estado Civil es requerido
+                  </div>
+                </div>
+              </div>
+
+              <!-- TIPO HABITACION -->
+              <div class="form-group">
+                <label for="lblTipoHabitacion" class="form-label"
+                  >Tipo de habitación</label
+                >
+                <select
+                  formControlName="codigoTipoHabitacion"
+                  class="form-control"
+                  name="selectcodigoTipoHabitacion"
+                  [attr.disabled]="disabledDatosPD ? '' : null"
+                  [ngClass]="{ 'is-invalid': submittedPDForm && j.codigoTipoHabitacion.errors }"
+                >
+                  <option
+                    [ngValue]="tipoHabitacion"
+                    *ngFor="let tipoHabitacion of listTipoHabitaciones"
+                  >
+                    {{tipoHabitacion.id}} - {{tipoHabitacion.descripcion}}
+                  </option>
+                </select>
+
+                <div
+                  *ngIf="submittedPDForm && j.codigoTipoHabitacion.errors"
+                  class="invalid-feedback"
+                >
+                  <div *ngIf="j.codigoTipoHabitacion.errors.required">
+                    El Tipo de Habitación es requerido
+                  </div>
+                </div>
+              </div>
+
+              <!-- EDAD -->
+              <div class="form-group">
+                <label for="lblEdad" class="form-label">Edad</label>
+                <input
+                  formControlName="edad"
+                  class="form-control"
+                  type="number"
+                  id="id_edad"
+                  min="0"
+                  max="200"
+                  [ngClass]="{ 'is-invalid': submittedPDForm && j.edad.errors }"
+                  [readOnly]="disabledDatosPD"
+                />
+                <div
+                  *ngIf="submittedPDForm && j.edad.errors"
+                  class="invalid-feedback"
+                >
+                  <div *ngIf="j.edad.errors.required">La edad es requerida</div>
+                </div>
+              </div>
+
+              <div class="form-group">
+                <section class="flex">
+                  <input
+                    formControlName="tienePropiedades"
+                    id="tienePropiedades"
+                    type="checkbox"
+                    name="tienePropiedades"
+                    class="chk m-right-5"
+                    [readOnly]="disabledDatosPD"
+                  />
+                  <label for="tienePropiedades">Tiene Propiedades?</label>
                 </section>
-            </article>
+                <section class="flex">
+                  <input
+                    formControlName="tieneVehiculo"
+                    id="tieneVehiculo"
+                    type="checkbox"
+                    name="tieneVehiculo"
+                    class="chk m-right-5"
+                    [readOnly]="disabledDatosPD"
+                  />
+                  <label for="tieneVehiculo">Tiene Vehículo?</label>
+                </section>
+              </div>
 
-            <!-- ************************** -->
-            <!-- ARTÍCULO PD                -->
-            <!-- ************************** -->
+              <!-- NUMERO DE HIJOS -->
+              <div class="form-group">
+                <label for="lblnumeroHijos" class="form-label"
+                  >Número de hijos</label
+                >
+                <input
+                  formControlName="numeroHijos"
+                  class="form-control"
+                  type="number"
+                  id="id_numeroHijos"
+                  [ngClass]="{ 'is-invalid': submittedPDForm && j.numeroHijos.errors }"
+                  [readOnly]="disabledDatosPD"
+                />
+                <div
+                  *ngIf="submittedPDForm && j.numeroHijos.errors"
+                  class="invalid-feedback"
+                >
+                  <div *ngIf="j.numeroHijos.errors.required">
+                    El Número de Hijos es requerido
+                  </div>
+                </div>
+              </div>
 
+              <!-- NUMERO DE FIANZAS -->
+              <div class="form-group">
+                <label for="lblnumeroFianzas" class="form-label"
+                  >Número de Fianzas</label
+                >
+                <input
+                  formControlName="numeroFianzas"
+                  class="form-control"
+                  type="number"
+                  id="id_numeroFianzas"
+                  [ngClass]="{ 'is-invalid': submittedPDForm && j.numeroFianzas.errors }"
+                  [readOnly]="disabledDatosPD"
+                />
+                <div
+                  *ngIf="submittedPDForm && j.numeroFianzas.errors"
+                  class="invalid-feedback"
+                >
+                  <div *ngIf="j.numeroFianzas.errors.required">
+                    El número de fianzas es requerido
+                  </div>
+                </div>
+              </div>
 
+              <!-- CREDITOS ACTIVOS -->
+              <div class="form-group">
+                <label for="lblcreditosActivos" class="form-label"
+                  >Créditos activos</label
+                >
+                <input
+                  formControlName="creditosActivos"
+                  class="form-control"
+                  type="number"
+                  id="id_creditosActivos"
+                  [ngClass]="{ 'is-invalid': submittedPDForm && j.creditosActivos.errors }"
+                  [readOnly]="disabledDatosPD"
+                />
+                <div
+                  *ngIf="submittedPDForm && j.creditosActivos.errors"
+                  class="invalid-feedback"
+                >
+                  <div *ngIf="j.creditosActivos.errors.required">
+                    Los créditos activos son requeridos
+                  </div>
+                </div>
+              </div>
 
+              <!-- CSD -->
+              <div class="form-group">
+                <label for="lblcsd" class="form-label">CSD</label>
+                <input
+                  formControlName="csd"
+                  class="form-control"
+                  type="number"
+                  id="id_csd"
+                  [ngClass]="{ 'is-invalid': submittedPDForm && j.csd.errors }"
+                  [readOnly]="disabledDatosPD"
+                />
+                <div
+                  *ngIf="submittedPDForm && j.csd.errors"
+                  class="invalid-feedback"
+                >
+                  <div *ngIf="j.csd.errors.required">El CSD es requerido</div>
+                </div>
+              </div>
 
-        </div>
-        
-    </article>
+              <!-- SEGMENTO -->
+              <div class="form-group">
+                <label for="lblNumeroDependientes" class="form-label"
+                  >Segmento</label
+                >
+                <input
+                  formControlName="segmento"
+                  class="form-control"
+                  type="number"
+                  id="id_segmento"
+                  [ngClass]="{ 'is-invalid': submittedPDForm && j.segmento.errors }"
+                  [readOnly]="disabledDatosPD"
+                />
+                <div
+                  *ngIf="submittedPDForm && j.segmento.errors"
+                  class="invalid-feedback"
+                >
+                  <div *ngIf="j.segmento.errors.required">
+                    El Segmento es requerido
+                  </div>
+                </div>
+              </div>
 
+              <!-- SALARIO BRUTO -->
+              <div class="form-group">
+                <label for="lblsalarioBruto" class="form-label"
+                  >Salario bruto</label
+                >
+                <input
+                  formControlName="salarioBruto"
+                  class="form-control"
+                  type="number"
+                  id="id_salarioBruto"
+                  [ngClass]="{ 'is-invalid': submittedPDForm && j.salarioBruto.errors }"
+                  [readOnly]="disabledDatosPD"
+                />
+                <div
+                  *ngIf="submittedPDForm && j.salarioBruto.errors"
+                  class="invalid-feedback"
+                >
+                  <div *ngIf="j.salarioBruto.errors.required">
+                    El Salario Bruto es requerido
+                  </div>
+                </div>
+              </div>
 
+              <!-- MONTO APROBADO -->
+              <div class="form-group">
+                <label for="lblNumeroDependientes" class="form-label"
+                  >Monto Aprobado</label
+                >
+                <input
+                  formControlName="montoAprobadoTotal"
+                  class="form-control"
+                  type="number"
+                  id="id_montoAprobadoTotal"
+                  [ngClass]="{ 'is-invalid': submittedPDForm && j.montoAprobadoTotal.errors }"
+                  [readOnly]="disabledDatosPD"
+                />
+                <div
+                  *ngIf="submittedPDForm && j.montoAprobadoTotal.errors"
+                  class="invalid-feedback"
+                >
+                  <div *ngIf="j.montoAprobadoTotal.errors.required">
+                    El Monto Aprobado es requerido
+                  </div>
+                </div>
+              </div>
 
+              <!-- ENDEUDAMIENTO TOTAL CIC -->
+              <div class="form-group">
+                <label for="lblendeudamientoTotalCIC" class="form-label"
+                  >Endeudamiento Total CIC</label
+                >
+                <input
+                  formControlName="endeudamientoTotalCIC"
+                  class="form-control"
+                  type="number"
+                  id="id_endeudamientoTotalCIC"
+                  [ngClass]="{ 'is-invalid': submittedPDForm && j.endeudamientoTotalCIC.errors }"
+                  [readOnly]="disabledDatosPD"
+                />
+                <div
+                  *ngIf="submittedPDForm && j.endeudamientoTotalCIC.errors"
+                  class="invalid-feedback"
+                >
+                  <div *ngIf="j.endeudamientoTotalCIC.errors.required">
+                    El Endeudamiento Total CIC es requerido
+                  </div>
+                </div>
+              </div>
 
+              <!-- CONSTANTE -->
+              <div class="form-group">
+                <label for="lblconstante" class="form-label">Constante</label>
+                <input
+                  formControlName="constante"
+                  class="form-control"
+                  type="number"
+                  id="id_constante"
+                  [ngClass]="{ 'is-invalid': submittedPDForm && j.constante.errors }"
+                  [readOnly]="disabledDatosPD"
+                />
+                <div
+                  *ngIf="submittedPDForm && j.constante.errors"
+                  class="invalid-feedback"
+                >
+                  <div *ngIf="j.constante.errors.required">
+                    La constante es requerida
+                  </div>
+                </div>
+              </div>
 
+              <section></section>
 
+              <div class="form-group">
+                <label for="lblmodeloAnalisis" class="form-label"
+                  >Modelo de análisis</label
+                >
+                <input
+                  formControlName="modeloAnalisis"
+                  class="form-control"
+                  type="text"
+                  id="id_modeloAnalisis"
+                  [ngClass]="{ 'is-invalid': submittedPDForm && j.modeloAnalisis.errors }"
+                  readonly
+                />
+                <input
+                  formControlName="modeloAnalisisConglomerado"
+                  class="form-control"
+                  type="text"
+                  id="id_modeloAnalisisConglomerado"
+                  [ngClass]="{ 'is-invalid': submittedPDForm && j.modeloAnalisisConglomerado.errors }"
+                  readonly
+                />
+              </div>
+              <div class="form-group">
+                <label for="lblzScore" class="form-label">Z-Score</label>
+                <input
+                  formControlName="zScore"
+                  class="form-control"
+                  type="number"
+                  id="id_zScore"
+                  [ngClass]="{ 'is-invalid': submittedPDForm && j.zScore.errors }"
+                  readonly
+                />
+              </div>
+              <div class="form-group">
+                <label for="lblpdResult" class="form-label"
+                  >Probability Of Default</label
+                >
+                <input
+                  formControlName="pdResult"
+                  class="form-control"
+                  type="number"
+                  id="id_pdResult"
+                  [ngClass]="{ 'is-invalid': submittedPDForm && j.pdResult.errors }"
+                  readonly
+                />
+              </div>
+            </form>
+          </div>
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-    <div class="col-md-12 mt-5" *ngIf="flujoCaja">
-        <mat-sidenav-container>
-            <div class="asociado_content mat-elevation-z4">
-                <main>
-                    <article>
-                        <section >
-                            <br>
-                            <br>
-
-                            <div >
-                                <p >Administración de Flujo de Caja  !</p>
-                            </div>
-                            <br>
-
-                        </section>
-                    </article>
-                </main>
+          <div class="contenedor__footer">
+            <div class="contenedor__footer__prev">
+              <button
+                *ngIf="habilitarBtnEditarDatos"
+                (click)="habilitarCamposPDEditar(true)"
+                class="btn btn-success px-5 mx-1"
+                mat-flat-button
+                color="primary"
+              >
+                Editar
+              </button>
+              <button
+                *ngIf="habilitarBtnGuardarDatos"
+                (click)="procesoGuardarDatosPD()"
+                class="btn btn-success px-5 mx-1"
+                mat-flat-button
+                color="primary"
+              >
+                Guardar
+              </button>
+              <button
+                *ngIf="habilitarBtnCalcularDatosPD"
+                (click)="procesoCalculaPD()"
+                class="btn btn-success px-5 mx-1"
+                mat-flat-button
+                color="primary"
+              >
+                Calcular
+              </button>
             </div>
-        </mat-sidenav-container>
-    </div>
-    <div class="col-md-12 mt-5" *ngIf="pd">
-        <mat-sidenav-container>
-            <div class="asociado_content mat-elevation-z4">
-                <main>
-                    <article>
-                        <section >
-                            <br>
-                            <br>
-
-                            <div >
-                                <p >Administración de Probability of Default  !</p>
-                            </div>
-
-                            <br>
-                        </section>
-                    </article>
-                </main>
+            <div class="contenedor__footer__next">
+              <button
+                *ngIf="habilitarBtnPD_ContinuarScoring"
+                (click)="habilitarFormPD()"
+                class="btn px-5 btn-info"
+                mat-flat-button
+                color="primary"
+              >
+                Scoring
+              </button>
+              <button
+                *ngIf="habilitarBtnPD_ContinuarFCL"
+                (click)="habilitarFormFCL()"
+                class="btn px-5 btn-info"
+                mat-flat-button
+                color="primary"
+              >
+                Flujo de Caja Libre
+              </button>
             </div>
-        </mat-sidenav-container>
-    </div>
+          </div>
 
-    
-    <div class="col-md-12 mt-5" *ngIf="scoring">
-        <mat-sidenav-container>
-            <div class="asociado_content mat-elevation-z4">
-                <main>
-                    <article>
-                        <section >
-                            <br>
-                            <br>
+          <!-- ****************************** -->
+          <!-- MODAL DE MODELOS DE PD -->
+          <!-- ****************************** -->
+          <article class="modal modal-config" id="modalModelosPD">
+            <div class="modal-content">
+              <section>
+                <div class="modal-header">
+                  <div class="contenedor__header-modal">
+                    <div class="contenedor__header__prev">
+                      <h1 style="color: #1a5276">
+                        Modelos de análisis PD
+                      </h1>
+                    </div>
+                    <div class="contenedor__header__next">
+                      <button
+                        style="color: red"
+                        type="button"
+                        class="close btn-close"
+                        data-dismiss="modal"
+                      >
+                        &times;
+                      </button>
+                    </div>
+                  </div>
+                </div>
+              </section>
 
-                            <div >
-                                <p >Administración de Scoring Crediticio  !</p>
-                            </div>
-                            <br>
+              <section>
+                <!-- body -->
+                <div class="contenedor__body">
+                  <div *ngIf="lstModelosPD">
+                    <p>Por favor seleccionar un modelo para el cálculo.</p>
+                    <table class="table table-striped">
+                      <thead>
+                        <tr>
+                          <th style="width: 50%">Modelo</th>
+                          <th style="width: 50%">Fecha de creación</th>
+                        </tr>
+                      </thead>
+                      <tbody>
+                        <tr
+                          *ngFor="let obj of lstModelosPD"
+                          class="item-list__confirm"
+                          (click)="handleModalPDSelececionarModelo(obj)"
+                        >
+                          <td>{{obj.descripcion}}</td>
+                          <td>{{obj.fechaCreacion}}</td>
+                        </tr>
+                      </tbody>
+                    </table>
+                  </div>
+                </div>
+              </section>
 
-                        </section>
-                    </article>
-                </main>
             </div>
-        </mat-sidenav-container>
-    </div>
+          </article>
 
-    <div class="col-md-12 mt-5" *ngIf="obligacionesSupervisadas">
-        <mat-sidenav-container>
-            <div class="asociado_content mat-elevation-z4">
-                <main>
-                    <article>
-                        <section >
-                            <br>
-                            <br>
+          <!-- ****************************** -->
+          <!-- MODAL DE GRUPOS DE PD -->
+          <!-- ****************************** -->
+          <article class="modal modal-config" id="modalGruposPD">
+            <div class="modal-content">
+              <section>
+                <div class="modal-header">
+                  <div class="contenedor__header-modal">
+                    <div class="contenedor__header__prev">
+                      <h1 style="color: #1a5276">
+                        Grupos asignados al modelo PD
+                      </h1>
+                    </div>
+                    <div class="contenedor__header__next">
+                      <button
+                        style="color: red"
+                        type="button"
+                        class="close btn-close"
+                        data-dismiss="modal"
+                      >
+                        &times;
+                      </button>
+                    </div>
+                  </div>
+                </div>
+              </section>
 
-                            <div >
-                                <p >Administración de Obligaciones Supervisadas  !</p>
-                            </div>
-                            <br>
+              <section>
+                <!-- body -->
+                <div class="contenedor__body">
+                  <div *ngIf="lstGruposPD">
+                    <p>Por favor seleccionar un grupo para el cálculo.</p>
+                    <table class="table table-striped">
+                      <thead>
+                        <tr>
+                          <th style="width: 50%">Nombre del grupo</th>
+                          <th style="width: 50%">Fecha de creación</th>
+                        </tr>
+                      </thead>
+                      <tbody>
+                        <tr
+                          *ngFor="let obj of lstGruposPD"
+                          class="item-list__confirm"
+                          (click)="handleModalPDSeleccionarGrupo(obj)"
+                        >
+                          <td>{{obj.descripcion}}</td>
+                          <td>{{obj.fechaCreacion}}</td>
+                        </tr>
+                      </tbody>
+                    </table>
+                  </div>
+                </div>
+              </section>
 
-                        </section>
-                    </article>
-                </main>
             </div>
-        </mat-sidenav-container>
+          </article>
+
+        </section>
+      </article>
+
+      <!-- ************************** -->
+      <!-- ARTÍCULO FCL               -->
+      <!-- ************************** -->
+      <app-fcl
+      *ngIf="flujoCaja"
+      [_analisisCapacidadpago]="_analisisCapacidadpago"
+      [_personaAnalisis]="_personaMacred"
+      (onEscenariosFCL)="handleHabilitarEscenariosFCL($event)"
+      ></app-fcl>
+
+      <!-- ************************** -->
+      <!-- ARTÍCULO ESCENARIO FCL     -->
+      <!-- ************************** -->
+      <app-escenariofcl
+      *ngIf="escenariosFcl"
+      ></app-escenariofcl>
+
     </div>
+  </article>
 
-    <div class="col-md-12 mt-5" *ngIf="oNoSupervisadas">
-        <mat-sidenav-container>
-            <div class="asociado_content mat-elevation-z4">
-                <main>
-                    <article>
-                        <section >
-                            <br>
-                            <br>
 
-                            <div >
-                                <p >Administración de O. No Supervisadas  !</p>
-                            </div>
-                            <br>
+  <div class="col-md-12 mt-5" *ngIf="scoring">
+    <mat-sidenav-container>
+      <div class="asociado_content mat-elevation-z4">
+        <main>
+          <article>
+            <section>
+              <br />
+              <br />
 
-                        </section>
-                    </article>
-                </main>
-            </div>
-        </mat-sidenav-container>
-    </div>
+              <div>
+                <p>Administración de Scoring Crediticio !</p>
+              </div>
+              <br />
+            </section>
+          </article>
+        </main>
+      </div>
+    </mat-sidenav-container>
+  </div>
 
-    <div class="col-md-12 mt-5" *ngIf="lvt">
-        <mat-sidenav-container>
-            <div class="asociado_content mat-elevation-z4">
-                <main>
-                    <article>
-                        <section >
-                            <br>
-                            <br>
+  <div class="col-md-12 mt-5" *ngIf="obligacionesSupervisadas">
+    <mat-sidenav-container>
+      <div class="asociado_content mat-elevation-z4">
+        <main>
+          <article>
+            <section>
+              <br />
+              <br />
 
-                            <div >
-                                <p >Administración de LVT  !</p>
-                            </div>
-                            <br>
+              <div>
+                <p>Administración de Obligaciones Supervisadas !</p>
+              </div>
+              <br />
+            </section>
+          </article>
+        </main>
+      </div>
+    </mat-sidenav-container>
+  </div>
 
-                        </section>
-                    </article>
-                </main>
-            </div>
-        </mat-sidenav-container>
-    </div>
+  <div class="col-md-12 mt-5" *ngIf="oNoSupervisadas">
+    <mat-sidenav-container>
+      <div class="asociado_content mat-elevation-z4">
+        <main>
+          <article>
+            <section>
+              <br />
+              <br />
 
-    <div class="col-md-12 mt-5" *ngIf="escenarios">
-        <mat-sidenav-container>
-            <div class="asociado_content mat-elevation-z4">
-                <main>
-                    <article>
-                        <section >
-                            <br>
-                            <br>
+              <div>
+                <p>Administración de O. No Supervisadas !</p>
+              </div>
+              <br />
+            </section>
+          </article>
+        </main>
+      </div>
+    </mat-sidenav-container>
+  </div>
 
-                            <div >
-                                <p >Administración de Escenarios  !</p>
-                            </div>
-                            <br>
+  <div class="col-md-12 mt-5" *ngIf="lvt">
+    <mat-sidenav-container>
+      <div class="asociado_content mat-elevation-z4">
+        <main>
+          <article>
+            <section>
+              <br />
+              <br />
 
-                        </section>
-                    </article>
-                </main>
-            </div>
-        </mat-sidenav-container>
-    </div>
+              <div>
+                <p>Administración de LVT !</p>
+              </div>
+              <br />
+            </section>
+          </article>
+        </main>
+      </div>
+    </mat-sidenav-container>
+  </div>
 
-    <div class="col-md-12 mt-5" *ngIf="escenariosFcl">
-        <mat-sidenav-container>
-            <div class="asociado_content mat-elevation-z4">
-                <main>
-                    <article>
-                        <section >
-                            <br>
-                            <br>
+  <div class="col-md-12 mt-5" *ngIf="escenarios">
+    <mat-sidenav-container>
+      <div class="asociado_content mat-elevation-z4">
+        <main>
+          <article>
+            <section>
+              <br />
+              <br />
 
-                            <div >
-                                <p >Administración de Escenarios FCL  !</p>
-                            </div>
-                            <br>
-
-                        </section>
-                    </article>
-                </main>
-            </div>
-        </mat-sidenav-container>
-    </div>
-
+              <div>
+                <p>Administración de Escenarios !</p>
+              </div>
+              <br />
+            </section>
+          </article>
+        </main>
+      </div>
+    </mat-sidenav-container>
+  </div>
 
 </main>

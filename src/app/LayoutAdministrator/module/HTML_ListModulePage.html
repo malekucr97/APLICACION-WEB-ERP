@@ -8,7 +8,6 @@
 
         <div>
             <br>
-            <!-- <h4 *ngIf="seleccionEmpresa" style="color:#1A5276">Seleccione los módulos a los que se les dará acceso en {{business.nombre}}</h4> -->
             <table class="table table-striped">
                 <thead>
                     <tr>
@@ -27,8 +26,6 @@
                         <td>{{module.descripcion}}</td>
                         <td>{{module.estado}}</td>
 
-                        
-
                         <td style="white-space: nowrap">
 
                             <button *ngIf="module.estado!='Activo'"  
@@ -39,8 +36,9 @@
                                 (click)="inActivate(module.identificador)" 
                                 class="items__btns__list__warn" mat-flat-button> Inactivar </button>
 
-                            <button class="items__btns__list__otro" mat-flat-button >
-                                Pantallas y Accesos</button>
+                            <button class="items__btns__list__otro" 
+                                    (click)="selectModuleScreenUser(module.id)"         
+                                    mat-flat-button > Pantallas y Accesos </button>
             
                         </td>
                     </tr>

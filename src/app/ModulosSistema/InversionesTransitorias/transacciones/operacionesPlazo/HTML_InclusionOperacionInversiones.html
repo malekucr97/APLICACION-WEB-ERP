@@ -1,0 +1,510 @@
+<main>
+    <article class="articulo">
+
+        <div class="articulo__contenedor mat-elevation-z4">
+
+            <!-- // ************
+            // ** HEADER ** -->
+            <section>
+                <div class="articulo__contenedor__header">
+
+                    <div class="articulo__contenedor__header__prev" >
+
+                        <p>{{nombreModulo}} / Transacciones / Operaciones de Inversión</p>
+
+                    </div>
+
+                    <div class="articulo__contenedor__header__next" > </div>
+
+                </div>
+            </section>
+
+            <!-- // **********
+            // ** BODY ** -->
+
+            <!-- ********************** -->
+            <!-- SECCIÓN MERCADOS       -->
+            <!-- ********************** -->
+
+            <section >
+                <div class="articulo__contenedor__body">
+
+                    <div class="articulo__contenedor__body__prev" >
+
+                        <article>
+                            <div>
+                                <section>
+                                    <div class="articulo__contenedor__body__prev__form">
+
+                                        <div class="articulo__contenedor__body__prev__form__header"> 
+                                            
+                                            <div class="articulo__contenedor__body__prev__form__header__prev" > 
+                                                <p class="articulo__contenedor__body__prev__form__header__titulo">Encabezado de Inversión</p>
+                                            </div>
+
+                                            <div class="articulo__contenedor__body__prev__form__header__next" > 
+
+                                                <button *ngIf="habilitaBtnNuevoEncabezado" class="articulo__contenedor__body__prev__form__header__prev__btns__new" 
+                                                        mat-flat-button
+                                                        (click)="limpiarFormularioEncabezado()">Nuevo</button>
+
+                                                <button *ngIf="habilitaBtnActualizaEncabezado" class="articulo__contenedor__header__prev__btns__warn" 
+                                                        mat-flat-button
+                                                        (click)="actualizaObjetoEncabezado()">Actualizar</button>
+                                                <button *ngIf="habilitaBtnRegistroEncabezado" class="articulo__contenedor__header__prev__btns__ok" 
+                                                        mat-flat-button
+                                                        (click)="submitEncabezado()">Registrar</button>
+                                                <button *ngIf="habilitaBtnElimibarEncabezado" class="articulo__contenedor__header__prev__btns__danger" 
+                                                        mat-flat-button
+                                                        (click)="eliminarObjetoEncabezado()">Eliminar</button>
+
+                                            </div>
+                                        
+                                        </div>
+
+                                        <div class="articulo__contenedor__body__prev__form__content">
+
+                                            <form [formGroup]="formularioEncabezado" class="row">
+                    
+                                                <div class="form-group col-md-1">
+                                                    <label for="lblIdEncabezado" class="form-label">Id</label>
+                                                    <input formControlName="idEncabezado" class="form-control" type="text" id="id_idEncabezado" readonly />
+                                                </div>
+
+                                                <div class="form-group col-md-3">
+                                                    <label for="lblFechaInversionEncabezado" class="form-label">Fecha de Inversión</label>
+                                                    <input formControlName="fechaInversionEncabezado" class="form-control" matInput [matDatepicker]="picker" >
+                                                    <mat-datepicker-toggle class="item-list__calendar" matSuffix [for]="picker"></mat-datepicker-toggle>
+                                                    <mat-datepicker #picker ></mat-datepicker>
+                                                </div>
+                                                
+                                                <div class="form-group col-md-6">
+                                                    <label for="lblNumeroInversionEncabezado" class="form-label">Número de Inversión</label>
+                                                    <input formControlName="numeroInversionEncabezado" class="form-control" type="text" id="id_numeroInversionEncabezado"
+                                                        [ngClass]="{ 'is-invalid': submittedFormEncabezado && m.numeroInversionEncabezado.errors }" />
+                                                    <div *ngIf="submittedFormEncabezado && m.numeroInversionEncabezado.errors" class="invalid-feedback">
+                                                        <div *ngIf="m.numeroInversionEncabezado.errors.required">El número de inversión es requerido .</div>
+                                                    </div>
+                                                </div>
+                    
+                                                <div class="col-sm-1 margin-icos-mat">
+                                                    <a class="item-list__search"> <mat-icon (click)="buscarObjetoEncabezado()">search</mat-icon> </a>
+                                                </div>
+
+                                                <div class="form-group col-md-4">
+                                                    <label for="lblIdTituloEncabezado" class="form-label">Título</label>
+                                                    <select formControlName="idTituloEncabezado" class="form-control" name="selectIdTituloEncabezado"
+                                                        [ngClass]="{ 'is-invalid': submittedFormEncabezado && m.idTituloEncabezado.errors }" 
+                                                        (ngModelChange)="itemTituloSelected($event)" >
+                                                            <option [ngValue]="objeto" *ngFor="let objeto of listTitulos" >{{objeto.id}} - {{objeto.descripcion}}</option>
+                                                    </select>
+                                                    <div *ngIf="submittedFormEncabezado && m.idTituloEncabezado.errors" class="invalid-feedback">
+                                                        <div *ngIf="m.idTituloEncabezado.errors.required">El título del encabezado es requerido .</div>
+                                                    </div>
+                                                </div>
+
+                                                <div class="form-group col-md-4">
+                                                    <label for="lblNumeroCuentaEncabezado" class="form-label">Número de Cuenta</label>
+                                                    <input formControlName="numeroCuentaEncabezado" class="form-control" type="text" id="id_numeroCuentaEncabezado"
+                                                        [ngClass]="{ 'is-invalid': submittedFormEncabezado && m.numeroCuentaEncabezado.errors }" />
+                                                    <div *ngIf="submittedFormEncabezado && m.numeroCuentaEncabezado.errors" class="invalid-feedback">
+                                                        <div *ngIf="m.numeroCuentaEncabezado.errors.required">El número de cuenta es requerido .</div>
+                                                    </div>
+                                                </div>
+
+                                                <div class="form-group col-md-4">
+                                                    <label for="lblCertificadoBancarioEncabezado" class="form-label">Certificado Bancario</label>
+                                                    <input formControlName="certificadoBancarioEncabezado" class="form-control" type="text" id="id_certificadoBancarioEncabezado"
+                                                        [ngClass]="{ 'is-invalid': submittedFormEncabezado && m.certificadoBancarioEncabezado.errors }" />
+                                                    <div *ngIf="submittedFormEncabezado && m.certificadoBancarioEncabezado.errors" class="invalid-feedback">
+                                                        <div *ngIf="m.certificadoBancarioEncabezado.errors.required">El certificado bancario es requerido .</div>
+                                                    </div>
+                                                </div>
+
+                                                <div class="form-group col-md-3">
+                                                    <label for="lblIdMonedaEncabezado" class="form-label">Moneda</label>
+                                                    <select formControlName="idMonedaEncabezado" class="form-control" name="selectIdMonedaEncabezado"
+                                                        [ngClass]="{ 'is-invalid': submittedFormEncabezado && m.idMonedaEncabezado.errors }" >
+                                                            <option [ngValue]="objeto" *ngFor="let objeto of listMonedas">{{objeto.id}} - {{objeto.descripcion}}</option>
+                                                    </select>
+                                                    <div *ngIf="submittedFormEncabezado && m.idMonedaEncabezado.errors" class="invalid-feedback">
+                                                        <div *ngIf="m.idMonedaEncabezado.errors.required">La periocidad del encabezado es requerida .</div>
+                                                    </div>
+                                                </div>
+
+                                                <div class="form-group col-md-3">
+                                                    <label for="lblIdMercadoEncabezado" class="form-label">Mercado</label>
+                                                    <select formControlName="idMercadoEncabezado" class="form-control" name="selectIdMercadoEncabezado"
+                                                        [ngClass]="{ 'is-invalid': submittedFormEncabezado && m.idMercadoEncabezado.errors }" >
+                                                            <option [ngValue]="objeto" *ngFor="let objeto of listMercados">{{objeto.id}} - {{objeto.descripcion}}</option>
+                                                    </select>
+                                                    <div *ngIf="submittedFormEncabezado && m.idMercadoEncabezado.errors" class="invalid-feedback">
+                                                        <div *ngIf="m.idMercadoEncabezado.errors.required">El mercado del encabezado es requerido .</div>
+                                                    </div>
+                                                </div>
+
+                                                <div class="form-group col-md-3">
+                                                    <label for="lblIdSectorEncabezado" class="form-label">Sector</label>
+                                                    <select formControlName="idSectorEncabezado" class="form-control" name="selectIdSectorEncabezado"
+                                                        [ngClass]="{ 'is-invalid': submittedFormEncabezado && m.idSectorEncabezado.errors }" >
+                                                            <option [ngValue]="objeto" *ngFor="let objeto of listSectores">{{objeto.id}} - {{objeto.descripcion}}</option>
+                                                    </select>
+                                                    <div *ngIf="submittedFormEncabezado && m.idSectorEncabezado.errors" class="invalid-feedback">
+                                                        <div *ngIf="m.idSectorEncabezado.errors.required">El sector del encabezado es requerido .</div>
+                                                    </div>
+                                                </div>
+
+                                                <div class="form-group col-md-3">
+                                                    <label for="lblIdPlazoEncabezado" class="form-label">Plazo de Inversión</label>
+                                                    <select formControlName="idPlazoEncabezado" class="form-control" name="selectIdSectorEncabezado"
+                                                        [ngClass]="{ 'is-invalid': submittedFormEncabezado && m.idPlazoEncabezado.errors }" >
+                                                            <option [ngValue]="objeto" *ngFor="let objeto of listPlazosInversion">{{objeto.id}} - {{objeto.descripcion}}</option>
+                                                    </select>
+                                                    <div *ngIf="submittedFormEncabezado && m.idPlazoEncabezado.errors" class="invalid-feedback">
+                                                        <div *ngIf="m.idPlazoEncabezado.errors.required">El plazo de inversión del encabezado es requerido .</div>
+                                                    </div>
+                                                </div>
+
+                                                <div class="form-group col-md-3">
+                                                    <label for="lblIdPeriocidadEncabezado" class="form-label">Periocidad</label>
+                                                    <select formControlName="idPeriocidadEncabezado" class="form-control" name="selectIdPeriocidadEncabezado"
+                                                        [ngClass]="{ 'is-invalid': submittedFormEncabezado && m.idPeriocidadEncabezado.errors }" >
+                                                            <option [ngValue]="objeto" *ngFor="let objeto of listMonedas">{{objeto.id}} - {{objeto.descripcion}}</option>
+                                                    </select>
+                                                    <div *ngIf="submittedFormEncabezado && m.idPeriocidadEncabezado.errors" class="invalid-feedback">
+                                                        <div *ngIf="m.idPeriocidadEncabezado.errors.required">La periocidad del encabezado es requerida .</div>
+                                                    </div>
+                                                </div>
+
+                                                <div class="form-group col-md-3">
+                                                    <label for="lblIdAnioEncabezado" class="form-label">Año</label>
+                                                    <select formControlName="idAnioEncabezado" class="form-control" name="selectIdAnioEncabezado"
+                                                        [ngClass]="{ 'is-invalid': submittedFormEncabezado && m.idAnioEncabezado.errors }" >
+                                                            <option [ngValue]="objeto" *ngFor="let objeto of listAnio">{{objeto.id}} - {{objeto.descripcion}}</option>
+                                                    </select>
+                                                    <div *ngIf="submittedFormEncabezado && m.idAnioEncabezado.errors" class="invalid-feedback">
+                                                        <div *ngIf="m.idAnioEncabezado.errors.required">El año del encabezado es requerido .</div>
+                                                    </div>
+                                                </div>
+
+                                                <div class="form-group col-md-3">
+                                                    <label for="lblFechaInicioEncabezado" class="form-label">Fecha de Inicio</label>
+                                                    <input formControlName="fechaInicioEncabezado" class="form-control" matInput [matDatepicker]="picker_fechaInicio" >
+                                                    <mat-datepicker-toggle class="item-list__calendar" matSuffix [for]="picker_fechaInicio"></mat-datepicker-toggle>
+                                                    <mat-datepicker #picker_fechaInicio ></mat-datepicker>
+                                                </div>
+
+                                                <div class="form-group col-md-3">
+                                                    <label for="lblFechaFinalEncabezado" class="form-label">Fecha Fin</label>
+                                                    <input formControlName="fechaFinalEncabezado" class="form-control" matInput [matDatepicker]="picker_fechaFinal" >
+                                                    <mat-datepicker-toggle class="item-list__calendar" matSuffix [for]="picker_fechaFinal"></mat-datepicker-toggle>
+                                                    <mat-datepicker #picker_fechaFinal ></mat-datepicker>
+                                                </div>
+
+                                                <div class="form-group col-md-2">
+                                                    <label for="lblDiasDiferenciaEncabezado" class="form-label">Días de Diferencia</label>
+                                                    <input formControlName="diasDiferenciaEncabezado" class="form-control" type="text" id="id_diasDiferenciaEncabezado"
+                                                        [ngClass]="{ 'is-invalid': submittedFormEncabezado && m.diasDiferenciaEncabezado.errors }" />
+                                                    <div *ngIf="submittedFormEncabezado && m.diasDiferenciaEncabezado.errors" class="invalid-feedback">
+                                                        <div *ngIf="m.diasDiferenciaEncabezado.errors.required">Los días de diferencia son requeridos .</div>
+                                                    </div>
+                                                </div>
+
+                                                <div class="form-group col-md-2">
+                                                    <label for="lblDiasAcumuladosEncabezado" class="form-label">Días Acumulados</label>
+                                                    <input formControlName="diasAcumuladosEncabezado" class="form-control" type="text" id="id_diasAcumuladosEncabezado"
+                                                        [ngClass]="{ 'is-invalid': submittedFormEncabezado && m.diasAcumuladosEncabezado.errors }" />
+                                                    <div *ngIf="submittedFormEncabezado && m.diasAcumuladosEncabezado.errors" class="invalid-feedback">
+                                                        <div *ngIf="m.diasAcumuladosEncabezado.errors.required">Los días acumulados son requeridos .</div>
+                                                    </div>
+                                                </div>
+
+                                                <div class="form-group col-md-3">
+                                                    <label for="lblFechaUltimoCuponEncabezado" class="form-label">Fecha Último Cupón</label>
+                                                    <input formControlName="fechaUltimoCuponEncabezado" class="form-control" matInput [matDatepicker]="picker_fechaUltimoCupon" >
+                                                    <mat-datepicker-toggle class="item-list__calendar" matSuffix [for]="picker_fechaUltimoCupon"></mat-datepicker-toggle>
+                                                    <mat-datepicker #picker_fechaUltimoCupon ></mat-datepicker>
+                                                </div>
+
+                                                <div class="form-group col-md-2">
+                                                    <label for="lblInversionNetaEncabezado" class="form-label">Inversión Neta</label>
+                                                    <input formControlName="inversionNetaEncabezado" class="form-control" type="text" id="id_inversionNetaEncabezado"
+                                                        [ngClass]="{ 'is-invalid': submittedFormEncabezado && m.inversionNetaEncabezado.errors }" />
+                                                    <div *ngIf="submittedFormEncabezado && m.inversionNetaEncabezado.errors" class="invalid-feedback">
+                                                        <div *ngIf="m.inversionNetaEncabezado.errors.required">La inversión es requeridos .</div>
+                                                    </div>
+                                                </div>
+
+                                                <div class="form-group col-md-12">
+                                                    <hr>
+                                                    <textarea matInput  formControlName="observacionesEncabezado" 
+                                                                        class="form-control"
+                                                                        id="id_observacionesEncabezado"
+                                                                        placeholder="Ingrese las observaciones..."></textarea>
+                                                    <hr>
+                                                </div>
+
+                                                <div class="form-group col-md-2">
+                                                    <label for="lblUsuarioAprueba1Encabezado" class="form-label">Usuario Aprueba 1</label>
+                                                    <input formControlName="usuarioAprueba1Encabezado" class="form-control" type="text" id="id_usuarioAprueba1Encabezado"
+                                                        [ngClass]="{ 'is-invalid': submittedFormEncabezado && m.usuarioAprueba1Encabezado.errors }" />
+                                                    <div *ngIf="submittedFormEncabezado && m.usuarioAprueba1Encabezado.errors" class="invalid-feedback">
+                                                        <div *ngIf="m.usuarioAprueba1Encabezado.errors.required">.</div>
+                                                    </div>
+                                                </div> 
+
+                                                <div class="form-group col-md-2">
+                                                    <label for="lblUsuarioAprueba2Encabezado" class="form-label">Usuario Aprueba 2</label>
+                                                    <input formControlName="usuarioAprueba2Encabezado" class="form-control" type="text" id="id_usuarioAprueba2Encabezado"
+                                                        [ngClass]="{ 'is-invalid': submittedFormEncabezado && m.usuarioAprueba2Encabezado.errors }" />
+                                                    <div *ngIf="submittedFormEncabezado && m.usuarioAprueba2Encabezado.errors" class="invalid-feedback">
+                                                        <div *ngIf="m.usuarioAprueba2Encabezado.errors.required">.</div>
+                                                    </div>
+                                                </div>
+
+                                                <div class="form-group col-sm-1 margin-icos-mat">
+                                                    <mat-checkbox formControlName="venceEncabezado">Vence ?</mat-checkbox>
+                                                </div>
+
+                                                <div class="form-group col-sm-2 margin-icos-mat">
+                                                    <mat-checkbox formControlName="calculaCuponEncabezado">Calcula Cupón ?</mat-checkbox>
+                                                </div>
+                    
+                                                <div class="form-group col-sm-1 margin-icos-mat">
+                                                    <mat-checkbox formControlName="estadoEncabezado">Estado</mat-checkbox>
+                                                </div>
+                    
+                                            </form>
+
+                                        </div>
+
+                                    </div>
+                                </section>
+                            </div>
+                        </article>
+
+                    </div>
+                    
+
+                    <div class="articulo__contenedor__body__next">
+
+                        <article>
+                            <div>
+                                <section>
+                                    <div class="articulo__contenedor__body__next__list">
+
+                                        <div class="articulo__contenedor__body__next__list__header"> 
+                                            
+                                            <div class="articulo__contenedor__body__next__list__header__prev" > 
+                                                <p class="articulo__contenedor__body__next__list__header__titulo">Lista de Inversiones</p>
+                                            </div>
+
+                                            <div class="articulo__contenedor__body__next__list__header__next" > </div>
+                                        
+                                        </div>
+
+                                        <div class="articulo__contenedor__body__next__list__content">
+
+                                            <div *ngIf="listObjetosEncabezado" class="articulo__contenedor__body__next__tabla">
+                                                <table class="table table-striped">
+                                                    <thead>
+                                                        <tr>
+                                                            <th style="width: 5%"></th>
+                                                            
+                                                            <th style="width: 8%">Número de Inversión</th>
+                                                            <th style="width: 10%">Inversión Neta</th>
+                                                            <th style="width: 12%">Fecha de Inversión</th>
+                                                            <th style="width: 10%">Fecha de Inicio</th>
+                                                            <th style="width: 10%">Fecha Fin</th>
+
+                                                            <th style="width: 12%">Modificado</th>
+                                                            <th style="width: 15%">Se actualizó</th>
+                                                        </tr>
+                                                    </thead>
+                                                    <tbody>
+                                                        <tr *ngFor="let obj of listObjetosEncabezado" class="item-list__list" (click)="selectObjetoEncabezado(obj)" >
+                                                            <td  style="white-space: nowrap" class="item-list__view">
+                                                                <div> <a > <mat-icon>swap_horiz</mat-icon> </a> </div>
+                                                            </td>
+                                                            
+                                                            <td>{{obj.numeroInversionEncabezado}}</td>
+                                                            <td>{{obj.inversionNetaEncabezado}}</td>
+                                                            <td>{{obj.fechaInversionEncabezado}}</td>
+                                                            <td>{{obj.fechaInicioEncabezado}}</td>
+                                                            <td>{{obj.fechaFinalEncabezado}}</td>
+                                                            <td>{{obj.modificadoPor}}</td>
+                                                            <td>{{obj.fechaModificacion}}</td>
+                                                        </tr>
+                                                    </tbody>
+                                                </table>
+                                            </div>
+                        
+                                        </div>
+
+                                    </div>
+                                </section>
+                            </div>
+                        </article>
+
+                    </div>
+                    
+                </div>
+            </section>
+
+            <!-- ********************** -->
+            <!-- SECCIÓN SECTORES       -->
+            <!-- ********************** -->
+
+            <!-- <section >
+                <div class="articulo__contenedor__body">
+
+                    <div class="articulo__contenedor__body__prev" >
+
+                        <article>
+                            <div>
+                                <section>
+                                    <div class="articulo__contenedor__body__prev__form">
+
+                                        <div class="articulo__contenedor__body__prev__form__header"> 
+                                            
+                                            <div class="articulo__contenedor__body__prev__form__header__prev" > 
+                                                <p class="articulo__contenedor__body__prev__form__header__titulo">Detalle de Inversión o Cotizaciones</p>
+                                            </div>
+
+                                            <div class="articulo__contenedor__body__prev__form__header__next" > 
+
+                                                <button *ngIf="habilitaBtnNuevoDetalle" class="articulo__contenedor__body__prev__form__header__prev__btns__new" 
+                                                        mat-flat-button
+                                                        (click)="limpiarFormularioDetalle()">Nuevo</button>
+
+                                                <button *ngIf="habilitaBtnActualizaDetalle" class="articulo__contenedor__header__prev__btns__warn" 
+                                                        mat-flat-button
+                                                        (click)="actualizaObjetoSector()">Actualizar</button>
+                                                <button *ngIf="habilitaBtnRegistroDetalle" class="articulo__contenedor__header__prev__btns__ok" 
+                                                        mat-flat-button
+                                                        (click)="submitDetalle()">Registrar</button>
+                                                <button *ngIf="habilitaBtnElimibarSector" class="articulo__contenedor__header__prev__btns__danger" 
+                                                        mat-flat-button
+                                                        (click)="eliminarObjetoDetalle()">Eliminar</button>
+
+                                            </div>
+                                        
+                                        </div>
+
+                                        <div class="articulo__contenedor__body__prev__form__content">
+
+                                            <form [formGroup]="formularioDetalle" class="row">
+                    
+                                                <div class="form-group col-md-2">
+                                                    <label for="lblIdSector" class="form-label">Id</label>
+                                                    <input formControlName="idSector" class="form-control" type="text" id="id_idSector" readonly />
+                                                </div>
+                                                
+                                                <div class="form-group col-md-6">
+                                                    <label for="lblCodigoSector" class="form-label">Código Interno</label>
+                                                    <input formControlName="codigoSector" class="form-control" type="text" id="id_codigoSector"
+                                                        [ngClass]="{ 'is-invalid': submittedFormSector && s.codigoSector.errors }" />
+                                                    <div *ngIf="submittedFormSector && s.codigoSector.errors" class="invalid-feedback">
+                                                        <div *ngIf="s.codigoSector.errors.required">El código del sector es requerido .</div>
+                                                    </div>
+                                                </div>
+                    
+                                                <div class="form-group col-md-6">
+                                                    <label for="lblDescripcionSector" class="form-label">Descripción</label>
+                                                    <input formControlName="descripcionSector" class="form-control" type="text" id="id_descripcionSector"
+                                                        [ngClass]="{ 'is-invalid': submittedFormSector && s.descripcionSector.errors }" />
+                                                    <div *ngIf="submittedFormSector && s.descripcionSector.errors" class="invalid-feedback">
+                                                        <div *ngIf="s.descripcionSector.errors.required">La descripción del sector es requerida .</div>
+                                                    </div>
+                                                </div>
+                    
+                                                <div class="form-group col-sm-1 margin-icos-mat">
+                                                    <mat-checkbox formControlName="estadoSector">Estado</mat-checkbox>
+                                                </div>
+                    
+                                            </form>
+
+                                        </div>
+
+                                    </div>
+                                </section>
+                            </div>
+                        </article>
+
+                    </div>
+                    
+
+                    <div class="articulo__contenedor__body__next">
+
+                        <article>
+                            <div>
+                                <section>
+                                    <div class="articulo__contenedor__body__next__list">
+
+                                        <div class="articulo__contenedor__body__next__list__header"> 
+                                            
+                                            <div class="articulo__contenedor__body__next__list__header__prev" > 
+                                                <p class="articulo__contenedor__body__next__list__header__titulo">Líneas de Detalle</p>
+                                            </div>
+
+                                            <div class="articulo__contenedor__body__next__list__header__next" > </div>
+                                        
+                                        </div>
+
+                                        <div class="articulo__contenedor__body__next__list__content">
+
+                                            <div *ngIf="listObjetosSectores" class="articulo__contenedor__body__next__tabla">
+                                                <table class="table table-striped">
+                                                    <thead>
+                                                        <tr>
+                                                            <th style="width: 5%"></th>
+                                                            
+                                                            <th style="width: 8%">Código interno</th>
+                                                            <th style="width: 12%">Descripción</th>
+                                                            <th style="width: 10%">Estado</th>
+                                                            <th style="width: 12%">Modificado</th>
+                                                            <th style="width: 15%">Se actualizó</th>
+                                                        </tr>
+                                                    </thead>
+                                                    <tbody>
+                                                        <tr *ngFor="let obj of listObjetosSectores" class="item-list__list" (click)="selectObjetoDetalle(obj)" >
+                                                            <td  style="white-space: nowrap" class="item-list__view">
+                                                                <div> <a > <mat-icon>swap_horiz</mat-icon> </a> </div>
+                                                            </td>
+                                                            
+                                                            <td>{{obj.codigoSector}}</td>
+                                                            <td>{{obj.descripcion}}</td>
+                                                            <td>{{obj.estado}}</td>
+                                                            <td>{{obj.modificadoPor}}</td>
+                                                            <td>{{obj.fechaModificacion}}</td>
+                                                        </tr>
+                                                    </tbody>
+                                                </table>
+                                            </div>
+                        
+                                        </div>
+
+                                    </div>
+                                </section>
+                            </div>
+                        </article>
+
+                    </div>
+                    
+                </div>
+            </section> -->
+
+            <!-- // ************
+            // ** FOOTER ** -->
+            <section>
+                <div class="articulo__contenedor__footer">
+                    <div class="articulo__contenedor__footer__prev" > </div>
+
+                    <div class="articulo__contenedor__footer__next" > </div>
+                </div>
+            </section>
+
+        </div>
+
+    </article>
+</main>

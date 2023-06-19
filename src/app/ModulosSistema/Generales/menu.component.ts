@@ -8,6 +8,8 @@ import { Router } from '@angular/router';
 import {FlatTreeControl} from '@angular/cdk/tree';
 import {MatTreeFlatDataSource, MatTreeFlattener} from '@angular/material/tree';
 
+import { ModulesSystem } from '@environments/environment';
+
 import { Compania } from '../../_models/modules/compania';
 
  interface FoodNode { name: string; link: string; icon: string; children?: FoodNode[]; }
@@ -17,27 +19,29 @@ import { Compania } from '../../_models/modules/compania';
     name: 'Parámetros',
     link: '',
     icon: '',
-    children: [{name: 'Generales', link: '/', icon: ''}, 
-               {name: 'Compañías',link: '/modulo-generales/ConfiguracionCompania.html', icon: ''}],
-  },
-  {
-    name: 'Monedas',
-    link: '',
-    icon: '',
-    children: [{name: 'Tipos de Monedas', link: '/', icon: ''},
-              {name: 'Tipos de Cambio', link: '/', icon: ''}
-    ],
-  },
-  {
-    name: 'Documentos',
-    link: '/',
-    icon: ''
-  },
-  {
-    name: 'Periodos',
-    link: '/',
-    icon: ''
+    children: [
+              // {name: 'Generales', link: '/', icon: ''}, 
+               {name: 'Compañías', link: ModulesSystem.generalesbasehref + 'ConfiguracionCompania.html', icon: ''}],
   }
+  // ,
+  // {
+  //   name: 'Monedas',
+  //   link: '',
+  //   icon: '',
+  //   children: [{name: 'Tipos de Monedas', link: '/', icon: ''},
+  //             {name: 'Tipos de Cambio', link: '/', icon: ''}
+  //   ],
+  // },
+  // {
+  //   name: 'Documentos',
+  //   link: '/',
+  //   icon: ''
+  // },
+  // {
+  //   name: 'Periodos',
+  //   link: '/',
+  //   icon: ''
+  // }
 ];
   
 

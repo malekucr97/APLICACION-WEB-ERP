@@ -35,30 +35,33 @@ import { TiposAsociadosComponent } from './mantenimientos/Personas/tiposasociado
 import { TiposFormasPagoAnalisisComponent } from './mantenimientos/Obligaciones/tiposformaspagoanalisis-component';
 import { TipoIngresoAnalisisComponent } from './mantenimientos/AnalisisPersonas/tipoingresoanalisis-component';
 import { TipoIngresoComponent } from './mantenimientos/AnalisisPersonas/tipoingreso-component';
+import { ConfiguracionModelosComponent } from './mantenimientos/Parametros/configuracion-modelos/configuracion-modelos.component';
+import { ConfiguracionParametrosPdComponent } from './mantenimientos/Parametros/configuracion-parametros-pd/configuracion-parametros-pd.component';
+import { MatSelectModule } from '@angular/material/select';
+import { MantenimientoTipoActividadEconomicaComponent } from './mantenimientos/Personas/mantenimiento-tipo-actividad-economica/mantenimiento-tipo-actividad-economica.component';
+import { FclComponent } from './asociados/fcl/fcl.component';
+import { EscenariofclComponent } from './asociados/escenariofcl/escenariofcl.component';
 
 @NgModule({
     imports: [
         CommonModule,
         ReactiveFormsModule,
         MacredRoutingModule,
-
         MatToolbarModule,
         MatSidenavModule,
         MatButtonModule,
         MatIconModule,
         MatDividerModule,
-
         MatTreeModule,
         MatTooltipModule,
-
         FormsModule,
         MatNativeDateModule,
         MatDatepickerModule,
         MatCheckboxModule,
-
         MatDialogModule,
         MatFormFieldModule,
-        MatListModule
+        MatListModule,
+        MatSelectModule
 
     ],
     declarations: [
@@ -74,7 +77,12 @@ import { TipoIngresoComponent } from './mantenimientos/AnalisisPersonas/tipoingr
         TiposAsociadosComponent,
         TiposFormasPagoAnalisisComponent,
         TipoIngresoAnalisisComponent,
-        TipoIngresoComponent
+        TipoIngresoComponent,
+        ConfiguracionModelosComponent,
+        ConfiguracionParametrosPdComponent,
+        MantenimientoTipoActividadEconomicaComponent,
+        FclComponent,
+        EscenariofclComponent
     ],
     entryComponents: [
         AsociadosComponent

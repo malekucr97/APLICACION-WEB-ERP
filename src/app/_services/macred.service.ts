@@ -25,7 +25,7 @@ import { MacCategoriaCredito } from '@app/_models/Macred/CategoriaCredito';
 import { MacTipoAsociado } from '@app/_models/Macred/TipoAsociado';
 import { MacTipoHabitacion } from '@app/_models/Macred/TipoHabitacion';
 import { MacEstadoCivil } from '@app/_models/Macred/EstadoCivil';
-import { MacParametrosGenerales } from '@app/_models/Macred';
+import { AnalisisHistoricoPD, GruposPD, IndicadoresPorGrupoPD, MacParametrosGenerales, ModelosPD, ScoringFlujoCajaLibre, TipoActividadEconomica, VariablesPD } from '@app/_models/Macred';
 
 @Injectable({ providedIn: 'root' })
 export class MacredService {
@@ -206,8 +206,8 @@ export class MacredService {
     }
     getExtrasAnalisisIngreso(idCompania: number, codigoAnalisis:number, idIngreso:number) {
         return this.http.get<MacExtrasAplicables>(`${environment.apiUrl}/macred/getextrasanalisisingreso?idCompania=${idCompania}&codigoAnalisis=${codigoAnalisis}&idIngreso=${idIngreso}`);
-    } 
-    
+    }
+
     getTiposDeducciones(idCompania: number, incluyeInactivos:boolean) {
         return this.http.get<MacTipoDeducciones[]>(`${environment.apiUrl}/macred/gettiposdeducciones?idCompania=${idCompania}&incluyeInactivos=${incluyeInactivos}`);
     }
@@ -238,4 +238,141 @@ export class MacredService {
     deleteIngreso( idIngreso : number ) {
         return this.http.delete<ResponseMessage>(`${environment.apiUrl}/macred/eliminaringresoanalisis?idIngreso=${idIngreso}`);
     }
+
+    //#region Parametos PD Modelos
+
+    calculoAnalisisPD(inAnalisisPD: AnalisisHistoricoPD) {
+      return this.http.post<ResponseMessage>(`${environment.apiUrl}/macred/calculoAnalisisPD`, inAnalisisPD);
+    }
+
+    getAnalisisPD(idAnalisisCapacidadPago: number) {
+      return this.http.get<AnalisisHistoricoPD>(`${environment.apiUrl}/macred/getAnalisisPD/${idAnalisisCapacidadPago}`);
+    }
+
+    postAnalisisPD(inAnalisisPD: AnalisisHistoricoPD) {
+      return this.http.post<AnalisisHistoricoPD>(`${environment.apiUrl}/macred/postAnalisisPD`, inAnalisisPD);
+    }
+
+    //#region MODELOS
+
+    getPDModelos(idCompania: number) {
+      return this.http.get<ModelosPD[]>(`${environment.apiUrl}/macred/getPDModelos?idCompania=${idCompania}`);
+    }
+
+    createUpdatePDModelo(inModeloPD: ModelosPD) {
+      return this.http.post<ResponseMessage>(`${environment.apiUrl}/macred/createUpdatePDModelo`, inModeloPD);
+    }
+
+    deletePDModelo(idModeloPd: number) {
+      return this.http.delete<ResponseMessage>(`${environment.apiUrl}/macred/deletePDModelo?idModeloPD=${idModeloPd}`);
+    }
+
+    //#endregion
+
+    //#region VARIABLES
+
+    getPDVariables(idCompania: number) {
+      return this.http.get<VariablesPD[]>(`${environment.apiUrl}/macred/getPDVariables?idCompania=${idCompania}`);
+    }
+
+    createUpdatePDVariable(inVariablePD: VariablesPD) {
+      return this.http.post<ResponseMessage>(`${environment.apiUrl}/macred/createUpdatePDVariable`, inVariablePD);
+    }
+
+    deletePDVariable(idPDVariable: number) {
+      return this.http.delete<ResponseMessage>(`${environment.apiUrl}/macred/deletePDVariable?idPDVariable=${idPDVariable}`);
+    }
+
+    //#endregion
+
+    //#region GRUPOS PD
+
+    getGruposPDVariable(idModelo: number) {
+      return this.http.get<GruposPD[]>(`${environment.apiUrl}/macred/getGruposPDVariable?idModelo=${idModelo}`);
+    }
+
+    getGrupoPDVariable(idGrupo: number) {
+      return this.http.get<GruposPD>(`${environment.apiUrl}/macred/getGrupoPDVariable?id=${idGrupo}`);
+    }
+
+    postGrupoPDVariable(inGrupoPD: GruposPD) {
+      return this.http.post<ResponseMessage>(`${environment.apiUrl}/macred/postGrupoPDVariable`, inGrupoPD);
+    }
+
+    putGrupoPDVariable(idGrupo: number, inGrupoPD: GruposPD) {
+      return this.http.put<ResponseMessage>(`${environment.apiUrl}/macred/putGrupoPDVariable/${idGrupo}`, inGrupoPD);
+    }
+
+    deleteGrupoPDVariable(idGrupo: number) {
+      return this.http.delete<ResponseMessage>(`${environment.apiUrl}/macred/deleteGrupoPDVariable/${idGrupo}`);
+    }
+
+    //#endregion
+
+    //#region INDICADORES POR GRUPO
+
+    getIndicadoresGrupoPD(idGrupo: number) {
+        return this.http.get<IndicadoresPorGrupoPD[]>(`${environment.apiUrl}/macred/getIndicadoresGrupoPD/${idGrupo}`);
+    }
+
+    getIndicadorGrupoPD(idIndicador:number,idGrupo: number) {
+        return this.http.get<IndicadoresPorGrupoPD>(`${environment.apiUrl}/macred/getIndicadoresGrupoPD/${idIndicador}/${idGrupo}`);
+    }
+
+    postIndicadorGrupoPD(inIndicadorGrupoPD: IndicadoresPorGrupoPD) {
+        return this.http.post<ResponseMessage>(`${environment.apiUrl}/macred/postIndicadorGrupoPD`, inIndicadorGrupoPD);
+    }
+
+    deleteIndicadorGrupoPD(idIndicador:number,idGrupo: number) {
+        return this.http.delete<ResponseMessage>(`${environment.apiUrl}/macred/deleteIndicadorGrupoPD/${idIndicador}/${idGrupo}`);
+    }
+
+    //#endregion
+
+    //#endregion
+
+    //#region MODELO FCL
+
+    //#region FCL_SCORING
+
+    getFlujoCajaLibre(idFlujoCapacidadPago: number) {
+      return this.http.get<ScoringFlujoCajaLibre>(`${environment.apiUrl}/macred/getFlujoCajaLibre/${idFlujoCapacidadPago}`);
+    }
+
+    postFlujoCajaLibre(inScoringFlujoCaja: ScoringFlujoCajaLibre) {
+      return this.http.post<ScoringFlujoCajaLibre>(`${environment.apiUrl}/macred/postFlujoCajaLibre`, inScoringFlujoCaja);
+    }
+
+    putFlujoCajaLibre(inScoringFlujoCaja: ScoringFlujoCajaLibre) {
+      return this.http.put<ResponseMessage>(`${environment.apiUrl}/macred/putFlujoCajaLibre/${inScoringFlujoCaja.codScoringFlujoCaja}`, inScoringFlujoCaja);
+    }
+
+    //#endregion
+
+    //#region  TIPO ACTIVIDADES ECONOMICAS
+
+    getTiposActividadesEconomicas(idCompania: number) {
+      return this.http.get<TipoActividadEconomica[]>(`${environment.apiUrl}/macred/getTiposActividadesEconomicas?idCompania=${idCompania}`);
+    }
+
+    getTipoActividadEconomico(idTipoActividadEconomica: number, idCompania: number) {
+      return this.http.get<TipoActividadEconomica>(`${environment.apiUrl}/macred/getTipoActividadEconomico/${idTipoActividadEconomica}/${idCompania}`);
+    }
+
+    postTipoActividadEconomico(inTipoActividadEconomica: TipoActividadEconomica) {
+      return this.http.post<ResponseMessage>(`${environment.apiUrl}/macred/postTipoActividadEconomico`, inTipoActividadEconomica);
+    }
+
+    putTipoActividadEconomico(idTipoActividadEconomica: number, inTipoActividadEconomica: TipoActividadEconomica) {
+      return this.http.put<ResponseMessage>(`${environment.apiUrl}/macred/putTipoActividadEconomico/${idTipoActividadEconomica}`, inTipoActividadEconomica);
+    }
+
+    deleteTipoActividadEconomico(idTipoActividadEconomica: number, idCompania: number) {
+      return this.http.delete<ResponseMessage>(`${environment.apiUrl}/macred/deleteTipoActividadEconomico/${idTipoActividadEconomica}/${idCompania}`);
+    }
+
+    //#endregion
+
+    //#endregion
+
 }

@@ -1,14 +1,13 @@
 export class ScreenAccessUser {
-    // -- identificador único autoincremental
-    id: number;
-    codigo: string;
 
-    nombre: string;
-    idModulo: number;
-    estado: string;
+    public id:number;
+    public adicionadoPor:string;
+    public fechaAdicion:Date;
+    public modificadoPor:string;
+    public fechaModificacion:Date;
 
-    adicionadoPor: string;
-    fechaAdicion: Date;
-    modificadoPor: string;
-    fechaModificacion: Date;
+    constructor(public idCompania:number,
+                public idUsuario:number,
+                public idPantalla:number,
+                public estado: boolean) {}
 }
