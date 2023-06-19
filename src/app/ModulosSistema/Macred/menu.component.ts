@@ -62,7 +62,7 @@ const TREE_DATA: FoodNode[] = [
                           {name: 'Tipos de Género', link: ModulesSystem.macredbasehref + 'mantenimientos/personas/tipos-generos.html', icon: ''},//monetization_on
                           {name: 'Tipos de Persona', link: ModulesSystem.macredbasehref + 'mantenimientos/personas/tipos-personas.html', icon: ''},//monetization_on
                           {name: 'Tipos de Asociado', link: ModulesSystem.macredbasehref + 'mantenimientos/personas/tipos-asociados.html', icon: ''},
-                          {name: 'Tipos de Actividad Económica', link: ModulesSystem.macredbasehref + 'mantenimientos/personas/mantenimiento-tipo-actividad-economica.html', icon: ''}
+                          {name: 'Tipos de Actividad Económica', link: ModulesSystem.macredbasehref + 'mantenimientos/personas/tipo-actividad-economica.html', icon: ''}
                           ],
                 },
                 {name: 'Entidades',
