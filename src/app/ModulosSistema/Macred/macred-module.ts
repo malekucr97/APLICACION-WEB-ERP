@@ -41,6 +41,8 @@ import { MatSelectModule } from '@angular/material/select';
 import { MantenimientoTipoActividadEconomicaComponent } from './mantenimientos/Personas/mantenimiento-tipo-actividad-economica/mantenimiento-tipo-actividad-economica.component';
 import { FclComponent } from './asociados/fcl/fcl.component';
 import { EscenariofclComponent } from './asociados/escenariofcl/escenariofcl.component';
+import { NivelesCapacidadPagoComponent } from './mantenimientos/ModelosCalificacion/niveles-capacidad-pago/niveles-capacidad-pago.component';
+import { IndicadoresRelevantesComponent } from './mantenimientos/ModelosCalificacion/indicadores-relevantes/indicadores-relevantes.component';
 
 @NgModule({
     imports: [
@@ -82,7 +84,9 @@ import { EscenariofclComponent } from './asociados/escenariofcl/escenariofcl.com
         ConfiguracionParametrosPdComponent,
         MantenimientoTipoActividadEconomicaComponent,
         FclComponent,
-        EscenariofclComponent
+        EscenariofclComponent,
+        NivelesCapacidadPagoComponent,
+        IndicadoresRelevantesComponent
     ],
     entryComponents: [
         AsociadosComponent
