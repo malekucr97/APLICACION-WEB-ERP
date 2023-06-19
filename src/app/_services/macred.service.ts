@@ -163,9 +163,6 @@ export class MacredService {
     getModelosAnalisis(idCompania: number, incluyeInactivos:boolean) {
         return this.http.get<MacModeloAnalisis[]>(`${environment.apiUrl}/macred/getmodelosanalisis?idCompania=${idCompania}&incluyeInactivos=${incluyeInactivos}`);
     }
-    getNivelesCapacidadPago(idCompania: number, incluyeInactivos:boolean) {
-        return this.http.get<MacNivelCapacidadPago[]>(`${environment.apiUrl}/macred/getnivelcapacidadpago?idCompania=${idCompania}&incluyeInactivos=${incluyeInactivos}`);
-    }
     getTiposGenerador(idCompania: number, incluyeInactivos:boolean) {
         return this.http.get<MacTipoGenerador[]>(`${environment.apiUrl}/macred/gettiposgeneradores?idCompania=${idCompania}&incluyeInactivos=${incluyeInactivos}`);
     }
@@ -238,6 +235,22 @@ export class MacredService {
     deleteIngreso( idIngreso : number ) {
         return this.http.delete<ResponseMessage>(`${environment.apiUrl}/macred/eliminaringresoanalisis?idIngreso=${idIngreso}`);
     }
+
+    //#region NIVEL DE CAPACIDAD DE PAGO
+
+    getNivelesCapacidadPago(idCompania: number, incluyeInactivos:boolean) {
+      return this.http.get<MacNivelCapacidadPago[]>(`${environment.apiUrl}/macred/getnivelcapacidadpago?idCompania=${idCompania}&incluyeInactivos=${incluyeInactivos}`);
+    }
+
+    postNivelesCapacidadPago(nivelCapacidadPago: MacNivelCapacidadPago) {
+      return this.http.post<ResponseMessage>(`${environment.apiUrl}/macred/postnivelcapacidadpago`,nivelCapacidadPago);
+    }
+
+    putNivelesCapacidadPago(id: number, nivelCapacidadPago: MacNivelCapacidadPago) {
+      return this.http.put<ResponseMessage>(`${environment.apiUrl}/macred/putnivelcapacidadpago/${id}`, nivelCapacidadPago);
+    }
+
+    //#endregion
 
     //#region Parametos PD Modelos
 

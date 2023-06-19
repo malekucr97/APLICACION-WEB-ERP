@@ -62,7 +62,7 @@ const TREE_DATA: FoodNode[] = [
                           {name: 'Tipos de Género', link: ModulesSystem.macredbasehref + 'mantenimientos/personas/tipos-generos.html', icon: ''},//monetization_on
                           {name: 'Tipos de Persona', link: ModulesSystem.macredbasehref + 'mantenimientos/personas/tipos-personas.html', icon: ''},//monetization_on
                           {name: 'Tipos de Asociado', link: ModulesSystem.macredbasehref + 'mantenimientos/personas/tipos-asociados.html', icon: ''},
-                          {name: 'Tipos de Actividad Económica', link: ModulesSystem.macredbasehref + 'mantenimientos/personas/mantenimiento-tipo-actividad-economica.html', icon: ''}
+                          {name: 'Tipos de Actividad Económica', link: ModulesSystem.macredbasehref + 'mantenimientos/personas/tipo-actividad-economica.html', icon: ''}
                           ],
                 },
                 {name: 'Entidades',
@@ -94,11 +94,11 @@ const TREE_DATA: FoodNode[] = [
                 {name: 'Modelos de Calificación',
                 link: '',
                 icon: '',
-                children: [{name: 'Indicadores Relevantes', link: '/', icon: ''},
+                children: [{name: 'Indicadores Relevantes', link: ModulesSystem.macredbasehref + 'mantenimientos/modeloscalificacion/indicadores-relevantes.html', icon: ''},
                           {name: 'Configuración de Modelos', link: '/', icon: ''},
                           {name: 'Variables Críticas', link: '/', icon: ''},
                           {name: 'Escenarios de Riesgos', link: '/', icon: ''},
-                          {name: 'Niveles Capacidad Pago (Global)', link: '/', icon: ''}
+                          {name: 'Niveles Capacidad Pago (Global)', link: ModulesSystem.macredbasehref + 'mantenimientos/modeloscalificacion/niveles-capacidad-pago.html', icon: ''}
                           ],},
                 {name: 'Parámetros',
                 link: '',

@@ -38,9 +38,11 @@ import { TipoIngresoComponent } from './mantenimientos/AnalisisPersonas/tipoingr
 import { ConfiguracionModelosComponent } from './mantenimientos/Parametros/configuracion-modelos/configuracion-modelos.component';
 import { ConfiguracionParametrosPdComponent } from './mantenimientos/Parametros/configuracion-parametros-pd/configuracion-parametros-pd.component';
 import { MatSelectModule } from '@angular/material/select';
-import { MantenimientoTipoActividadEconomicaComponent } from './mantenimientos/Personas/mantenimiento-tipo-actividad-economica/mantenimiento-tipo-actividad-economica.component';
+import { TipoActividadEconomicaComponent } from './mantenimientos/Personas/tipo-actividad-economica/Tipo-actividad-economica.component';
 import { FclComponent } from './asociados/fcl/fcl.component';
 import { EscenariofclComponent } from './asociados/escenariofcl/escenariofcl.component';
+import { NivelesCapacidadPagoComponent } from './mantenimientos/ModelosCalificacion/niveles-capacidad-pago/niveles-capacidad-pago.component';
+import { IndicadoresRelevantesComponent } from './mantenimientos/ModelosCalificacion/indicadores-relevantes/indicadores-relevantes.component';
 
 @NgModule({
     imports: [
@@ -80,9 +82,11 @@ import { EscenariofclComponent } from './asociados/escenariofcl/escenariofcl.com
         TipoIngresoComponent,
         ConfiguracionModelosComponent,
         ConfiguracionParametrosPdComponent,
-        MantenimientoTipoActividadEconomicaComponent,
+        TipoActividadEconomicaComponent,
         FclComponent,
-        EscenariofclComponent
+        EscenariofclComponent,
+        NivelesCapacidadPagoComponent,
+        IndicadoresRelevantesComponent
     ],
     entryComponents: [
         AsociadosComponent
