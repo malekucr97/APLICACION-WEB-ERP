@@ -53,7 +53,7 @@ export class IndexContentPageComponent implements OnInit {
                     .subscribe(responseListModules => {
 
                         if (responseListModules && responseListModules.length > 0) this.setListModules(responseListModules);
-                            
+
                         // this.conexion = true;
                         // this.setListModules(responseListModules);
                     },
@@ -85,7 +85,7 @@ export class IndexContentPageComponent implements OnInit {
     }
 
     private setListModules(responseListModules:Module[]=null) : void {
-        
+
         if ( responseListModules ) {
 
             var resp = responseListModules[0].pathLogo;
@@ -104,6 +104,12 @@ export class IndexContentPageComponent implements OnInit {
         }
     }
     redireccionIndexModulosHTTP(identificador : string) : string {
+
+      const procesoBusquedaPowerBi = (terminoBuscado) => {
+        if (identificador.includes(terminoBuscado)){
+          return identificador;
+        }
+      };
 
         let indexHTTPModule : string = '';
 
@@ -143,6 +149,9 @@ export class IndexContentPageComponent implements OnInit {
                 break;
             case ModulesSystem.Identif_Inversiones:
                 indexHTTPModule = ModulesSystem.inversionesbasehref     + 'index.html'; // ## inversiones transitorias ## //
+                break;
+            case procesoBusquedaPowerBi(ModulesSystem.Identif_PowerBI):
+                indexHTTPModule = ModulesSystem.powerbibasehref     + 'index.html'; // ## Power BI ## //
                 break;
             default: indexHTTPModule = '/';
         }

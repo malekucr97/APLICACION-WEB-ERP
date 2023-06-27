@@ -21,11 +21,12 @@ import { ListModuleBusinessComponent } from './module/listModuleBusinessPage.com
 
 // **********************************************
 // ## ********** RUTAS MÓDULOS SISTEMA **********
-// ********************************************** 
+// **********************************************
 
 // ## ********* GENERALES -> PARÁMETROS********* ## //
 import { ConfigurationCompaniaComponent } from '../ModulosSistema/Generales/parametros/ConfigurationCompania-component';
 import { AddAccessUserModuleComponent } from './module/addAccessUserModulePage.component';
+import { AdminmoduleComponent } from './module/adminmodule/adminmodule.component';
 
 const routes: Routes = [
     {
@@ -44,7 +45,7 @@ const routes: Routes = [
             { path: 'adminpage-addeditbusiness.html/:pidBusiness', component: AddEditBusinessComponent },
             { path: 'adminpage-listbusiness.html', component: ListBusinessComponent },
             { path: 'adminpage-addbusinessuser.html/:id', component: AddBusinessUserComponent },
-            
+
             // -- roles
             { path: 'adminpage-addroleuser.html/:id', component: AddRoleUserComponent },
             { path: 'adminpage-listroles.html', component: ListRoleComponent },
@@ -53,6 +54,7 @@ const routes: Routes = [
             { path: 'adminpage-listmodules.html', component: ListModuleComponent },
             { path: 'adminpage-addmodulerol.html/:pidRole', component: AddModuleRoleComponent },
             { path: 'adminpage-addaccessuserpagemodule.html/:pidModule', component: AddAccessUserModuleComponent },
+            { path: 'adminpage-adminmodule.html/:tipoMantenimiento', component: AdminmoduleComponent },
 
             // ## ********* GENERALES -> PARÁMETROS********* ## //
             { path: 'ConfiguracionCompania.html', component: ConfigurationCompaniaComponent },

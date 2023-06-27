@@ -67,6 +67,9 @@ export const ModulesSystem = {
 
     Identif_Inversiones:  'ID-BANKAP-INVERSIONES',
     inversionesbasehref:  '/inra-sa/modulo-inversiones/',
+
+    Identif_PowerBI:  'ID-BANKAP-BI',
+    powerbibasehref:  '/inra-sa/modulo-powerbi/',
 };
 
 /*

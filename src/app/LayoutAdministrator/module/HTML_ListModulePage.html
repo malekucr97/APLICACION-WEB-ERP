@@ -2,6 +2,7 @@
 <h4 *ngIf="!listModules">Listado de módulos registrados en el sistema</h4>
 
 <a routerLink="{{URLIndexAdminPage}}" class="btn btn-light mb-2 mr-3">Volver</a>
+<a *ngIf="habilitarBtnMantenimientoReportes" routerLink="{{URLAdminModulePage}}{{'mantenimientoReportes'}}" class="btn btn-light mb-2 mr-3">Mantenimiento reportes Power BI</a>
 
 <div class="card">
     <div class="card-body">
@@ -28,18 +29,18 @@
 
                         <td style="white-space: nowrap">
 
-                            <button *ngIf="module.estado!='Activo'"  
-                                (click)="activate(module.identificador)" 
+                            <button *ngIf="module.estado!='Activo'"
+                                (click)="activate(module.identificador)"
                                 class="items__btns__list__ok" mat-flat-button > Activar </button>
-                        
-                        <button *ngIf="module.estado=='Activo'"  
-                                (click)="inActivate(module.identificador)" 
+
+                        <button *ngIf="module.estado=='Activo'"
+                                (click)="inActivate(module.identificador)"
                                 class="items__btns__list__warn" mat-flat-button> Inactivar </button>
 
-                            <button class="items__btns__list__otro" 
-                                    (click)="selectModuleScreenUser(module.id)"         
+                            <button class="items__btns__list__otro"
+                                    (click)="selectModuleScreenUser(module.id)"
                                     mat-flat-button > Pantallas y Accesos </button>
-            
+
                         </td>
                     </tr>
 

@@ -7,10 +7,10 @@ import { Compania } from '../../_models/modules/compania';
 import { httpAccessAdminPage, httpLandingIndexPage } from '@environments/environment-access-admin';
 
 @Component({    templateUrl: 'HTML_ListModulePage.html',
-                styleUrls: ['../../../assets/scss/app.scss'] 
+                styleUrls: ['../../../assets/scss/app.scss']
 })
 export class ListModuleComponent implements OnInit {
-    
+
     userObservable : User;
     businessObservable : Compania;
 
@@ -20,13 +20,16 @@ export class ListModuleComponent implements OnInit {
     private Home : string = httpLandingIndexPage.homeHTTP;
 
     public URLIndexAdminPage : string = httpAccessAdminPage.urlPageAdministrator;
+    public URLAdminModulePage : string = httpAccessAdminPage.urlPageAdminModule;
+    habilitarBtnMantenimientoReportes: boolean = false;
 
     constructor(private accountService: AccountService,
                 private alertService: AlertService,
                 private router: Router) {
-            
+
             this.userObservable     = this.accountService.userValue;
             this.businessObservable = this.accountService.businessValue;
+            this.habilitarBtnMantenimientoReportes = this.businessObservable.mantenimientoReportes;
     }
 
     ngOnInit() {
@@ -47,7 +50,7 @@ export class ListModuleComponent implements OnInit {
         this.alertService.clear();
 
         let moduleList = this.listModulesSystem.find(x => x.identificador === identificadorModulo);
-        
+
         this.accountService.activateModule(moduleList.id, this.businessObservable.id)
             .pipe(first())
             .subscribe( responseActivate => {
@@ -55,12 +58,12 @@ export class ListModuleComponent implements OnInit {
                 if ( responseActivate.exito ) {
 
                     this.alertService.success(responseActivate.responseMesagge);
-                    
+
                     moduleList.estado = 'Activo';
                     this.listModules.splice(this.listModules.findIndex( m => m.identificador == identificadorModulo ), 1);
                     this.listModules.push(moduleList);
 
-                } else { 
+                } else {
                     this.alertService.error(responseActivate.responseMesagge);
                 }
             },
@@ -75,7 +78,7 @@ export class ListModuleComponent implements OnInit {
         this.alertService.clear();
 
         let moduleList = this.listModulesSystem.find(x => x.identificador === identificadorModulo);
-        
+
         this.accountService.inActivateModule(moduleList.id, this.businessObservable.id)
             .pipe(first())
             .subscribe( responseInActivate => {
@@ -88,8 +91,8 @@ export class ListModuleComponent implements OnInit {
                     this.listModules.splice(this.listModules.findIndex( m => m.identificador == identificadorModulo ), 1);
                     this.listModules.push(moduleList);
 
-                } else { 
-                    this.alertService.error(responseInActivate.responseMesagge); 
+                } else {
+                    this.alertService.error(responseInActivate.responseMesagge);
                 }
             },
             (error) => {

@@ -149,7 +149,7 @@
                 &:hover { color: #129523; cursor: pointer; }
             }
         }
-        
+
         &__new{
             color: #053254;
             transition: color 0.2s ease-in-out;
@@ -231,7 +231,7 @@
         }
     }
     &__search {
-        
+
         color: #053254;
         transition: color 0.2s ease-in-out;
         &:hover {
@@ -240,7 +240,7 @@
         }
     }
     &__calendar {
-        
+
         color: #053254;
         transition: color 0.2s ease-in-out;
         &:hover {
@@ -258,6 +258,7 @@
         cursor: pointer;
     }
 }
+
 .item-seleccionable-delete {
     color: #053254;
     transition: color 0.2s ease-in-out;
@@ -274,9 +275,11 @@
     align-items:     center;
     flex-wrap:       wrap;
 }
+
 .bloq {
     padding: 0.2% 1% 0.4% 1%;
 }
+
 .contenedor {
     margin: 1% 1% 1% 1%;
     border-radius: 10px;
@@ -346,4 +349,8 @@
     &__formulario-header {
         margin: 0.5% 0 0 1%;
     }
+}
+
+.pointerCursor {
+  cursor: pointer;
 }

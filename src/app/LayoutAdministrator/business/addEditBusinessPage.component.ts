@@ -9,131 +9,149 @@ import { httpAccessAdminPage } from '@environments/environment-access-admin';
 
 @Component({ templateUrl: 'HTML_AddEditBusinessPage.html' })
 export class AddEditBusinessComponent implements OnInit {
+  public urladminListBusiness: string = httpAccessAdminPage.urlPageListBusiness;
 
-    public urladminListBusiness : string = httpAccessAdminPage.urlPageListBusiness;
+  form: FormGroup;
+  userObserver: User;
 
-    form: FormGroup;
-    userObserver: User;
+  business: Compania;
 
-    business: Compania;
+  pidBusiness: number;
 
-    pidBusiness: number;
+  loading = false;
+  submitted = false;
 
-    loading = false;
-    submitted = false;
+  updateBusiness: boolean;
+  addBusiness: boolean;
 
-    updateBusiness: boolean;
-    addBusiness: boolean;
+  constructor(
+    private formBuilder: FormBuilder,
+    private route: ActivatedRoute,
+    private router: Router,
+    private accountService: AccountService,
+    private alertService: AlertService
+  ) {
+    this.userObserver = this.accountService.userValue;
+  }
 
-    constructor(    private formBuilder: FormBuilder,
-                    private route: ActivatedRoute,
-                    private router: Router,
-                    private accountService: AccountService,
-                    private alertService: AlertService ) {
+  ngOnInit() {
+    this.alertService.clear();
 
-        this.userObserver = this.accountService.userValue;
+    this.updateBusiness = false;
+    this.addBusiness = false;
+
+    if (this.route.snapshot.params.pidBusiness) {
+      this.pidBusiness = this.route.snapshot.params.pidBusiness;
+      this.updateBusiness = true;
+    } else {
+      this.addBusiness = true;
     }
 
-    ngOnInit() {
+    this.form = this.formBuilder.group({
+      nombre: ['', Validators.required],
+      cedulajuridica: ['', Validators.required],
+      mantenimientoReportes: [false, Validators.required],
+    });
 
-        this.alertService.clear();
+    if (this.updateBusiness) {
+      this.accountService
+        .getBusinessById(this.pidBusiness)
+        .pipe(first())
+        .subscribe(
+          (responseBusiness) => {
+            this.f.nombre.setValue(responseBusiness.nombre);
+            this.f.cedulajuridica.setValue(responseBusiness.cedulaJuridica);
+            this.f.mantenimientoReportes.setValue(responseBusiness.mantenimientoReportes);
+          },
+          (error) => {
+            this.alertService.error(error);
+          }
+        );
+    }
+  }
 
-        this.updateBusiness = false;
-        this.addBusiness = false;
+  get f() {
+    return this.form.controls;
+  }
 
-        if (this.route.snapshot.params.pidBusiness) {
-            this.pidBusiness = this.route.snapshot.params.pidBusiness;
-            this.updateBusiness = true;
+  onSubmit() {
+    this.submitted = true;
 
-        } else { this.addBusiness = true; }
+    let currentDate = new Date();
 
-        this.form = this.formBuilder.group({
-            nombre: ['', Validators.required],
-            cedulajuridica: ['', Validators.required]
-        });
+    if (this.form.invalid) {
+      return;
+    }
+    this.loading = true;
 
-        if (this.updateBusiness){
+    this.business = new Compania();
 
-            this.accountService.getBusinessById(this.pidBusiness)
-                .pipe(first())
-                .subscribe(responseBusiness => {
+    this.business.nombre = this.form.get('nombre').value;
+    this.business.cedulaJuridica = this.form.get('cedulajuridica').value;
+    this.business.adicionadoPor = this.userObserver.identificacion;
+    this.business.fechaAdicion = currentDate;
+    this.business.correoElectronico = 'No registrado';
+    this.business.tipoIdentificacion = 'NA';
+    this.business.detalleDireccion = 'No registrado';
+    this.business.telefono = 'NA';
+    this.business.mantenimientoReportes = this.form.get('mantenimientoReportes').value;
 
-                    this.f.nombre.setValue(responseBusiness.nombre);
-                    this.f.cedulajuridica.setValue(responseBusiness.cedulaJuridica);
-                },
-                error => {
-                    this.alertService.error(error);
-                });
-        }
+    if (this.addBusiness) {
+      this.accountService
+        .addBusiness(this.business)
+        .pipe(first())
+        .subscribe(
+          (response) => {
+            this.router.navigate([this.urladminListBusiness], {
+              relativeTo: this.route,
+            });
+
+            if (response.exito) {
+              this.alertService.success(response.responseMesagge, {
+                keepAfterRouteChange: true,
+              });
+            } else {
+              this.alertService.error(response.responseMesagge, {
+                keepAfterRouteChange: true,
+              });
+            }
+            this.loading = false;
+          },
+          (error) => {
+            this.alertService.error(error);
+            this.loading = false;
+          }
+        );
     }
 
-    get f() { return this.form.controls; }
+    if (this.updateBusiness) {
+      this.business.id = this.pidBusiness;
 
-    onSubmit() {
-        this.submitted = true;
+      this.accountService
+        .updateBusiness(this.business)
+        .pipe(first())
+        .subscribe(
+          (response) => {
+            this.router.navigate([this.urladminListBusiness], {
+              relativeTo: this.route,
+            });
 
-        let currentDate = new Date();
-
-        if (this.form.invalid) {
-            return;
-        }
-        this.loading = true;
-
-        this.business = new Compania();
-
-        this.business.nombre = this.form.get('nombre').value;
-        this.business.cedulaJuridica = this.form.get('cedulajuridica').value;
-        this.business.adicionadoPor = this.userObserver.identificacion;
-        this.business.fechaAdicion = currentDate;
-        this.business.correoElectronico = 'No registrado';
-        this.business.tipoIdentificacion = 'NA';
-        this.business.detalleDireccion = 'No registrado';
-        this.business.telefono = 'NA';
-        
-        if (this.addBusiness) {
-
-            this.accountService.addBusiness(this.business)
-            .pipe(first())
-            .subscribe(
-                response => {
-
-                    this.router.navigate([this.urladminListBusiness], { relativeTo: this.route });
-
-                    if (response.exito) {
-                        this.alertService.success(response.responseMesagge, { keepAfterRouteChange: true });
-                    } else {
-                        this.alertService.error(response.responseMesagge, { keepAfterRouteChange: true });
-                    }
-                    this.loading = false;
-                },
-                error => {
-                    this.alertService.error(error);
-                    this.loading = false;
-                });
-        }
-
-        if (this.updateBusiness) {
-
-            this.business.id = this.pidBusiness;
-
-            this.accountService.updateBusiness(this.business)
-            .pipe(first())
-            .subscribe(
-                response => {
-
-                    this.router.navigate([this.urladminListBusiness], { relativeTo: this.route });
-
-                    if (response.exito) {
-                        this.alertService.success(response.responseMesagge, { keepAfterRouteChange: true });
-                    } else {
-                        this.alertService.error(response.responseMesagge, { keepAfterRouteChange: true });
-                    }
-                    this.loading = false;
-                },
-                error => {
-                    this.alertService.error(error);
-                    this.loading = false;
-                });
-        }
+            if (response.exito) {
+              this.alertService.success(response.responseMesagge, {
+                keepAfterRouteChange: true,
+              });
+            } else {
+              this.alertService.error(response.responseMesagge, {
+                keepAfterRouteChange: true,
+              });
+            }
+            this.loading = false;
+          },
+          (error) => {
+            this.alertService.error(error);
+            this.loading = false;
+          }
+        );
     }
+  }
 }

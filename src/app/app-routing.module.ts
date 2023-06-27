@@ -32,6 +32,8 @@ const RiesgoCreditoModule = () => import(
     './ModulosSistema/RiesgoCredito/riesgo-credito-module').then( x => x.RiesgoCreditoModule );         // ## RIESGO CREDITO            ## //
 const InversionesModule = () => import(
     './ModulosSistema/InversionesTransitorias/inversiones-module').then( x => x.InversionesModule );    // ## INVERSIONES TRANSITORIAS  ## //
+const PowerBiModule = () => import(
+    './ModulosSistema/PowerBI/power-bi.module').then( x => x.PowerBiModule );                           // ## POWER BI  ## //
 
 const routes: Routes = [
 
@@ -58,6 +60,7 @@ const routes: Routes = [
     { path: 'inra-sa/modulo-macred',                    loadChildren: MacredModule,         canActivate: [AuthGuard] },
     { path: 'inra-sa/modulo-riesgo-credito',            loadChildren: RiesgoCreditoModule,  canActivate: [AuthGuard] },
     { path: 'inra-sa/modulo-inversiones',               loadChildren: InversionesModule,    canActivate: [AuthGuard] },
+    { path: 'inra-sa/modulo-powerbi',                   loadChildren: PowerBiModule,        canActivate: [AuthGuard] },
 
     // default
     { path: '**', redirectTo: '' }

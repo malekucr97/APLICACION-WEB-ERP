@@ -10,5 +10,6 @@ export class ScreenModule {
                 public idModulo: number,
                 public codigo:string,
                 public nombre: string,
-                public estado: string) {}
+                public estado: string,
+                public urlExterna:string) {}
 }

@@ -1,0 +1,29 @@
+.centrar {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  padding: 10px 0px;
+}
+
+.contenedorReporte {
+  flex: 1;
+
+  .mensajeError{
+    text-align: center;
+    p {
+      padding: 10px 0;
+      font-weight: lighter;
+      font-size: large;
+    }
+  }
+
+}
+
+iframe {
+  border: none;
+}
+
+.reporteCSS {
+  height: 800px;
+  width: 100%;
+}

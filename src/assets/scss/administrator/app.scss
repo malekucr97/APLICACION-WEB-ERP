@@ -25,10 +25,10 @@
 
     @include bg-color-darkest-blue;
     display: flex;
-    
+
     justify-content: flex-end;
     flex-direction: row;
-    
+
     &__logout {
         margin-top: 1px;
         margin-right: 2%;
@@ -37,7 +37,7 @@
     &__user {
         display: flex;
         padding-right: 1%;
-        
+
         color: white;
     }
     &__user__icon {
@@ -122,7 +122,7 @@
     padding-bottom: 3%;
     margin-left: 2%;
     margin-right: 1%;
-} 
+}
 
 .content {
     height: calc(100vh - 98px);
@@ -200,7 +200,7 @@ mat-divider {
 
             &__prev {
                 width: 50%;
-                
+
                 padding-left: 1%;
                 padding-top: 1%;
 
@@ -209,7 +209,7 @@ mat-divider {
                 &__btns{
                     color: #053254;
                     transition: color 0.2s ease-in-out;
-                    
+
                     &__ok{
                         margin-left: 0.2%;
                         margin-right: 0.2%;
@@ -251,7 +251,7 @@ mat-divider {
                 text-align: right;
             }
         }
-        
+
         // **********
         // ** BODY **
         &__body {
@@ -298,16 +298,16 @@ mat-divider {
                         border-bottom: 1px solid white;
 
                         &__prev {
-                            width: 35%;
+                            width: 50%;
                             padding-left: 2%;
-                            
+
                             display: inline-block;
                             text-align: left;
-                            
+
                             &__btns{
                                 color: #053254;
                                 transition: color 0.2s ease-in-out;
-                                
+
                                 &__ok{
                                     margin-left: 0.2%;
                                     margin-right: 0.2%;
@@ -351,11 +351,9 @@ mat-divider {
                             }
                         }
                         &__next {
-                            width: 65%;
-
+                            width: 50%;
                             padding-right   : 2%;
                             padding-top: 0.5%;
-
                             display: inline-block;
                             text-align: right;
                         }
@@ -392,11 +390,11 @@ mat-divider {
                             display: inline-block;
                             text-align: left;
                             padding-top: 1%;
-                            
+
                             &__btns{
                                 color: #053254;
                                 transition: color 0.2s ease-in-out;
-                                
+
                                 &__ok{
                                     margin-left: 0.2%;
                                     margin-right: 0.2%;
@@ -443,7 +441,7 @@ mat-divider {
                         width: 100%;
                     }
                 }
-                
+
             }
             &__next_list {
                 background-color: white;
@@ -483,11 +481,11 @@ mat-divider {
                             display: inline-block;
                             text-align: left;
                             padding-top: 1%;
-                            
+
                             &__btns{
                                 color: #053254;
                                 transition: color 0.2s ease-in-out;
-                                
+
                                 &__ok{
                                     margin-left: 0.2%;
                                     margin-right: 0.2%;
@@ -535,6 +533,12 @@ mat-divider {
                     }
                 }
             }
+            &__complete{
+                width: 100%;
+                display: flex;
+                flex-direction: column;
+                padding: 10px;
+            }
         }
         // ************
         // ** FOOTER **
@@ -554,9 +558,17 @@ mat-divider {
                 text-align: right;
             }
         }
-    } 
+    }
 }
 
 .margin-icos-mat {
     padding-top: 35px;
+}
+
+.flexCol {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: self-end;
+  padding: 0px;
 }

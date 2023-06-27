@@ -75,7 +75,7 @@ export class AddAccessUserModuleComponent implements OnInit {
 
         if (this.route.snapshot.params.pidModule) {
 
-            this.nombreModulo   = 'Módulo de Administración / ' 
+            this.nombreModulo   = 'Módulo de Administración / '
                                 + 'Administración de Pantallas por Módulo y Accesos de Pantallas por Usuario';
 
             let moduleId  = this.route.snapshot.params.pidModule;
@@ -84,7 +84,8 @@ export class AddAccessUserModuleComponent implements OnInit {
                 idPantalla          : [null],
                 codigoPantalla      : [null],
                 nombrePantalla      : [null],
-                estadoPantalla      : [true]
+                estadoPantalla      : [true],
+                urlExterna          : [null]
             });
 
             this.buscarModuloId(+moduleId);
@@ -124,7 +125,7 @@ export class AddAccessUserModuleComponent implements OnInit {
                     this.listUsuariosCompania = response;
 
                 } else { this.listUsuariosCompania = null; }
-            
+
             }, error => { this.alertService.error('Problemas de conexión . ' + error); });
     }
 
@@ -134,7 +135,7 @@ export class AddAccessUserModuleComponent implements OnInit {
         this.submittedPantallasModuloForm = true;
 
         if (idModuleSelected === 0) {
-            
+
             let nombrePantalla = this.formPantallasModulo.controls['nombrePantalla'].value ;
 
             if (!nombrePantalla) nombrePantalla = "%%" ;
@@ -163,7 +164,7 @@ export class AddAccessUserModuleComponent implements OnInit {
                 }, error => { this.alertService.error('Problemas de conexión: ' + error); });
 
         } else  {
-            
+
             this.accountService.getPantallasModulo(idModuleSelected, this.companiaObservable.id, true)
             .pipe(first())
             .subscribe(response => {
@@ -185,7 +186,7 @@ export class AddAccessUserModuleComponent implements OnInit {
             }, error => { this.alertService.error('Problemas de conexión: ' + error); });
         }
     }
-    
+
     consultaUsuariosAccesoPantalla(objetoPantalla: ScreenModule) : void {
 
         this.accountService.getUsersBusinessScreenModule(objetoPantalla.id, this.companiaObservable.id, false)
@@ -234,7 +235,7 @@ export class AddAccessUserModuleComponent implements OnInit {
                         if (this.listUsuariosCompaniaPantalla.length===0) this.habilitaListaUsuariosAccesoPantalla = false ;
 
                         this.alertService.success(response.responseMesagge);
-                        
+
                     } else { this.alertService.error(response.responseMesagge); }
                 });
         }
@@ -257,7 +258,7 @@ export class AddAccessUserModuleComponent implements OnInit {
 
             var pantallaId : number = this.formPantallasModulo.controls['idPantalla'].value;
             var screenAccessUserObject : ScreenAccessUser = this.crearPantallaAccesoUsuarioObject(objeto.id, pantallaId);
-        
+
             screenAccessUserObject.adicionadoPor    = this.userObservable.identificacion;
             screenAccessUserObject.fechaAdicion     = this.today;
 
@@ -295,7 +296,8 @@ export class AddAccessUserModuleComponent implements OnInit {
                 idPantalla      : [objetoPantalla.id],
                 codigoPantalla  : [objetoPantalla.codigo,   Validators.required],
                 nombrePantalla  : [objetoPantalla.nombre,   Validators.required],
-                estadoPantalla  : [objetoPantalla.estado,   Validators.required]
+                estadoPantalla  : [objetoPantalla.estado,   Validators.required],
+                urlExterna      : [objetoPantalla.urlExterna]
             });
 
             this.buscarModuloId(objetoPantalla.idModulo);
@@ -311,7 +313,8 @@ export class AddAccessUserModuleComponent implements OnInit {
                 idPantalla      : [null],
                 codigoPantalla  : [null,    Validators.required],
                 nombrePantalla  : [null,    Validators.required],
-                estadoPantalla  : [true,    Validators.required]
+                estadoPantalla  : [true,    Validators.required],
+                urlExterna      : [null]
             });
         }
     }
@@ -321,8 +324,9 @@ export class AddAccessUserModuleComponent implements OnInit {
         var codigoPantalla  = this.formPantallasModulo.controls['codigoPantalla'].value;
         var nombrePantalla  = this.formPantallasModulo.controls['nombrePantalla'].value;
         var estadoPantalla  = this.formPantallasModulo.controls['estadoPantalla'].value;
+        var urlExterna      = this.formPantallasModulo.controls['urlExterna'].value;
 
-        var pantallaForm = new ScreenModule (this.companiaObservable.id, this.moduleItemList.id, codigoPantalla, nombrePantalla, estadoPantalla) ;
+        var pantallaForm = new ScreenModule (this.companiaObservable.id, this.moduleItemList.id, codigoPantalla, nombrePantalla, estadoPantalla, urlExterna);
 
         return pantallaForm ;
     }
@@ -335,7 +339,7 @@ export class AddAccessUserModuleComponent implements OnInit {
         if ( this.formPantallasModulo.invalid ) return;
 
         var pantallaModuloForm : ScreenModule = this.crearPantallaObjectForm();
-        
+
         pantallaModuloForm.adicionadoPor    = this.userObservable.identificacion;
         pantallaModuloForm.fechaAdicion     = this.today;
 
@@ -389,7 +393,7 @@ export class AddAccessUserModuleComponent implements OnInit {
                                 this.inicializaFormPantallaModulo();
 
                                 this.alertService.success(response.responseMesagge);
-                                
+
                             } else { this.alertService.error(response.responseMesagge); }
                         });
                 } else { return; }
@@ -408,7 +412,7 @@ export class AddAccessUserModuleComponent implements OnInit {
         var pantallaModuloForm : ScreenModule = this.crearPantallaObjectForm();
 
         pantallaModuloForm.id = this.formPantallasModulo.controls['idPantalla'].value;
-        
+
         pantallaModuloForm.modificadoPor        = this.userObservable.identificacion;
         pantallaModuloForm.fechaModificacion    = this.today;
 

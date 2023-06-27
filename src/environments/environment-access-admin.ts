@@ -7,12 +7,12 @@ export const AuthStatesApp  = { active: 'Activo',
                                 pending: 'Pendiente' };
 
 export const httpAccessAdminPage = {
-    
+
     // ********************************
     // -- >> inicio de sesión *********
     // ********************************
     URLPageAccount: '/account/login/',
-    
+
     // *************************************************
     // -- >> Págia de Administración del Sistema *******
     // *************************************************
@@ -24,9 +24,10 @@ export const httpAccessAdminPage = {
     urlPageListRole:            '/admin-module/adminpage-listroles.html/',
     urlPageListUsers:           '/admin-module/adminpage-listusers.html',
     urlPageAddEditUser:         '/admin-module/adminpage-addedituser.html/',
-    urlPageAddBUser:            '/admin-module/adminpage-addbusinessuser.html/', 
+    urlPageAddBUser:            '/admin-module/adminpage-addbusinessuser.html/',
     urlPageAddRUser:            '/admin-module/adminpage-addroleuser.html/',
-    urlPageAddModuleRol:        '/admin-module/adminpage-addmodulerol.html/'
+    urlPageAddModuleRol:        '/admin-module/adminpage-addmodulerol.html/',
+    urlPageAdminModule:         '/admin-module/adminpage-adminmodule.html/'
 };
 
 export const httpLandingIndexPage = {

@@ -35,6 +35,7 @@ import { MatCheckboxModule } from '@angular/material/checkbox';
 import { MatDialogModule } from '@angular/material/dialog';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatListModule } from '@angular/material/list';
+import { AdminmoduleComponent } from './module/adminmodule/adminmodule.component';
 
 @NgModule({
     imports: [
@@ -74,7 +75,8 @@ import { MatListModule } from '@angular/material/list';
         ListModuleComponent,
         ListModuleBusinessComponent,
         AddModuleRoleComponent,
-        AddAccessUserModuleComponent
+        AddAccessUserModuleComponent,
+        AdminmoduleComponent
     ]
 })
 export class AdminModule { }

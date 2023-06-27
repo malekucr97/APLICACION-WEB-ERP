@@ -1,4 +1,5 @@
-export class ResponseMessage{
-    exito: boolean;
-    responseMesagge: string;
+export class ResponseMessage {
+  exito: boolean;
+  responseMesagge: string;
+  objetoDb?: any;
 }

@@ -1,33 +1,36 @@
 <div class="card">
-    <h4 class="card-header">Register</h4>
-    <div class="card-body">
-        <form [formGroup]="form" (ngSubmit)="onSubmit()">
-            <div class="form-group">
-                <label for="nombre">Nombre de Empresa</label>
-                <input type="text" formControlName="nombre" class="form-control" [ngClass]="{ 'is-invalid': submitted && f.nombre.errors }" />
-                <div *ngIf="submitted && f.nombre.errors" class="invalid-feedback">
-                    <div *ngIf="f.nombre.errors.required">El nombre de la empresa es requerido</div>
-                </div>
-            </div>
-            <div class="form-group">
-                <label for="cedulajuridica">Cédula Jurídica</label>
-                <input type="text" formControlName="cedulajuridica" class="form-control" [ngClass]="{ 'is-invalid': submitted && f.cedulajuridica.errors }" />
-                <div *ngIf="submitted && f.cedulajuridica.errors" class="invalid-feedback">
-                    <div *ngIf="f.cedulajuridica.errors.required">La cédula jurídica de la empresa es requerida</div>
-                </div>
-            </div>
-            <div class="form-group">
-                <a routerLink="{{urladminListBusiness}}" class="btn btn-outline-secondary mb-2">Atrás</a>
+  <h4 class="card-header">Register</h4>
+  <div class="card-body">
+    <form [formGroup]="form" (ngSubmit)="onSubmit()">
+      <div class="form-group">
+        <label for="nombre">Nombre de Empresa</label>
+        <input type="text" formControlName="nombre" class="form-control" [ngClass]="{ 'is-invalid': submitted && f.nombre.errors }" />
+        <div *ngIf="submitted && f.nombre.errors" class="invalid-feedback">
+          <div *ngIf="f.nombre.errors.required">El nombre de la empresa es requerido</div>
+        </div>
+      </div>
+      <div class="form-group">
+        <label for="cedulajuridica">Cédula Jurídica</label>
+        <input type="text" formControlName="cedulajuridica" class="form-control" [ngClass]="{ 'is-invalid': submitted && f.cedulajuridica.errors }" />
+        <div *ngIf="submitted && f.cedulajuridica.errors" class="invalid-feedback">
+          <div *ngIf="f.cedulajuridica.errors.required">La cédula jurídica de la empresa es requerida</div>
+        </div>
+      </div>
+      <div class="form-group">
+        <mat-checkbox formControlName="mantenimientoReportes">Activar mantenimiento para Reportes Power BI</mat-checkbox>
+      </div>
+      <div class="form-group">
+        <a routerLink="{{urladminListBusiness}}" class="btn btn-outline-secondary mb-2">Atrás</a>
 
-                <button *ngIf="updateBusiness" [disabled]="loading" class="btn btn-outline-warning mb-2 float-right">
-                    <span *ngIf="loading" class="spinner-border spinner-border-sm mr-1"></span>
-                    Actualizar
-                </button>
-                <button *ngIf="addBusiness" [disabled]="loading" class="btn btn-outline-success mb-2 float-right">
-                    <span *ngIf="loading" class="spinner-border spinner-border-sm mr-1"></span>
-                    Registrar
-                </button>
-            </div>
-        </form>
-    </div>
+        <button *ngIf="updateBusiness" [disabled]="loading" class="btn btn-outline-warning mb-2 float-right">
+          <span *ngIf="loading" class="spinner-border spinner-border-sm mr-1"></span>
+          Actualizar
+        </button>
+        <button *ngIf="addBusiness" [disabled]="loading" class="btn btn-outline-success mb-2 float-right">
+          <span *ngIf="loading" class="spinner-border spinner-border-sm mr-1"></span>
+          Registrar
+        </button>
+      </div>
+    </form>
+  </div>
 </div>
