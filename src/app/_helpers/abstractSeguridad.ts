@@ -1,6 +1,7 @@
 import { Router } from '@angular/router';
 import { Compania, Module, User } from '@app/_models';
 import { AccountService, AlertService } from '@app/_services';
+import { amdinBusiness } from '@environments/environment-access-admin';
 import { first } from 'rxjs/operators';
 
 export class OnSeguridad {
@@ -27,7 +28,7 @@ export class OnSeguridad {
     this._userObservable = accountService.userValue;
     this._moduleObservable = accountService.moduleValue;
     this._businessObservable = accountService.businessValue;
-    this._redireccionURL = this._moduleObservable.indexHTTP;
+    this._redireccionURL = this._moduleObservable?.indexHTTP && '';
   }
 
   validarAccesoPantalla(): void {
@@ -45,5 +46,11 @@ export class OnSeguridad {
           this._alertService.error(this._mensajeError);
         }
       });
+  }
+
+  validarUsuarioAdmin(): boolean {
+    if (this._userObservable.esAdmin) return true;
+    if (this._userObservable.idRol == amdinBusiness.adminSociedad) return true;
+    return false;
   }
 }

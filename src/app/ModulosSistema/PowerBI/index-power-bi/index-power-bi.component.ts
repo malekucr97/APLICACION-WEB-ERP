@@ -1,11 +1,11 @@
-import { Component, OnInit, ViewChild, ViewEncapsulation } from '@angular/core';
+import { Component, OnInit, SecurityContext, ViewEncapsulation } from '@angular/core';
+import { DomSanitizer } from '@angular/platform-browser';
 import { Router } from '@angular/router';
 import { OnSeguridad } from '@app/_helpers/abstractSeguridad';
 import { Compania, Module, User } from '@app/_models';
 import { ScreenModule } from '@app/_models/admin/screenModule';
 import { AccountService, AlertService, PowerBIService } from '@app/_services';
 import { IReportEmbedConfiguration, models } from 'powerbi-client';
-import 'powerbi-report-authoring';
 import { first } from 'rxjs/operators';
 
 @Component({
@@ -19,7 +19,6 @@ import { first } from 'rxjs/operators';
 })
 export class IndexPowerBiComponent extends OnSeguridad implements OnInit {
   //#region VARIABLES
-
   private nombrePantalla: string = 'Index';
 
   userObservable: User;
@@ -49,7 +48,8 @@ export class IndexPowerBiComponent extends OnSeguridad implements OnInit {
     private alertService: AlertService,
     private accountService: AccountService,
     private powerBIService: PowerBIService,
-    private router: Router
+    private router: Router,
+    private sanitaizer: DomSanitizer
   ) {
     //#region VALIDACIÓN DE ACCESO A LAS PANTALLAS
     super(alertService, accountService, router);
@@ -94,6 +94,7 @@ export class IndexPowerBiComponent extends OnSeguridad implements OnInit {
   private SetURLPowerBI(urlExterna: string) {
     this.mostrarReporte = false;
     if (urlExterna) {
+      console.log('nwe', urlExterna, this.sanitaizer.sanitize(SecurityContext.URL,urlExterna));
       this.reportConfig = {
         ...this.reportConfig,
         embedUrl: urlExterna,
