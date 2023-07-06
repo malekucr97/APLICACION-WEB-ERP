@@ -1,3 +1,10 @@
+<h2>{{moduleScreen.descripcion}}</h2>
+<p>{{nombreModulo}}</p>
+<!-- <p *ngIf="moduleItemList">La pantalla seleccionada pertenece al módulo </p>
+<b *ngIf="moduleItemList">{{moduleItemList.nombre}}</b> -->
+<!-- <br> -->
+<a routerLink="{{ URLListIndexModules }}" class="btn btn-light mb-2 mr-3">Volver</a>
+
 <main>
     <article class="articulo">
 
@@ -10,11 +17,14 @@
 
                     <div class="articulo__contenedor__header__prev" >
 
-                        <p>{{nombreModulo}}</p>
-                        <h2>{{moduleScreen.descripcion}}</h2>
+                        <!-- <p>{{nombreModulo}}</p> -->
+                        
+                        <!-- <a routerLink="{{ URLListIndexModules }}" class="btn btn-light mb-2 mr-3">Volver</a> -->
+                        
+                        
+
                         <p *ngIf="moduleItemList">La pantalla seleccionada pertenece al módulo </p>
                         <b *ngIf="moduleItemList">{{moduleItemList.nombre}}</b>
-
                     </div>
 
                     <div class="articulo__contenedor__header__next" > </div>
@@ -75,12 +85,12 @@
                                             <form [formGroup]="formPantallasModulo" class="row">
 
                                                 <div class="form-group col-md-2">
-                                                    <label for="lblIdPantalla" class="form-label">Id</label>
+                                                    <label for="id_idPantalla" class="form-label">Id</label>
                                                     <input formControlName="idPantalla" class="form-control" type="text" id="id_idPantalla" readonly />
                                                 </div>
 
                                                 <div class="form-group col-md-2">
-                                                    <label for="lblCodigoPantalla" class="form-label">Código</label>
+                                                    <label for="id_codigoPantalla" class="form-label">Código</label>
                                                     <input maxlength="5" formControlName="codigoPantalla" class="form-control" type="text" id="id_codigoPantalla"
                                                         [ngClass]="{ 'is-invalid': submittedPantallasModuloForm && m.codigoPantalla.errors }" />
                                                     <div *ngIf="submittedPantallasModuloForm && m.codigoPantalla.errors" class="invalid-feedback">
@@ -89,7 +99,7 @@
                                                 </div>
 
                                                 <div class="form-group col-md-6">
-                                                    <label for="lblNombrePantalla" class="form-label">Nombre</label>
+                                                    <label for="id_nombrePantalla" class="form-label">Nombre</label>
                                                     <input formControlName="nombrePantalla" class="form-control" type="text" id="id_nombrePantalla"
                                                         [ngClass]="{ 'is-invalid': submittedPantallasModuloForm && m.nombrePantalla.errors }" />
                                                     <div *ngIf="submittedPantallasModuloForm && m.nombrePantalla.errors" class="invalid-feedback">
@@ -104,7 +114,7 @@
                                                 <div class="col-sm-1"> </div>
 
                                                 <div class="form-group col-md-10">
-                                                  <label for="lblurlExterna" class="form-label">URL Externa(opcional)</label>
+                                                  <label for="id_urlExterna" class="form-label">URL Externa(opcional)</label>
                                                   <input formControlName="urlExterna" class="form-control" type="text" id="id_urlExterna" />
                                               </div>
 

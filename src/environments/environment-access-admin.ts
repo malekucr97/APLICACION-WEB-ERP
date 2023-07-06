@@ -14,7 +14,7 @@ export const httpAccessAdminPage = {
     URLPageAccount: '/account/login/',
 
     // *************************************************
-    // -- >> Págia de Administración del Sistema *******
+    // -- >> Página de Administración del Sistema *******
     // *************************************************
     urlPageListModule:          '/admin-module/adminpage-listmodules.html/',
     urlPageAdministrator:       '/admin-module/adminpage-indexadmin.html/',
@@ -28,6 +28,13 @@ export const httpAccessAdminPage = {
     urlPageAddRUser:            '/admin-module/adminpage-addroleuser.html/',
     urlPageAddModuleRol:        '/admin-module/adminpage-addmodulerol.html/',
     urlPageAdminModule:         '/admin-module/adminpage-adminmodule.html/'
+};
+
+export const httpHomeModulesPage = {
+    // *************************************************
+    // -- >> Home Módulos *******
+    // *************************************************
+    urlHomeModuleGenerales:          '/inra-sa/modulo-generales/index.html'
 };
 
 export const httpLandingIndexPage = {

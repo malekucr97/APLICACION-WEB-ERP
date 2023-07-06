@@ -182,13 +182,13 @@ mat-divider {
 
 .articulo {
 
-    padding: 0.2% 1% 0.4% 1%;
+    // padding: 0.2% 1% 0.4% 1%;
 
     &__contenedor {
 
         // height: 800px;
 
-        margin: 1% 1% 1% 1%;
+        // margin: 1% 1% 1% 1%;
         border-radius: 10px;
 
         // ************
@@ -368,10 +368,6 @@ mat-divider {
                         &__div_icon_search {
                             text-align: center;
                             padding-top: 35px;
-
-                            // &__space{
-                            //     width: 20px;
-                            // }
                         }
                     }
                 }

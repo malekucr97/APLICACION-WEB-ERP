@@ -11,6 +11,7 @@ import { DialogoConfirmacionComponent }             from '@app/_components/dialo
 import { first } from 'rxjs/operators';
 import { ScreenModule } from '@app/_models/admin/screenModule';
 import { ActivatedRoute } from '@angular/router';
+import { httpAccessAdminPage } from '@environments/environment-access-admin';
 
 declare var $: any;
 
@@ -23,6 +24,8 @@ export class AddAccessUserModuleComponent implements OnInit {
 
     private nombrePantalla  : string = 'HTML_AddAccessUserModulePage.html';
     public nombreModulo     : string ;
+
+    URLListIndexModules: string = httpAccessAdminPage.urlPageListModule;
 
     // ## -- objetos suscritos -- ## //
     private userObservable      : User;
@@ -114,17 +117,13 @@ export class AddAccessUserModuleComponent implements OnInit {
             .pipe(first())
             .subscribe(response => {
 
-                if (response && response.length > 0) {
+                if (response && response.length > 0 && this.listPantallasModulos.length > 0) {
 
-                    if(this.listPantallasModulos.length === 0) {
-                        this.habilitaListasUsuarioCompania = false;
-                    } else {
-                        this.habilitaListasUsuarioCompania = true;
-                    }
+                    this.habilitaListasUsuarioCompania = true;
 
                     this.listUsuariosCompania = response;
 
-                } else { this.listUsuariosCompania = null; }
+                } else { this.habilitaListasUsuarioCompania = false; }
 
             }, error => { this.alertService.error('Problemas de conexión . ' + error); });
     }
@@ -147,7 +146,8 @@ export class AddAccessUserModuleComponent implements OnInit {
                     if ( response && response.length > 0 ) {
 
                         this.habilitaListasPantallas        = true;
-                        this.habilitaListasUsuarioCompania  = true;
+
+                        if(this.listUsuariosCompania.length > 0) this.habilitaListasUsuarioCompania  = true;
 
                         this.listPantallasModulos = response ;
 
@@ -156,8 +156,10 @@ export class AddAccessUserModuleComponent implements OnInit {
                         this.selectPantallaModulo(response[0]);
 
                     } else {
+
                         this.habilitaListasPantallas        = false;
-                        this.habilitaListasUsuarioCompania  = false;
+                        
+                        if(this.listUsuariosCompania.length > 0) this.habilitaListasUsuarioCompania  = true;
 
                         this.inicializaFormPantallaModulo();
                     }
@@ -172,16 +174,21 @@ export class AddAccessUserModuleComponent implements OnInit {
                 if ( response && response.length > 0 ) {
 
                     this.habilitaListasPantallas        = true;
-                    this.habilitaListasUsuarioCompania  = true;
+
+                    if(this.listUsuariosCompania.length > 0) this.habilitaListasUsuarioCompania  = true;
 
                     this.listPantallasModulos = response ;
 
                     this.selectPantallaModulo(response[0]);
 
                 } else {
+
                     this.habilitaListasPantallas        = false;
-                    this.habilitaListasUsuarioCompania  = false;
+
+                    if(this.listUsuariosCompania.length > 0) this.habilitaListasUsuarioCompania  = true;
+
                     this.inicializaFormPantallaModulo();
+
                 }
             }, error => { this.alertService.error('Problemas de conexión: ' + error); });
         }
@@ -350,7 +357,8 @@ export class AddAccessUserModuleComponent implements OnInit {
                 if ( response ) {
 
                     this.habilitaListasPantallas = true;
-                    this.habilitaListasUsuarioCompania = true;
+
+                    if(this.listUsuariosCompania.length > 0) this.habilitaListasUsuarioCompania  = true;
 
                     this.listPantallasModulos.push(response);
 
