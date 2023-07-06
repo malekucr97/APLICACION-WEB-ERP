@@ -12,8 +12,7 @@ import { first } from 'rxjs/operators';
   templateUrl: './adminmodule.component.html',
   styleUrls: [
     '../../../../assets/scss/app.scss',
-    '../../../../assets/scss/administrator/app.scss',
-  ],
+    '../../../../assets/scss/administrator/app.scss'],
 })
 export class AdminmoduleComponent implements OnInit {
   URLIndexAdminPage: string = httpAccessAdminPage.urlPageListModule;

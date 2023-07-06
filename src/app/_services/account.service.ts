@@ -116,24 +116,21 @@ export class AccountService {
   }
 
   // -- >> Actualiza Objeto Compañía en memoria y subcripción
-  public loadBusinessAsObservable(bus: Compania) {
+  public loadBusinessAsObservable(objectBusiness: Compania) {
     localStorage.removeItem('Obusiness');
-    localStorage.setItem('Obusiness', JSON.stringify(bus));
-
-    this.businessSubject.next(bus);
+    localStorage.setItem('Obusiness', JSON.stringify(objectBusiness));
+    this.businessSubject.next(objectBusiness);
   }
   // -- >> Actualiza Objeto Módulo en memoria y subcripción
   public loadModuleAsObservable(mod: Module) {
     localStorage.removeItem('Omodule');
     localStorage.setItem('Omodule', JSON.stringify(mod));
-
     this.moduleSubject.next(mod);
   }
   // -- >> Actualiza Objeto uSUARIO en memoria y subcripción
   loadUserAsObservable(user: User) {
     localStorage.removeItem('user');
     localStorage.setItem('user', JSON.stringify(user));
-
     this.userSubject.next(user);
   }
   // *******************************************************************
@@ -425,10 +422,7 @@ export class AccountService {
   }
   updateUser(id: string, user: User) {
     return this.http
-      .put<ResponseMessage>(
-        `${environment.apiUrl}/users/actualizarusuario`,
-        user
-      )
+      .put<ResponseMessage>( `${environment.apiUrl}/users/actualizarusuario`, user )
       .pipe(
         map((x) => {
           // actualiza la información del usuario local si es quien se está en la sesión

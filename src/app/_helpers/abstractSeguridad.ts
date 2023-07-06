@@ -15,7 +15,7 @@ export class OnSeguridad {
 
   _nombrePantalla: string;
   _redireccionURL: string;
-  _mensajeError: string = 'El usuario no cuenta con los accesos correspondientes.';
+  _mensajeError: string = 'El usuario no cuenta con los accesos correspondientes o la pantalla se encuentra inactiva.';
 
   constructor(
     alertService: AlertService,

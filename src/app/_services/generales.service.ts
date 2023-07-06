@@ -9,10 +9,7 @@ export class GeneralesService {
   constructor(private http: HttpClient) {}
 
   putCompania(compania: Compania) {
-    return this.http.put<ResponseMessage>(
-      `${environment.apiUrl}/generales/updatecompania`,
-      compania
-    );
+    return this.http.put<ResponseMessage>( `${environment.apiUrl}/generales/updatecompania`, compania )
   }
 
   postCargaArchivo(body: FormData) {
