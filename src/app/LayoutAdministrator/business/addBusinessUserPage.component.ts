@@ -3,8 +3,9 @@ import { Router, ActivatedRoute } from '@angular/router';
 import { first } from 'rxjs/operators';
 import { AccountService, AlertService } from '@app/_services';
 import { User, Role } from '@app/_models';
-import { administrator, httpAccessAdminPage, httpLandingIndexPage } from '@environments/environment-access-admin';
+import { httpAccessAdminPage, httpLandingIndexPage } from '@environments/environment-access-admin';
 import { Compania } from '../../_models/modules/compania';
+import { administrator } from '@environments/environment';
 
 @Component({ templateUrl: 'HTML_AddBusinessUserPage.html' })
 export class AddBusinessUserComponent implements OnInit {
@@ -14,6 +15,8 @@ export class AddBusinessUserComponent implements OnInit {
     userToAssign: User = new User();
     role: Role = new Role();
     business: Compania;
+
+    _userIdParam : string = null;
 
     isAsignBusiness: boolean;
     existeRol: boolean = false;
@@ -34,38 +37,44 @@ export class AddBusinessUserComponent implements OnInit {
         
             this.userObservable = this.accountService.userValue;
             this.listUserSubject = this.accountService.userListValue;
+
+            if (!this.route.snapshot.params.id) { this.router.navigate([this.HTTPListUserPage]); return; }
+            this._userIdParam = this.route.snapshot.params.id;
+
+            if (!this.userObservable || !this.userObservable.esAdmin) { this.router.navigate([this.HTTPListUserPage]); return; }
+            if (!this.listUserSubject) { this.router.navigate([this.HTTPListUserPage]); return; }
+            
+            this.userToAssign = this.listUserSubject.find(x => x.identificacion === this._userIdParam);
     }
 
     ngOnInit() {
 
-        this.alertService.clear();
+        // this.alertService.clear();
 
-        if (!this.accountService.userListValue) {
-            this.router.navigate([this.HTTPListUserPage]);
-            return;
-        }
-        if (!this.userObservable.esAdmin) {
-            this.router.navigate([this.Index]);
-            return;
-        }
-        if (!this.route.snapshot.params.id) {
-            this.router.navigate([this.HTTPListUserPage]);
-            return;
-        }
+        // if (!this.accountService.userListValue) this.router.navigate([this.HTTPListUserPage]);
+            // return;
+        // }
+        // if (!this.userObservable.esAdmin) this.router.navigate([this.Index]);
+        //     return;
+        // }
+        // if (!this.route.snapshot.params.id) {
+        //     this.router.navigate([this.HTTPListUserPage]);
+        //     return;
+        // }
 
-        let pUserId = this.route.snapshot.params.id;
+        // let pUserId = this.route.snapshot.params.id;
 
-        if (pUserId !== administrator.id) {
+        // if (this._userIdParam !== administrator.identification) {
 
-            this.userToAssign = this.listUserSubject.find(x => x.identificacion === pUserId);
+            // this.userToAssign = this.listUserSubject.find(x => x.identificacion === this._userIdParam);
 
             if (this.userToAssign.idRol) {
 
                 this.existeRol = true;
 
                 this.accountService.getRoleById(this.userToAssign.idRol)
-                .pipe(first())
-                .subscribe(responseRole => { this.role = responseRole; });
+                    .pipe(first())
+                    .subscribe(responseRole => { this.role = responseRole; });
 
             } else { this.role = null; }
 
@@ -78,35 +87,47 @@ export class AddBusinessUserComponent implements OnInit {
                         this.listAllBusiness = responseListBusiness;
 
                         this.accountService.getBusinessActiveUser(this.userToAssign.id)
-                        .pipe(first())
-                        .subscribe(responseListBusinessUser => {
+                            .pipe(first())
+                            .subscribe(responseListBusinessUser => {
 
-                            this.listBusinessUser = responseListBusinessUser;
+                                if (responseListBusinessUser && responseListBusinessUser.length > 0) {
 
-                            if (this.listBusinessUser && this.listBusinessUser.length > 0) {
+                                    this.listBusinessUser = responseListBusinessUser;
 
-                                if (this.listBusinessUser.length !== this.listAllBusiness.length) {
-                                    
-                                    this.listBusinessUser.forEach((businessUs) => {
-                                        this.listAllBusiness.splice(this.listAllBusiness.findIndex( b => b.id == businessUs.id ), 1);
-                                    });
+                                    if (this.listBusinessUser.length !== this.listAllBusiness.length) {
+                                        
+                                        this.listBusinessUser.forEach((businessUs) => {
+                                            this.listAllBusiness.splice(this.listAllBusiness.findIndex( b => b.id == businessUs.id ), 1);
+                                        });
 
-                                } else { this.listAllBusiness = null; }
-                            } else { this.listBusinessUser = null; }
-                        },
-                        error => { this.alertService.error('Problemas al consultar la lista de compañías para el usuario seleccionado.' + error); });
+                                    } else { this.listAllBusiness = null; }
+
+                                } else { this.listBusinessUser = null; }
+
+                                // if (this.listBusinessUser && this.listBusinessUser.length > 0) {
+
+                                    // if (this.listBusinessUser.length !== this.listAllBusiness.length) {
+                                        
+                                    //     this.listBusinessUser.forEach((businessUs) => {
+                                    //         this.listAllBusiness.splice(this.listAllBusiness.findIndex( b => b.id == businessUs.id ), 1);
+                                    //     });
+
+                                    // } else { this.listAllBusiness = null; }
+
+                                // } else { this.listBusinessUser = null; }
+                            },
+                            error => { this.alertService.error('Problemas al consultar la lista de compañías para el usuario seleccionado.' + error); });
 
                     } else {
-                        this.listAllBusiness = null;
-                        this.listBusinessUser = null;
-                        this.alertService.info('No hay registro de empresas registradas por el momento.');
+                        this.listAllBusiness = null; this.listBusinessUser = null;
+                        this.alertService.info('No se encontraron registro de empresas por el momento.');
                     }
                 });
-        } else {
-            let message = 'El usuario Administrador tiene acceso a todas las Empresas.';
-            this.alertService.info(message, { keepAfterRouteChange: true });
-            this.router.navigate([this.HTTPListUserPage], { relativeTo: this.route });
-        }
+        // } else {
+        //     let message = 'El usuario Administrador tiene acceso a todas las Empresas.';
+        //     this.alertService.info(message, { keepAfterRouteChange: true });
+        //     this.router.navigate([this.HTTPListUserPage], { relativeTo: this.route });
+        // }
     }
 
     assignBusinessUser(idBusiness: number) {

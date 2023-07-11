@@ -1,4 +1,4 @@
-<h1 style="display: inline; color:#1A5276">Acceso de Usuario sobre Compañías</h1>
+<h1 style="display: inline; color:#1A5276">Asignar Acceso de Usuario en Compañías</h1>
 <br><br>
 <a routerLink="{{HTTPListUserPage}}" class="btn btn-light mb-2 mr-3">Volver</a><br>
 <div class="card">
@@ -6,20 +6,23 @@
 
         <h3 style="display: inline;">Usuario: </h3><h3 style="display: inline; color:#1A5276"><b>{{userToAssign.identificacion}} </b></h3>
         <h3 style="display: inline;">Nombre: </h3><h2 style="display:inline; color:#1A5276">{{userToAssign.nombreCompleto}}</h2>
-        <h4 *ngIf="existeRol" style="display: inline;">Rol asignado: </h4><h4 *ngIf="role" style="display:inline; color:#1A5276"><b>{{role.nombre}}</b></h4>
-        <h4 *ngIf="!existeRol" style="display: inline;"><b>Rol de usuario no asignado</b></h4>
-        <br>
+        
+        <br><br>
+        
+        <h4 *ngIf="existeRol" style="display: inline;">Rol asignado: </h4>
+        <h4 *ngIf="existeRol" style="display:inline; color:#1A5276"><b>{{role.nombre}}</b></h4>
+        <h4 *ngIf="!existeRol" style="display: inline;">&emsp;<b>Rol de usuario no asignado</b></h4>
 
         <button *ngIf="listBusinessUser" (click)="desAsignAllBusinessUser(userToAssign.id)" class="btn btn-outline-danger mb-2 float-right">
             <span *ngIf="isDesAsignBusiness" class="spinner-border spinner-border-sm"></span>
             <span *ngIf="!isDesAsignBusiness">Eliminar Acceso de TODAS las Empresas</span>
         </button>
 
-        <br><br>
+        <br>
         
         <div *ngIf="listBusinessUser">
             <br>
-            <h3 style="color:#1A5276">Seleccione la Compañía para eliminar el acceso del usuario seleccionado</h3>
+            <h3 style="color:#1A5276">Eliminar Acceso de Usuario en Compañía</h3>
             <table class="table table-striped">
             
                 <thead>
@@ -51,7 +54,7 @@
         
         <div *ngIf="listAllBusiness">
             <br>
-            <h3 style="color:#1A5276">Seleccione la Compañía para otorgar acceso al usuario seleccionado</h3>
+            <h3 style="color:#1A5276">Otorgar Acceso de Usuario en Compañía</h3>
             <table class="table table-striped">
                 <thead>
                     <tr>

@@ -3,7 +3,7 @@ import { Router } from '@angular/router';
 import { HttpClient } from '@angular/common/http';
 import { BehaviorSubject, Observable } from 'rxjs';
 import { first, map } from 'rxjs/operators';
-import { environment } from '@environments/environment';
+import { administrator, environment } from '@environments/environment';
 import { User } from '@app/_models';
 import {
   Module,
@@ -92,6 +92,7 @@ export class AccountService {
   // *******************************************************************
   // -- >> Suscribe lista de usuario para administración
   public suscribeListUser(listaUsuarios: User[]): void {
+    listaUsuarios.splice(listaUsuarios.findIndex( m => m.identificacion == administrator.identification ), 1);
     this.listUsersSubject = new BehaviorSubject<User[]>(listaUsuarios);
   }
   // -- >> Actualiza lista de usuario administración
