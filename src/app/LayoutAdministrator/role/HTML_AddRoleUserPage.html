@@ -6,8 +6,12 @@
 
         <h3 style="display: inline;">Usuario: </h3><h3 style="display: inline; color:#1A5276"><b>{{userToAssign.identificacion}}</b></h3>
         <h3 style="display: inline;"> Nombre: </h3><h2 style="display:inline; color:#1A5276"><b>{{userToAssign.nombreCompleto}}</b></h2>
-        <h4 *ngIf="isRolAssign" style="display: inline;">Rol asignado: </h4><h4 *ngIf="role" style="display:inline; color:#1A5276"><b>{{role.nombre}}</b></h4>
-        <h4 *ngIf="!isRolAssign" style="display: inline;"><b>Rol de usuario no asignado</b></h4>
+        
+        <br><br>
+        
+        <h4 *ngIf="isRolAssign" style="display: inline;">Rol asignado: </h4>
+        <h4 *ngIf="isRolAssign" style="display:inline; color:#1A5276"><b>{{role.nombre}}</b></h4>
+        <h4 *ngIf="!isRolAssign" style="display: inline;">&emsp;<b>Rol de usuario no asignado</b></h4>
 
         <button (click)="desAsignAllRolesUser()" class="btn btn-outline-danger mb-2 float-right">
             <span *ngIf="isDesAsignRoles" class="spinner-border spinner-border-sm"></span>
@@ -17,7 +21,7 @@
 
         <div *ngIf="listAllRoles">
             <br>
-            <h3 style="color:#1A5276">Seleccione el rol para asignarlo al usuario seleccionado</h3>
+            <h3 style="color:#1A5276">Asigne el Rol al Usuario Seleccionado</h3>
             <table class="table table-striped">
             
                 <thead>
