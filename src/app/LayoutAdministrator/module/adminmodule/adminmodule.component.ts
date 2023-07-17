@@ -12,7 +12,8 @@ import { first } from 'rxjs/operators';
   templateUrl: './adminmodule.component.html',
   styleUrls: [
     '../../../../assets/scss/app.scss',
-    '../../../../assets/scss/administrator/app.scss'],
+    '../../../../assets/scss/administrator/app.scss',
+  ],
 })
 export class AdminmoduleComponent implements OnInit {
   URLIndexAdminPage: string = httpAccessAdminPage.urlPageListModule;
@@ -47,7 +48,8 @@ export class AdminmoduleComponent implements OnInit {
     private route: ActivatedRoute
   ) {
     if (this.route.snapshot.params.tipoMantenimiento) {
-      this.parametroTipoMantenimiento = this.route.snapshot.params.tipoMantenimiento;
+      this.parametroTipoMantenimiento =
+        this.route.snapshot.params.tipoMantenimiento;
       this.userObservable = this.accountService.userValue;
       this.businessObservable = this.accountService.businessValue;
       this.iniciarFormulario();
@@ -72,7 +74,7 @@ export class AdminmoduleComponent implements OnInit {
   private iniciarFormulario() {
     this.formAdminModule = this.formBuilder.group({
       Identificador: [null, [Validators.required, Validators.max(50)]],
-      Nombre: [null, [Validators.required, Validators.max(50)]],
+      Nombre: [null, [Validators.required, Validators.max(150)]],
       Descripcion: [null, [Validators.required, Validators.max(200)]],
       DireccionLogo: [
         './assets/images/inra/ModulosBankap/ID-BANKAP-GENERAL.png',
@@ -139,23 +141,25 @@ export class AdminmoduleComponent implements OnInit {
     return oModulo;
   }
 
+  private generarIdentificadorPorFecha(): string {
+    const currentDate = new Date();
+    const year = currentDate.getFullYear();
+    const month = ('0' + (currentDate.getMonth() + 1)).slice(-2);
+    const day = ('0' + currentDate.getDate()).slice(-2);
+    const hours = ('0' + currentDate.getHours()).slice(-2);
+    const minutes = ('0' + currentDate.getMinutes()).slice(-2);
+    const seconds = ('0' + currentDate.getSeconds()).slice(-2);
+
+    const identifier = `${year}${month}${day}_${hours}${minutes}${seconds}`;
+    return identifier;
+  }
+
   private GenerarIdentificadorCuandoEsReporte() {
     this.formAdminModule.patchValue({ Identificador: null });
     if (this.readOnlyInputIdentficador) {
-      // SE OBTIENE EL NOMBRE DEL CONTROL INDICADO POR EL USUARIO
-      const { Nombre } = this.formAdminModule.controls;
-      let _nombre: string = Nombre.value;
-
-      // SE VALIDA QUE EL NOMBRE NO ESTE VACÍO
-      if (_nombre == '' || !_nombre) {
-        this.alertService.error('La información indicada no es válida.');
-        return;
-      }
-
-      // SE GENERA EL NUEVO IDENTIFICADOR ID-BANKAP-BI-[NOMBRE] PARA LOS REPORTES DE POWER BI
       let _identificadoGenerado: string = `${
         this.baseIdentificadorReportesPowerBI
-      }${_nombre.replace(/\s/g, '').toLowerCase()}`;
+      }${this.generarIdentificadorPorFecha()}`;
       this.formAdminModule.patchValue({ Identificador: _identificadoGenerado });
     }
   }

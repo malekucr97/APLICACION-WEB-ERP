@@ -94,7 +94,6 @@ export class IndexPowerBiComponent extends OnSeguridad implements OnInit {
   private SetURLPowerBI(urlExterna: string) {
     this.mostrarReporte = false;
     if (urlExterna) {
-      console.log('nwe', urlExterna, this.sanitaizer.sanitize(SecurityContext.URL,urlExterna));
       this.reportConfig = {
         ...this.reportConfig,
         embedUrl: urlExterna,
