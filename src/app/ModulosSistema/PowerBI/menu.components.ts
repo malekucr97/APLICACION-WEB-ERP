@@ -1,13 +1,12 @@
 import { Component, ViewChild } from '@angular/core';
 import { AccountService }       from '@app/_services';
 import { MatSidenav }           from '@angular/material/sidenav';
-import { httpLandingIndexPage } from '../../../environments/environment-access-admin';
 
 import { FlatTreeControl}       from '@angular/cdk/tree';
 import { MatTreeFlatDataSource, MatTreeFlattener} from '@angular/material/tree';
 import { Module, User }   from '@app/_models';
 import { Compania }       from '../../_models/modules/compania';
-import { ModulesSystem }  from '@environments/environment';
+import { ModulesSystem, httpLandingIndexPage }  from '@environments/environment';
 
 /** menu - tree Interfaz o estructura del arbol  */
 interface FoodNode        { name: string; link: string; icon: string; children?: FoodNode[]; }

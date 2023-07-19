@@ -30,23 +30,9 @@ export const httpAccessAdminPage = {
     urlPageAdminModule:         '/admin-module/adminpage-adminmodule.html/'
 };
 
-export const httpHomeModulesPage = {
-    // *************************************************
-    // -- >> Home Módulos *******
-    // *************************************************
-    urlHomeModuleGenerales:          '/inra-sa/modulo-generales/index.html'
-};
-
-export const httpLandingIndexPage = {
-
-    // -- >> Home Page Index Application
-    homeHTTP: '/',
-    // -- >> Langing Pages Index Application
-    indexHTTP: '/inra-sa/index.html',
-    // -- >> Langing No Loggin Application
-    indexHTTPPendingUser:       '/inra-sa/PendingPage/index.html',
-    indexHTTPNotRolUser:        '/inra-sa/NotRolPage/index.html',
-    indexHTTPInactiveUser:      '/inra-sa/InactiveUserPage/index.html',
-    indexHTTPInactiveRolUser:   '/inra-sa/InactiveRolPage/index.html',
-    urlPageNotBusiness:         '/inra-sa/NotBusinessPage/index.html'
-};
+// export const httpHomeModulesPage = {
+//     // *************************************************
+//     // -- >> Home Módulos *******
+//     // *************************************************
+//     urlHomeModuleGenerales:          '/inra-sa/modulo-generales/index.html'
+// };

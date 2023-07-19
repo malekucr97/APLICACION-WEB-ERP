@@ -4,11 +4,10 @@ import { first } from 'rxjs/operators';
 import { AccountService, AlertService } from '@app/_services';
 import { User, Role } from '@app/_models';
 import {
-  httpAccessAdminPage,
-  httpLandingIndexPage,
+  httpAccessAdminPage
 } from '@environments/environment-access-admin';
 import { OnSeguridad } from '@app/_helpers/abstractSeguridad';
-import { administrator } from '@environments/environment';
+import { administrator, httpLandingIndexPage } from '@environments/environment';
 
 @Component({ templateUrl: 'HTML_AddRoleUserPage.html' })
 export class AddRoleUserComponent extends OnSeguridad implements OnInit {

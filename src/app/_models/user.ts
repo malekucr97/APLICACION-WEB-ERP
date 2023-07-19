@@ -5,11 +5,15 @@
     email: string;
     numeroTelefono: string;
     estado: string;
-    password: string;
     token: string;
     idRol: string;
     
     // no mapp
+    password: string;
     empresa: number;
     esAdmin: boolean;
+
+    // no login
+    codeNoLogin : string;
+    messageNoLogin : string;
 }
