@@ -9,7 +9,7 @@
     font-family: "../../assets/fonts/Aero.ttf";
     font-size: 1.8rem;
     font-weight: 750;
-    
+
     @media (max-width: 1500px) {
         font-size: 1.3rem;
     }
@@ -34,9 +34,9 @@
 
     @include bg-color-darkest-blue;
     display: flex;
-    
+
     justify-content: flex-end;
-    
+
     &__logout {
         margin-top: 1px;
         margin-right: 2%;
@@ -44,12 +44,12 @@
     }
     &__user {
         padding-right: 1%;
-        
+
         color: white;
     }
     &__home {
         padding-right: 1%;
-        
+
         color: white;
     }
     &__user__icon {
@@ -94,7 +94,7 @@
 
     &__deco--left {
         height: 12%;
-        width: 12%; 
+        width: 12%;
     }
 
     &__deco--right {
@@ -109,6 +109,12 @@
     justify-content: center;
     align-items: center;
     flex-wrap: wrap;
+
+    .max {
+      // background-color: #F9A01B;
+      width: 400px;
+    }
+
     &__item {
         padding-right: 2%;
         padding-left: 2%;
@@ -116,6 +122,8 @@
         padding-top: 1%;
         padding-bottom: 1%;
         text-align: center;
+
+
 
         &__logo {
             transition: opacity 0.5s ease-in-out;
@@ -130,6 +138,13 @@
             font-size: 1rem;
             font-weight: 700;
             transition: color 0.2s ease-in-out;
+
+            overflow-wrap: break-word;
+
+            // overflow: hidden;
+            // text-overflow: ellipsis;
+            // white-space: nowrap;
+
             &:hover {
                 color: #00AEEF;
                 cursor: pointer;
@@ -169,7 +184,7 @@ mat-toolbar {
         &__body {
             padding: 1.5% 3% 1.5% 3%;
         }
-    } 
+    }
 }
 
 .btn-redirect-login {
@@ -178,7 +193,7 @@ mat-toolbar {
     min-width: 150px;
     height: 40px;
     background-color: #b1b846;
-    border-radius: 25px;  
+    border-radius: 25px;
     font-family: Poppins-Regular;
     font-size: 16px;
     color: #fff;

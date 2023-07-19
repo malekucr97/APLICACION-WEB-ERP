@@ -32,13 +32,13 @@
                 <div class="contenedor__body">
                     <section class="menu-module-item-section">
 
-                        <div class="menu-module-item-section__item" *ngFor="let module of ListModules">
+                        <div [ngClass]="['menu-module-item-section__item', module.identificador.includes('ID-BANKAP-BI') ? 'max' : '']" *ngFor="let module of ListModules">
 
-                            <a> <img    class   = "menu-module-item-section__item__logo" 
+                            <a> <img    class   = "menu-module-item-section__item__logo"
                                         src     = "{{module.pathLogo}}"
-                                        title   = "{{module.descripcion}}" 
+                                        title   = "{{module.descripcion}}"
                                         (click) = "selectModule(module)" > </a>
-                            <p class="menu-module-item-section__item__titulo">{{module.nombre}}</p>  
+                            <p class="menu-module-item-section__item__titulo">{{module.nombre}}</p>
 
                         </div>
 
