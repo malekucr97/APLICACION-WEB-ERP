@@ -1,10 +1,11 @@
-import { Component, OnInit, SecurityContext, ViewEncapsulation } from '@angular/core';
+import { Component, OnInit, ViewEncapsulation } from '@angular/core';
 import { DomSanitizer } from '@angular/platform-browser';
 import { Router } from '@angular/router';
 import { OnSeguridad } from '@app/_helpers/abstractSeguridad';
 import { Compania, Module, User } from '@app/_models';
 import { ScreenModule } from '@app/_models/admin/screenModule';
 import { AccountService, AlertService, PowerBIService } from '@app/_services';
+import { environment } from '@environments/environment';
 import { IReportEmbedConfiguration, models } from 'powerbi-client';
 import { first } from 'rxjs/operators';
 
@@ -25,7 +26,6 @@ export class IndexPowerBiComponent extends OnSeguridad implements OnInit {
   moduleObservable: Module;
   businessObservable: Compania;
 
-  private _pantallaModulo: ScreenModule = undefined;
   mostrarReporte: boolean = false;
 
   //CONFIGURACION DEL REPORTE
@@ -33,13 +33,17 @@ export class IndexPowerBiComponent extends OnSeguridad implements OnInit {
   reportClass = 'reporteCSS';
   reportConfig: IReportEmbedConfiguration = {
     type: 'report',
+    id: 'reporte',
+    embedUrl: undefined,
     tokenType: models.TokenType.Embed,
     accessToken: undefined,
+    permissions: models.Permissions.Read,
+    viewMode: models.ViewMode.View,
     settings: {
       background: models.BackgroundType.Transparent,
+      navContentPaneEnabled: false,
+      hideErrors: true
     },
-    id: undefined,
-    embedUrl: undefined,
   };
 
   //#endregion
@@ -81,25 +85,22 @@ export class IndexPowerBiComponent extends OnSeguridad implements OnInit {
       .pipe(first())
       .subscribe((response) => {
         if (response.exito) {
-          this._pantallaModulo = response.objetoDb;
-          this.SetURLPowerBI(this._pantallaModulo.urlExterna);
+          this.SetURLPowerBI(oScreenModule);
         } else {
           this.alertService.error(
-            'No se ha cargado correstamente el URL del reporte'
+            'No se ha indicado correctamente el URL del reporte'
           );
+          this.mostrarReporte = false;
         }
       });
   }
 
-  private SetURLPowerBI(urlExterna: string) {
-    this.mostrarReporte = false;
-    if (urlExterna) {
-      this.reportConfig = {
-        ...this.reportConfig,
-        embedUrl: urlExterna,
-      };
-      this.mostrarReporte = true;
-    }
+  private SetURLPowerBI(datosUrlPantalla: ScreenModule) {
+    this.reportConfig = {
+      ...this.reportConfig,
+      embedUrl: `${environment.apiUrl}/PowerBI/reporte?tk=${this.userObservable.token}&cp=${datosUrlPantalla.idCompania}&md=${datosUrlPantalla.idModulo}&sc=${datosUrlPantalla.nombre}`,
+    };
+    this.mostrarReporte = true;
   }
 
   //#endregion
