@@ -12,6 +12,7 @@ import { first } from 'rxjs/operators';
 import { ScreenModule } from '@app/_models/admin/screenModule';
 import { ActivatedRoute } from '@angular/router';
 import { httpAccessAdminPage } from '@environments/environment-access-admin';
+import { administrator } from '@environments/environment';
 
 declare var $: any;
 
@@ -121,7 +122,7 @@ export class AddAccessUserModuleComponent implements OnInit {
 
                     this.habilitaListasUsuarioCompania = true;
 
-                    this.listUsuariosCompania = response;
+                    this.listUsuariosCompania = response.filter(x=>x.idRol != administrator.identification && x.idRol != administrator.adminSociedad );
 
                 } else { this.habilitaListasUsuarioCompania = false; }
 
@@ -158,7 +159,7 @@ export class AddAccessUserModuleComponent implements OnInit {
                     } else {
 
                         this.habilitaListasPantallas        = false;
-                        
+
                         if(this.listUsuariosCompania.length > 0) this.habilitaListasUsuarioCompania  = true;
 
                         this.inicializaFormPantallaModulo();

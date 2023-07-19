@@ -1,7 +1,7 @@
 import { Router } from '@angular/router';
 import { Compania, Module, User } from '@app/_models';
 import { AccountService, AlertService } from '@app/_services';
-import { amdinBusiness } from '@environments/environment-access-admin';
+import { administrator } from '@environments/environment';
 import { first } from 'rxjs/operators';
 
 export class OnSeguridad {
@@ -50,7 +50,7 @@ export class OnSeguridad {
 
   validarUsuarioAdmin(): boolean {
     if (this._userObservable.esAdmin) return true;
-    if (this._userObservable.idRol == amdinBusiness.adminSociedad) return true;
+    if (this._userObservable.idRol == administrator.adminSociedad) return true;
     return false;
   }
 }
