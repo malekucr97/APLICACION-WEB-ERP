@@ -33,13 +33,17 @@ export class IndexPowerBiComponent extends OnSeguridad implements OnInit {
   reportClass = 'reporteCSS';
   reportConfig: IReportEmbedConfiguration = {
     type: 'report',
+    id: 'reporte',
+    embedUrl: undefined,
     tokenType: models.TokenType.Embed,
     accessToken: undefined,
+    permissions: models.Permissions.Read,
+    viewMode: models.ViewMode.View,
     settings: {
       background: models.BackgroundType.Transparent,
+      navContentPaneEnabled: false,
+      hideErrors: true
     },
-    id: undefined,
-    embedUrl: undefined,
   };
 
   //#endregion
