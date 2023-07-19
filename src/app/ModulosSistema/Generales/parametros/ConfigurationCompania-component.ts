@@ -5,9 +5,9 @@ import { User, Module } from '@app/_models';
 import { first } from 'rxjs/operators';
 import { MatSidenav } from '@angular/material/sidenav';
 import { Compania } from '../../../_models/modules/compania';
-import { httpHomeModulesPage } from '@environments/environment-access-admin';
 import { OnSeguridad } from '@app/_helpers/abstractSeguridad';
 import { Router } from '@angular/router';
+import { ModulesSystem } from '@environments/environment';
 
 declare var $: any;
 
@@ -23,7 +23,7 @@ export class ConfigurationCompaniaComponent extends OnSeguridad implements OnIni
     private nombrePantalla: string = 'ConfigurationCompania.html';
     tituloBasePantalla: string = 'Parametrización de la Compañía';
 
-    URLIndexHomeGenerales: string = httpHomeModulesPage.urlHomeModuleGenerales;
+    URLIndexHomeGenerales: string = ModulesSystem.generalesbasehref + 'index.html';
     
     userObservable:     User;
     moduleObservable:   Module;

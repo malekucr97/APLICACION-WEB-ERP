@@ -31,6 +31,20 @@ export const active = {
     urlRedirect: ''
 };
 
+export const httpLandingIndexPage = {
+
+    // -- >> Home Page Index Application
+    homeHTTP: '/',
+    // -- >> Langing Pages Index Application
+    indexHTTP: '/inra-sa/index.html',
+    // -- >> Langing No Loggin Application
+    indexHTTPPendingUser:       '/inra-sa/PendingPage/index.html',
+    indexHTTPNotRolUser:        '/inra-sa/NotRolPage/index.html',
+    indexHTTPInactiveUser:      '/inra-sa/InactiveUserPage/index.html',
+    indexHTTPInactiveRolUser:   '/inra-sa/InactiveRolPage/index.html',
+    urlPageNotBusiness:         '/inra-sa/NotBusinessPage/index.html'
+};
+
 export const ModulesSystem = {
 
     Identif_ActivosFijos:   'ID-BANKAP-ACT-FIJ',
@@ -71,6 +85,30 @@ export const ModulesSystem = {
 
     Identif_PowerBI:  'ID-BANKAP-BI',
     powerbibasehref:  '/inra-sa/modulo-powerbi/',
+};
+
+export const httpAccessAdminPage = {
+
+    // ********************************
+    // -- >> inicio de sesión *********
+    // ********************************
+    URLLoginPage: 'account/login',
+
+    // *************************************************
+    // -- >> Página de Administración del Sistema *******
+    // *************************************************
+    urlPageListModule:          '/admin-module/adminpage-listmodules.html/',
+    urlPageAdministrator:       '/admin-module/adminpage-indexadmin.html/',
+    urlPageAddEditBusiness:     '/admin-module/adminpage-addeditbusiness.html/',
+    urlPageListBusinessModule:  '/admin-module/adminpage-listmodulebusiness.html/',
+    urlPageListBusiness:        '/admin-module/adminpage-listbusiness.html/',
+    urlPageListRole:            '/admin-module/adminpage-listroles.html/',
+    urlPageListUsers:           '/admin-module/adminpage-listusers.html',
+    urlPageAddEditUser:         '/admin-module/adminpage-addedituser.html/',
+    urlPageAddBUser:            '/admin-module/adminpage-addbusinessuser.html/',
+    urlPageAddRUser:            '/admin-module/adminpage-addroleuser.html/',
+    urlPageAddModuleRol:        '/admin-module/adminpage-addmodulerol.html/',
+    urlPageAdminModule:         '/admin-module/adminpage-adminmodule.html/'
 };
 
 /*

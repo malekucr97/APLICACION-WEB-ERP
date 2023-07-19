@@ -2,13 +2,12 @@ import { Component, ViewChild, OnInit } from '@angular/core';
 import { AccountService, GeneralesService } from '@app/_services';
 import { MatSidenav } from '@angular/material/sidenav';
 import { Module, User } from '@app/_models';
-import { httpLandingIndexPage } from '../../../environments/environment-access-admin';
 import { Router } from '@angular/router';
 
 import {FlatTreeControl} from '@angular/cdk/tree';
 import {MatTreeFlatDataSource, MatTreeFlattener} from '@angular/material/tree';
 
-import { ModulesSystem } from '@environments/environment';
+import { ModulesSystem, httpLandingIndexPage } from '@environments/environment';
 
 import { Compania } from '../../_models/modules/compania';
 

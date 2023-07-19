@@ -5,11 +5,11 @@ import { first } from 'rxjs/operators';
 import { AccountService, AlertService } from '@app/_services';
 import {
   amdinBusiness,
-  httpAccessAdminPage,
-  httpLandingIndexPage,
+  httpAccessAdminPage
 } from '@environments/environment-access-admin';
 import { User, Role, ResponseMessage } from '@app/_models';
 import { Compania } from '../../_models/modules/compania';
+import { httpLandingIndexPage } from '@environments/environment';
 
 @Component({ templateUrl: 'HTML_AddEditUserPage.html' })
 export class AddEditUserComponent implements OnInit {

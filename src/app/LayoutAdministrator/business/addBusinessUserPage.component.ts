@@ -3,9 +3,9 @@ import { Router, ActivatedRoute } from '@angular/router';
 import { first } from 'rxjs/operators';
 import { AccountService, AlertService } from '@app/_services';
 import { User, Role } from '@app/_models';
-import { httpAccessAdminPage, httpLandingIndexPage } from '@environments/environment-access-admin';
+import { httpAccessAdminPage } from '@environments/environment-access-admin';
 import { Compania } from '../../_models/modules/compania';
-import { administrator } from '@environments/environment';
+import { administrator, httpLandingIndexPage } from '@environments/environment';
 
 @Component({ templateUrl: 'HTML_AddBusinessUserPage.html' })
 export class AddBusinessUserComponent implements OnInit {

@@ -1,9 +1,10 @@
 import { Component, OnInit } from '@angular/core';
 import { User } from '@app/_models';
 import { AccountService } from '@app/_services';
-import { amdinBusiness, httpAccessAdminPage, httpLandingIndexPage } from '@environments/environment-access-admin';
+import { amdinBusiness, httpAccessAdminPage } from '@environments/environment-access-admin';
 import { Router } from '@angular/router';
 import { Compania } from '@app/_models/modules/compania';
+import { httpLandingIndexPage } from '@environments/environment';
 
 @Component({ templateUrl: 'HTML_AdminUserPage.html' })
 export class AdminUserComponent implements OnInit {

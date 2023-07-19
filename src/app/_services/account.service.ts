@@ -144,9 +144,9 @@ export class AccountService {
   ) {
     return this.http
       .get<ResponseMessage>(`${environment.apiUrl}/users/validaaccesopantalla?idUsuario=${idUser}
-                                                                                                &idModulo=${idModule}
-                                                                                                &nomPantalla=${nombrePantalla}
-                                                                                                &îdEmpresa=${idBusiness}`);
+                                                                              &idModulo=${idModule}
+                                                                              &nomPantalla=${nombrePantalla}
+                                                                              &îdEmpresa=${idBusiness}`);
   }
 
   // **********************************************************************************************

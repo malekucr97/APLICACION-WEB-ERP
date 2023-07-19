@@ -5,11 +5,11 @@ import { AccountService, AlertService } from '@app/_services';
 import { User, Role, Module } from '@app/_models';
 import {
   administrator,
-  httpAccessAdminPage,
-  httpLandingIndexPage,
+  httpAccessAdminPage
 } from '@environments/environment-access-admin';
 import { Compania } from '../../_models/modules/compania';
 import { OnSeguridad } from '@app/_helpers/abstractSeguridad';
+import { httpLandingIndexPage } from '@environments/environment';
 
 @Component({ templateUrl: 'HTML_AddModuleRolePage.html' })
 export class AddModuleRoleComponent extends OnSeguridad implements OnInit {

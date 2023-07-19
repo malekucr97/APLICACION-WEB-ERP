@@ -5,12 +5,12 @@ import { User, Role } from '@app/_models';
 import {
   administrator,
   amdinBusiness,
-  httpAccessAdminPage,
-  httpLandingIndexPage,
+  httpAccessAdminPage
 } from '@environments/environment-access-admin';
 import { Compania } from '@app/_models/modules/compania';
 import { Router } from '@angular/router';
 import { OnSeguridad } from '@app/_helpers/abstractSeguridad';
+import { httpLandingIndexPage } from '@environments/environment';
 
 @Component({ templateUrl: 'HTML_ListRolePage.html' })
 export class ListRoleComponent extends OnSeguridad implements OnInit {

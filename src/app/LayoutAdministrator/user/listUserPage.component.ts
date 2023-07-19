@@ -6,13 +6,12 @@ import { User, ResponseMessage } from '@app/_models';
 
 import {
   httpAccessAdminPage,
-  httpLandingIndexPage,
 } from '@environments/environment-access-admin';
 
 import { Compania } from '@app/_models/modules/compania';
 
 // validar si al copilar a producción se mantienen las propiedades del archivo prod
-import { administrator } from '@environments/environment';
+import { administrator, httpLandingIndexPage } from '@environments/environment';
 
 @Component({ templateUrl: 'HTML_ListUserPage.html' })
 export class ListUserComponent implements OnInit {

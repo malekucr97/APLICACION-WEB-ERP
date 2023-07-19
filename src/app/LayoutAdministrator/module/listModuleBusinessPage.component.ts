@@ -4,7 +4,8 @@ import { Router, ActivatedRoute } from '@angular/router';
 import { AccountService, AlertService } from '@app/_services';
 import { User, Module } from '@app/_models';
 import { Compania } from '../../_models/modules/compania';
-import { httpAccessAdminPage, httpLandingIndexPage } from '@environments/environment-access-admin';
+import { httpAccessAdminPage } from '@environments/environment-access-admin';
+import { httpLandingIndexPage } from '@environments/environment';
 
 @Component({ templateUrl: 'HTML_ListModuleBusinessPage.html' })
 export class ListModuleBusinessComponent implements OnInit {
