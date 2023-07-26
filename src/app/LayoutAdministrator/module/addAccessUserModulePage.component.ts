@@ -125,6 +125,7 @@ export class AddAccessUserModuleComponent implements OnInit {
                     this.habilitaListasUsuarioCompania = true;
 
                     this.listUsuariosCompania = response.filter(x=>x.idRol != administrator.identification && x.idRol != administrator.adminSociedad );
+                    if (this.listUsuariosCompania.length === 0) this.habilitaListasUsuarioCompania = false;
 
                 } else { this.habilitaListasUsuarioCompania = false; }
 
@@ -160,7 +161,7 @@ export class AddAccessUserModuleComponent implements OnInit {
 
                     } else {
 
-                        this.habilitaListasPantallas        = false;
+                        this.habilitaListasPantallas = false;
 
                         // if(this.listUsuariosCompania.length > 0) this.habilitaListasUsuarioCompania  = true;
 
