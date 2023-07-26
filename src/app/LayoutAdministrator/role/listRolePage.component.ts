@@ -2,15 +2,11 @@ import { Component, OnInit } from '@angular/core';
 import { first } from 'rxjs/operators';
 import { AccountService, AlertService } from '@app/_services';
 import { User, Role } from '@app/_models';
-import {
-  administrator,
-  amdinBusiness,
-  httpAccessAdminPage
-} from '@environments/environment-access-admin';
+import { httpAccessAdminPage } from '@environments/environment-access-admin';
 import { Compania } from '@app/_models/modules/compania';
 import { Router } from '@angular/router';
 import { OnSeguridad } from '@app/_helpers/abstractSeguridad';
-import { httpLandingIndexPage } from '@environments/environment';
+import { administrator, httpLandingIndexPage } from '@environments/environment';
 
 @Component({ templateUrl: 'HTML_ListRolePage.html' })
 export class ListRoleComponent extends OnSeguridad implements OnInit {
@@ -62,9 +58,9 @@ export class ListRoleComponent extends OnSeguridad implements OnInit {
       .getAllRoles()
       .pipe(first())
       .subscribe((responseRoles) => {
-        if (this.userObservable.idRol == amdinBusiness.adminSociedad)
+        if (this.userObservable.idRol == administrator.adminSociedad)
           this.listRoles = responseRoles.filter(
-            (x) => x.id !== administrator.id
+            (x) => x.id !== administrator.identification
           );
         else this.listRoles = responseRoles;
         this.accountService.suscribeListRol(this.listRoles);
@@ -126,7 +122,7 @@ export class ListRoleComponent extends OnSeguridad implements OnInit {
   activateRole(idRol: string) {
     this.alertService.clear();
 
-    if (idRol !== administrator.id) {
+    if (idRol !== administrator.identification) {
       let estado = 'Activo';
       this.isActivating = true;
 
@@ -148,7 +144,7 @@ export class ListRoleComponent extends OnSeguridad implements OnInit {
   inActivateRole(idRol: string) {
     this.alertService.clear();
 
-    if (idRol !== administrator.id) {
+    if (idRol !== administrator.identification) {
       let estado = 'Inactivo';
       this.isInActivating = true;
 
@@ -170,7 +166,7 @@ export class ListRoleComponent extends OnSeguridad implements OnInit {
   escritura(idRol: string) {
     this.alertService.clear();
 
-    if (idRol !== administrator.id) {
+    if (idRol !== administrator.identification) {
       let tipo = 'Escritura';
       this.isWriting = true;
 
@@ -192,7 +188,7 @@ export class ListRoleComponent extends OnSeguridad implements OnInit {
   lectura(idRol: string) {
     this.alertService.clear();
 
-    if (idRol !== administrator.id) {
+    if (idRol !== administrator.identification) {
       let tipo = 'Lectura';
       this.isReading = true;
 

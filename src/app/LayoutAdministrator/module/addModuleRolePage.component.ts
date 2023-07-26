@@ -3,13 +3,10 @@ import { Router, ActivatedRoute } from '@angular/router';
 import { first } from 'rxjs/operators';
 import { AccountService, AlertService } from '@app/_services';
 import { User, Role, Module } from '@app/_models';
-import {
-  administrator,
-  httpAccessAdminPage
-} from '@environments/environment-access-admin';
+import { httpAccessAdminPage } from '@environments/environment-access-admin';
 import { Compania } from '../../_models/modules/compania';
 import { OnSeguridad } from '@app/_helpers/abstractSeguridad';
-import { httpLandingIndexPage } from '@environments/environment';
+import { administrator, httpLandingIndexPage } from '@environments/environment';
 
 @Component({ templateUrl: 'HTML_AddModuleRolePage.html' })
 export class AddModuleRoleComponent extends OnSeguridad implements OnInit {
@@ -70,7 +67,7 @@ export class AddModuleRoleComponent extends OnSeguridad implements OnInit {
     let roleId = this.route.snapshot.params.pidRole;
     this.role = this.listRolesSubject.find((x) => x.id === roleId);
 
-    if (this.role.esAdministrador !== administrator.esAdministrador) {
+    if (this.role.esAdministrador !== administrator.rolAdministrator) {
       this.accountService
         .getModulesBusiness(this.businessObservable.id)
         .pipe(first())

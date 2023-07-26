@@ -24,7 +24,8 @@ export class AddAccessUserModuleComponent implements OnInit {
     @ViewChild(MatSidenav) sidenav !: MatSidenav;
 
     private nombrePantalla  : string = 'HTML_AddAccessUserModulePage.html';
-    public nombreModulo     : string ;
+    public nombreModulo     : string = 'Módulo de Administración / '
+    + 'Administración de Pantallas por Módulo y Accesos de Pantallas por Usuario';;
 
     URLListIndexModules: string = httpAccessAdminPage.urlPageListModule;
 
@@ -59,7 +60,9 @@ export class AddAccessUserModuleComponent implements OnInit {
     public moduleScreen : Module = new Module(0,'','','','','','','');
     public moduleItemList : Module;
 
-    public today : Date ;
+    pidModuleParam : number ;
+
+    public today : Date = new Date();
 
     constructor (   private route:          ActivatedRoute,
                     private alertService:   AlertService,
@@ -70,42 +73,41 @@ export class AddAccessUserModuleComponent implements OnInit {
         this.userObservable     = this.accountService.userValue;
         this.companiaObservable = this.accountService.businessValue;
 
-        this.today = new Date();
+        // **************************************************************************
+        // VALIDA ACCESO PANTALLA LOGIN
+        if (this.userObservable.codeNoLogin !== '202') this.accountService.logout();
+        if (!this.companiaObservable) this.accountService.logout();
+        if (!this.route.snapshot.params.pidModule) this.accountService.logout();
+        // **************************************************************************
+
+        this.inicializaFormularioPantalla();
+
+        this.pidModuleParam = this.route.snapshot.params.pidModule;
+
+        this.buscarModuloId(this.pidModuleParam);
+        this.buscarPantallasModulo(this.pidModuleParam);
     }
 
     get m () {   return this.formPantallasModulo.controls;  }
 
-    ngOnInit() {
-
-        if (this.route.snapshot.params.pidModule) {
-
-            this.nombreModulo   = 'Módulo de Administración / '
-                                + 'Administración de Pantallas por Módulo y Accesos de Pantallas por Usuario';
-
-            let moduleId  = this.route.snapshot.params.pidModule;
-
-            this.formPantallasModulo    = this.formBuilder.group({
-                idPantalla          : [null],
-                codigoPantalla      : [null],
-                nombrePantalla      : [null],
-                estadoPantalla      : [true],
-                urlExterna          : [null]
-            });
-
-            this.buscarModuloId(+moduleId);
-
-            this.buscarUsuariosCompania();
-
-            this.buscarPantallasModulo(+moduleId);
-        }
+    inicializaFormularioPantalla() : void {
+        this.formPantallasModulo    = this.formBuilder.group({
+            idPantalla          : [null],
+            codigoPantalla      : [null],
+            nombrePantalla      : [null],
+            estadoPantalla      : [true],
+            urlExterna          : [null]
+        });
     }
 
-    buscarModuloId(moduleId : number = 0) : void {
+    ngOnInit() { this.buscarUsuariosCompania(); }
+
+    buscarModuloId(moduleId : number) : void {
         this.accountService.getModuleId(moduleId)
             .pipe(first())
             .subscribe(response => {
 
-                if (this.moduleScreen.descripcion=='') this.moduleScreen = response ;
+                if (this.moduleScreen.id===0) this.moduleScreen = response ;
 
                 this.moduleItemList = response;
             });
@@ -118,7 +120,7 @@ export class AddAccessUserModuleComponent implements OnInit {
             .pipe(first())
             .subscribe(response => {
 
-                if (response && response.length > 0 && this.listPantallasModulos.length > 0) {
+                if (response && response.length > 0 && this.habilitaListasPantallas) {
 
                     this.habilitaListasUsuarioCompania = true;
 
@@ -146,9 +148,9 @@ export class AddAccessUserModuleComponent implements OnInit {
 
                     if ( response && response.length > 0 ) {
 
-                        this.habilitaListasPantallas        = true;
+                        this.habilitaListasPantallas = true;
 
-                        if(this.listUsuariosCompania.length > 0) this.habilitaListasUsuarioCompania  = true;
+                        // if(this.listUsuariosCompania.length > 0) this.habilitaListasUsuarioCompania  = true;
 
                         this.listPantallasModulos = response ;
 
@@ -160,7 +162,7 @@ export class AddAccessUserModuleComponent implements OnInit {
 
                         this.habilitaListasPantallas        = false;
 
-                        if(this.listUsuariosCompania.length > 0) this.habilitaListasUsuarioCompania  = true;
+                        // if(this.listUsuariosCompania.length > 0) this.habilitaListasUsuarioCompania  = true;
 
                         this.inicializaFormPantallaModulo();
                     }
@@ -174,9 +176,9 @@ export class AddAccessUserModuleComponent implements OnInit {
 
                 if ( response && response.length > 0 ) {
 
-                    this.habilitaListasPantallas        = true;
+                    this.habilitaListasPantallas = true;
 
-                    if(this.listUsuariosCompania.length > 0) this.habilitaListasUsuarioCompania  = true;
+                    // if(this.listUsuariosCompania.length > 0) this.habilitaListasUsuarioCompania  = true;
 
                     this.listPantallasModulos = response ;
 
@@ -184,9 +186,9 @@ export class AddAccessUserModuleComponent implements OnInit {
 
                 } else {
 
-                    this.habilitaListasPantallas        = false;
+                    this.habilitaListasPantallas = false;
 
-                    if(this.listUsuariosCompania.length > 0) this.habilitaListasUsuarioCompania  = true;
+                    // if(this.listUsuariosCompania.length > 0) this.habilitaListasUsuarioCompania  = true;
 
                     this.inicializaFormPantallaModulo();
 
@@ -212,7 +214,6 @@ export class AddAccessUserModuleComponent implements OnInit {
     }
 
     selectPantallaModulo(objeto : ScreenModule) : void {
-
         this.inicializaFormPantallaModulo(objeto);
         this.consultaUsuariosAccesoPantalla(objeto);
     }

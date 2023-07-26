@@ -1,10 +1,10 @@
 import { Component, OnInit } from '@angular/core';
 import { User } from '@app/_models';
 import { AccountService } from '@app/_services';
-import { amdinBusiness, httpAccessAdminPage } from '@environments/environment-access-admin';
+import { httpAccessAdminPage } from '@environments/environment-access-admin';
 import { Router } from '@angular/router';
 import { Compania } from '@app/_models/modules/compania';
-import { httpLandingIndexPage } from '@environments/environment';
+import { administrator, httpLandingIndexPage } from '@environments/environment';
 
 @Component({ templateUrl: 'HTML_AdminUserPage.html' })
 export class AdminUserComponent implements OnInit {
@@ -33,7 +33,7 @@ export class AdminUserComponent implements OnInit {
             return;
         }
 
-        if (!this.userObservable.esAdmin && this.userObservable.idRol !== amdinBusiness.adminSociedad) {
+        if (!this.userObservable.esAdmin && this.userObservable.idRol !== administrator.adminSociedad) {
             this.router.navigate([this.URLConfigureUserPage + this.userObservable.identificacion]); 
             return;
         }

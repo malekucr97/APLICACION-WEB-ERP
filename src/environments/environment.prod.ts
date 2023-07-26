@@ -6,28 +6,35 @@ export const environment = {
 };
 
 export const administrator = {
-    production: true,
+    // production: true,
     identification: 'adminboss',
     state: 'admin',
     urlRedirect: '',
-    adminSociedad: 'admin-e'
+    adminSociedad: 'admin-e',
+    rolAdministrator: 1
 };
 
 export const register = {
-    production: true,
+    // production: true,
     state: 'Registrado',
     urlRedirect: ''
 };
 
 export const pending = {
-    production: true,
+    // production: true,
     state: 'Pendiente',
     urlRedirect: ''
 };
 
 export const active = {
-    production: true,
+    // production: true,
     state: 'Activo',
+    urlRedirect: ''
+};
+
+export const inactive = {
+    // production: false,
+    state: 'Inactivo',
     urlRedirect: ''
 };
 
@@ -42,7 +49,10 @@ export const httpLandingIndexPage = {
     indexHTTPNotRolUser:        '/inra-sa/NotRolPage/index.html',
     indexHTTPInactiveUser:      '/inra-sa/InactiveUserPage/index.html',
     indexHTTPInactiveRolUser:   '/inra-sa/InactiveRolPage/index.html',
-    urlPageNotBusiness:         '/inra-sa/NotBusinessPage/index.html'
+    indexHTTPBlockedUser:       '/inra-sa/BlockedUserPage/index.html',
+    indexHTTPNoBussinesUser:    '/inra-sa/NotBusinessPage/index.html'
+    // ,
+    // urlPageNotBusiness:         '/inra-sa/NotBusinessPage/index.html'
 };
 
 export const ModulesSystem = {
@@ -84,8 +94,7 @@ export const ModulesSystem = {
     inversionesbasehref:  '/inra-sa/modulo-inversiones/',
 
     Identif_PowerBI:  'ID-BANKAP-BI',
-    powerbibasehref:  '/inra-sa/modulo-powerbi/',
-
+    powerbibasehref:  '/inra-sa/modulo-powerbi/'
 };
 
 export const httpAccessAdminPage = {
@@ -96,7 +105,7 @@ export const httpAccessAdminPage = {
     URLPageAccount: 'account/login',
 
     // *************************************************
-    // -- >> Página de Administración del Sistema *******
+    // -- >> Página de Administración del Sistema ******
     // *************************************************
     urlPageListModule:          '/admin-module/adminpage-listmodules.html/',
     urlPageAdministrator:       '/admin-module/adminpage-indexadmin.html/',

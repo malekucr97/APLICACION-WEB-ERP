@@ -38,7 +38,7 @@ const routes: Routes = [
             { path: 'adminpage-indexadmin.html', component: AdminUserComponent },
             { path: 'adminpage-listusers.html', component: ListUserComponent },
             { path: 'adminpage-addedituser.html', component: AddEditUserComponent },
-            { path: 'adminpage-addedituser.html/:id', component: AddEditUserComponent },
+            { path: 'adminpage-addedituser.html/:identificacion', component: AddEditUserComponent },
             // -- empresa
             // { path: 'AdminBusinessPage', component: AdminBusinessComponent },
             { path: 'adminpage-addeditbusiness.html', component: AddEditBusinessComponent },

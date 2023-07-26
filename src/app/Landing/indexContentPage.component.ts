@@ -3,11 +3,8 @@ import { first } from 'rxjs/operators';
 import { Router, ActivatedRoute } from '@angular/router';
 import { AccountService } from '@app/_services';
 import { User, Module } from '@app/_models';
-import { ModulesSystem } from '@environments/environment';
-import {
-  amdinBusiness,
-  httpAccessAdminPage,
-} from '@environments/environment-access-admin';
+import { ModulesSystem, administrator } from '@environments/environment';
+import { httpAccessAdminPage } from '@environments/environment-access-admin';
 import { MatSidenav } from '@angular/material/sidenav';
 import { Compania } from '@app/_models/modules/compania';
 
@@ -49,7 +46,7 @@ export class IndexContentPageComponent implements OnInit {
       // valida si el usuario que inició sesión es administrador
       if (
         this.userObservable.esAdmin ||
-        this.userObservable.idRol === amdinBusiness.adminSociedad
+        this.userObservable.idRol === administrator.adminSociedad
       ) {
         // lista los módulos activos de una compañía
         this.accountService
