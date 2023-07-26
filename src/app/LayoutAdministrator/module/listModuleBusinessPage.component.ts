@@ -29,7 +29,7 @@ export class ListModuleBusinessComponent implements OnInit {
     adminBoss: boolean;
     adminBusiness: boolean;
 
-    URLAddEditUsertPage: string;
+    // URLAddEditUsertPage: string;
     URLAddBusinessUsertPage: string;
     URLAddRoleUsertPage: string;
     idBusiness: string;

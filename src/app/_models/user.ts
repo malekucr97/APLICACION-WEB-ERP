@@ -3,6 +3,7 @@
     identificacion: string;
     nombreCompleto: string;
     email: string;
+    puesto: string;
     numeroTelefono: string;
     estado: string;
     token: string;

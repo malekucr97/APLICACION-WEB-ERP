@@ -3,25 +3,25 @@ import { Router, ActivatedRoute } from '@angular/router';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { first } from 'rxjs/operators';
 import { AccountService, AlertService } from '@app/_services';
-import { AuthStatesApp } from '@environments/environment-access-admin';
-import { administrator, httpLandingIndexPage } from '@environments/environment';
+import { administrator, httpLandingIndexPage, inactive } from '@environments/environment';
 import { User } from '@app/_models';
 
 @Component({ templateUrl: 'login.component.html' })
 export class LoginComponent implements OnInit {
 
-    form: FormGroup;
+    form : FormGroup ;
 
     userLog : User = new User ;
 
-    loading = false;
-    submitted = false;
+    loading     : boolean = false;
+    submitted   : boolean = false;
 
     private UrlHome : string;
 
     _httpInactiveUserPage   : string = httpLandingIndexPage.indexHTTPInactiveUser;
     _httpPendingUserPage    : string = httpLandingIndexPage.indexHTTPPendingUser;
     _httpNotRoleUserPage    : string = httpLandingIndexPage.indexHTTPNotRolUser;
+    _httpBlockedUserPage    : string = httpLandingIndexPage.indexHTTPBlockedUser;
 
     _httpInactiveRolePage   : string = httpLandingIndexPage.indexHTTPInactiveRolUser;
 
@@ -29,7 +29,7 @@ export class LoginComponent implements OnInit {
                 private route: ActivatedRoute,
                 private router: Router,
                 private accountService: AccountService,
-                private alertService: AlertService ) { 
+                private alertService: AlertService ) {
 
                     this.userLog.codeNoLogin = '404';
 
@@ -43,7 +43,6 @@ export class LoginComponent implements OnInit {
     ngOnInit() { }
 
     inicializaFormularioLogin () :void {
-
         this.form = this.formBuilder.group({
             username: ['', Validators.required],
             password: ['', Validators.required]
@@ -64,79 +63,46 @@ export class LoginComponent implements OnInit {
 
         this.accountService.login(userName.trim(), password.trim())
             .pipe(first())
-            .subscribe( responseObjectLogin => {
+            .subscribe( responseLogin => {
 
-                if (responseObjectLogin) {
+                if (responseLogin) {
 
-                    this.userLog = responseObjectLogin;
+                    this.userLog = responseLogin;
 
                     switch(this.userLog.codeNoLogin) {
 
+                        // **********************************
+                        // sesión exitosa
                         case "202": {
 
                             this.userLog.esAdmin = false;
 
                             this.accountService.getRoleById(this.userLog.idRol)
                                 .pipe(first())
-                                .subscribe( responseObjectRol => {
+                                .subscribe( responsetRol => {
                 
-                                    if (responseObjectRol.estado === AuthStatesApp.inactive) { 
+                                    if (responsetRol.estado === inactive.state) { 
                                         this.router.navigate([this._httpInactiveRolePage]);
                                         this.userLog.codeNoLogin = '404';
                                         return;
                                     }
-    
-                                    // si el usuario que inicia sesión es administrador
-                                    if (administrator.identification === responseObjectRol.id) this.userLog.esAdmin = true;
+
+                                    // **********************************
+                                    // usuario administrador del sistema
+                                    if (administrator.identification === responsetRol.id) this.userLog.esAdmin = true;
                                     
-                                    // this.accountService.loadUserAsObservable(responseObjectLogin);
                                     this.router.navigate([this.UrlHome]);
                                 });
-
                            break;
                         }
 
-                        case "NO-LOG01": {
-                           // "El usuario o contraseña ingresadas contienen espacios en blanco."
-                           this.alertService.info(this.userLog.messageNoLogin);
-                           break;
-                        }
-                        case "NO-LOG02": { 
-                            // El usuario " + username + " no está registrado en el sistema.
-                            this.alertService.info(this.userLog.messageNoLogin);
-                            break; 
-                        }
-                        case "NO-LOG03": { 
-                            // El usuario se encuentra bloqueado.
-                            this.alertService.info(this.userLog.messageNoLogin);
-                            break; 
-                        }
-                        case "NO-LOG04": { 
-                            // La contraseña ingresada no es correcta. Cantidad de intentos permitidos : 3
-                            this.alertService.info(this.userLog.messageNoLogin);
-                            break; 
-                        }
-                        case "NO-LOG05": { 
-                            // Correo de activación enviado por correo electrónico.
-                            // if (AuthStatesApp.pending === this.userLog.estado) { 
-                                this.router.navigate([this._httpPendingUserPage]); 
-                                // return; 
-                            // }
-                            break; 
-                        }
-                        case "NO-LOG06": { 
-                            // El usuario se encuentra inactivo.
-                            // if (AuthStatesApp.inactive === this.userLog.estado) { 
-                                this.router.navigate([this._httpInactiveUserPage]); 
-                            //     return;
-                            // }
-                            break; 
-                        }
-                        case "NO-LOG07": { 
-                            // Rol de usuario no asignado
-                            this.router.navigate([this._httpNotRoleUserPage]);
-                            break; 
-                        }
+                        case "NO-LOG01": { this.alertService.info(this.userLog.messageNoLogin); break; } // usuario no registrado
+                        case "NO-LOG02": { this.router.navigate([this._httpBlockedUserPage]);   break; } // usuario bloqueado
+                        case "NO-LOG03": { this.router.navigate([this._httpInactiveUserPage]);  break; } // usuario inactivo
+                        case "NO-LOG04": { this.router.navigate([this._httpPendingUserPage]);   break; } // usuario pendiente
+                        case "NO-LOG05": { this.router.navigate([this._httpNotRoleUserPage]);   break; } // usuario sin rol
+                        case "NO-LOG06": { this.alertService.info(this.userLog.messageNoLogin); break; } // contraseña incorrecta
+
                         default: { this.alertService.info("Excepción no controlada."); break; }
                     }
 
@@ -146,11 +112,12 @@ export class LoginComponent implements OnInit {
                     this.submitted = false;
                     
                 // **********************************
-                // entró al catch de login en backend
+                // catch de login en backend
                 } else { this.alertService.error('Ocurrió un error al procesar los credenciales del usuario.'); }
 
+                // **********************************
+                // carga al usuario al local storage
                 this.accountService.loadUserAsObservable(this.userLog);
-
             },
             (error) => {
                 this.alertService.error('Problemas al obtener respuesta del Servidor. Por favor contacte al administrador.' + error);

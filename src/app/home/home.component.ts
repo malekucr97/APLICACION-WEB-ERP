@@ -19,116 +19,62 @@ export class HomeComponent implements OnInit {
     conexion : boolean = false;
     message  : string = 'Esperando respuesta del servidor';
 
-    // _httpInactiveUserPage   : string = httpLandingIndexPage.indexHTTPInactiveUser;
-    // _httpPendingUserPage    : string = httpLandingIndexPage.indexHTTPPendingUser;
-    // _httpNotRoleUserPage    : string = httpLandingIndexPage.indexHTTPNotRolUser;
+    _httpLoginPage : string = httpAccessAdminPage.URLLoginPage;
 
-    // _httpInactiveRolePage   : string = httpLandingIndexPage.indexHTTPInactiveRolUser;
-
-    _httpLoginPage   : string = httpAccessAdminPage.URLLoginPage;
-
-    _httpNoBusinessUserPage   : string = httpLandingIndexPage.urlPageNotBusiness;
+    _httpNoBusinessUserPage : string = httpLandingIndexPage.indexHTTPNoBussinesUser;
 
     constructor(private accountService: AccountService,
                 private router: Router) {
 
         this.userObservable = this.accountService.userValue;
 
-        // if (this.userObservable.codeNoLogin === '404') {
-        //     this.router.navigate([this._httpLoginPage]); 
-        //     return;
-        // }
-
-        // if (AuthStatesApp.inactive === this.userObservable.estado) { this.router.navigate([this._httpInactiveUserPage]); return; }
-        // if (AuthStatesApp.pending === this.userObservable.estado) { this.router.navigate([this._httpPendingUserPage]); return; }
-        // if (!this.userObservable.idRol) { this.router.navigate( [this._httpNotRoleUserPage] ); return; }
-
-        // this.userObservable.esAdmin = false;
+        // **************************************************************************
+        // VALIDA ACCESO PANTALLA LOGIN
+        if (this.userObservable.codeNoLogin !== '202') this.accountService.logout();
+        // **************************************************************************
     }
 
     ngOnInit() {
 
-        if (this.userObservable.codeNoLogin === '202') {
+        this.conexion   = true;
+        this.message    = 'Seleccione la Compañía';
+        
+        if (this.userObservable.esAdmin) {
 
-            this.conexion   = true;
-            this.message    = 'Seleccione la Compañía';
-            
-            if (this.userObservable.esAdmin) {
+            this.accountService.getAllBusiness()
+                .pipe(first())
+                .subscribe(listBusinessResponse => {
+                    
+                    if (listBusinessResponse && listBusinessResponse.length > 0) {
+                        this.listBusiness = listBusinessResponse;
 
-                this.accountService.getAllBusiness()
-                    .pipe(first())
-                    .subscribe(listComaniesResponse => {
-                        
-                        if (listComaniesResponse && listComaniesResponse.length > 0) {
-                            this.listBusiness = listComaniesResponse;
+                        if (this.listBusiness.length === 1) this.selectBusiness(this.listBusiness[0]);
 
-                        } else { this.router.navigate([this._httpNoBusinessUserPage]); }
-                    });
+                    } else {
+                        this.userObservable.codeNoLogin = '404';
+                        this.accountService.loadUserAsObservable(this.userObservable);
+                        this.router.navigate([this._httpNoBusinessUserPage]);
+                    }
+                });
 
-            } else if (!this.userObservable.esAdmin) {
+        } else if (!this.userObservable.esAdmin) {
 
-                this.accountService.getBusinessActiveUser(this.userObservable.id)
-                    .pipe(first())
-                    .subscribe(lstBusinessResponse => {
+            this.accountService.getBusinessActiveUser(this.userObservable.id)
+                .pipe(first())
+                .subscribe(listBusinessResponse => {
 
-                        if (lstBusinessResponse && lstBusinessResponse.length > 0) {
-                            this.listBusiness = lstBusinessResponse;
+                    if (listBusinessResponse && listBusinessResponse.length > 0) {
+                        this.listBusiness = listBusinessResponse;
 
-                        } else { this.router.navigate([this._httpNoBusinessUserPage]); }
-                    });
-            }
+                        if (this.listBusiness.length === 1) this.selectBusiness(this.listBusiness[0]);
+
+                    } else {
+                        this.userObservable.codeNoLogin = '404';
+                        this.accountService.loadUserAsObservable(this.userObservable);
+                        this.router.navigate([this._httpNoBusinessUserPage]); 
+                    }
+                });
         }
-        // else { this.router.navigate([this._httpLoginPage]); }
-
-
-
-
-        // this.accountService.getRoleById(this.userObservable.idRol)
-        //     .pipe(first())
-        //     .subscribe( responseObjectRol => {
-
-        //         if (responseObjectRol.estado === AuthStatesApp.inactive) { this.router.navigate([this._httpInactiveRolePage]); return; }
-
-        //         this.conexion   = true;
-        //         this.message    = 'Seleccione la Compañía';
-
-        //         this.roleUser = responseObjectRol;
-
-        //         // valida adminboss
-        //         if (administrator.identification === this.roleUser.id) {
-                        
-        //             this.userObservable.esAdmin = true;
-        //             this.accountService.loadUserAsObservable(this.userObservable);
-
-        //             this.accountService.getAllBusiness()
-        //             .pipe(first())
-        //             .subscribe(listComaniesResponse => {
-                        
-        //                 if (listComaniesResponse && listComaniesResponse.length > 0) {
-        //                     this.listBusiness = listComaniesResponse;
-        //                 } else {
-        //                     this.router.navigate([httpLandingIndexPage.urlPageNotBusiness]);
-        //                     return;
-        //                 }
-        //             });
-
-        //         } else {
-
-        //             this.userObservable.esAdmin = false;
-
-        //             this.accountService.getBusinessActiveUser(this.userObservable.id)
-        //             .pipe(first())
-        //             .subscribe(lstBusinessResponse => {
-
-        //                 if (lstBusinessResponse) {
-        //                     this.listBusiness = lstBusinessResponse;
-        //                 } else {
-        //                     this.router.navigate([httpLandingIndexPage.urlPageNotBusiness]);
-        //                     return;
-        //                 }
-        //             });
-        //         } 
-        //     });
     }
 
     selectBusiness(business: Compania) {
@@ -138,8 +84,10 @@ export class HomeComponent implements OnInit {
 
         this.accountService.loadBusinessAsObservable(business);
 
-        // http index.html
+        // *************************************
+        // redirect http index module .html
         this.router.navigate([httpLandingIndexPage.indexHTTP]);
+        // *************************************
     }
 
     logout() { this.accountService.logout(); }

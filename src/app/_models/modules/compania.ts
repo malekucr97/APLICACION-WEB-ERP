@@ -31,5 +31,5 @@ export class Compania {
 export class CompaniaUsuario {
   IdUsuario: number;
   IdentificacionUsuario: string;
-  IdEmpresa: number;
+  IdSociedad: number;
 }
