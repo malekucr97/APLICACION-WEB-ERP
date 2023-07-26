@@ -72,29 +72,15 @@ export class LoginComponent implements OnInit {
                     switch(this.userLog.codeNoLogin) {
 
                         // **********************************
-                        // sesión exitosa
+                        // inicio de sesión exitoso
                         case "202": {
 
-                            this.userLog.esAdmin = false;
+                            this.userLog.esAdmin = administrator.identification === this.userLog.idRol ? true : false;
+                            this.router.navigate([this.UrlHome]);
 
-                            this.accountService.getRoleById(this.userLog.idRol)
-                                .pipe(first())
-                                .subscribe( responsetRol => {
-                
-                                    if (responsetRol.estado === inactive.state) { 
-                                        this.router.navigate([this._httpInactiveRolePage]);
-                                        this.userLog.codeNoLogin = '404';
-                                        return;
-                                    }
-
-                                    // **********************************
-                                    // usuario administrador del sistema
-                                    if (administrator.identification === responsetRol.id) this.userLog.esAdmin = true;
-                                    
-                                    this.router.navigate([this.UrlHome]);
-                                });
                            break;
                         }
+                        // **********************************
 
                         case "NO-LOG01": { this.alertService.info(this.userLog.messageNoLogin); break; } // usuario no registrado
                         case "NO-LOG02": { this.router.navigate([this._httpBlockedUserPage]);   break; } // usuario bloqueado
@@ -102,15 +88,13 @@ export class LoginComponent implements OnInit {
                         case "NO-LOG04": { this.router.navigate([this._httpPendingUserPage]);   break; } // usuario pendiente
                         case "NO-LOG05": { this.router.navigate([this._httpNotRoleUserPage]);   break; } // usuario sin rol
                         case "NO-LOG06": { this.alertService.info(this.userLog.messageNoLogin); break; } // contraseña incorrecta
+                        case "NO-LOG07": { this.router.navigate([this._httpInactiveRolePage]);  break; } // rol inactivo
 
                         default: { this.alertService.info("Excepción no controlada."); break; }
                     }
 
                     if (this.userLog.codeNoLogin !== '202') this.userLog.codeNoLogin = '404';
 
-                    this.loading = false;
-                    this.submitted = false;
-                    
                 // **********************************
                 // catch de login en backend
                 } else { this.alertService.error('Ocurrió un error al procesar los credenciales del usuario.'); }
@@ -118,6 +102,9 @@ export class LoginComponent implements OnInit {
                 // **********************************
                 // carga al usuario al local storage
                 this.accountService.loadUserAsObservable(this.userLog);
+
+                this.loading    = false;
+                this.submitted  = false;
             },
             (error) => {
                 this.alertService.error('Problemas al obtener respuesta del Servidor. Por favor contacte al administrador.' + error);
