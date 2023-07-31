@@ -33,11 +33,10 @@ export class HomeComponent extends OnSeguridad implements OnInit {
 
         // *********************************************************
         // VALIDA ACCESO PANTALLA
-        if (!super.userAuthenticateHome()) this.accountService.logout();
+        if (!super.userAuthenticateHome()) { this.accountService.logout(); return; }
         // *********************************************************
 
         this.userObservable = this.accountService.userValue;
-
         this.today = new Date();
     }
 

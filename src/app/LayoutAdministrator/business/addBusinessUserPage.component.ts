@@ -43,7 +43,7 @@ export class AddBusinessUserComponent extends OnSeguridad implements OnInit {
         // VALIDA ACCESO PANTALLA LOGIN ADMINISTRADOR
         if (!super.userAuthenticateAdmin()                  ||
             !this.route.snapshot.params.pidentificationUser ||
-            !this.accountService.userListValue) this.accountService.logout();
+            !this.accountService.userListValue) { this.accountService.logout(); return; }
         // ***************************************************************
         
         this.userObservable = this.accountService.userValue;

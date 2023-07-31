@@ -42,7 +42,7 @@ export class ListUserComponent extends OnSeguridad implements OnInit {
 
     // ***************************************************************
     // VALIDA ACCESO PANTALLA LOGIN ADMINISTRADOR
-    if (!super.userAuthenticateAdmin()) this.accountService.logout();
+    if (!super.userAuthenticateAdmin()) { this.accountService.logout(); return; }
     // ***************************************************************
 
     this.userObservable = this.accountService.userValue;
