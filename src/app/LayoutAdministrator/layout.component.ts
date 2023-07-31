@@ -1,15 +1,11 @@
 import { Component } from '@angular/core';
 import { AccountService } from '@app/_services';
-import { httpAccessAdminPage } from '@environments/environment-access-admin';
 
 @Component({ 
     templateUrl: 'layout.component.html',
-    styleUrls: ['../../assets/scss/app.scss',
-                '../../assets/scss/administrator/app.scss']
+    styleUrls: ['../../assets/scss/app.scss', '../../assets/scss/administrator/app.scss']
 })
-export class LayoutAdministratorComponent {
-
-    public adminpageurl : string = httpAccessAdminPage.urlPageAdministrator;
+export class LayoutAdministratorComponent  {
 
     constructor(private accountService: AccountService) { }
 

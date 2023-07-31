@@ -4,8 +4,7 @@ import { Router } from '@angular/router';
 import { AccountService, AlertService } from '@app/_services';
 import { User, Module } from '@app/_models';
 import { Compania } from '../../_models/modules/compania';
-import { httpAccessAdminPage } from '@environments/environment-access-admin';
-import { httpLandingIndexPage } from '@environments/environment';
+import { httpAccessAdminPage, httpLandingIndexPage } from '@environments/environment';
 import { OnSeguridad } from '@app/_helpers/abstractSeguridad';
 
 @Component({templateUrl: 'HTML_ListModulePage.html',

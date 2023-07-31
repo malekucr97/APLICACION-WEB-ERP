@@ -1,10 +1,7 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
-
 import { LayoutComponent } from './layout.component';
-
 import { IndexContentPageComponent } from './indexContentPage.component';
-
 import { PendingUserPageComponent } from './nologgin/pendingPage.component';
 import { NotRolPageComponent } from './nologgin/notRolPage.component';
 import { InactiveUserPageComponent } from './nologgin/inactiveUserPage.component';

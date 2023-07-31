@@ -8,8 +8,7 @@ import { DialogoConfirmacionComponent }             from '@app/_components/dialo
 import { first } from 'rxjs/operators';
 import { ScreenModule } from '@app/_models/admin/screenModule';
 import { ActivatedRoute, Router } from '@angular/router';
-import { httpAccessAdminPage } from '@environments/environment-access-admin';
-import { administrator } from '@environments/environment';
+import { administrator, httpAccessAdminPage } from '@environments/environment';
 import { OnSeguridad } from '@app/_helpers/abstractSeguridad';
 
 declare var $: any;
@@ -67,7 +66,6 @@ export class AddAccessUserModuleComponent extends OnSeguridad implements OnInit 
                     private accountService: AccountService,
                     private dialogo:        MatDialog,
                     private router:         Router ) {
-
 
         super(alertService, accountService, router);
 

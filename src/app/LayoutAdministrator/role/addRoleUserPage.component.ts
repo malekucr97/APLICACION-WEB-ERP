@@ -3,9 +3,8 @@ import { Router, ActivatedRoute } from '@angular/router';
 import { first } from 'rxjs/operators';
 import { AccountService, AlertService } from '@app/_services';
 import { User, Role, Compania } from '@app/_models';
-import { httpAccessAdminPage } from '@environments/environment-access-admin';
 import { OnSeguridad } from '@app/_helpers/abstractSeguridad';
-import { administrator } from '@environments/environment';
+import { administrator, httpAccessAdminPage } from '@environments/environment';
 
 @Component({templateUrl: 'HTML_AddRoleUserPage.html',
             styleUrls: ['../../../assets/scss/app.scss', '../../../assets/scss/administrator/app.scss']
