@@ -16,21 +16,8 @@ import { Compania } from '@app/_models/modules/compania';
   ],
 })
 export class IndexContentPageComponent implements OnInit {
-  public URLIndexAdminPage: string = httpAccessAdminPage.urlPageAdministrator;
-
-  constructor(
-    private accountService: AccountService,
-    private router: Router,
-    private route: ActivatedRoute
-  ) {
-    this.userObservable = this.accountService.userValue;
-    this.businessObservable = this.accountService.businessValue;
-  }
-
   @ViewChild(MatSidenav)
   sidenav!: MatSidenav;
-
-  // conexion:boolean;
 
   userObservable: User;
   businessObservable: Compania;
@@ -38,27 +25,30 @@ export class IndexContentPageComponent implements OnInit {
   public ListModules: Module[] = [];
   private UrlHome: string = '/';
 
+  public URLIndexAdminPage: string = httpAccessAdminPage.urlPageAdministrator;
+
+  constructor(  private accountService: AccountService,
+                private router: Router,
+                private route: ActivatedRoute ) {
+
+    this.userObservable = this.accountService.userValue;
+    this.businessObservable = this.accountService.businessValue;
+
+  }
+
   ngOnInit() {
-    // this.conexion = false;
 
     // valida que se haya seleccionado una empresa
     if (this.businessObservable) {
       // valida si el usuario que inició sesión es administrador
-      if (
-        this.userObservable.esAdmin ||
-        this.userObservable.idRol === administrator.adminSociedad
-      ) {
+      if (  this.userObservable.esAdmin ||
+            this.userObservable.idRol === administrator.adminSociedad ) {
         // lista los módulos activos de una compañía
-        this.accountService
-          .getModulesActiveBusiness(this.businessObservable.id)
+        this.accountService.getModulesActiveBusiness(this.businessObservable.id)
           .pipe(first())
-          .subscribe(
-            (responseListModules) => {
-              if (responseListModules && responseListModules.length > 0)
-                this.setListModules(responseListModules);
+          .subscribe((responseListModules) => {
 
-              // this.conexion = true;
-              // this.setListModules(responseListModules);
+              if (responseListModules && responseListModules.length > 0) this.setListModules(responseListModules);
             },
             (error) => {
               // si hay algun problema redirecciona a home
@@ -68,19 +58,11 @@ export class IndexContentPageComponent implements OnInit {
 
         // lista los módulos activos de un usuario
       } else {
-        this.accountService
-          .getModulesActiveUser(
-            this.businessObservable.id,
-            this.userObservable.idRol
-          )
+        this.accountService.getModulesActiveUser( this.businessObservable.id, this.userObservable.idRol )
           .pipe(first())
-          .subscribe(
-            (responseListModules) => {
-              if (responseListModules && responseListModules.length > 0)
-                this.setListModules(responseListModules);
+          .subscribe((responseListModules) => {
 
-              // this.conexion = true;
-              // this.setListModules(responseListModules);
+              if (responseListModules && responseListModules.length > 0) this.setListModules(responseListModules);
             },
             (error) => {
               // si hay algun problema redirecciona a home
@@ -88,9 +70,7 @@ export class IndexContentPageComponent implements OnInit {
             }
           );
       }
-    } else {
-      this.router.navigate([this.UrlHome], { relativeTo: this.route });
-    }
+    } else { this.router.navigate([this.UrlHome], { relativeTo: this.route }); }
   }
 
   private setListModules(responseListModules: Module[] = null): void {

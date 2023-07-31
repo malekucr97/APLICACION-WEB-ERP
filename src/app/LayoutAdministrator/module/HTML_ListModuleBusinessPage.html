@@ -1,35 +1,43 @@
-<h1 style="color:#1A5276">Módulos</h1>
-<h4 *ngIf="listModulesBusiness">Listado de Módulos de la Compañía {{business.nombre}}</h4>
+<h1 style="color:#1A5276">Módulos </h1>
+<h4>Asigne o elimine módulos en la Compañía.</h4>
 
 <a routerLink="{{HTTPListBusinessPage}}" class="btn btn-light mb-2 mr-3">Volver</a>
 
 <div class="card">
     <div class="card-body">
 
+        <h3 style="color:#1A5276"><b>{{business.nombre}} </b></h3>
+
+        <br>
         <div *ngIf="listModulesBusiness">
+
             <h4 *ngIf="seleccionEmpresa" style="color:#1A5276">Seleccione el módulo al que va a deshabilitar el acceso</h4>
+
             <table class="table table-striped">
                 <thead>
                     <tr>
-                        <th style="width: 15%">Identificador</th>
-                        <th style="width: 20%">Nombre</th>
-                        <th style="width: 30%">Descripción</th>
-                        <th style="width: 10%"></th>
+                        <th style="width: 25%">Identificador</th>
+                        <th style="width: 25%">Nombre</th>
+                        <th style="width: 49%">Descripción</th>
+                        <th style="width: 1%"></th>
                     </tr>
                 </thead>
                 <tbody>
-                    <tr *ngFor="let module of listModulesBusiness">
+                    <tr *ngFor="let module of listModulesBusiness"
+                        class="item-list__list" >
                         <td>{{module.identificador}}</td>
                         <td>{{module.nombre}}</td>
                         <td>{{module.descripcion}}</td>
-                        <td style="white-space: nowrap">
 
-                            <button *ngIf="seleccionEmpresa" (click)="desAssignModuleBusiness(module.identificador)"  class="btn btn-sm btn-outline-danger mr-1">
-                                <span *ngIf="isDesAssigning" class="spinner-border spinner-border-sm"></span>
-                                <span *ngIf="!isDesAssigning">Eliminar Acceso</span>
+                        <td style="white-space: normal">
+
+                            <button title="Módulos {{business.nombre}}" class="items__btns__list__danger"
+                                    (click)="desAssignModuleBusiness(module.identificador)" >
+                                    <mat-icon>highlight_off</mat-icon>
                             </button>
             
                         </td>
+
                     </tr>
                 </tbody>
             </table>
@@ -41,27 +49,34 @@
             <table class="table table-striped">
                 <thead>
                     <tr>
-                        <th style="width: 15%">Identificador</th>
-                        <th style="width: 20%">Nombre</th>
-                        <th style="width: 30%">Descripción</th>
-                        <th style="width: 10%"></th>
+                        <th style="width: 25%">Identificador</th>
+                        <th style="width: 25%">Nombre</th>
+                        <th style="width: 49%">Descripción</th>
+                        <th style="width: 1%"></th>
                     </tr>
                 </thead>
                 <tbody>
-                    <tr *ngFor="let module of listModulesSystem">
+                    <tr *ngFor="let module of listModulesSystem"
+                        class="item-list__list" >
                         <td>{{module.identificador}}</td>
                         <td>{{module.nombre}}</td>
                         <td>{{module.descripcion}}</td>
-                        <td style="white-space: nowrap">
+
+                        <td style="white-space: normal">
             
                             <div *ngIf="seleccionEmpresa">
-                                <button (click)="assignModuleBusiness(module.identificador)"  class="btn btn-sm btn-outline-success">
-                                    <span *ngIf="isAssigning" class="spinner-border spinner-border-sm"></span>
-                                    <span *ngIf="!isAssigning">Otorgar Acceso</span>
+
+                                <button title="Módulos {{business.nombre}}" class="items__btns__list__ok"
+                                    (click)="assignModuleBusiness(module.identificador)" >
+                                    <mat-icon>highlight</mat-icon>
                                 </button>
+
+
                             </div>
                             
                         </td>
+
+
                     </tr>
 
                 </tbody>

@@ -3,7 +3,7 @@ import { Router, ActivatedRoute } from '@angular/router';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { first } from 'rxjs/operators';
 import { AccountService, AlertService } from '@app/_services';
-import { administrator, httpLandingIndexPage, inactive } from '@environments/environment';
+import { administrator, httpLandingIndexPage } from '@environments/environment';
 import { User } from '@app/_models';
 
 @Component({ templateUrl: 'login.component.html' })
@@ -65,22 +65,19 @@ export class LoginComponent implements OnInit {
             .pipe(first())
             .subscribe( responseLogin => {
 
-                if (responseLogin) {
+                if ( responseLogin ) {
 
                     this.userLog = responseLogin;
 
                     switch(this.userLog.codeNoLogin) {
 
-                        // **********************************
-                        // inicio de sesión exitoso
+                        // ************************
+                        // grant access response **
                         case "202": {
-
                             this.userLog.esAdmin = administrator.identification === this.userLog.idRol ? true : false;
                             this.router.navigate([this.UrlHome]);
-
-                           break;
+                            break;
                         }
-                        // **********************************
 
                         case "NO-LOG01": { this.alertService.info(this.userLog.messageNoLogin); break; } // usuario no registrado
                         case "NO-LOG02": { this.router.navigate([this._httpBlockedUserPage]);   break; } // usuario bloqueado
@@ -88,19 +85,18 @@ export class LoginComponent implements OnInit {
                         case "NO-LOG04": { this.router.navigate([this._httpPendingUserPage]);   break; } // usuario pendiente
                         case "NO-LOG05": { this.router.navigate([this._httpNotRoleUserPage]);   break; } // usuario sin rol
                         case "NO-LOG06": { this.alertService.info(this.userLog.messageNoLogin); break; } // contraseña incorrecta
-                        case "NO-LOG07": { this.router.navigate([this._httpInactiveRolePage]);  break; } // rol inactivo
 
                         default: { this.alertService.info("Excepción no controlada."); break; }
                     }
 
                     if (this.userLog.codeNoLogin !== '202') this.userLog.codeNoLogin = '404';
 
-                // **********************************
-                // catch de login en backend
+                // ************************
+                // http null response *****
                 } else { this.alertService.error('Ocurrió un error al procesar los credenciales del usuario.'); }
 
-                // **********************************
-                // carga al usuario al local storage
+                // ***************************************************
+                // suscribe a usuario en memoria de la aplicación ****
                 this.accountService.loadUserAsObservable(this.userLog);
 
                 this.loading    = false;

@@ -7,13 +7,14 @@ import { httpAccessAdminPage } from '@environments/environment-access-admin';
 import { User, Role, ResponseMessage } from '@app/_models';
 import { Compania } from '../../_models/modules/compania';
 import { administrator, httpLandingIndexPage } from '@environments/environment';
+import { OnSeguridad } from '@app/_helpers/abstractSeguridad';
 
 @Component({ templateUrl: 'HTML_AddEditUserPage.html',
 styleUrls: [
     '../../../assets/scss/app.scss',
     '../../../assets/scss/administrator/app.scss']
 })
-export class AddEditUserComponent implements OnInit {
+export class AddEditUserComponent extends OnSeguridad implements OnInit {
   usuarioForm: FormGroup;
 
   userObservable: User;
@@ -49,49 +50,40 @@ export class AddEditUserComponent implements OnInit {
               private accountService: AccountService,
               private alertService: AlertService ) {
 
+    super(alertService, accountService, router);
+
+    // ***************************************************************
+    // VALIDA ACCESO PANTALLA LOGIN ADMINISTRADOR
+    if (!super.userAuthenticate()) this.accountService.logout();
+    // ***************************************************************
+
     this.userObservable = this.accountService.userValue;
     this.businessObservable = this.accountService.businessValue;
-    
-    // **************************************************************************
-    // VALIDA ACCESO PANTALLA LOGIN
-    if (this.userObservable.codeNoLogin !== '202') this.accountService.logout();
-    // **************************************************************************
 
-    if (this.userObservable.esAdmin || this.userObservable.idRol === administrator.adminSociedad) this.URLRedirectPage = this.URLListUserPage
+    if (super.validarUsuarioAdmin()) this.URLRedirectPage = this.URLListUserPage;
 
     this.inicializaFormulario();
   }
 
   get f() { return this.usuarioForm.controls; }
 
-  ngOnInit() { }
+  ngOnInit() { 
 
-  inicializaFormulario() : void {
+    if (this.route.snapshot.params.pidentificationUser) {
 
-    this.usuarioForm = this.formBuilder.group({
-      identificacionUsuario:    [''],
-      nombreCompletoUsuario:    [''],
-      correoElectronicoUsuario: [''],
-      puestoUsuario:            [''],
-      numeroTelefonoUsuario:    [''],
-      rolUsuario:               [''],
-      passwordUsuario:          ['']
-    });
-
-    if (this.route.snapshot.params.identificacion) {
+      this.updateUser = true;
+      this.pIdentifUserUpdate = this.route.snapshot.params.pidentificationUser;
 
       this.usuarioForm.controls.rolUsuario.disable();
 
-      if (!this.userObservable.esAdmin && this.userObservable.idRol !== administrator.adminSociedad) {
+      if (!this.userObservable.esAdmin && 
+          this.userObservable.idRol !== administrator.adminSociedad) {
         this.usuarioForm.controls.identificacionUsuario.disable();
         this.usuarioForm.controls.correoElectronicoUsuario.disable();
         this.usuarioForm.controls.puestoUsuario.disable();
-      } else if (this.route.snapshot.params.identificacion === administrator.identification) {
+      } else if (this.pIdentifUserUpdate === administrator.identification) {
         this.usuarioForm.controls.identificacionUsuario.disable();
       }
-      
-      this.updateUser = true;
-      this.pIdentifUserUpdate = this.route.snapshot.params.identificacion;
 
       this.accountService.getUserByIdentification(this.pIdentifUserUpdate)
         .pipe(first())
@@ -99,14 +91,13 @@ export class AddEditUserComponent implements OnInit {
 
           if (responseUser.idRol) {
 
-            this.accountService.getRoleById(responseUser.idRol)
+            this.accountService.getRolUserBusiness(responseUser.idRol, this.businessObservable.id)
             .pipe(first())
             .subscribe((responseRole) => {
 
                 this.role = responseRole;
                 this.nombreRol = this.role.nombre;
                 this.inicializaFormularioUpdateUser(responseUser, this.nombreRol);
-                
               });
 
           } else {
@@ -116,13 +107,23 @@ export class AddEditUserComponent implements OnInit {
         });
       
     } else {
-
       this.usuarioSeleccionado = null;
       this.addUser = true;
       this.inicializaFormularioAddUser();
     }
   }
 
+  inicializaFormulario() : void {
+    this.usuarioForm = this.formBuilder.group({
+      identificacionUsuario:    [''],
+      nombreCompletoUsuario:    [''],
+      correoElectronicoUsuario: [''],
+      puestoUsuario:            [''],
+      numeroTelefonoUsuario:    [''],
+      rolUsuario:               [''],
+      passwordUsuario:          ['']
+    });
+  }
   inicializaFormularioUpdateUser(userUpdate : User = null, nombreRol : string = null) : void {
 
     if (userUpdate) {
@@ -163,6 +164,7 @@ export class AddEditUserComponent implements OnInit {
       passwordUsuario:          ['', [Validators.required, Validators.minLength(5)]]
     });
   }
+  
   crateObjectForm() : User {
 
     let userForm: User = new User();

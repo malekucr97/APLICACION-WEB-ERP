@@ -4,7 +4,7 @@ import { HttpClient } from '@angular/common/http';
 import { BehaviorSubject, Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
 import { administrator, environment } from '@environments/environment';
-import { User } from '@app/_models';
+import { UpdateRolModel, User } from '@app/_models';
 import {  Module,
           Role,
           RolModuleBusiness,
@@ -13,6 +13,7 @@ import {  Module,
 import { Compania, CompaniaUsuario } from '@app/_models/modules/compania';
 import { ScreenAccessUser } from '@app/_models/admin/screenAccessUser';
 import { ScreenModule } from '@app/_models/admin/screenModule';
+import { Bitacora } from '@app/_models/bitacora';
 
 @Injectable({ providedIn: 'root' })
 export class AccountService {
@@ -212,6 +213,14 @@ export class AccountService {
     );
   }
   // **********************************************************************************************
+  // postBitacora(bitacora: Bitacora) {
+  //   this.http.post<ResponseMessage>( `${environment.apiUrl}/users/postbitacora`, bitacora );
+  // }
+  postBitacora(bitacora: Bitacora) {
+    return this.http.post<ResponseMessage>( `${environment.apiUrl}/users/postbitacora`, bitacora );
+  }
+
+  // **********************************************************************************************
   // **********************************************************************************************
   // -- >> MODULOS
   postModule(modulo: Module) {
@@ -240,9 +249,7 @@ export class AccountService {
     );
   }
   getModulesBusiness(idEmpresa: number) {
-    return this.http.get<Module[]>(
-      `${environment.apiUrl}/users/modulossociedad?idEmpresa=${idEmpresa}`
-    );
+    return this.http.get<Module[]>( `${environment.apiUrl}/users/modulossociedad?idEmpresa=${idEmpresa}` );
   }
   getModuleId(idModule: number) {
     return this.http.get<Module>(
@@ -343,10 +350,7 @@ export class AccountService {
     );
   }
   postPantallaModulo(objeto: ScreenModule) {
-    return this.http.post<ScreenModule>(
-      `${environment.apiUrl}/users/createpantallamodulo`,
-      objeto
-    );
+    return this.http.post<ResponseMessage>( `${environment.apiUrl}/users/createpantallamodulo`, objeto );
   }
   deletePantallaModulo(id: number) {
     return this.http.delete<ResponseMessage>(
@@ -363,16 +367,10 @@ export class AccountService {
     );
   }
   putPantallaModulo(objeto: ScreenModule) {
-    return this.http.put<ScreenModule>(
-      `${environment.apiUrl}/users/updatepantallamodulo`,
-      objeto
-    );
+    return this.http.put<ResponseMessage>( `${environment.apiUrl}/users/updatepantallamodulo`, objeto );
   }
   postPantallaAccesoUsuario(objeto: ScreenAccessUser) {
-    return this.http.post<ScreenAccessUser>(
-      `${environment.apiUrl}/users/createaccesspantallausuario`,
-      objeto
-    );
+    return this.http.post<ResponseMessage>( `${environment.apiUrl}/users/createaccesspantallausuario`, objeto );
   }
   // *********************************
 
@@ -389,10 +387,8 @@ export class AccountService {
     );
   }
   updateUser(identificacionUpdate: string, user: User) {
-    return this.http
-      .put<ResponseMessage>( `${environment.apiUrl}/users/actualizarusuario`, user )
-      .pipe(
-        map((x) => {
+    return this.http.put<ResponseMessage>( `${environment.apiUrl}/users/actualizarusuario`, user )
+      .pipe(map((x) => {
           // actualiza la información del usuario local si es quien se está en la sesión
           if (identificacionUpdate === this.userValue.identificacion) {
 
@@ -403,14 +399,15 @@ export class AccountService {
             this.userValue.puesto = user.puesto;
 
             this.loadUserAsObservable(this.userValue);
-
-            // localStorage.setItem('user', JSON.stringify(this.userValue));
-            // this.userSubject.next(this.userValue);
           }
           return x;
         })
       );
   }
+  activateInactivateUser(user: User) {
+    return this.http.put<ResponseMessage>( `${environment.apiUrl}/users/activarinactivarcuenta`, user );
+  }
+  
   getAllUsers() {
     return this.http.get<User[]>(`${environment.apiUrl}/users/getallusers`);
   }
@@ -436,65 +433,55 @@ export class AccountService {
       `${environment.apiUrl}/users/getusuariosaccesopantalla?idPantalla=${idPantalla}&idEmpresa=${idEmpresa}&soloActivos=${soloActivos}`
     );
   }
-  activateUser(user: User) {
-    return this.http.put<ResponseMessage>(
-      `${environment.apiUrl}/users/activarcuenta`,
-      user
-    );
-  }
-  inActivateUser(user: User) {
-    return this.http.put<ResponseMessage>(
-      `${environment.apiUrl}/users/inactivarcuenta`,
-      user
-    );
-  }
+  
   deleteUser(idUser: number) {
-    return this.http
-      .delete<ResponseMessage>(
-        `${environment.apiUrl}/users/deleteuser?idUser=${idUser}`
-      )
+    return this.http.delete<ResponseMessage>( `${environment.apiUrl}/users/deleteuser?idUser=${idUser}` )
       .pipe(
         map((x) => {
           // -- >> si se elimina el usuario de la sesión se cierra sesión
-          if (idUser === this.userValue.id) {
-            this.logout();
-          }
+          if (idUser === this.userValue.id) this.logout();
+          
           return x;
         })
       );
   }
 
-  // -- >> Procedimientos de Roles
-  getRoleById(idRol: string) {
-    return this.http.get<Role>(
-      `${environment.apiUrl}/users/roleid?idRol=${idRol}`
-    );
+  // ***************************************************************
+  // PROCS . ROLES
+  getRolUserBusiness(idRol: string, idBusiness: number) {
+    return this.http.get<Role>( `${environment.apiUrl}/users/getroluserbusiness?idRol=${idRol}&idBusiness=${idBusiness}` );
   }
-  getAllRoles() {
-    return this.http.get<Role[]>(`${environment.apiUrl}/users/getallroles`);
-  }
-  getRolesBusiness(idEmpresa: number) {
-    return this.http.get<Role[]>(
-      `${environment.apiUrl}/users/rolesempresa?idEmpresa=${idEmpresa}`
-    );
+  getRolesBusiness(idBusiness: number) { 
+    return this.http.get<Role[]>( `${environment.apiUrl}/users/getrolesbusiness?idBusiness=${idBusiness}` );
   }
   assignRoleUser(idRole: string, idUser: string) {
-    const assignRolObject = new AssignRoleObject();
+    let assignRolObject : AssignRoleObject = new AssignRoleObject();
     assignRolObject.idRole = idRole;
     assignRolObject.idUser = idUser;
 
-    return this.http.post<ResponseMessage>(
-      `${environment.apiUrl}/users/asignarrolusuario`,
-      assignRolObject
-    );
+    return this.http.post<ResponseMessage>( `${environment.apiUrl}/users/asignarrolusuario`, assignRolObject );
   }
-  updateRol(rol: Role) {
-    return this.http.put<ResponseMessage>(
-      `${environment.apiUrl}/users/actualizarrol`,
-      rol
-    );
+  updateRol(rol: Role, idBusiness : number) {
+    let assignRolObject : UpdateRolModel = new UpdateRolModel();
+    assignRolObject.idRol = rol.id;
+    assignRolObject.idBusiness = idBusiness;
+    assignRolObject.estado = rol.estado;
+    assignRolObject.tipo = rol.tipo;
+
+    return this.http.put<ResponseMessage>( `${environment.apiUrl}/users/actualizarrol`, assignRolObject );
   }
-  registerRole(role: Role) {
-    return this.http.post(`${environment.apiUrl}/users/registrarrol`, role);
-  }
+  registerRole(role: Role) { return this.http.post(`${environment.apiUrl}/users/registrarrol`, role); }
+  // ***************************************************************
 }
+
+  // activateUser(user: User) {
+  //   return this.http.put<ResponseMessage>( `${environment.apiUrl}/users/activarcuenta`, user );
+  // }
+  // inActivateUser(user: User) {
+  //   return this.http.put<ResponseMessage>( `${environment.apiUrl}/users/inactivarcuenta`, user );
+  // }
+  // -- >> Procedimientos de Roles
+  // getRoleById(idRol: string) {
+  //   return this.http.get<Role>( `${environment.apiUrl}/users/roleid?idRol=${idRol}` );
+  // }
+  // getAllRoles() { return this.http.get<Role[]>(`${environment.apiUrl}/users/getallroles`); }
