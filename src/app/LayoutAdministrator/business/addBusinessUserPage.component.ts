@@ -3,12 +3,12 @@ import { Router, ActivatedRoute } from '@angular/router';
 import { first } from 'rxjs/operators';
 import { AccountService, AlertService } from '@app/_services';
 import { User, Role } from '@app/_models';
-import { httpAccessAdminPage } from '@environments/environment-access-admin';
 import { Compania } from '../../_models/modules/compania';
 import { OnSeguridad } from '@app/_helpers/abstractSeguridad';
+import { httpAccessAdminPage } from '@environments/environment';
 
-@Component({ templateUrl: 'HTML_AddBusinessUserPage.html',
-styleUrls: ['../../../assets/scss/app.scss', '../../../assets/scss/administrator/app.scss']
+@Component({templateUrl: 'HTML_AddBusinessUserPage.html',
+            styleUrls: ['../../../assets/scss/app.scss', '../../../assets/scss/administrator/app.scss']
 })
 export class AddBusinessUserComponent extends OnSeguridad implements OnInit {
 

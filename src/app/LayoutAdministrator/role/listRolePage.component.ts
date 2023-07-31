@@ -2,16 +2,13 @@ import { Component, OnInit } from '@angular/core';
 import { first } from 'rxjs/operators';
 import { AccountService, AlertService } from '@app/_services';
 import { User, Role } from '@app/_models';
-import { httpAccessAdminPage } from '@environments/environment-access-admin';
 import { Compania } from '@app/_models/modules/compania';
 import { Router } from '@angular/router';
 import { OnSeguridad } from '@app/_helpers/abstractSeguridad';
-import { administrator } from '@environments/environment';
+import { administrator, httpAccessAdminPage } from '@environments/environment';
 
-@Component({ templateUrl: 'HTML_ListRolePage.html',
-styleUrls: [
-    '../../../assets/scss/app.scss',
-    '../../../assets/scss/administrator/app.scss']
+@Component({templateUrl: 'HTML_ListRolePage.html',
+            styleUrls: [  '../../../assets/scss/app.scss', '../../../assets/scss/administrator/app.scss']
 })
 export class ListRoleComponent extends OnSeguridad implements OnInit {
   userObservable: User;

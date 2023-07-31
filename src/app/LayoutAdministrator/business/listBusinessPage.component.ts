@@ -1,22 +1,19 @@
 import { Component, OnInit } from '@angular/core';
 import { first } from 'rxjs/operators';
-import { AccountService } from '@app/_services';
-import { httpAccessAdminPage } from '@environments/environment-access-admin';
+import { AccountService, AlertService } from '@app/_services';
 import { Compania } from '../../_models/modules/compania';
 import { User } from '@app/_models';
 import { Router } from '@angular/router';
-import { httpLandingIndexPage } from '@environments/environment';
+import { httpAccessAdminPage } from '@environments/environment';
+import { OnSeguridad } from '@app/_helpers/abstractSeguridad';
 
-@Component({    templateUrl: 'HTML_ListBusinessPage.html',
-                styleUrls: ['../../../assets/scss/app.scss'] 
+@Component({templateUrl: 'HTML_ListBusinessPage.html',
+            styleUrls: ['../../../assets/scss/app.scss'] 
 })
-export class ListBusinessComponent implements OnInit {
+export class ListBusinessComponent extends OnSeguridad implements OnInit {
     
     userObservable      : User;
     businessObservable  : Compania;
-
-    private Home    : string = httpLandingIndexPage.homeHTTP;
-    private Index   : string = httpLandingIndexPage.indexHTTP;
 
     public URLAdministratorPage         : string = httpAccessAdminPage.urlPageAdministrator;
     public urlPageAddEditBusiness       : string = httpAccessAdminPage.urlPageAddEditBusiness;
@@ -25,13 +22,18 @@ export class ListBusinessComponent implements OnInit {
     listBusiness: Compania[] = [];
 
     constructor(private accountService: AccountService, 
-                private router: Router) {
+                private router: Router,
+                private alertService: AlertService) {
+
+        super(alertService, accountService, router);
+
+        // ***************************************************************
+        // VALIDA ACCESO PANTALLA LOGIN ADMINISTRADOR
+        if (!super.userAuthenticateAdmin()) this.accountService.logout();
+        // ***************************************************************
         
         this.userObservable = this.accountService.userValue;
         this.businessObservable = this.accountService.businessValue;
-
-        if (!this.userObservable.esAdmin) { this.router.navigate([this.Index]); return; }
-        if (!this.businessObservable) { this.router.navigate([this.Home]); return; }
     }
 
     ngOnInit() {

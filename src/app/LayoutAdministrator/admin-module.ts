@@ -42,7 +42,6 @@ import { AdminmoduleComponent } from './module/adminmodule/adminmodule.component
         CommonModule,
         ReactiveFormsModule,
         AdminRoutingModule,
-        // update mlopez 22 05 2023
         MatToolbarModule,
         MatSidenavModule,
         MatButtonModule,
@@ -64,7 +63,6 @@ import { AdminmoduleComponent } from './module/adminmodule/adminmodule.component
     declarations: [
         LayoutAdministratorComponent,
         AdminUserComponent,
-        // AdminBusinessComponent,
         AddEditUserComponent,
         ListUserComponent,
         ListBusinessComponent,

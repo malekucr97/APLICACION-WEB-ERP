@@ -4,7 +4,7 @@ import { ActivatedRoute } from '@angular/router';
 import { Compania, Module, User } from '@app/_models';
 import { ScreenModule } from '@app/_models/admin/screenModule';
 import { AccountService, AlertService } from '@app/_services';
-import { httpAccessAdminPage } from '@environments/environment-access-admin';
+import { httpAccessAdminPage } from '@environments/environment';
 import { first } from 'rxjs/operators';
 
 @Component({
