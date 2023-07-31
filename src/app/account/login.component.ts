@@ -3,7 +3,7 @@ import { Router, ActivatedRoute } from '@angular/router';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { first } from 'rxjs/operators';
 import { AccountService, AlertService } from '@app/_services';
-import { administrator, httpLandingIndexPage } from '@environments/environment';
+import { administrator, environment, httpLandingIndexPage } from '@environments/environment';
 import { User } from '@app/_models';
 
 @Component({ templateUrl: 'login.component.html' })
@@ -12,6 +12,8 @@ export class LoginComponent implements OnInit {
     form : FormGroup ;
 
     userLog : User = new User ;
+
+    pathImageInitial : string = './assets/images/inra/INRA-INITIAL.jpg';
 
     loading     : boolean = false;
     submitted   : boolean = false;
@@ -24,6 +26,10 @@ export class LoginComponent implements OnInit {
     _httpBlockedUserPage    : string = httpLandingIndexPage.indexHTTPBlockedUser;
 
     _httpInactiveRolePage   : string = httpLandingIndexPage.indexHTTPInactiveRolUser;
+
+    KeySessionStorageUserName : string = environment.sessionStorageIdentificationUserKey;
+
+    SSLState : boolean = false;
 
     constructor(private formBuilder: FormBuilder,
                 private route: ActivatedRoute,
@@ -42,11 +48,16 @@ export class LoginComponent implements OnInit {
 
     ngOnInit() { }
 
-    inicializaFormularioLogin () :void {
-        this.form = this.formBuilder.group({
-            username: ['', Validators.required],
-            password: ['', Validators.required]
-        });
+    inicializaFormularioLogin () : void {
+
+        let username : string = '';
+
+        if (sessionStorage.getItem(this.KeySessionStorageUserName)) this.SSLState = true;
+        if (this.SSLState) username = sessionStorage.getItem(this.KeySessionStorageUserName);
+
+        this.form = this.formBuilder.group({username:   [username,  Validators.required],
+                                            password:   ['',        Validators.required],
+                                            rememberme: [this.SSLState] });
     }
 
     onSubmit() {
@@ -61,6 +72,9 @@ export class LoginComponent implements OnInit {
         let userName : string = this.f.username.value;
         let password : string = this.f.password.value;
 
+        if (this.f.rememberme.value) { sessionStorage.setItem(this.KeySessionStorageUserName, userName); }
+        else { sessionStorage.removeItem(this.KeySessionStorageUserName); }
+        
         this.accountService.login(userName.trim(), password.trim())
             .pipe(first())
             .subscribe( responseLogin => {
