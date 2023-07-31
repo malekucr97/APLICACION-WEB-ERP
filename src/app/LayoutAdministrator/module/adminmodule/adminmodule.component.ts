@@ -97,16 +97,18 @@ export class AdminmoduleComponent implements OnInit {
 
   private obtenerListaModulos() {
     // SE OBTIENE LA LISTA DE MODULOS ASOCIADOS AL NEGOCIO
-    this.accountService
-      .getModulesBusiness(this.businessObservable.id)
+    this.accountService.getModulesBusiness(this.businessObservable.id)
       .pipe(first())
       .subscribe((response) => {
-        if (this.readOnlyInputIdentficador)
-          this.lstModulos = response.filter((x) =>
-            x.identificador.includes(this.baseIdentificadorReportesPowerBI)
-          );
-        else this.lstModulos = response;
-        this.filtrarLista();
+        if (response && response.length > 0) {
+          if (this.readOnlyInputIdentficador) {
+            this.lstModulos = response.filter((x) => x.identificador.includes(this.baseIdentificadorReportesPowerBI) );
+          }
+          else {
+            this.lstModulos = response;
+            this.filtrarLista();
+          }
+        }
       });
   }
 
@@ -197,7 +199,7 @@ export class AdminmoduleComponent implements OnInit {
         (response) => {
           if (response) {
             this.alertService.success(
-              `Pantalla ${response.nombre} registrada con éxito.`
+              `Pantalla ${pantallaForm.nombre} registrada con éxito.`
             );
             this.obtenerListaModulos();
             this.iniciarFormulario();

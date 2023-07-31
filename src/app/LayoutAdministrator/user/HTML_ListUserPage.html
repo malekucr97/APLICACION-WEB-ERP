@@ -4,52 +4,85 @@
 <div class="card">
 
     <div class="card-body">
-        <a routerLink="{{URLAddEditUsertPage}}" class="btn btn-sm btn-success mb-3 mr-3 float-right">Registrar Usuario</a>
+
+        <button routerLink="{{URLAddEditUsertPage}}"
+                class="item-list__confirm float-right" 
+                mat-icon-button > <mat-icon>person_add</mat-icon>
+        </button>
 
         <table class="table table-striped">
             <thead>
                 <tr>
-                    <th style="width: 5%">Identificación</th>
-                    <th style="width: 25%">Nombre</th>
+                    <th style="width: 1%"></th>
+                    <th style="width: 9%">Identificación</th>
+                    <th style="width: 20%">Nombre</th>
                     <th style="width: 20%">Email</th>
-                    <th style="width: 10%">Rol</th>
+                    <th style="width: 25%">Puesto</th>
                     <th style="width: 10%">Estado</th>
-                    <th *ngIf="userObservable.esAdmin" style="width: 20%"></th>
+
+                    <th style="width: 1%"></th>
+                    <th style="width: 1%"></th>
+                    <th style="width: 1%"></th>
+                    <th style="width: 1%"></th>
+
                 </tr>
             </thead>
             <tbody>
-                <tr *ngFor="let us of listUsers">
-                    <td>{{us.identificacion}}</td>
-                    <td>{{us.nombreCompleto}}</td>
-                    <td>{{us.email}}</td>
-                    <td>{{us.idRol}}</td>
-                    <td>{{us.estado}}</td>
-                    <td *ngIf="isActivatePanelAdmin" style="white-space: nowrap">
 
-                        <a *ngIf="isUserSuperAdmin" routerLink="{{URLAddBusinessUsertPage}}{{us.identificacion}}" class="btn btn-sm btn-outline-dark mr-1">
-                            Empresa </a>
-                        <a *ngIf="isUserSuperAdmin || isUserAdminBusiness" routerLink="{{URLAddRoleUsertPage}}{{us.identificacion}}" class="btn btn-sm btn-dark mr-1">
-                            Rol </a>
+                <tr *ngFor="let us of listUsers"
+                    class="item-list__list" >
 
-                        <button *ngIf="us.estado!='Activo' && (isUserSuperAdmin || isUserAdminBusiness)"  (click)="activateUser(us.identificacion, us.id)" class="btn btn-sm btn-light mr-1" [disabled]="isActivating" >
-                            <span *ngIf="isActivating" class="spinner-border spinner-border-sm"></span>
-                            <span *ngIf="!isActivating">Activar cuenta</span>
-                        </button>
-                        <button *ngIf="us.estado=='Activo' && (isUserSuperAdmin || isUserAdminBusiness)"  (click)="inActivateUser(us.identificacion, us.id)" class="btn btn-sm btn-info mr-1" [disabled]="isActivating" >
-                            <span *ngIf="isActivating" class="spinner-border spinner-border-sm"></span>
-                            <span *ngIf="!isActivating">Inactiv cuenta</span>
-                        </button>
-
-                        <a *ngIf="isUserSuperAdmin || isUserAdminBusiness" routerLink="{{URLAddEditUsertPage}}{{us.identificacion}}" class="btn btn-sm btn-warning mr-1">Actualizar</a>
-
-                        <button *ngIf="isUserSuperAdmin || isUserAdminBusiness" (click)="deleteUser(us.identificacion, us.id)" class="btn btn-sm btn-outline-danger mr-1" [disabled]="isDeleting">
-                            <span *ngIf="isDeleting" class="spinner-border spinner-border-sm"></span>
-                            <span *ngIf="!isDeleting">Eliminar</span>
-                        </button>
-
+                    <td style="white-space: nowrap" 
+                        class="item-list__edit"
+                        (click)="selectObjetoUsuario(us)">
+                        <a> <mat-icon>edit</mat-icon> </a>
                     </td>
+
+                    <td (click)="selectObjetoUsuario(us)">{{us.identificacion}}</td>
+                    <td (click)="selectObjetoUsuario(us)">{{us.nombreCompleto}}</td>
+                    <td (click)="selectObjetoUsuario(us)">{{us.email}}</td>
+                    <td (click)="selectObjetoUsuario(us)">{{us.puesto}}</td>
+                    <td (click)="selectObjetoUsuario(us)">{{us.estado}}</td>
+
+                    <td style="white-space: normal">
+                        <button *ngIf="isUserSuperAdmin"    routerLink="{{URLAddBusinessUsertPage}}{{us.identificacion}}" 
+                                                            class="btn-sm item-list__admin__view"> 
+                            Empresa 
+                        </button>
+                    </td>
+
+                    <td style="white-space: normal">
+                        <button routerLink="{{URLAddRoleUsertPage}}{{us.identificacion}}" 
+                                class="btn-sm item-list__admin__view"> 
+                            Rol 
+                        </button>
+                    </td>
+
+                    <td style="white-space: normal">
+                        <button *ngIf="us.estado!='Activo'"
+                            (click)="activateUser(us.identificacion, us.id)"
+                            class="btn-sm item-list__admin__ok" 
+                            mat-icon-button > <mat-icon>thumb_down_alt</mat-icon>
+                        </button>
+
+                        <button *ngIf="us.estado=='Activo'"
+                            (click)="inActivateUser(us.identificacion, us.id)"
+                            class="btn-sm item-list__admin__warn" 
+                            mat-icon-button > <mat-icon>thumb_up_alt</mat-icon>
+                        </button>
+                    </td>
+
+                    <td style="white-space: normal">
+
+                        <button (click)="deleteUser(us.identificacion, us.id)"
+                            class="bbtn-sm item-list__admin__danger" 
+                            mat-icon-button > <mat-icon>delete</mat-icon>
+                        </button>
+                    </td>
+
                 </tr>
             </tbody>
+
         </table>
 
     </div>

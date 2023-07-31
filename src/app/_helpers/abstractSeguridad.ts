@@ -1,5 +1,6 @@
 import { Router } from '@angular/router';
 import { Compania, Module, User } from '@app/_models';
+import { Bitacora } from '@app/_models/bitacora';
 import { AccountService, AlertService } from '@app/_services';
 import { administrator } from '@environments/environment';
 import { first } from 'rxjs/operators';
@@ -17,11 +18,8 @@ export class OnSeguridad {
   _redireccionURL: string;
   _mensajeError: string = 'El usuario no cuenta con los accesos correspondientes o la pantalla se encuentra inactiva.';
 
-  constructor(
-    alertService: AlertService,
-    accountService: AccountService,
-    router: Router
-  ) {
+  constructor(alertService: AlertService, accountService: AccountService, router: Router) {
+
     this._alertService = alertService;
     this._accountService = accountService;
     this._router = router;
@@ -32,16 +30,14 @@ export class OnSeguridad {
   }
 
   validarAccesoPantalla(): void {
-    this._accountService
-      .validateAccessUser(
-        this._userObservable.id,
-        this._moduleObservable.id,
-        this._nombrePantalla,
-        this._businessObservable.id
-      )
+    this._accountService.validateAccessUser(  this._userObservable.id,
+                                              this._moduleObservable.id,
+                                              this._nombrePantalla,
+                                              this._businessObservable.id )
       .pipe(first())
       .subscribe((response) => {
         if (!response.exito) {
+          console.log(response);
           this._router.navigate([this._redireccionURL]);
           this._alertService.error(this._mensajeError);
         }
@@ -49,8 +45,29 @@ export class OnSeguridad {
   }
 
   validarUsuarioAdmin(): boolean {
-    if (this._userObservable.esAdmin) return true;
-    if (this._userObservable.idRol == administrator.adminSociedad) return true;
+    if (this._userObservable.esAdmin || 
+        this._userObservable.idRol == administrator.adminSociedad) return true;
     return false;
   }
+  userAuthenticateAdmin() : boolean {
+    if (this._userObservable &&
+        this._userObservable.codeNoLogin === '202' &&
+        this.validarUsuarioAdmin() &&
+        this._businessObservable) return true;
+    return false;
+  }
+  userAuthenticateHome() : boolean {
+    if (this._userObservable &&
+        this._userObservable.codeNoLogin === '202' &&
+        this._userObservable.idRol) return true;
+    return false;
+  }
+  userAuthenticate() : boolean {
+    if (this._userObservable &&
+        this._userObservable.codeNoLogin === '202' && 
+        this._businessObservable) return true;
+    return false;
+  }
+
+  // postBitacora(bitacora:Bitacora) : void { this._accountService.postBitacora(bitacora); }
 }

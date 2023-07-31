@@ -64,7 +64,7 @@
 
                                                 <button *ngIf="habilitaBtnNuevo" class="articulo__contenedor__body__prev__form__header__prev__btns__new"
                                                         mat-flat-button
-                                                        (click)="limpiarFormularioPantallaModulo()">Nuevo</button>
+                                                        (click)="nuevoRegistroPantalla()">Nuevo</button>
 
                                                 <button *ngIf="habilitaBtnActualiza" class="articulo__contenedor__header__prev__btns__warn"
                                                         mat-flat-button
@@ -167,9 +167,12 @@
                                                         </tr>
                                                     </thead>
                                                     <tbody>
-                                                        <tr *ngFor="let obj of listPantallasModulos" class="item-list__list" (click)="selectPantallaModulo(obj)" >
+                                                        <tr *ngFor="let obj of listPantallasModulos" 
+                                                            class="item-list__list" 
+                                                            (click)="selectPantallaModulo(obj)" >
+                                                            
                                                             <td  style="white-space: nowrap" class="item-list__view">
-                                                                <div> <a > <mat-icon>swap_horiz</mat-icon> </a> </div>
+                                                                <div> <a> <mat-icon>swap_horiz</mat-icon> </a> </div>
                                                             </td>
 
                                                             <td>{{obj.codigo}}</td>
@@ -235,15 +238,19 @@
                                                         </tr>
                                                     </thead>
                                                     <tbody>
-                                                        <tr *ngFor="let obj of listUsuariosCompania" class="item-list__list" (click)="addUserAccessScreen(obj)" >
+                                                        <tr *ngFor="let obj of listUsuariosCompania" 
+                                                            class="item-list__list" 
+                                                            (click)="addUserAccessScreen(obj)" >
 
                                                             <td>{{obj.identificacion}}</td>
                                                             <td>{{obj.nombreCompleto}}</td>
                                                             <td>{{obj.email}}</td>
                                                             <td>{{obj.estado}}</td>
-                                                            <td  style="white-space: nowrap" class="item-list__view">
+
+                                                            <td  style="white-space: nowrap" class="item-list__confirm">
                                                                 <div> <a > <mat-icon>add</mat-icon> </a> </div>
                                                             </td>
+
                                                         </tr>
                                                     </tbody>
                                                 </table>
@@ -289,10 +296,14 @@
                                                         </tr>
                                                     </thead>
                                                     <tbody>
-                                                        <tr *ngFor="let obj of listUsuariosCompaniaPantalla" class="item-list__list" (click)="removeUserAccessScreen(obj)" >
+                                                        <tr *ngFor="let obj of listUsuariosCompaniaPantalla" 
+                                                            class="item-list__list" 
+                                                            (click)="removeUserAccessScreen(obj)" >
+
                                                             <td  style="white-space: nowrap" class="item-list__delete">
                                                                 <div> <a > <mat-icon>remove</mat-icon> </a> </div>
                                                             </td>
+
                                                             <td>{{obj.identificacion}}</td>
                                                             <td>{{obj.nombreCompleto}}</td>
                                                             <td>{{obj.email}}</td>

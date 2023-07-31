@@ -1,23 +1,31 @@
-<h1>Asignación de Roles a Usuario del Sistema</h1>
+<h1 style="display: inline;">Roles </h1>
+<h1 style="display: inline;">de Compañía </h1>
+<br><br>
+<h3 style="color:#1A5276"><b>{{businessObservable.nombre}} </b></h3>
+
 <br>
+
 <a routerLink="{{HTTPListUserPage}}" class="btn btn-light mb-2 mr-3">Volver</a><br>
+
 <div class="card">
     <div class="card-body">
 
-        <h3 style="display: inline;">Usuario: </h3><h3 style="display: inline; color:#1A5276"><b>{{userToAssign.identificacion}}</b></h3>
-        <h3 style="display: inline;"> Nombre: </h3><h2 style="display:inline; color:#1A5276"><b>{{userToAssign.nombreCompleto}}</b></h2>
-        
-        <br><br>
-        
-        <h4 *ngIf="isRolAssign" style="display: inline;">Rol asignado: </h4>
-        <h4 *ngIf="isRolAssign" style="display:inline; color:#1A5276"><b>{{role.nombre}}</b></h4>
-        <h4 *ngIf="!isRolAssign" style="display: inline;">&emsp;<b>Rol de usuario no asignado</b></h4>
 
-        <button (click)="desAsignAllRolesUser()" class="btn btn-outline-danger mb-2 float-right">
-            <span *ngIf="isDesAsignRoles" class="spinner-border spinner-border-sm"></span>
-            <span *ngIf="!isDesAsignRoles">Eliminar asignación de rol</span>
+        <h3 *ngIf="isRolAssign" style="color:#1A5276"><b>{{role.nombre}} </b></h3>
+        <h3 *ngIf="!isRolAssign">&emsp;<b>Rol de usuario no asignado</b></h3>
+        <br>
+
+        <h3 style="display: inline;"><b>{{userToAssign.identificacion}} </b></h3>
+        <h2 style="display:inline; color:#1A5276">{{userToAssign.nombreCompleto}}</h2>
+        <br>
+
+        <button
+                (click)="desAsignAllRolesUser()" 
+                class="btn-sm items__btns__danger float-right">
+            <span>Eliminar Rol</span>
         </button>
-        <br><br>
+
+        <br>
 
         <div *ngIf="listAllRoles">
             <br>
@@ -26,25 +34,25 @@
             
                 <thead>
                     <tr>
-                        <th style="width: 15%">Id</th>
-                        <th style="width: 25%">Nombre</th>
+                        <th style="width: 30%">Nombre</th>
                         <th style="width: 30%">Descripción</th>
-                        <th style="width: 15%">Estado</th>
-                        <th style="width: 20%"></th>
+                        <th style="width: 10%">Estado</th>
+                        <th style="width: 20%">Tipo</th>
+                        <th style="width: 10%"></th>
                     </tr>
                 </thead>
                 <tbody>
-                    <tr *ngFor="let rol of listAllRoles">
-                        <td>{{rol.id}}</td>
+                    <tr *ngFor="let rol of listAllRoles"
+                        class="item-list__list">
                         <td>{{rol.nombre}}</td>
                         <td>{{rol.descripcion}}</td>
                         <td>{{rol.estado}}</td>
+                        <td>{{rol.tipo}}</td>
 
-                        <td style="white-space: nowrap">
-                            <button (click)="assignRoleUser(rol.id)" class="btn btn-sm btn-outline-success mr-1">
-                                <span *ngIf="isAsignRole" class="spinner-border spinner-border-sm"></span>
-                                <span *ngIf="!isAsignRole">Asignar Rol</span>
-                            </button>
+                        <td style="white-space: nowrap" 
+                            class="item-list__confirm"
+                            (click)="assignRoleUser(rol.id)">
+                            <a> <mat-icon>vpn_key</mat-icon> </a>
                         </td>
                     </tr>
                 </tbody>

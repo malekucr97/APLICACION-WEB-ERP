@@ -5,28 +5,30 @@ import { AccountService, AlertService } from '@app/_services';
 import { User, Role } from '@app/_models';
 import { httpAccessAdminPage } from '@environments/environment-access-admin';
 import { Compania } from '../../_models/modules/compania';
-import { administrator, httpLandingIndexPage } from '@environments/environment';
+import { OnSeguridad } from '@app/_helpers/abstractSeguridad';
 
-@Component({ templateUrl: 'HTML_AddBusinessUserPage.html' })
-export class AddBusinessUserComponent implements OnInit {
+@Component({ templateUrl: 'HTML_AddBusinessUserPage.html',
+styleUrls: ['../../../assets/scss/app.scss', '../../../assets/scss/administrator/app.scss']
+})
+export class AddBusinessUserComponent extends OnSeguridad implements OnInit {
 
     userObservable: User;
+    businessObservable: Compania;
 
     userToAssign: User = new User();
-    role: Role = new Role();
     business: Compania;
 
-    _userIdParam : string = null;
+    _userIdentificationParam : string = null;
+
+    role: Role = new Role();
+    existeRol: boolean = false;
 
     isAsignBusiness: boolean;
-    existeRol: boolean = false;
-    isDesAsignBusiness: boolean;
     
     listAllBusiness: Compania[] = [];
     listBusinessUser: Compania[] = [];
 
     public HTTPListUserPage: string = httpAccessAdminPage.urlPageListUsers;
-    private Index:string = httpLandingIndexPage.indexHTTP;
 
     listUserSubject : User[];
 
@@ -34,100 +36,74 @@ export class AddBusinessUserComponent implements OnInit {
                 private accountService: AccountService,
                 private alertService: AlertService,
                 private router: Router) {
+
+        super(alertService, accountService, router);
+
+        // ***************************************************************
+        // VALIDA ACCESO PANTALLA LOGIN ADMINISTRADOR
+        if (!super.userAuthenticateAdmin()                  ||
+            !this.route.snapshot.params.pidentificationUser ||
+            !this.accountService.userListValue) this.accountService.logout();
+        // ***************************************************************
         
-            this.userObservable = this.accountService.userValue;
-            this.listUserSubject = this.accountService.userListValue;
+        this.userObservable = this.accountService.userValue;
+        this.businessObservable = this.accountService.businessValue;
+        this.listUserSubject = this.accountService.userListValue;
 
-            if (!this.route.snapshot.params.id) { this.router.navigate([this.HTTPListUserPage]); return; }
-            this._userIdParam = this.route.snapshot.params.id;
+        this._userIdentificationParam = this.route.snapshot.params.pidentificationUser;
 
-            if (!this.userObservable || !this.userObservable.esAdmin) { this.router.navigate([this.HTTPListUserPage]); return; }
-            if (!this.listUserSubject) { this.router.navigate([this.HTTPListUserPage]); return; }
-            
-            this.userToAssign = this.listUserSubject.find(x => x.identificacion === this._userIdParam);
+        this.userToAssign = this.listUserSubject.find(x => x.identificacion === this._userIdentificationParam);
+
+        this.consultarRolUsuarioCompania(this.userToAssign.idRol);
+    }
+
+    consultarRolUsuarioCompania(idRolUser : string) : void {
+
+        if (idRolUser) {
+
+            this.existeRol = true;
+
+            this.accountService.getRolUserBusiness(this.userToAssign.idRol, this.businessObservable.id)
+                .pipe(first())
+                .subscribe(responseRole => { this.role = responseRole; });
+
+        } else { this.role = null; }
     }
 
     ngOnInit() {
 
-        // this.alertService.clear();
+        this.accountService.getAllBusiness()
+            .pipe(first())
+            .subscribe(responseListBusiness => {
 
-        // if (!this.accountService.userListValue) this.router.navigate([this.HTTPListUserPage]);
-            // return;
-        // }
-        // if (!this.userObservable.esAdmin) this.router.navigate([this.Index]);
-        //     return;
-        // }
-        // if (!this.route.snapshot.params.id) {
-        //     this.router.navigate([this.HTTPListUserPage]);
-        //     return;
-        // }
+                if (responseListBusiness && responseListBusiness.length > 0) {
 
-        // let pUserId = this.route.snapshot.params.id;
+                    this.listAllBusiness = responseListBusiness;
 
-        // if (this._userIdParam !== administrator.identification) {
+                    this.accountService.getBusinessActiveUser(this.userToAssign.id)
+                        .pipe(first())
+                        .subscribe(responseListBusinessUser => {
 
-            // this.userToAssign = this.listUserSubject.find(x => x.identificacion === this._userIdParam);
+                            if (responseListBusinessUser && responseListBusinessUser.length > 0) {
 
-            if (this.userToAssign.idRol) {
+                                this.listBusinessUser = responseListBusinessUser;
 
-                this.existeRol = true;
+                                if (this.listBusinessUser.length !== this.listAllBusiness.length) {
+                                    
+                                    this.listBusinessUser.forEach((businessUs) => {
+                                        this.listAllBusiness.splice(this.listAllBusiness.findIndex( b => b.id == businessUs.id ), 1);
+                                    });
 
-                this.accountService.getRoleById(this.userToAssign.idRol)
-                    .pipe(first())
-                    .subscribe(responseRole => { this.role = responseRole; });
-
-            } else { this.role = null; }
-
-            this.accountService.getAllBusiness()
-                .pipe(first())
-                .subscribe(responseListBusiness => {
-
-                    if (responseListBusiness && responseListBusiness.length > 0) {
-
-                        this.listAllBusiness = responseListBusiness;
-
-                        this.accountService.getBusinessActiveUser(this.userToAssign.id)
-                            .pipe(first())
-                            .subscribe(responseListBusinessUser => {
-
-                                if (responseListBusinessUser && responseListBusinessUser.length > 0) {
-
-                                    this.listBusinessUser = responseListBusinessUser;
-
-                                    if (this.listBusinessUser.length !== this.listAllBusiness.length) {
-                                        
-                                        this.listBusinessUser.forEach((businessUs) => {
-                                            this.listAllBusiness.splice(this.listAllBusiness.findIndex( b => b.id == businessUs.id ), 1);
-                                        });
-
-                                    } else { this.listAllBusiness = null; }
-
-                                } else { this.listBusinessUser = null; }
-
-                                // if (this.listBusinessUser && this.listBusinessUser.length > 0) {
-
-                                    // if (this.listBusinessUser.length !== this.listAllBusiness.length) {
-                                        
-                                    //     this.listBusinessUser.forEach((businessUs) => {
-                                    //         this.listAllBusiness.splice(this.listAllBusiness.findIndex( b => b.id == businessUs.id ), 1);
-                                    //     });
-
-                                    // } else { this.listAllBusiness = null; }
-
-                                // } else { this.listBusinessUser = null; }
-                            },
-                            error => { this.alertService.error('Problemas al consultar la lista de compañías para el usuario seleccionado.' + error); });
-
-                    } else {
-                        this.listAllBusiness = null; this.listBusinessUser = null;
-                        this.alertService.info('No se encontraron registro de empresas por el momento.');
-                    }
-                });
-        // } else {
-        //     let message = 'El usuario Administrador tiene acceso a todas las Empresas.';
-        //     this.alertService.info(message, { keepAfterRouteChange: true });
-        //     this.router.navigate([this.HTTPListUserPage], { relativeTo: this.route });
-        // }
+                                } else { this.listAllBusiness = null; }
+                            } else { this.listBusinessUser = null; }
+                        });
+                } else {
+                    this.listAllBusiness = null; 
+                    this.listBusinessUser = null;
+                    this.alertService.info('No se encontraron registro de empresas por el momento.');
+                }
+            },
+            error => { this.alertService.error('Problemas al consultar la lista de compañías para la asignación del usuario seleccionado.' + error); });
     }
 
     assignBusinessUser(idBusiness: number) {
@@ -146,18 +122,15 @@ export class AddBusinessUserComponent implements OnInit {
                     this.alertService.success(response.responseMesagge);
 
                     this.listAllBusiness.splice(this.listAllBusiness.findIndex( m => m.id == idBusiness ), 1);
-                    if (this.listAllBusiness.length == 0) {
-                        this.listAllBusiness = null;
-                    }
 
-                    if (!this.listBusinessUser) {
-                        this.listBusinessUser = [];
-                    }
+                    if (this.listAllBusiness.length == 0) this.listAllBusiness = null;
+                    
+                    if (!this.listBusinessUser) this.listBusinessUser = [];
+                    
                     this.listBusinessUser.push(business);
 
-                } else {
-                    this.alertService.error(response.responseMesagge);
-                }
+                } else { this.alertService.error(response.responseMesagge); }
+
                 this.isAsignBusiness = false;
             },
             error => { this.isAsignBusiness = false; this.alertService.error(error); });
@@ -166,7 +139,6 @@ export class AddBusinessUserComponent implements OnInit {
     desAsignAllBusinessUser(idUser: number) {
 
         this.alertService.clear();
-        this.isDesAsignBusiness = true;
 
         this.accountService.dessAssignAllBusinessUser(idUser)
             .pipe(first())
@@ -176,9 +148,8 @@ export class AddBusinessUserComponent implements OnInit {
 
                     this.alertService.success(response.responseMesagge);
 
-                    if (!this.listAllBusiness) {
-                        this.listAllBusiness = [];
-                    }
+                    if (!this.listAllBusiness) this.listAllBusiness = [];
+                    
                     this.listBusinessUser.forEach((businessUs) => {
                         this.listAllBusiness.push(businessUs);
                     });
@@ -188,15 +159,13 @@ export class AddBusinessUserComponent implements OnInit {
                 } else {
                     this.alertService.error(response.responseMesagge);
                 }
-                this.isDesAsignBusiness = false;
             },
-            error => { this.alertService.error(error); this.isDesAsignBusiness = false; });
+            error => { this.alertService.error(error); });
     }
 
-    dessAssignBusinessUser(idBusiness: number){
+    dessAssignBusinessUser(idBusiness: number) {
         
         this.alertService.clear();
-        this.isDesAsignBusiness = true;
 
         let business : Compania = this.listBusinessUser.find(m => m.id == idBusiness);
 
@@ -209,19 +178,15 @@ export class AddBusinessUserComponent implements OnInit {
                     this.alertService.success(response.responseMesagge);
 
                     this.listBusinessUser.splice(this.listBusinessUser.findIndex( m => m.id == idBusiness ), 1);
-                    if (this.listBusinessUser.length==0) {
-                        this.listBusinessUser = null;
-                    }
 
-                    if (!this.listAllBusiness) {
-                        this.listAllBusiness = [];
-                    }
+                    if (this.listBusinessUser.length == 0) this.listBusinessUser = null;
+                    
+                    if (!this.listAllBusiness) this.listAllBusiness = [];
+                    
                     this.listAllBusiness.push(business);
 
                 } else { this.alertService.error(response.responseMesagge); }
-
-                this.isDesAsignBusiness = false;
             },
-            error => { this.alertService.error(error); this.isDesAsignBusiness = false; });
+            error => { this.alertService.error(error); });
     }
 }

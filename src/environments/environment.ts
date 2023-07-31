@@ -9,9 +9,9 @@ export const administrator = {
     // production: true,
     identification: 'adminboss',
     state: 'admin',
-    urlRedirect: '',
-    adminSociedad: 'admin-e',
-    rolAdministrator: 1
+    // urlRedirect: '',
+    adminSociedad: 'admin-e'
+    // ,rolAdministrator: 1
 };
 
 export const register = {
