@@ -36,7 +36,7 @@ export class AddModuleRoleComponent extends OnSeguridad implements OnInit {
     // VALIDA ACCESO PANTALLA LOGIN ADMINISTRADOR
     if (!super.userAuthenticateAdmin()      ||
         !this.route.snapshot.params.pidRole ||
-        !this.accountService.rolListValue) this.accountService.logout();
+        !this.accountService.rolListValue) { this.accountService.logout(); return; }
     // ***************************************************************
 
     this.userObservable = this.accountService.userValue;

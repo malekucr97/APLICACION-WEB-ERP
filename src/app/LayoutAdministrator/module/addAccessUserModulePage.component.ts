@@ -72,7 +72,7 @@ export class AddAccessUserModuleComponent extends OnSeguridad implements OnInit 
         // ***************************************************************
         // VALIDA ACCESO PANTALLA LOGIN ADMINISTRADOR
         if (!super.userAuthenticateAdmin() ||
-            !this.route.snapshot.params.pidModule) this.accountService.logout();
+            !this.route.snapshot.params.pidModule) { this.accountService.logout(); return; }
         // ***************************************************************
 
         this.userObservable     = this.accountService.userValue;

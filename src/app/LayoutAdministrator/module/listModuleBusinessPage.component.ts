@@ -51,7 +51,7 @@ export class ListModuleBusinessComponent extends OnSeguridad implements OnInit {
         // VALIDA ACCESO PANTALLA LOGIN ADMINISTRADOR
         if (!super.userAuthenticateAdmin()          ||
             !this.route.snapshot.params.pidBusiness ||
-            !this.accountService.businessListValue) this.accountService.logout();
+            !this.accountService.businessListValue) { this.accountService.logout(); return; }
         // ***************************************************************
 
         this.userObservable         = this.accountService.userValue;

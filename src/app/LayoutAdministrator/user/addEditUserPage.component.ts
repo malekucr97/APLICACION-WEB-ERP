@@ -53,7 +53,7 @@ export class AddEditUserComponent extends OnSeguridad implements OnInit {
 
     // ***************************************************************
     // VALIDA ACCESO PANTALLA LOGIN ADMINISTRADOR
-    if (!super.userAuthenticate()) this.accountService.logout();
+    if (!super.userAuthenticate()) { this.accountService.logout(); return; }
     // ***************************************************************
 
     this.userObservable = this.accountService.userValue;
