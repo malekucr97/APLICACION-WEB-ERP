@@ -3,38 +3,33 @@
 export const environment = {
     production: false,
     apiUrl: 'http://localhost:4000',
-    sessionStorageIdentificationUserKey: '_httpUsernameSessionStorageAppAdminModulesInraSA'
+
+    sessionStorageIdentificationUserKey: '_httpUsernameSessionStorageAppAdminModulesInraSA',
+    sessionStorageModuleIdentification : '_httpModuleSelectedSessionStorageAppAdminModulesInraSA'
 };
 
 export const administrator = {
-    // production: true,
     identification: 'adminboss',
     state: 'admin',
-    // urlRedirect: '',
     adminSociedad: 'admin-e'
-    // ,rolAdministrator: 1
 };
 
 export const register = {
-    // production: true,
     state: 'Registrado',
     urlRedirect: ''
 };
 
 export const pending = {
-    // production: true,
     state: 'Pendiente',
     urlRedirect: ''
 };
 
 export const active = {
-    // production: true,
     state: 'Activo',
     urlRedirect: ''
 };
 
 export const inactive = {
-    // production: false,
     state: 'Inactivo',
     urlRedirect: ''
 };

@@ -8,10 +8,8 @@ import { Compania } from '../../_models/modules/compania';
 import { administrator, httpAccessAdminPage, httpLandingIndexPage } from '@environments/environment';
 import { OnSeguridad } from '@app/_helpers/abstractSeguridad';
 
-@Component({ templateUrl: 'HTML_AddEditUserPage.html',
-styleUrls: [
-    '../../../assets/scss/app.scss',
-    '../../../assets/scss/administrator/app.scss']
+@Component({templateUrl: 'HTML_AddEditUserPage.html',
+            styleUrls: [ '../../../assets/scss/app.scss', '../../../assets/scss/administrator/app.scss']
 })
 export class AddEditUserComponent extends OnSeguridad implements OnInit {
   usuarioForm: FormGroup;
@@ -53,7 +51,7 @@ export class AddEditUserComponent extends OnSeguridad implements OnInit {
 
     // ***************************************************************
     // VALIDA ACCESO PANTALLA LOGIN ADMINISTRADOR
-    if (!super.userAuthenticate()) { this.accountService.logout(); return; }
+    if (!super.userAuthenticateIndexHttp()) { this.accountService.logout(); return; }
     // ***************************************************************
 
     this.userObservable = this.accountService.userValue;

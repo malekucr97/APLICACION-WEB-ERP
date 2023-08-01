@@ -48,15 +48,20 @@ export class IndexPowerBiComponent extends OnSeguridad implements OnInit {
 
   //#endregion
 
-  constructor(
-    private alertService: AlertService,
-    private accountService: AccountService,
-    private powerBIService: PowerBIService,
-    private router: Router,
-    private sanitaizer: DomSanitizer
-  ) {
-    //#region VALIDACIÓN DE ACCESO A LAS PANTALLAS
+  constructor(private alertService: AlertService,
+              private accountService: AccountService,
+              private powerBIService: PowerBIService,
+              private router: Router,
+              private sanitaizer: DomSanitizer  ) {
+
+    //#region VALIDACIÓN DE ACCESO Y AUTENTICACIÓN A LAS PANTALLAS
     super(alertService, accountService, router);
+
+    // ***************************************************************
+    // VALIDA ACCESO PANTALLA LOGIN INDEX COMPONENT
+    if (!super.userAuthenticateIndexComponent()) { this.accountService.logout(); return; }
+    // ***************************************************************
+
     super._nombrePantalla = this.nombrePantalla;
     super._redireccionURL = '/inra-sa'; // [OPCIONAL] SI NO SE INDICA SE REDIRECCIONA AL LA PÁGINA DEL MODULO.INDEXHTML
     super.validarAccesoPantalla();

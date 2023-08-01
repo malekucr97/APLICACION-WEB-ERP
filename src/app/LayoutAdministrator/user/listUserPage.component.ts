@@ -9,10 +9,8 @@ import { OnSeguridad } from '@app/_helpers/abstractSeguridad';
 import { MatDialog } from '@angular/material/dialog';
 import { DialogoConfirmacionComponent } from '@app/_components/dialogo-confirmacion/dialogo-confirmacion.component';
 
-@Component({ templateUrl: 'HTML_ListUserPage.html',
-styleUrls: [
-    '../../../assets/scss/app.scss',
-    '../../../assets/scss/administrator/app.scss']
+@Component({templateUrl: 'HTML_ListUserPage.html',
+            styleUrls: [ '../../../assets/scss/app.scss', '../../../assets/scss/administrator/app.scss']
 })
 export class ListUserComponent extends OnSeguridad implements OnInit {
 

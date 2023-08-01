@@ -3,7 +3,7 @@ import { first } from 'rxjs/operators';
 import { Router, ActivatedRoute } from '@angular/router';
 import { AccountService, AlertService } from '@app/_services';
 import { User, Module } from '@app/_models';
-import { ModulesSystem, httpAccessAdminPage } from '@environments/environment';
+import { ModulesSystem, environment, httpAccessAdminPage } from '@environments/environment';
 import { MatSidenav } from '@angular/material/sidenav';
 import { Compania } from '@app/_models/modules/compania';
 import { OnSeguridad } from '@app/_helpers/abstractSeguridad';
@@ -25,6 +25,8 @@ export class IndexContentPageComponent extends OnSeguridad implements OnInit {
   public URLConfigureUserPage: string = httpAccessAdminPage.urlPageAddEditUser;
   public URLIndexAdminPage: string = httpAccessAdminPage.urlPageAdministrator;
 
+  private KeySessionStorageModule : string = environment.sessionStorageModuleIdentification;
+
   constructor(  private accountService: AccountService,
                 private router: Router,
                 private route: ActivatedRoute,
@@ -34,11 +36,13 @@ export class IndexContentPageComponent extends OnSeguridad implements OnInit {
 
     // ***************************************************************
     // VALIDA ACCESO PANTALLA LOGIN ADMINISTRADOR
-    if (!super.userAuthenticate()) { this.accountService.logout(); return; }
+    if (!super.userAuthenticateIndexHttp()) { this.accountService.logout(); return; }
     // ***************************************************************
 
     this.userObservable = this.accountService.userValue;
     this.businessObservable = this.accountService.businessValue;
+
+    this.accountService.clearObjectModuleObservable();
   }
 
   ngOnInit() {
@@ -87,9 +91,7 @@ export class IndexContentPageComponent extends OnSeguridad implements OnInit {
   }
   redireccionIndexModulosHTTP(identificador: string): string {
 
-    const procesoBusquedaPowerBi = (terminoBuscado) => {
-      if (identificador.includes(terminoBuscado)) return identificador; 
-    };
+    const procesoBusquedaPowerBi = (terminoBuscado) => { if (identificador.includes(terminoBuscado)) return identificador; };
 
     let indexHTTPModule: string = '';
 
@@ -144,6 +146,9 @@ export class IndexContentPageComponent extends OnSeguridad implements OnInit {
   selectModule(mod: Module) {
     let module: Module = this.ListModules.find((x) => x.id === mod.id);
     this.accountService.loadModuleAsObservable(module);
+
+    // sessionStorage.setItem(this.KeySessionStorageModule, module.identificador);
+    // sessionStorage.removeItem(this.KeySessionStorageModule);
 
     this.router.navigate([module.indexHTTP]);
   }

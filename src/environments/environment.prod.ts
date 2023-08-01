@@ -2,38 +2,34 @@
 
 export const environment = {
     production: true,
-    apiUrl: 'http://localhost:81'
+    apiUrl: 'http://localhost:81',
+
+    sessionStorageIdentificationUserKey: '_httpUsernameSessionStorageAppAdminModulesInraSA',
+    sessionStorageModuleIdentification : '_httpModuleSelectedSessionStorageAppAdminModulesInraSA'
 };
 
 export const administrator = {
-    // production: true,
     identification: 'adminboss',
     state: 'admin',
-    urlRedirect: '',
-    adminSociedad: 'admin-e',
-    rolAdministrator: 1
+    adminSociedad: 'admin-e'
 };
 
 export const register = {
-    // production: true,
     state: 'Registrado',
     urlRedirect: ''
 };
 
 export const pending = {
-    // production: true,
     state: 'Pendiente',
     urlRedirect: ''
 };
 
 export const active = {
-    // production: true,
     state: 'Activo',
     urlRedirect: ''
 };
 
 export const inactive = {
-    // production: false,
     state: 'Inactivo',
     urlRedirect: ''
 };

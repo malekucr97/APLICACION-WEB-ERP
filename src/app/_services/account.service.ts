@@ -59,17 +59,14 @@ export class AccountService {
   // ******************************************************************************
   public get userListValue(): User[] {
     if (this.listUsersSubject) return this.listUsersSubject.value;
-    
     return null;
   }
   public get rolListValue(): Role[] {
     if (this.listRolesSubject) return this.listRolesSubject.value;
-    
     return null;
   }
   public get businessListValue(): Compania[] {
     if (this.listBusinessSubject) return this.listBusinessSubject.value;
-    
     return null;
   }
 
@@ -127,17 +124,14 @@ export class AccountService {
   }
   // *******************************************************************
 
-  validateAccessUser(
-    idUser: number,
-    idModule: number,
-    nombrePantalla: string,
-    idBusiness: number
-  ) {
-    return this.http
-      .get<ResponseMessage>(`${environment.apiUrl}/users/validaaccesopantalla?idUsuario=${idUser}
-                                                                              &idModulo=${idModule}
-                                                                              &nomPantalla=${nombrePantalla}
-                                                                              &îdEmpresa=${idBusiness}`);
+  validateAccessUser( idUser: number,
+                      idModule: number,
+                      nombrePantalla: string,
+                      idBusiness: number ) {
+    return this.http.get<ResponseMessage>(`${environment.apiUrl}/users/validaaccesopantalla?idUsuario=${idUser}
+                                                                                          &idModulo=${idModule}
+                                                                                          &nomPantalla=${nombrePantalla}
+                                                                                          &îdEmpresa=${idBusiness}`);
   }
 
   // **********************************************************************************************
@@ -172,6 +166,17 @@ export class AccountService {
     this.router.navigate(['account/login']);
   }
   // **********************************************************************************************
+  // **********************************************************************************************
+  // **********************************************************************************************
+  // -- >> Limpia valores suscritos
+  clearObjectModuleObservable(){
+    localStorage.removeItem('Omodule');
+    this.moduleSubject.next(null);
+  }
+  clearObjectBusinesObservable(){
+    localStorage.removeItem('Obusiness');
+    this.businessSubject.next(null);
+  }
   // **********************************************************************************************
   // -- >> Procedimientos Empresas
   getAllBusiness() {

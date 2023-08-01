@@ -1,6 +1,5 @@
 import { Router } from '@angular/router';
 import { Compania, Module, User } from '@app/_models';
-import { Bitacora } from '@app/_models/bitacora';
 import { AccountService, AlertService } from '@app/_services';
 import { administrator } from '@environments/environment';
 import { first } from 'rxjs/operators';
@@ -13,6 +12,8 @@ export class OnSeguridad {
   private _userObservable: User;
   private _moduleObservable: Module;
   private _businessObservable: Compania;
+
+  private _codeSuccessUser : string = '202';
 
   _nombrePantalla: string;
   _redireccionURL: string;
@@ -36,38 +37,39 @@ export class OnSeguridad {
                                               this._businessObservable.id )
       .pipe(first())
       .subscribe((response) => {
+
         if (!response.exito) {
           console.log(response);
           this._router.navigate([this._redireccionURL]);
           this._alertService.error(this._mensajeError);
+          this._accountService.clearObjectModuleObservable();
+          return;
         }
       });
   }
 
   validarUsuarioAdmin(): boolean {
-    if (this._userObservable.esAdmin || 
-        this._userObservable.idRol == administrator.adminSociedad) return true;
-    return false;
-  }
-  userAuthenticateAdmin() : boolean {
-    if (this._userObservable &&
-        this._userObservable.codeNoLogin === '202' &&
-        this.validarUsuarioAdmin() &&
-        this._businessObservable) return true;
-    return false;
-  }
-  userAuthenticateHome() : boolean {
-    if (this._userObservable &&
-        this._userObservable.codeNoLogin === '202' &&
-        this._userObservable.idRol) return true;
-    return false;
-  }
-  userAuthenticate() : boolean {
-    if (this._userObservable &&
-        this._userObservable.codeNoLogin === '202' && 
-        this._businessObservable) return true;
+    if (this._userObservable.esAdmin || this._userObservable.idRol == administrator.adminSociedad) return true;
     return false;
   }
 
-  // postBitacora(bitacora:Bitacora) : void { this._accountService.postBitacora(bitacora); }
+  // **
+  // ** VALIDACIÓN DE USUARIO HTTP CODE
+  userAuthenticateAdmin() : boolean {
+    if (this._userObservable && this._userObservable.codeNoLogin === this._codeSuccessUser && this.validarUsuarioAdmin() && this._businessObservable) return true;
+    return false;
+  }
+  userAuthenticateHome() : boolean {
+    if (this._userObservable && this._userObservable.codeNoLogin === this._codeSuccessUser && this._userObservable.idRol) return true;
+    return false;
+  }
+  userAuthenticateIndexHttp() : boolean {
+    if (this._userObservable && this._userObservable.codeNoLogin === this._codeSuccessUser && this._userObservable.idRol && this._businessObservable) return true;
+    return false;
+  }
+  userAuthenticateIndexComponent() : boolean {
+    if (this._userObservable && this._userObservable.codeNoLogin === this._codeSuccessUser && this._userObservable.idRol && this._moduleObservable && this._businessObservable) return true;
+    return false;
+  }
+  // **
 }
