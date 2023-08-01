@@ -4,12 +4,14 @@ import { Router, ActivatedRoute } from '@angular/router';
 import { AccountService, AlertService } from '@app/_services';
 import { User, Module } from '@app/_models';
 import { Compania } from '../../_models/modules/compania';
-import { httpAccessAdminPage } from '@environments/environment-access-admin';
-import { httpLandingIndexPage } from '@environments/environment';
+import { httpAccessAdminPage } from '@environments/environment';
+import { OnSeguridad } from '@app/_helpers/abstractSeguridad';
 
-@Component({ templateUrl: 'HTML_ListModuleBusinessPage.html' })
-export class ListModuleBusinessComponent implements OnInit {
-    
+@Component({templateUrl: 'HTML_ListModuleBusinessPage.html',
+            styleUrls: [    '../../../assets/scss/app.scss', '../../../assets/scss/administrator/app.scss']
+})
+export class ListModuleBusinessComponent extends OnSeguridad implements OnInit {
+
     userObservable: User;
     businessObservable: Compania;
 
@@ -22,98 +24,82 @@ export class ListModuleBusinessComponent implements OnInit {
     
     isActivating: boolean = false;
     isInActivating: boolean = false;
-    isAssigning: boolean = false;
-    isDesAssigning: boolean = false;
     
-
     adminBoss: boolean;
     adminBusiness: boolean;
 
-    URLAddEditUsertPage: string;
     URLAddBusinessUsertPage: string;
     URLAddRoleUsertPage: string;
     idBusiness: string;
 
     seleccionEmpresa: boolean = false;
 
-    private Home : string = httpLandingIndexPage.homeHTTP;
-    private Index : string = httpLandingIndexPage.indexHTTP;
-
     public HTTPListBusinessPage : string = httpAccessAdminPage.urlPageListBusiness;
 
     listBusinessSubject : Compania[];
+
+    public pbusinessId : number;
 
     constructor(private accountService: AccountService,
                 private route: ActivatedRoute,
                 private alertService: AlertService,
                 private router: Router) { 
-            
-            this.userObservable         = this.accountService.userValue;
-            this.businessObservable     = this.accountService.businessValue;
-            this.listBusinessSubject    = this.accountService.businessListValue;
-        }
+
+        super(alertService, accountService, router);
+
+        // ***************************************************************
+        // VALIDA ACCESO PANTALLA LOGIN ADMINISTRADOR
+        if (!super.userAuthenticateAdmin()          ||
+            !this.route.snapshot.params.pidBusiness ||
+            !this.accountService.businessListValue) { this.accountService.logout(); return; }
+        // ***************************************************************
+
+        this.userObservable         = this.accountService.userValue;
+        this.businessObservable     = this.accountService.businessValue;
+        this.listBusinessSubject    = this.accountService.businessListValue;
+
+        this.pbusinessId = this.route.snapshot.params.pidBusiness
+    }
 
     ngOnInit() {
 
-        this.alertService.clear();
+        this.business = new Compania;
 
-        // let pidBusiness = this.route.snapshot.params.pidBusiness;
+        this.seleccionEmpresa = true;
+        this.business = this.listBusinessSubject.find(x => x.id === +this.pbusinessId);
 
-        if (this.route.snapshot.params.pidBusiness) {
-        // if (pidBusiness) {
+        this.accountService.getModulesSystem()
+            .pipe(first())
+            .subscribe(listModulesSystemResponse => {
 
-            this.business = new Compania;
+                this.listModulesSystem = listModulesSystemResponse;
 
-            let pidBusiness = this.route.snapshot.params.pidBusiness;
+                this.accountService.getModulesBusiness(this.business.id)
+                    .pipe(first())
+                    .subscribe(listModulesResponse => {
 
-            if (!this.accountService.businessListValue) { this.router.navigate([this.HTTPListBusinessPage]);    return; }
-            if (!this.userObservable.esAdmin) { this.router.navigate([this.Index]);                             return; }
-            if (!this.businessObservable) { this.router.navigate([this.Home]);                                  return; }
-    
-            this.seleccionEmpresa = true;
-            this.business = this.listBusinessSubject.find(x => x.id === +pidBusiness);
-    
-            this.accountService.getModulesSystem()
-                .pipe(first())
-                .subscribe(listModulesSystemResponse => {
-    
-                    this.listModulesSystem = listModulesSystemResponse;
-    
-                    this.accountService.getModulesBusiness(this.business.id)
-                        .pipe(first())
-                        .subscribe(listModulesResponse => {
+                        if (listModulesResponse && listModulesResponse.length > 0) {
+                            
+                            this.listModulesBusiness = listModulesResponse;
 
-                            if (listModulesResponse && listModulesResponse.length > 0) {
+                            if (this.listModulesSystem.length !== this.listModulesBusiness.length) {
                                 
-                                this.listModulesBusiness = listModulesResponse;
+                                this.listModulesBusiness.forEach((modBusiness) => {
 
-                                if (this.listModulesSystem.length !== this.listModulesBusiness.length) {
-                                    
-                                    this.listModulesBusiness.forEach((modBusiness) => {
+                                    this.listModulesSystem.splice(this.listModulesSystem.findIndex( m => m.identificador == modBusiness.identificador ), 1);
+                                });
 
-                                        this.listModulesSystem.splice(this.listModulesSystem.findIndex( m => m.identificador == modBusiness.identificador ), 1);
-                                    });
-
-                                } else { this.listModulesSystem = null; }
-                                
-                            } else { this.listModulesBusiness = null; }
-                            // if (this.listModulesBusiness && this.listModulesBusiness.length > 0) {
-                            //     if (this.listModulesSystem.length !== this.listModulesBusiness.length) {
-                            //         this.listModulesBusiness.forEach((modBusiness) => {
-                            //             this.listModulesSystem.splice(this.listModulesSystem.findIndex( m => m.identificador == modBusiness.identificador ), 1);
-                            //         });
-                            //     } else { this.listModulesSystem = null; }
-                            // } else { this.listModulesBusiness = null; }
-                        },
-                        (error) => { console.log(error); });
-                });
-        }
+                            } else { this.listModulesSystem = null; }
+                            
+                        } else { this.listModulesBusiness = null; }
+                    },
+                    (error) => { console.log(error); });
+        });
     }
 
     assignModuleBusiness(identificadorModulo: string) : void {
 
         this.alertService.clear();
-        this.isAssigning = true;
 
         let module : Module = this.listModulesSystem.find(x => x.identificador === identificadorModulo);
 
@@ -134,18 +120,12 @@ export class ListModuleBusinessComponent implements OnInit {
                     this.listModulesBusiness.push(module);
 
                 } else { this.alertService.error(response.responseMesagge); }
-
-                this.isAssigning = false;
             },
-            error => {
-                this.isAssigning = false;
-                this.alertService.error(error);
-            });
+            error => { this.alertService.error(error); });
     }
     desAssignModuleBusiness(identificadorModulo: string) : void {
 
         this.alertService.clear();
-        this.isDesAssigning = true;
 
         let module : Module = this.listModulesBusiness.find(x => x.identificador === identificadorModulo);
 
@@ -166,12 +146,7 @@ export class ListModuleBusinessComponent implements OnInit {
                     if (this.listModulesBusiness.length==0) this.listModulesBusiness = null;
                     
                 } else { this.alertService.warn(response.responseMesagge, { keepAfterRouteChange: true }); }
-
-                this.isDesAssigning = false;
             },
-            error => {
-                this.isDesAssigning = false;
-                this.alertService.error(error);
-            });
+            error => { this.alertService.error(error); });
     }
 }

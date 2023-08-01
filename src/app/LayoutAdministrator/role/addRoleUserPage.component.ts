@@ -2,16 +2,16 @@ import { Component, OnInit } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
 import { first } from 'rxjs/operators';
 import { AccountService, AlertService } from '@app/_services';
-import { User, Role } from '@app/_models';
-import {
-  httpAccessAdminPage
-} from '@environments/environment-access-admin';
+import { User, Role, Compania } from '@app/_models';
 import { OnSeguridad } from '@app/_helpers/abstractSeguridad';
-import { administrator, httpLandingIndexPage } from '@environments/environment';
+import { administrator, httpAccessAdminPage } from '@environments/environment';
 
-@Component({ templateUrl: 'HTML_AddRoleUserPage.html' })
+@Component({templateUrl: 'HTML_AddRoleUserPage.html',
+            styleUrls: ['../../../assets/scss/app.scss', '../../../assets/scss/administrator/app.scss']
+})
 export class AddRoleUserComponent extends OnSeguridad implements OnInit {
   userObservable: User;
+  businessObservable: Compania;
 
   userToAssign: User = new User();
   role: Role = new Role();
@@ -22,9 +22,8 @@ export class AddRoleUserComponent extends OnSeguridad implements OnInit {
   isDesAsignRoles: boolean;
   isAsignRole: boolean;
 
-  _userIdParam : string = null;
+  _userIdentificationParam : string = null;
 
-  private Index: string = httpLandingIndexPage.indexHTTP;
   public HTTPListUserPage: string = httpAccessAdminPage.urlPageListUsers;
 
   listUserSubject: User[];
@@ -36,52 +35,27 @@ export class AddRoleUserComponent extends OnSeguridad implements OnInit {
 
     super(alertService, accountService, router);
 
+    // ***************************************************************
+    // VALIDA ACCESO PANTALLA LOGIN ADMINISTRADOR
+    if (!super.userAuthenticateAdmin()                  ||
+        !this.route.snapshot.params.pidentificationUser ||
+        !this.accountService.userListValue) { this.accountService.logout(); return; }
+    // ***************************************************************
+
     this.userObservable = this.accountService.userValue;
+    this.businessObservable = this.accountService.businessValue;
     this.listUserSubject = this.accountService.userListValue;
 
-    if (!this.userObservable) { this.router.navigate([this.HTTPListUserPage]); return; }
-    if (!this.listUserSubject) { this.router.navigate([this.HTTPListUserPage]); return; }
+    this._userIdentificationParam = this.route.snapshot.params.pidentificationUser;
 
-    if (!this.route.snapshot.params.id) { this.router.navigate([this.HTTPListUserPage]); return; }
-    this._userIdParam = this.route.snapshot.params.id;
-
-    if (!super.validarUsuarioAdmin()) { this.router.navigate([this.Index]); return; }
-
-    if (this._userIdParam === administrator.identification) { 
-      this.alertService.info('No es posible actualizar el rol del administrador.', { keepAfterRouteChange: true });
-      this.router.navigate([this.HTTPListUserPage]);
-      return;
-    }
-
-    this.userToAssign = this.listUserSubject.find(x => x.identificacion === this._userIdParam);
+    this.userToAssign = this.listUserSubject.find(x => x.identificacion === this._userIdentificationParam);
   }
 
   ngOnInit() {
-    // this.alertService.clear();
 
-    // if (!this.accountService.userListValue) {
-    //   this.router.navigate([this.HTTPListUserPage]);
-    //   return;
-    // }
-    // if (!super.validarUsuarioAdmin()) { this.router.navigate([this.Index]); return; }
-
-    // if (!this.route.snapshot.params.id) {
-    //   this.router.navigate([this.HTTPListUserPage]);
-    //   return;
-    // }
-
-    // let pUserId: string = this.route.snapshot.params.id;
-
-    // if (this._userIdParam !== administrator.identification) {
-
-      // this.userToAssign = this.listUserSubject.find( (x) => x.identificacion === this._userIdParam );
-      // this.accountService.loadListUsers(this.listUserSubject);
-
-      this.accountService
-        .getAllRoles()
+      this.accountService.getRolesBusiness(this.businessObservable.id)
         .pipe(first())
-        .subscribe(
-          (responseListRole) => {
+        .subscribe((responseListRole) => {
 
             if (responseListRole && responseListRole.length > 0) {
               
@@ -95,29 +69,18 @@ export class AddRoleUserComponent extends OnSeguridad implements OnInit {
               
               } else { this.role = null }
             }
-
-            // this.listAllRoles = responseListRole;
-
-            // // elimina el rol administrador del listado que se muestra en pantalla
-            // this.listAllRoles.splice( this.listAllRoles.findIndex((r) => r.id == administrator.identification), 1 );
           },
           (error) => { this.alertService.error(error); }
         );
-    // } else {
-    //   this.alertService.info('No es posible actualizar el rol del administrador.');
-    //   this.router.navigate([httpAccessAdminPage.urlPageListUsers]);
-    // }
   }
 
   assignRoleUser(idRole: string): void {
     this.alertService.clear();
     this.isAsignRole = true;
 
-    this.accountService
-      .assignRoleUser(idRole, this.userToAssign.identificacion)
+    this.accountService.assignRoleUser(idRole, this.userToAssign.identificacion)
       .pipe(first())
-      .subscribe(
-        (response) => {
+      .subscribe((response) => {
 
           if (response.exito) {
 
@@ -142,11 +105,9 @@ export class AddRoleUserComponent extends OnSeguridad implements OnInit {
     this.alertService.clear();  
     this.isDesAsignRoles = true;
 
-    this.accountService
-      .removeRoleUser(this.userToAssign)
+    this.accountService.removeRoleUser(this.userToAssign)
       .pipe(first())
-      .subscribe(
-        (response) => {
+      .subscribe((response) => {
 
           if (response.exito) {
             this.role = null;

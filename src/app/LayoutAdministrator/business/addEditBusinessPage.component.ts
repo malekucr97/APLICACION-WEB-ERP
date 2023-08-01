@@ -5,12 +5,11 @@ import { first } from 'rxjs/operators';
 import { AccountService, AlertService } from '@app/_services';
 import { Compania } from '../../_models/modules/compania';
 import { User } from '@app/_models';
-import { httpAccessAdminPage } from '@environments/environment-access-admin';
+import { httpAccessAdminPage } from '@environments/environment';
+import { OnSeguridad } from '@app/_helpers/abstractSeguridad';
 
 @Component({ templateUrl: 'HTML_AddEditBusinessPage.html' })
-export class AddEditBusinessComponent implements OnInit {
-  public urladminListBusiness: string = httpAccessAdminPage.urlPageListBusiness;
-
+export class AddEditBusinessComponent extends OnSeguridad implements OnInit {
   form: FormGroup;
   userObserver: User;
 
@@ -24,18 +23,25 @@ export class AddEditBusinessComponent implements OnInit {
   updateBusiness: boolean;
   addBusiness: boolean;
 
-  constructor(
-    private formBuilder: FormBuilder,
-    private route: ActivatedRoute,
-    private router: Router,
-    private accountService: AccountService,
-    private alertService: AlertService
-  ) {
+  public urladminListBusiness: string = httpAccessAdminPage.urlPageListBusiness;
+
+  constructor(private formBuilder: FormBuilder,
+              private route: ActivatedRoute,
+              private router: Router,
+              private accountService: AccountService,
+              private alertService: AlertService ) {
+
+    super(alertService, accountService, router);
+
+    // ***************************************************************
+    // VALIDA ACCESO PANTALLA LOGIN ADMINISTRADOR
+    if (!super.userAuthenticateAdmin()) { this.accountService.logout(); return; }
+    // ***************************************************************
+
     this.userObserver = this.accountService.userValue;
   }
 
   ngOnInit() {
-    this.alertService.clear();
 
     this.updateBusiness = false;
     this.addBusiness = false;

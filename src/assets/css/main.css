@@ -315,8 +315,11 @@ iframe {
   -moz-transition: all 0.6s;
   transition: all 0.6s;
 
-  background: #57b846;
+  background: #28a745;
 }
+/* #28a745 */
+
+/* 57b846 */
 
 
 /*---------------------------------------------*/
@@ -407,7 +410,7 @@ input.input100 {
   padding: 0 20px;
   min-width: 150px;
   height: 40px;
-  background-color: #57b846;
+  background-color: #1da93d;
   border-radius: 25px;
 
   font-family: Poppins-Regular;
@@ -420,6 +423,10 @@ input.input100 {
   -moz-transition: all 0.4s;
   transition: all 0.4s;
 }
+
+/* 053254 */
+
+/* 57b846 */
 
 
 .login100-form-btn:hover {

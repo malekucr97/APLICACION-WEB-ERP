@@ -3,18 +3,26 @@ export class Role {
     nombre: string;
     esAdministrador: number;
     descripcion: string;
+    // columns roleBusiness
     estado: string;
     tipo: string;
 }
 
-export class ModuleRolBusiness{
-    IdRol: string;
-    IdModulo: number;
-    IdBusiness: number;
-    Estado: string;
+export class RolModuleBusiness {
+    idRol: string;
+    idModulo: number;
+    idBusiness: number;
+    estado: string;
 }
 
 export class AssignRoleObject{
     idRole: string;
     idUser: string;
+}
+
+export class UpdateRolModel {
+    idRol: string;
+    idBusiness: number;
+    estado: string;
+    tipo: string;
 }

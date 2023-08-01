@@ -1,7 +1,14 @@
-﻿<div class="card" style="width: 500px; height: 450px; position: absolute; left: 50%; top: 40%; transform: translate(-50%, -35%);" >
-    <div class="login100-form-title" style="height: 50px; background-image: url('./assets/images/inra/INRA-INITIAL.jpg');">
+﻿<div class="card" style="   width: 500px; 
+                            height: 450px; 
+                            position: absolute; 
+                            left: 50%; 
+                            top: 40%; 
+                            transform: translate(-50%, -35%);" >
+
+    <div class="login100-form-title" style="height: 50px; background-image: url({{pathImageInitial}});">
         <span class="login100-form-title-1">
-            Banking APP INRA S.A 
+            <!-- Banking APP INRA S.A  -->
+            Login APP Módulos
         </span>
     </div>
 
@@ -11,8 +18,10 @@
 
             <div class="wrap-input100 m-b-26 form-group" style="margin-top: 2%;">
                 <span class="lnr lnr-user label-input100"></span>
-                <input type="text" style="text-align: center;" formControlName="username" class="input100" name="username" 
-                placeholder="Nombre de usuario" [ngClass]="{ 'is-invalid': submitted && f.username.errors }">
+                <input  type="text" style="text-align: center;" 
+                        formControlName="username" class="input100" name="username" 
+                        placeholder="Nombre de usuario" 
+                        [ngClass]="{ 'is-invalid': submitted && f.username.errors }">
                 <span class="focus-input100"></span>
                 <div *ngIf="submitted && f.username.errors" class="invalid-feedback">
                     <div *ngIf="f.username.errors.required" style="text-align: center;">El nombre de usuario es requerido</div>
@@ -21,8 +30,10 @@
 
             <div class="wrap-input100 m-b-19 form-group">
                 <span class="lnr lnr-lock label-input100"></span>
-                <input type="password" style="text-align: center;" formControlName="password" class="input100" name="pass" 
-                placeholder="Contraseña" [ngClass]="{ 'is-invalid': submitted && f.password.errors }" >
+                <input  type="password" style="text-align: center;" 
+                        formControlName="password" class="input100" name="pass" 
+                        placeholder="Contraseña" 
+                        [ngClass]="{ 'is-invalid': submitted && f.password.errors }" >
                 <span class="focus-input100"></span>
                 <div *ngIf="submitted && f.password.errors" class="invalid-feedback">
                     <div *ngIf="f.password.errors.required" style="text-align: center;">La contraseña es requerida</div>
@@ -30,9 +41,13 @@
             </div>
 
             <div class="flex-sb-m w-full p-b-30">
+                
                 <div class="contact100-form-checkbox">
-                    <input class="input-checkbox100" id="ckb1" type="checkbox" name="remember-me">
-                    <label class="label-checkbox100" for="ckb1">
+                    <input  class="input-checkbox100" 
+                            id="rememberme_id" type="checkbox" 
+                            name="rememberme" 
+                            formControlName="rememberme">
+                    <label class="label-checkbox100" for="rememberme_id">
                         Recordarme
                     </label>
                 </div>
@@ -42,12 +57,12 @@
                         Recuperar Contraseña
                     </a>
                 </div>
+
             </div>
             
             <div class="form-group">
-                <!-- <button [disabled]="loading" class="login100-form-btn"  -->
                 <button class="login100-form-btn" 
-                style="position: fixed; left: 50%; top: 93%; transform: translate(-50%, -89%);">
+                        style="position: fixed; left: 50%; top: 93%; transform: translate(-50%, -89%);">
                     <span *ngIf="loading" class="spinner-border spinner-border-sm mr-1"></span>
                     Iniciar Sesión
                 </button>

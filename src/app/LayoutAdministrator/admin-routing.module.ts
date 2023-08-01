@@ -38,16 +38,16 @@ const routes: Routes = [
             { path: 'adminpage-indexadmin.html', component: AdminUserComponent },
             { path: 'adminpage-listusers.html', component: ListUserComponent },
             { path: 'adminpage-addedituser.html', component: AddEditUserComponent },
-            { path: 'adminpage-addedituser.html/:id', component: AddEditUserComponent },
+            { path: 'adminpage-addedituser.html/:pidentificationUser', component: AddEditUserComponent },
             // -- empresa
             // { path: 'AdminBusinessPage', component: AdminBusinessComponent },
             { path: 'adminpage-addeditbusiness.html', component: AddEditBusinessComponent },
             { path: 'adminpage-addeditbusiness.html/:pidBusiness', component: AddEditBusinessComponent },
             { path: 'adminpage-listbusiness.html', component: ListBusinessComponent },
-            { path: 'adminpage-addbusinessuser.html/:id', component: AddBusinessUserComponent },
+            { path: 'adminpage-addbusinessuser.html/:pidentificationUser', component: AddBusinessUserComponent },
 
             // -- roles
-            { path: 'adminpage-addroleuser.html/:id', component: AddRoleUserComponent },
+            { path: 'adminpage-addroleuser.html/:pidentificationUser', component: AddRoleUserComponent },
             { path: 'adminpage-listroles.html', component: ListRoleComponent },
             // -- modulos
             { path: 'adminpage-listmodulebusiness.html/:pidBusiness', component: ListModuleBusinessComponent },

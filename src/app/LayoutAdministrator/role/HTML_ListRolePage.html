@@ -1,55 +1,77 @@
-<h1>Roles</h1>
-<h4>Lista de de roles registrados en el sistema</h4>
+<h1>Roles </h1>
+
 <a routerLink="{{URLAdministratorPage}}" class="btn btn-light mb-2">Volver</a><br>
 
 <div class="card">
     <div class="card-body">
+        
+        <h3 style="color:#1A5276"><b>{{businessObservable.nombre}} </b></h3>
+        <br>
+        <h3 style="color:#1A5276">Actualice el Estado o Revise los Módulos con Acceso.</h3>
 
-<table class="table table-striped">
-    <thead>
-        <tr>
-            <th style="width: 25%">Descripción</th>
-            <th style="width: 20%">Estado</th>
-            <th style="width: 30%">Tipo</th>
-            <th style="width: 20%"></th>
-        </tr>
-    </thead>
-    <tbody>
-        <tr *ngFor="let rol of listRoles">
-            <td>{{rol.descripcion}}</td>
-            <td>{{rol.estado}}</td>
-            <td>{{rol.tipo}}</td>
-            <td style="white-space: nowrap">
+        <table class="table table-striped">
+            <thead>
+                <tr>
+                    <th style="width: 52%">Descripción</th>
+                    <th style="width: 10%">Estado</th>
+                    <th style="width: 35%">Tipo</th>
 
-                <button *ngIf="rol.estado!='Activo'"  (click)="activateRole(rol.id)" class="btn btn-sm btn-light mr-1" [disabled]="isActivating" >
-                    <span *ngIf="isActivating" class="spinner-border spinner-border-sm"></span>
-                    <span *ngIf="!isActivating">Activar rol</span>
-                </button>
-                <button *ngIf="rol.estado=='Activo'"  (click)="inActivateRole(rol.id)" class="btn btn-sm btn-info mr-1" [disabled]="isActivating" >
-                    <span *ngIf="isInActivating" class="spinner-border spinner-border-sm"></span>
-                    <span *ngIf="!isInActivating">Inactiv rol</span>
-                </button>
 
-                <button *ngIf="rol.tipo!='Lectura'"  (click)="lectura(rol.id)" class="btn btn-sm btn-light mr-1" [disabled]="isActivating" >
-                    <span *ngIf="isReading" class="spinner-border spinner-border-sm"></span>
-                    <span *ngIf="!isReading">Lectura</span>
-                </button>
-                <button *ngIf="rol.tipo=='Lectura'"  (click)="escritura(rol.id)" class="btn btn-sm btn-outline-dark mr-1" [disabled]="isActivating" >
-                    <span *ngIf="isWriting" class="spinner-border spinner-border-sm"></span>
-                    <span *ngIf="!isWriting">Escritura</span>
-                </button>
+                    <th style="width: 1%"></th>
+                    <th style="width: 1%"></th>
+                    <th style="width: 1%"></th>
 
-                <a routerLink="{{URLAddModuleRolPage}}{{rol.id}}" class="btn btn-sm btn-outline-dark mr-1"> Módulo </a>
+                </tr>
+            </thead>
+            <tbody >
+                <tr *ngFor="let rol of listRoles"
+                    class="item-list__list">
 
-            </td>
-        </tr>
-        <tr *ngIf="!listRoles">
-            <td colspan="4" class="text-center">
-                <span class="spinner-border spinner-border-lg align-center"></span>
-            </td>
-        </tr>
-    </tbody>
-</table>
+                    <td >{{rol.descripcion}}</td>
+                    <td >{{rol.estado}}</td>
+                    <td >{{rol.tipo}}</td>
 
-</div>
+                    <td style="white-space: normal" >
+                        <button *ngIf="rol.estado!='Activo'"  
+                                (click)="activateRole(rol.id)" 
+                                class="btn-sm item-list__admin__ok" >
+
+                                <mat-icon>thumb_down_alt</mat-icon>
+                                Estado Rol
+                        </button>
+                        <button *ngIf="rol.estado=='Activo'"  
+                                (click)="inActivateRole(rol.id)" 
+                                class="btn-sm item-list__admin__warn" >
+
+                                <mat-icon>thumb_up_alt</mat-icon>
+                                Estado Rol
+                        </button>
+                    </td>
+
+                    <td>
+                        <button *ngIf="rol.tipo!='Lectura'" 
+                                (click)="lectura(rol.id)" > <mat-icon>mood</mat-icon>       +
+                        </button>
+                        <button *ngIf="rol.tipo=='Lectura'"  
+                                (click)="escritura(rol.id)" > <mat-icon>mood_bad</mat-icon> -
+                        </button>
+                    </td>
+
+                    <td>
+                        <button routerLink="{{URLAddModuleRolPage}}{{rol.id}}" 
+                            class="btn-sm item-list__admin__view"> 
+                            <mat-icon>apps</mat-icon> Módulos Activos
+                        </button>
+                    </td>
+
+                </tr>
+                <tr *ngIf="!listRoles">
+                    <td colspan="4" class="text-center">
+                        <span class="spinner-border spinner-border-lg align-center"></span>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+
+    </div>
 </div>

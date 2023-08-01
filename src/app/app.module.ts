@@ -6,7 +6,6 @@ import { JwtInterceptor, ErrorInterceptor } from './_helpers';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { MatTreeModule } from '@angular/material/tree';
 import { MatTooltipModule } from '@angular/material/tooltip';
-import { MatNativeDateModule } from '@angular/material/core';
 
 // -- >> ** componentes iniciales sistema ** << --
 import { AppComponent } from './app.component';
@@ -29,12 +28,6 @@ import {LocationStrategy, HashLocationStrategy} from '@angular/common';
         MatTreeModule,
         MatTooltipModule,
         MatToolbarModule
-
-        // actualización mlopez 05 22 2023
-        // ** se comentan las siguientes importaciones
-        // ReactiveFormsModule,
-        // FormsModule,
-        // MatNativeDateModule,
     ],
     declarations: [
         AppComponent,

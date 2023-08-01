@@ -4,37 +4,62 @@
 
 <div class="card">
   <div class="card-body">
-    <button class="items__btns__header__ok" mat-flat-button routerLink="{{urlPageAddEditBusiness}}">Registrar Empresa</button>
+
+    <button routerLink="{{urlPageAddEditBusiness}}"
+                class="item-list__confirm float-right" 
+                mat-icon-button > <mat-icon>group_add</mat-icon>
+    </button>
 
     <table class="table table-striped">
       <thead>
+
         <tr>
+          <th style="width: 1%"></th>
+
           <th style="width: 15%">Identificación</th>
-          <th style="width: 25%">Nombre de la Compañía</th>
-          <th style="width: 15%">Correo Electrónico</th>
+          <th style="width: 35%">Nombre de la Compañía</th>
+          <th style="width: 25%">Correo Electrónico</th>
           <th style="width: 15%">Número de Teléfono</th>
-          <th style="width: 10%">Power BI</th>
-          <th style="width: 10%"></th>
+          <th style="width: 8%">Power BI</th>
+          <th style="width: 1%"></th>
         </tr>
+
       </thead>
+
       <tbody>
-        <tr *ngFor="let business of listBusiness">
+
+        <tr *ngFor="let business of listBusiness" 
+            class="item-list__list" 
+            style="white-space: normal" 
+            routerLink="{{urlPageAddEditBusiness}}{{business.id}}" >
+
+          <td class="item-list__edit" >
+              <mat-icon>edit</mat-icon>
+          </td>
+
           <td>{{business.cedulaJuridica}}</td>
           <td>{{business.nombre}}</td>
           <td>{{business.correoElectronico}}</td>
           <td>{{business.telefono}}</td>
           <td>{{business.mantenimientoReportes ? 'Activo': 'Inactivo'}}</td>
-          <td style="white-space: nowrap">
-            <button class="items__btns__list__otro" mat-flat-button routerLink="{{urlPageAddEditBusiness}}{{business.id}}">Editar</button>
-            <button class="items__btns__list__otro" mat-flat-button routerLink="{{urlPageListBusinessModules}}{{business.id}}">Módulos de Compañía</button>
+
+          <td>
+            <button title="Módulos {{business.nombre}}" class="items__btns__list__otro"
+                    routerLink="{{urlPageListBusinessModules}}{{business.id}}" >
+                    <mat-icon >apps</mat-icon>
+            </button>
           </td>
+
         </tr>
+
         <tr *ngIf="!listBusiness">
           <td colspan="4" class="text-center">
             <span class="spinner-border spinner-border-lg align-center"></span>
           </td>
         </tr>
+
       </tbody>
+
     </table>
   </div>
 </div>

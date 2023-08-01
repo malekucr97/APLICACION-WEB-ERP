@@ -1,96 +1,90 @@
+<h1 style="display: inline; color:#1A5276">Módulos </h1>
+<h1 style="display: inline;">de Compañía</h1>
 
-<h1 style="display: inline; color:#1A5276">Permisos de Roles </h1>
-<h1 style="display: inline;">sobre módulos de la Compañía</h1>
 <br><br>
 
 <a routerLink="{{urladminListRole}}" class="btn btn-light mb-2 mr-3">Volver</a><br>
 
-<div *ngIf="!poseeModulos">
-    <div class="card">
-        <div class="card-body">
-    <h3 style="display: inline; ">Aún no hay módulos asignados a la Compañía </h3>
-    <h3 style="display: inline; color:#1A5276"><b>{{businessObservable.nombre}}</b></h3>
-    <br><br>
-    <h3>Ingrese a la administración de compañías.</h3>
-</div>
-</div>
-</div>
-
-<div *ngIf="poseeModulos">
-    <div class="card">
-        <div class="card-body">
-            
-            <h3 style="display: inline;">Rol seleccionado: </h3>
-            <h3 style="display: inline; color:#1A5276"><b>{{role.nombre}} </b></h3>
-            <h3 style="display: inline;">Compañía: </h3>
-            <h3 style="display: inline; color:#1A5276"><b>{{businessObservable.nombre}} </b></h3>
-
-            <br><br>
-            
-            <h3 *ngIf="administrador" style="color:yellowgreen">Tiene acceso a TODOS los Módulos de la Compañía</h3>
-
-            <div *ngIf="!administrador">
-
-                <div *ngIf="listModulesRol">
-                    <br>
-                    <h3 style="color:#1A5276">Seleccione un módulo para eliminar el acceso del rol</h3>
-                    <table class="table table-striped">
-                        <thead>
-                            <tr>
-                                <th style="width: 20%">Nombre</th>
-                                <th style="width: 50%">Descripción</th>
-                                <th style="width: 20%">Estado</th>
-                                <th style="width: 20%"></th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <tr *ngFor="let modAss of listModulesRol">
-                                <td>{{modAss.nombre}}</td>
-                                <td>{{modAss.descripcion}}</td>
-                                <td>{{modAss.estado}}</td>
-                                <td style="white-space: nowrap">
-                                    <button (click)="eliminarAcceso(modAss.id)" class="btn btn-sm btn-outline-danger mr-1">
-                                        <span *ngIf="removeAccess" class="spinner-border spinner-border-sm"></span>
-                                        <span *ngIf="!removeAccess">Elimnar Acceso a Módulo</span>
-                                    </button>
-                                </td>
-                            </tr>
-                        </tbody>
-                    </table>
-                    <br>
-                </div>
+<div class="card">
+    <div class="card-body">
         
-                <div *ngIf="listModulesBusiness">
-                    <br>
-                    <h3 style="color:#1A5276">Seleccione el módulo para otorgar acceso al rol seleccionado</h3>
-                    <table class="table table-striped">
-                        <thead>
-                            <tr>
-                                <th style="width: 20%">Nombre</th>
-                                <th style="width: 50%">Descripción</th>
-                                <th style="width: 20%">Estado</th>
-                                <th style="width: 20%"></th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <tr *ngFor="let modRol of listModulesBusiness">
-                                <td>{{modRol.nombre}}</td>
-                                <td>{{modRol.descripcion}}</td>
-                                <td>{{modRol.estado}}</td>
-                                
-                                <td style="white-space: nowrap">
-                                    <button (click)="otorgarAcceso(modRol.id)"  class="btn btn-sm btn-outline-success mr-1">
-                                        <span *ngIf="grantAccess" class="spinner-border spinner-border-sm"></span>
-                                        <span *ngIf="!grantAccess">Registrar Acceso a Módulo</span>
-                                    </button>
-                                </td>
-                            </tr>
-                        </tbody>
-                    </table>
-                </div>
-            </div>
-            
-        </div>
-    </div>
+        <h3 style="display: inline; color:#1A5276"><b>{{businessObservable.nombre}} </b></h3>
+        <br><br><br>
+        <h3 style="color:#1A5276; display: inline;">{{role.nombre}} </h3>
 
+        <br>
+
+        <div>
+            <div *ngIf="listModulesRol">
+                
+                <h3 style="color:#1A5276;">Tiene acceso a los siguientes Módulos</h3>
+                
+                <table class="table table-striped">
+                    <thead>
+                        <tr>
+                            <th style="width: 29%">Nombre</th>
+                            <th style="width: 60%">Descripción</th>
+                            <th style="width: 10%">Estado</th>
+                            <th style="width: 1%"></th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr *ngFor="let modAss of listModulesRol"
+                            class="item-list__list"
+                                >
+
+                            <td>{{modAss.nombre}}</td>
+                            <td>{{modAss.descripcion}}</td>
+                            <td>{{modAss.estado}}</td>
+
+                            <td style="white-space: normal">
+                                <button class="btn-sm item-list__admin__danger"
+                                        (click)="eliminarAcceso(modAss.id)" > 
+                                        <mat-icon>lock</mat-icon> 
+                                    Quitar Acceso
+                                </button>   
+                            </td>
+
+                        </tr>
+                    </tbody>
+                </table>
+                <br>
+            </div>
+    
+            <div *ngIf="listModulesBusiness">
+                <br>
+                <h3 style="color:#1A5276">No tiene acceso a los siguientes Módulos</h3>
+                <table class="table table-striped">
+                    <thead>
+                        <tr>
+                            <th style="width: 29%">Nombre</th>
+                            <th style="width: 50%">Descripción</th>
+                            <th style="width: 20%">Estado</th>  
+                            <th style="width: 1%"></th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr *ngFor="let modRol of listModulesBusiness"
+                            class="item-list__list"
+                                >
+
+                            <td>{{modRol.nombre}}</td>
+                            <td>{{modRol.descripcion}}</td>
+                            <td>{{modRol.estado}}</td>
+                            
+                            <td style="white-space: normal">
+                                <button class="btn-sm item-list__admin__ok"
+                                    (click)="otorgarAcceso(modRol.id)"
+                                    > <mat-icon>lock_open</mat-icon> 
+                                    Permitir Acceso
+                                </button>
+                            </td>
+
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+        
+    </div>
 </div>

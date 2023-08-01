@@ -2,17 +2,14 @@ import { FormBuilder, FormGroup, Validators  }      from '@angular/forms';
 import { Component, OnInit, ViewChild }             from '@angular/core';
 import { AccountService, AlertService }             from '@app/_services';
 import { MatSidenav }                               from '@angular/material/sidenav';
-
 import { User, Module, Compania, ScreenAccessUser } from '@app/_models';
-
 import { MatDialog }                                from '@angular/material/dialog';
 import { DialogoConfirmacionComponent }             from '@app/_components/dialogo-confirmacion/dialogo-confirmacion.component';
-
 import { first } from 'rxjs/operators';
 import { ScreenModule } from '@app/_models/admin/screenModule';
-import { ActivatedRoute } from '@angular/router';
-import { httpAccessAdminPage } from '@environments/environment-access-admin';
-import { administrator } from '@environments/environment';
+import { ActivatedRoute, Router } from '@angular/router';
+import { administrator, httpAccessAdminPage } from '@environments/environment';
+import { OnSeguridad } from '@app/_helpers/abstractSeguridad';
 
 declare var $: any;
 
@@ -20,11 +17,12 @@ declare var $: any;
     templateUrl: 'HTML_AddAccessUserModulePage.html',
     styleUrls: ['../../../assets/scss/app.scss', '../../../assets/scss/administrator/app.scss']
 })
-export class AddAccessUserModuleComponent implements OnInit {
+export class AddAccessUserModuleComponent extends OnSeguridad implements OnInit {
     @ViewChild(MatSidenav) sidenav !: MatSidenav;
 
     private nombrePantalla  : string = 'HTML_AddAccessUserModulePage.html';
-    public nombreModulo     : string ;
+    public nombreModulo     : string = 'Módulo de Administración / '
+    + 'Administración de Pantallas por Módulo y Accesos de Pantallas por Usuario';;
 
     URLListIndexModules: string = httpAccessAdminPage.urlPageListModule;
 
@@ -45,7 +43,6 @@ export class AddAccessUserModuleComponent implements OnInit {
     habilitaBtnElimibar     : boolean = false;
 
     // ## -- habilita grids -- ## //
-    screenSelected                      : boolean = false;
     habilitaPantallaModulo              : boolean = false;
     habilitaListasPantallas             : boolean = false;
     habilitaListasUsuarioCompania       : boolean = false;
@@ -59,241 +56,68 @@ export class AddAccessUserModuleComponent implements OnInit {
     public moduleScreen : Module = new Module(0,'','','','','','','');
     public moduleItemList : Module;
 
-    public today : Date ;
+    pidModuleParam : number ;
+
+    public today : Date = new Date();
 
     constructor (   private route:          ActivatedRoute,
                     private alertService:   AlertService,
                     private formBuilder:    FormBuilder,
                     private accountService: AccountService,
-                    private dialogo:        MatDialog ) {
+                    private dialogo:        MatDialog,
+                    private router:         Router ) {
+
+        super(alertService, accountService, router);
+
+        // ***************************************************************
+        // VALIDA ACCESO PANTALLA LOGIN ADMINISTRADOR
+        if (!super.userAuthenticateAdmin() ||
+            !this.route.snapshot.params.pidModule) { this.accountService.logout(); return; }
+        // ***************************************************************
 
         this.userObservable     = this.accountService.userValue;
         this.companiaObservable = this.accountService.businessValue;
 
-        this.today = new Date();
+        this.inicializaFormularioPantalla();
+
+        this.pidModuleParam = this.route.snapshot.params.pidModule;
+
+        this.buscarModuloId(this.pidModuleParam);
+        this.buscarUsuariosCompania();
     }
 
     get m () {   return this.formPantallasModulo.controls;  }
 
-    ngOnInit() {
+    ngOnInit() { this.buscarPantallasModulo(this.pidModuleParam); }
 
-        if (this.route.snapshot.params.pidModule) {
+    nuevoRegistroPantalla() : void { 
 
-            this.nombreModulo   = 'Módulo de Administración / '
-                                + 'Administración de Pantallas por Módulo y Accesos de Pantallas por Usuario';
+        this.inicializaFormPantallaModulo(); 
 
-            let moduleId  = this.route.snapshot.params.pidModule;
-
-            this.formPantallasModulo    = this.formBuilder.group({
-                idPantalla          : [null],
-                codigoPantalla      : [null],
-                nombrePantalla      : [null],
-                estadoPantalla      : [true],
-                urlExterna          : [null]
-            });
-
-            this.buscarModuloId(+moduleId);
-
-            this.buscarUsuariosCompania();
-
-            this.buscarPantallasModulo(+moduleId);
-        }
+        this.habilitaListasUsuarioCompania = false;
+        this.habilitaListaUsuariosAccesoPantalla = false;
     }
-
-    buscarModuloId(moduleId : number = 0) : void {
-        this.accountService.getModuleId(moduleId)
-            .pipe(first())
-            .subscribe(response => {
-
-                if (this.moduleScreen.descripcion=='') this.moduleScreen = response ;
-
-                this.moduleItemList = response;
-            });
-    }
-    buscarUsuariosCompania() : void {
-
-        this.alertService.clear();
-
-        this.accountService.getUsersBusiness(this.userObservable.empresa)
-            .pipe(first())
-            .subscribe(response => {
-
-                if (response && response.length > 0 && this.listPantallasModulos.length > 0) {
-
-                    this.habilitaListasUsuarioCompania = true;
-
-                    this.listUsuariosCompania = response.filter(x=>x.idRol != administrator.identification && x.idRol != administrator.adminSociedad );
-
-                } else { this.habilitaListasUsuarioCompania = false; }
-
-            }, error => { this.alertService.error('Problemas de conexión . ' + error); });
-    }
-
-    buscarPantallasModulo(idModuleSelected : number = 0) : void {
-
-        this.alertService.clear();
-        this.submittedPantallasModuloForm = true;
-
-        if (idModuleSelected === 0) {
-
-            let nombrePantalla = this.formPantallasModulo.controls['nombrePantalla'].value ;
-
-            if (!nombrePantalla) nombrePantalla = "%%" ;
-
-            this.accountService.getPantallasNombre(nombrePantalla, this.companiaObservable.id, false)
-                .pipe(first())
-                .subscribe(response => {
-
-                    if ( response && response.length > 0 ) {
-
-                        this.habilitaListasPantallas        = true;
-
-                        if(this.listUsuariosCompania.length > 0) this.habilitaListasUsuarioCompania  = true;
-
-                        this.listPantallasModulos = response ;
-
-                        this.buscarModuloId(response[0].idModulo);
-
-                        this.selectPantallaModulo(response[0]);
-
-                    } else {
-
-                        this.habilitaListasPantallas        = false;
-
-                        if(this.listUsuariosCompania.length > 0) this.habilitaListasUsuarioCompania  = true;
-
-                        this.inicializaFormPantallaModulo();
-                    }
-                }, error => { this.alertService.error('Problemas de conexión: ' + error); });
-
-        } else  {
-
-            this.accountService.getPantallasModulo(idModuleSelected, this.companiaObservable.id, true)
-            .pipe(first())
-            .subscribe(response => {
-
-                if ( response && response.length > 0 ) {
-
-                    this.habilitaListasPantallas        = true;
-
-                    if(this.listUsuariosCompania.length > 0) this.habilitaListasUsuarioCompania  = true;
-
-                    this.listPantallasModulos = response ;
-
-                    this.selectPantallaModulo(response[0]);
-
-                } else {
-
-                    this.habilitaListasPantallas        = false;
-
-                    if(this.listUsuariosCompania.length > 0) this.habilitaListasUsuarioCompania  = true;
-
-                    this.inicializaFormPantallaModulo();
-
-                }
-            }, error => { this.alertService.error('Problemas de conexión: ' + error); });
-        }
-    }
-
-    consultaUsuariosAccesoPantalla(objetoPantalla: ScreenModule) : void {
-
-        this.accountService.getUsersBusinessScreenModule(objetoPantalla.id, this.companiaObservable.id, false)
-            .pipe(first())
-            .subscribe(response => {
-
-                if ( response && response.length > 0 ) {
-
-                    this.habilitaListaUsuariosAccesoPantalla = true ;
-
-                    this.listUsuariosCompaniaPantalla = response ;
-
-                } else { this.habilitaListaUsuariosAccesoPantalla = false ; }
-            });
-    }
-
     selectPantallaModulo(objeto : ScreenModule) : void {
+
+        this.habilitaListasUsuarioCompania = true;
+        this.habilitaListaUsuariosAccesoPantalla = true;
 
         this.inicializaFormPantallaModulo(objeto);
         this.consultaUsuariosAccesoPantalla(objeto);
     }
 
-    crearPantallaAccesoUsuarioObject(idUsuario : number, idPantalla : number) : ScreenAccessUser {
-
-        var pantallaAccesUser : ScreenAccessUser = new ScreenAccessUser (this.companiaObservable.id, idUsuario, idPantalla, true) ;
-
-        return pantallaAccesUser ;
+    private inicializaFormularioPantalla() : void {
+        this.formPantallasModulo    = this.formBuilder.group({
+            idPantalla          : [null],
+            codigoPantalla      : [null],
+            nombrePantalla      : [null],
+            estadoPantalla      : [true],
+            urlExterna          : [null]
+        });
     }
-
-    removeUserAccessScreen(objeto : User) : void {
-
-        this.alertService.clear();
-
-        if (this.screenSelected) {
-
-            var pantallaId          : number = this.formPantallasModulo.controls['idPantalla'].value;
-            var userAccessScreen    : ScreenAccessUser = this.crearPantallaAccesoUsuarioObject(objeto.id, pantallaId);
-
-            this.accountService.deleteAccesoPantallaUsuario( userAccessScreen.idUsuario, userAccessScreen.idPantalla, userAccessScreen.idCompania )
-                .pipe(first())
-                .subscribe(response => {
-                    if (response.exito) {
-
-                        this.listUsuariosCompaniaPantalla.splice(this.listUsuariosCompaniaPantalla.findIndex( m => m.id == objeto.id ), 1);
-
-                        if (this.listUsuariosCompaniaPantalla.length===0) this.habilitaListaUsuariosAccesoPantalla = false ;
-
-                        this.alertService.success(response.responseMesagge);
-
-                    } else { this.alertService.error(response.responseMesagge); }
-                });
-        }
-    }
-
-    addUserAccessScreen(objeto : User) : void {
-
-        this.alertService.clear();
-
-        let existeUsuarioAcceso : boolean = false ;
-
-        if (this.listUsuariosCompaniaPantalla.length > 0) {
-
-            if (this.listUsuariosCompaniaPantalla.find( m => m.id == objeto.id )) existeUsuarioAcceso = true;
-        }
-
-        if (this.screenSelected && !existeUsuarioAcceso) {
-
-            var pantallaNombre : number = this.formPantallasModulo.controls['nombrePantalla'].value;
-
-            var pantallaId : number = this.formPantallasModulo.controls['idPantalla'].value;
-            var screenAccessUserObject : ScreenAccessUser = this.crearPantallaAccesoUsuarioObject(objeto.id, pantallaId);
-
-            screenAccessUserObject.adicionadoPor    = this.userObservable.identificacion;
-            screenAccessUserObject.fechaAdicion     = this.today;
-
-            this.accountService.postPantallaAccesoUsuario(screenAccessUserObject)
-                .pipe(first())
-                .subscribe(response => {
-
-                    if ( response ) {
-
-                        if(!this.habilitaListaUsuariosAccesoPantalla) this.habilitaListaUsuariosAccesoPantalla = true;
-
-                        this.listUsuariosCompaniaPantalla.push(objeto);
-
-                        this.alertService.success( `Acceso a pantalla ${pantallaNombre} registrado con éxito.` );
-
-                    } else { this.alertService.error(`No fue posible asignar el acceso a la pantalla .`); }
-
-                }, error => { this.alertService.error( `Problemas al establecer la conexión con el servidor. Detalle: ${ error }` ); });
-
-        } else {  this.alertService.info( `Parece que este usuario ya fue asignado .` ); }
-    }
-
-    inicializaFormPantallaModulo(objetoPantalla : ScreenModule = null) : void {
+    private inicializaFormPantallaModulo(objetoPantalla : ScreenModule = null) : void {
 
         if (objetoPantalla) {
-
-            this.screenSelected = true;
 
             this.habilitaBtnRegistro    = false;
             this.habilitaBtnActualiza   = true ;
@@ -326,8 +150,7 @@ export class AddAccessUserModuleComponent implements OnInit {
             });
         }
     }
-
-    crearPantallaObjectForm() : ScreenModule {
+    private crearPantallaObjectForm() : ScreenModule {
 
         var codigoPantalla  = this.formPantallasModulo.controls['codigoPantalla'].value;
         var nombrePantalla  = this.formPantallasModulo.controls['nombrePantalla'].value;
@@ -339,6 +162,176 @@ export class AddAccessUserModuleComponent implements OnInit {
         return pantallaForm ;
     }
 
+    buscarModuloId(moduleId : number) : void {
+        this.accountService.getModuleId(moduleId)
+            .pipe(first())
+            .subscribe(response => {
+
+                if (this.moduleScreen.id===0) this.moduleScreen = response ;
+
+                this.moduleItemList = response;
+            });
+    }
+
+    private buscarUsuariosCompania() : void {
+
+        this.alertService.clear();
+
+        this.accountService.getUsersBusiness(this.userObservable.empresa)
+            .pipe(first())
+            .subscribe(response => {
+
+                if (response && response.length > 0) {
+
+                    if (this.habilitaListasPantallas) this.habilitaListasUsuarioCompania = true;
+
+                    this.listUsuariosCompania = response.filter(x=>x.idRol != administrator.identification && x.idRol != administrator.adminSociedad );
+                    if (this.listUsuariosCompania.length === 0) this.habilitaListasUsuarioCompania = false;
+
+                } else { this.habilitaListasUsuarioCompania = false; }
+
+            }, error => { this.alertService.error('Problemas de conexión . ' + error); });
+    }
+    private consultaUsuariosAccesoPantalla(objetoPantalla: ScreenModule) : void {
+
+        this.listUsuariosCompaniaPantalla = [];
+
+        this.accountService.getUsersBusinessScreenModule(objetoPantalla.id, this.companiaObservable.id, false)
+            .pipe(first())
+            .subscribe(response => {
+
+                if ( response && response.length > 0 ) {
+
+                    this.habilitaListaUsuariosAccesoPantalla = true;
+
+                    this.listUsuariosCompaniaPantalla = response;
+
+                } else { this.habilitaListaUsuariosAccesoPantalla = false; }
+            });
+    }
+
+    buscarPantallasModulo(idModuleSelected : number = 0) : void {
+
+        this.alertService.clear();
+        this.submittedPantallasModuloForm = true;
+
+        if (idModuleSelected === 0) {
+
+            let nombrePantalla = this.formPantallasModulo.controls['nombrePantalla'].value ;
+
+            if (!nombrePantalla) nombrePantalla = "%%" ;
+
+            this.accountService.getPantallasNombre(nombrePantalla, this.companiaObservable.id, false)
+                .pipe(first())
+                .subscribe(response => {
+
+                    if ( response && response.length > 0 ) {
+
+                        this.habilitaListasPantallas = true;
+                        this.listPantallasModulos = response ;
+                        this.selectPantallaModulo(response[0]);
+
+                        this.buscarModuloId(response[0].idModulo);
+
+                    } else {
+
+                        this.habilitaListasPantallas = false;
+                        this.habilitaListasUsuarioCompania = false;
+
+                        this.inicializaFormPantallaModulo();
+                    }
+                }, error => { this.alertService.error('Problemas de conexión: ' + error); });
+
+        } else {
+
+            this.accountService.getPantallasModulo(idModuleSelected, this.companiaObservable.id, true)
+            .pipe(first())
+            .subscribe(response => {
+
+                if ( response && response.length > 0 ) {
+
+                    this.habilitaListasPantallas = true;
+                    this.listPantallasModulos = response;
+                    this.selectPantallaModulo(response[0]);
+
+                } else {
+
+                    this.habilitaListasPantallas = false;
+                    this.habilitaListasUsuarioCompania = false;
+
+                    this.inicializaFormPantallaModulo();
+                }
+            }, error => { this.alertService.error('Problemas de conexión: ' + error); });
+        }
+    }
+
+    crearPantallaAccesoUsuarioObject(idUsuario : number, idPantalla : number) : ScreenAccessUser {
+        var pantallaAccesUser : ScreenAccessUser = new ScreenAccessUser (   this.companiaObservable.id, 
+                                                                            idUsuario,
+                                                                            idPantalla, 
+                                                                            true) ;
+        return pantallaAccesUser;
+    }
+
+    removeUserAccessScreen(objeto : User) : void {
+
+        this.alertService.clear();
+
+        var pantallaId : number = this.formPantallasModulo.controls['idPantalla'].value;
+        var screenObject : ScreenAccessUser = this.crearPantallaAccesoUsuarioObject(objeto.id, pantallaId);
+
+        this.accountService.deleteAccesoPantallaUsuario( screenObject.idUsuario, screenObject.idPantalla, screenObject.idCompania )
+            .pipe(first())
+            .subscribe(response => {
+
+                if (response.exito) {
+
+                    this.listUsuariosCompaniaPantalla.splice(this.listUsuariosCompaniaPantalla.findIndex( m => m.id == objeto.id ), 1);
+
+                    if (this.listUsuariosCompaniaPantalla.length===0) this.habilitaListaUsuariosAccesoPantalla = false ;
+
+                    this.alertService.success(response.responseMesagge);
+
+                } else { this.alertService.error(response.responseMesagge); }
+            });
+    }
+
+    addUserAccessScreen(objeto : User) : void {
+
+        this.alertService.clear();
+
+        let existeUsuarioAcceso : boolean = false ;
+
+        if (this.listUsuariosCompaniaPantalla && this.listUsuariosCompaniaPantalla.length > 0) {
+            if (this.listUsuariosCompaniaPantalla.find( m => m.id == objeto.id )) existeUsuarioAcceso = true;
+        }
+
+        if (!existeUsuarioAcceso) {
+
+            var pantallaId : number = this.formPantallasModulo.controls['idPantalla'].value;
+
+            var screenAccessUserObject : ScreenAccessUser = this.crearPantallaAccesoUsuarioObject(objeto.id, pantallaId);
+
+            screenAccessUserObject.adicionadoPor = this.userObservable.identificacion;
+            screenAccessUserObject.fechaAdicion = this.today;
+
+            this.accountService.postPantallaAccesoUsuario(screenAccessUserObject)
+                .pipe(first())
+                .subscribe(response => {
+
+                    if ( response.exito ) {
+
+                        if(!this.habilitaListaUsuariosAccesoPantalla) this.habilitaListaUsuariosAccesoPantalla = true;
+
+                        this.listUsuariosCompaniaPantalla.push(objeto);
+
+                        this.alertService.success(response.responseMesagge);
+
+                    } else { this.alertService.error(response.responseMesagge); }
+                });
+        } else {  this.alertService.info( `Parece que este usuario ya ha sido asignado .` ); }
+    }
+
     submitPantallaModulo() : void {
 
         this.alertService.clear();
@@ -348,26 +341,23 @@ export class AddAccessUserModuleComponent implements OnInit {
 
         var pantallaModuloForm : ScreenModule = this.crearPantallaObjectForm();
 
-        pantallaModuloForm.adicionadoPor    = this.userObservable.identificacion;
-        pantallaModuloForm.fechaAdicion     = this.today;
+        pantallaModuloForm.adicionadoPor = this.userObservable.identificacion;
+        pantallaModuloForm.fechaAdicion = this.today;
 
         this.accountService.postPantallaModulo(pantallaModuloForm)
             .pipe(first())
             .subscribe(response => {
 
-                if ( response ) {
+                if ( response.exito ) {
 
                     this.habilitaListasPantallas = true;
-
-                    if(this.listUsuariosCompania.length > 0) this.habilitaListasUsuarioCompania  = true;
-
-                    this.listPantallasModulos.push(response);
+                    this.listPantallasModulos.push(response.objetoDb);
 
                     this.inicializaFormPantallaModulo();
 
-                    this.alertService.success( `Pantalla ${response.nombre} registrada con éxito.` );
+                    this.alertService.success(response.responseMesagge);
 
-                } else { this.alertService.error(`No fue posible registrar la pantalla .`); }
+                } else { this.alertService.error(response.responseMesagge); }
 
             }, error => { this.alertService.error( `Problemas al establecer la conexión con el servidor. Detalle: ${ error }` ); });
     }
@@ -390,14 +380,15 @@ export class AddAccessUserModuleComponent implements OnInit {
                     this.accountService.deletePantallaModulo( id )
                         .pipe(first())
                         .subscribe(response => {
+
                             if (response.exito) {
+
+                                this.habilitaListasUsuarioCompania          = false;
+                                this.habilitaListaUsuariosAccesoPantalla    = false;
 
                                 this.listPantallasModulos.splice(this.listPantallasModulos.findIndex( m => m.id == id ), 1);
 
-                                if (this.listPantallasModulos.length === 0) {
-                                    this.habilitaListasPantallas        = false;
-                                    this.habilitaListasUsuarioCompania  = false;
-                                }
+                                if (this.listPantallasModulos.length === 0) this.habilitaListasPantallas = false;
 
                                 this.inicializaFormPantallaModulo();
 
@@ -408,8 +399,6 @@ export class AddAccessUserModuleComponent implements OnInit {
                 } else { return; }
             });
     }
-
-    limpiarFormularioPantallaModulo() : void { this.inicializaFormPantallaModulo(); }
 
     actualizaPantallaModulo() : void {
 
@@ -429,18 +418,19 @@ export class AddAccessUserModuleComponent implements OnInit {
             .pipe(first())
             .subscribe(response => {
 
-                if ( response ) {
+                if ( response.exito ) {
 
-                    if( this.listPantallasModulos.find( m => m.id == response.id ) ) {
-                        this.listPantallasModulos.splice(this.listPantallasModulos.findIndex( m => m.id == response.id ), 1);
-                    }
-                    this.listPantallasModulos.push(response);
+                    this.habilitaListasUsuarioCompania          = false;
+                    this.habilitaListaUsuariosAccesoPantalla    = false;
+
+                    this.listPantallasModulos.splice(this.listPantallasModulos.findIndex( m => m.id == pantallaModuloForm.id ), 1);
+                    this.listPantallasModulos.push(response.objetoDb);
 
                     this.inicializaFormPantallaModulo();
 
-                    this.alertService.success( `Pantalla ${response.nombre} actualizada con éxito.` );
+                    this.alertService.success(response.responseMesagge);
 
-                } else { this.alertService.error(`No fue posible actualizar el registro .`); }
+                } else { this.alertService.error(response.responseMesagge); }
 
             }, error => { this.alertService.error( `Problemas al establecer la conexión con el servidor. Detalle: ${ error }` ); });
     }

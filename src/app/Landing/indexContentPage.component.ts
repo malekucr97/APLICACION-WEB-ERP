@@ -1,39 +1,20 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { first } from 'rxjs/operators';
 import { Router, ActivatedRoute } from '@angular/router';
-import { AccountService } from '@app/_services';
+import { AccountService, AlertService } from '@app/_services';
 import { User, Module } from '@app/_models';
-import { ModulesSystem } from '@environments/environment';
-import {
-  amdinBusiness,
-  httpAccessAdminPage,
-} from '@environments/environment-access-admin';
+import { ModulesSystem, environment, httpAccessAdminPage } from '@environments/environment';
 import { MatSidenav } from '@angular/material/sidenav';
 import { Compania } from '@app/_models/modules/compania';
+import { OnSeguridad } from '@app/_helpers/abstractSeguridad';
 
 @Component({
   templateUrl: 'IndexContentPage.html',
-  styleUrls: [
-    '../../assets/scss/app.scss',
-    '../../assets/scss/landing/app.scss'
-  ],
+  styleUrls: [  '../../assets/scss/app.scss', '../../assets/scss/landing/app.scss' ]
 })
-export class IndexContentPageComponent implements OnInit {
-  public URLIndexAdminPage: string = httpAccessAdminPage.urlPageAdministrator;
-
-  constructor(
-    private accountService: AccountService,
-    private router: Router,
-    private route: ActivatedRoute
-  ) {
-    this.userObservable = this.accountService.userValue;
-    this.businessObservable = this.accountService.businessValue;
-  }
-
+export class IndexContentPageComponent extends OnSeguridad implements OnInit {
   @ViewChild(MatSidenav)
   sidenav!: MatSidenav;
-
-  // conexion:boolean;
 
   userObservable: User;
   businessObservable: Compania;
@@ -42,87 +23,76 @@ export class IndexContentPageComponent implements OnInit {
   public ListModules: Module[] = [];
   private UrlHome: string = '/';
 
+  public URLConfigureUserPage: string = httpAccessAdminPage.urlPageAddEditUser;
+  public URLIndexAdminPage: string = httpAccessAdminPage.urlPageAdministrator;
+
+  private KeySessionStorageModule : string = environment.sessionStorageModuleIdentification;
+
+  constructor(  private accountService: AccountService,
+                private router: Router,
+                private route: ActivatedRoute,
+                private alertService: AlertService ) {
+
+    super(alertService, accountService, router);
+
+    // ***************************************************************
+    // VALIDA ACCESO PANTALLA LOGIN ADMINISTRADOR
+    if (!super.userAuthenticateIndexHttp()) { this.accountService.logout(); return; }
+    // ***************************************************************
+
+    this.userObservable = this.accountService.userValue;
+    this.businessObservable = this.accountService.businessValue;
+
+    this.accountService.clearObjectModuleObservable();
+  }
+
   ngOnInit() {
-    // this.conexion = false;
 
-    // valida que se haya seleccionado una empresa
-    if (this.businessObservable) {
-      // valida si el usuario que inició sesión es administrador
-      if (
-        this.userObservable.esAdmin ||
-        this.userObservable.idRol === amdinBusiness.adminSociedad
-      ) {
-        // lista los módulos activos de una compañía
-        this.accountService
-          .getModulesActiveBusiness(this.businessObservable.id)
-          .pipe(first())
-          .subscribe(
-            (responseListModules) => {
-              if (responseListModules && responseListModules.length > 0)
-                this.setListModules(responseListModules);
+    if (  super.validarUsuarioAdmin() ) {
+      // módulos activos de compañía
+      this.accountService.getModulesActiveBusiness(this.businessObservable.id)
+        .pipe(first())
+        .subscribe((responseListModules) => {
+        
+            if (responseListModules && responseListModules.length > 0) this.setListModules(responseListModules);
+        
+          }, error => { console.log(error); this.logout(); });
 
-              // this.conexion = true;
-              // this.setListModules(responseListModules);
-            },
-            (error) => {
-              // si hay algun problema redirecciona a home
-              this.router.navigate([this.UrlHome], { relativeTo: this.route });
-            }
-          );
-
-        // lista los módulos activos de un usuario
-      } else {
-        this.accountService
-          .getModulesActiveUser(
-            this.businessObservable.id,
-            this.userObservable.idRol
-          )
-          .pipe(first())
-          .subscribe(
-            (responseListModules) => {
-              if (responseListModules && responseListModules.length > 0)
-                this.setListModules(responseListModules);
-
-              // this.conexion = true;
-              // this.setListModules(responseListModules);
-            },
-            (error) => {
-              // si hay algun problema redirecciona a home
-              this.router.navigate([this.UrlHome], { relativeTo: this.route });
-            }
-          );
-      }
     } else {
-      this.router.navigate([this.UrlHome], { relativeTo: this.route });
+      // módulos activos de usuario
+      this.accountService.getModulesActiveUser( this.businessObservable.id, this.userObservable.idRol )
+        .pipe(first())
+        .subscribe((responseListModules) => {
+
+            if (responseListModules && responseListModules.length > 0) this.setListModules(responseListModules);
+          
+          }, error => { console.log(error); this.logout(); });
     }
   }
 
-  private setListModules(responseListModules: Module[] = null): void {
-    if (responseListModules) {
-      var resp = responseListModules[0].pathLogo;
+  public redirectPageConfigUser() : void{
+    if (  super.validarUsuarioAdmin() ) {
+      this.router.navigate([this.URLIndexAdminPage]);
+    } else { this.router.navigate([this.URLConfigureUserPage + this.userObservable.identificacion]); }
+  }
 
-      responseListModules.forEach((module) => {
-        this.ListModules.push(
-          new Module(
-            module.id,
-            module.identificador,
-            module.nombre,
-            module.descripcion,
-            module.estado,
-            module.pathLogo,
-            '',
-            this.redireccionIndexModulosHTTP(module.identificador)
-          )
-        );
-      });
-    }
+  private setListModules(responseListModules: Module[]): void {
+
+    responseListModules.forEach((module) => { 
+      this.ListModules.push( new Module(module.id,
+                                        module.identificador,
+                                        module.nombre,
+                                        module.descripcion,
+                                        module.estado,
+                                        module.pathLogo,
+                                        '',
+                                        this.redireccionIndexModulosHTTP(module.identificador)
+        ));
+    });
   }
   redireccionIndexModulosHTTP(identificador: string): string {
-    const procesoBusquedaPowerBi = (terminoBuscado) => {
-      if (identificador.includes(terminoBuscado)) {
-        return identificador;
-      }
-    };
+
+    const procesoBusquedaPowerBi = (terminoBuscado) => { if (identificador.includes(terminoBuscado)) return identificador; };
 
     let indexHTTPModule: string = '';
 
@@ -167,7 +137,7 @@ export class IndexContentPageComponent implements OnInit {
         indexHTTPModule = ModulesSystem.powerbibasehref + 'index.html'; // ## Power BI ## //
         break;
       default:
-        indexHTTPModule = '/';
+        indexHTTPModule = this.UrlHome;
     }
     return indexHTTPModule;
   }
@@ -178,10 +148,12 @@ export class IndexContentPageComponent implements OnInit {
     let module: Module = this.ListModules.find((x) => x.id === mod.id);
     this.accountService.loadModuleAsObservable(module);
 
+    // sessionStorage.setItem(this.KeySessionStorageModule, module.identificador);
+    // sessionStorage.removeItem(this.KeySessionStorageModule);
+
     this.router.navigate([module.indexHTTP]);
   }
+  // ******************************************
 
-  logout() {
-    this.accountService.logout();
-  }
+  logout() { this.accountService.logout(); }
 }

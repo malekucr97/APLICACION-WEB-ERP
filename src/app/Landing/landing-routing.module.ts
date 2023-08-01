@@ -1,15 +1,13 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
-
 import { LayoutComponent } from './layout.component';
-
 import { IndexContentPageComponent } from './indexContentPage.component';
-
 import { PendingUserPageComponent } from './nologgin/pendingPage.component';
 import { NotRolPageComponent } from './nologgin/notRolPage.component';
 import { InactiveUserPageComponent } from './nologgin/inactiveUserPage.component';
 import { InactiveRolPageComponent } from './nologgin/inactiveRolPage.component';
 import { NotBusinessUserPageComponent } from './nologgin/notBusinessUserPage.component';
+import { BlockedUserPageComponent } from './nologgin/blockedUserPage.component';
 
 const routes: Routes = [
     {
@@ -33,6 +31,8 @@ const routes: Routes = [
             { path: 'InactiveRolPage/index.html', component: InactiveRolPageComponent },
             // Usuario sin compañía
             { path: 'NotBusinessPage/index.html', component: NotBusinessUserPageComponent },
+            // Usuario bloqueado
+            { path: 'BlockedUserPage/index.html', component: BlockedUserPageComponent },
         ]
     }
 ];

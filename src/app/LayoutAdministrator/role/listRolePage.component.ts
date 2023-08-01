@@ -2,27 +2,19 @@ import { Component, OnInit } from '@angular/core';
 import { first } from 'rxjs/operators';
 import { AccountService, AlertService } from '@app/_services';
 import { User, Role } from '@app/_models';
-import {
-  administrator,
-  amdinBusiness,
-  httpAccessAdminPage
-} from '@environments/environment-access-admin';
 import { Compania } from '@app/_models/modules/compania';
 import { Router } from '@angular/router';
 import { OnSeguridad } from '@app/_helpers/abstractSeguridad';
-import { httpLandingIndexPage } from '@environments/environment';
+import { administrator, httpAccessAdminPage } from '@environments/environment';
 
-@Component({ templateUrl: 'HTML_ListRolePage.html' })
+@Component({templateUrl: 'HTML_ListRolePage.html',
+            styleUrls: [  '../../../assets/scss/app.scss', '../../../assets/scss/administrator/app.scss']
+})
 export class ListRoleComponent extends OnSeguridad implements OnInit {
   userObservable: User;
   businessObservable: Compania;
 
   listRoles: Role[] = [];
-
-  isActivating: boolean = false;
-  isInActivating: boolean = false;
-  isWriting: boolean = false;
-  isReading: boolean = false;
 
   adminBoss: boolean;
   adminBusiness: boolean;
@@ -32,182 +24,110 @@ export class ListRoleComponent extends OnSeguridad implements OnInit {
 
   idBusiness: string;
 
-  private Home: string = httpLandingIndexPage.homeHTTP;
-  private Index: string = httpLandingIndexPage.indexHTTP;
+  constructor(  private accountService: AccountService,
+                private alertService: AlertService,
+                private router: Router ) {
 
-  constructor(
-    private accountService: AccountService,
-    private alertService: AlertService,
-    private router: Router
-  ) {
     super(alertService, accountService, router);
+
+    // ***************************************************************
+    // VALIDA ACCESO PANTALLA LOGIN ADMINISTRADOR
+    if (!super.userAuthenticateAdmin()) { this.accountService.logout(); return; }
+    // ***************************************************************
+
     this.userObservable = this.accountService.userValue;
     this.businessObservable = this.accountService.businessValue;
   }
 
-  ngOnInit() {
-    if (!this.businessObservable) {
-      this.router.navigate([this.Home]);
-      return;
-    }
-    if (!super.validarUsuarioAdmin()) {
-      this.router.navigate([this.Index]);
-      return;
-    }
-    this.obtenerRoles();
-  }
+  ngOnInit() { this.obtenerRoles(); }
 
   private obtenerRoles() {
-    this.accountService
-      .getAllRoles()
+    this.accountService.getRolesBusiness(this.businessObservable.id)
       .pipe(first())
       .subscribe((responseRoles) => {
-        if (this.userObservable.idRol == amdinBusiness.adminSociedad)
-          this.listRoles = responseRoles.filter(
-            (x) => x.id !== administrator.id
-          );
-        else this.listRoles = responseRoles;
-        this.accountService.suscribeListRol(this.listRoles);
+
+        if (responseRoles && responseRoles.length > 0) {
+          
+          if (this.userObservable.idRol == administrator.adminSociedad) {
+            // elimina el rol admin general de la lista si quien inicia sesión es un admin de empresa
+            this.listRoles = responseRoles.filter( (x) => x.id !== administrator.identification );
+          }
+          else { this.listRoles = responseRoles; } 
+  
+          this.accountService.suscribeListRol(this.listRoles);
+
+        } else { this.alertService.info('La compañía ' + this.businessObservable.nombre + ' no posee roles asignados.'); }
       });
   }
 
-  private updateRol(
-    rolUpdate: Role,
-    rolList: Role,
-    idRol: string,
-    accion: string,
-    actualizaDato: string
-  ): void {
-    this.accountService
-      .updateRol(rolUpdate)
+  private updateRol( rolUpdate: Role): void {
+    
+    this.accountService.updateRol(rolUpdate, this.businessObservable.id)
       .pipe(first())
-      .subscribe(
-        (responseUpdate) => {
+      .subscribe((responseUpdate) => {
+
           if (responseUpdate.exito) {
-            this.listRoles[this.listRoles.findIndex((r) => r.id == idRol)] =
-              rolList;
-            this.alertService.success(responseUpdate.responseMesagge, {
-              keepAfterRouteChange: false,
-            });
-          } else {
-            this.alertService.error(responseUpdate.responseMesagge, {
-              keepAfterRouteChange: false,
-            });
 
-            switch (accion) {
-              case 'Estado': {
-                rolList.estado = actualizaDato;
-                break;
-              }
-              case 'Tipo': {
-                rolList.tipo = actualizaDato;
-                break;
-              }
-              default: {
-                null;
-                break;
-              }
-            }
+            this.listRoles[this.listRoles.findIndex((r) => r.id == rolUpdate.id)] = rolUpdate;
+            this.alertService.success(responseUpdate.responseMesagge);
 
-            this.listRoles[this.listRoles.findIndex((r) => r.id == idRol)] =
-              rolList;
-          }
-          this.isActivating = false;
-          this.isInActivating = false;
-          this.isWriting = false;
-          this.isReading = false;
+          } else { this.alertService.error(responseUpdate.responseMesagge); }
         },
-        (error) => {
-          this.alertService.error(error, { keepAfterRouteChange: false });
-        }
+        (error) => { this.alertService.error(error); }
       );
   }
 
   activateRole(idRol: string) {
+
     this.alertService.clear();
 
-    if (idRol !== administrator.id) {
-      let estado = 'Activo';
-      this.isActivating = true;
+    if (idRol !== administrator.identification) {
+      
+      let rolUpdate : Role = this.listRoles.find((x) => x.id === idRol);
+      rolUpdate.estado = 'Activo';
 
-      let rolList = this.listRoles.find((x) => x.id === idRol);
-      rolList.estado = estado;
+      this.updateRol(rolUpdate);
 
-      let rolUpdate: Role = new Role();
-      rolUpdate.id = idRol;
-      rolUpdate.estado = estado;
-
-      this.updateRol(rolUpdate, rolList, idRol, 'Estado', 'Inactivo');
-    } else {
-      let message =
-        'No se puede modificar el estado de la cuenta administradora del sistema';
-      this.alertService.info(message, { keepAfterRouteChange: false });
-    }
+    } else { this.alertService.info('No se puede modificar el estado de la cuenta administradora del sistema'); }
   }
 
   inActivateRole(idRol: string) {
+
     this.alertService.clear();
 
-    if (idRol !== administrator.id) {
-      let estado = 'Inactivo';
-      this.isInActivating = true;
+    if (idRol !== administrator.identification) {
 
-      let rolList = this.listRoles.find((x) => x.id === idRol);
-      rolList.estado = estado;
+      let rolUpdate = this.listRoles.find((x) => x.id === idRol);
+      rolUpdate.estado = 'Inactivo';
 
-      let rolUpdate: Role = new Role();
-      rolUpdate.id = idRol;
-      rolUpdate.estado = estado;
+      this.updateRol(rolUpdate);
 
-      this.updateRol(rolUpdate, rolList, idRol, 'Estado', 'Activo');
-    } else {
-      let message =
-        'No se puede modificar el estado de la cuenta administradora del sistema';
-      this.alertService.info(message, { keepAfterRouteChange: false });
-    }
+    } else { this.alertService.info('No se puede modificar el estado de la cuenta administradora del sistema'); }
   }
 
   escritura(idRol: string) {
     this.alertService.clear();
 
-    if (idRol !== administrator.id) {
-      let tipo = 'Escritura';
-      this.isWriting = true;
+    if (idRol !== administrator.identification) {
 
-      let rolList = this.listRoles.find((x) => x.id === idRol);
-      rolList.tipo = tipo;
+      let rolUpdate = this.listRoles.find((x) => x.id === idRol);
+      rolUpdate.tipo = 'Escritura';
 
-      let rolUpdate: Role = new Role();
-      rolUpdate.id = idRol;
-      rolUpdate.tipo = tipo;
+      this.updateRol(rolUpdate);
 
-      this.updateRol(rolUpdate, rolList, idRol, 'Tipo', 'Lectura');
-    } else {
-      let message =
-        'No se puede cambiar el tipo de permisos de la cuenta administradora del sistema';
-      this.alertService.info(message, { keepAfterRouteChange: false });
-    }
+    } else { this.alertService.info('No se puede cambiar el tipo de permisos de la cuenta administradora del sistema'); }
   }
 
   lectura(idRol: string) {
     this.alertService.clear();
 
-    if (idRol !== administrator.id) {
-      let tipo = 'Lectura';
-      this.isReading = true;
+    if (idRol !== administrator.identification) {
 
-      let rolList = this.listRoles.find((x) => x.id === idRol);
-      rolList.tipo = tipo;
+      let rolUpdate = this.listRoles.find((x) => x.id === idRol);
+      rolUpdate.tipo = 'Lectura';
 
-      let rolUpdate: Role = new Role();
-      rolUpdate.id = idRol;
-      rolUpdate.tipo = tipo;
+      this.updateRol(rolUpdate);
 
-      this.updateRol(rolUpdate, rolList, idRol, 'Tipo', 'Escritura');
-    } else {
-      let message =
-        'No se puede cambiar el tipo de permisos de la cuenta administradora del sistema';
-      this.alertService.info(message, { keepAfterRouteChange: false });
-    }
+    } else { this.alertService.info('No se puede cambiar el tipo de permisos de la cuenta administradora del sistema'); }
   }
 }

@@ -1,13 +1,13 @@
 import { Component, OnInit } from '@angular/core';
 import { User } from '@app/_models';
-import { AccountService } from '@app/_services';
-import { amdinBusiness, httpAccessAdminPage } from '@environments/environment-access-admin';
-import { Router } from '@angular/router';
+import { AccountService, AlertService } from '@app/_services';
 import { Compania } from '@app/_models/modules/compania';
-import { httpLandingIndexPage } from '@environments/environment';
+import { httpAccessAdminPage } from '@environments/environment';
+import { Router } from '@angular/router';
+import { OnSeguridad } from '@app/_helpers/abstractSeguridad';
 
 @Component({ templateUrl: 'HTML_AdminUserPage.html' })
-export class AdminUserComponent implements OnInit {
+export class AdminUserComponent extends OnSeguridad implements OnInit {
 
     userObservable: User;
     businessObservable: Compania;
@@ -18,24 +18,20 @@ export class AdminUserComponent implements OnInit {
     URLListModulePage: string = httpAccessAdminPage.urlPageListModule;
     URLListRolePage: string = httpAccessAdminPage.urlPageListRole;
 
-    private Home:string = httpLandingIndexPage.homeHTTP;
-
-    constructor(private accountService: AccountService, 
+    constructor(private accountService: AccountService,
+                private alertService: AlertService,
                 private router: Router) {
+
+        super(alertService, accountService, router);
+
+        // ***************************************************************
+        // VALIDA ACCESO PANTALLA LOGIN ADMINISTRADOR
+        if (!super.userAuthenticateAdmin()) { this.accountService.logout(); return; }
+        // ***************************************************************
+
         this.userObservable = this.accountService.userValue;
         this.businessObservable = this.accountService.businessValue;
     }
 
-    ngOnInit() {
-
-        if (!this.businessObservable) {
-            this.router.navigate([this.Home]);
-            return;
-        }
-
-        if (!this.userObservable.esAdmin && this.userObservable.idRol !== amdinBusiness.adminSociedad) {
-            this.router.navigate([this.URLConfigureUserPage + this.userObservable.identificacion]); 
-            return;
-        }
-    }
+    ngOnInit() { }
 }

@@ -11,6 +11,7 @@ import { PendingUserPageComponent }     from './nologgin/pendingPage.component';
 import { NotRolPageComponent }          from './nologgin/notRolPage.component';
 import { NotBusinessUserPageComponent } from './nologgin/notBusinessUserPage.component';
 import { InactiveRolPageComponent }     from './nologgin/inactiveRolPage.component';
+import { BlockedUserPageComponent }     from './nologgin/blockedUserPage.component';
 
 // -- importaciones menú
 import { MatToolbarModule } from '@angular/material/toolbar';
@@ -18,6 +19,7 @@ import { MatSidenavModule } from '@angular/material/sidenav';
 import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
 import { MatDividerModule } from '@angular/material/divider';
+
 
 @NgModule({
     imports: [
@@ -49,7 +51,8 @@ import { MatDividerModule } from '@angular/material/divider';
         PendingUserPageComponent,
         NotRolPageComponent,
         NotBusinessUserPageComponent,
-        InactiveRolPageComponent
+        InactiveRolPageComponent,
+        BlockedUserPageComponent
     ]
 })
 export class LandingModule { }

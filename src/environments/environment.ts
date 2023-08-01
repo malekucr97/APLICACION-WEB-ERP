@@ -2,32 +2,35 @@
 
 export const environment = {
     production: false,
-    apiUrl: 'http://localhost:4000'
+    apiUrl: 'http://localhost:4000',
+
+    sessionStorageIdentificationUserKey: '_httpUsernameSessionStorageAppAdminModulesInraSA',
+    sessionStorageModuleIdentification : '_httpModuleSelectedSessionStorageAppAdminModulesInraSA'
 };
 
 export const administrator = {
-    production: true,
     identification: 'adminboss',
     state: 'admin',
-    urlRedirect: '',
     adminSociedad: 'admin-e'
 };
 
 export const register = {
-    production: true,
     state: 'Registrado',
     urlRedirect: ''
 };
 
 export const pending = {
-    production: true,
     state: 'Pendiente',
     urlRedirect: ''
 };
 
 export const active = {
-    production: true,
     state: 'Activo',
+    urlRedirect: ''
+};
+
+export const inactive = {
+    state: 'Inactivo',
     urlRedirect: ''
 };
 
@@ -42,7 +45,10 @@ export const httpLandingIndexPage = {
     indexHTTPNotRolUser:        '/inra-sa/NotRolPage/index.html',
     indexHTTPInactiveUser:      '/inra-sa/InactiveUserPage/index.html',
     indexHTTPInactiveRolUser:   '/inra-sa/InactiveRolPage/index.html',
-    urlPageNotBusiness:         '/inra-sa/NotBusinessPage/index.html'
+    indexHTTPBlockedUser:       '/inra-sa/BlockedUserPage/index.html',
+    indexHTTPNoBussinesUser:    '/inra-sa/NotBusinessPage/index.html'
+    // ,
+    // urlPageNotBusiness:         '/inra-sa/NotBusinessPage/index.html'
 };
 
 export const ModulesSystem = {
