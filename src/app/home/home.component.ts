@@ -8,9 +8,8 @@ import { active, httpLandingIndexPage } from '@environments/environment';
 import { OnSeguridad } from '@app/_helpers/abstractSeguridad';
 import { Bitacora } from '@app/_models/bitacora';
 
-@Component({
-    templateUrl: 'HTML_HomePage.html',
-    styleUrls: ['../../assets/scss/app.scss']
+@Component({templateUrl: 'HTML_HomePage.html',
+            styleUrls: ['../../assets/scss/app.scss']
 })
 export class HomeComponent extends OnSeguridad implements OnInit {
 
@@ -35,6 +34,8 @@ export class HomeComponent extends OnSeguridad implements OnInit {
         // VALIDA ACCESO PANTALLA
         if (!super.userAuthenticateHome()) { this.accountService.logout(); return; }
         // *********************************************************
+
+        this.accountService.clearObjectBusinesObservable();
 
         this.userObservable = this.accountService.userValue;
         this.today = new Date();

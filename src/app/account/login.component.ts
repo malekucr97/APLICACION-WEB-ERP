@@ -27,7 +27,7 @@ export class LoginComponent implements OnInit {
 
     _httpInactiveRolePage   : string = httpLandingIndexPage.indexHTTPInactiveRolUser;
 
-    KeySessionStorageUserName : string = environment.sessionStorageIdentificationUserKey;
+    private KeySessionStorageUserName : string = environment.sessionStorageIdentificationUserKey;
 
     SSLState : boolean = false;
 
