@@ -24,7 +24,7 @@ export class ConfigurationCompaniaComponent extends OnSeguridad implements OnIni
     tituloBasePantalla: string = 'Parametrización de la Compañía';
 
     URLIndexHomeGenerales: string = ModulesSystem.generalesbasehref + 'index.html';
-    
+
     userObservable:     User;
     moduleObservable:   Module;
     companiaObservable: Compania;
@@ -38,8 +38,8 @@ export class ConfigurationCompaniaComponent extends OnSeguridad implements OnIni
     public today : Date ;
 
     constructor (   private formBuilder: FormBuilder,
-                    private accountService: AccountService, 
-                    private generalesSerice: GeneralesService, 
+                    private accountService: AccountService,
+                    private generalesSerice: GeneralesService,
                     private alertService: AlertService,
                     private router: Router) {
 
@@ -77,20 +77,25 @@ export class ConfigurationCompaniaComponent extends OnSeguridad implements OnIni
                 tipoIdentificacionCompania:     [this.companiaSeleccionada.tipoIdentificacion, Validators.required],
                 numeroIdentificacionCompania:   [this.companiaSeleccionada.cedulaJuridica, Validators.required],
                 correoElectronicoCompania:      [this.companiaSeleccionada.correoElectronico, Validators.required],
-    
+
                 codigoPaisUbicacionCompania:    [this.companiaSeleccionada.codigoPaisUbicacion],
                 provinciaCompania:              [this.companiaSeleccionada.provincia, Validators.required],
                 cantonCompania:                 [this.companiaSeleccionada.canton, Validators.required],
                 distritoCompania:               [this.companiaSeleccionada.distrito, Validators.required],
                 barrioCompania:                 [this.companiaSeleccionada.barrio, Validators.required],
                 detalleDireccionCompania:       [this.companiaSeleccionada.detalleDireccion, Validators.required],
-    
+
                 codigoTelefonoCompania: [this.companiaSeleccionada.codigoTelefono],
                 telefonoCompania:       [this.companiaSeleccionada.telefono, Validators.required],
-    
+
                 claveCorreoCompania:    [null],
-                hostCorreoCompania:     [this.companiaSeleccionada.hostCorreo],
-                puertoCorreoCompania:   [this.companiaSeleccionada.puertoCorreo]
+                hostCorreoCompania:                 [this.companiaSeleccionada.hostCorreo],
+                puertoCorreoCompania:               [this.companiaSeleccionada.puertoCorreo],
+                estadoSSLCompania:                  [this.companiaSeleccionada.estadoSSL],
+                mantenimientoReportesCompania:      [this.companiaSeleccionada.mantenimientoReportes],
+                tamanoModuloDefectoCompania:      [this.companiaSeleccionada.tamanoModuloDefecto],
+                cuentaCorreoDefectoCompania:      [this.companiaSeleccionada.cuentaCorreoDefecto],
+
             });
         } else { this.companiaSeleccionada = null; }
     }
@@ -104,7 +109,7 @@ export class ConfigurationCompaniaComponent extends OnSeguridad implements OnIni
         companiaForm.tipoIdentificacion = this.companiaForm.get('tipoIdentificacionCompania').value;
         companiaForm.cedulaJuridica = this.companiaForm.get('numeroIdentificacionCompania').value;
         companiaForm.correoElectronico = this.companiaForm.get('correoElectronicoCompania').value;
-        
+
         companiaForm.codigoPaisUbicacion = this.companiaForm.get('codigoPaisUbicacionCompania').value;
         companiaForm.provincia = this.companiaForm.get('provinciaCompania').value;
         companiaForm.canton = this.companiaForm.get('cantonCompania').value;
@@ -114,25 +119,29 @@ export class ConfigurationCompaniaComponent extends OnSeguridad implements OnIni
         companiaForm.codigoTelefono = this.companiaForm.get('codigoTelefonoCompania').value;
         companiaForm.telefono = this.companiaForm.get('telefonoCompania').value;
 
-        if(this.companiaForm.get('claveCorreoCompania').value) 
+        if(this.companiaForm.get('claveCorreoCompania').value)
             companiaForm.claveCorreo = this.companiaForm.get('claveCorreoCompania').value;
-        
+
         companiaForm.hostCorreo = this.companiaForm.get('hostCorreoCompania').value;
         companiaForm.puertoCorreo = this.companiaForm.get('puertoCorreoCompania').value;
+        companiaForm.estadoSSL = this.companiaForm.get('estadoSSLCompania').value;
+        companiaForm.mantenimientoReportes = this.companiaForm.get('mantenimientoReportesCompania').value;
+        companiaForm.tamanoModuloDefecto = this.companiaForm.get('tamanoModuloDefectoCompania').value;
+        companiaForm.cuentaCorreoDefecto = this.companiaForm.get('cuentaCorreoDefectoCompania').value;
 
         return companiaForm;
     }
-    
+
     selectObjetoCompania() : void { this.iniciarFormulario(this.companiaSeleccionada); }
 
     UpdateCompania() : void {
 
         this.alertService.clear();
- 
+
         this.submitFormCompania = true;
 
         if (this.companiaForm.invalid) return;
-        
+
         let objectFormCompania = this.crearObjectFormEncabezado();
 
         objectFormCompania.modificadoPor        = this.userObservable.identificacion;
@@ -148,9 +157,9 @@ export class ConfigurationCompaniaComponent extends OnSeguridad implements OnIni
                     this.accountService.loadBusinessAsObservable(objectFormCompania);
 
                     this.iniciarFormulario(objectFormCompania);
-                    
+
                     this.alertService.success(response.responseMesagge);
-                    
+
                 } else { this.alertService.error(response.responseMesagge); }
             },
             error => { this.alertService.error(error); });
@@ -158,7 +167,7 @@ export class ConfigurationCompaniaComponent extends OnSeguridad implements OnIni
 }
 
 // function createObjectADNCompania(companiaForm: Compania, operationName:string, module:string, entityName:string) : string {
-    
+
 //     let req : string = `{
 //                     "OperationName":"${ operationName }",
 //                     "Module":"${ module }",
@@ -266,6 +275,6 @@ export class ConfigurationCompaniaComponent extends OnSeguridad implements OnIni
 //                 console.log(req);
 
 //                 let obj = JSON.parse(req);
-                
+
 //                 return req;
 // }

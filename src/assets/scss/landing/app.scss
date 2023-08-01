@@ -103,6 +103,22 @@
     }
 }
 
+.buscador-module-section {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  height: 40px;
+
+  &_input {
+    background-color: white;
+    width: 300px;
+    border: 1px solid black;
+    border-radius: 5px;
+    padding: 5px 10px;
+  }
+
+}
+
 .menu-module-item-section {
     display: flex;
     flex-direction: row;

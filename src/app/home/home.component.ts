@@ -35,7 +35,7 @@ export class HomeComponent implements OnInit {
         this.userObservable = this.accountService.userValue;
 
         // if (this.userObservable.codeNoLogin === '404') {
-        //     this.router.navigate([this._httpLoginPage]); 
+        //     this.router.navigate([this._httpLoginPage]);
         //     return;
         // }
 
@@ -52,13 +52,13 @@ export class HomeComponent implements OnInit {
 
             this.conexion   = true;
             this.message    = 'Seleccione la Compañía';
-            
+
             if (this.userObservable.esAdmin) {
 
                 this.accountService.getAllBusiness()
                     .pipe(first())
                     .subscribe(listComaniesResponse => {
-                        
+
                         if (listComaniesResponse && listComaniesResponse.length > 0) {
                             this.listBusiness = listComaniesResponse;
 
@@ -78,7 +78,7 @@ export class HomeComponent implements OnInit {
                     });
             }
         }
-        // else { this.router.navigate([this._httpLoginPage]); }
+        else { this.accountService.logout(); }
 
 
 
@@ -96,14 +96,14 @@ export class HomeComponent implements OnInit {
 
         //         // valida adminboss
         //         if (administrator.identification === this.roleUser.id) {
-                        
+
         //             this.userObservable.esAdmin = true;
         //             this.accountService.loadUserAsObservable(this.userObservable);
 
         //             this.accountService.getAllBusiness()
         //             .pipe(first())
         //             .subscribe(listComaniesResponse => {
-                        
+
         //                 if (listComaniesResponse && listComaniesResponse.length > 0) {
         //                     this.listBusiness = listComaniesResponse;
         //                 } else {
@@ -127,7 +127,7 @@ export class HomeComponent implements OnInit {
         //                     return;
         //                 }
         //             });
-        //         } 
+        //         }
         //     });
     }
 

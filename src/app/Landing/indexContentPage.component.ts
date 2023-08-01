@@ -37,6 +37,7 @@ export class IndexContentPageComponent implements OnInit {
 
   userObservable: User;
   businessObservable: Compania;
+  valorBuscado: string = 'as';
 
   public ListModules: Module[] = [];
   private UrlHome: string = '/';
