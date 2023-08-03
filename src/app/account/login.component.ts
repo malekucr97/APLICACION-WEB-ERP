@@ -116,8 +116,6 @@ export class LoginComponent implements OnInit {
                 this.loading    = false;
                 this.submitted  = false;
             },
-            (error) => {
-                this.alertService.error('Problemas al obtener respuesta del Servidor. Por favor contacte al administrador.' + error);
-            });
+            (error) => { this.alertService.error('Problemas al obtener respuesta del Servidor. Por favor contacte al administrador.' + error); });
     }
 }

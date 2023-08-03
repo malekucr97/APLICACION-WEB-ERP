@@ -6,7 +6,9 @@ import { httpAccessAdminPage } from '@environments/environment';
 import { Router } from '@angular/router';
 import { OnSeguridad } from '@app/_helpers/abstractSeguridad';
 
-@Component({ templateUrl: 'HTML_AdminUserPage.html' })
+@Component({templateUrl: 'HTML_AdminUserPage.html',
+            styleUrls: [  '../../../assets/scss/app.scss' ]
+})
 export class AdminUserComponent extends OnSeguridad implements OnInit {
 
     userObservable: User;

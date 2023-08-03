@@ -5,11 +5,11 @@
 @mixin bg-color-skyblue { background-color: #00AEEF; }
 @mixin bg-color-light-gray { background-color: #B3B3B3; }
 @mixin font-aero {
-    font-family: "../../assets/fonts/Aero.ttf";
-    font-size: 1.8rem;
+    // font-family: "../../assets/fonts/Aero.ttf";
+    font-size: 1.6rem;
     font-weight: 750;
     text-align: center;
-    @media (max-width: 800px) {
+    @media (max-width: 1146px) {
         font-size: 1.2rem;
     }
 }
@@ -34,6 +34,117 @@ td {
     &__messaje{
         margin-top: 35px;
         text-align: center;
+    }
+}
+
+.var-menu {
+    @include bg-color-darkest-blue;
+
+    border-top: 1px solid rgb(202, 202, 202);
+
+    &__prev {
+        width: 15%;
+        padding-left: 1%;
+        display: inline-block;
+    }
+
+    &__center {
+
+        width: 70%;
+        display: inline-block;
+        text-align: center;
+
+        &__left {
+            display: inline-block;
+            text-align: center;
+            &__img { width: 70%; }
+        }
+        &__center {
+            display: inline-block;
+            padding-left: 2%;
+            padding-right: 2%;
+            &__titulo {
+                color: white;
+                padding-top: 1%;
+                @include font-aero;
+            }
+        }
+        &__rigth {
+            display: inline-block;
+            text-align: center;
+            &__img { width: 70%; }
+        }
+    }
+
+    &__next {
+        width: 15%;
+
+        display: inline-block;
+        text-align: right;
+        padding-right: 1%;
+
+        &__logout {
+            color: white;
+            &:hover {
+                color: white;
+                background-color: #f91b1b;
+                cursor: pointer;
+            }
+        }
+        &__home {
+            color: white;
+            &:hover {
+                color: white;
+                background-color: #F9A01B;
+                cursor: pointer;
+            }
+        }
+        &__config {
+            color: white;
+            &:hover {
+                color: white;
+                background-color: #00AEEF;
+                cursor: pointer;
+            }
+        }
+    }
+}
+ // ## -- >> Contenido INDEX Módulos
+.content {
+    height: calc(52vh - 1px);
+    margin: 20px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    border-radius: 10px;
+
+    &__menu {
+        display: flex;
+        flex-direction: row;
+        justify-content: center;
+        align-items: center;
+        flex-wrap: wrap;
+
+        padding-top: 2%;
+    
+        &__item {
+            text-align: center;
+            &__titulo {
+                color: #005188;
+                font-size: 1rem;
+                font-weight: 700;
+                transition: color 0.2s ease-in-out;
+    
+                @media (min-width: 1500px) {
+                    font-size: 1.5rem;
+                }
+            }
+            &__logo{
+                margin-top: 5%;
+                border-radius: 50%;
+            }
+        }
     }
 }
 

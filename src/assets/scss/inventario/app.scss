@@ -1,59 +1,59 @@
-@mixin bg-color-orange { background-color: #F9A01B; }
-@mixin bg-color-dark-blue { background-color: #0F426A; }
-@mixin bg-color-darkest-blue { background-color: #053254; }
-@mixin bg-color-blue { background-color: #005188; }
-@mixin bg-color-skyblue { background-color: #00AEEF; }
-@mixin bg-color-light-gray { background-color: #B3B3B3; }
+// @mixin bg-color-orange { background-color: #F9A01B; }
+// @mixin bg-color-dark-blue { background-color: #0F426A; }
+// @mixin bg-color-darkest-blue { background-color: #053254; }
+// @mixin bg-color-blue { background-color: #005188; }
+// @mixin bg-color-skyblue { background-color: #00AEEF; }
+// @mixin bg-color-light-gray { background-color: #B3B3B3; }
 
-.content {
-    // eliminar height cuando se agregue contenido a la pantalla
-    height: calc(52vh - 1px);
-    margin: 20px;
-    display: flex;
-    justify-content: center;
-    align-items: center;
+// .content {
+//     // eliminar height cuando se agregue contenido a la pantalla
+//     height: calc(52vh - 1px);
+//     margin: 20px;
+//     display: flex;
+//     justify-content: center;
+//     align-items: center;
 
-    border-radius: 10px;
+//     border-radius: 10px;
 
-    &__menu {
-        display: flex;
-        flex-direction: row;
-        justify-content: center;
-        align-items: center;
-        flex-wrap: wrap;
+//     &__menu {
+//         display: flex;
+//         flex-direction: row;
+//         justify-content: center;
+//         align-items: center;
+//         flex-wrap: wrap;
 
-        padding-top: 2%;
+//         padding-top: 2%;
     
-        &__item {
-            text-align: center;
-            &__titulo {
-                color: #005188;
-                font-size: 1rem;
-                font-weight: 700;
-                transition: color 0.2s ease-in-out;
+//         &__item {
+//             text-align: center;
+//             &__titulo {
+//                 color: #005188;
+//                 font-size: 1rem;
+//                 font-weight: 700;
+//                 transition: color 0.2s ease-in-out;
     
-                @media (min-width: 1500px) {
-                    font-size: 1.5rem;
-                }
-            }
-            &__logo{
-                margin-top: 5%;
-                border-radius: 50%;
-            }
-        }
-    }
-}
+//                 @media (min-width: 1500px) {
+//                     font-size: 1.5rem;
+//                 }
+//             }
+//             &__logo{
+//                 margin-top: 5%;
+//                 border-radius: 50%;
+//             }
+//         }
+//     }
+// }
 
-.content-form {
-    height: calc(65vh - 30px);
-    margin: 20px;
-    display: flex;
-    justify-content: center;
-    align-items: center;
+// .content-form {
+//     height: calc(65vh - 30px);
+//     margin: 20px;
+//     display: flex;
+//     justify-content: center;
+//     align-items: center;
 
-    border-radius: 10px;
-}
+//     border-radius: 10px;
+// }
 
-.modal {
-    margin-top: 10%;
-}
+// .modal {
+//     margin-top: 10%;
+// }
