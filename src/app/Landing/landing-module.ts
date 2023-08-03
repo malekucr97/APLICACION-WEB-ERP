@@ -19,6 +19,7 @@ import { MatSidenavModule } from '@angular/material/sidenav';
 import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
 import { MatDividerModule } from '@angular/material/divider';
+import { ActivateUserPageComponent } from './nologgin/activateUserPage.component';
 
 
 @NgModule({
@@ -45,14 +46,15 @@ import { MatDividerModule } from '@angular/material/divider';
         // *********************************
         IndexContentPageComponent,
         // *********************************
-        
+
         // -- no loggin application
         InactiveUserPageComponent,
         PendingUserPageComponent,
         NotRolPageComponent,
         NotBusinessUserPageComponent,
         InactiveRolPageComponent,
-        BlockedUserPageComponent
+        BlockedUserPageComponent,
+        ActivateUserPageComponent
     ]
 })
 export class LandingModule { }

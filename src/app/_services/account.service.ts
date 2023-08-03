@@ -379,6 +379,12 @@ export class AccountService {
   }
   // *********************************
 
+  //#region API - USUARIOS
+
+  activateByEmail(user: User) {
+    return this.http.get<ResponseMessage>(`${environment.apiUrl}/users/activate?token=${user.token}&id=${user.identificacion}`);
+  }
+
   addUser(user: User) {
     return this.http.post<ResponseMessage>(
       `${environment.apiUrl}/users/registrarusuario`,
@@ -412,7 +418,7 @@ export class AccountService {
   activateInactivateUser(user: User) {
     return this.http.put<ResponseMessage>( `${environment.apiUrl}/users/activarinactivarcuenta`, user );
   }
-  
+
   getAllUsers() {
     return this.http.get<User[]>(`${environment.apiUrl}/users/getallusers`);
   }
@@ -438,25 +444,26 @@ export class AccountService {
       `${environment.apiUrl}/users/getusuariosaccesopantalla?idPantalla=${idPantalla}&idEmpresa=${idEmpresa}&soloActivos=${soloActivos}`
     );
   }
-  
   deleteUser(idUser: number) {
     return this.http.delete<ResponseMessage>( `${environment.apiUrl}/users/deleteuser?idUser=${idUser}` )
       .pipe(
         map((x) => {
           // -- >> si se elimina el usuario de la sesión se cierra sesión
           if (idUser === this.userValue.id) this.logout();
-          
+
           return x;
         })
       );
   }
+
+  //#endregion
 
   // ***************************************************************
   // PROCS . ROLES
   getRolUserBusiness(idRol: string, idBusiness: number) {
     return this.http.get<Role>( `${environment.apiUrl}/users/getroluserbusiness?idRol=${idRol}&idBusiness=${idBusiness}` );
   }
-  getRolesBusiness(idBusiness: number) { 
+  getRolesBusiness(idBusiness: number) {
     return this.http.get<Role[]>( `${environment.apiUrl}/users/getrolesbusiness?idBusiness=${idBusiness}` );
   }
   assignRoleUser(idRole: string, idUser: string) {

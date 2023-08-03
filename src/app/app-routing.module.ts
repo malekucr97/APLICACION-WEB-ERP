@@ -1,6 +1,7 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 import { HomeComponent } from './home';
+import { ActivateUserPageComponent } from './Landing/nologgin/activateUserPage.component';
 import { AuthGuard } from './_helpers';
 
 const accountModule         = () => import('./account/account.module').then(            x => x.AccountModule);
@@ -42,6 +43,9 @@ const routes: Routes = [
     // -- index - landings pages
     { path: 'inra-sa',  loadChildren: LandingModule,  canActivate: [AuthGuard] },
     // ## **************** ## //
+
+    // -- Acicacion de usuario
+    { path: 'activate', component: ActivateUserPageComponent },
 
     // -- inicio se sesión & pantallas de administración
     { path: 'account',              loadChildren: accountModule },
