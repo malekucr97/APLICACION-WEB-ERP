@@ -132,7 +132,7 @@ export class AddEditUserComponent extends OnSeguridad implements OnInit {
         puestoUsuario:            [userUpdate.puesto],
         numeroTelefonoUsuario:    [userUpdate.numeroTelefono],
         rolUsuario:               [nombreRol],
-        passwordUsuario:          ['']
+        passwordUsuario:          ['', [Validators.minLength(5)]]
       });
 
     } else {
@@ -144,7 +144,7 @@ export class AddEditUserComponent extends OnSeguridad implements OnInit {
         puestoUsuario:            [''],
         numeroTelefonoUsuario:    [''],
         rolUsuario:               [''],
-        passwordUsuario:          ['']
+        passwordUsuario:          ['', [Validators.minLength(5)]]
       });
     }
 

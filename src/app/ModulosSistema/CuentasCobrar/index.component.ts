@@ -5,7 +5,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { OnSeguridad } from '@app/_helpers/abstractSeguridad';
 
 @Component({templateUrl: 'index.html',
-            styleUrls: ['../../../assets/scss/cuentascobrar/app.scss'],
+            styleUrls: ['../../../assets/scss/app.scss', '../../../assets/scss/cuentascobrar/app.scss'],
 })
 export class IndexCuentasCobrarComponent extends OnSeguridad implements OnInit {
     pPathIcoModule: string;

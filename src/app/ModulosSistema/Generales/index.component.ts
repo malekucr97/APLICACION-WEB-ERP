@@ -6,7 +6,7 @@ import { Compania } from '@app/_models/modules/compania';
 import { AccountService, AlertService } from '@app/_services';
 
 @Component({templateUrl: 'index.html',
-            styleUrls: ['../../../assets/scss/generales/app.scss'],
+            styleUrls: ['../../../assets/scss/app.scss', '../../../assets/scss/generales/app.scss'],
 })
 export class IndexGeneralesComponent extends OnSeguridad implements OnInit {
     pPathIcoModule: string;
