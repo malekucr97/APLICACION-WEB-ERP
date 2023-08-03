@@ -63,8 +63,7 @@ export class MenuGeneralesComponent implements OnInit {
     URLRedirectIndexContent: string = httpLandingIndexPage.indexHTTP;
 
     constructor(private accountService: AccountService, 
-                private router: Router,
-                private generalesService: GeneralesService,) {
+                private router: Router) {
 
         this.userObservable = this.accountService.userValue;
         this.moduleObservable = this.accountService.moduleValue;
@@ -73,17 +72,7 @@ export class MenuGeneralesComponent implements OnInit {
         this.dataSource.data = TREE_DATA;
     }
 
-    ngOnInit() {
-
-      if (!this.businessObservable) {
-        this.router.navigate([this.Home]);
-        return;
-      }
-      if (!this.moduleObservable) {
-        this.router.navigate([this.Index]);
-        return;
-      }
-    }
+    ngOnInit() { }
 
   private _transformer = (node: FoodNode, level: number) => {
     return {

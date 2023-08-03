@@ -1,4 +1,4 @@
-<article class="var">
+<!-- <article class="var">
   <section>
     <div class="var__item">
         <p class="var__item__p"> <i class="fa fa-sign-out fa-lg" (click)="logout()"> </i> </p>
@@ -20,6 +20,40 @@
         </div>
       </div>
     </section>
+</article> -->
+
+<article class="var-menu">
+  <section>
+
+      <!-- menú -->
+      <div class="var-menu__prev">
+      </div>
+
+      <!-- título -->
+      <div class="var-menu__center">
+          <div class="var-menu__center__left">
+              <img class="var-menu__center__left__img" src="./assets/images/inra/img_bankap_left.png ">
+          </div>
+          <div class="var-menu__center__center">
+            <p class="var-menu__center__center__titulo"> SISTEMA DE GESTIÓN & ADMINISTRATIVO </p>
+          </div>
+          <div class="var-menu__center__rigth">
+              <img class="var-menu__center__rigth__img" src="./assets/images/inra/img_bankap_rigth.png ">
+          </div>
+      </div>
+
+      <!-- cerrar sesión -->
+      <div class="var-menu__next">
+
+          <button class="btn-sm var-menu__next__logout"
+                  mat-icon-button 
+                  (click)="logout()" >
+              <mat-icon>flight_takeoff</mat-icon>
+          </button>
+
+      </div>
+
+  </section>
 </article>
 
 <article class="select-company-contenedor">

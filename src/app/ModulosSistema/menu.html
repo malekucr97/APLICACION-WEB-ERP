@@ -1,18 +1,59 @@
-<article class="var">
+<!-- <article class="var">
     <section>
         <div class="var__item">
             <p class="var__item__p"> <i (click)="logout()"        class="fa fa-sign-out fa-lg"> </i> </p>
         </div>
     </section>
-</article>
+</article> -->
 
-<article class="titulo-administracion-contenedor">
+<article class="var-menu">
     <section>
-        <div class="titulo-administracion-contenedor__seccion" >
-            <button class="btn-hamburguesa" mat-icon-button (click)="sidenav.toggle()">
+
+        <!-- menú -->
+        <div class="var-menu__prev">
+            <button class="btn-sm item-list__admin__warn"
+                    mat-icon-button 
+                    (click)="sidenav.toggle()" >
                 <mat-icon>menu</mat-icon>
             </button>
-            <div class="titulo-administracion-contenedor__seccion__left">
+        </div>
+
+        <!-- título -->
+        <div class="var-menu__center">
+            <div class="var-menu__center__left">
+                <img class="var-menu__center__left__img" src="./assets/images/inra/img_bankap_left.png ">
+            </div>
+            <div class="var-menu__center__center">
+                <p class="var-menu__center__center__titulo"> {{businessObservable.nombre}} </p>
+            </div>
+            <div class="var-menu__center__rigth">
+                <img class="var-menu__center__rigth__img" src="./assets/images/inra/img_bankap_rigth.png ">
+            </div>
+        </div>
+
+        <!-- cerrar sesión -->
+        <div class="var-menu__next">
+
+            <button class="btn-sm item-list__admin__danger"
+                    mat-icon-button 
+                    (click)="logout()" >
+                <mat-icon>flight_takeoff</mat-icon>
+            </button>
+        </div>
+
+    </section>
+</article>
+
+<!-- power_settings_new -->
+
+
+<!-- <article class="titulo-administracion-contenedor">
+    <section>
+        <div class="titulo-administracion-contenedor__seccion" > -->
+            <!-- <button class="btn-hamburguesa" mat-icon-button (click)="sidenav.toggle()">
+                <mat-icon>menu</mat-icon>
+            </button> -->
+            <!-- <div class="titulo-administracion-contenedor__seccion__left">
                 <img class="titulo-administracion-contenedor__seccion__left__img" src="./assets/images/inra/img_bankap_left.png ">
             </div>
             <div class="titulo-administracion-contenedor__seccion__center">
@@ -20,10 +61,10 @@
             </div>
             <div class="titulo-administracion-contenedor__seccion__rigth">
                 <img class="titulo-administracion-contenedor__seccion__rigth__img" src="./assets/images/inra/img_bankap_rigth.png ">
-            </div>
-        </div>
+            </div> -->
+        <!-- </div>
     </section>
-</article>
+</article> -->
 
 <mat-sidenav mode="over">
     <mat-sidenav-container>
@@ -43,9 +84,10 @@
             </button>
 
             <img class="avatar mat-elevation-z8" src="{{moduleObservable.pathLogo}}">
+            
             <hr>
-            <h4 class="name">{{moduleObservable.descripcion}}</h4>
-            <h4 class="name">{{businessObservable.nombre}} - núm.céd {{businessObservable.cedulaJuridica}}</h4>
+            <h4 class="name">{{moduleObservable.nombre}}</h4>
+            <h4 class="name">{{userObservable.nombreCompleto}} - {{userObservable.puesto}}</h4>
             <h4 class="name">{{userObservable.email}}</h4>
             
             <mat-divider></mat-divider>
