@@ -18,9 +18,18 @@ export class IndexContentPageComponent extends OnSeguridad implements OnInit {
 
   userObservable: User;
   businessObservable: Compania;
-  valorBuscado: string = 'as';
+
+  private _valorBuscado : string = '';
+  public get valorBuscado() : string {
+    return this._valorBuscado;
+  }
+  public set valorBuscado(v : string) {
+    this._valorBuscado = v;
+  }
+
 
   public ListModules: Module[] = [];
+  public ListModulesFilter: Module[] = [];
   private UrlHome: string = '/';
 
   public URLConfigureUserPage: string = httpAccessAdminPage.urlPageAddEditUser;
@@ -53,9 +62,9 @@ export class IndexContentPageComponent extends OnSeguridad implements OnInit {
       this.accountService.getModulesActiveBusiness(this.businessObservable.id)
         .pipe(first())
         .subscribe((responseListModules) => {
-        
+
             if (responseListModules && responseListModules.length > 0) this.setListModules(responseListModules);
-        
+
           }, error => { console.log(error); this.logout(); });
 
     } else {
@@ -65,10 +74,24 @@ export class IndexContentPageComponent extends OnSeguridad implements OnInit {
         .subscribe((responseListModules) => {
 
             if (responseListModules && responseListModules.length > 0) this.setListModules(responseListModules);
-          
+
           }, error => { console.log(error); this.logout(); });
     }
   }
+
+  //#region BUSQUEDA DE LOS MÓDULOS.
+
+  filtrarModulos(){
+    if (!this.valorBuscado) {
+      this.ListModulesFilter = this.ListModules;
+    } else {
+      this.ListModulesFilter = this.ListModules.filter(elemento => {
+        return elemento.nombre.toLowerCase().includes(this.valorBuscado.toLowerCase());
+      });
+    }
+  }
+
+  //#endregion
 
   public redirectPageConfigUser() : void{
     if (  super.validarUsuarioAdmin() ) {
@@ -77,8 +100,7 @@ export class IndexContentPageComponent extends OnSeguridad implements OnInit {
   }
 
   private setListModules(responseListModules: Module[]): void {
-
-    responseListModules.forEach((module) => { 
+    responseListModules.forEach((module) => {
       this.ListModules.push( new Module(module.id,
                                         module.identificador,
                                         module.nombre,
@@ -88,8 +110,10 @@ export class IndexContentPageComponent extends OnSeguridad implements OnInit {
                                         '',
                                         this.redireccionIndexModulosHTTP(module.identificador)
         ));
-    });
+      });
+      this.ListModulesFilter = [...this.ListModules];
   }
+
   redireccionIndexModulosHTTP(identificador: string): string {
 
     const procesoBusquedaPowerBi = (terminoBuscado) => { if (identificador.includes(terminoBuscado)) return identificador; };
