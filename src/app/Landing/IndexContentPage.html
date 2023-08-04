@@ -71,15 +71,18 @@
       <section>
         <div class="contenedor__body">
           <div class="buscador-module-section">
+            <div></div>
             <div>
-            </div>
-            <div>
-              <input class="buscador-module-section_input" type="search" (input)="filtrarModulos()" placeholder="Buscar" [(ngModel)]="valorBuscado" />
+              <div class="wrap-input100 m-b-19 form-group">
+                <span class="lnr lnr-magnifier label-input100"></span>
+                <input type="search"  class="input100" placeholder="Busqueda" [(ngModel)]="valorBuscado" (input)="filtrarModulos()" />
+                <span class="focus-input100"></span>
+              </div>
             </div>
           </div>
           <section class="menu-module-item-section">
             <div [ngClass]="['menu-module-item-section__item', businessObservable.tamanoModuloDefecto || module.identificador.includes('ID-BANKAP-BI') ? 'max' : '']" *ngFor="let module of ListModulesFilter">
-              <section (click)="selectModule(module)" >
+              <section (click)="selectModule(module)">
                 <a> <img class="menu-module-item-section__item__logo" src="{{module.pathLogo}}" title="{{module.descripcion}}" /> </a>
                 <p class="menu-module-item-section__item__titulo">{{module.nombre}}</p>
               </section>
