@@ -103,6 +103,7 @@ export class AdminmoduleComponent implements OnInit {
         if (response && response.length > 0) {
           if (this.readOnlyInputIdentficador) {
             this.lstModulos = response.filter((x) => x.identificador.includes(this.baseIdentificadorReportesPowerBI) );
+            this.filtrarLista();
           }
           else {
             this.lstModulos = response;
@@ -130,7 +131,7 @@ export class AdminmoduleComponent implements OnInit {
 
     // SE DECLARA EL OBJETO
     let oModulo = new Module(
-      this.moduloSeleccionado?.id ?? null,
+      this.moduloSeleccionado?.id ?? 0,
       Identificador.value,
       Nombre.value,
       Descripcion.value,

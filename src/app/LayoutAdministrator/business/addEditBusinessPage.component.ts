@@ -57,6 +57,8 @@ export class AddEditBusinessComponent extends OnSeguridad implements OnInit {
       nombre: ['', Validators.required],
       cedulajuridica: ['', Validators.required],
       mantenimientoReportes: [false, Validators.required],
+      cuentaCorreoDefecto: [false, Validators.required],
+      tamanoModuloDefecto: [false, Validators.required],
     });
 
     if (this.updateBusiness) {
@@ -68,6 +70,8 @@ export class AddEditBusinessComponent extends OnSeguridad implements OnInit {
             this.f.nombre.setValue(responseBusiness.nombre);
             this.f.cedulajuridica.setValue(responseBusiness.cedulaJuridica);
             this.f.mantenimientoReportes.setValue(responseBusiness.mantenimientoReportes);
+            this.f.cuentaCorreoDefecto.setValue(responseBusiness.cuentaCorreoDefecto);
+            this.f.tamanoModuloDefecto.setValue(responseBusiness.tamanoModuloDefecto);
           },
           (error) => {
             this.alertService.error(error);
@@ -101,6 +105,8 @@ export class AddEditBusinessComponent extends OnSeguridad implements OnInit {
     this.business.detalleDireccion = 'No registrado';
     this.business.telefono = 'NA';
     this.business.mantenimientoReportes = this.form.get('mantenimientoReportes').value;
+    this.business.cuentaCorreoDefecto = this.form.get('cuentaCorreoDefecto').value;
+    this.business.tamanoModuloDefecto = this.form.get('tamanoModuloDefecto').value;
 
     if (this.addBusiness) {
       this.accountService

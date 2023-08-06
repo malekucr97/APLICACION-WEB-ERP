@@ -21,7 +21,7 @@ export class HomeComponent extends OnSeguridad implements OnInit {
 
     _httpNoBusinessUserPage : string = httpLandingIndexPage.indexHTTPNoBussinesUser;
     _httpInactiveRolUserPage : string = httpLandingIndexPage.indexHTTPInactiveRolUser;
-    
+
     public today : Date ;
 
     constructor(private accountService: AccountService,
@@ -45,13 +45,13 @@ export class HomeComponent extends OnSeguridad implements OnInit {
 
         this.conexion   = true;
         this.message    = 'Seleccione la Compañía';
-        
+
         if (this.userObservable && this.userObservable.esAdmin) {
 
             this.accountService.getAllBusiness()
                 .pipe(first())
                 .subscribe(listBusinessResponse => {
-                    
+
                     if (listBusinessResponse && listBusinessResponse.length > 0) {
                         this.listBusiness = listBusinessResponse;
 
@@ -88,7 +88,7 @@ export class HomeComponent extends OnSeguridad implements OnInit {
                         this.accountService.loadUserAsObservable(this.userObservable);
 
                         // redirect http nologin **
-                        this.router.navigate([this._httpNoBusinessUserPage]); 
+                        this.router.navigate([this._httpNoBusinessUserPage]);
                     }
                 });
         }
@@ -141,10 +141,10 @@ export class HomeComponent extends OnSeguridad implements OnInit {
                     // REGISTRA EN BITÁCORA INTENTO DE INICIO DE SESIÓN DE ROL SIN PERMISOS
                     this.accountService.postBitacora(bit)
                         .pipe(first())
-                        .subscribe(response => { 
-                            
-                            if (response) { 
-                            
+                        .subscribe(response => {
+
+                            if (response) {
+
                                 this.userObservable.codeNoLogin = '404';
                                 this.userObservable.messageNoLogin = 'Rol inactivo.';
                                 this.userObservable.idRol = null;
@@ -158,6 +158,6 @@ export class HomeComponent extends OnSeguridad implements OnInit {
                 }
             });
     }
-    
+
     logout() { this.accountService.logout(); }
 }

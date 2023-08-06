@@ -1,0 +1,85 @@
+<mjml>
+  <mj-body>
+    <!-- Company Header -->
+    <mj-section background-color="#2d2d2d">
+      <mj-column>
+        <mj-text
+          align="center"
+          font-size="40px"
+          font-style="bold"
+          font-family="Ubuntu"
+          color="#EAEAEA"
+        >
+          <%NOMBRE_EMPRESA%>
+        </mj-text>
+      </mj-column>
+    </mj-section>
+
+    <!-- Image Header -->
+    <mj-section background-color="#EAF2F7">
+      <mj-column width="600px">
+        <mj-text
+          align="center"
+          color="#2d2d2d"
+          font-size="22px"
+          font-family="Ubuntu"
+        >
+          <%NOMBRE_APLICACION%>
+        </mj-text>
+      </mj-column>
+    </mj-section>
+
+    <!-- Introduction Text -->
+    <mj-section background-color="#fff">
+      <mj-column width="400px">
+        <mj-text
+          font-style="bold"
+          font-size="20px"
+          font-family="Ubuntu"
+          text-decoration="underline"
+          color="#2d2d2d"
+          >Activación de cuenta</mj-text
+        >
+
+        <mj-text
+          color="#525252"
+          font-size="15px"
+          line-height="25px"
+          align="justify"
+        >
+          Se recibió una solicitud para activación de la cuenta de correo
+          (<%DIRECCION_CORREO%>). Por favor presionar el botón "Activar" para finalizar el
+          proceso.
+        </mj-text>
+        <mj-button background-color="#57b846" href="<%URL_ACTIVAR%>">Activar</mj-button>
+
+        <mj-divider
+          border-width="1px"
+          border-style="dashed"
+          border-color="lightgrey"
+        />
+
+        <mj-text
+          color="#525252"
+          font-size="13px"
+          line-height="20px"
+          align="justify"
+        >
+          Si no se ha realizado un proceso de activación en la aplicación, por
+          favor omitir el correo y dar aviso al area de TI.
+        </mj-text>
+      </mj-column>
+    </mj-section>
+
+    <!-- Social icons -->
+    <mj-section background-color="#EAF2F7">
+      <mj-column>
+        <mj-social>
+          <mj-social-element name="web" href="<%URL_SITIOWEB%>" color="#2d2d2d"
+            ><%NOMBRE_APLICACION%></mj-social-element
+          >
+        </mj-social>
+      </mj-column>
+    </mj-section>
+  </mj-body>
+</mjml>

@@ -5,11 +5,13 @@ import { BehaviorSubject, Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
 import { administrator, environment } from '@environments/environment';
 import { UpdateRolModel, User } from '@app/_models';
-import {  Module,
-          Role,
-          RolModuleBusiness,
-          ResponseMessage,
-          AssignRoleObject } from '@app/_models/';
+import {
+  Module,
+  Role,
+  RolModuleBusiness,
+  ResponseMessage,
+  AssignRoleObject,
+} from '@app/_models/';
 import { Compania, CompaniaUsuario } from '@app/_models/modules/compania';
 import { ScreenAccessUser } from '@app/_models/admin/screenAccessUser';
 import { ScreenModule } from '@app/_models/admin/screenModule';
@@ -17,7 +19,6 @@ import { Bitacora } from '@app/_models/bitacora';
 
 @Injectable({ providedIn: 'root' })
 export class AccountService {
-
   private userSubject: BehaviorSubject<User>;
   public user: Observable<User>;
 
@@ -70,9 +71,15 @@ export class AccountService {
     return null;
   }
 
-  public get userValue()    : User { return this.userSubject.value; }
-  public get businessValue(): Compania { return this.businessSubject.value; }
-  public get moduleValue()  : Module { return this.moduleSubject.value; }
+  public get userValue(): User {
+    return this.userSubject.value;
+  }
+  public get businessValue(): Compania {
+    return this.businessSubject.value;
+  }
+  public get moduleValue(): Module {
+    return this.moduleSubject.value;
+  }
   // ******************************************************************************
 
   // *******************************************************************
@@ -80,7 +87,12 @@ export class AccountService {
   // *******************************************************************
   // -- >> Suscribe lista de usuario para administración
   public suscribeListUser(listaUsuarios: User[]): void {
-    listaUsuarios.splice(listaUsuarios.findIndex( m => m.identificacion == administrator.identification ), 1);
+    listaUsuarios.splice(
+      listaUsuarios.findIndex(
+        (m) => m.identificacion == administrator.identification
+      ),
+      1
+    );
     this.listUsersSubject = new BehaviorSubject<User[]>(listaUsuarios);
   }
   // -- >> Actualiza lista de usuario administración
@@ -124,11 +136,14 @@ export class AccountService {
   }
   // *******************************************************************
 
-  validateAccessUser( idUser: number,
-                      idModule: number,
-                      nombrePantalla: string,
-                      idBusiness: number ) {
-    return this.http.get<ResponseMessage>(`${environment.apiUrl}/users/validaaccesopantalla?idUsuario=${idUser}
+  validateAccessUser(
+    idUser: number,
+    idModule: number,
+    nombrePantalla: string,
+    idBusiness: number
+  ) {
+    return this.http
+      .get<ResponseMessage>(`${environment.apiUrl}/users/validaaccesopantalla?idUsuario=${idUser}
                                                                                           &idModulo=${idModule}
                                                                                           &nomPantalla=${nombrePantalla}
                                                                                           &îdEmpresa=${idBusiness}`);
@@ -169,44 +184,62 @@ export class AccountService {
   // **********************************************************************************************
   // **********************************************************************************************
   // -- >> Limpia valores suscritos
-  clearObjectModuleObservable(){
+  clearObjectModuleObservable() {
     localStorage.removeItem('Omodule');
     this.moduleSubject.next(null);
   }
-  clearObjectBusinesObservable(){
+  clearObjectBusinesObservable() {
     localStorage.removeItem('Obusiness');
     this.businessSubject.next(null);
   }
   // **********************************************************************************************
   // -- >> Procedimientos Empresas
   getAllBusiness() {
-    return this.http.get<Compania[]>(`${environment.apiUrl}/users/listadoempresas`);
+    return this.http.get<Compania[]>(
+      `${environment.apiUrl}/users/listadoempresas`
+    );
   }
   getBusinessActiveUser(idUsuario: number) {
-    return this.http.get<Compania[]>(`${environment.apiUrl}/users/empresasusuarioactivas?idUsuario=${idUsuario}`);
+    return this.http.get<Compania[]>(
+      `${environment.apiUrl}/users/empresasusuarioactivas?idUsuario=${idUsuario}`
+    );
   }
   getBusinessById(idEmpresa: number) {
-    return this.http.get<Compania>(`${environment.apiUrl}/users/empresaid?idEmpresa=${idEmpresa}`);
+    return this.http.get<Compania>(
+      `${environment.apiUrl}/users/empresaid?idEmpresa=${idEmpresa}`
+    );
   }
   addBusiness(business: Compania) {
-    return this.http.post<ResponseMessage>(`${environment.apiUrl}/users/registrarempresa`, business);
+    return this.http.post<ResponseMessage>(
+      `${environment.apiUrl}/users/registrarempresa`,
+      business
+    );
   }
   updateBusiness(business: Compania) {
-    return this.http.put<ResponseMessage>(`${environment.apiUrl}/users/actualizarempresa`, business);
+    return this.http.put<ResponseMessage>(
+      `${environment.apiUrl}/users/actualizarempresa`,
+      business
+    );
   }
   assignBusinessUser(idUser: number, idBusiness: number) {
     let assignBusinessUObject = new CompaniaUsuario();
     assignBusinessUObject.IdUsuario = idUser;
     assignBusinessUObject.IdSociedad = idBusiness;
 
-    return this.http.post<ResponseMessage>(`${environment.apiUrl}/users/asignarsociedadusuario`, assignBusinessUObject);
+    return this.http.post<ResponseMessage>(
+      `${environment.apiUrl}/users/asignarsociedadusuario`,
+      assignBusinessUObject
+    );
   }
   dessAssignBusinessUser(idUser: number, idBusiness: number) {
     const desAssignBusinessUObject = new CompaniaUsuario();
     desAssignBusinessUObject.IdUsuario = idUser;
     desAssignBusinessUObject.IdSociedad = idBusiness;
 
-    return this.http.post<ResponseMessage>(`${environment.apiUrl}/users/desasignsociedadusuario`, desAssignBusinessUObject);
+    return this.http.post<ResponseMessage>(
+      `${environment.apiUrl}/users/desasignsociedadusuario`,
+      desAssignBusinessUObject
+    );
   }
   dessAssignAllBusinessUser(idUser: number) {
     let desAssignUserBusiness = new CompaniaUsuario();
@@ -222,7 +255,10 @@ export class AccountService {
   //   this.http.post<ResponseMessage>( `${environment.apiUrl}/users/postbitacora`, bitacora );
   // }
   postBitacora(bitacora: Bitacora) {
-    return this.http.post<ResponseMessage>( `${environment.apiUrl}/users/postbitacora`, bitacora );
+    return this.http.post<ResponseMessage>(
+      `${environment.apiUrl}/users/postbitacora`,
+      bitacora
+    );
   }
 
   // **********************************************************************************************
@@ -254,7 +290,9 @@ export class AccountService {
     );
   }
   getModulesBusiness(idEmpresa: number) {
-    return this.http.get<Module[]>( `${environment.apiUrl}/users/modulossociedad?idEmpresa=${idEmpresa}` );
+    return this.http.get<Module[]>(
+      `${environment.apiUrl}/users/modulossociedad?idEmpresa=${idEmpresa}`
+    );
   }
   getModuleId(idModule: number) {
     return this.http.get<Module>(
@@ -355,7 +393,10 @@ export class AccountService {
     );
   }
   postPantallaModulo(objeto: ScreenModule) {
-    return this.http.post<ResponseMessage>( `${environment.apiUrl}/users/createpantallamodulo`, objeto );
+    return this.http.post<ResponseMessage>(
+      `${environment.apiUrl}/users/createpantallamodulo`,
+      objeto
+    );
   }
   deletePantallaModulo(id: number) {
     return this.http.delete<ResponseMessage>(
@@ -372,12 +413,36 @@ export class AccountService {
     );
   }
   putPantallaModulo(objeto: ScreenModule) {
-    return this.http.put<ResponseMessage>( `${environment.apiUrl}/users/updatepantallamodulo`, objeto );
+    return this.http.put<ResponseMessage>(
+      `${environment.apiUrl}/users/updatepantallamodulo`,
+      objeto
+    );
   }
   postPantallaAccesoUsuario(objeto: ScreenAccessUser) {
-    return this.http.post<ResponseMessage>( `${environment.apiUrl}/users/createaccesspantallausuario`, objeto );
+    return this.http.post<ResponseMessage>(
+      `${environment.apiUrl}/users/createaccesspantallausuario`,
+      objeto
+    );
   }
   // *********************************
+
+  //#region API - USUARIOS
+
+  activateByEmail(user: User) {
+    return this.http.get<ResponseMessage>(
+      `${environment.apiUrl}/users/activate?token=${user.token}&id=${user.identificacion}`
+    );
+  }
+
+  reenviarCorreoActivacion(username, password) {
+    return this.http.post<ResponseMessage>(
+      `${environment.apiUrl}/users/reevniarcorreoactivacion`,
+      {
+        username,
+        password,
+      }
+    );
+  }
 
   addUser(user: User) {
     return this.http.post<ResponseMessage>(
@@ -392,11 +457,15 @@ export class AccountService {
     );
   }
   updateUser(identificacionUpdate: string, user: User) {
-    return this.http.put<ResponseMessage>( `${environment.apiUrl}/users/actualizarusuario`, user )
-      .pipe(map((x) => {
+    return this.http
+      .put<ResponseMessage>(
+        `${environment.apiUrl}/users/actualizarusuario`,
+        user
+      )
+      .pipe(
+        map((x) => {
           // actualiza la información del usuario local si es quien se está en la sesión
           if (identificacionUpdate === this.userValue.identificacion) {
-
             this.userValue.identificacion = user.identificacion;
             this.userValue.nombreCompleto = user.nombreCompleto;
             this.userValue.numeroTelefono = user.numeroTelefono;
@@ -410,9 +479,12 @@ export class AccountService {
       );
   }
   activateInactivateUser(user: User) {
-    return this.http.put<ResponseMessage>( `${environment.apiUrl}/users/activarinactivarcuenta`, user );
+    return this.http.put<ResponseMessage>(
+      `${environment.apiUrl}/users/activarinactivarcuenta`,
+      user
+    );
   }
-  
+
   getAllUsers() {
     return this.http.get<User[]>(`${environment.apiUrl}/users/getallusers`);
   }
@@ -438,55 +510,71 @@ export class AccountService {
       `${environment.apiUrl}/users/getusuariosaccesopantalla?idPantalla=${idPantalla}&idEmpresa=${idEmpresa}&soloActivos=${soloActivos}`
     );
   }
-  
   deleteUser(idUser: number) {
-    return this.http.delete<ResponseMessage>( `${environment.apiUrl}/users/deleteuser?idUser=${idUser}` )
+    return this.http
+      .delete<ResponseMessage>(
+        `${environment.apiUrl}/users/deleteuser?idUser=${idUser}`
+      )
       .pipe(
         map((x) => {
           // -- >> si se elimina el usuario de la sesión se cierra sesión
           if (idUser === this.userValue.id) this.logout();
-          
+
           return x;
         })
       );
   }
 
+  //#endregion
+
   // ***************************************************************
   // PROCS . ROLES
   getRolUserBusiness(idRol: string, idBusiness: number) {
-    return this.http.get<Role>( `${environment.apiUrl}/users/getroluserbusiness?idRol=${idRol}&idBusiness=${idBusiness}` );
+    return this.http.get<Role>(
+      `${environment.apiUrl}/users/getroluserbusiness?idRol=${idRol}&idBusiness=${idBusiness}`
+    );
   }
-  getRolesBusiness(idBusiness: number) { 
-    return this.http.get<Role[]>( `${environment.apiUrl}/users/getrolesbusiness?idBusiness=${idBusiness}` );
+  getRolesBusiness(idBusiness: number) {
+    return this.http.get<Role[]>(
+      `${environment.apiUrl}/users/getrolesbusiness?idBusiness=${idBusiness}`
+    );
   }
   assignRoleUser(idRole: string, idUser: string) {
-    let assignRolObject : AssignRoleObject = new AssignRoleObject();
+    let assignRolObject: AssignRoleObject = new AssignRoleObject();
     assignRolObject.idRole = idRole;
     assignRolObject.idUser = idUser;
 
-    return this.http.post<ResponseMessage>( `${environment.apiUrl}/users/asignarrolusuario`, assignRolObject );
+    return this.http.post<ResponseMessage>(
+      `${environment.apiUrl}/users/asignarrolusuario`,
+      assignRolObject
+    );
   }
-  updateRol(rol: Role, idBusiness : number) {
-    let assignRolObject : UpdateRolModel = new UpdateRolModel();
+  updateRol(rol: Role, idBusiness: number) {
+    let assignRolObject: UpdateRolModel = new UpdateRolModel();
     assignRolObject.idRol = rol.id;
     assignRolObject.idBusiness = idBusiness;
     assignRolObject.estado = rol.estado;
     assignRolObject.tipo = rol.tipo;
 
-    return this.http.put<ResponseMessage>( `${environment.apiUrl}/users/actualizarrol`, assignRolObject );
+    return this.http.put<ResponseMessage>(
+      `${environment.apiUrl}/users/actualizarrol`,
+      assignRolObject
+    );
   }
-  registerRole(role: Role) { return this.http.post(`${environment.apiUrl}/users/registrarrol`, role); }
+  registerRole(role: Role) {
+    return this.http.post(`${environment.apiUrl}/users/registrarrol`, role);
+  }
   // ***************************************************************
 }
 
-  // activateUser(user: User) {
-  //   return this.http.put<ResponseMessage>( `${environment.apiUrl}/users/activarcuenta`, user );
-  // }
-  // inActivateUser(user: User) {
-  //   return this.http.put<ResponseMessage>( `${environment.apiUrl}/users/inactivarcuenta`, user );
-  // }
-  // -- >> Procedimientos de Roles
-  // getRoleById(idRol: string) {
-  //   return this.http.get<Role>( `${environment.apiUrl}/users/roleid?idRol=${idRol}` );
-  // }
-  // getAllRoles() { return this.http.get<Role[]>(`${environment.apiUrl}/users/getallroles`); }
+// activateUser(user: User) {
+//   return this.http.put<ResponseMessage>( `${environment.apiUrl}/users/activarcuenta`, user );
+// }
+// inActivateUser(user: User) {
+//   return this.http.put<ResponseMessage>( `${environment.apiUrl}/users/inactivarcuenta`, user );
+// }
+// -- >> Procedimientos de Roles
+// getRoleById(idRol: string) {
+//   return this.http.get<Role>( `${environment.apiUrl}/users/roleid?idRol=${idRol}` );
+// }
+// getAllRoles() { return this.http.get<Role[]>(`${environment.apiUrl}/users/getallroles`); }

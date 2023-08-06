@@ -20,12 +20,15 @@ export class Compania {
   claveCorreo: string;
   hostCorreo: string;
   puertoCorreo: string;
+  estadoSSL: boolean;
 
   adicionadoPor: string;
   fechaAdicion: Date;
   modificadoPor: string;
   fechaModificacion: Date;
   mantenimientoReportes: boolean;
+  cuentaCorreoDefecto: boolean;
+  tamanoModuloDefecto: boolean;
 }
 
 export class CompaniaUsuario {
