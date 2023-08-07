@@ -8,6 +8,15 @@ export class Role {
     tipo: string;
 }
 
+export class RoleBusiness {
+    id: number;
+    idRol: string;
+    idCompania: number;
+    // columns roleBusiness
+    estado: string;
+    tipo: string;
+}
+
 export class RolModuleBusiness {
     idRol: string;
     idModulo: number;

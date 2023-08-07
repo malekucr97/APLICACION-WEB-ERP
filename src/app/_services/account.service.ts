@@ -4,7 +4,7 @@ import { HttpClient } from '@angular/common/http';
 import { BehaviorSubject, Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
 import { administrator, environment } from '@environments/environment';
-import { UpdateRolModel, User } from '@app/_models';
+import { RoleBusiness, UpdateRolModel, User } from '@app/_models';
 import {
   Module,
   Role,
@@ -561,8 +561,11 @@ export class AccountService {
       assignRolObject
     );
   }
-  registerRole(role: Role) {
-    return this.http.post(`${environment.apiUrl}/users/registrarrol`, role);
+  addRol(role: Role) {
+    return this.http.post<ResponseMessage>(`${environment.apiUrl}/users/registrarrol`, role);
+  }
+  assignRolBusiness(roleBusiness: RoleBusiness) {
+    return this.http.post<ResponseMessage>(`${environment.apiUrl}/users/registrarrolcompania`, roleBusiness);
   }
   // ***************************************************************
 }

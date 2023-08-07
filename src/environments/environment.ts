@@ -109,6 +109,7 @@ export const httpAccessAdminPage = {
     urlPageListBusinessModule:  '/admin-module/adminpage-listmodulebusiness.html/',
     urlPageListBusiness:        '/admin-module/adminpage-listbusiness.html/',
     urlPageListRole:            '/admin-module/adminpage-listroles.html/',
+    urlPageAddEditRol:          '/admin-module/adminpage-addeditrol.html/',
     urlPageListUsers:           '/admin-module/adminpage-listusers.html',
     urlPageAddEditUser:         '/admin-module/adminpage-addedituser.html/',
     urlPageAddBUser:            '/admin-module/adminpage-addbusinessuser.html/',
