@@ -36,6 +36,7 @@ import { MatDialogModule } from '@angular/material/dialog';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatListModule } from '@angular/material/list';
 import { AdminmoduleComponent } from './module/adminmodule/adminmodule.component';
+import { AddEditRolComponent } from './role/addEditRolPage.component';
 
 @NgModule({
     imports: [
@@ -74,7 +75,8 @@ import { AdminmoduleComponent } from './module/adminmodule/adminmodule.component
         ListModuleBusinessComponent,
         AddModuleRoleComponent,
         AddAccessUserModuleComponent,
-        AdminmoduleComponent
+        AdminmoduleComponent,
+        AddEditRolComponent
     ]
 })
 export class AdminModule { }

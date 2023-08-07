@@ -27,6 +27,7 @@ import { ListModuleBusinessComponent } from './module/listModuleBusinessPage.com
 import { ConfigurationCompaniaComponent } from '../ModulosSistema/Generales/parametros/ConfigurationCompania-component';
 import { AddAccessUserModuleComponent } from './module/addAccessUserModulePage.component';
 import { AdminmoduleComponent } from './module/adminmodule/adminmodule.component';
+import { AddEditRolComponent } from './role/addEditRolPage.component';
 
 const routes: Routes = [
     {
@@ -39,16 +40,18 @@ const routes: Routes = [
             { path: 'adminpage-listusers.html', component: ListUserComponent },
             { path: 'adminpage-addedituser.html', component: AddEditUserComponent },
             { path: 'adminpage-addedituser.html/:pidentificationUser', component: AddEditUserComponent },
+            { path: 'adminpage-addbusinessuser.html/:pidentificationUser', component: AddBusinessUserComponent },
             // -- empresa
             // { path: 'AdminBusinessPage', component: AdminBusinessComponent },
             { path: 'adminpage-addeditbusiness.html', component: AddEditBusinessComponent },
             { path: 'adminpage-addeditbusiness.html/:pidBusiness', component: AddEditBusinessComponent },
             { path: 'adminpage-listbusiness.html', component: ListBusinessComponent },
-            { path: 'adminpage-addbusinessuser.html/:pidentificationUser', component: AddBusinessUserComponent },
+            { path: 'adminpage-addeditrol.html', component: AddEditRolComponent },
 
             // -- roles
             { path: 'adminpage-addroleuser.html/:pidentificationUser', component: AddRoleUserComponent },
             { path: 'adminpage-listroles.html', component: ListRoleComponent },
+            { path: 'adminpage-addroleuser.html/:pidentificationUser', component: AddRoleUserComponent },
             // -- modulos
             { path: 'adminpage-listmodulebusiness.html/:pidBusiness', component: ListModuleBusinessComponent },
             { path: 'adminpage-listmodules.html', component: ListModuleComponent },

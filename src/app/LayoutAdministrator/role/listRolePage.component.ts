@@ -21,6 +21,7 @@ export class ListRoleComponent extends OnSeguridad implements OnInit {
 
   URLAddModuleRolPage: string = httpAccessAdminPage.urlPageAddModuleRol;
   URLAdministratorPage: string = httpAccessAdminPage.urlPageAdministrator;
+  public URLAddEditRolPage: string = httpAccessAdminPage.urlPageAddEditRol;
 
   idBusiness: string;
 

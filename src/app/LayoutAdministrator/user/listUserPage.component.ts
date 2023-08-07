@@ -81,6 +81,9 @@ export class ListUserComponent extends OnSeguridad implements OnInit {
   selectObjetoUsuario(puserSelected : User) : void {
     this.router.navigate([this.URLAddEditUsertPage + puserSelected.identificacion]);
   }
+  selectEmpresa(puserSelected : User) : void {
+    this.router.navigate([this.URLAddBusinessUsertPage + puserSelected.identificacion]);
+  }
 
   deleteUser(identificacionUsuario : string, idUser : number) {
 
@@ -95,7 +98,7 @@ export class ListUserComponent extends OnSeguridad implements OnInit {
 
                 if (confirmado) {
 
-                  this.accountService.deleteUser(idUser)
+                  this.accountService.deleteUser(idUser, this.businessObservable.id)
                   .pipe(first())
                   .subscribe((responseDelete) => {
           

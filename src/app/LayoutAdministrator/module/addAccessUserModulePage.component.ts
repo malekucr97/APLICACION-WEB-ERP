@@ -99,10 +99,8 @@ export class AddAccessUserModuleComponent extends OnSeguridad implements OnInit 
     }
     selectPantallaModulo(objeto : ScreenModule) : void {
 
-        if (this.habilitaListasUsuarioCompania) this.habilitaListasUsuarioCompania = true;
-        if (this.habilitaListaUsuariosAccesoPantalla) this.habilitaListaUsuariosAccesoPantalla = true;
-        
-        // this.habilitaListaUsuariosAccesoPantalla = true;
+        this.habilitaListasUsuarioCompania = true;
+        this.habilitaListaUsuariosAccesoPantalla = true;
 
         this.inicializaFormPantallaModulo(objeto);
         this.consultaUsuariosAccesoPantalla(objeto);
