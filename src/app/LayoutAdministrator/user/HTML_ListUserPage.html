@@ -45,7 +45,7 @@
                     <td (click)="selectObjetoUsuario(us)">{{us.estado}}</td>
 
                     <td style="white-space: normal">
-                        <button *ngIf="isUserSuperAdmin"    routerLink="{{URLAddBusinessUsertPage}}{{us.identificacion}}" 
+                        <button *ngIf="isUserSuperAdmin" (click)="selectEmpresa(us)" 
                                                             class="btn-sm item-list__admin__view"> 
                             Empresa 
                         </button>

@@ -510,10 +510,10 @@ export class AccountService {
       `${environment.apiUrl}/users/getusuariosaccesopantalla?idPantalla=${idPantalla}&idEmpresa=${idEmpresa}&soloActivos=${soloActivos}`
     );
   }
-  deleteUser(idUser: number) {
+  deleteUser(idUser: number, idBusiness: number) {
     return this.http
       .delete<ResponseMessage>(
-        `${environment.apiUrl}/users/deleteuser?idUser=${idUser}`
+        `${environment.apiUrl}/users/deleteuser?idUser=${idUser}&idBusiness=${idBusiness}`
       )
       .pipe(
         map((x) => {

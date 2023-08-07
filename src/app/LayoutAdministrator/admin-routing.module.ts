@@ -40,6 +40,7 @@ const routes: Routes = [
             { path: 'adminpage-listusers.html', component: ListUserComponent },
             { path: 'adminpage-addedituser.html', component: AddEditUserComponent },
             { path: 'adminpage-addedituser.html/:pidentificationUser', component: AddEditUserComponent },
+            { path: 'adminpage-addbusinessuser.html/:pidentificationUser', component: AddBusinessUserComponent },
             // -- empresa
             // { path: 'AdminBusinessPage', component: AdminBusinessComponent },
             { path: 'adminpage-addeditbusiness.html', component: AddEditBusinessComponent },
