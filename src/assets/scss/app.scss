@@ -1,8 +1,8 @@
 @mixin bg-color-orange { background-color: #F9A01B; }
 @mixin bg-color-dark-blue { background-color: #0F426A; }
 @mixin bg-color-darkest-blue {
-  // background: linear-gradient(to right, #221F1F 70%, #403A60);
-  background-color: #053254;
+  background: linear-gradient(89deg, #053254, #071e2f);
+  // background-color: #053254;
 }
 @mixin bg-color-blue { background-color: #005188; }
 @mixin bg-color-skyblue { background-color: #00AEEF; }
