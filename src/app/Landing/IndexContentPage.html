@@ -50,16 +50,17 @@
 
     <!-- cerrar sesión -->
     <div class="var-menu__next">
-      <button class="btn-sm var-menu__next__config" mat-icon-button (click)="redirectPageConfigUser()">
-        <mat-icon>recent_actors</mat-icon>
-      </button>
 
-      <button class="btn-sm var-menu__next__home" mat-icon-button routerLink="/">
+      <button class="btn-sm var-menu__next__config" mat-icon-button routerLink="/">
         <mat-icon>home</mat-icon>
       </button>
 
+      <button class="btn-sm var-menu__next__home" mat-icon-button (click)="redirectPageConfigUser()">
+        <mat-icon>settings</mat-icon>
+      </button>
+
       <button class="btn-sm var-menu__next__logout" mat-icon-button (click)="logout()">
-        <mat-icon>flight_takeoff</mat-icon>
+        <mat-icon>directions_run</mat-icon>
       </button>
     </div>
   </section>
