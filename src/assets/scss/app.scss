@@ -1,6 +1,9 @@
 @mixin bg-color-orange { background-color: #F9A01B; }
 @mixin bg-color-dark-blue { background-color: #0F426A; }
-@mixin bg-color-darkest-blue { background-color: #053254; }
+@mixin bg-color-darkest-blue {
+  background: var(--degradado_header);
+  // background-color: #053254;
+}
 @mixin bg-color-blue { background-color: #005188; }
 @mixin bg-color-skyblue { background-color: #00AEEF; }
 @mixin bg-color-light-gray { background-color: #B3B3B3; }
@@ -10,7 +13,7 @@
     font-weight: 750;
     text-align: center;
     @media (max-width: 1146px) {
-        font-size: 1.2rem;
+        font-size: 1rem;
     }
 }
 ::ng-deep .cdk-overlay-container {
@@ -29,8 +32,12 @@ td {
 // ## -- >> mensaje de alerta
 .alerta {
     width: 100%;
-    position: absolute;
+    // position: absolute;
     top: 1%;
+
+    position: fixed;
+    z-index: 9999 !important;
+
     &__messaje{
         margin-top: 35px;
         text-align: center;
@@ -40,7 +47,7 @@ td {
 .var-menu {
     @include bg-color-darkest-blue;
 
-    border-top: 1px solid rgb(202, 202, 202);
+    border-top: 1px solid #ffff;
 
     &__prev {
         width: 15%;
@@ -103,7 +110,7 @@ td {
             color: white;
             &:hover {
                 color: white;
-                background-color: #00AEEF;
+                background-color: #403A60;
                 cursor: pointer;
             }
         }
@@ -116,6 +123,7 @@ td {
     display: flex;
     justify-content: center;
     align-items: center;
+    background-color: var(--contenedor_redondeado_modulos);
 
     border-radius: 10px;
 
@@ -127,7 +135,7 @@ td {
         flex-wrap: wrap;
 
         padding-top: 2%;
-    
+
         &__item {
             text-align: center;
             &__titulo {
@@ -135,7 +143,7 @@ td {
                 font-size: 1rem;
                 font-weight: 700;
                 transition: color 0.2s ease-in-out;
-    
+
                 @media (min-width: 1500px) {
                     font-size: 1.5rem;
                 }
@@ -344,7 +352,7 @@ td {
             }
         }
     }
-    
+
     &__edit {
 
         display: inline-block;
@@ -450,6 +458,7 @@ td {
 .contenedor {
     margin: 1% 1% 1% 1%;
     border-radius: 10px;
+    background-color: var(--contenedor_redondeado_modulos);
 
     &__header-modal {
         width: 100%;
@@ -520,4 +529,12 @@ td {
 
 .pointerCursor {
   cursor: pointer;
+}
+
+mat-sidenav-container{
+  background-color: var(--degradado_oscuro);
+}
+
+.contenedorFondoModulo{
+  background-color: var(--degradado_oscuro);
 }

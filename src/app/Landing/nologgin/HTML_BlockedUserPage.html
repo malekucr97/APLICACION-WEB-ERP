@@ -5,13 +5,13 @@
 
             <section>
                 <div class="articulo__contenedor__body">
-                    <h1>Hi {{user.nombreCompleto}}!</h1>
+                    <h1>Hola {{user.nombreCompleto}}!</h1>
                     <h4>Usuario Bloqueado</h4>
                     <br>
                     <p>El usuario fue Bloqueado al intentar ingresar de forma incorrecta la contraseña la cantidad de veces permitidas en el sistema.</p>
                     <br>
                     <p>Por favor contacte al administrador y solicite la activación de la cuenta y la actualización de la contraseña para su usuario: {{user.identificacion}}</p>
-                    
+
                     <button (click)="redirect()" class="btn-redirect-login" >
                         Volver a Inicio de Sesión
                     </button>
