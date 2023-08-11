@@ -61,7 +61,6 @@
   }
   &__home {
     padding-right: 1%;
-
     color: white;
   }
   &__user__icon {
@@ -164,7 +163,7 @@
       }
     }
     &__titulo {
-      color: #005188;
+      color: var(--color_enlaces);
       font-size: 0.9rem;
       font-weight: 700;
       transition: color 0.2s ease-in-out;
@@ -180,7 +179,7 @@
       }
 
       &:hover {
-        color: #403A60;
+        color: var(--color_enlaces_hover);
         cursor: pointer;
       }
     }

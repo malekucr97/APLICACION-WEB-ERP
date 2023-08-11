@@ -28,7 +28,7 @@ mat-toolbar {
 }
 mat-sidenav {
     position: fixed;
-    
+
     width: 25%;
 
     margin: 1%;
@@ -38,6 +38,9 @@ mat-sidenav {
     color: white;
     border-radius: 10px;
     text-align: center;
+    @media (max-width: 800px) {
+      width: 80%;
+    }
 }
 
 mat-sidenav-container {
@@ -78,7 +81,7 @@ span{
 .menu-button-submodulo {
     //width: 100%;
     position: absolute;
-    left: 1%;    
+    left: 1%;
 }
 
 .menu-button-back {
@@ -95,6 +98,11 @@ span{
 .avatar {
     margin-top: 5%;
     border-radius: 50%;
+    width: 100px;
+    @media (max-width: 800px) {
+      width: 40%;
+      height: 40%;
+    }
 }
 
 .name {
