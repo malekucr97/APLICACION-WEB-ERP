@@ -3,7 +3,8 @@
 } */
 
 :root {
-  --degradado_oscuro: linear-gradient(180deg, #59595C, #221F1F);
+  --degradado_oscuro: #221F1F;
+  /* --degradado_oscuro: linear-gradient(180deg, #59595C, #221F1F); */
   --degradado_header: linear-gradient(89deg, #053254, #071e2f);
   --color_base: #2d2d2d;
   --color_accent: #BE272D;
@@ -52,7 +53,7 @@
 body, html {
 	height: 100%;
 	font-family: Poppins-Regular, sans-serif;
-  background: var(--degradado_oscuro);
+  background-color: var(--degradado_oscuro) !important;
 }
 
 /*---------------------------------------------*/
