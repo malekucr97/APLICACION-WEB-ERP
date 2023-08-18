@@ -3,14 +3,15 @@
 } */
 
 :root {
-  --degradado_oscuro: #221F1F;
   /* --degradado_oscuro: linear-gradient(180deg, #59595C, #221F1F); */
-  --degradado_header: linear-gradient(89deg, #053254, #071e2f);
+  /* --degradado_header: linear-gradient(89deg, #053254, #071e2f); */
+  --degradado_oscuro: #A1A1A1;
+  --degradado_header: #A1A1A1;
   --color_base: #2d2d2d;
   --color_accent: #BE272D;
   /* --color_enlaces: #005188; */
   /* --color_enlaces_hover: #403A60; */
-  --color_enlaces: #696969;
+  --color_enlaces: #A1A1A1;
   --color_enlaces_hover: #005188;
 
   --contenedor_redondeado_modulos: white;
@@ -211,7 +212,7 @@ iframe {
 .login100-form-title {
   width: 100%;
   position: relative;
-  z-index: 1;
+  /* z-index: 1; */
   display: -webkit-box;
   display: -webkit-flex;
   display: -moz-box;

@@ -32,23 +32,25 @@
       <!-- título -->
       <div class="var-menu__center">
           <div class="var-menu__center__left">
-              <img class="var-menu__center__left__img" src="./assets/images/inra/img_bankap_left.png ">
+              <!-- <img class="var-menu__center__left__img" src="./assets/images/inra/img_bankap_left.png "> -->
           </div>
           <div class="var-menu__center__center">
             <p class="var-menu__center__center__titulo"> SISTEMA DE GESTIÓN & ADMINISTRATIVO </p>
           </div>
           <div class="var-menu__center__rigth">
-              <img class="var-menu__center__rigth__img" src="./assets/images/inra/img_bankap_rigth.png ">
+              <!-- <img class="var-menu__center__rigth__img" src="./assets/images/inra/img_bankap_rigth.png "> -->
           </div>
       </div>
 
       <!-- cerrar sesión -->
       <div class="var-menu__next">
-
+          <button class="btn-sm var-menu__next__config" mat-icon-button routerLink="/">
+            <mat-icon>home</mat-icon>
+          </button>
           <button class="btn-sm var-menu__next__logout"
-                  mat-icon-button 
+                  mat-icon-button
                   (click)="logout()" >
-              <mat-icon>flight_takeoff</mat-icon>
+              <mat-icon>input</mat-icon>
           </button>
 
       </div>

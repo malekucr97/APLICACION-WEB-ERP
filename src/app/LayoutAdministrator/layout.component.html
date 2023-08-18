@@ -12,7 +12,7 @@
       <!-- menú -->
       <div class="var-menu__prev">
           <!-- <button class="btn-sm item-list__admin__warn"
-                  mat-icon-button 
+                  mat-icon-button
                   (click)="sidenav.toggle()" >
               <mat-icon>menu</mat-icon>
           </button> -->
@@ -33,12 +33,14 @@
 
       <!-- cerrar sesión -->
       <div class="var-menu__next">
-
-          <button class="btn-sm var-menu__next__logout"
-                  mat-icon-button 
-                  (click)="logout()" >
-              <mat-icon>flight_takeoff</mat-icon>
-          </button>
+        <button class="btn-sm var-menu__next__config" mat-icon-button routerLink="/">
+          <mat-icon>home</mat-icon>
+        </button>
+        <button class="btn-sm var-menu__next__logout"
+                mat-icon-button
+                (click)="logout()" >
+            <mat-icon>input</mat-icon>
+        </button>
 
       </div>
 
