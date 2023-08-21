@@ -37,7 +37,7 @@ mat-sidenav {
 
     border-right: none;
     background: var(--fondo_menu);
-    color: white;
+    color: var(--texto_menu);
     border-radius: 10px;
     text-align: center;
     @media (max-width: 800px) {
@@ -47,18 +47,18 @@ mat-sidenav {
 
 mat-sidenav-container {
     background: var(--fondo_menu);
-    color: white;
+    color: var(--texto_menu);
 }
 
 .a-menu {
-    color: white;
+    color: var(--texto_menu);
     text-decoration: none;
 }
 
 // Tree
 mat-tree {
     background: var(--fondo_menu);
-    color: white;
+    color: var(--texto_menu);
     overflow: hidden;
 }
 
@@ -67,7 +67,7 @@ mat-icon{
 }
 
 span{
-    color: white;
+    color: var(--texto_menu);
 }
 
 /*.div-back-bottons{
