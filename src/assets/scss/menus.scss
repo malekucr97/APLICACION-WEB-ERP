@@ -33,10 +33,11 @@ mat-sidenav {
 
     margin: 1%;
     padding: 1px;
+    top: 9%;
 
     border-right: none;
-    background: #005188;
-    color: white;
+    background: var(--fondo_menu);
+    color: var(--texto_menu);
     border-radius: 10px;
     text-align: center;
     @media (max-width: 800px) {
@@ -45,19 +46,19 @@ mat-sidenav {
 }
 
 mat-sidenav-container {
-    background: #005188;
-    color: white;
+    background: var(--fondo_menu);
+    color: var(--texto_menu);
 }
 
 .a-menu {
-    color: white;
+    color: var(--texto_menu);
     text-decoration: none;
 }
 
 // Tree
 mat-tree {
-    background: #005188;
-    color: white;
+    background: var(--fondo_menu);
+    color: var(--texto_menu);
     overflow: hidden;
 }
 
@@ -66,7 +67,7 @@ mat-icon{
 }
 
 span{
-    color: white;
+    color: var(--texto_menu);
 }
 
 /*.div-back-bottons{
@@ -94,6 +95,7 @@ span{
 .info-modulo {
     margin-top: 1%;
     width: 100%;
+    padding: 1px;
 }
 
 .avatar {
