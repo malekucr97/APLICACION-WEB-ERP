@@ -574,5 +574,10 @@ input.input100 {
   background-color: #524e4e;
 }
 
+.texto-error {
+  margin-top: .25rem;
+  font-size: .875rem;
+  color: #dc3545;
+}
 
 
