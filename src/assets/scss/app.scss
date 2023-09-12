@@ -51,7 +51,9 @@ td {
       display: flex;
       justify-content: center;
       align-items: center;
-      height: 7vh;
+      // height: 5vh;
+      height: 35px;
+      overflow: hidden;
     }
 
     &__prev {
