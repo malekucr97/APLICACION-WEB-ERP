@@ -52,7 +52,7 @@ td {
       justify-content: center;
       align-items: center;
       // height: 5vh;
-      height: 35px;
+      height: 40px;
       overflow: hidden;
     }
 
@@ -79,7 +79,7 @@ td {
             padding-right: 2%;
             &__titulo {
                 color: white;
-                padding-top: 1%;
+                padding-top: 15px;
                 @include font-aero;
             }
         }
@@ -544,4 +544,8 @@ mat-sidenav-container{
 
 .contenedorFondoModulo{
   background-color: var(--degradado_oscuro);
+}
+
+.material-icons {
+  font-size: 20px;
 }
