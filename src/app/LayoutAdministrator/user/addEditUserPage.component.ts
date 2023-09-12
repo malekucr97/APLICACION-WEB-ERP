@@ -1,4 +1,4 @@
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { AbstractControl, FormBuilder, FormGroup, ValidationErrors, ValidatorFn, Validators } from '@angular/forms';
 import { Component, OnInit } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
 import { first } from 'rxjs/operators';
@@ -18,12 +18,12 @@ export class AddEditUserComponent extends OnSeguridad implements OnInit {
   businessObservable: Compania;
 
   response: ResponseMessage;
-  
+
   loading : boolean = false;
   submitFormUsuario : boolean = false;
 
   pIdentifUserUpdate: string;
-  
+
   esAdmin : boolean;
 
   updateUser  : boolean = false;
@@ -64,7 +64,7 @@ export class AddEditUserComponent extends OnSeguridad implements OnInit {
 
   get f() { return this.usuarioForm.controls; }
 
-  ngOnInit() { 
+  ngOnInit() {
 
     if (this.route.snapshot.params.pidentificationUser) {
 
@@ -73,7 +73,7 @@ export class AddEditUserComponent extends OnSeguridad implements OnInit {
 
       this.usuarioForm.controls.rolUsuario.disable();
 
-      if (!this.userObservable.esAdmin && 
+      if (!this.userObservable.esAdmin &&
           this.userObservable.idRol !== administrator.adminSociedad) {
         this.usuarioForm.controls.identificacionUsuario.disable();
         this.usuarioForm.controls.correoElectronicoUsuario.disable();
@@ -100,9 +100,9 @@ export class AddEditUserComponent extends OnSeguridad implements OnInit {
           } else {
             this.role = null;
             this.inicializaFormularioUpdateUser(responseUser, this.nombreRol);
-          }  
+          }
         });
-      
+
     } else {
       this.usuarioSeleccionado = null;
       this.addUser = true;
@@ -132,7 +132,7 @@ export class AddEditUserComponent extends OnSeguridad implements OnInit {
         puestoUsuario:            [userUpdate.puesto],
         numeroTelefonoUsuario:    [userUpdate.numeroTelefono],
         rolUsuario:               [nombreRol],
-        passwordUsuario:          ['', [Validators.minLength(5)]]
+        passwordUsuario:          ['', [Validators.minLength(5), this.passwordValidator()]]
       });
 
     } else {
@@ -144,7 +144,7 @@ export class AddEditUserComponent extends OnSeguridad implements OnInit {
         puestoUsuario:            [''],
         numeroTelefonoUsuario:    [''],
         rolUsuario:               [''],
-        passwordUsuario:          ['', [Validators.minLength(5)]]
+        passwordUsuario:          ['', [Validators.minLength(5), this.passwordValidator()]]
       });
     }
 
@@ -158,10 +158,10 @@ export class AddEditUserComponent extends OnSeguridad implements OnInit {
       puestoUsuario:            [''],
       numeroTelefonoUsuario:    [''],
       rolUsuario:               [{value: '', disabled: true}],
-      passwordUsuario:          ['', [Validators.required, Validators.minLength(5)]]
+      passwordUsuario:          ['', [Validators.required, Validators.minLength(5), this.passwordValidator()]]
     });
   }
-  
+
   crateObjectForm() : User {
 
     let userForm: User = new User();
@@ -229,7 +229,7 @@ export class AddEditUserComponent extends OnSeguridad implements OnInit {
 
             if (responseAddUser.exito) {
 
-              if (responseAddUser.objetoDb) this.asociarUsuarioEmpresa(responseAddUser.objetoDb, responseAddUser.responseMesagge); 
+              if (responseAddUser.objetoDb) this.asociarUsuarioEmpresa(responseAddUser.objetoDb, responseAddUser.responseMesagge);
 
             } else { this.alertService.error(responseAddUser.responseMesagge); }
 
@@ -256,11 +256,28 @@ export class AddEditUserComponent extends OnSeguridad implements OnInit {
           if (response.exito) {
             this.alertService.success(responseMessageAddUser + ' ' + response.responseMesagge, { keepAfterRouteChange: true });
             this.router.navigate([this.URLRedirectPage], { relativeTo: this.route });
-          
+
           } else { this.alertService.error(response.responseMesagge); }
         },
         (error) => { this.alertService.error(error); }
       );
   }
+
+
+  private passwordValidator(): ValidatorFn {
+    return (control: AbstractControl): ValidationErrors | null => {
+      console.log('control', control);
+      const password = control.value;
+      const hasUpperCase = /[A-Z]/.test(password);
+      const hasLowerCase = /[a-z]/.test(password);
+      const hasNumber = /[0-9]/.test(password);
+      const hasSpecialCharacter = /[^\w]/.test(password);
+
+      const valid = hasUpperCase && hasLowerCase && hasNumber && hasSpecialCharacter;
+
+      return valid ? null : { invalidPassword: true };
+    };
+  }
+
   // ****************************************************
 }
