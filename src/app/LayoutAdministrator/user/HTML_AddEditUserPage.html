@@ -9,11 +9,11 @@
               <p *ngIf="addUser">Registro de Usuarios</p>
               <a routerLink="{{ URLRedirectPage }}" class="btn btn-light mb-2 mr-3">Volver</a>
             </div>
-  
+
             <div class="articulo__contenedor__header__next"></div>
           </div>
         </section>
-  
+
         <!-- *************************** -->
         <!-- SECCIÓN FORMULARIO USUARIO  -->
         <!-- *************************** -->
@@ -25,13 +25,13 @@
                   <div class="articulo__contenedor__body__prev__form__header__prev">
                     <p class="articulo__contenedor__body__prev__form__header__titulo">{{tituloBasePantalla}}</p>
                   </div>
-  
+
                   <div class="articulo__contenedor__body__prev__form__header__next">
                     <button *ngIf="updateUser" class="articulo__contenedor__header__prev__btns__warn" mat-flat-button (click)="actualizarUsuario()">Actualizar</button>
                     <button *ngIf="addUser" class="articulo__contenedor__header__prev__btns__ok" mat-flat-button (click)="registrarUsuario()">Registrar</button>
                   </div>
                 </div>
-  
+
                 <div class="articulo__contenedor__body__prev__form__content p-2">
                   <form [formGroup]="usuarioForm" class="row">
 
@@ -108,6 +108,7 @@
                     <div *ngIf="submitFormUsuario && f.passwordUsuario.errors" class="invalid-feedback">
                         <div *ngIf="f.passwordUsuario.errors.required">El campo es requerido.</div>
                         <div *ngIf="f.passwordUsuario.errors.minlength">La contraseña debe de contener al menos 5 caracteres.</div>
+                        <div *ngIf="f.passwordUsuario.errors.invalidPassword">La contraseña debe contener al menos una mayúscula, una minúscula, un número y un caracter.</div>
                     </div>
                 </div>
 
@@ -126,7 +127,7 @@
                         </div>
                     </div>
 
-                    
+
 
                     <div class="form-group col-md-12">
                         <label for="rolUsuario" class="form-label">Rol de Usuario</label>
@@ -143,7 +144,7 @@
                         </div>
                     </div>
 
-                    
+
 
                   </form>
                 </div>
@@ -151,7 +152,7 @@
             </div>
           </div>
         </section>
-  
+
         <!-- ************************ -->
         <!-- USUARIO SELECCIONADO     -->
         <!-- ************************ -->
@@ -163,10 +164,10 @@
                   <div class="articulo__contenedor__body__prev__list__header__prev">
                     <p class="articulo__contenedor__body__prev__list__header__titulo">Usuario Seleccionado</p>
                   </div>
-  
+
                   <div class="articulo__contenedor__body__prev__list__header__next"></div>
                 </div>
-  
+
                 <div class="articulo__contenedor__body__next__list__content">
                   <div>
                     <table class="table table-striped">
@@ -195,12 +196,12 @@
             </div>
           </div>
         </section>
-  
+
         <!-- FOOTER -->
         <section>
           <div class="articulo__contenedor__footer">
             <div class="articulo__contenedor__footer__prev"></div>
-  
+
             <div class="articulo__contenedor__footer__next"></div>
           </div>
         </section>
