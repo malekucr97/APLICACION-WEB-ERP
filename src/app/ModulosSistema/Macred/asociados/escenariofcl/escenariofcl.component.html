@@ -1,1 +1,31 @@
-<p>escenariofcl works!</p>
+<article>
+  <section>
+    <div class="contenedor__header">
+      <div class="contenedor__header__prev">
+        <h2 *ngIf="srvDatosAnalisisService._analisisCapacidadpago">
+          codigo de análisis: {{ srvDatosAnalisisService._analisisCapacidadpago.codigoAnalisis }}
+        </h2>
+      </div>
+      <div class="contenedor__header__next">
+        <h2>Escenarios FCL</h2>
+      </div>
+    </div>
+
+    <div class="contenedor-analisis__tabletas__body">
+
+    </div>
+
+    <div class="contenedor__footer">
+      <div class="contenedor__footer__prev">
+        <button
+          class="btn btn-success px-5 mx-1"
+          mat-flat-button
+          color="primary"
+        >
+          Calcular Escenarios
+        </button>
+      </div>
+    </div>
+  </section>
+</article>
+

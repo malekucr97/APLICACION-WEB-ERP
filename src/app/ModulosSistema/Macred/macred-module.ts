@@ -43,6 +43,9 @@ import { FclComponent } from './asociados/fcl/fcl.component';
 import { EscenariofclComponent } from './asociados/escenariofcl/escenariofcl.component';
 import { NivelesCapacidadPagoComponent } from './mantenimientos/ModelosCalificacion/niveles-capacidad-pago/niveles-capacidad-pago.component';
 import { IndicadoresRelevantesComponent } from './mantenimientos/ModelosCalificacion/indicadores-relevantes/indicadores-relevantes.component';
+import { DatosAnalisisComponent } from './asociados/datos-analisis/datos-analisis.component';
+import { IngresosComponent } from './asociados/ingresos/ingresos.component';
+import { PdComponent } from './asociados/pd/pd.component';
 
 @NgModule({
     imports: [
@@ -86,7 +89,10 @@ import { IndicadoresRelevantesComponent } from './mantenimientos/ModelosCalifica
         FclComponent,
         EscenariofclComponent,
         NivelesCapacidadPagoComponent,
-        IndicadoresRelevantesComponent
+        IndicadoresRelevantesComponent,
+        DatosAnalisisComponent,
+        IngresosComponent,
+        PdComponent
     ],
     entryComponents: [
         AsociadosComponent
