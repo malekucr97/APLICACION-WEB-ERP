@@ -46,6 +46,8 @@ import { IndicadoresRelevantesComponent } from './mantenimientos/ModelosCalifica
 import { DatosAnalisisComponent } from './asociados/datos-analisis/datos-analisis.component';
 import { IngresosComponent } from './asociados/ingresos/ingresos.component';
 import { PdComponent } from './asociados/pd/pd.component';
+import { VariablesCriticasComponent } from './mantenimientos/ModelosCalificacion/variables-criticas/variables-criticas.component';
+import { EscenariosRiesgosComponent } from './mantenimientos/ModelosCalificacion/escenarios-riesgos/escenarios-riesgos.component';
 
 @NgModule({
     imports: [
@@ -92,7 +94,9 @@ import { PdComponent } from './asociados/pd/pd.component';
         IndicadoresRelevantesComponent,
         DatosAnalisisComponent,
         IngresosComponent,
-        PdComponent
+        PdComponent,
+        VariablesCriticasComponent,
+        EscenariosRiesgosComponent
     ],
     entryComponents: [
         AsociadosComponent

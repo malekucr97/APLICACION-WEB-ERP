@@ -4,9 +4,9 @@
         <div class="contenedor mat-elevation-z4">
 
             <section>   <!-- header -->
-                <div class="contenedor__header">                    
+                <div class="contenedor__header">
                     <div class="contenedor__header__prev">
-                        <h2 >Lista de Estados Civiles </h2>
+                        <h2 >Lista de parametros generales </h2>
                     </div>
                     <div class="contenedor__header__next">  </div>
                 </div>
@@ -16,17 +16,17 @@
                 <div class="contenedor__body">
                     <!-- *************** -->
                     <mat-sidenav-container *ngIf="showList">
-                            
-                        <div class="content mat-elevation-z4">
+
+                        <div class="content mat-elevation-z4 tblContenido">
                             <main>
-                                
-                                  
-                    
+
+
+
                                 <!--<h1 style="color:#1A5276;margin-top: 2%;">Personas</h1>-->
-                                
+
                                 <article>
                                     <section class="content__menu">
-                            
+
                                         <table class="table table-striped">
                                             <thead>
                                                 <tr>
@@ -36,14 +36,14 @@
                                                     <th style="width: 12%">Valor 3</th>
                                                     <th style="width: 12%">Valor 4</th>
                                                     <th style="width: 12%">Valor 5</th>
-                                                    <th style="width: 12%">Encriptado</th>
+                                                    <th style="width: 10%">Encriptado</th>
                                                     <th style="width: 10%">
                                                         <a style="margin-top: 3%;" class="btn btn-sm btn-outline-success float-left" matTooltip="Nuevo">
-                                                        <i class="fa fa-plus" aria-hidden="true" (click)="addParametroGeneral()"></i></a> 
+                                                        <i class="fa fa-plus" aria-hidden="true" (click)="addParametroGeneral()"></i></a>
                                                     </th>
                                                 </tr>
                                             </thead>
-                    
+
                                             <tbody>
                                                 <tr *ngFor="let parametroGeneral of listParametrosGenerales">
                                                     <td>{{parametroGeneral.codigoParametro}}</td>
@@ -55,23 +55,23 @@
                                                     <td *ngIf="parametroGeneral.encriptado==true">Activo</td>
                                                     <td *ngIf="parametroGeneral.encriptado==false">Inactivo</td>
                                                     <td style="white-space: nowrap">
-                    
+
                                                         <a style="margin-right: 5%;" (click)="editParametroGeneral(parametroGeneral)" class="btn btn-sm btn-outline-info" matTooltip="Editar">
                                                             <i class="fa fa-edit"></i> </a>
-                                                    
+
                                                         <a style="margin-left: 5%;" (click)="deleteParametroGeneral(parametroGeneral.id)" class="btn btn-sm btn-outline-danger" matTooltip="Eliminar">
                                                             <i class="fa fa-trash"></i> </a>
                                                     </td>
                                                 </tr>
                                             </tbody>
                                         </table>
-                    
+
                                     </section>
                                 </article>
                             </main>
                         </div>
                     </mat-sidenav-container>
-                    
+
                     <!-- *************** -->
                 </div>
             </section>
@@ -80,8 +80,8 @@
                 <div class="contenedor__footer">
                     <section class="sectionmenu">
                         <div class=" mat-elevation-z4">
-            
-                            
+
+
                         </div>
                     </section>
 
@@ -114,7 +114,7 @@
             <div class="contenedor__body">
 
                 <form [formGroup]="formParametroGeneral" class="row modal-config__formulario-body" >
-                    
+
                     <div class="form-group col-md-3">
                         <label for="codigoParametro" class="form-label">Código</label>
                         <input formControlName="codigoParametro" class="form-control" type="text" id="id_codigo_parametro_general"
@@ -126,43 +126,43 @@
 
                     <div class="form-group col-md-3">
                         <label for="valor1" class="form-label">Valor 1</label>
-                        <input formControlName="valor1" class="form-control" type="text" id="id_valor1_parametro_general" 
+                        <input formControlName="valor1" class="form-control" type="text" id="id_valor1_parametro_general"
                             [ngClass]="{ 'is-invalid': submitted && f.valor1.errors }" />
                         <div *ngIf="submitted && f.valor1.errors" class="invalid-feedback">
                             <div *ngIf="f.valor1.errors.required">El valor 1 es requerido.</div>
                         </div>
                     </div>
-                    
+
                     <div class="form-group col-md-3">
                         <label for="valor2" class="form-label">Valor 2</label>
-                        <input formControlName="valor2" class="form-control" type="text" id="id_valor2_parametro_general" 
+                        <input formControlName="valor2" class="form-control" type="text" id="id_valor2_parametro_general"
                             [ngClass]="{ 'is-invalid': submitted && f.valor1.errors }" />
                         <div *ngIf="submitted && f.valor2.errors" class="invalid-feedback">
                             <div *ngIf="f.valor2.errors.required">El valor 2 es requerido.</div>
                         </div>
                     </div>
-                    
+
                     <div class="form-group col-md-3">
                         <label for="valor3" class="form-label">Valor 3</label>
-                        <input formControlName="valor3" class="form-control" type="text" id="id_valor3_parametro_general" 
+                        <input formControlName="valor3" class="form-control" type="text" id="id_valor3_parametro_general"
                             [ngClass]="{ 'is-invalid': submitted && f.valor3.errors }" />
                         <div *ngIf="submitted && f.valor3.errors" class="invalid-feedback">
                             <div *ngIf="f.valor3.errors.required">El valor 3 es requerido.</div>
                         </div>
                     </div>
-                    
+
                     <div class="form-group col-md-3">
                         <label for="valor4" class="form-label">Valor 4</label>
-                        <input formControlName="valor4" class="form-control" type="text" id="id_valor4_parametro_general" 
+                        <input formControlName="valor4" class="form-control" type="text" id="id_valor4_parametro_general"
                             [ngClass]="{ 'is-invalid': submitted && f.valor4.errors }" />
                         <div *ngIf="submitted && f.valor4.errors" class="invalid-feedback">
                             <div *ngIf="f.valor4.errors.required">El valor 4 es requerido.</div>
                         </div>
                     </div>
-                    
+
                     <div class="form-group col-md-3">
                         <label for="valor5" class="form-label">Valor 5</label>
-                        <input formControlName="valor5" class="form-control" type="text" id="id_valor5_parametro_general" 
+                        <input formControlName="valor5" class="form-control" type="text" id="id_valor5_parametro_general"
                             [ngClass]="{ 'is-invalid': submitted && f.valor5.errors }" />
                         <div *ngIf="submitted && f.valor5.errors" class="invalid-feedback">
                             <div *ngIf="f.valor5.errors.required">El valor 5 es requerido.</div>
@@ -178,7 +178,7 @@
             </div>
         </section>
 
-        <section>   
+        <section>
             <div class="contenedor__footer">
                 <div class="contenedor__footer__prev">
                     <button  class="btn btn-success px-5" (click)="guardarParametroGeneral()">

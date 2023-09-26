@@ -7,6 +7,7 @@ import { TipoIngresoComponent } from './mantenimientos/AnalisisPersonas/tipoingr
 import { TipoIngresoAnalisisComponent } from './mantenimientos/AnalisisPersonas/tipoingresoanalisis-component';
 import { IndicadoresRelevantesComponent } from './mantenimientos/ModelosCalificacion/indicadores-relevantes/indicadores-relevantes.component';
 import { NivelesCapacidadPagoComponent } from './mantenimientos/ModelosCalificacion/niveles-capacidad-pago/niveles-capacidad-pago.component';
+import { VariablesCriticasComponent } from './mantenimientos/ModelosCalificacion/variables-criticas/variables-criticas.component';
 import { TiposFormasPagoAnalisisComponent } from './mantenimientos/Obligaciones/tiposformaspagoanalisis-component';
 import { ConfiguracionModelosComponent } from './mantenimientos/Parametros/configuracion-modelos/configuracion-modelos.component';
 import { ConfiguracionParametrosPdComponent } from './mantenimientos/Parametros/configuracion-parametros-pd/configuracion-parametros-pd.component';
@@ -18,6 +19,7 @@ import { TiposAsociadosComponent } from './mantenimientos/Personas/tiposasociado
 import { TiposGenerosComponent } from './mantenimientos/Personas/tiposgeneros-component';
 import { TiposPersonasComponent } from './mantenimientos/Personas/tipospersonas-component';
 import { MenuMacredComponent } from './menu.component';
+import { EscenariosRiesgosComponent } from './mantenimientos/ModelosCalificacion/escenarios-riesgos/escenarios-riesgos.component';
 
 
 const routes: Routes = [
@@ -43,6 +45,8 @@ const routes: Routes = [
             { path: 'mantenimientos/personas/tipo-actividad-economica.html',  component: TipoActividadEconomicaComponent },
             { path: 'mantenimientos/modeloscalificacion/indicadores-relevantes.html',  component: IndicadoresRelevantesComponent },
             { path: 'mantenimientos/modeloscalificacion/niveles-capacidad-pago.html',  component: NivelesCapacidadPagoComponent },
+            { path: 'mantenimientos/modeloscalificacion/variables-criticas.html',  component: VariablesCriticasComponent },
+            { path: 'mantenimientos/modeloscalificacion/escenarios-riesgos.html',  component: EscenariosRiesgosComponent },
             // configuracion
             { path: 'configuracion/parametros-generales.html', component: ParametrosGeneralesComponent}
         ]

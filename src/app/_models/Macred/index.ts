@@ -21,3 +21,7 @@ export * from './IndicadoresPorGrupoPD';
 export * from './AnalisisHistoricoPD';
 export * from './TipoActividadEconomica';
 export * from './ScoringFlujoCajaLibre';
+export * from './IndicadoresRelevantes';
+export * from './NivelesXIndicador';
+export * from './VariablesCriticas';
+export * from './EscenariosRiesgos';
