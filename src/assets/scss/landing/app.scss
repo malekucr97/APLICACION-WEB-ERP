@@ -198,6 +198,7 @@ mat-toolbar {
 // ************************************
 .articulo {
   padding: 1.2% 2% 1.4% 2%;
+  background-color: var(--color_gris);
 
   &__contenedor {
     display: flex;
@@ -227,7 +228,7 @@ mat-toolbar {
   padding: 0 2%;
   min-width: 150px;
   height: 40px;
-  background-color: #b1b846;
+  background-color: var(--color_accent);;
   border-radius: 25px;
   font-family: Poppins-Regular;
   font-size: 16px;

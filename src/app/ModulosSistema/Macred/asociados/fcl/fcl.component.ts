@@ -235,7 +235,7 @@ export class FclComponent implements OnInit {
       .pipe(first())
       .subscribe((response) => {
         if (response) {
-          this.alertService.success('Se generó correctamente la información');
+          this.alertService.success('Se obtiene correctamente la información del FCL');
           this.analisisFlujoCajaLibre = response;
           this.inicializarFormularioFCL();
         } else {

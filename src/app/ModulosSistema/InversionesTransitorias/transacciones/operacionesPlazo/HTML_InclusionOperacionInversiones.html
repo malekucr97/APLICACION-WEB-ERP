@@ -36,36 +36,36 @@
                                 <section>
                                     <div class="articulo__contenedor__body__prev__form">
 
-                                        <div class="articulo__contenedor__body__prev__form__header"> 
-                                            
-                                            <div class="articulo__contenedor__body__prev__form__header__prev" > 
+                                        <div class="articulo__contenedor__body__prev__form__header">
+
+                                            <div class="articulo__contenedor__body__prev__form__header__prev" >
                                                 <p class="articulo__contenedor__body__prev__form__header__titulo">Encabezado de Inversión</p>
                                             </div>
 
-                                            <div class="articulo__contenedor__body__prev__form__header__next" > 
+                                            <div class="articulo__contenedor__body__prev__form__header__next" >
 
-                                                <button *ngIf="habilitaBtnNuevoEncabezado" class="articulo__contenedor__body__prev__form__header__prev__btns__new" 
+                                                <button *ngIf="habilitaBtnNuevoEncabezado" class="articulo__contenedor__body__prev__form__header__prev__btns__new"
                                                         mat-flat-button
                                                         (click)="limpiarFormularioEncabezado()">Nuevo</button>
 
-                                                <button *ngIf="habilitaBtnActualizaEncabezado" class="articulo__contenedor__header__prev__btns__warn" 
+                                                <button *ngIf="habilitaBtnActualizaEncabezado" class="articulo__contenedor__header__prev__btns__warn"
                                                         mat-flat-button
                                                         (click)="actualizaObjetoEncabezado()">Actualizar</button>
-                                                <button *ngIf="habilitaBtnRegistroEncabezado" class="articulo__contenedor__header__prev__btns__ok" 
+                                                <button *ngIf="habilitaBtnRegistroEncabezado" class="articulo__contenedor__header__prev__btns__ok"
                                                         mat-flat-button
                                                         (click)="submitEncabezado()">Registrar</button>
-                                                <button *ngIf="habilitaBtnElimibarEncabezado" class="articulo__contenedor__header__prev__btns__danger" 
+                                                <button *ngIf="habilitaBtnElimibarEncabezado" class="articulo__contenedor__header__prev__btns__danger"
                                                         mat-flat-button
                                                         (click)="eliminarObjetoEncabezado()">Eliminar</button>
 
                                             </div>
-                                        
+
                                         </div>
 
                                         <div class="articulo__contenedor__body__prev__form__content">
 
                                             <form [formGroup]="formularioEncabezado" class="row">
-                    
+
                                                 <div class="form-group col-md-1">
                                                     <label for="lblIdEncabezado" class="form-label">Id</label>
                                                     <input formControlName="idEncabezado" class="form-control" type="text" id="id_idEncabezado" readonly />
@@ -77,7 +77,7 @@
                                                     <mat-datepicker-toggle class="item-list__calendar" matSuffix [for]="picker"></mat-datepicker-toggle>
                                                     <mat-datepicker #picker ></mat-datepicker>
                                                 </div>
-                                                
+
                                                 <div class="form-group col-md-6">
                                                     <label for="lblNumeroInversionEncabezado" class="form-label">Número de Inversión</label>
                                                     <input formControlName="numeroInversionEncabezado" class="form-control" type="text" id="id_numeroInversionEncabezado"
@@ -86,7 +86,7 @@
                                                         <div *ngIf="m.numeroInversionEncabezado.errors.required">El número de inversión es requerido .</div>
                                                     </div>
                                                 </div>
-                    
+
                                                 <div class="col-sm-1 margin-icos-mat">
                                                     <a class="item-list__search"> <mat-icon (click)="buscarObjetoEncabezado()">search</mat-icon> </a>
                                                 </div>
@@ -94,7 +94,7 @@
                                                 <div class="form-group col-md-4">
                                                     <label for="lblIdTituloEncabezado" class="form-label">Título</label>
                                                     <select formControlName="idTituloEncabezado" class="form-control" name="selectIdTituloEncabezado"
-                                                        [ngClass]="{ 'is-invalid': submittedFormEncabezado && m.idTituloEncabezado.errors }" 
+                                                        [ngClass]="{ 'is-invalid': submittedFormEncabezado && m.idTituloEncabezado.errors }"
                                                         (ngModelChange)="itemTituloSelected($event)" >
                                                             <option [ngValue]="objeto" *ngFor="let objeto of listTitulos" >{{objeto.id}} - {{objeto.descripcion}}</option>
                                                     </select>
@@ -108,7 +108,7 @@
                                                     <input formControlName="numeroCuentaEncabezado" class="form-control" type="text" id="id_numeroCuentaEncabezado"
                                                         [ngClass]="{ 'is-invalid': submittedFormEncabezado && m.numeroCuentaEncabezado.errors }" />
                                                     <div *ngIf="submittedFormEncabezado && m.numeroCuentaEncabezado.errors" class="invalid-feedback">
-                                                        <div *ngIf="m.numeroCuentaEncabezado.errors.required">El número de cuenta es requerido .</div>
+                                                        <div *ngIf="m.numeroCuentaEncabezado.errors.required">El número de cuenta es requerido.</div>
                                                     </div>
                                                 </div>
 
@@ -169,7 +169,7 @@
                                                     <label for="lblIdPeriocidadEncabezado" class="form-label">Periocidad</label>
                                                     <select formControlName="idPeriocidadEncabezado" class="form-control" name="selectIdPeriocidadEncabezado"
                                                         [ngClass]="{ 'is-invalid': submittedFormEncabezado && m.idPeriocidadEncabezado.errors }" >
-                                                            <option [ngValue]="objeto" *ngFor="let objeto of listMonedas">{{objeto.id}} - {{objeto.descripcion}}</option>
+                                                            <option [ngValue]="objeto" *ngFor="let objeto of listPeriocidad">{{objeto.id}} - {{objeto.descripcion}}</option>
                                                     </select>
                                                     <div *ngIf="submittedFormEncabezado && m.idPeriocidadEncabezado.errors" class="invalid-feedback">
                                                         <div *ngIf="m.idPeriocidadEncabezado.errors.required">La periocidad del encabezado es requerida .</div>
@@ -237,7 +237,7 @@
 
                                                 <div class="form-group col-md-12">
                                                     <hr>
-                                                    <textarea matInput  formControlName="observacionesEncabezado" 
+                                                    <textarea matInput  formControlName="observacionesEncabezado"
                                                                         class="form-control"
                                                                         id="id_observacionesEncabezado"
                                                                         placeholder="Ingrese las observaciones..."></textarea>
@@ -251,7 +251,7 @@
                                                     <div *ngIf="submittedFormEncabezado && m.usuarioAprueba1Encabezado.errors" class="invalid-feedback">
                                                         <div *ngIf="m.usuarioAprueba1Encabezado.errors.required">.</div>
                                                     </div>
-                                                </div> 
+                                                </div>
 
                                                 <div class="form-group col-md-2">
                                                     <label for="lblUsuarioAprueba2Encabezado" class="form-label">Usuario Aprueba 2</label>
@@ -269,11 +269,11 @@
                                                 <div class="form-group col-sm-2 margin-icos-mat">
                                                     <mat-checkbox formControlName="calculaCuponEncabezado">Calcula Cupón ?</mat-checkbox>
                                                 </div>
-                    
+
                                                 <div class="form-group col-sm-1 margin-icos-mat">
                                                     <mat-checkbox formControlName="estadoEncabezado">Estado</mat-checkbox>
                                                 </div>
-                    
+
                                             </form>
 
                                         </div>
@@ -284,7 +284,7 @@
                         </article>
 
                     </div>
-                    
+
 
                     <div class="articulo__contenedor__body__next">
 
@@ -293,14 +293,14 @@
                                 <section>
                                     <div class="articulo__contenedor__body__next__list">
 
-                                        <div class="articulo__contenedor__body__next__list__header"> 
-                                            
-                                            <div class="articulo__contenedor__body__next__list__header__prev" > 
+                                        <div class="articulo__contenedor__body__next__list__header">
+
+                                            <div class="articulo__contenedor__body__next__list__header__prev" >
                                                 <p class="articulo__contenedor__body__next__list__header__titulo">Lista de Inversiones</p>
                                             </div>
 
                                             <div class="articulo__contenedor__body__next__list__header__next" > </div>
-                                        
+
                                         </div>
 
                                         <div class="articulo__contenedor__body__next__list__content">
@@ -310,7 +310,7 @@
                                                     <thead>
                                                         <tr>
                                                             <th style="width: 5%"></th>
-                                                            
+
                                                             <th style="width: 8%">Número de Inversión</th>
                                                             <th style="width: 10%">Inversión Neta</th>
                                                             <th style="width: 12%">Fecha de Inversión</th>
@@ -326,7 +326,7 @@
                                                             <td  style="white-space: nowrap" class="item-list__view">
                                                                 <div> <a > <mat-icon>swap_horiz</mat-icon> </a> </div>
                                                             </td>
-                                                            
+
                                                             <td>{{obj.numeroInversionEncabezado}}</td>
                                                             <td>{{obj.inversionNetaEncabezado}}</td>
                                                             <td>{{obj.fechaInversionEncabezado}}</td>
@@ -338,7 +338,7 @@
                                                     </tbody>
                                                 </table>
                                             </div>
-                        
+
                                         </div>
 
                                     </div>
@@ -347,7 +347,7 @@
                         </article>
 
                     </div>
-                    
+
                 </div>
             </section>
 
@@ -365,41 +365,41 @@
                                 <section>
                                     <div class="articulo__contenedor__body__prev__form">
 
-                                        <div class="articulo__contenedor__body__prev__form__header"> 
-                                            
-                                            <div class="articulo__contenedor__body__prev__form__header__prev" > 
+                                        <div class="articulo__contenedor__body__prev__form__header">
+
+                                            <div class="articulo__contenedor__body__prev__form__header__prev" >
                                                 <p class="articulo__contenedor__body__prev__form__header__titulo">Detalle de Inversión o Cotizaciones</p>
                                             </div>
 
-                                            <div class="articulo__contenedor__body__prev__form__header__next" > 
+                                            <div class="articulo__contenedor__body__prev__form__header__next" >
 
-                                                <button *ngIf="habilitaBtnNuevoDetalle" class="articulo__contenedor__body__prev__form__header__prev__btns__new" 
+                                                <button *ngIf="habilitaBtnNuevoDetalle" class="articulo__contenedor__body__prev__form__header__prev__btns__new"
                                                         mat-flat-button
                                                         (click)="limpiarFormularioDetalle()">Nuevo</button>
 
-                                                <button *ngIf="habilitaBtnActualizaDetalle" class="articulo__contenedor__header__prev__btns__warn" 
+                                                <button *ngIf="habilitaBtnActualizaDetalle" class="articulo__contenedor__header__prev__btns__warn"
                                                         mat-flat-button
                                                         (click)="actualizaObjetoSector()">Actualizar</button>
-                                                <button *ngIf="habilitaBtnRegistroDetalle" class="articulo__contenedor__header__prev__btns__ok" 
+                                                <button *ngIf="habilitaBtnRegistroDetalle" class="articulo__contenedor__header__prev__btns__ok"
                                                         mat-flat-button
                                                         (click)="submitDetalle()">Registrar</button>
-                                                <button *ngIf="habilitaBtnElimibarSector" class="articulo__contenedor__header__prev__btns__danger" 
+                                                <button *ngIf="habilitaBtnElimibarSector" class="articulo__contenedor__header__prev__btns__danger"
                                                         mat-flat-button
                                                         (click)="eliminarObjetoDetalle()">Eliminar</button>
 
                                             </div>
-                                        
+
                                         </div>
 
                                         <div class="articulo__contenedor__body__prev__form__content">
 
                                             <form [formGroup]="formularioDetalle" class="row">
-                    
+
                                                 <div class="form-group col-md-2">
                                                     <label for="lblIdSector" class="form-label">Id</label>
                                                     <input formControlName="idSector" class="form-control" type="text" id="id_idSector" readonly />
                                                 </div>
-                                                
+
                                                 <div class="form-group col-md-6">
                                                     <label for="lblCodigoSector" class="form-label">Código Interno</label>
                                                     <input formControlName="codigoSector" class="form-control" type="text" id="id_codigoSector"
@@ -408,7 +408,7 @@
                                                         <div *ngIf="s.codigoSector.errors.required">El código del sector es requerido .</div>
                                                     </div>
                                                 </div>
-                    
+
                                                 <div class="form-group col-md-6">
                                                     <label for="lblDescripcionSector" class="form-label">Descripción</label>
                                                     <input formControlName="descripcionSector" class="form-control" type="text" id="id_descripcionSector"
@@ -417,11 +417,11 @@
                                                         <div *ngIf="s.descripcionSector.errors.required">La descripción del sector es requerida .</div>
                                                     </div>
                                                 </div>
-                    
+
                                                 <div class="form-group col-sm-1 margin-icos-mat">
                                                     <mat-checkbox formControlName="estadoSector">Estado</mat-checkbox>
                                                 </div>
-                    
+
                                             </form>
 
                                         </div>
@@ -432,7 +432,7 @@
                         </article>
 
                     </div>
-                    
+
 
                     <div class="articulo__contenedor__body__next">
 
@@ -441,14 +441,14 @@
                                 <section>
                                     <div class="articulo__contenedor__body__next__list">
 
-                                        <div class="articulo__contenedor__body__next__list__header"> 
-                                            
-                                            <div class="articulo__contenedor__body__next__list__header__prev" > 
+                                        <div class="articulo__contenedor__body__next__list__header">
+
+                                            <div class="articulo__contenedor__body__next__list__header__prev" >
                                                 <p class="articulo__contenedor__body__next__list__header__titulo">Líneas de Detalle</p>
                                             </div>
 
                                             <div class="articulo__contenedor__body__next__list__header__next" > </div>
-                                        
+
                                         </div>
 
                                         <div class="articulo__contenedor__body__next__list__content">
@@ -458,7 +458,7 @@
                                                     <thead>
                                                         <tr>
                                                             <th style="width: 5%"></th>
-                                                            
+
                                                             <th style="width: 8%">Código interno</th>
                                                             <th style="width: 12%">Descripción</th>
                                                             <th style="width: 10%">Estado</th>
@@ -471,7 +471,7 @@
                                                             <td  style="white-space: nowrap" class="item-list__view">
                                                                 <div> <a > <mat-icon>swap_horiz</mat-icon> </a> </div>
                                                             </td>
-                                                            
+
                                                             <td>{{obj.codigoSector}}</td>
                                                             <td>{{obj.descripcion}}</td>
                                                             <td>{{obj.estado}}</td>
@@ -481,7 +481,7 @@
                                                     </tbody>
                                                 </table>
                                             </div>
-                        
+
                                         </div>
 
                                     </div>
@@ -490,7 +490,7 @@
                         </article>
 
                     </div>
-                    
+
                 </div>
             </section> -->
 

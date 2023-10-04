@@ -1,0 +1,120 @@
+<main class="tw-flex-col">
+  <!-- VARIABLES CRITICAS -->
+  <section class="tw-flex">
+    <article class="tw-m-2 tw-my-6 tw-w-1/4">
+      <div class="tw-border tw-shadow tw-rounded-lg tw-shadow">
+        <section>
+          <!-- header -->
+          <div class="contenedor__header">
+            <div class="contenedor__header__prev">
+              <h2>Crear variable crítica</h2>
+            </div>
+            <div class="contenedor__header__next"></div>
+          </div>
+        </section>
+
+        <section>
+          <!-- body -->
+          <div class="contenedor__body">
+            <form [formGroup]="formVariableCritica" class="row">
+              <div class="form-group col-md-12">
+                <label for="id" class="form-label">Código</label>
+                <input formControlName="codVariable" class="form-control tw-border tw-shadow" type="text" id="id_codigoIndicador" readonly />
+              </div>
+
+              <div class="form-group col-md-12">
+                <label for="lbldescripcion" class="form-label">Descripción</label>
+                <input
+                  formControlName="descripcion"
+                  class="form-control tw-border tw-shadow"
+                  type="text"
+                  id="id_descripcion"
+                  [ngClass]="{
+                    'is-invalid': submittedIndicadoresRelevantes && f.descripcion.errors
+                  }"
+                />
+                <div *ngIf="submittedIndicadoresRelevantes && f.descripcion.errors" class="invalid-feedback">
+                  <div *ngIf="f.descripcion.errors.required">La descripción es requerida</div>
+                </div>
+              </div>
+
+              <div class="form-group col-md-12 tw-flex tw-items-center">
+                <label for="estado" class="form-label">Estado</label>
+                <input type="checkbox" class="tw-w-6 tw-h-6 tw-mx-2" formControlName="estado" />
+                <div *ngIf="submittedIndicadoresRelevantes && f.estado.errors" class="invalid-feedback">
+                  <div *ngIf="f.estado.errors.required">El estado debe estar definido</div>
+                </div>
+              </div>
+
+              <div class="col-md-3 tw-my-2">
+                <a class="btn btn-sm tw-border-2 tw-border-green-600" matTooltip="Añadir" (click)="handleSubmitVariableCritica()">
+                  <i class="fa fa-plus tw-text-green-600"></i>
+                </a>
+              </div>
+            </form>
+          </div>
+        </section>
+      </div>
+    </article>
+
+    <article class="tw-m-2 tw-my-6 tw-flex-1">
+      <div class="tw-border tw-shadow tw-rounded-lg tw-shadow">
+        <section>
+          <!-- header -->
+          <div class="contenedor__header">
+            <div class="contenedor__header__prev">
+              <h2>Lista de variables críticas</h2>
+            </div>
+            <div class="contenedor__header__next"></div>
+          </div>
+        </section>
+
+        <section>
+          <!-- body -->
+          <div class="contenedor__body">
+            <!-- *************** -->
+            <mat-sidenav-container>
+              <div class="content mat-elevation-z4 tblContenido">
+                <main>
+                  <article>
+                    <section class="content__menu">
+                      <table class="table table-striped">
+                        <thead>
+                          <tr>
+                            <th style="width: 40%">Variable</th>
+                            <th style="width: 15%">Usuario Crea</th>
+                            <th style="width: 15%">Usuario Modifica</th>
+                            <th style="width: 15%">Estado</th>
+                            <th style="width: 15%"></th>
+                          </tr>
+                        </thead>
+                        <tbody>
+                          <tr *ngFor="let modelo of lstVariablesCriticas">
+                            <td>{{ modelo.descripcion }}</td>
+                            <td>{{ modelo.usuarioCreacion }}</td>
+                            <td>{{ modelo.usuarioModificacion }}</td>
+                            <td *ngIf="modelo.estado == true">Activo</td>
+                            <td *ngIf="modelo.estado == false">Inactivo</td>
+                            <td style="white-space: nowrap">
+                              <a (click)="handleSeleccionarVariableCritica(modelo)" style="margin-left: 5%" class="btn btn-sm tw-border-2 tw-border-blue-600" matTooltip="Editar el modelo">
+                                <i class="fa fa-edit tw-text-blue-600"></i>
+                              </a>
+                              <a (click)="handleEliminarVariableCritica(modelo)" style="margin-left: 5%" class="btn btn-sm tw-border-2 tw-border-red-600" matTooltip="Eliminar">
+                                <i class="fa fa-trash tw-text-red-600"></i>
+                              </a>
+                            </td>
+                          </tr>
+                        </tbody>
+                      </table>
+                    </section>
+                  </article>
+                </main>
+              </div>
+            </mat-sidenav-container>
+            <!-- *************** -->
+          </div>
+        </section>
+      </div>
+    </article>
+  </section>
+</main>
