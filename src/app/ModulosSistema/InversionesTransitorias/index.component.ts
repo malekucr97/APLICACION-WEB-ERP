@@ -4,36 +4,51 @@ import { OnSeguridad } from '@app/_helpers/abstractSeguridad';
 import { User, Module } from '@app/_models';
 import { AccountService, AlertService } from '@app/_services';
 
-@Component({templateUrl: 'index.html',
-            styleUrls: ['../../../assets/scss/inversiones/app.scss'],
+@Component({
+  templateUrl: 'index.html',
+  styleUrls: ['../../../assets/scss/inversiones/app.scss'],
 })
 export class IndexInversionesComponent extends OnSeguridad implements OnInit {
-    pPathIcoModule: string;
+  private nombrePantalla: string = 'IndexInversiones';
+  pPathIcoModule: string;
 
-    userObservable: User;
-    moduleObservable: Module;
+  userObservable: User;
+  moduleObservable: Module;
 
-    pnombremodulo: string;
+  pnombremodulo: string;
 
-    public adminSistema: boolean;
-    public adminEmpresa: boolean;
+  public adminSistema: boolean;
+  public adminEmpresa: boolean;
 
-    constructor(private alertService: AlertService,
-                private accountService: AccountService,
-                private router: Router) {
+  constructor(
+    private alertService: AlertService,
+    private accountService: AccountService,
+    private router: Router
+  ) {
 
-        super(alertService, accountService, router);
+    //#region VALIDACIÓN DE ACCESO Y AUTENTICACIÓN A LAS PANTALLAS
+    super(alertService, accountService, router);
 
-        // ***************************************************************
-        // VALIDA ACCESO PANTALLA LOGIN INDEX COMPONENT
-        if (!super.userAuthenticateIndexComponent()) { this.accountService.logout(); return; }
-        // ***************************************************************
-
-        this.userObservable = this.accountService.userValue;
-        this.moduleObservable = this.accountService.moduleValue;
+    // ***************************************************************
+    // VALIDA ACCESO PANTALLA LOGIN INDEX COMPONENT
+    if (!super.userAuthenticateIndexComponent()) {
+      this.accountService.logout();
+      return;
     }
+    // ***************************************************************
 
-    ngOnInit() { }
+    super._nombrePantalla = this.nombrePantalla;
+    super._redireccionURL = '/inra-sa'; // [OPCIONAL] SI NO SE INDICA SE REDIRECCIONA AL LA PÁGINA DEL MODULO.INDEXHTML
+    super.validarAccesoPantalla();
+    //#endregion
 
-    logout() { this.accountService.logout(); }
+    this.userObservable = this.accountService.userValue;
+    this.moduleObservable = this.accountService.moduleValue;
+  }
+
+  ngOnInit() {}
+
+  logout() {
+    this.accountService.logout();
+  }
 }

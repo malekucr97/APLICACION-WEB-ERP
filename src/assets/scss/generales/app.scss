@@ -160,7 +160,7 @@
 //         flex-wrap: wrap;
 
 //         padding-top: 2%;
-    
+
 //         &__item {
 //             text-align: center;
 //             &__titulo {
@@ -168,7 +168,7 @@
 //                 font-size: 1rem;
 //                 font-weight: 700;
 //                 transition: color 0.2s ease-in-out;
-    
+
 //                 @media (min-width: 1500px) {
 //                     font-size: 1.5rem;
 //                 }
@@ -222,6 +222,7 @@
 .articulo {
 
     padding: 0.2% 1% 0.4% 1%;
+    background-color: var(--color_gris);
 
     &__contenedor {
 

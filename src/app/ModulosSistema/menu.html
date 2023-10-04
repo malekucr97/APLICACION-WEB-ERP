@@ -12,7 +12,7 @@
         <!-- menú -->
         <div class="var-menu__prev">
             <button class="btn-sm item-list__admin__warn"
-                    mat-icon-button 
+                    mat-icon-button
                     (click)="sidenav.toggle()" >
                 <mat-icon>menu</mat-icon>
             </button>
@@ -34,10 +34,13 @@
         <!-- cerrar sesión -->
         <div class="var-menu__next">
 
+          <button class="btn-sm var-menu__next__home" mat-icon-button routerLink="/">
+            <mat-icon>home</mat-icon>
+          </button>
             <button class="btn-sm item-list__admin__danger"
-                    mat-icon-button 
+                    mat-icon-button
                     (click)="logout()" >
-                <mat-icon>flight_takeoff</mat-icon>
+                <mat-icon>input</mat-icon>
             </button>
         </div>
 
@@ -84,29 +87,29 @@
             </button>
 
             <img class="avatar mat-elevation-z8" src="{{moduleObservable.pathLogo}}">
-            
+
             <hr>
             <h4 class="name">{{moduleObservable.nombre}}</h4>
             <h4 class="name">{{userObservable.nombreCompleto}} - {{userObservable.puesto}}</h4>
             <h4 class="name">{{userObservable.email}}</h4>
-            
+
             <mat-divider></mat-divider>
-            
+
                 <mat-tree [dataSource]="dataSource" [treeControl]="treeControl">
                     <!-- This is the tree node template for leaf nodes -->
                     <!-- opciones hijas -->
                     <mat-tree-node *matTreeNodeDef="let node" matTreeNodePadding>
-            
+
                         <button mat-button >
                             <mat-icon>{{node.icon}}</mat-icon>
                             <span routerLink="{{node.link}}" (click)="sidenav.toggle()">{{node.name}}</span>
                         </button>
-                    
+
                     </mat-tree-node>
                     <!-- This is the tree node template for expandable nodes -->
                     <!-- opciones principales -->
                     <mat-tree-node *matTreeNodeDef="let node;when: hasChild" matTreeNodePadding>
-            
+
                         <button mat-button matTreeNodeToggle
                                 [attr.aria-label]="'Toggle ' + node.name">
                             <mat-icon class="mat-icon-rtl-mirror">
@@ -114,14 +117,14 @@
                             </mat-icon>
                             <span>{{node.name}}</span>
                         </button>
-                    
+
                     </mat-tree-node>
                 </mat-tree>
-            
+
         </div>
     </mat-sidenav-container>
 </mat-sidenav>
 
-<div class="styleLayout"> 
-    <router-outlet></router-outlet> 
+<div class="styleLayout">
+    <router-outlet></router-outlet>
 </div>

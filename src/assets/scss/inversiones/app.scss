@@ -1,6 +1,8 @@
 .articulo {
 
     padding: 0.2% 1% 0.4% 1%;
+    background-color: var(--color_fondo);
+
 
     &__contenedor {
 
@@ -8,6 +10,7 @@
 
         margin: 1% 1% 1% 1%;
         border-radius: 10px;
+        background-color: var(--color_gris);
 
         // ************
         // ** HEADER **
@@ -15,10 +18,9 @@
 
             padding-bottom: 10px;
             border-bottom: 1px solid rgb(202, 202, 202);
-
             &__prev {
                 width: 50%;
-                
+
                 padding-left: 1%;
                 padding-top: 1%;
 
@@ -27,7 +29,7 @@
                 &__btns{
                     color: #053254;
                     transition: color 0.2s ease-in-out;
-                    
+
                     &__ok{
                         margin-left: 0.2%;
                         margin-right: 0.2%;
@@ -69,7 +71,7 @@
                 text-align: right;
             }
         }
-        
+
         // **********
         // ** BODY **
         &__body {
@@ -106,14 +108,14 @@
                         &__prev {
                             width: 35%;
                             padding-left: 2%;
-                            
+
                             display: inline-block;
                             text-align: left;
-                            
+
                             &__btns{
                                 color: #053254;
                                 transition: color 0.2s ease-in-out;
-                                
+
                                 &__ok{
                                     margin-left: 0.2%;
                                     margin-right: 0.2%;
@@ -173,7 +175,7 @@
                         padding-right: 4%;
                     }
                 }
-                
+
             }
             &__next {
 
@@ -201,11 +203,11 @@
                             display: inline-block;
                             text-align: left;
                             padding-top: 1%;
-                            
+
                             &__btns{
                                 color: #053254;
                                 transition: color 0.2s ease-in-out;
-                                
+
                                 &__ok{
                                     margin-left: 0.2%;
                                     margin-right: 0.2%;
@@ -272,7 +274,7 @@
                 text-align: right;
             }
         }
-    } 
+    }
 }
 
 .margin-icos-mat {

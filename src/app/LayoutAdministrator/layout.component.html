@@ -8,43 +8,40 @@
 
 <article class="var-menu">
   <section>
-
-      <!-- menú -->
-      <div class="var-menu__prev">
-          <!-- <button class="btn-sm item-list__admin__warn"
-                  mat-icon-button 
+    <!-- menú -->
+    <div class="var-menu__prev">
+      <!-- <button class="btn-sm item-list__admin__warn"
+                  mat-icon-button
                   (click)="sidenav.toggle()" >
               <mat-icon>menu</mat-icon>
           </button> -->
+    </div>
+
+    <!-- título -->
+    <div class="var-menu__center">
+      <div class="var-menu__center__left">
+        <!-- <img class="var-menu__center__left__img" src="./assets/images/inra/img_bankap_left.png "> -->
       </div>
-
-      <!-- título -->
-      <div class="var-menu__center">
-          <div class="var-menu__center__left">
-              <!-- <img class="var-menu__center__left__img" src="./assets/images/inra/img_bankap_left.png "> -->
-          </div>
-          <div class="var-menu__center__center">
-              <p class="var-menu__center__center__titulo"> Administración Interna del Sistema </p>
-          </div>
-          <div class="var-menu__center__rigth">
-              <!-- <img class="var-menu__center__rigth__img" src="./assets/images/inra/img_bankap_rigth.png "> -->
-          </div>
+      <div class="var-menu__center__center">
+        <p class="var-menu__center__center__titulo">Administración Interna del Sistema</p>
       </div>
-
-      <!-- cerrar sesión -->
-      <div class="var-menu__next">
-
-          <button class="btn-sm var-menu__next__logout"
-                  mat-icon-button 
-                  (click)="logout()" >
-              <mat-icon>flight_takeoff</mat-icon>
-          </button>
-
+      <div class="var-menu__center__rigth">
+        <!-- <img class="var-menu__center__rigth__img" src="./assets/images/inra/img_bankap_rigth.png "> -->
       </div>
+    </div>
 
+    <!-- cerrar sesión -->
+    <div class="var-menu__next">
+      <button class="btn-sm var-menu__next__home" mat-icon-button routerLink="/">
+        <mat-icon>home</mat-icon>
+      </button>
+      <button class="btn-sm var-menu__next__logout" mat-icon-button (click)="logout()">
+        <mat-icon>input</mat-icon>
+      </button>
+    </div>
   </section>
 </article>
 
 <div class="styleLayout">
-    <router-outlet></router-outlet>
+  <router-outlet></router-outlet>
 </div>

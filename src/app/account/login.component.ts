@@ -13,7 +13,7 @@ export class LoginComponent implements OnInit {
 
     userLog : User = new User ;
 
-    pathImageInitial : string = './assets/images/inra/INRA-INITIAL.jpg';
+    pathImageInitial : string = './assets/images/inra/BANKAP_Header_2023-02.jpg';
 
     loading     : boolean = false;
     submitted   : boolean = false;
@@ -74,7 +74,7 @@ export class LoginComponent implements OnInit {
 
         if (this.f.rememberme.value) { sessionStorage.setItem(this.KeySessionStorageUserName, userName); }
         else { sessionStorage.removeItem(this.KeySessionStorageUserName); }
-        
+
         this.accountService.login(userName.trim(), password.trim())
             .pipe(first())
             .subscribe( responseLogin => {
