@@ -19,6 +19,7 @@ export class LoginComponent implements OnInit {
     submitted   : boolean = false;
 
     intentosFallidosInicioSesion: number = 0;
+    mostrarContrasena: boolean = false;
 
     private UrlHome : string;
 
@@ -123,5 +124,9 @@ export class LoginComponent implements OnInit {
                 this.submitted  = false;
             },
             (error) => { this.alertService.error('Problemas al obtener respuesta del Servidor. Por favor contacte al administrador.' + error); });
+    }
+
+    visualizarContrasena(){
+      this.mostrarContrasena = !this.mostrarContrasena;
     }
 }
