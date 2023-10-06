@@ -18,13 +18,15 @@ export class LoginComponent implements OnInit {
     loading     : boolean = false;
     submitted   : boolean = false;
 
+    intentosFallidosInicioSesion: number = 0;
+    mostrarContrasena: boolean = false;
+
     private UrlHome : string;
 
     _httpInactiveUserPage   : string = httpLandingIndexPage.indexHTTPInactiveUser;
     _httpPendingUserPage    : string = httpLandingIndexPage.indexHTTPPendingUser;
     _httpNotRoleUserPage    : string = httpLandingIndexPage.indexHTTPNotRolUser;
     _httpBlockedUserPage    : string = httpLandingIndexPage.indexHTTPBlockedUser;
-
     _httpInactiveRolePage   : string = httpLandingIndexPage.indexHTTPInactiveRolUser;
 
     private KeySessionStorageUserName : string = environment.sessionStorageIdentificationUserKey;
@@ -51,6 +53,7 @@ export class LoginComponent implements OnInit {
     inicializaFormularioLogin () : void {
 
         let username : string = '';
+        this.intentosFallidosInicioSesion = 0;
 
         if (sessionStorage.getItem(this.KeySessionStorageUserName)) this.SSLState = true;
         if (this.SSLState) username = sessionStorage.getItem(this.KeySessionStorageUserName);
@@ -98,7 +101,11 @@ export class LoginComponent implements OnInit {
                         case "NO-LOG03": { this.router.navigate([this._httpInactiveUserPage]);  break; } // usuario inactivo
                         case "NO-LOG04": { this.router.navigate([this._httpPendingUserPage]);   break; } // usuario pendiente
                         case "NO-LOG05": { this.router.navigate([this._httpNotRoleUserPage]);   break; } // usuario sin rol
-                        case "NO-LOG06": { this.alertService.info(this.userLog.messageNoLogin); break; } // contraseña incorrecta
+                        case "NO-LOG06": {
+                          this.intentosFallidosInicioSesion++;
+                          this.alertService.info(this.userLog.messageNoLogin);
+                          break;
+                        } // contraseña incorrecta
 
                         default: { this.alertService.info("Excepción no controlada."); break; }
                     }
@@ -117,5 +124,9 @@ export class LoginComponent implements OnInit {
                 this.submitted  = false;
             },
             (error) => { this.alertService.error('Problemas al obtener respuesta del Servidor. Por favor contacte al administrador.' + error); });
+    }
+
+    visualizarContrasena(){
+      this.mostrarContrasena = !this.mostrarContrasena;
     }
 }
