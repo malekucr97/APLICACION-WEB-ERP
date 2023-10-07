@@ -265,6 +265,7 @@ iframe {
   font-size: 30px;
   color: #fff;
   text-transform: uppercase;
+  text-align: center;
   /* line-height: 1.2;
   text-align: left; */
 }
@@ -300,6 +301,16 @@ iframe {
 
 /*------------------------------------------------------------------
 [ Input ]*/
+.flexInput {
+  flex-grow: 1;
+  display: flex;
+  align-items: center;
+}
+
+.iconoVisibilidad {
+  margin: 0 10px;
+  color: #626262;
+}
 
 .wrap-input100 {
   width: 100%;
@@ -611,3 +622,5 @@ input.input100 {
   font-size: .875rem;
   color: #dc3545;
 }
+
+
