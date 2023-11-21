@@ -7,7 +7,7 @@ import { ScreenAccessUser } from '@app/_models/admin/screenAccessUser';
 import { OnSeguridad } from '@app/_helpers/abstractSeguridad';
 
 @Component({templateUrl: 'index.html',
-            styleUrls: ['../../../assets/scss/inventario/app.scss'],
+            styleUrls: ['../../../assets/scss/app.scss'],
 })
 export class IndexMacredComponent extends OnSeguridad implements OnInit {
     pPathIcoModule: string;
@@ -24,7 +24,7 @@ export class IndexMacredComponent extends OnSeguridad implements OnInit {
     listAccessUser: ScreenAccessUser[] = [];
 
     constructor(private alertService: AlertService,
-                private accountService: AccountService, 
+                private accountService: AccountService,
                 private route: ActivatedRoute,
                 private router: Router)  {
 

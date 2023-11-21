@@ -13,10 +13,13 @@ export class LoginComponent implements OnInit {
 
     userLog : User = new User ;
 
-    pathImageInitial : string = './assets/images/inra/INRA-INITIAL.jpg';
+    pathImageInitial : string = './assets/images/inra/BANKAP_Header_2023-02.jpg';
 
     loading     : boolean = false;
     submitted   : boolean = false;
+
+    intentosFallidosInicioSesion: number = 0;
+    mostrarContrasena: boolean = false;
 
     private UrlHome : string;
 
@@ -24,7 +27,6 @@ export class LoginComponent implements OnInit {
     _httpPendingUserPage    : string = httpLandingIndexPage.indexHTTPPendingUser;
     _httpNotRoleUserPage    : string = httpLandingIndexPage.indexHTTPNotRolUser;
     _httpBlockedUserPage    : string = httpLandingIndexPage.indexHTTPBlockedUser;
-
     _httpInactiveRolePage   : string = httpLandingIndexPage.indexHTTPInactiveRolUser;
 
     private KeySessionStorageUserName : string = environment.sessionStorageIdentificationUserKey;
@@ -51,6 +53,7 @@ export class LoginComponent implements OnInit {
     inicializaFormularioLogin () : void {
 
         let username : string = '';
+        this.intentosFallidosInicioSesion = 0;
 
         if (sessionStorage.getItem(this.KeySessionStorageUserName)) this.SSLState = true;
         if (this.SSLState) username = sessionStorage.getItem(this.KeySessionStorageUserName);
@@ -74,7 +77,7 @@ export class LoginComponent implements OnInit {
 
         if (this.f.rememberme.value) { sessionStorage.setItem(this.KeySessionStorageUserName, userName); }
         else { sessionStorage.removeItem(this.KeySessionStorageUserName); }
-        
+
         this.accountService.login(userName.trim(), password.trim())
             .pipe(first())
             .subscribe( responseLogin => {
@@ -98,7 +101,11 @@ export class LoginComponent implements OnInit {
                         case "NO-LOG03": { this.router.navigate([this._httpInactiveUserPage]);  break; } // usuario inactivo
                         case "NO-LOG04": { this.router.navigate([this._httpPendingUserPage]);   break; } // usuario pendiente
                         case "NO-LOG05": { this.router.navigate([this._httpNotRoleUserPage]);   break; } // usuario sin rol
-                        case "NO-LOG06": { this.alertService.info(this.userLog.messageNoLogin); break; } // contraseña incorrecta
+                        case "NO-LOG06": {
+                          this.intentosFallidosInicioSesion++;
+                          this.alertService.info(this.userLog.messageNoLogin);
+                          break;
+                        } // contraseña incorrecta
 
                         default: { this.alertService.info("Excepción no controlada."); break; }
                     }
@@ -117,5 +124,9 @@ export class LoginComponent implements OnInit {
                 this.submitted  = false;
             },
             (error) => { this.alertService.error('Problemas al obtener respuesta del Servidor. Por favor contacte al administrador.' + error); });
+    }
+
+    visualizarContrasena(){
+      this.mostrarContrasena = !this.mostrarContrasena;
     }
 }
