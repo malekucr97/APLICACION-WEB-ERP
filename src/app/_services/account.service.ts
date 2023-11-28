@@ -1,6 +1,6 @@
 ﻿import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { BehaviorSubject, Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
 import { administrator, environment } from '@environments/environment';
@@ -136,35 +136,48 @@ export class AccountService {
   }
   // *******************************************************************
 
-  validateAccessUser(
-    idUser: number,
-    idModule: number,
-    nombrePantalla: string,
-    idBusiness: number
-  ) {
-    return this.http
-      .get<ResponseMessage>(`${environment.apiUrl}/users/validaaccesopantalla?idUsuario=${idUser}
-                                                                                          &idModulo=${idModule}
-                                                                                          &nomPantalla=${nombrePantalla}
-                                                                                          &îdEmpresa=${idBusiness}`);
+  validateAccessUser( idUser: number, idModule: number, nombrePantalla: string, idBusiness: number, pIdUserSessionRequest : string = 'novalue',
+                                                                                                    pUserSessionRequest : string = 'novalue',
+                                                                                                    pBusinessSessionRequest : string = 'novalue',
+                                                                                                    pModuleSessionRequest : string = 'novalue' ) {
+    // ** header
+    const session = {
+      IdUserSessionRequest : pIdUserSessionRequest,
+      UserSessionRequest : pUserSessionRequest,
+      BusinessSessionRequest : pBusinessSessionRequest,
+      ModuleSessionRequest : pModuleSessionRequest
+    };
+    const httpHeaders = { headers: new HttpHeaders(session) }
+    // **
+    return this.http.get<ResponseMessage>(
+      `${environment.apiUrl}/users/validaaccesopantalla?idUsuario=${idUser}&idModulo=${idModule}
+                                                                            &nomPantalla=${nombrePantalla}
+                                                                            &îdEmpresa=${idBusiness}`, httpHeaders );
   }
 
   // **********************************************************************************************
   // -- >> Inicio de Sesión
-  login(username, password) {
-    return this.http
-      .post<User>(`${environment.apiUrl}/users/autenticar`, {
-        username,
-        password,
-      })
-      .pipe(
-        map((user) => {
-          localStorage.setItem('user', JSON.stringify(user));
-          this.userSubject.next(user);
+  login(username, password, pIdUserSessionRequest : string = 'novalue',
+                            pUserSessionRequest : string = 'novalue',
+                            pBusinessSessionRequest : string = 'novalue',
+                            pModuleSessionRequest : string = 'novalue') {
+    // ** header
+    const session = {
+      IdUserSessionRequest : pIdUserSessionRequest,
+      UserSessionRequest : pUserSessionRequest,
+      BusinessSessionRequest : pBusinessSessionRequest,
+      ModuleSessionRequest : pModuleSessionRequest
+    };
+    const httpHeaders = { headers: new HttpHeaders(session) }
+    // **
+    return this.http.post<User>(`${environment.apiUrl}/users/autenticar`, { username, password, }, httpHeaders)
+                    .pipe(
+                      map((user) => {
+                        localStorage.setItem('user', JSON.stringify(user));
+                        this.userSubject.next(user);
 
-          return user;
-        })
-      );
+                        return user;
+                    }));
   }
   // **********************************************************************************************
   // -- >> Finaliza Sesión
@@ -182,6 +195,24 @@ export class AccountService {
   }
   // **********************************************************************************************
   // **********************************************************************************************
+  
+  // requestTipoCambioBCCR(bccrIndicadorCompra: number, bccrIndicadorVenta: number, idMoneda: number, idCompania: number, fechaConsulta: string) {
+  //   // ** header
+  //   const session = {
+  //     IdUserSessionRequest : this.userValue ? this.userValue.id.toString() : 'noValue',
+  //     UserSessionRequest : this.userValue ? this.userValue.nombreCompleto : 'noValue',
+  //     BusinessSessionRequest : this.businessValue ? this.businessValue.nombre : 'noValue',
+  //     ModuleSessionRequest : this.moduleValue ? this.moduleValue.nombre : 'noValue'
+  //   };
+  //   const httpHeaders = { headers: new HttpHeaders(session) }
+  //   // **
+  //   return this.http.get<GenTipoCambio>(`${environment.apiUrl}/generales/requestwstipocambio?indCompra=${bccrIndicadorCompra}
+  //                                                                                           &indVenta=${bccrIndicadorVenta}
+  //                                                                                           &idMoneda=${idMoneda}
+  //                                                                                           &idCompania=${idCompania}
+  //                                                                                           &fechaConsulta=${fechaConsulta}`, httpHeaders);
+  // }
+
   // **********************************************************************************************
   // -- >> Limpia valores suscritos
   clearObjectModuleObservable() {
@@ -194,390 +225,892 @@ export class AccountService {
   }
   // **********************************************************************************************
   // -- >> Procedimientos Empresas
-  getAllBusiness() {
+  getAllBusiness( pIdUserSessionRequest : string = 'novalue',
+                  pUserSessionRequest : string = 'novalue',
+                  pBusinessSessionRequest : string = 'novalue',
+                  pModuleSessionRequest : string = 'novalue') {
+    // ** header
+    const session = { IdUserSessionRequest : pIdUserSessionRequest,
+      UserSessionRequest : pUserSessionRequest,
+      BusinessSessionRequest : pBusinessSessionRequest,
+      ModuleSessionRequest : pModuleSessionRequest };
+    const httpHeaders = { headers: new HttpHeaders(session) }
+    // **
     return this.http.get<Compania[]>(
-      `${environment.apiUrl}/users/listadoempresas`
+      `${environment.apiUrl}/users/listadoempresas`, httpHeaders
     );
   }
-  getBusinessActiveUser(idUsuario: number) {
+  getBusinessActiveUser(idUsuario: number,pIdUserSessionRequest : string = 'novalue',
+                                          pUserSessionRequest : string = 'novalue',
+                                          pBusinessSessionRequest : string = 'novalue',
+                                          pModuleSessionRequest : string = 'novalue') {
+    // ** header
+    const session = { IdUserSessionRequest : pIdUserSessionRequest,
+      UserSessionRequest : pUserSessionRequest,
+      BusinessSessionRequest : pBusinessSessionRequest,
+      ModuleSessionRequest : pModuleSessionRequest };
+    const httpHeaders = { headers: new HttpHeaders(session) }
+    // **
     return this.http.get<Compania[]>(
-      `${environment.apiUrl}/users/empresasusuarioactivas?idUsuario=${idUsuario}`
+      `${environment.apiUrl}/users/empresasusuarioactivas?idUsuario=${idUsuario}`, httpHeaders
     );
   }
-  getBusinessById(idEmpresa: number) {
+  getBusinessById(idEmpresa: number,pIdUserSessionRequest : string = 'novalue',
+                                    pUserSessionRequest : string = 'novalue',
+                                    pBusinessSessionRequest : string = 'novalue',
+                                    pModuleSessionRequest : string = 'novalue') {
+    // ** header
+    const session = { IdUserSessionRequest : pIdUserSessionRequest,
+      UserSessionRequest : pUserSessionRequest,
+      BusinessSessionRequest : pBusinessSessionRequest,
+      ModuleSessionRequest : pModuleSessionRequest };
+    const httpHeaders = { headers: new HttpHeaders(session) }
+    // **
     return this.http.get<Compania>(
-      `${environment.apiUrl}/users/empresaid?idEmpresa=${idEmpresa}`
+      `${environment.apiUrl}/users/empresaid?idEmpresa=${idEmpresa}`, httpHeaders
     );
   }
-  addBusiness(business: Compania) {
+  addBusiness(business: Compania, pIdUserSessionRequest : string = 'novalue',
+                                  pUserSessionRequest : string = 'novalue',
+                                  pBusinessSessionRequest : string = 'novalue',
+                                  pModuleSessionRequest : string = 'novalue') {
+    // ** header
+    const session = { IdUserSessionRequest : pIdUserSessionRequest,
+      UserSessionRequest : pUserSessionRequest,
+      BusinessSessionRequest : pBusinessSessionRequest,
+      ModuleSessionRequest : pModuleSessionRequest };
+    const httpHeaders = { headers: new HttpHeaders(session) }
+    // **
     return this.http.post<ResponseMessage>(
-      `${environment.apiUrl}/users/registrarempresa`,
-      business
+      `${environment.apiUrl}/users/registrarempresa`, business, httpHeaders
     );
   }
-  updateBusiness(business: Compania) {
+  updateBusiness(business: Compania,pIdUserSessionRequest : string = 'novalue',
+                                    pUserSessionRequest : string = 'novalue',
+                                    pBusinessSessionRequest : string = 'novalue',
+                                    pModuleSessionRequest : string = 'novalue') {
+    // ** header
+    const session = { IdUserSessionRequest : pIdUserSessionRequest,
+      UserSessionRequest : pUserSessionRequest,
+      BusinessSessionRequest : pBusinessSessionRequest,
+      ModuleSessionRequest : pModuleSessionRequest };
+    const httpHeaders = { headers: new HttpHeaders(session) }
+    // **
     return this.http.put<ResponseMessage>(
-      `${environment.apiUrl}/users/actualizarempresa`,
-      business
+      `${environment.apiUrl}/users/actualizarempresa`, business, httpHeaders
     );
   }
-  assignBusinessUser(idUser: number, idBusiness: number) {
+  assignBusinessUser(idUser: number, idBusiness: number,pIdUserSessionRequest : string = 'novalue',
+                                                        pUserSessionRequest : string = 'novalue',
+                                                        pBusinessSessionRequest : string = 'novalue',
+                                                        pModuleSessionRequest : string = 'novalue') {
     let assignBusinessUObject = new CompaniaUsuario();
     assignBusinessUObject.IdUsuario = idUser;
     assignBusinessUObject.IdSociedad = idBusiness;
-
+    // ** header
+    const session = { IdUserSessionRequest : pIdUserSessionRequest,
+      UserSessionRequest : pUserSessionRequest,
+      BusinessSessionRequest : pBusinessSessionRequest,
+      ModuleSessionRequest : pModuleSessionRequest };
+    const httpHeaders = { headers: new HttpHeaders(session) }
+    // **
     return this.http.post<ResponseMessage>(
-      `${environment.apiUrl}/users/asignarsociedadusuario`,
-      assignBusinessUObject
+      `${environment.apiUrl}/users/asignarsociedadusuario`, assignBusinessUObject, httpHeaders
     );
   }
-  dessAssignBusinessUser(idUser: number, idBusiness: number) {
+  dessAssignBusinessUser(idUser:number,idBusiness:number, pIdUserSessionRequest : string = 'novalue',
+                                                          pUserSessionRequest : string = 'novalue',
+                                                          pBusinessSessionRequest : string = 'novalue',
+                                                          pModuleSessionRequest : string = 'novalue') {
     const desAssignBusinessUObject = new CompaniaUsuario();
     desAssignBusinessUObject.IdUsuario = idUser;
     desAssignBusinessUObject.IdSociedad = idBusiness;
-
+    // ** header
+    const session = { IdUserSessionRequest : pIdUserSessionRequest,
+      UserSessionRequest : pUserSessionRequest,
+      BusinessSessionRequest : pBusinessSessionRequest,
+      ModuleSessionRequest : pModuleSessionRequest };
+    const httpHeaders = { headers: new HttpHeaders(session) }
+    // **
     return this.http.post<ResponseMessage>(
-      `${environment.apiUrl}/users/desasignsociedadusuario`,
-      desAssignBusinessUObject
+      `${environment.apiUrl}/users/desasignsociedadusuario`, desAssignBusinessUObject, httpHeaders
     );
   }
-  dessAssignAllBusinessUser(idUser: number) {
+  dessAssignAllBusinessUser(idUser:number,pIdUserSessionRequest : string = 'novalue',
+                                          pUserSessionRequest : string = 'novalue',
+                                          pBusinessSessionRequest : string = 'novalue',
+                                          pModuleSessionRequest : string = 'novalue') {
     let desAssignUserBusiness = new CompaniaUsuario();
     desAssignUserBusiness.IdUsuario = idUser;
-
+    // ** header
+    const session = { IdUserSessionRequest : pIdUserSessionRequest,
+      UserSessionRequest : pUserSessionRequest,
+      BusinessSessionRequest : pBusinessSessionRequest,
+      ModuleSessionRequest : pModuleSessionRequest };
+    const httpHeaders = { headers: new HttpHeaders(session) }
+    // **
     return this.http.post<ResponseMessage>(
-      `${environment.apiUrl}/users/desasignallsociedades`,
-      desAssignUserBusiness
+      `${environment.apiUrl}/users/desasignallsociedades`, desAssignUserBusiness, httpHeaders
     );
   }
   // **********************************************************************************************
-  // postBitacora(bitacora: Bitacora) {
-  //   this.http.post<ResponseMessage>( `${environment.apiUrl}/users/postbitacora`, bitacora );
-  // }
-  postBitacora(bitacora: Bitacora) {
+  postBitacora(bitacora: Bitacora,pIdUserSessionRequest : string = 'novalue',
+                                  pUserSessionRequest : string = 'novalue',
+                                  pBusinessSessionRequest : string = 'novalue',
+                                  pModuleSessionRequest : string = 'novalue') {
+    // ** header
+    const session = { IdUserSessionRequest : pIdUserSessionRequest,
+      UserSessionRequest : pUserSessionRequest,
+      BusinessSessionRequest : pBusinessSessionRequest,
+      ModuleSessionRequest : pModuleSessionRequest };
+    const httpHeaders = { headers: new HttpHeaders(session) }
+    // **
     return this.http.post<ResponseMessage>(
-      `${environment.apiUrl}/users/postbitacora`,
-      bitacora
+      `${environment.apiUrl}/users/postbitacora`, bitacora, httpHeaders
     );
   }
-
   // **********************************************************************************************
   // **********************************************************************************************
   // -- >> MODULOS
-  postModule(modulo: Module) {
+  postModule(modulo: Module,pIdUserSessionRequest : string = 'novalue',
+                            pUserSessionRequest : string = 'novalue',
+                            pBusinessSessionRequest : string = 'novalue',
+                            pModuleSessionRequest : string = 'novalue') {
+    // ** header
+    const session = { IdUserSessionRequest : pIdUserSessionRequest,
+      UserSessionRequest : pUserSessionRequest,
+      BusinessSessionRequest : pBusinessSessionRequest,
+      ModuleSessionRequest : pModuleSessionRequest };
+    const httpHeaders = { headers: new HttpHeaders(session) }
+    // **
     return this.http.post<ResponseMessage>(
-      `${environment.apiUrl}/users/postmodulo`,
-      modulo
+      `${environment.apiUrl}/users/postmodulo`, modulo, httpHeaders
     );
   }
-
-  deleteModule(modulo: Module) {
+  deleteModule(modulo: Module,pIdUserSessionRequest : string = 'novalue',
+                              pUserSessionRequest : string = 'novalue',
+                              pBusinessSessionRequest : string = 'novalue',
+                              pModuleSessionRequest : string = 'novalue') {
+    // ** header
+    const session = {
+      IdUserSessionRequest : pIdUserSessionRequest,
+      UserSessionRequest : pUserSessionRequest,
+      BusinessSessionRequest : pBusinessSessionRequest,
+      ModuleSessionRequest : pModuleSessionRequest
+    };
+    const httpHeaders = { headers: new HttpHeaders(session) }
+    // **
     return this.http.delete<ResponseMessage>(
-      `${environment.apiUrl}/users/deletemodulo/${modulo.id}`
+      `${environment.apiUrl}/users/deletemodulo/${modulo.id}`, httpHeaders
     );
   }
-
-  updateModule(modulo: Module) {
+  updateModule(modulo: Module,pIdUserSessionRequest : string = 'novalue',
+                              pUserSessionRequest : string = 'novalue',
+                              pBusinessSessionRequest : string = 'novalue',
+                              pModuleSessionRequest : string = 'novalue') {
+    // ** header
+    const session = {
+      IdUserSessionRequest : pIdUserSessionRequest,
+      UserSessionRequest : pUserSessionRequest,
+      BusinessSessionRequest : pBusinessSessionRequest,
+      ModuleSessionRequest : pModuleSessionRequest
+    };
+    const httpHeaders = { headers: new HttpHeaders(session) }
+    // **
     return this.http.put<ResponseMessage>(
-      `${environment.apiUrl}/users/updatemodulo/${modulo.id}`,
-      modulo
+      `${environment.apiUrl}/users/updatemodulo/${modulo.id}`, modulo, httpHeaders
     );
   }
 
-  getModulesSystem() {
+  getModulesSystem( pIdUserSessionRequest : string = 'novalue',
+                    pUserSessionRequest : string = 'novalue',
+                    pBusinessSessionRequest : string = 'novalue',
+                    pModuleSessionRequest : string = 'novalue') {
+    // ** header
+    const session = {
+      IdUserSessionRequest : pIdUserSessionRequest,
+      UserSessionRequest : pUserSessionRequest,
+      BusinessSessionRequest : pBusinessSessionRequest,
+      ModuleSessionRequest : pModuleSessionRequest
+    };
+    const httpHeaders = { headers: new HttpHeaders(session) }
+    // **
     return this.http.get<Module[]>(
-      `${environment.apiUrl}/users/modulossistema`
+      `${environment.apiUrl}/users/modulossistema`, httpHeaders
     );
   }
-  getModulesBusiness(idEmpresa: number) {
+  getModulesBusiness(idEmpresa: number, pIdUserSessionRequest : string = 'novalue',
+                                        pUserSessionRequest : string = 'novalue',
+                                        pBusinessSessionRequest : string = 'novalue',
+                                        pModuleSessionRequest : string = 'novalue') {
+    // ** header
+    const session = {
+      IdUserSessionRequest : pIdUserSessionRequest,
+      UserSessionRequest : pUserSessionRequest,
+      BusinessSessionRequest : pBusinessSessionRequest,
+      ModuleSessionRequest : pModuleSessionRequest
+    };
+    const httpHeaders = { headers: new HttpHeaders(session) }
+    // **
     return this.http.get<Module[]>(
-      `${environment.apiUrl}/users/modulossociedad?idEmpresa=${idEmpresa}`
+      `${environment.apiUrl}/users/modulossociedad?idEmpresa=${idEmpresa}`, httpHeaders
     );
   }
-  getModuleId(idModule: number) {
+  getModuleId(idModule: number, pIdUserSessionRequest : string = 'novalue',
+                                pUserSessionRequest : string = 'novalue',
+                                pBusinessSessionRequest : string = 'novalue',
+                                pModuleSessionRequest : string = 'novalue') {
+    // ** header
+    const session = {
+      IdUserSessionRequest : pIdUserSessionRequest,
+      UserSessionRequest : pUserSessionRequest,
+      BusinessSessionRequest : pBusinessSessionRequest,
+      ModuleSessionRequest : pModuleSessionRequest
+    };
+    const httpHeaders = { headers: new HttpHeaders(session) }
+    // **
     return this.http.get<Module>(
-      `${environment.apiUrl}/users/getmoduloid?idModule=${idModule}`
+      `${environment.apiUrl}/users/getmoduloid?idModule=${idModule}`, httpHeaders
     );
   }
-  getModulesByRolAndBusiness(idRol: string, idEmpresa: number) {
+  getModulesByRolAndBusiness(idRol: string, idEmpresa: number,pIdUserSessionRequest : string = 'novalue',
+                                                              pUserSessionRequest : string = 'novalue',
+                                                              pBusinessSessionRequest : string = 'novalue',
+                                                              pModuleSessionRequest : string = 'novalue') {
+    // ** header
+    const session = {
+      IdUserSessionRequest : pIdUserSessionRequest,
+      UserSessionRequest : pUserSessionRequest,
+      BusinessSessionRequest : pBusinessSessionRequest,
+      ModuleSessionRequest : pModuleSessionRequest
+    };
+    const httpHeaders = { headers: new HttpHeaders(session) }
+    // **
     return this.http.get<Module[]>(
-      `${environment.apiUrl}/users/modulosrolempresa?idEmpresa=${idEmpresa}&idRol=${idRol}`
+      `${environment.apiUrl}/users/modulosrolempresa?idEmpresa=${idEmpresa}&idRol=${idRol}`, httpHeaders
     );
   }
-  deleteAccessModuleToRol(idRol: string, idModulo: number, idEmpresa: number) {
+  deleteAccessModuleToRol(idRol: string, idModulo:number,idEmpresa: number, pIdUserSessionRequest : string = 'novalue',
+                                                                            pUserSessionRequest : string = 'novalue',
+                                                                            pBusinessSessionRequest : string = 'novalue',
+                                                                            pModuleSessionRequest : string = 'novalue') {
+    // ** header
+    const session = {
+      IdUserSessionRequest : pIdUserSessionRequest,
+      UserSessionRequest : pUserSessionRequest,
+      BusinessSessionRequest : pBusinessSessionRequest,
+      ModuleSessionRequest : pModuleSessionRequest
+    };
+    const httpHeaders = { headers: new HttpHeaders(session) }
+    // **
     return this.http.delete<ResponseMessage>(
-      `${environment.apiUrl}/users/eliminaraccesomodulo?idRol=${idRol}&idModulo=${idModulo}&idEmpresa=${idEmpresa}`
+      `${environment.apiUrl}/users/eliminaraccesomodulo?idRol=${idRol}&idModulo=${idModulo}&idEmpresa=${idEmpresa}`, httpHeaders
     );
   }
-  grantAccessModuleToRol(idRol: string, idModulo: number, idBusiness: number) {
+  grantAccessModuleToRol(idRol: string, idModulo: number,idBusiness: number,pIdUserSessionRequest : string = 'novalue',
+                                                                            pUserSessionRequest : string = 'novalue',
+                                                                            pBusinessSessionRequest : string = 'novalue',
+                                                                            pModuleSessionRequest : string = 'novalue') {
     let accessMod: RolModuleBusiness = new RolModuleBusiness();
     accessMod.idRol = idRol;
     accessMod.idModulo = idModulo;
     accessMod.idBusiness = idBusiness;
-
+    // ** header
+    const session = {
+      IdUserSessionRequest : pIdUserSessionRequest,
+      UserSessionRequest : pUserSessionRequest,
+      BusinessSessionRequest : pBusinessSessionRequest,
+      ModuleSessionRequest : pModuleSessionRequest
+    };
+    const httpHeaders = { headers: new HttpHeaders(session) }
+    // **
     return this.http.post<ResponseMessage>(
-      `${environment.apiUrl}/users/otorgaraccesoamodulo`,
-      accessMod
+      `${environment.apiUrl}/users/otorgaraccesoamodulo`, accessMod, httpHeaders
     );
   }
-  activateModule(idModule: number, idEmpresa: number) {
+  activateModule(idModule: number, idEmpresa: number, pIdUserSessionRequest : string = 'novalue',
+                                                      pUserSessionRequest : string = 'novalue',
+                                                      pBusinessSessionRequest : string = 'novalue',
+                                                      pModuleSessionRequest : string = 'novalue') {
     let activateMod: RolModuleBusiness = new RolModuleBusiness();
     activateMod.idModulo = idModule;
     activateMod.idBusiness = idEmpresa;
-
+    // ** header
+    const session = {
+      IdUserSessionRequest : pIdUserSessionRequest,
+      UserSessionRequest : pUserSessionRequest,
+      BusinessSessionRequest : pBusinessSessionRequest,
+      ModuleSessionRequest : pModuleSessionRequest
+    };
+    const httpHeaders = { headers: new HttpHeaders(session) }
+    // **
     return this.http.put<ResponseMessage>(
-      `${environment.apiUrl}/users/activarmodulo`,
-      activateMod
+      `${environment.apiUrl}/users/activarmodulo`, activateMod, httpHeaders
     );
   }
-  inActivateModule(idModule: number, idBusiness: number) {
+  inActivateModule(idModule: number, idBusiness: number,pIdUserSessionRequest : string = 'novalue',
+                                                        pUserSessionRequest : string = 'novalue',
+                                                        pBusinessSessionRequest : string = 'novalue',
+                                                        pModuleSessionRequest : string = 'novalue') {
     let inActivateMod: RolModuleBusiness = new RolModuleBusiness();
     inActivateMod.idModulo = idModule;
     inActivateMod.idBusiness = idBusiness;
-
+    // ** header
+    const session = {
+      IdUserSessionRequest : pIdUserSessionRequest,
+      UserSessionRequest : pUserSessionRequest,
+      BusinessSessionRequest : pBusinessSessionRequest,
+      ModuleSessionRequest : pModuleSessionRequest
+    };
+    const httpHeaders = { headers: new HttpHeaders(session) }
+    // **
     return this.http.put<ResponseMessage>(
-      `${environment.apiUrl}/users/inactivarmodulo`,
-      inActivateMod
+      `${environment.apiUrl}/users/inactivarmodulo`, inActivateMod, httpHeaders
     );
   }
-  assignModuleToBusiness(idModule: number, idBusiness: number) {
+  assignModuleToBusiness(idModule: number, idBusiness: number,pIdUserSessionRequest : string = 'novalue',
+                                                              pUserSessionRequest : string = 'novalue',
+                                                              pBusinessSessionRequest : string = 'novalue',
+                                                              pModuleSessionRequest : string = 'novalue') {
     let moduleToBusiness: RolModuleBusiness = new RolModuleBusiness();
     moduleToBusiness.idModulo = idModule;
     moduleToBusiness.idBusiness = idBusiness;
-
+    // ** header
+    const session = {
+      IdUserSessionRequest : pIdUserSessionRequest,
+      UserSessionRequest : pUserSessionRequest,
+      BusinessSessionRequest : pBusinessSessionRequest,
+      ModuleSessionRequest : pModuleSessionRequest
+    };
+    const httpHeaders = { headers: new HttpHeaders(session) }
+    // **
     return this.http.post<ResponseMessage>(
-      `${environment.apiUrl}/users/asignarmodulosociedad`,
-      moduleToBusiness
+      `${environment.apiUrl}/users/asignarmodulosociedad`, moduleToBusiness, httpHeaders
     );
   }
-  desAssignModuleToBusiness(moduleId: number, idEmpresa: number) {
+  desAssignModuleToBusiness(moduleId: number, idEmpresa: number,pIdUserSessionRequest : string = 'novalue',
+                                                                pUserSessionRequest : string = 'novalue',
+                                                                pBusinessSessionRequest : string = 'novalue',
+                                                                pModuleSessionRequest : string = 'novalue') {
+    // ** header
+    const session = {
+      IdUserSessionRequest : pIdUserSessionRequest,
+      UserSessionRequest : pUserSessionRequest,
+      BusinessSessionRequest : pBusinessSessionRequest,
+      ModuleSessionRequest : pModuleSessionRequest
+    };
+    const httpHeaders = { headers: new HttpHeaders(session) }
+    // **
     return this.http.delete<ResponseMessage>(
-      `${environment.apiUrl}/users/desasigmodsociedad?idModulo=${moduleId}&idEmpresa=${idEmpresa}`
+      `${environment.apiUrl}/users/desasigmodsociedad?idModulo=${moduleId}&idEmpresa=${idEmpresa}`, httpHeaders
     );
   }
-  getModulesActiveBusiness(idEmpresa: number) {
+
+  // *************************
+  getModulesActiveBusiness(idEmpresa: number, pIdUserSessionRequest : string = 'novalue',
+                                              pUserSessionRequest : string = 'novalue',
+                                              pBusinessSessionRequest : string = 'novalue',
+                                              pModuleSessionRequest : string = 'novalue') {
+    // ** header
+    const session = {
+      IdUserSessionRequest : pIdUserSessionRequest,
+      UserSessionRequest : pUserSessionRequest,
+      BusinessSessionRequest : pBusinessSessionRequest,
+      ModuleSessionRequest : pModuleSessionRequest
+    };
+    const httpHeaders = { headers: new HttpHeaders(session) }
+    // **
     return this.http.get<Module[]>(
-      `${environment.apiUrl}/users/modulosactsociedad?idEmpresa=${idEmpresa}`
+      `${environment.apiUrl}/users/modulosactsociedad?idEmpresa=${idEmpresa}`, httpHeaders
     );
   }
-  getModulesActiveUser(idEmpresa: number, idRol: string) {
+  getModulesActiveUser(idEmpresa: number, idRol: string,pIdUserSessionRequest : string = 'novalue',
+                                                        pUserSessionRequest : string = 'novalue',
+                                                        pBusinessSessionRequest : string = 'novalue',
+                                                        pModuleSessionRequest : string = 'novalue') {
+    // ** header
+    const session = {
+      IdUserSessionRequest : pIdUserSessionRequest,
+      UserSessionRequest : pUserSessionRequest,
+      BusinessSessionRequest : pBusinessSessionRequest,
+      ModuleSessionRequest : pModuleSessionRequest
+    };
+    const httpHeaders = { headers: new HttpHeaders(session) }
+    // **
     return this.http.get<Module[]>(
-      `${environment.apiUrl}/users/modulosactusuario?idEmpresa=${idEmpresa}&idRol=${idRol}`
+      `${environment.apiUrl}/users/modulosactusuario?idEmpresa=${idEmpresa}&idRol=${idRol}`, httpHeaders
     );
   }
-  addModuleRol(module: Module) {
-    return this.http.post<Module>(
-      `${environment.apiUrl}/users/registrarmodulo`,
-      module
-    );
-  }
+  // addModuleRol(module: Module) {
+  //   // ** header
+  //   const session = {
+  //     IdUserSessionRequest : this.userValue ? this.userValue.id.toString() : 'noValue',
+  //     UserSessionRequest : this.userValue ? this.userValue.nombreCompleto : 'noValue',
+  //     BusinessSessionRequest : this.businessValue ? this.businessValue.nombre : 'noValue',
+  //     ModuleSessionRequest : this.moduleValue ? this.moduleValue.nombre : 'noValue'
+  //   };
+  //   const httpHeaders = { headers: new HttpHeaders(session) }
+  //   // **
+  //   return this.http.post<Module>(
+  //     `${environment.apiUrl}/users/registrarmodulo`, module, httpHeaders
+  //   );
+  // }
   // **********************************************************************************************
   // **********************************************************************************************
   // MANTENIMIENTO DE PANTALLAS DE ACCEDO POR MÓDULO
-  getPantallasModulo(
-    idModulo: number,
-    idEmpresa: number,
-    soloActivos: boolean
-  ) {
+  getPantallasModulo( idModulo: number, idEmpresa: number, soloActivos: boolean,pIdUserSessionRequest : string = 'novalue',
+                                                                                pUserSessionRequest : string = 'novalue',
+                                                                                pBusinessSessionRequest : string = 'novalue',
+                                                                                pModuleSessionRequest : string = 'novalue') {
+    // ** header
+    const session = {
+      IdUserSessionRequest : pIdUserSessionRequest,
+      UserSessionRequest : pUserSessionRequest,
+      BusinessSessionRequest : pBusinessSessionRequest,
+      ModuleSessionRequest : pModuleSessionRequest
+    };
+    const httpHeaders = { headers: new HttpHeaders(session) }
+    // **
     return this.http.get<ScreenModule[]>(
-      `${environment.apiUrl}/users/getpantallasmoduloempresa?idModulo=${idModulo}&idEmpresa=${idEmpresa}&soloActivos=${soloActivos}`
+      `${environment.apiUrl}/users/getpantallasmoduloempresa?idModulo=${idModulo}&idEmpresa=${idEmpresa}&soloActivos=${soloActivos}`, httpHeaders
     );
   }
-  getPantallasNombre(
-    nombrePantalla: string,
-    idEmpresa: number,
-    soloActivos: boolean
-  ) {
+  getPantallasNombre( nombrePantalla: string, idEmpresa: number,soloActivos: boolean, pIdUserSessionRequest : string = 'novalue',
+                                                                                      pUserSessionRequest : string = 'novalue',
+                                                                                      pBusinessSessionRequest : string = 'novalue',
+                                                                                      pModuleSessionRequest : string = 'novalue') {
+    // ** header
+    const session = {
+      IdUserSessionRequest : pIdUserSessionRequest,
+      UserSessionRequest : pUserSessionRequest,
+      BusinessSessionRequest : pBusinessSessionRequest,
+      ModuleSessionRequest : pModuleSessionRequest
+    };
+    const httpHeaders = { headers: new HttpHeaders(session) }
+    // **
     return this.http.get<ScreenModule[]>(
-      `${environment.apiUrl}/users/getpantallasnombreempresa?nombrePantalla=${nombrePantalla}&idEmpresa=${idEmpresa}&soloActivos=${soloActivos}`
+      `${environment.apiUrl}/users/getpantallasnombreempresa?nombrePantalla=${nombrePantalla}&idEmpresa=${idEmpresa}&soloActivos=${soloActivos}`, httpHeaders
     );
   }
-  postPantallaModulo(objeto: ScreenModule) {
+  postPantallaModulo(objeto: ScreenModule,pIdUserSessionRequest : string = 'novalue',
+                                          pUserSessionRequest : string = 'novalue',
+                                          pBusinessSessionRequest : string = 'novalue',
+                                          pModuleSessionRequest : string = 'novalue') {
+    // ** header
+    const session = {
+      IdUserSessionRequest : pIdUserSessionRequest,
+      UserSessionRequest : pUserSessionRequest,
+      BusinessSessionRequest : pBusinessSessionRequest,
+      ModuleSessionRequest : pModuleSessionRequest
+    };
+    const httpHeaders = { headers: new HttpHeaders(session) }
+    // **
     return this.http.post<ResponseMessage>(
-      `${environment.apiUrl}/users/createpantallamodulo`,
-      objeto
+      `${environment.apiUrl}/users/createpantallamodulo`, objeto, httpHeaders
     );
   }
-  deletePantallaModulo(id: number) {
+  deletePantallaModulo(id: number,pIdUserSessionRequest : string = 'novalue',
+                                  pUserSessionRequest : string = 'novalue',
+                                  pBusinessSessionRequest : string = 'novalue',
+                                  pModuleSessionRequest : string = 'novalue') {
+    // ** header
+    const session = {
+      IdUserSessionRequest : pIdUserSessionRequest,
+      UserSessionRequest : pUserSessionRequest,
+      BusinessSessionRequest : pBusinessSessionRequest,
+      ModuleSessionRequest : pModuleSessionRequest
+    };
+    const httpHeaders = { headers: new HttpHeaders(session) }
+    // **
     return this.http.delete<ResponseMessage>(
-      `${environment.apiUrl}/users/deletepantallamodulo?id=${id}`
+      `${environment.apiUrl}/users/deletepantallamodulo?id=${id}`, httpHeaders
     );
   }
-  deleteAccesoPantallaUsuario(
-    idUsuario: number,
-    idPantalla: number,
-    idEmpresa: number
-  ) {
+  deleteAccesoPantallaUsuario( idUsuario: number, idPantalla: number,idEmpresa: number, pIdUserSessionRequest : string = 'novalue',
+                                                                                        pUserSessionRequest : string = 'novalue',
+                                                                                        pBusinessSessionRequest : string = 'novalue',
+                                                                                        pModuleSessionRequest : string = 'novalue' ) {
+    // ** header
+    const session = {
+      IdUserSessionRequest : pIdUserSessionRequest,
+      UserSessionRequest : pUserSessionRequest,
+      BusinessSessionRequest : pBusinessSessionRequest,
+      ModuleSessionRequest : pModuleSessionRequest
+    };
+    const httpHeaders = { headers: new HttpHeaders(session) }
+    // **
     return this.http.delete<ResponseMessage>(
-      `${environment.apiUrl}/users/deleteaccesspantallausuario?idUsuario=${idUsuario}&idPantalla=${idPantalla}&idEmpresa=${idEmpresa}`
+      `${environment.apiUrl}/users/deleteaccesspantallausuario?idUsuario=${idUsuario}&idPantalla=${idPantalla}&idEmpresa=${idEmpresa}`, httpHeaders
     );
   }
-  putPantallaModulo(objeto: ScreenModule) {
+  putPantallaModulo(objeto: ScreenModule, pIdUserSessionRequest : string = 'novalue',
+                                          pUserSessionRequest : string = 'novalue',
+                                          pBusinessSessionRequest : string = 'novalue',
+                                          pModuleSessionRequest : string = 'novalue') {
+    // ** header
+    const session = {
+      IdUserSessionRequest : pIdUserSessionRequest,
+      UserSessionRequest : pUserSessionRequest,
+      BusinessSessionRequest : pBusinessSessionRequest,
+      ModuleSessionRequest : pModuleSessionRequest
+    };
+    const httpHeaders = { headers: new HttpHeaders(session) }
+    // **
     return this.http.put<ResponseMessage>(
-      `${environment.apiUrl}/users/updatepantallamodulo`,
-      objeto
+      `${environment.apiUrl}/users/updatepantallamodulo`, objeto, httpHeaders
     );
   }
-  postPantallaAccesoUsuario(objeto: ScreenAccessUser) {
+  postPantallaAccesoUsuario(objeto: ScreenAccessUser, pIdUserSessionRequest : string = 'novalue',
+                                                      pUserSessionRequest : string = 'novalue',
+                                                      pBusinessSessionRequest : string = 'novalue',
+                                                      pModuleSessionRequest : string = 'novalue') {
+    // ** header
+    const session = {
+      IdUserSessionRequest : pIdUserSessionRequest,
+      UserSessionRequest : pUserSessionRequest,
+      BusinessSessionRequest : pBusinessSessionRequest,
+      ModuleSessionRequest : pModuleSessionRequest
+    };
+    const httpHeaders = { headers: new HttpHeaders(session) }
+    // **
     return this.http.post<ResponseMessage>(
-      `${environment.apiUrl}/users/createaccesspantallausuario`,
-      objeto
+      `${environment.apiUrl}/users/createaccesspantallausuario`, objeto, httpHeaders
     );
   }
   // *********************************
 
   //#region API - USUARIOS
 
-  activateByEmail(user: User) {
+  activateByEmail(user: User, pIdUserSessionRequest : string = 'novalue',
+                              pUserSessionRequest : string = 'novalue',
+                              pBusinessSessionRequest : string = 'novalue',
+                              pModuleSessionRequest : string = 'novalue') {
+    // ** header
+    const session = {
+      IdUserSessionRequest : pIdUserSessionRequest,
+      UserSessionRequest : pUserSessionRequest,
+      BusinessSessionRequest : pBusinessSessionRequest,
+      ModuleSessionRequest : pModuleSessionRequest
+    };
+    const httpHeaders = { headers: new HttpHeaders(session) }
+    // **
     return this.http.get<ResponseMessage>(
-      `${environment.apiUrl}/users/activate?token=${user.token}&id=${user.identificacion}`
+      `${environment.apiUrl}/users/activate?token=${user.token}&id=${user.identificacion}`, httpHeaders
     );
   }
 
-  reenviarCorreoActivacion(username, password) {
+  reenviarCorreoActivacion(username,password, pIdUserSessionRequest : string = 'novalue',
+                                              pUserSessionRequest : string = 'novalue',
+                                              pBusinessSessionRequest : string = 'novalue',
+                                              pModuleSessionRequest : string = 'novalue') {
+    // ** header
+    const session = {
+      IdUserSessionRequest : pIdUserSessionRequest,
+      UserSessionRequest : pUserSessionRequest,
+      BusinessSessionRequest : pBusinessSessionRequest,
+      ModuleSessionRequest : pModuleSessionRequest
+    };
+    const httpHeaders = { headers: new HttpHeaders(session) }
+    // **
     return this.http.post<ResponseMessage>(
-      `${environment.apiUrl}/users/reevniarcorreoactivacion`,
-      {
-        username,
-        password,
-      }
+      `${environment.apiUrl}/users/reevniarcorreoactivacion`, { username, password, }, httpHeaders
     );
   }
 
-  addUser(user: User) {
+  addUser(user: User, pIdUserSessionRequest : string = 'novalue',
+                      pUserSessionRequest : string = 'novalue',
+                      pBusinessSessionRequest : string = 'novalue',
+                      pModuleSessionRequest : string = 'novalue') {
+    // ** header
+    const session = {
+      IdUserSessionRequest : pIdUserSessionRequest,
+      UserSessionRequest : pUserSessionRequest,
+      BusinessSessionRequest : pBusinessSessionRequest,
+      ModuleSessionRequest : pModuleSessionRequest
+    };
+    const httpHeaders = { headers: new HttpHeaders(session) }
+    // **
     return this.http.post<ResponseMessage>(
-      `${environment.apiUrl}/users/registrarusuario`,
-      user
+      `${environment.apiUrl}/users/registrarusuario`, user, httpHeaders
     );
   }
-  removeRoleUser(user: User) {
+  removeRoleUser(user: User,pIdUserSessionRequest : string = 'novalue',
+                            pUserSessionRequest : string = 'novalue',
+                            pBusinessSessionRequest : string = 'novalue',
+                            pModuleSessionRequest : string = 'novalue') {
+    // ** header
+    const session = {
+      IdUserSessionRequest : pIdUserSessionRequest,
+      UserSessionRequest : pUserSessionRequest,
+      BusinessSessionRequest : pBusinessSessionRequest,
+      ModuleSessionRequest : pModuleSessionRequest
+    };
+    const httpHeaders = { headers: new HttpHeaders(session) }
+    // **
     return this.http.put<ResponseMessage>(
-      `${environment.apiUrl}/users/removerrolusuario`,
-      user
+      `${environment.apiUrl}/users/removerrolusuario`, user, httpHeaders
     );
   }
-  updateUser(identificacionUpdate: string, user: User) {
-    return this.http
-      .put<ResponseMessage>(
-        `${environment.apiUrl}/users/actualizarusuario`,
-        user
-      )
-      .pipe(
-        map((x) => {
-          // actualiza la información del usuario local si es quien se está en la sesión
-          if (identificacionUpdate === this.userValue.identificacion) {
-            this.userValue.identificacion = user.identificacion;
-            this.userValue.nombreCompleto = user.nombreCompleto;
-            this.userValue.numeroTelefono = user.numeroTelefono;
-            this.userValue.email = user.email;
-            this.userValue.puesto = user.puesto;
-
-            this.loadUserAsObservable(this.userValue);
-          }
-          return x;
-        })
-      );
-  }
-  activateInactivateUser(user: User) {
+  updateUser(identificacionUpdate: string, user: User,pIdUserSessionRequest : string = 'novalue',
+                                                      pUserSessionRequest : string = 'novalue',
+                                                      pBusinessSessionRequest : string = 'novalue',
+                                                      pModuleSessionRequest : string = 'novalue') {
+    // ** header
+    const session = {
+      IdUserSessionRequest : pIdUserSessionRequest,
+      UserSessionRequest : pUserSessionRequest,
+      BusinessSessionRequest : pBusinessSessionRequest,
+      ModuleSessionRequest : pModuleSessionRequest
+    };
+    const httpHeaders = { headers: new HttpHeaders(session) }
+    // **
     return this.http.put<ResponseMessage>(
-      `${environment.apiUrl}/users/activarinactivarcuenta`,
-      user
+        `${environment.apiUrl}/users/actualizarusuario`, user, httpHeaders
+    )
+    .pipe(
+      map((x) => {
+        // actualiza la información del usuario local si es quien se está en la sesión
+        if (identificacionUpdate === this.userValue.identificacion) {
+          this.userValue.identificacion = user.identificacion;
+          this.userValue.nombreCompleto = user.nombreCompleto;
+          this.userValue.numeroTelefono = user.numeroTelefono;
+          this.userValue.email = user.email;
+          this.userValue.puesto = user.puesto;
+
+          this.loadUserAsObservable(this.userValue);
+        }
+        return x;
+    }) );
+  }
+  activateInactivateUser(user: User,pIdUserSessionRequest : string = 'novalue',
+                                    pUserSessionRequest : string = 'novalue',
+                                    pBusinessSessionRequest : string = 'novalue',
+                                    pModuleSessionRequest : string = 'novalue') {
+    // ** header
+    const session = {
+      IdUserSessionRequest : pIdUserSessionRequest,
+      UserSessionRequest : pUserSessionRequest,
+      BusinessSessionRequest : pBusinessSessionRequest,
+      ModuleSessionRequest : pModuleSessionRequest
+    };
+    const httpHeaders = { headers: new HttpHeaders(session) }
+    // **
+    return this.http.put<ResponseMessage>(
+      `${environment.apiUrl}/users/activarinactivarcuenta`, user, httpHeaders
     );
   }
 
-  getAllUsers() {
-    return this.http.get<User[]>(`${environment.apiUrl}/users/getallusers`);
+  getAllUsers(pIdUserSessionRequest : string = 'novalue',
+              pUserSessionRequest : string = 'novalue',
+              pBusinessSessionRequest : string = 'novalue',
+              pModuleSessionRequest : string = 'novalue') {
+    // ** header
+    const session = {
+      IdUserSessionRequest : pIdUserSessionRequest,
+      UserSessionRequest : pUserSessionRequest,
+      BusinessSessionRequest : pBusinessSessionRequest,
+      ModuleSessionRequest : pModuleSessionRequest
+    };
+    const httpHeaders = { headers: new HttpHeaders(session) }
+    // **
+    return this.http.get<User[]>(`${environment.apiUrl}/users/getallusers`, httpHeaders);
   }
-  getUser(usuarioid: string) {
-    return this.http.get<User>(`${environment.apiUrl}/users/${usuarioid}`);
-  }
-  getUserByIdentification(identification: string) {
+  // getUser(usuarioid: string) {
+  //   // ** header
+  //   const session = {
+  //     IdUserSessionRequest : this.userValue ? this.userValue.id.toString() : 'noValue',
+  //     UserSessionRequest : this.userValue ? this.userValue.nombreCompleto : 'noValue',
+  //     BusinessSessionRequest : this.businessValue ? this.businessValue.nombre : 'noValue',
+  //     ModuleSessionRequest : this.moduleValue ? this.moduleValue.nombre : 'noValue'
+  //   };
+  //   const httpHeaders = { headers: new HttpHeaders(session) }
+  //   // **
+  //   return this.http.get<User>(`${environment.apiUrl}/users/${usuarioid}`, httpHeaders);
+  // }
+  getUserByIdentification(identification: string, pIdUserSessionRequest : string = 'novalue',
+                                                  pUserSessionRequest : string = 'novalue',
+                                                  pBusinessSessionRequest : string = 'novalue',
+                                                  pModuleSessionRequest : string = 'novalue') {
+    // ** header
+    const session = {
+      IdUserSessionRequest : pIdUserSessionRequest,
+      UserSessionRequest : pUserSessionRequest,
+      BusinessSessionRequest : pBusinessSessionRequest,
+      ModuleSessionRequest : pModuleSessionRequest
+    };
+    const httpHeaders = { headers: new HttpHeaders(session) }
+    // **
     return this.http.get<User>(
-      `${environment.apiUrl}/users/usuarioidentification?identUsuario=${identification}`
+      `${environment.apiUrl}/users/usuarioidentification?identUsuario=${identification}`, httpHeaders
     );
   }
-  getUsersBusiness(idEmpresa: number) {
+  getUsersBusiness(idEmpresa: number, pIdUserSessionRequest : string = 'novalue',
+                                      pUserSessionRequest : string = 'novalue',
+                                      pBusinessSessionRequest : string = 'novalue',
+                                      pModuleSessionRequest : string = 'novalue') {
+    // ** header
+    const session = {
+      IdUserSessionRequest : pIdUserSessionRequest,
+      UserSessionRequest : pUserSessionRequest,
+      BusinessSessionRequest : pBusinessSessionRequest,
+      ModuleSessionRequest : pModuleSessionRequest
+    };
+    const httpHeaders = { headers: new HttpHeaders(session) }
+    // **
     return this.http.get<User[]>(
-      `${environment.apiUrl}/users/usuariosempresa?idEmpresa=${idEmpresa}`
+      `${environment.apiUrl}/users/usuariosempresa?idEmpresa=${idEmpresa}`, httpHeaders
     );
   }
-  getUsersBusinessScreenModule(
-    idPantalla: number,
-    idEmpresa: number,
-    soloActivos: boolean
-  ) {
+  getUsersBusinessScreenModule( idPantalla: number, idEmpresa: number, soloActivos: boolean,pIdUserSessionRequest : string = 'novalue',
+                                                                                            pUserSessionRequest : string = 'novalue',
+                                                                                            pBusinessSessionRequest : string = 'novalue',
+                                                                                            pModuleSessionRequest : string = 'novalue' ) {
+    // ** header
+    const session = {
+      IdUserSessionRequest : pIdUserSessionRequest,
+      UserSessionRequest : pUserSessionRequest,
+      BusinessSessionRequest : pBusinessSessionRequest,
+      ModuleSessionRequest : pModuleSessionRequest
+    };
+    const httpHeaders = { headers: new HttpHeaders(session) }
+    // **
     return this.http.get<User[]>(
-      `${environment.apiUrl}/users/getusuariosaccesopantalla?idPantalla=${idPantalla}&idEmpresa=${idEmpresa}&soloActivos=${soloActivos}`
+      `${environment.apiUrl}/users/getusuariosaccesopantalla?idPantalla=${idPantalla}&idEmpresa=${idEmpresa}&soloActivos=${soloActivos}`, httpHeaders
     );
   }
-  deleteUser(idUser: number, idBusiness: number) {
-    return this.http
-      .delete<ResponseMessage>(
-        `${environment.apiUrl}/users/deleteuser?idUser=${idUser}&idBusiness=${idBusiness}`
-      )
-      .pipe(
-        map((x) => {
-          // -- >> si se elimina el usuario de la sesión se cierra sesión
-          if (idUser === this.userValue.id) this.logout();
+  deleteUser(idUser: number, idBusiness: number,pIdUserSessionRequest : string = 'novalue',
+                                                pUserSessionRequest : string = 'novalue',
+                                                pBusinessSessionRequest : string = 'novalue',
+                                                pModuleSessionRequest : string = 'novalue') {
+    // ** header
+    const session = { IdUserSessionRequest : pIdUserSessionRequest,
+      UserSessionRequest : pUserSessionRequest,
+      BusinessSessionRequest : pBusinessSessionRequest,
+      ModuleSessionRequest : pModuleSessionRequest };
+    const httpHeaders = { headers: new HttpHeaders(session) }
+    // **
+    return this.http.delete<ResponseMessage>(
+      `${environment.apiUrl}/users/deleteuser?idUser=${idUser}&idBusiness=${idBusiness}`, httpHeaders
+    )
+    .pipe(map((x) => {
+        // -- >> si se elimina el usuario de la sesión se cierra sesión
+        if (idUser === this.userValue.id) this.logout();
 
-          return x;
-        })
-      );
+        return x;
+    }));
   }
 
   //#endregion
 
   // ***************************************************************
   // PROCS . ROLES
-  getRolUserBusiness(idRol: string, idBusiness: number) {
+  getRolUserBusiness(idRol: string, idBusiness: number, pIdUserSessionRequest : string = 'novalue',
+                                                        pUserSessionRequest : string = 'novalue',
+                                                        pBusinessSessionRequest : string = 'novalue',
+                                                        pModuleSessionRequest : string = 'novalue') {
+    // ** header
+    const session = { IdUserSessionRequest : pIdUserSessionRequest,
+                      UserSessionRequest : pUserSessionRequest,
+                      BusinessSessionRequest : pBusinessSessionRequest,
+                      ModuleSessionRequest : pModuleSessionRequest };
+    const httpHeaders = { headers: new HttpHeaders(session) }
+    // **
     return this.http.get<Role>(
-      `${environment.apiUrl}/users/getroluserbusiness?idRol=${idRol}&idBusiness=${idBusiness}`
+      `${environment.apiUrl}/users/getroluserbusiness?idRol=${idRol}&idBusiness=${idBusiness}`, httpHeaders
     );
   }
-  getRolesBusiness(idBusiness: number) {
+  getRolesBusiness(idBusiness: number,pIdUserSessionRequest : string = 'novalue',
+                                      pUserSessionRequest : string = 'novalue',
+                                      pBusinessSessionRequest : string = 'novalue',
+                                      pModuleSessionRequest : string = 'novalue') {
+    // ** header
+    const session = {
+      IdUserSessionRequest : pIdUserSessionRequest,
+      UserSessionRequest : pUserSessionRequest,
+      BusinessSessionRequest : pBusinessSessionRequest,
+      ModuleSessionRequest : pModuleSessionRequest
+    };
+    const httpHeaders = { headers: new HttpHeaders(session) }
+    // **
     return this.http.get<Role[]>(
-      `${environment.apiUrl}/users/getrolesbusiness?idBusiness=${idBusiness}`
+      `${environment.apiUrl}/users/getrolesbusiness?idBusiness=${idBusiness}`, httpHeaders
     );
   }
-  assignRoleUser(idRole: string, idUser: string) {
+  assignRoleUser(idRole: string, idUser: string,pIdUserSessionRequest : string = 'novalue',
+                                                pUserSessionRequest : string = 'novalue',
+                                                pBusinessSessionRequest : string = 'novalue',
+                                                pModuleSessionRequest : string = 'novalue') {
     let assignRolObject: AssignRoleObject = new AssignRoleObject();
     assignRolObject.idRole = idRole;
     assignRolObject.idUser = idUser;
-
+    // ** header
+    const session = {
+      IdUserSessionRequest : pIdUserSessionRequest,
+      UserSessionRequest : pUserSessionRequest,
+      BusinessSessionRequest : pBusinessSessionRequest,
+      ModuleSessionRequest : pModuleSessionRequest
+    };
+    const httpHeaders = { headers: new HttpHeaders(session) }
+    // **
     return this.http.post<ResponseMessage>(
-      `${environment.apiUrl}/users/asignarrolusuario`,
-      assignRolObject
+      `${environment.apiUrl}/users/asignarrolusuario`, assignRolObject, httpHeaders
     );
   }
-  updateRol(rol: Role, idBusiness: number) {
+  updateRol(rol: Role, idBusiness:number, pIdUserSessionRequest : string = 'novalue',
+                                          pUserSessionRequest : string = 'novalue',
+                                          pBusinessSessionRequest : string = 'novalue',
+                                          pModuleSessionRequest : string = 'novalue') {
     let assignRolObject: UpdateRolModel = new UpdateRolModel();
     assignRolObject.idRol = rol.id;
     assignRolObject.idBusiness = idBusiness;
     assignRolObject.estado = rol.estado;
     assignRolObject.tipo = rol.tipo;
-
+    // ** header
+    const session = {
+      IdUserSessionRequest : pIdUserSessionRequest,
+      UserSessionRequest : pUserSessionRequest,
+      BusinessSessionRequest : pBusinessSessionRequest,
+      ModuleSessionRequest : pModuleSessionRequest
+    };
+    const httpHeaders = { headers: new HttpHeaders(session) }
+    // **
     return this.http.put<ResponseMessage>(
-      `${environment.apiUrl}/users/actualizarrol`,
-      assignRolObject
+      `${environment.apiUrl}/users/actualizarrol`, assignRolObject, httpHeaders
     );
   }
-  addRol(role: Role) {
-    return this.http.post<ResponseMessage>(`${environment.apiUrl}/users/registrarrol`, role);
+  addRol(role: Role,pIdUserSessionRequest : string = 'novalue',
+                    pUserSessionRequest : string = 'novalue',
+                    pBusinessSessionRequest : string = 'novalue',
+                    pModuleSessionRequest : string = 'novalue') {
+    // ** header
+    const session = {
+      IdUserSessionRequest : pIdUserSessionRequest,
+      UserSessionRequest : pUserSessionRequest,
+      BusinessSessionRequest : pBusinessSessionRequest,
+      ModuleSessionRequest : pModuleSessionRequest
+    };
+    const httpHeaders = { headers: new HttpHeaders(session) }
+    // **
+    return this.http.post<ResponseMessage>(
+      `${environment.apiUrl}/users/registrarrol`, role, httpHeaders
+    );
   }
-  assignRolBusiness(roleBusiness: RoleBusiness) {
-    return this.http.post<ResponseMessage>(`${environment.apiUrl}/users/registrarrolcompania`, roleBusiness);
+  assignRolBusiness(roleBusiness:RoleBusiness,pIdUserSessionRequest : string = 'novalue',
+                                              pUserSessionRequest : string = 'novalue',
+                                              pBusinessSessionRequest : string = 'novalue',
+                                              pModuleSessionRequest : string = 'novalue') {
+    // ** header
+    const session = {
+      IdUserSessionRequest : pIdUserSessionRequest,
+      UserSessionRequest : pUserSessionRequest,
+      BusinessSessionRequest : pBusinessSessionRequest,
+      ModuleSessionRequest : pModuleSessionRequest
+    };
+    const httpHeaders = { headers: new HttpHeaders(session) }
+    // **
+    return this.http.post<ResponseMessage>(
+      `${environment.apiUrl}/users/registrarrolcompania`, roleBusiness, httpHeaders
+    );
   }
   // ***************************************************************
 }
-
-// activateUser(user: User) {
-//   return this.http.put<ResponseMessage>( `${environment.apiUrl}/users/activarcuenta`, user );
-// }
-// inActivateUser(user: User) {
-//   return this.http.put<ResponseMessage>( `${environment.apiUrl}/users/inactivarcuenta`, user );
-// }
-// -- >> Procedimientos de Roles
-// getRoleById(idRol: string) {
-//   return this.http.get<Role>( `${environment.apiUrl}/users/roleid?idRol=${idRol}` );
-// }
-// getAllRoles() { return this.http.get<Role[]>(`${environment.apiUrl}/users/getallroles`); }

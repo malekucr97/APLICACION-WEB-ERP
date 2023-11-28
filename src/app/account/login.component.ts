@@ -33,6 +33,11 @@ export class LoginComponent implements OnInit {
 
     SSLState : boolean = false;
 
+    public IdUserSessionRequest : string ;
+    public UserSessionRequest : string ;
+    public BusinessSessionRequest : string ;
+    public ModuleSessionRequest : string ;
+
     constructor(private formBuilder: FormBuilder,
                 private route: ActivatedRoute,
                 private router: Router,
@@ -44,7 +49,7 @@ export class LoginComponent implements OnInit {
                     this.inicializaFormularioLogin();
 
                     this.UrlHome = this.route.snapshot.queryParams.returnUrl || '/';
-    }
+                }
 
     get f() { return this.form.controls; }
 
@@ -78,7 +83,10 @@ export class LoginComponent implements OnInit {
         if (this.f.rememberme.value) { sessionStorage.setItem(this.KeySessionStorageUserName, userName); }
         else { sessionStorage.removeItem(this.KeySessionStorageUserName); }
 
-        this.accountService.login(userName.trim(), password.trim())
+        this.accountService.login(userName.trim(), password.trim(), this.IdUserSessionRequest,
+                                                                    this.UserSessionRequest,
+                                                                    this.BusinessSessionRequest,
+                                                                    this.ModuleSessionRequest)
             .pipe(first())
             .subscribe( responseLogin => {
 

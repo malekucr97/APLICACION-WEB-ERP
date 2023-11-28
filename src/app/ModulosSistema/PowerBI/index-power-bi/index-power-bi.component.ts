@@ -76,25 +76,31 @@ export class IndexPowerBiComponent extends OnSeguridad implements OnInit {
 
   ngOnInit(): void {}
 
-  //#region METODOS-FUNCIONES
-
   private ObtenerReportePowerBI() {
-    let oScreenModule = {
-      idCompania: this.businessObservable.id,
-      idModulo: this.moduleObservable.id,
-      nombre: this.nombrePantalla,
-    } as ScreenModule;
+    let oScreenModule = { idCompania: this.businessObservable.id,
+                          idModulo: this.moduleObservable.id,
+                          nombre: this.nombrePantalla } as ScreenModule;
 
-    this.powerBIService
-      .getURLExterna(oScreenModule)
+    let IdUserSessionRequest : string = this.userObservable.id.toString();
+    let UserSessionRequest : string = this.userObservable.nombreCompleto.toString();
+    let BusinessSessionRequest : string = this.businessObservable.id.toString() ;
+    let ModuleSessionRequest : string = this.moduleObservable.id.toString();
+
+    // let IdUserSessionRequest : string = 'noValue';
+    // let UserSessionRequest : string = 'noValue';
+    // let BusinessSessionRequest : string = 'noValue';
+    // let ModuleSessionRequest : string = 'noValue';
+
+    this.powerBIService.getURLExterna(oScreenModule,  IdUserSessionRequest,
+                                                      UserSessionRequest,
+                                                      BusinessSessionRequest,
+                                                      ModuleSessionRequest)
       .pipe(first())
       .subscribe((response) => {
         if (response.exito) {
           this.SetURLPowerBI(oScreenModule);
         } else {
-          this.alertService.error(
-            'No se ha indicado correctamente el URL del reporte'
-          );
+          this.alertService.error( 'No se ha indicado correctamente el URL del reporte' );
           this.mostrarReporte = false;
         }
       });
@@ -107,10 +113,4 @@ export class IndexPowerBiComponent extends OnSeguridad implements OnInit {
     };
     this.mostrarReporte = true;
   }
-
-  //#endregion
-
-  //#region EVENTOS
-
-  //#endregion
 }

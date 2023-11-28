@@ -20,7 +20,9 @@ import { Compania } from '../../_models/modules/compania';
     icon: '',
     children: [
               // {name: 'Generales', link: '/', icon: ''}, 
-               {name: 'Compañías', link: ModulesSystem.generalesbasehref + 'ConfiguracionCompania.html', icon: ''}],
+               {name: 'Compañías', link: ModulesSystem.generalesbasehref + 'ConfiguracionCompania.html', icon: ''},
+               {name: 'Tipo de Cambio', link: ModulesSystem.generalesbasehref + 'TipoCambio.html', icon: ''}
+              ],
   }
   // ,
   // {

@@ -22,6 +22,7 @@ import { MatCheckboxModule } from '@angular/material/checkbox';
 import { MatDialogModule } from '@angular/material/dialog';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatListModule } from '@angular/material/list';
+import { TipoCambioComponent } from './parametros/TipoCambio-component';
 
 
 
@@ -52,7 +53,8 @@ import { MatListModule } from '@angular/material/list';
     declarations: [
         IndexGeneralesComponent,
         MenuGeneralesComponent,
-        ConfigurationCompaniaComponent
+        ConfigurationCompaniaComponent,
+        TipoCambioComponent,
     ]
 })
 export class GeneralesModule { }

@@ -41,6 +41,11 @@ export class AddEditUserComponent extends OnSeguridad implements OnInit {
 
   usuarioSeleccionado : User = new User();
 
+  public IdUserSessionRequest : string ;
+  public UserSessionRequest : string ;
+  public BusinessSessionRequest : string ;
+  public ModuleSessionRequest : string ;
+
   constructor(private formBuilder: FormBuilder,
               private route: ActivatedRoute,
               private router: Router,
@@ -60,11 +65,25 @@ export class AddEditUserComponent extends OnSeguridad implements OnInit {
     if (super.validarUsuarioAdmin()) this.URLRedirectPage = this.URLListUserPage;
 
     this.inicializaFormulario();
+    this.inicializaHeaders();
+  }
+
+  inicializaHeaders() : void {
+
+    this.IdUserSessionRequest = this.userObservable ? this.userObservable.id.toString() : 'noIdUserValue';
+    this.UserSessionRequest = this.userObservable ? this.userObservable.nombreCompleto.toString() : 'noUserNameValue';
+    this.BusinessSessionRequest = this.businessObservable ? this.businessObservable.id.toString() : 'noBusinessValue';
+    this.ModuleSessionRequest = 'admin';
+
+    // this.IdUserSessionRequest = this.userObservable.id.toString();
+    // this.UserSessionRequest = this.userObservable.nombreCompleto.toString();
+    // this.BusinessSessionRequest = this.businessObservable.id.toString();
+    // this.ModuleSessionRequest = 'admin';
   }
 
   get f() { return this.usuarioForm.controls; }
 
-  ngOnInit() { 
+  ngOnInit() {
 
     if (this.route.snapshot.params.pidentificationUser) {
 
@@ -73,8 +92,7 @@ export class AddEditUserComponent extends OnSeguridad implements OnInit {
 
       this.usuarioForm.controls.rolUsuario.disable();
 
-      if (!this.userObservable.esAdmin && 
-          this.userObservable.idRol !== administrator.adminSociedad) {
+      if (!this.userObservable.esAdmin && this.userObservable.idRol !== administrator.adminSociedad) {
         this.usuarioForm.controls.identificacionUsuario.disable();
         this.usuarioForm.controls.correoElectronicoUsuario.disable();
         this.usuarioForm.controls.puestoUsuario.disable();
@@ -82,13 +100,19 @@ export class AddEditUserComponent extends OnSeguridad implements OnInit {
         this.usuarioForm.controls.identificacionUsuario.disable();
       }
 
-      this.accountService.getUserByIdentification(this.pIdentifUserUpdate)
+      this.accountService.getUserByIdentification(this.pIdentifUserUpdate,this.IdUserSessionRequest,
+                                                                          this.UserSessionRequest,
+                                                                          this.BusinessSessionRequest,
+                                                                          this.ModuleSessionRequest)
         .pipe(first())
         .subscribe((responseUser) => {
 
           if (responseUser.idRol) {
 
-            this.accountService.getRolUserBusiness(responseUser.idRol, this.businessObservable.id)
+            this.accountService.getRolUserBusiness(responseUser.idRol,this.businessObservable.id, this.IdUserSessionRequest,
+                                                                                                  this.UserSessionRequest,
+                                                                                                  this.BusinessSessionRequest,
+                                                                                                  this.ModuleSessionRequest)
             .pipe(first())
             .subscribe((responseRole) => {
 
@@ -189,7 +213,10 @@ export class AddEditUserComponent extends OnSeguridad implements OnInit {
     let userForm: User = this.crateObjectForm();
     userForm.id = this.usuarioSeleccionado.id;
 
-    this.accountService.updateUser(this.pIdentifUserUpdate, userForm)
+    this.accountService.updateUser(this.pIdentifUserUpdate, userForm, this.IdUserSessionRequest,
+                                                                      this.UserSessionRequest,
+                                                                      this.BusinessSessionRequest,
+                                                                      this.ModuleSessionRequest)
         .pipe(first())
         .subscribe((responseUpdate) => {
 
@@ -223,7 +250,10 @@ export class AddEditUserComponent extends OnSeguridad implements OnInit {
 
     let userForm: User = this.crateObjectForm();
 
-    this.accountService.addUser(userForm)
+    this.accountService.addUser(userForm, this.IdUserSessionRequest,
+                                          this.UserSessionRequest,
+                                          this.BusinessSessionRequest,
+                                          this.ModuleSessionRequest)
         .pipe(first())
         .subscribe((responseAddUser) => {
 
@@ -249,7 +279,10 @@ export class AddEditUserComponent extends OnSeguridad implements OnInit {
   // MÉTODOS PRIVADOS
   private asociarUsuarioEmpresa(inUsuarioCreado: User, responseMessageAddUser : string) {
 
-    this.accountService.assignBusinessUser(inUsuarioCreado.id, this.businessObservable.id)
+    this.accountService.assignBusinessUser(inUsuarioCreado.id, this.businessObservable.id,this.IdUserSessionRequest,
+                                                                                          this.UserSessionRequest,
+                                                                                          this.BusinessSessionRequest,
+                                                                                          this.ModuleSessionRequest)
       .pipe(first())
       .subscribe((response) => {
 
