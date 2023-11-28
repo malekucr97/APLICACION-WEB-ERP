@@ -157,20 +157,22 @@ export class AccountService {
 
   // **********************************************************************************************
   // -- >> Inicio de Sesión
-  login(username, password, pIdUserSessionRequest : string = 'novalue',
-                            pUserSessionRequest : string = 'novalue',
-                            pBusinessSessionRequest : string = 'novalue',
-                            pModuleSessionRequest : string = 'novalue') {
+  login(username, password
+    // , pIdUserSessionRequest : string = 'novalue',
+    //                         pUserSessionRequest : string = 'novalue',
+    //                         pBusinessSessionRequest : string = 'novalue',
+    //                         pModuleSessionRequest : string = 'novalue'
+                            ) {
     // ** header
-    const session = {
-      IdUserSessionRequest : pIdUserSessionRequest,
-      UserSessionRequest : pUserSessionRequest,
-      BusinessSessionRequest : pBusinessSessionRequest,
-      ModuleSessionRequest : pModuleSessionRequest
-    };
-    const httpHeaders = { headers: new HttpHeaders(session) }
+    // const session = {
+    //   IdUserSessionRequest : pIdUserSessionRequest,
+    //   UserSessionRequest : pUserSessionRequest,
+    //   BusinessSessionRequest : pBusinessSessionRequest,
+    //   ModuleSessionRequest : pModuleSessionRequest
+    // };
+    // const httpHeaders = { headers: new HttpHeaders(session) }
     // **
-    return this.http.post<User>(`${environment.apiUrl}/users/autenticar`, { username, password, }, httpHeaders)
+    return this.http.post<User>(`${environment.apiUrl}/users/autenticar`, { username, password, })
                     .pipe(
                       map((user) => {
                         localStorage.setItem('user', JSON.stringify(user));

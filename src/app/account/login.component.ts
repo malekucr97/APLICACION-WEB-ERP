@@ -83,10 +83,7 @@ export class LoginComponent implements OnInit {
         if (this.f.rememberme.value) { sessionStorage.setItem(this.KeySessionStorageUserName, userName); }
         else { sessionStorage.removeItem(this.KeySessionStorageUserName); }
 
-        this.accountService.login(userName.trim(), password.trim(), this.IdUserSessionRequest,
-                                                                    this.UserSessionRequest,
-                                                                    this.BusinessSessionRequest,
-                                                                    this.ModuleSessionRequest)
+        this.accountService.login(userName.trim(), password.trim())
             .pipe(first())
             .subscribe( responseLogin => {
 
