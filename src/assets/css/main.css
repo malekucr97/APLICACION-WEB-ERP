@@ -58,34 +58,40 @@ body, html {
   flex-grow: 1;
 }
 
-.contenidoFooter {
-  background-color: var(--color_accent);
-  color: var(--color_fondo);
+.contenidoTipoCambio {
   width: 100%;
+  /* display: flex;
+  flex-direction: column; */
+
+  position: block;
+  left: 0;
+  bottom: 0;
+}
+.tipoCambio {
   display: flex;
-  flex-direction: column;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+}
+.textoTipoCambio{
+  padding: 0 30px;
+  color: var(--color_accent) !important;
+  font-weight: bold;
+}
 
-  .tipoCambio {
-    display: flex;
-    flex-direction: row;
-    align-items: center;
-    justify-content: center;
-    height: 40px;
-  }
 
-  .datosEmpresa {
-    display: flex;
-    flex-direction: row;
-    align-items: center;
-    justify-content: center;
-    background: var(--color_degradado_footer);
-    height: 50px;
-  }
+.datosEmpresa {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+  background: var(--color_degradado_footer);
+  height: 50px;
+}
 
-  .textos {
-    color: var(--color_fondo) !important;
-    padding: 0 30px;
-  }
+.textos {
+  color: var(--color_fondo) !important;
+  padding: 0 30px;
 }
 
 /*---------------------------------------------*/

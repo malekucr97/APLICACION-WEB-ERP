@@ -25,6 +25,11 @@ export class AddEditBusinessComponent extends OnSeguridad implements OnInit {
 
   public urladminListBusiness: string = httpAccessAdminPage.urlPageListBusiness;
 
+  public IdUserSessionRequest : string ;
+  public UserSessionRequest : string ;
+  public BusinessSessionRequest : string ;
+  public ModuleSessionRequest : string ;
+
   constructor(private formBuilder: FormBuilder,
               private route: ActivatedRoute,
               private router: Router,
@@ -39,6 +44,20 @@ export class AddEditBusinessComponent extends OnSeguridad implements OnInit {
     // ***************************************************************
 
     this.userObserver = this.accountService.userValue;
+
+    this.inicializaHeaders();
+  }
+
+  inicializaHeaders() : void {
+    this.IdUserSessionRequest = this.userObserver ? this.userObserver.id.toString() : 'noIdUserValue';
+    this.UserSessionRequest = this.userObserver ? this.userObserver.nombreCompleto.toString() : 'noUserNameValue';
+    this.BusinessSessionRequest = this.userObserver ? this.userObserver.empresa.toString() : 'noBusinessValue';
+    this.ModuleSessionRequest = 'admin';
+
+    // this.IdUserSessionRequest = this.userObserver.id.toString();
+    // this.UserSessionRequest = this.userObserver.nombreCompleto.toString();
+    // this.BusinessSessionRequest = this.userObserver.empresa.toString();
+    // this.ModuleSessionRequest = 'admin';
   }
 
   ngOnInit() {
@@ -63,7 +82,10 @@ export class AddEditBusinessComponent extends OnSeguridad implements OnInit {
 
     if (this.updateBusiness) {
       this.accountService
-        .getBusinessById(this.pidBusiness)
+        .getBusinessById(this.pidBusiness,this.IdUserSessionRequest,
+                                          this.UserSessionRequest,
+                                          this.BusinessSessionRequest,
+                                          this.ModuleSessionRequest)
         .pipe(first())
         .subscribe(
           (responseBusiness) => {
@@ -110,7 +132,10 @@ export class AddEditBusinessComponent extends OnSeguridad implements OnInit {
 
     if (this.addBusiness) {
       this.accountService
-        .addBusiness(this.business)
+        .addBusiness(this.business, this.IdUserSessionRequest,
+                                    this.UserSessionRequest,
+                                    this.BusinessSessionRequest,
+                                    this.ModuleSessionRequest)
         .pipe(first())
         .subscribe(
           (response) => {
@@ -140,7 +165,10 @@ export class AddEditBusinessComponent extends OnSeguridad implements OnInit {
       this.business.id = this.pidBusiness;
 
       this.accountService
-        .updateBusiness(this.business)
+        .updateBusiness(this.business,this.IdUserSessionRequest,
+                                      this.UserSessionRequest,
+                                      this.BusinessSessionRequest,
+                                      this.ModuleSessionRequest)
         .pipe(first())
         .subscribe(
           (response) => {

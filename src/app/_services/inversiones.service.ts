@@ -24,7 +24,6 @@ import { InvInversionDetalle } from '@app/_models/Inversiones/InversionDetalle';
 export class InversionesService {
     constructor( private http: HttpClient ) { }
 
-
     // *********************************
     // MANTENIMIENTO DE TIPOS DE MONEDAS
     getTiposMonedas(codigoMoneda: string, idCompania:number, soloActivos : boolean) {

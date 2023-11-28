@@ -72,7 +72,7 @@ export class ActivateUserPageComponent {
 
     // SE REALIZA LA CONSULTA AL API.
     this.accountService
-      .activateByEmail(objUser)
+      .activateByEmail(objUser, this.user.id.toString(), this.user.nombreCompleto)
       .pipe(first())
       .subscribe((response) => {
         this.mensajeUsuario = response.responseMesagge;

@@ -41,20 +41,37 @@ export class AdminmoduleComponent implements OnInit {
   lstModulosComponente: Module[] = [];
   moduloSeleccionado: Module = undefined;
 
-  constructor(
-    private accountService: AccountService,
-    private alertService: AlertService,
-    private formBuilder: FormBuilder,
-    private route: ActivatedRoute
-  ) {
+  public IdUserSessionRequest : string ;
+  public UserSessionRequest : string ;
+  public BusinessSessionRequest : string ;
+  public ModuleSessionRequest : string ;
+
+  constructor(private accountService: AccountService,
+              private alertService: AlertService,
+              private formBuilder: FormBuilder,
+              private route: ActivatedRoute ) {
     if (this.route.snapshot.params.tipoMantenimiento) {
-      this.parametroTipoMantenimiento =
-        this.route.snapshot.params.tipoMantenimiento;
+      this.parametroTipoMantenimiento = this.route.snapshot.params.tipoMantenimiento;
       this.userObservable = this.accountService.userValue;
       this.businessObservable = this.accountService.businessValue;
       this.iniciarFormulario();
       this.obtenerListaModulos();
+
+      this.inicializaHeaders();
     }
+  }
+
+  inicializaHeaders() : void {
+
+    this.IdUserSessionRequest = this.userObservable ? this.userObservable.id.toString() : 'noIdUserValue';
+    this.UserSessionRequest = this.userObservable ? this.userObservable.nombreCompleto.toString() : 'noUserNameValue';
+    this.BusinessSessionRequest = this.businessObservable ? this.businessObservable.id.toString() : 'noBusinessValue';
+    this.ModuleSessionRequest = 'admin';
+
+    // this.IdUserSessionRequest = this.userObservable.id.toString();
+    // this.UserSessionRequest = this.userObservable.nombreCompleto.toString();
+    // this.BusinessSessionRequest = this.businessObservable.id.toString();
+    // this.ModuleSessionRequest = 'admin';
   }
 
   ngOnInit(): void {}
@@ -97,7 +114,10 @@ export class AdminmoduleComponent implements OnInit {
 
   private obtenerListaModulos() {
     // SE OBTIENE LA LISTA DE MODULOS ASOCIADOS AL NEGOCIO
-    this.accountService.getModulesBusiness(this.businessObservable.id)
+    this.accountService.getModulesBusiness(this.businessObservable.id,this.IdUserSessionRequest,
+                                                                      this.UserSessionRequest,
+                                                                      this.BusinessSessionRequest,
+                                                                      this.ModuleSessionRequest)
       .pipe(first())
       .subscribe((response) => {
         if (response && response.length > 0) {
@@ -169,7 +189,10 @@ export class AdminmoduleComponent implements OnInit {
 
   private AsignarRolEmpresa(inModulo: Module, idNegocio: number) {
     this.accountService
-      .assignModuleToBusiness(inModulo.id, idNegocio)
+      .assignModuleToBusiness(inModulo.id, idNegocio, this.IdUserSessionRequest,
+                                                      this.UserSessionRequest,
+                                                      this.BusinessSessionRequest,
+                                                      this.ModuleSessionRequest)
       .pipe(first())
       .subscribe((response) => {
         if (response.exito) {
@@ -194,7 +217,10 @@ export class AdminmoduleComponent implements OnInit {
     pantallaForm.fechaAdicion = new Date();
 
     this.accountService
-      .postPantallaModulo(pantallaForm)
+      .postPantallaModulo(pantallaForm, this.IdUserSessionRequest,
+                                        this.UserSessionRequest,
+                                        this.BusinessSessionRequest,
+                                        this.ModuleSessionRequest)
       .pipe(first())
       .subscribe(
         (response) => {
@@ -252,7 +278,10 @@ export class AdminmoduleComponent implements OnInit {
     }
 
     this.accountService
-      .postModule(oModuloIngresadoUsuario)
+      .postModule(oModuloIngresadoUsuario,this.IdUserSessionRequest,
+                                          this.UserSessionRequest,
+                                          this.BusinessSessionRequest,
+                                          this.ModuleSessionRequest)
       .pipe(first())
       .subscribe((response) => {
         if (response.exito) {
@@ -275,7 +304,10 @@ export class AdminmoduleComponent implements OnInit {
     }
 
     this.accountService
-      .updateModule(oModuloIngresadoUsuario)
+      .updateModule(oModuloIngresadoUsuario,this.IdUserSessionRequest,
+                                            this.UserSessionRequest,
+                                            this.BusinessSessionRequest,
+                                            this.ModuleSessionRequest)
       .pipe(first())
       .subscribe((response) => {
         if (response.exito) {
@@ -294,7 +326,10 @@ export class AdminmoduleComponent implements OnInit {
     }
 
     this.accountService
-      .deleteModule(this.moduloSeleccionado)
+      .deleteModule(this.moduloSeleccionado,this.IdUserSessionRequest,
+                                            this.UserSessionRequest,
+                                            this.BusinessSessionRequest,
+                                            this.ModuleSessionRequest)
       .pipe(first())
       .subscribe((response) => {
         if (response.exito) {
