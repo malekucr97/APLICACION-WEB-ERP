@@ -33,11 +33,6 @@ export class LoginComponent implements OnInit {
 
     SSLState : boolean = false;
 
-    public IdUserSessionRequest : string ;
-    public UserSessionRequest : string ;
-    public BusinessSessionRequest : string ;
-    public ModuleSessionRequest : string ;
-
     constructor(private formBuilder: FormBuilder,
                 private route: ActivatedRoute,
                 private router: Router,

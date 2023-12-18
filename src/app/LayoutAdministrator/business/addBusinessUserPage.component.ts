@@ -32,11 +32,6 @@ export class AddBusinessUserComponent extends OnSeguridad implements OnInit {
 
     listUserSubject : User[];
 
-    public IdUserSessionRequest : string ;
-    public UserSessionRequest : string ;
-    public BusinessSessionRequest : string ;
-    public ModuleSessionRequest : string ;
-
     constructor(private route: ActivatedRoute,
                 private accountService: AccountService,
                 private alertService: AlertService,
@@ -60,20 +55,7 @@ export class AddBusinessUserComponent extends OnSeguridad implements OnInit {
         this.userToAssign = this.listUserSubject.find(x => x.identificacion === this._userIdentificationParam);
 
         this.consultarRolUsuarioCompania(this.userToAssign.idRol);
-        this.inicializaHeaders();
     }
-
-    inicializaHeaders() : void {
-        this.IdUserSessionRequest = this.userObservable ? this.userObservable.id.toString() : 'noIdUserValue';
-        this.UserSessionRequest = this.userObservable ? this.userObservable.nombreCompleto.toString() : 'noUserNameValue';
-        this.BusinessSessionRequest = this.businessObservable ? this.businessObservable.id.toString() : 'noBusinessValue';
-        this.ModuleSessionRequest = 'admin';
-
-        // this.IdUserSessionRequest = this.userObservable.id.toString();
-        // this.UserSessionRequest = this.userObservable.nombreCompleto.toString();
-        // this.BusinessSessionRequest = this.businessObservable.id.toString();
-        // this.ModuleSessionRequest = 'admin';
-      }
 
     consultarRolUsuarioCompania(idRolUser : string) : void {
 
@@ -81,10 +63,8 @@ export class AddBusinessUserComponent extends OnSeguridad implements OnInit {
 
             this.existeRol = true;
 
-            this.accountService.getRolUserBusiness(this.userToAssign.idRol, this.businessObservable.id, this.IdUserSessionRequest,
-                                                                                                        this.UserSessionRequest,
-                                                                                                        this.BusinessSessionRequest,
-                                                                                                        this.ModuleSessionRequest)
+            this.accountService.getRolUserBusiness(this.userToAssign.idRol, this.businessObservable.id, this._HIdUserSessionRequest,
+                                                                                                        this._HBusinessSessionRequest)
                 .pipe(first())
                 .subscribe(responseRole => { this.role = responseRole; });
 
@@ -93,10 +73,7 @@ export class AddBusinessUserComponent extends OnSeguridad implements OnInit {
 
     ngOnInit() {
 
-        this.accountService.getAllBusiness( this.IdUserSessionRequest,
-                                            this.UserSessionRequest,
-                                            this.BusinessSessionRequest,
-                                            this.ModuleSessionRequest)
+        this.accountService.getAllBusiness( this._HIdUserSessionRequest, this._HBusinessSessionRequest)
             .pipe(first())
             .subscribe(responseListBusiness => {
 
@@ -104,10 +81,9 @@ export class AddBusinessUserComponent extends OnSeguridad implements OnInit {
 
                     this.listAllBusiness = responseListBusiness;
 
-                    this.accountService.getBusinessActiveUser(this.userToAssign.id, this.IdUserSessionRequest,
-                                                                                    this.UserSessionRequest,
-                                                                                    this.BusinessSessionRequest,
-                                                                                    this.ModuleSessionRequest)
+                    this.accountService.getBusinessActiveUser(this.userToAssign.id, this._HIdUserSessionRequest,
+                                                                                    // this.UserSessionRequest,
+                                                                                    this._HBusinessSessionRequest)
                         .pipe(first())
                         .subscribe(responseListBusinessUser => {
 
@@ -140,10 +116,9 @@ export class AddBusinessUserComponent extends OnSeguridad implements OnInit {
 
         let business : Compania = this.listAllBusiness.find(m => m.id == idBusiness);
 
-        this.accountService.assignBusinessUser(this.userToAssign.id, idBusiness,this.IdUserSessionRequest,
-                                                                                this.UserSessionRequest,
-                                                                                this.BusinessSessionRequest,
-                                                                                this.ModuleSessionRequest)
+        this.accountService.assignBusinessUser(this.userToAssign.id, idBusiness,this._HIdUserSessionRequest,
+                                                                                // this.UserSessionRequest,
+                                                                                this._HBusinessSessionRequest)
             .pipe(first())
             .subscribe( response => {
 
@@ -170,10 +145,9 @@ export class AddBusinessUserComponent extends OnSeguridad implements OnInit {
 
         this.alertService.clear();
 
-        this.accountService.dessAssignAllBusinessUser(idUser,   this.IdUserSessionRequest,
-                                                                this.UserSessionRequest,
-                                                                this.BusinessSessionRequest,
-                                                                this.ModuleSessionRequest)
+        this.accountService.dessAssignAllBusinessUser(idUser,   this._HIdUserSessionRequest,
+                                                                // this.UserSessionRequest,
+                                                                this._HBusinessSessionRequest)
             .pipe(first())
             .subscribe( response => {
 
@@ -202,10 +176,9 @@ export class AddBusinessUserComponent extends OnSeguridad implements OnInit {
 
         let business : Compania = this.listBusinessUser.find(m => m.id == idBusiness);
 
-        this.accountService.dessAssignBusinessUser(this.userToAssign.id,idBusiness, this.IdUserSessionRequest,
-                                                                                    this.UserSessionRequest,
-                                                                                    this.BusinessSessionRequest,
-                                                                                    this.ModuleSessionRequest)
+        this.accountService.dessAssignBusinessUser(this.userToAssign.id,idBusiness, this._HIdUserSessionRequest,
+                                                                                    // this.UserSessionRequest,
+                                                                                    this._HBusinessSessionRequest)
             .pipe(first())
             .subscribe( response => {
 

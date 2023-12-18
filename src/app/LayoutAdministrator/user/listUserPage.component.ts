@@ -31,10 +31,10 @@ export class ListUserComponent extends OnSeguridad implements OnInit {
   public URLAddRoleUsertPage: string = httpAccessAdminPage.urlPageAddRUser;
   public URLAdministratorPage: string = httpAccessAdminPage.urlPageAdministrator;
 
-  public IdUserSessionRequest : string ;
-  public UserSessionRequest : string ;
-  public BusinessSessionRequest : string ;
-  public ModuleSessionRequest : string ;
+  // public IdUserSessionRequest : string ;
+  // public UserSessionRequest : string ;
+  // public BusinessSessionRequest : string ;
+  // public ModuleSessionRequest : string ;
 
   constructor(  private accountService: AccountService,
                 private alertService: AlertService,
@@ -51,21 +51,26 @@ export class ListUserComponent extends OnSeguridad implements OnInit {
     this.userObservable = this.accountService.userValue;
     this.businessObservable = this.accountService.businessValue;
 
-    this.inicializaHeaders();
+      // this.IdUserSessionRequest = this.userObservable.id.toString();
+      // this.UserSessionRequest = this.userObservable.nombreCompleto;
+      // this.BusinessSessionRequest = this.businessObservable.id.toString();
+      // this.ModuleSessionRequest = 'administrador';
+
+    // this.inicializaHeaders();
   }
 
-  inicializaHeaders() : void {
+  // inicializaHeaders() : void {
 
-    this.IdUserSessionRequest = this.userObservable ? this.userObservable.id.toString() : 'noIdUserValue';
-    this.UserSessionRequest = this.userObservable ? this.userObservable.nombreCompleto.toString() : 'noUserNameValue';
-    this.BusinessSessionRequest = this.businessObservable ? this.businessObservable.id.toString() : 'noBusinessValue';
-    this.ModuleSessionRequest = 'admin';
+  //   this.IdUserSessionRequest = this.userObservable ? this.userObservable.id.toString() : 'noIdUserValue';
+  //   this.UserSessionRequest = this.userObservable ? this.userObservable.nombreCompleto.toString() : 'noUserNameValue';
+  //   this.BusinessSessionRequest = this.businessObservable ? this.businessObservable.id.toString() : 'noBusinessValue';
+  //   this.ModuleSessionRequest = 'admin';
 
-    // this.IdUserSessionRequest = this.userObservable ? this.userObservable.id.toString() : '';
-    // this.UserSessionRequest = this.userObservable ? this.userObservable.nombreCompleto.toString() : '';
-    // this.BusinessSessionRequest = this.businessObservable ? this.businessObservable.id.toString() : '';
-    // this.ModuleSessionRequest = 'admin';
-  }
+  //   // this.IdUserSessionRequest = this.userObservable ? this.userObservable.id.toString() : '';
+  //   // this.UserSessionRequest = this.userObservable ? this.userObservable.nombreCompleto.toString() : '';
+  //   // this.BusinessSessionRequest = this.businessObservable ? this.businessObservable.id.toString() : '';
+  //   // this.ModuleSessionRequest = 'admin';
+  // }
 
   ngOnInit() {
 
@@ -73,10 +78,7 @@ export class ListUserComponent extends OnSeguridad implements OnInit {
 
       this.isUserSuperAdmin = true;
       
-      this.accountService.getAllUsers(this.IdUserSessionRequest,
-                                      this.UserSessionRequest,
-                                      this.BusinessSessionRequest,
-                                      this.ModuleSessionRequest)
+      this.accountService.getAllUsers(this._HIdUserSessionRequest)
           .pipe(first())
           .subscribe((users) => {
             if (users) {
@@ -89,10 +91,7 @@ export class ListUserComponent extends OnSeguridad implements OnInit {
 
       this.isUserAdminBusiness = true;
 
-      this.accountService.getUsersBusiness(this.userObservable.empresa, this.IdUserSessionRequest,
-                                                                        this.UserSessionRequest,
-                                                                        this.BusinessSessionRequest,
-                                                                        this.ModuleSessionRequest)
+      this.accountService.getUsersBusiness(this.userObservable.empresa, this._HIdUserSessionRequest, this._HBusinessSessionRequest)
         .pipe(first())
         .subscribe((users) => {
           if (users && users.length > 0) {
@@ -124,10 +123,9 @@ export class ListUserComponent extends OnSeguridad implements OnInit {
 
                 if (confirmado) {
 
-                  this.accountService.deleteUser(idUser, this.businessObservable.id,this.IdUserSessionRequest,
-                                                                                    this.UserSessionRequest,
-                                                                                    this.BusinessSessionRequest,
-                                                                                    this.ModuleSessionRequest)
+                  this.accountService.deleteUser(idUser, this.businessObservable.id,this._HIdUserSessionRequest, 
+                                                                                    // this._HUserSessionRequest, 
+                                                                                    this._HBusinessSessionRequest)
                   .pipe(first())
                   .subscribe((responseDelete) => {
           
@@ -149,10 +147,9 @@ export class ListUserComponent extends OnSeguridad implements OnInit {
   }
 
   updateStateUser(userStateUpdate : User) : void {
-    this.accountService.activateInactivateUser(userStateUpdate, this.IdUserSessionRequest,
-                                                                this.UserSessionRequest,
-                                                                this.BusinessSessionRequest,
-                                                                this.ModuleSessionRequest)
+    this.accountService.activateInactivateUser(userStateUpdate, this._HIdUserSessionRequest, 
+                                                                // this._HUserSessionRequest, 
+                                                                this._HBusinessSessionRequest)
     .pipe(first())
     .subscribe((responseActivate) => {
 

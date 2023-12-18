@@ -25,10 +25,10 @@ export class AddEditBusinessComponent extends OnSeguridad implements OnInit {
 
   public urladminListBusiness: string = httpAccessAdminPage.urlPageListBusiness;
 
-  public IdUserSessionRequest : string ;
-  public UserSessionRequest : string ;
-  public BusinessSessionRequest : string ;
-  public ModuleSessionRequest : string ;
+  // public IdUserSessionRequest : string ;
+  // public UserSessionRequest : string ;
+  // public BusinessSessionRequest : string ;
+  // public ModuleSessionRequest : string ;
 
   constructor(private formBuilder: FormBuilder,
               private route: ActivatedRoute,
@@ -45,20 +45,20 @@ export class AddEditBusinessComponent extends OnSeguridad implements OnInit {
 
     this.userObserver = this.accountService.userValue;
 
-    this.inicializaHeaders();
+    // this.inicializaHeaders();
   }
 
-  inicializaHeaders() : void {
-    this.IdUserSessionRequest = this.userObserver ? this.userObserver.id.toString() : 'noIdUserValue';
-    this.UserSessionRequest = this.userObserver ? this.userObserver.nombreCompleto.toString() : 'noUserNameValue';
-    this.BusinessSessionRequest = this.userObserver ? this.userObserver.empresa.toString() : 'noBusinessValue';
-    this.ModuleSessionRequest = 'admin';
+  // inicializaHeaders() : void {
+  //   this.IdUserSessionRequest = this.userObserver ? this.userObserver.id.toString() : 'noIdUserValue';
+  //   this.UserSessionRequest = this.userObserver ? this.userObserver.nombreCompleto.toString() : 'noUserNameValue';
+  //   this.BusinessSessionRequest = this.userObserver ? this.userObserver.empresa.toString() : 'noBusinessValue';
+  //   this.ModuleSessionRequest = 'admin';
 
-    // this.IdUserSessionRequest = this.userObserver.id.toString();
-    // this.UserSessionRequest = this.userObserver.nombreCompleto.toString();
-    // this.BusinessSessionRequest = this.userObserver.empresa.toString();
-    // this.ModuleSessionRequest = 'admin';
-  }
+  //   // this.IdUserSessionRequest = this.userObserver.id.toString();
+  //   // this.UserSessionRequest = this.userObserver.nombreCompleto.toString();
+  //   // this.BusinessSessionRequest = this.userObserver.empresa.toString();
+  //   // this.ModuleSessionRequest = 'admin';
+  // }
 
   ngOnInit() {
 
@@ -81,11 +81,9 @@ export class AddEditBusinessComponent extends OnSeguridad implements OnInit {
     });
 
     if (this.updateBusiness) {
-      this.accountService
-        .getBusinessById(this.pidBusiness,this.IdUserSessionRequest,
-                                          this.UserSessionRequest,
-                                          this.BusinessSessionRequest,
-                                          this.ModuleSessionRequest)
+      this.accountService.getBusinessById(this.pidBusiness,this._HIdUserSessionRequest,
+                                          // this.UserSessionRequest,
+                                          this._HBusinessSessionRequest)
         .pipe(first())
         .subscribe(
           (responseBusiness) => {
@@ -131,11 +129,9 @@ export class AddEditBusinessComponent extends OnSeguridad implements OnInit {
     this.business.tamanoModuloDefecto = this.form.get('tamanoModuloDefecto').value;
 
     if (this.addBusiness) {
-      this.accountService
-        .addBusiness(this.business, this.IdUserSessionRequest,
-                                    this.UserSessionRequest,
-                                    this.BusinessSessionRequest,
-                                    this.ModuleSessionRequest)
+      this.accountService.addBusiness(this.business,this._HIdUserSessionRequest,
+                                                    // this.UserSessionRequest,
+                                                    this._HBusinessSessionRequest)
         .pipe(first())
         .subscribe(
           (response) => {
@@ -164,11 +160,9 @@ export class AddEditBusinessComponent extends OnSeguridad implements OnInit {
     if (this.updateBusiness) {
       this.business.id = this.pidBusiness;
 
-      this.accountService
-        .updateBusiness(this.business,this.IdUserSessionRequest,
-                                      this.UserSessionRequest,
-                                      this.BusinessSessionRequest,
-                                      this.ModuleSessionRequest)
+      this.accountService.updateBusiness(this.business, this._HIdUserSessionRequest,
+                                                        // this.UserSessionRequest,
+                                                        this._HBusinessSessionRequest)
         .pipe(first())
         .subscribe(
           (response) => {

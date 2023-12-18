@@ -10,16 +10,12 @@ export class PowerBIService {
   constructor(private router: Router, private http: HttpClient) {}
 
   getURLExterna(inScreenModulo: ScreenModule, pIdUserSessionRequest : string = 'novalue',
-                                              pUserSessionRequest : string = 'novalue',
                                               pBusinessSessionRequest : string = 'novalue',
                                               pModuleSessionRequest : string = 'novalue') {
     // ** header
-    const session = {
-      IdUserSessionRequest : pIdUserSessionRequest,
-      UserSessionRequest : pUserSessionRequest,
-      BusinessSessionRequest : pBusinessSessionRequest,
-      ModuleSessionRequest : pModuleSessionRequest
-    };
+    const session = { IdUserSessionRequest : pIdUserSessionRequest,
+                      BusinessSessionRequest : pBusinessSessionRequest,
+                      ModuleSessionRequest : pModuleSessionRequest };
     const httpHeaders = { headers: new HttpHeaders(session) }
     // **
     return this.http.get<ResponseMessage>(
@@ -27,8 +23,5 @@ export class PowerBIService {
                                                   &idCompania=${inScreenModulo.idCompania}
                                                   &nombrePantalla=${inScreenModulo.nombre}`, httpHeaders
     );
-    // return this.http.get<ResponseMessage>(
-    //   `${environment.apiUrl}/PowerBI/getURLExterna/${inScreenModulo.idModulo}/${inScreenModulo.idCompania}/${inScreenModulo.nombre}`, httpHeaders
-    // );
   }
 }

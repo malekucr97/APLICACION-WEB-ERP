@@ -36,11 +36,6 @@ export class IndexContentPageComponent extends OnSeguridad implements OnInit {
 
   private KeySessionStorageModule : string = environment.sessionStorageModuleIdentification;
 
-  public IdUserSessionRequest : string ;
-  public UserSessionRequest : string ;
-  public BusinessSessionRequest : string ;
-  public ModuleSessionRequest : string ;
-
   constructor(  private accountService: AccountService,
                 private router: Router,
                 private route: ActivatedRoute,
@@ -57,37 +52,13 @@ export class IndexContentPageComponent extends OnSeguridad implements OnInit {
     this.businessObservable = this.accountService.businessValue;
 
     this.accountService.clearObjectModuleObservable();
-
-    this.inicializaHeaders();
-  }
-
-  inicializaHeaders() : void {
-
-    this.IdUserSessionRequest = this.userObservable ? this.userObservable.id.toString() : 'noIdUserValue';
-    this.UserSessionRequest = this.userObservable ? this.userObservable.nombreCompleto.toString() : 'noUserNameValue';
-    this.BusinessSessionRequest = this.businessObservable ? this.businessObservable.id.toString() : 'noBusinessValue';
-    this.ModuleSessionRequest = 'noModule';
-
-
-    // this.IdUserSessionRequest = this.userObservable ? this.userObservable.id.toString() : 'noIdUserValue';
-    // this.UserSessionRequest = this.userObservable ? this.userObservable.nombreCompleto.toString() : 'noUserNameValue';
-    // this.BusinessSessionRequest = 'noSelected';
-    // this.ModuleSessionRequest = 'noModule';
-
-    // this.IdUserSessionRequest = this.userObservable.id.toString();
-    // this.UserSessionRequest = this.userObservable.nombreCompleto.toString();
-    // this.BusinessSessionRequest = this.businessObservable.id.toString();
-    // this.ModuleSessionRequest = 'admin';
   }
 
   ngOnInit() {
 
     if (  super.validarUsuarioAdmin() ) {
       // módulos activos de compañía
-      this.accountService.getModulesActiveBusiness(this.businessObservable.id,this.IdUserSessionRequest,
-                                                                              this.UserSessionRequest,
-                                                                              this.BusinessSessionRequest,
-                                                                              this.ModuleSessionRequest)
+      this.accountService.getModulesActiveBusiness(this.businessObservable.id, this._HIdUserSessionRequest)
         .pipe(first())
         .subscribe((responseListModules) => {
 
@@ -97,10 +68,7 @@ export class IndexContentPageComponent extends OnSeguridad implements OnInit {
 
     } else {
       // módulos activos de usuario
-      this.accountService.getModulesActiveUser( this.businessObservable.id, this.userObservable.idRol,this.IdUserSessionRequest,
-                                                                                                      this.UserSessionRequest,
-                                                                                                      this.BusinessSessionRequest,
-                                                                                                      this.ModuleSessionRequest )
+      this.accountService.getModulesActiveUser( this.businessObservable.id, this.userObservable.idRol, this._HIdUserSessionRequest )
         .pipe(first())
         .subscribe((responseListModules) => {
 

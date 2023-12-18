@@ -12,6 +12,8 @@ import { DialogoConfirmacionComponent }             from '@app/_components/dialo
 import { first } from 'rxjs/operators';
 import { GenTipoMoneda } from '@app/_models/Generales/TipoMoneda';
 import { GenTipoCambio } from '@app/_models/Generales/TipoCambio';
+import { OnSeguridad } from '@app/_helpers/abstractSeguridad';
+import { Router } from '@angular/router';
 
 declare var $: any;
 
@@ -19,10 +21,10 @@ declare var $: any;
     templateUrl: 'HTML_TipoCambio.html',
     styleUrls: ['../../../../assets/scss/app.scss', '../../../../assets/scss/inversiones/app.scss'],
 })
-export class TipoCambioComponent implements OnInit {
+export class TipoCambioComponent  extends OnSeguridad implements OnInit {
     @ViewChild(MatSidenav) sidenav !: MatSidenav;
 
-    private nombrePantalla  : string = 'HTML_TipoCambio.html';
+    private nombrePantalla  : string = 'TipoCambio.html';
     public nombreModulo     : string ;
 
     // ## -- objetos suscritos -- ## //
@@ -64,7 +66,15 @@ export class TipoCambioComponent implements OnInit {
                     private generalesService:     GeneralesService,
                     private formBuilder:       FormBuilder,
                     private accountService:     AccountService,
-                    private dialogo:           MatDialog ) {
+                    private dialogo:           MatDialog,
+                    private router: Router ) {
+
+        //#region VALIDACIÓN DE ACCESO A LAS PANTALLAS
+        super(alertService, accountService, router);
+        super._nombrePantalla = this.nombrePantalla;
+        super._redireccionURL = '/inra-sa/index.html'; // [OPCIONAL] SI NO SE INDICA SE REDIRECCIONA AL LA PÁGINA DEL MODULO.INDEXHTML
+        super.validarAccesoPantalla();
+        //#endregion
 
         this.userObservable = this.accountService.userValue;
         this.moduleObservable = this.accountService.moduleValue;

@@ -2,8 +2,8 @@
 
 export const environment = {
     production: false,
-    apiUrl: 'http://10.100.242.70:81',
-    // apiUrl: 'http://localhost:4000',
+    // apiUrl: 'http://10.100.242.70:81',
+    apiUrl: 'http://localhost:4000',
 
     sessionStorageIdentificationUserKey: '_httpUsernameSessionStorageAppAdminModulesInraSA',
     sessionStorageModuleIdentification : '_httpModuleSelectedSessionStorageAppAdminModulesInraSA'

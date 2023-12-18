@@ -137,16 +137,14 @@ export class AccountService {
   // *******************************************************************
 
   validateAccessUser( idUser: number, idModule: number, nombrePantalla: string, idBusiness: number, pIdUserSessionRequest : string = 'novalue',
-                                                                                                    pUserSessionRequest : string = 'novalue',
+                                                                                                    // pUserSessionRequest : string = 'novalue',
                                                                                                     pBusinessSessionRequest : string = 'novalue',
                                                                                                     pModuleSessionRequest : string = 'novalue' ) {
     // ** header
-    const session = {
-      IdUserSessionRequest : pIdUserSessionRequest,
-      UserSessionRequest : pUserSessionRequest,
-      BusinessSessionRequest : pBusinessSessionRequest,
-      ModuleSessionRequest : pModuleSessionRequest
-    };
+    const session = { IdUserSessionRequest : pIdUserSessionRequest,
+                      // UserSessionRequest : pUserSessionRequest,
+                      BusinessSessionRequest : pBusinessSessionRequest,
+                      ModuleSessionRequest : pModuleSessionRequest };
     const httpHeaders = { headers: new HttpHeaders(session) }
     // **
     return this.http.get<ResponseMessage>(
@@ -157,21 +155,7 @@ export class AccountService {
 
   // **********************************************************************************************
   // -- >> Inicio de Sesión
-  login(username, password
-    // , pIdUserSessionRequest : string = 'novalue',
-    //                         pUserSessionRequest : string = 'novalue',
-    //                         pBusinessSessionRequest : string = 'novalue',
-    //                         pModuleSessionRequest : string = 'novalue'
-                            ) {
-    // ** header
-    // const session = {
-    //   IdUserSessionRequest : pIdUserSessionRequest,
-    //   UserSessionRequest : pUserSessionRequest,
-    //   BusinessSessionRequest : pBusinessSessionRequest,
-    //   ModuleSessionRequest : pModuleSessionRequest
-    // };
-    // const httpHeaders = { headers: new HttpHeaders(session) }
-    // **
+  login(username, password) {
     return this.http.post<User>(`${environment.apiUrl}/users/autenticar`, { username, password, })
                     .pipe(
                       map((user) => {
@@ -228,12 +212,12 @@ export class AccountService {
   // **********************************************************************************************
   // -- >> Procedimientos Empresas
   getAllBusiness( pIdUserSessionRequest : string = 'novalue',
-                  pUserSessionRequest : string = 'novalue',
+                  // pUserSessionRequest : string = 'novalue',
                   pBusinessSessionRequest : string = 'novalue',
                   pModuleSessionRequest : string = 'novalue') {
     // ** header
     const session = { IdUserSessionRequest : pIdUserSessionRequest,
-      UserSessionRequest : pUserSessionRequest,
+      // UserSessionRequest : pUserSessionRequest,
       BusinessSessionRequest : pBusinessSessionRequest,
       ModuleSessionRequest : pModuleSessionRequest };
     const httpHeaders = { headers: new HttpHeaders(session) }
@@ -243,12 +227,12 @@ export class AccountService {
     );
   }
   getBusinessActiveUser(idUsuario: number,pIdUserSessionRequest : string = 'novalue',
-                                          pUserSessionRequest : string = 'novalue',
+                                          // pUserSessionRequest : string = 'novalue',
                                           pBusinessSessionRequest : string = 'novalue',
-                                          pModuleSessionRequest : string = 'novalue') {
+                                          pModuleSessionRequest : string = 'novalue' ) {
     // ** header
     const session = { IdUserSessionRequest : pIdUserSessionRequest,
-      UserSessionRequest : pUserSessionRequest,
+      // UserSessionRequest : pUserSessionRequest,
       BusinessSessionRequest : pBusinessSessionRequest,
       ModuleSessionRequest : pModuleSessionRequest };
     const httpHeaders = { headers: new HttpHeaders(session) }
@@ -258,12 +242,12 @@ export class AccountService {
     );
   }
   getBusinessById(idEmpresa: number,pIdUserSessionRequest : string = 'novalue',
-                                    pUserSessionRequest : string = 'novalue',
+                                    // pUserSessionRequest : string = 'novalue',
                                     pBusinessSessionRequest : string = 'novalue',
                                     pModuleSessionRequest : string = 'novalue') {
     // ** header
     const session = { IdUserSessionRequest : pIdUserSessionRequest,
-      UserSessionRequest : pUserSessionRequest,
+      // UserSessionRequest : pUserSessionRequest,
       BusinessSessionRequest : pBusinessSessionRequest,
       ModuleSessionRequest : pModuleSessionRequest };
     const httpHeaders = { headers: new HttpHeaders(session) }
@@ -273,14 +257,14 @@ export class AccountService {
     );
   }
   addBusiness(business: Compania, pIdUserSessionRequest : string = 'novalue',
-                                  pUserSessionRequest : string = 'novalue',
+                                  // pUserSessionRequest : string = 'novalue',
                                   pBusinessSessionRequest : string = 'novalue',
                                   pModuleSessionRequest : string = 'novalue') {
     // ** header
     const session = { IdUserSessionRequest : pIdUserSessionRequest,
-      UserSessionRequest : pUserSessionRequest,
-      BusinessSessionRequest : pBusinessSessionRequest,
-      ModuleSessionRequest : pModuleSessionRequest };
+                      // UserSessionRequest : pUserSessionRequest,
+                      BusinessSessionRequest : pBusinessSessionRequest,
+                      ModuleSessionRequest : pModuleSessionRequest };
     const httpHeaders = { headers: new HttpHeaders(session) }
     // **
     return this.http.post<ResponseMessage>(
@@ -288,14 +272,14 @@ export class AccountService {
     );
   }
   updateBusiness(business: Compania,pIdUserSessionRequest : string = 'novalue',
-                                    pUserSessionRequest : string = 'novalue',
+                                    // pUserSessionRequest : string = 'novalue',
                                     pBusinessSessionRequest : string = 'novalue',
                                     pModuleSessionRequest : string = 'novalue') {
     // ** header
     const session = { IdUserSessionRequest : pIdUserSessionRequest,
-      UserSessionRequest : pUserSessionRequest,
-      BusinessSessionRequest : pBusinessSessionRequest,
-      ModuleSessionRequest : pModuleSessionRequest };
+                      // UserSessionRequest : pUserSessionRequest,
+                      BusinessSessionRequest : pBusinessSessionRequest,
+                      ModuleSessionRequest : pModuleSessionRequest };
     const httpHeaders = { headers: new HttpHeaders(session) }
     // **
     return this.http.put<ResponseMessage>(
@@ -303,7 +287,7 @@ export class AccountService {
     );
   }
   assignBusinessUser(idUser: number, idBusiness: number,pIdUserSessionRequest : string = 'novalue',
-                                                        pUserSessionRequest : string = 'novalue',
+                                                        // pUserSessionRequest : string = 'novalue',
                                                         pBusinessSessionRequest : string = 'novalue',
                                                         pModuleSessionRequest : string = 'novalue') {
     let assignBusinessUObject = new CompaniaUsuario();
@@ -311,7 +295,7 @@ export class AccountService {
     assignBusinessUObject.IdSociedad = idBusiness;
     // ** header
     const session = { IdUserSessionRequest : pIdUserSessionRequest,
-      UserSessionRequest : pUserSessionRequest,
+      // UserSessionRequest : pUserSessionRequest,
       BusinessSessionRequest : pBusinessSessionRequest,
       ModuleSessionRequest : pModuleSessionRequest };
     const httpHeaders = { headers: new HttpHeaders(session) }
@@ -321,7 +305,7 @@ export class AccountService {
     );
   }
   dessAssignBusinessUser(idUser:number,idBusiness:number, pIdUserSessionRequest : string = 'novalue',
-                                                          pUserSessionRequest : string = 'novalue',
+                                                          // pUserSessionRequest : string = 'novalue',
                                                           pBusinessSessionRequest : string = 'novalue',
                                                           pModuleSessionRequest : string = 'novalue') {
     const desAssignBusinessUObject = new CompaniaUsuario();
@@ -329,7 +313,7 @@ export class AccountService {
     desAssignBusinessUObject.IdSociedad = idBusiness;
     // ** header
     const session = { IdUserSessionRequest : pIdUserSessionRequest,
-      UserSessionRequest : pUserSessionRequest,
+      // UserSessionRequest : pUserSessionRequest,
       BusinessSessionRequest : pBusinessSessionRequest,
       ModuleSessionRequest : pModuleSessionRequest };
     const httpHeaders = { headers: new HttpHeaders(session) }
@@ -339,14 +323,14 @@ export class AccountService {
     );
   }
   dessAssignAllBusinessUser(idUser:number,pIdUserSessionRequest : string = 'novalue',
-                                          pUserSessionRequest : string = 'novalue',
+                                          // pUserSessionRequest : string = 'novalue',
                                           pBusinessSessionRequest : string = 'novalue',
                                           pModuleSessionRequest : string = 'novalue') {
     let desAssignUserBusiness = new CompaniaUsuario();
     desAssignUserBusiness.IdUsuario = idUser;
     // ** header
     const session = { IdUserSessionRequest : pIdUserSessionRequest,
-      UserSessionRequest : pUserSessionRequest,
+      // UserSessionRequest : pUserSessionRequest,
       BusinessSessionRequest : pBusinessSessionRequest,
       ModuleSessionRequest : pModuleSessionRequest };
     const httpHeaders = { headers: new HttpHeaders(session) }
@@ -357,14 +341,14 @@ export class AccountService {
   }
   // **********************************************************************************************
   postBitacora(bitacora: Bitacora,pIdUserSessionRequest : string = 'novalue',
-                                  pUserSessionRequest : string = 'novalue',
+                                  // pUserSessionRequest : string = 'novalue',
                                   pBusinessSessionRequest : string = 'novalue',
                                   pModuleSessionRequest : string = 'novalue') {
     // ** header
     const session = { IdUserSessionRequest : pIdUserSessionRequest,
-      UserSessionRequest : pUserSessionRequest,
-      BusinessSessionRequest : pBusinessSessionRequest,
-      ModuleSessionRequest : pModuleSessionRequest };
+                      // UserSessionRequest : pUserSessionRequest,
+                      BusinessSessionRequest : pBusinessSessionRequest,
+                      ModuleSessionRequest : pModuleSessionRequest };
     const httpHeaders = { headers: new HttpHeaders(session) }
     // **
     return this.http.post<ResponseMessage>(
@@ -375,14 +359,14 @@ export class AccountService {
   // **********************************************************************************************
   // -- >> MODULOS
   postModule(modulo: Module,pIdUserSessionRequest : string = 'novalue',
-                            pUserSessionRequest : string = 'novalue',
+                            // pUserSessionRequest : string = 'novalue',
                             pBusinessSessionRequest : string = 'novalue',
                             pModuleSessionRequest : string = 'novalue') {
     // ** header
     const session = { IdUserSessionRequest : pIdUserSessionRequest,
-      UserSessionRequest : pUserSessionRequest,
-      BusinessSessionRequest : pBusinessSessionRequest,
-      ModuleSessionRequest : pModuleSessionRequest };
+                      // UserSessionRequest : pUserSessionRequest,
+                      BusinessSessionRequest : pBusinessSessionRequest,
+                      ModuleSessionRequest : pModuleSessionRequest };
     const httpHeaders = { headers: new HttpHeaders(session) }
     // **
     return this.http.post<ResponseMessage>(
@@ -390,16 +374,14 @@ export class AccountService {
     );
   }
   deleteModule(modulo: Module,pIdUserSessionRequest : string = 'novalue',
-                              pUserSessionRequest : string = 'novalue',
+                              // pUserSessionRequest : string = 'novalue',
                               pBusinessSessionRequest : string = 'novalue',
                               pModuleSessionRequest : string = 'novalue') {
     // ** header
-    const session = {
-      IdUserSessionRequest : pIdUserSessionRequest,
-      UserSessionRequest : pUserSessionRequest,
-      BusinessSessionRequest : pBusinessSessionRequest,
-      ModuleSessionRequest : pModuleSessionRequest
-    };
+    const session = { IdUserSessionRequest : pIdUserSessionRequest,
+                      // UserSessionRequest : pUserSessionRequest,
+                      BusinessSessionRequest : pBusinessSessionRequest,
+                      ModuleSessionRequest : pModuleSessionRequest };
     const httpHeaders = { headers: new HttpHeaders(session) }
     // **
     return this.http.delete<ResponseMessage>(
@@ -407,16 +389,14 @@ export class AccountService {
     );
   }
   updateModule(modulo: Module,pIdUserSessionRequest : string = 'novalue',
-                              pUserSessionRequest : string = 'novalue',
+                              // pUserSessionRequest : string = 'novalue',
                               pBusinessSessionRequest : string = 'novalue',
                               pModuleSessionRequest : string = 'novalue') {
     // ** header
-    const session = {
-      IdUserSessionRequest : pIdUserSessionRequest,
-      UserSessionRequest : pUserSessionRequest,
-      BusinessSessionRequest : pBusinessSessionRequest,
-      ModuleSessionRequest : pModuleSessionRequest
-    };
+    const session = { IdUserSessionRequest : pIdUserSessionRequest,
+                      // UserSessionRequest : pUserSessionRequest,
+                      BusinessSessionRequest : pBusinessSessionRequest,
+                      ModuleSessionRequest : pModuleSessionRequest };
     const httpHeaders = { headers: new HttpHeaders(session) }
     // **
     return this.http.put<ResponseMessage>(
@@ -425,16 +405,14 @@ export class AccountService {
   }
 
   getModulesSystem( pIdUserSessionRequest : string = 'novalue',
-                    pUserSessionRequest : string = 'novalue',
+                    // pUserSessionRequest : string = 'novalue',
                     pBusinessSessionRequest : string = 'novalue',
                     pModuleSessionRequest : string = 'novalue') {
     // ** header
-    const session = {
-      IdUserSessionRequest : pIdUserSessionRequest,
-      UserSessionRequest : pUserSessionRequest,
-      BusinessSessionRequest : pBusinessSessionRequest,
-      ModuleSessionRequest : pModuleSessionRequest
-    };
+    const session = { IdUserSessionRequest : pIdUserSessionRequest,
+                      // UserSessionRequest : pUserSessionRequest,
+                      BusinessSessionRequest : pBusinessSessionRequest,
+                      ModuleSessionRequest : pModuleSessionRequest };
     const httpHeaders = { headers: new HttpHeaders(session) }
     // **
     return this.http.get<Module[]>(
@@ -442,16 +420,14 @@ export class AccountService {
     );
   }
   getModulesBusiness(idEmpresa: number, pIdUserSessionRequest : string = 'novalue',
-                                        pUserSessionRequest : string = 'novalue',
+                                        // pUserSessionRequest : string = 'novalue',
                                         pBusinessSessionRequest : string = 'novalue',
                                         pModuleSessionRequest : string = 'novalue') {
     // ** header
-    const session = {
-      IdUserSessionRequest : pIdUserSessionRequest,
-      UserSessionRequest : pUserSessionRequest,
-      BusinessSessionRequest : pBusinessSessionRequest,
-      ModuleSessionRequest : pModuleSessionRequest
-    };
+    const session = { IdUserSessionRequest : pIdUserSessionRequest,
+                      // UserSessionRequest : pUserSessionRequest,
+                      BusinessSessionRequest : pBusinessSessionRequest,
+                      ModuleSessionRequest : pModuleSessionRequest };
     const httpHeaders = { headers: new HttpHeaders(session) }
     // **
     return this.http.get<Module[]>(
@@ -459,16 +435,14 @@ export class AccountService {
     );
   }
   getModuleId(idModule: number, pIdUserSessionRequest : string = 'novalue',
-                                pUserSessionRequest : string = 'novalue',
+                                // pUserSessionRequest : string = 'novalue',
                                 pBusinessSessionRequest : string = 'novalue',
                                 pModuleSessionRequest : string = 'novalue') {
     // ** header
-    const session = {
-      IdUserSessionRequest : pIdUserSessionRequest,
-      UserSessionRequest : pUserSessionRequest,
-      BusinessSessionRequest : pBusinessSessionRequest,
-      ModuleSessionRequest : pModuleSessionRequest
-    };
+    const session = { IdUserSessionRequest : pIdUserSessionRequest,
+                      // UserSessionRequest : pUserSessionRequest,
+                      BusinessSessionRequest : pBusinessSessionRequest,
+                      ModuleSessionRequest : pModuleSessionRequest };
     const httpHeaders = { headers: new HttpHeaders(session) }
     // **
     return this.http.get<Module>(
@@ -476,16 +450,14 @@ export class AccountService {
     );
   }
   getModulesByRolAndBusiness(idRol: string, idEmpresa: number,pIdUserSessionRequest : string = 'novalue',
-                                                              pUserSessionRequest : string = 'novalue',
+                                                              // pUserSessionRequest : string = 'novalue',
                                                               pBusinessSessionRequest : string = 'novalue',
                                                               pModuleSessionRequest : string = 'novalue') {
     // ** header
-    const session = {
-      IdUserSessionRequest : pIdUserSessionRequest,
-      UserSessionRequest : pUserSessionRequest,
-      BusinessSessionRequest : pBusinessSessionRequest,
-      ModuleSessionRequest : pModuleSessionRequest
-    };
+    const session = { IdUserSessionRequest : pIdUserSessionRequest,
+                      // UserSessionRequest : pUserSessionRequest,
+                      BusinessSessionRequest : pBusinessSessionRequest,
+                      ModuleSessionRequest : pModuleSessionRequest };
     const httpHeaders = { headers: new HttpHeaders(session) }
     // **
     return this.http.get<Module[]>(
@@ -493,16 +465,14 @@ export class AccountService {
     );
   }
   deleteAccessModuleToRol(idRol: string, idModulo:number,idEmpresa: number, pIdUserSessionRequest : string = 'novalue',
-                                                                            pUserSessionRequest : string = 'novalue',
+                                                                            // pUserSessionRequest : string = 'novalue',
                                                                             pBusinessSessionRequest : string = 'novalue',
                                                                             pModuleSessionRequest : string = 'novalue') {
     // ** header
-    const session = {
-      IdUserSessionRequest : pIdUserSessionRequest,
-      UserSessionRequest : pUserSessionRequest,
-      BusinessSessionRequest : pBusinessSessionRequest,
-      ModuleSessionRequest : pModuleSessionRequest
-    };
+    const session = { IdUserSessionRequest : pIdUserSessionRequest,
+                      // UserSessionRequest : pUserSessionRequest,
+                      BusinessSessionRequest : pBusinessSessionRequest,
+                      ModuleSessionRequest : pModuleSessionRequest };
     const httpHeaders = { headers: new HttpHeaders(session) }
     // **
     return this.http.delete<ResponseMessage>(
@@ -510,7 +480,7 @@ export class AccountService {
     );
   }
   grantAccessModuleToRol(idRol: string, idModulo: number,idBusiness: number,pIdUserSessionRequest : string = 'novalue',
-                                                                            pUserSessionRequest : string = 'novalue',
+                                                                            // pUserSessionRequest : string = 'novalue',
                                                                             pBusinessSessionRequest : string = 'novalue',
                                                                             pModuleSessionRequest : string = 'novalue') {
     let accessMod: RolModuleBusiness = new RolModuleBusiness();
@@ -518,12 +488,10 @@ export class AccountService {
     accessMod.idModulo = idModulo;
     accessMod.idBusiness = idBusiness;
     // ** header
-    const session = {
-      IdUserSessionRequest : pIdUserSessionRequest,
-      UserSessionRequest : pUserSessionRequest,
-      BusinessSessionRequest : pBusinessSessionRequest,
-      ModuleSessionRequest : pModuleSessionRequest
-    };
+    const session = { IdUserSessionRequest : pIdUserSessionRequest,
+                      // UserSessionRequest : pUserSessionRequest,
+                      BusinessSessionRequest : pBusinessSessionRequest,
+                      ModuleSessionRequest : pModuleSessionRequest };
     const httpHeaders = { headers: new HttpHeaders(session) }
     // **
     return this.http.post<ResponseMessage>(
@@ -531,19 +499,17 @@ export class AccountService {
     );
   }
   activateModule(idModule: number, idEmpresa: number, pIdUserSessionRequest : string = 'novalue',
-                                                      pUserSessionRequest : string = 'novalue',
+                                                      // pUserSessionRequest : string = 'novalue',
                                                       pBusinessSessionRequest : string = 'novalue',
                                                       pModuleSessionRequest : string = 'novalue') {
     let activateMod: RolModuleBusiness = new RolModuleBusiness();
     activateMod.idModulo = idModule;
     activateMod.idBusiness = idEmpresa;
     // ** header
-    const session = {
-      IdUserSessionRequest : pIdUserSessionRequest,
-      UserSessionRequest : pUserSessionRequest,
-      BusinessSessionRequest : pBusinessSessionRequest,
-      ModuleSessionRequest : pModuleSessionRequest
-    };
+    const session = { IdUserSessionRequest : pIdUserSessionRequest,
+                      // UserSessionRequest : pUserSessionRequest,
+                      BusinessSessionRequest : pBusinessSessionRequest,
+                      ModuleSessionRequest : pModuleSessionRequest };
     const httpHeaders = { headers: new HttpHeaders(session) }
     // **
     return this.http.put<ResponseMessage>(
@@ -551,19 +517,17 @@ export class AccountService {
     );
   }
   inActivateModule(idModule: number, idBusiness: number,pIdUserSessionRequest : string = 'novalue',
-                                                        pUserSessionRequest : string = 'novalue',
+                                                        // pUserSessionRequest : string = 'novalue',
                                                         pBusinessSessionRequest : string = 'novalue',
                                                         pModuleSessionRequest : string = 'novalue') {
     let inActivateMod: RolModuleBusiness = new RolModuleBusiness();
     inActivateMod.idModulo = idModule;
     inActivateMod.idBusiness = idBusiness;
     // ** header
-    const session = {
-      IdUserSessionRequest : pIdUserSessionRequest,
-      UserSessionRequest : pUserSessionRequest,
-      BusinessSessionRequest : pBusinessSessionRequest,
-      ModuleSessionRequest : pModuleSessionRequest
-    };
+    const session = { IdUserSessionRequest : pIdUserSessionRequest,
+                      // UserSessionRequest : pUserSessionRequest,
+                      BusinessSessionRequest : pBusinessSessionRequest,
+                      ModuleSessionRequest : pModuleSessionRequest };
     const httpHeaders = { headers: new HttpHeaders(session) }
     // **
     return this.http.put<ResponseMessage>(
@@ -571,19 +535,17 @@ export class AccountService {
     );
   }
   assignModuleToBusiness(idModule: number, idBusiness: number,pIdUserSessionRequest : string = 'novalue',
-                                                              pUserSessionRequest : string = 'novalue',
+                                                              // pUserSessionRequest : string = 'novalue',
                                                               pBusinessSessionRequest : string = 'novalue',
                                                               pModuleSessionRequest : string = 'novalue') {
     let moduleToBusiness: RolModuleBusiness = new RolModuleBusiness();
     moduleToBusiness.idModulo = idModule;
     moduleToBusiness.idBusiness = idBusiness;
     // ** header
-    const session = {
-      IdUserSessionRequest : pIdUserSessionRequest,
-      UserSessionRequest : pUserSessionRequest,
-      BusinessSessionRequest : pBusinessSessionRequest,
-      ModuleSessionRequest : pModuleSessionRequest
-    };
+    const session = { IdUserSessionRequest : pIdUserSessionRequest,
+                      // UserSessionRequest : pUserSessionRequest,
+                      BusinessSessionRequest : pBusinessSessionRequest,
+                      ModuleSessionRequest : pModuleSessionRequest };
     const httpHeaders = { headers: new HttpHeaders(session) }
     // **
     return this.http.post<ResponseMessage>(
@@ -591,16 +553,14 @@ export class AccountService {
     );
   }
   desAssignModuleToBusiness(moduleId: number, idEmpresa: number,pIdUserSessionRequest : string = 'novalue',
-                                                                pUserSessionRequest : string = 'novalue',
+                                                                // pUserSessionRequest : string = 'novalue',
                                                                 pBusinessSessionRequest : string = 'novalue',
                                                                 pModuleSessionRequest : string = 'novalue') {
     // ** header
-    const session = {
-      IdUserSessionRequest : pIdUserSessionRequest,
-      UserSessionRequest : pUserSessionRequest,
-      BusinessSessionRequest : pBusinessSessionRequest,
-      ModuleSessionRequest : pModuleSessionRequest
-    };
+    const session = { IdUserSessionRequest : pIdUserSessionRequest,
+                      // UserSessionRequest : pUserSessionRequest,
+                      BusinessSessionRequest : pBusinessSessionRequest,
+                      ModuleSessionRequest : pModuleSessionRequest };
     const httpHeaders = { headers: new HttpHeaders(session) }
     // **
     return this.http.delete<ResponseMessage>(
@@ -610,15 +570,14 @@ export class AccountService {
 
   // *************************
   getModulesActiveBusiness(idEmpresa: number, pIdUserSessionRequest : string = 'novalue',
-                                              pUserSessionRequest : string = 'novalue',
+                                              // pUserSessionRequest : string = 'novalue',
                                               pBusinessSessionRequest : string = 'novalue',
                                               pModuleSessionRequest : string = 'novalue') {
     // ** header
-    const session = {
-      IdUserSessionRequest : pIdUserSessionRequest,
-      UserSessionRequest : pUserSessionRequest,
-      BusinessSessionRequest : pBusinessSessionRequest,
-      ModuleSessionRequest : pModuleSessionRequest
+    const session = { IdUserSessionRequest : pIdUserSessionRequest,
+                      // UserSessionRequest : pUserSessionRequest,
+                      BusinessSessionRequest : pBusinessSessionRequest,
+                      ModuleSessionRequest : pModuleSessionRequest
     };
     const httpHeaders = { headers: new HttpHeaders(session) }
     // **
@@ -627,16 +586,14 @@ export class AccountService {
     );
   }
   getModulesActiveUser(idEmpresa: number, idRol: string,pIdUserSessionRequest : string = 'novalue',
-                                                        pUserSessionRequest : string = 'novalue',
+                                                        // pUserSessionRequest : string = 'novalue',
                                                         pBusinessSessionRequest : string = 'novalue',
                                                         pModuleSessionRequest : string = 'novalue') {
     // ** header
-    const session = {
-      IdUserSessionRequest : pIdUserSessionRequest,
-      UserSessionRequest : pUserSessionRequest,
-      BusinessSessionRequest : pBusinessSessionRequest,
-      ModuleSessionRequest : pModuleSessionRequest
-    };
+    const session = { IdUserSessionRequest : pIdUserSessionRequest,
+                      // UserSessionRequest : pUserSessionRequest,
+                      BusinessSessionRequest : pBusinessSessionRequest,
+                      ModuleSessionRequest : pModuleSessionRequest };
     const httpHeaders = { headers: new HttpHeaders(session) }
     // **
     return this.http.get<Module[]>(
@@ -661,16 +618,14 @@ export class AccountService {
   // **********************************************************************************************
   // MANTENIMIENTO DE PANTALLAS DE ACCEDO POR MÓDULO
   getPantallasModulo( idModulo: number, idEmpresa: number, soloActivos: boolean,pIdUserSessionRequest : string = 'novalue',
-                                                                                pUserSessionRequest : string = 'novalue',
+                                                                                // pUserSessionRequest : string = 'novalue',
                                                                                 pBusinessSessionRequest : string = 'novalue',
                                                                                 pModuleSessionRequest : string = 'novalue') {
     // ** header
-    const session = {
-      IdUserSessionRequest : pIdUserSessionRequest,
-      UserSessionRequest : pUserSessionRequest,
-      BusinessSessionRequest : pBusinessSessionRequest,
-      ModuleSessionRequest : pModuleSessionRequest
-    };
+    const session = { IdUserSessionRequest : pIdUserSessionRequest,
+                      // UserSessionRequest : pUserSessionRequest,
+                      BusinessSessionRequest : pBusinessSessionRequest,
+                      ModuleSessionRequest : pModuleSessionRequest };
     const httpHeaders = { headers: new HttpHeaders(session) }
     // **
     return this.http.get<ScreenModule[]>(
@@ -678,16 +633,14 @@ export class AccountService {
     );
   }
   getPantallasNombre( nombrePantalla: string, idEmpresa: number,soloActivos: boolean, pIdUserSessionRequest : string = 'novalue',
-                                                                                      pUserSessionRequest : string = 'novalue',
+                                                                                      // pUserSessionRequest : string = 'novalue',
                                                                                       pBusinessSessionRequest : string = 'novalue',
                                                                                       pModuleSessionRequest : string = 'novalue') {
     // ** header
-    const session = {
-      IdUserSessionRequest : pIdUserSessionRequest,
-      UserSessionRequest : pUserSessionRequest,
-      BusinessSessionRequest : pBusinessSessionRequest,
-      ModuleSessionRequest : pModuleSessionRequest
-    };
+    const session = { IdUserSessionRequest : pIdUserSessionRequest,
+                      // UserSessionRequest : pUserSessionRequest,
+                      BusinessSessionRequest : pBusinessSessionRequest,
+                      ModuleSessionRequest : pModuleSessionRequest };
     const httpHeaders = { headers: new HttpHeaders(session) }
     // **
     return this.http.get<ScreenModule[]>(
@@ -695,16 +648,14 @@ export class AccountService {
     );
   }
   postPantallaModulo(objeto: ScreenModule,pIdUserSessionRequest : string = 'novalue',
-                                          pUserSessionRequest : string = 'novalue',
+                                          // pUserSessionRequest : string = 'novalue',
                                           pBusinessSessionRequest : string = 'novalue',
                                           pModuleSessionRequest : string = 'novalue') {
     // ** header
-    const session = {
-      IdUserSessionRequest : pIdUserSessionRequest,
-      UserSessionRequest : pUserSessionRequest,
-      BusinessSessionRequest : pBusinessSessionRequest,
-      ModuleSessionRequest : pModuleSessionRequest
-    };
+    const session = { IdUserSessionRequest : pIdUserSessionRequest,
+                      // UserSessionRequest : pUserSessionRequest,
+                      BusinessSessionRequest : pBusinessSessionRequest,
+                      ModuleSessionRequest : pModuleSessionRequest };
     const httpHeaders = { headers: new HttpHeaders(session) }
     // **
     return this.http.post<ResponseMessage>(
@@ -712,16 +663,14 @@ export class AccountService {
     );
   }
   deletePantallaModulo(id: number,pIdUserSessionRequest : string = 'novalue',
-                                  pUserSessionRequest : string = 'novalue',
+                                  // pUserSessionRequest : string = 'novalue',
                                   pBusinessSessionRequest : string = 'novalue',
                                   pModuleSessionRequest : string = 'novalue') {
     // ** header
-    const session = {
-      IdUserSessionRequest : pIdUserSessionRequest,
-      UserSessionRequest : pUserSessionRequest,
-      BusinessSessionRequest : pBusinessSessionRequest,
-      ModuleSessionRequest : pModuleSessionRequest
-    };
+    const session = { IdUserSessionRequest : pIdUserSessionRequest,
+                      // UserSessionRequest : pUserSessionRequest,
+                      BusinessSessionRequest : pBusinessSessionRequest,
+                      ModuleSessionRequest : pModuleSessionRequest };
     const httpHeaders = { headers: new HttpHeaders(session) }
     // **
     return this.http.delete<ResponseMessage>(
@@ -729,16 +678,14 @@ export class AccountService {
     );
   }
   deleteAccesoPantallaUsuario( idUsuario: number, idPantalla: number,idEmpresa: number, pIdUserSessionRequest : string = 'novalue',
-                                                                                        pUserSessionRequest : string = 'novalue',
+                                                                                        // pUserSessionRequest : string = 'novalue',
                                                                                         pBusinessSessionRequest : string = 'novalue',
                                                                                         pModuleSessionRequest : string = 'novalue' ) {
     // ** header
-    const session = {
-      IdUserSessionRequest : pIdUserSessionRequest,
-      UserSessionRequest : pUserSessionRequest,
-      BusinessSessionRequest : pBusinessSessionRequest,
-      ModuleSessionRequest : pModuleSessionRequest
-    };
+    const session = { IdUserSessionRequest : pIdUserSessionRequest,
+                      // UserSessionRequest : pUserSessionRequest,
+                      BusinessSessionRequest : pBusinessSessionRequest,
+                      ModuleSessionRequest : pModuleSessionRequest };
     const httpHeaders = { headers: new HttpHeaders(session) }
     // **
     return this.http.delete<ResponseMessage>(
@@ -746,16 +693,14 @@ export class AccountService {
     );
   }
   putPantallaModulo(objeto: ScreenModule, pIdUserSessionRequest : string = 'novalue',
-                                          pUserSessionRequest : string = 'novalue',
+                                          // pUserSessionRequest : string = 'novalue',
                                           pBusinessSessionRequest : string = 'novalue',
                                           pModuleSessionRequest : string = 'novalue') {
     // ** header
-    const session = {
-      IdUserSessionRequest : pIdUserSessionRequest,
-      UserSessionRequest : pUserSessionRequest,
-      BusinessSessionRequest : pBusinessSessionRequest,
-      ModuleSessionRequest : pModuleSessionRequest
-    };
+    const session = { IdUserSessionRequest : pIdUserSessionRequest,
+                      // UserSessionRequest : pUserSessionRequest,
+                      BusinessSessionRequest : pBusinessSessionRequest,
+                      ModuleSessionRequest : pModuleSessionRequest };
     const httpHeaders = { headers: new HttpHeaders(session) }
     // **
     return this.http.put<ResponseMessage>(
@@ -763,16 +708,14 @@ export class AccountService {
     );
   }
   postPantallaAccesoUsuario(objeto: ScreenAccessUser, pIdUserSessionRequest : string = 'novalue',
-                                                      pUserSessionRequest : string = 'novalue',
+                                                      // pUserSessionRequest : string = 'novalue',
                                                       pBusinessSessionRequest : string = 'novalue',
                                                       pModuleSessionRequest : string = 'novalue') {
     // ** header
-    const session = {
-      IdUserSessionRequest : pIdUserSessionRequest,
-      UserSessionRequest : pUserSessionRequest,
-      BusinessSessionRequest : pBusinessSessionRequest,
-      ModuleSessionRequest : pModuleSessionRequest
-    };
+    const session = { IdUserSessionRequest : pIdUserSessionRequest,
+                      // UserSessionRequest : pUserSessionRequest,
+                      BusinessSessionRequest : pBusinessSessionRequest,
+                      ModuleSessionRequest : pModuleSessionRequest };
     const httpHeaders = { headers: new HttpHeaders(session) }
     // **
     return this.http.post<ResponseMessage>(
@@ -783,17 +726,12 @@ export class AccountService {
 
   //#region API - USUARIOS
 
-  activateByEmail(user: User, pIdUserSessionRequest : string = 'novalue',
-                              pUserSessionRequest : string = 'novalue',
-                              pBusinessSessionRequest : string = 'novalue',
-                              pModuleSessionRequest : string = 'novalue') {
+  activateByEmail(user: User) {
     // ** header
-    const session = {
-      IdUserSessionRequest : pIdUserSessionRequest,
-      UserSessionRequest : pUserSessionRequest,
-      BusinessSessionRequest : pBusinessSessionRequest,
-      ModuleSessionRequest : pModuleSessionRequest
-    };
+    const session = { IdUserSessionRequest : 'novalue',
+                      UserSessionRequest : 'email', 
+                      BusinessSessionRequest : 'novalue', 
+                      ModuleSessionRequest : 'novalue' };
     const httpHeaders = { headers: new HttpHeaders(session) }
     // **
     return this.http.get<ResponseMessage>(
@@ -802,16 +740,14 @@ export class AccountService {
   }
 
   reenviarCorreoActivacion(username,password, pIdUserSessionRequest : string = 'novalue',
-                                              pUserSessionRequest : string = 'novalue',
+                                              // pUserSessionRequest : string = 'novalue',
                                               pBusinessSessionRequest : string = 'novalue',
                                               pModuleSessionRequest : string = 'novalue') {
     // ** header
-    const session = {
-      IdUserSessionRequest : pIdUserSessionRequest,
-      UserSessionRequest : pUserSessionRequest,
-      BusinessSessionRequest : pBusinessSessionRequest,
-      ModuleSessionRequest : pModuleSessionRequest
-    };
+    const session = { IdUserSessionRequest : pIdUserSessionRequest,
+                      // UserSessionRequest : pUserSessionRequest,
+                      BusinessSessionRequest : pBusinessSessionRequest,
+                      ModuleSessionRequest : pModuleSessionRequest };
     const httpHeaders = { headers: new HttpHeaders(session) }
     // **
     return this.http.post<ResponseMessage>(
@@ -820,16 +756,14 @@ export class AccountService {
   }
 
   addUser(user: User, pIdUserSessionRequest : string = 'novalue',
-                      pUserSessionRequest : string = 'novalue',
+                      // pUserSessionRequest : string = 'novalue',
                       pBusinessSessionRequest : string = 'novalue',
                       pModuleSessionRequest : string = 'novalue') {
     // ** header
-    const session = {
-      IdUserSessionRequest : pIdUserSessionRequest,
-      UserSessionRequest : pUserSessionRequest,
-      BusinessSessionRequest : pBusinessSessionRequest,
-      ModuleSessionRequest : pModuleSessionRequest
-    };
+    const session = { IdUserSessionRequest : pIdUserSessionRequest,
+                      // UserSessionRequest : pUserSessionRequest,
+                      BusinessSessionRequest : pBusinessSessionRequest,
+                      ModuleSessionRequest : pModuleSessionRequest };
     const httpHeaders = { headers: new HttpHeaders(session) }
     // **
     return this.http.post<ResponseMessage>(
@@ -837,16 +771,14 @@ export class AccountService {
     );
   }
   removeRoleUser(user: User,pIdUserSessionRequest : string = 'novalue',
-                            pUserSessionRequest : string = 'novalue',
+                            // pUserSessionRequest : string = 'novalue',
                             pBusinessSessionRequest : string = 'novalue',
                             pModuleSessionRequest : string = 'novalue') {
     // ** header
-    const session = {
-      IdUserSessionRequest : pIdUserSessionRequest,
-      UserSessionRequest : pUserSessionRequest,
-      BusinessSessionRequest : pBusinessSessionRequest,
-      ModuleSessionRequest : pModuleSessionRequest
-    };
+    const session = { IdUserSessionRequest : pIdUserSessionRequest,
+                      // UserSessionRequest : pUserSessionRequest,
+                      BusinessSessionRequest : pBusinessSessionRequest,
+                      ModuleSessionRequest : pModuleSessionRequest };
     const httpHeaders = { headers: new HttpHeaders(session) }
     // **
     return this.http.put<ResponseMessage>(
@@ -854,16 +786,14 @@ export class AccountService {
     );
   }
   updateUser(identificacionUpdate: string, user: User,pIdUserSessionRequest : string = 'novalue',
-                                                      pUserSessionRequest : string = 'novalue',
+                                                      // pUserSessionRequest : string = 'novalue',
                                                       pBusinessSessionRequest : string = 'novalue',
                                                       pModuleSessionRequest : string = 'novalue') {
     // ** header
-    const session = {
-      IdUserSessionRequest : pIdUserSessionRequest,
-      UserSessionRequest : pUserSessionRequest,
-      BusinessSessionRequest : pBusinessSessionRequest,
-      ModuleSessionRequest : pModuleSessionRequest
-    };
+    const session = { IdUserSessionRequest : pIdUserSessionRequest,
+                      // UserSessionRequest : pUserSessionRequest,
+                      BusinessSessionRequest : pBusinessSessionRequest,
+                      ModuleSessionRequest : pModuleSessionRequest };
     const httpHeaders = { headers: new HttpHeaders(session) }
     // **
     return this.http.put<ResponseMessage>(
@@ -885,16 +815,14 @@ export class AccountService {
     }) );
   }
   activateInactivateUser(user: User,pIdUserSessionRequest : string = 'novalue',
-                                    pUserSessionRequest : string = 'novalue',
+                                    // pUserSessionRequest : string = 'novalue',
                                     pBusinessSessionRequest : string = 'novalue',
                                     pModuleSessionRequest : string = 'novalue') {
     // ** header
-    const session = {
-      IdUserSessionRequest : pIdUserSessionRequest,
-      UserSessionRequest : pUserSessionRequest,
-      BusinessSessionRequest : pBusinessSessionRequest,
-      ModuleSessionRequest : pModuleSessionRequest
-    };
+    const session = { IdUserSessionRequest : pIdUserSessionRequest,
+                      // UserSessionRequest : pUserSessionRequest,
+                      BusinessSessionRequest : pBusinessSessionRequest,
+                      ModuleSessionRequest : pModuleSessionRequest };
     const httpHeaders = { headers: new HttpHeaders(session) }
     // **
     return this.http.put<ResponseMessage>(
@@ -903,19 +831,18 @@ export class AccountService {
   }
 
   getAllUsers(pIdUserSessionRequest : string = 'novalue',
-              pUserSessionRequest : string = 'novalue',
+              // pUserSessionRequest : string = 'novalue',
               pBusinessSessionRequest : string = 'novalue',
               pModuleSessionRequest : string = 'novalue') {
     // ** header
-    const session = {
-      IdUserSessionRequest : pIdUserSessionRequest,
-      UserSessionRequest : pUserSessionRequest,
-      BusinessSessionRequest : pBusinessSessionRequest,
-      ModuleSessionRequest : pModuleSessionRequest
-    };
+    const session = { IdUserSessionRequest : pIdUserSessionRequest,
+                      // UserSessionRequest : pUserSessionRequest,
+                      BusinessSessionRequest : pBusinessSessionRequest,
+                      ModuleSessionRequest : pModuleSessionRequest };
     const httpHeaders = { headers: new HttpHeaders(session) }
     // **
-    return this.http.get<User[]>(`${environment.apiUrl}/users/getallusers`, httpHeaders);
+    return this.http.get<User[]>(`${environment.apiUrl}/users/getallusers`, httpHeaders
+    );
   }
   // getUser(usuarioid: string) {
   //   // ** header
@@ -930,16 +857,14 @@ export class AccountService {
   //   return this.http.get<User>(`${environment.apiUrl}/users/${usuarioid}`, httpHeaders);
   // }
   getUserByIdentification(identification: string, pIdUserSessionRequest : string = 'novalue',
-                                                  pUserSessionRequest : string = 'novalue',
+                                                  // pUserSessionRequest : string = 'novalue',
                                                   pBusinessSessionRequest : string = 'novalue',
                                                   pModuleSessionRequest : string = 'novalue') {
     // ** header
-    const session = {
-      IdUserSessionRequest : pIdUserSessionRequest,
-      UserSessionRequest : pUserSessionRequest,
-      BusinessSessionRequest : pBusinessSessionRequest,
-      ModuleSessionRequest : pModuleSessionRequest
-    };
+    const session = { IdUserSessionRequest : pIdUserSessionRequest,
+                      // UserSessionRequest : pUserSessionRequest,
+                      BusinessSessionRequest : pBusinessSessionRequest,
+                      ModuleSessionRequest : pModuleSessionRequest };
     const httpHeaders = { headers: new HttpHeaders(session) }
     // **
     return this.http.get<User>(
@@ -947,16 +872,14 @@ export class AccountService {
     );
   }
   getUsersBusiness(idEmpresa: number, pIdUserSessionRequest : string = 'novalue',
-                                      pUserSessionRequest : string = 'novalue',
+                                      // pUserSessionRequest : string = 'novalue',
                                       pBusinessSessionRequest : string = 'novalue',
                                       pModuleSessionRequest : string = 'novalue') {
     // ** header
-    const session = {
-      IdUserSessionRequest : pIdUserSessionRequest,
-      UserSessionRequest : pUserSessionRequest,
-      BusinessSessionRequest : pBusinessSessionRequest,
-      ModuleSessionRequest : pModuleSessionRequest
-    };
+    const session = { IdUserSessionRequest : pIdUserSessionRequest,
+                      // UserSessionRequest : pUserSessionRequest,
+                      BusinessSessionRequest : pBusinessSessionRequest,
+                      ModuleSessionRequest : pModuleSessionRequest };
     const httpHeaders = { headers: new HttpHeaders(session) }
     // **
     return this.http.get<User[]>(
@@ -964,16 +887,14 @@ export class AccountService {
     );
   }
   getUsersBusinessScreenModule( idPantalla: number, idEmpresa: number, soloActivos: boolean,pIdUserSessionRequest : string = 'novalue',
-                                                                                            pUserSessionRequest : string = 'novalue',
+                                                                                            // pUserSessionRequest : string = 'novalue',
                                                                                             pBusinessSessionRequest : string = 'novalue',
                                                                                             pModuleSessionRequest : string = 'novalue' ) {
     // ** header
-    const session = {
-      IdUserSessionRequest : pIdUserSessionRequest,
-      UserSessionRequest : pUserSessionRequest,
-      BusinessSessionRequest : pBusinessSessionRequest,
-      ModuleSessionRequest : pModuleSessionRequest
-    };
+    const session = { IdUserSessionRequest : pIdUserSessionRequest,
+                      // UserSessionRequest : pUserSessionRequest,
+                      BusinessSessionRequest : pBusinessSessionRequest,
+                      ModuleSessionRequest : pModuleSessionRequest };
     const httpHeaders = { headers: new HttpHeaders(session) }
     // **
     return this.http.get<User[]>(
@@ -981,14 +902,14 @@ export class AccountService {
     );
   }
   deleteUser(idUser: number, idBusiness: number,pIdUserSessionRequest : string = 'novalue',
-                                                pUserSessionRequest : string = 'novalue',
+                                                // pUserSessionRequest : string = 'novalue',
                                                 pBusinessSessionRequest : string = 'novalue',
                                                 pModuleSessionRequest : string = 'novalue') {
     // ** header
     const session = { IdUserSessionRequest : pIdUserSessionRequest,
-      UserSessionRequest : pUserSessionRequest,
-      BusinessSessionRequest : pBusinessSessionRequest,
-      ModuleSessionRequest : pModuleSessionRequest };
+                      // UserSessionRequest : pUserSessionRequest,
+                      BusinessSessionRequest : pBusinessSessionRequest,
+                      ModuleSessionRequest : pModuleSessionRequest };
     const httpHeaders = { headers: new HttpHeaders(session) }
     // **
     return this.http.delete<ResponseMessage>(
@@ -1007,12 +928,12 @@ export class AccountService {
   // ***************************************************************
   // PROCS . ROLES
   getRolUserBusiness(idRol: string, idBusiness: number, pIdUserSessionRequest : string = 'novalue',
-                                                        pUserSessionRequest : string = 'novalue',
+                                                        // pUserSessionRequest : string = 'novalue',
                                                         pBusinessSessionRequest : string = 'novalue',
                                                         pModuleSessionRequest : string = 'novalue') {
     // ** header
     const session = { IdUserSessionRequest : pIdUserSessionRequest,
-                      UserSessionRequest : pUserSessionRequest,
+                      // UserSessionRequest : pUserSessionRequest,
                       BusinessSessionRequest : pBusinessSessionRequest,
                       ModuleSessionRequest : pModuleSessionRequest };
     const httpHeaders = { headers: new HttpHeaders(session) }
@@ -1022,16 +943,14 @@ export class AccountService {
     );
   }
   getRolesBusiness(idBusiness: number,pIdUserSessionRequest : string = 'novalue',
-                                      pUserSessionRequest : string = 'novalue',
+                                      // pUserSessionRequest : string = 'novalue',
                                       pBusinessSessionRequest : string = 'novalue',
                                       pModuleSessionRequest : string = 'novalue') {
     // ** header
-    const session = {
-      IdUserSessionRequest : pIdUserSessionRequest,
-      UserSessionRequest : pUserSessionRequest,
-      BusinessSessionRequest : pBusinessSessionRequest,
-      ModuleSessionRequest : pModuleSessionRequest
-    };
+    const session = { IdUserSessionRequest : pIdUserSessionRequest,
+                      // UserSessionRequest : pUserSessionRequest,
+                      BusinessSessionRequest : pBusinessSessionRequest,
+                      ModuleSessionRequest : pModuleSessionRequest };
     const httpHeaders = { headers: new HttpHeaders(session) }
     // **
     return this.http.get<Role[]>(
@@ -1039,19 +958,17 @@ export class AccountService {
     );
   }
   assignRoleUser(idRole: string, idUser: string,pIdUserSessionRequest : string = 'novalue',
-                                                pUserSessionRequest : string = 'novalue',
+                                                // pUserSessionRequest : string = 'novalue',
                                                 pBusinessSessionRequest : string = 'novalue',
                                                 pModuleSessionRequest : string = 'novalue') {
     let assignRolObject: AssignRoleObject = new AssignRoleObject();
     assignRolObject.idRole = idRole;
     assignRolObject.idUser = idUser;
     // ** header
-    const session = {
-      IdUserSessionRequest : pIdUserSessionRequest,
-      UserSessionRequest : pUserSessionRequest,
-      BusinessSessionRequest : pBusinessSessionRequest,
-      ModuleSessionRequest : pModuleSessionRequest
-    };
+    const session = { IdUserSessionRequest : pIdUserSessionRequest,
+                      // UserSessionRequest : pUserSessionRequest,
+                      BusinessSessionRequest : pBusinessSessionRequest,
+                      ModuleSessionRequest : pModuleSessionRequest };
     const httpHeaders = { headers: new HttpHeaders(session) }
     // **
     return this.http.post<ResponseMessage>(
@@ -1059,7 +976,7 @@ export class AccountService {
     );
   }
   updateRol(rol: Role, idBusiness:number, pIdUserSessionRequest : string = 'novalue',
-                                          pUserSessionRequest : string = 'novalue',
+                                          // pUserSessionRequest : string = 'novalue',
                                           pBusinessSessionRequest : string = 'novalue',
                                           pModuleSessionRequest : string = 'novalue') {
     let assignRolObject: UpdateRolModel = new UpdateRolModel();
@@ -1068,12 +985,10 @@ export class AccountService {
     assignRolObject.estado = rol.estado;
     assignRolObject.tipo = rol.tipo;
     // ** header
-    const session = {
-      IdUserSessionRequest : pIdUserSessionRequest,
-      UserSessionRequest : pUserSessionRequest,
-      BusinessSessionRequest : pBusinessSessionRequest,
-      ModuleSessionRequest : pModuleSessionRequest
-    };
+    const session = { IdUserSessionRequest : pIdUserSessionRequest,
+                      // UserSessionRequest : pUserSessionRequest,
+                      BusinessSessionRequest : pBusinessSessionRequest,
+                      ModuleSessionRequest : pModuleSessionRequest };
     const httpHeaders = { headers: new HttpHeaders(session) }
     // **
     return this.http.put<ResponseMessage>(
@@ -1081,16 +996,14 @@ export class AccountService {
     );
   }
   addRol(role: Role,pIdUserSessionRequest : string = 'novalue',
-                    pUserSessionRequest : string = 'novalue',
+                    // pUserSessionRequest : string = 'novalue',
                     pBusinessSessionRequest : string = 'novalue',
                     pModuleSessionRequest : string = 'novalue') {
     // ** header
-    const session = {
-      IdUserSessionRequest : pIdUserSessionRequest,
-      UserSessionRequest : pUserSessionRequest,
-      BusinessSessionRequest : pBusinessSessionRequest,
-      ModuleSessionRequest : pModuleSessionRequest
-    };
+    const session = { IdUserSessionRequest : pIdUserSessionRequest,
+                      // UserSessionRequest : pUserSessionRequest,
+                      BusinessSessionRequest : pBusinessSessionRequest,
+                      ModuleSessionRequest : pModuleSessionRequest };
     const httpHeaders = { headers: new HttpHeaders(session) }
     // **
     return this.http.post<ResponseMessage>(
@@ -1098,16 +1011,14 @@ export class AccountService {
     );
   }
   assignRolBusiness(roleBusiness:RoleBusiness,pIdUserSessionRequest : string = 'novalue',
-                                              pUserSessionRequest : string = 'novalue',
+                                              // pUserSessionRequest : string = 'novalue',
                                               pBusinessSessionRequest : string = 'novalue',
                                               pModuleSessionRequest : string = 'novalue') {
     // ** header
-    const session = {
-      IdUserSessionRequest : pIdUserSessionRequest,
-      UserSessionRequest : pUserSessionRequest,
-      BusinessSessionRequest : pBusinessSessionRequest,
-      ModuleSessionRequest : pModuleSessionRequest
-    };
+    const session = { IdUserSessionRequest : pIdUserSessionRequest,
+                      // UserSessionRequest : pUserSessionRequest,
+                      BusinessSessionRequest : pBusinessSessionRequest,
+                      ModuleSessionRequest : pModuleSessionRequest };
     const httpHeaders = { headers: new HttpHeaders(session) }
     // **
     return this.http.post<ResponseMessage>(

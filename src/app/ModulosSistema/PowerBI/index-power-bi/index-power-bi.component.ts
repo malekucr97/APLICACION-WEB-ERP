@@ -1,3 +1,4 @@
+import { HttpHeaders } from '@angular/common/http';
 import { Component, OnInit, ViewEncapsulation } from '@angular/core';
 import { DomSanitizer } from '@angular/platform-browser';
 import { Router } from '@angular/router';
@@ -81,20 +82,19 @@ export class IndexPowerBiComponent extends OnSeguridad implements OnInit {
                           idModulo: this.moduleObservable.id,
                           nombre: this.nombrePantalla } as ScreenModule;
 
-    let IdUserSessionRequest : string = this.userObservable.id.toString();
-    let UserSessionRequest : string = this.userObservable.nombreCompleto.toString();
-    let BusinessSessionRequest : string = this.businessObservable.id.toString() ;
-    let ModuleSessionRequest : string = this.moduleObservable.id.toString();
+    // let IdUserSessionRequest : string = this.userObservable.id.toString();
+    // let UserSessionRequest : string = this.userObservable.nombreCompleto.toString();
+    // let BusinessSessionRequest : string = this.businessObservable.id.toString() ;
+    // let ModuleSessionRequest : string = this.moduleObservable.id.toString();
 
     // let IdUserSessionRequest : string = 'noValue';
     // let UserSessionRequest : string = 'noValue';
     // let BusinessSessionRequest : string = 'noValue';
     // let ModuleSessionRequest : string = 'noValue';
 
-    this.powerBIService.getURLExterna(oScreenModule,  IdUserSessionRequest,
-                                                      UserSessionRequest,
-                                                      BusinessSessionRequest,
-                                                      ModuleSessionRequest)
+    this.powerBIService.getURLExterna(oScreenModule,  this._HIdUserSessionRequest, 
+                                                      // this._HUserSessionRequest, 
+                                                      this._HBusinessSessionRequest, this._HModuleSessionRequest)
       .pipe(first())
       .subscribe((response) => {
         if (response.exito) {
@@ -110,6 +110,7 @@ export class IndexPowerBiComponent extends OnSeguridad implements OnInit {
     this.reportConfig = {
       ...this.reportConfig,
       embedUrl: `${environment.apiUrl}/PowerBI/reporte?tk=${this.userObservable.token}&cp=${datosUrlPantalla.idCompania}&md=${datosUrlPantalla.idModulo}&sc=${datosUrlPantalla.nombre}`,
+      
     };
     this.mostrarReporte = true;
   }

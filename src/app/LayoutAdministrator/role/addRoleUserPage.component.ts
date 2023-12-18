@@ -28,10 +28,10 @@ export class AddRoleUserComponent extends OnSeguridad implements OnInit {
 
   listUserSubject: User[];
 
-  public IdUserSessionRequest : string ;
-  public UserSessionRequest : string ;
-  public BusinessSessionRequest : string ;
-  public ModuleSessionRequest : string ;
+  // public IdUserSessionRequest : string ;
+  // public UserSessionRequest : string ;
+  // public BusinessSessionRequest : string ;
+  // public ModuleSessionRequest : string ;
 
   constructor(  private route: ActivatedRoute,
                 private accountService: AccountService,
@@ -55,28 +55,27 @@ export class AddRoleUserComponent extends OnSeguridad implements OnInit {
 
     this.userToAssign = this.listUserSubject.find(x => x.identificacion === this._userIdentificationParam);
   
-    this.inicializaHeaders();
+    // this.inicializaHeaders();
   }
 
-  inicializaHeaders() : void {
+  // inicializaHeaders() : void {
 
-    this.IdUserSessionRequest = this.userObservable ? this.userObservable.id.toString() : 'noIdUserValue';
-    this.UserSessionRequest = this.userObservable ? this.userObservable.nombreCompleto.toString() : 'noUserNameValue';
-    this.BusinessSessionRequest = this.businessObservable ? this.businessObservable.id.toString() : 'noBusinessValue';
-    this.ModuleSessionRequest = 'admin';
+  //   this.IdUserSessionRequest = this.userObservable ? this.userObservable.id.toString() : 'noIdUserValue';
+  //   this.UserSessionRequest = this.userObservable ? this.userObservable.nombreCompleto.toString() : 'noUserNameValue';
+  //   this.BusinessSessionRequest = this.businessObservable ? this.businessObservable.id.toString() : 'noBusinessValue';
+  //   this.ModuleSessionRequest = 'admin';
 
-    // this.IdUserSessionRequest = this.userObservable.id.toString();
-    // this.UserSessionRequest = this.userObservable.nombreCompleto.toString();
-    // this.BusinessSessionRequest = this.businessObservable.id.toString();
-    // this.ModuleSessionRequest = 'admin';
-  }
+  //   // this.IdUserSessionRequest = this.userObservable.id.toString();
+  //   // this.UserSessionRequest = this.userObservable.nombreCompleto.toString();
+  //   // this.BusinessSessionRequest = this.businessObservable.id.toString();
+  //   // this.ModuleSessionRequest = 'admin';
+  // }
 
   ngOnInit() {
 
-      this.accountService.getRolesBusiness(this.businessObservable.id,this.IdUserSessionRequest,
-                                                                      this.UserSessionRequest,
-                                                                      this.BusinessSessionRequest,
-                                                                      this.ModuleSessionRequest)
+      this.accountService.getRolesBusiness(this.businessObservable.id,this._HIdUserSessionRequest,
+                                                                      // this.UserSessionRequest,
+                                                                      this._HBusinessSessionRequest)
         .pipe(first())
         .subscribe((responseListRole) => {
 
@@ -101,10 +100,9 @@ export class AddRoleUserComponent extends OnSeguridad implements OnInit {
     this.alertService.clear();
     this.isAsignRole = true;
 
-    this.accountService.assignRoleUser(idRole, this.userToAssign.identificacion,this.IdUserSessionRequest,
-                                                                                this.UserSessionRequest,
-                                                                                this.BusinessSessionRequest,
-                                                                                this.ModuleSessionRequest)
+    this.accountService.assignRoleUser(idRole, this.userToAssign.identificacion,this._HIdUserSessionRequest,
+                                                                                // this.UserSessionRequest,
+                                                                                this._HBusinessSessionRequest)
       .pipe(first())
       .subscribe((response) => {
 
@@ -131,10 +129,9 @@ export class AddRoleUserComponent extends OnSeguridad implements OnInit {
     this.alertService.clear();  
     this.isDesAsignRoles = true;
 
-    this.accountService.removeRoleUser(this.userToAssign, this.IdUserSessionRequest,
-                                                          this.UserSessionRequest,
-                                                          this.BusinessSessionRequest,
-                                                          this.ModuleSessionRequest)
+    this.accountService.removeRoleUser(this.userToAssign, this._HIdUserSessionRequest,
+                                                          // this.UserSessionRequest,
+                                                          this._HBusinessSessionRequest)
       .pipe(first())
       .subscribe((response) => {
 

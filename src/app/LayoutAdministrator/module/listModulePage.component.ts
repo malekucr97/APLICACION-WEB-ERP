@@ -24,10 +24,10 @@ export class ListModuleComponent extends OnSeguridad implements OnInit {
     public URLAdminModulePage : string = httpAccessAdminPage.urlPageAdminModule;
     habilitarBtnMantenimientoReportes: boolean = false;
 
-    public IdUserSessionRequest : string ;
-    public UserSessionRequest : string ;
-    public BusinessSessionRequest : string ;
-    public ModuleSessionRequest : string ;
+    // public IdUserSessionRequest : string ;
+    // public UserSessionRequest : string ;
+    // public BusinessSessionRequest : string ;
+    // public ModuleSessionRequest : string ;
 
     constructor(private accountService: AccountService,
                 private alertService: AlertService,
@@ -44,35 +44,33 @@ export class ListModuleComponent extends OnSeguridad implements OnInit {
             this.businessObservable = this.accountService.businessValue;
             this.habilitarBtnMantenimientoReportes = this.businessObservable.mantenimientoReportes;
 
-            this.inicializaHeaders();
+            // this.inicializaHeaders();
     }
 
-    inicializaHeaders() : void {
+    // inicializaHeaders() : void {
 
-        this.IdUserSessionRequest = this.userObservable ? this.userObservable.id.toString() : 'noIdUserValue';
-        this.UserSessionRequest = this.userObservable ? this.userObservable.nombreCompleto.toString() : 'noUserNameValue';
-        this.BusinessSessionRequest = this.businessObservable ? this.businessObservable.id.toString() : 'noBusinessValue';
-        this.ModuleSessionRequest = 'admin';
+    //     this.IdUserSessionRequest = this.userObservable ? this.userObservable.id.toString() : 'noIdUserValue';
+    //     this.UserSessionRequest = this.userObservable ? this.userObservable.nombreCompleto.toString() : 'noUserNameValue';
+    //     this.BusinessSessionRequest = this.businessObservable ? this.businessObservable.id.toString() : 'noBusinessValue';
+    //     this.ModuleSessionRequest = 'admin';
 
-        // this.IdUserSessionRequest = this.userObservable.id.toString();
-        // this.UserSessionRequest = this.userObservable.nombreCompleto.toString();
-        // this.BusinessSessionRequest = this.businessObservable.id.toString();
-        // this.ModuleSessionRequest = 'admin';
-    }
+    //     // this.IdUserSessionRequest = this.userObservable.id.toString();
+    //     // this.UserSessionRequest = this.userObservable.nombreCompleto.toString();
+    //     // this.BusinessSessionRequest = this.businessObservable.id.toString();
+    //     // this.ModuleSessionRequest = 'admin';
+    // }
 
     ngOnInit() {
 
-        this.accountService.getModulesSystem(   this.IdUserSessionRequest,
-                                                this.UserSessionRequest,
-                                                this.BusinessSessionRequest,
-                                                this.ModuleSessionRequest)
+        this.accountService.getModulesSystem(   this._HIdUserSessionRequest,
+                                                // this.UserSessionRequest,
+                                                this._HBusinessSessionRequest)
             .pipe(first())
             .subscribe(response => { this.listModulesSystem = response; });
 
-        this.accountService.getModulesBusiness(this.businessObservable.id,  this.IdUserSessionRequest,
-                                                                            this.UserSessionRequest,
-                                                                            this.BusinessSessionRequest,
-                                                                            this.ModuleSessionRequest)
+        this.accountService.getModulesBusiness(this.businessObservable.id,  this._HIdUserSessionRequest,
+                                                                            // this.UserSessionRequest,
+                                                                            this._HBusinessSessionRequest)
             .pipe(first())
             .subscribe(response => { this.listModules = response; });
     }
@@ -83,10 +81,9 @@ export class ListModuleComponent extends OnSeguridad implements OnInit {
 
         let moduleList = this.listModulesSystem.find(x => x.identificador === identificadorModulo);
 
-        this.accountService.activateModule(moduleList.id, this.businessObservable.id,   this.IdUserSessionRequest,
-                                                                                        this.UserSessionRequest,
-                                                                                        this.BusinessSessionRequest,
-                                                                                        this.ModuleSessionRequest)
+        this.accountService.activateModule(moduleList.id, this.businessObservable.id,   this._HIdUserSessionRequest,
+                                                                                        // this.UserSessionRequest,
+                                                                                        this._HBusinessSessionRequest)
             .pipe(first())
             .subscribe( responseActivate => {
 
@@ -112,10 +109,9 @@ export class ListModuleComponent extends OnSeguridad implements OnInit {
 
         let moduleList = this.listModulesSystem.find(x => x.identificador === identificadorModulo);
 
-        this.accountService.inActivateModule(moduleList.id, this.businessObservable.id, this.IdUserSessionRequest,
-                                                                                        this.UserSessionRequest,
-                                                                                        this.BusinessSessionRequest,
-                                                                                        this.ModuleSessionRequest)
+        this.accountService.inActivateModule(moduleList.id, this.businessObservable.id, this._HIdUserSessionRequest,
+                                                                                        // this.UserSessionRequest,
+                                                                                        this._HBusinessSessionRequest)
             .pipe(first())
             .subscribe( responseInActivate => {
 

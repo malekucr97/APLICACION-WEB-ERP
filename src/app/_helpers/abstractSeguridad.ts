@@ -15,14 +15,14 @@ export class OnSeguridad {
 
   private _codeSuccessUser : string = '202';
 
-  _nombrePantalla: string;
-  _redireccionURL: string;
-  _mensajeError: string = 'El usuario no cuenta con los accesos correspondientes o la pantalla se encuentra inactiva.';
+  public _nombrePantalla: string;
+  public _redireccionURL: string;
+  public _mensajeError: string = 'El usuario no cuenta con los accesos correspondientes o la pantalla se encuentra inactiva.';
 
-  public IdUserSessionRequest : string ;
-  public UserSessionRequest : string ;
-  public BusinessSessionRequest : string ;
-  public ModuleSessionRequest : string ;
+  public _HIdUserSessionRequest : string ;
+  public _HUserSessionRequest : string ;
+  public _HBusinessSessionRequest : string ;
+  public _HModuleSessionRequest : string ;
 
   constructor(alertService: AlertService, accountService: AccountService, router: Router) {
 
@@ -34,22 +34,18 @@ export class OnSeguridad {
     this._businessObservable = accountService.businessValue;
     this._redireccionURL = this._moduleObservable?.indexHTTP && '';
 
-    this.inicializaHeaders();
-  }
-
-  inicializaHeaders() : void {
-    this.IdUserSessionRequest = this._userObservable ? this._userObservable.id.toString() : 'noIdUserValueSec';
-    this.UserSessionRequest = this._userObservable ? this._userObservable.nombreCompleto.toString() : 'noUserNameValueSec';
-    this.BusinessSessionRequest = this._businessObservable ? this._businessObservable.id.toString() : 'noBusinessValueSec';
-    this.ModuleSessionRequest = this._moduleObservable?this._moduleObservable.id.toString() : 'noModuleValueSec';
+    this._HIdUserSessionRequest = this._userObservable ? this._userObservable.id.toString() : '';
+    this._HUserSessionRequest = this._userObservable ? this._userObservable.nombreCompleto : '';
+    this._HBusinessSessionRequest = this._businessObservable ? this._businessObservable.id.toString() : '';
+    this._HModuleSessionRequest = this._moduleObservable ? this._moduleObservable.id.toString() : '';
   }
 
   validarAccesoPantalla(): void {
     this._accountService.validateAccessUser(  this._userObservable.id, this._moduleObservable.id, this._nombrePantalla, this._businessObservable.id,
-                                              this.IdUserSessionRequest,
-                                              this.UserSessionRequest,
-                                              this.BusinessSessionRequest,
-                                              this.ModuleSessionRequest )
+                                              this._HIdUserSessionRequest,
+                                              // this._HUserSessionRequest,
+                                              this._HBusinessSessionRequest,
+                                              this._HModuleSessionRequest )
       .pipe(first())
       .subscribe((response) => {
 

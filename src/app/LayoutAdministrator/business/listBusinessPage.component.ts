@@ -21,10 +21,10 @@ export class ListBusinessComponent extends OnSeguridad implements OnInit {
 
     listBusiness: Compania[] = [];
 
-    public IdUserSessionRequest : string ;
-    public UserSessionRequest : string ;
-    public BusinessSessionRequest : string ;
-    public ModuleSessionRequest : string ;
+    // public IdUserSessionRequest : string ;
+    // public UserSessionRequest : string ;
+    // public BusinessSessionRequest : string ;
+    // public ModuleSessionRequest : string ;
 
     constructor(private accountService: AccountService, 
                 private router: Router,
@@ -40,27 +40,26 @@ export class ListBusinessComponent extends OnSeguridad implements OnInit {
         this.userObservable = this.accountService.userValue;
         this.businessObservable = this.accountService.businessValue;
 
-        this.inicializaHeaders();
+        // this.inicializaHeaders();
     }
 
-    inicializaHeaders() : void {
-        this.IdUserSessionRequest = this.userObservable ? this.userObservable.id.toString() : 'noIdUserValue';
-        this.UserSessionRequest = this.userObservable ? this.userObservable.nombreCompleto.toString() : 'noUserNameValue';
-        this.BusinessSessionRequest = this.businessObservable ? this.businessObservable.id.toString() : 'noBusinessValue';
-        this.ModuleSessionRequest = 'admin';
+    // inicializaHeaders() : void {
+    //     this.IdUserSessionRequest = this.userObservable ? this.userObservable.id.toString() : 'noIdUserValue';
+    //     this.UserSessionRequest = this.userObservable ? this.userObservable.nombreCompleto.toString() : 'noUserNameValue';
+    //     this.BusinessSessionRequest = this.businessObservable ? this.businessObservable.id.toString() : 'noBusinessValue';
+    //     this.ModuleSessionRequest = 'admin';
 
-        // this.IdUserSessionRequest = this.userObservable.id.toString();
-        // this.UserSessionRequest = this.userObservable.nombreCompleto.toString();
-        // this.BusinessSessionRequest = this.businessObservable.id.toString();
-        // this.ModuleSessionRequest = 'admin';
-    }
+    //     // this.IdUserSessionRequest = this.userObservable.id.toString();
+    //     // this.UserSessionRequest = this.userObservable.nombreCompleto.toString();
+    //     // this.BusinessSessionRequest = this.businessObservable.id.toString();
+    //     // this.ModuleSessionRequest = 'admin';
+    // }
 
     ngOnInit() {
 
-        this.accountService.getAllBusiness( this.IdUserSessionRequest,
-                                            this.UserSessionRequest,
-                                            this.BusinessSessionRequest,
-                                            this.ModuleSessionRequest)
+        this.accountService.getAllBusiness( this._HIdUserSessionRequest,
+                                            // this.UserSessionRequest,
+                                            this._HBusinessSessionRequest)
             .pipe(first())
             .subscribe(response => {
                 if (response && response.length > 0) {
