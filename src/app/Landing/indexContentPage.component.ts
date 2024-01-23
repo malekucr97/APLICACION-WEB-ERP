@@ -3,10 +3,11 @@ import { first } from 'rxjs/operators';
 import { Router, ActivatedRoute } from '@angular/router';
 import { AccountService, AlertService } from '@app/_services';
 import { User, Module } from '@app/_models';
-import { ModulesSystem, environment, httpAccessAdminPage } from '@environments/environment';
+import { ModulesSystem, httpAccessAdminPage, httpLandingIndexPage } from '@environments/environment';
 import { MatSidenav } from '@angular/material/sidenav';
 import { Compania } from '@app/_models/modules/compania';
 import { OnSeguridad } from '@app/_helpers/abstractSeguridad';
+import { Bitacora } from '@app/_models/bitacora';
 
 @Component({
   templateUrl: 'IndexContentPage.html',
@@ -20,12 +21,8 @@ export class IndexContentPageComponent extends OnSeguridad implements OnInit {
   businessObservable: Compania;
 
   private _valorBuscado : string = '';
-  public get valorBuscado() : string {
-    return this._valorBuscado;
-  }
-  public set valorBuscado(v : string) {
-    this._valorBuscado = v;
-  }
+  public get valorBuscado() : string { return this._valorBuscado; }
+  public set valorBuscado(v : string) { this._valorBuscado = v; }
 
   public ListModules: Module[] = [];
   public ListModulesFilter: Module[] = [];
@@ -34,7 +31,9 @@ export class IndexContentPageComponent extends OnSeguridad implements OnInit {
   public URLConfigureUserPage: string = httpAccessAdminPage.urlPageAddEditUser;
   public URLIndexAdminPage: string = httpAccessAdminPage.urlPageAdministrator;
 
-  private KeySessionStorageModule : string = environment.sessionStorageModuleIdentification;
+  public _httpNoModulesUserPage : string = httpLandingIndexPage.indexHTTPNoModulesUser;
+
+  public today : Date ;
 
   constructor(  private accountService: AccountService,
                 private router: Router,
@@ -52,34 +51,69 @@ export class IndexContentPageComponent extends OnSeguridad implements OnInit {
     this.businessObservable = this.accountService.businessValue;
 
     this.accountService.clearObjectModuleObservable();
+
+    this.today = new Date();
   }
 
   ngOnInit() {
 
-    if (  super.validarUsuarioAdmin() ) {
-      // módulos activos de compañía
-      this.accountService.getModulesActiveBusiness(this.businessObservable.id, this._HIdUserSessionRequest)
+    if ( super.validarUsuarioAdmin() ) {
+
+      this.accountService.getModulesActiveBusiness(this.businessObservable.id, this._HIdUserSessionRequest, this._HBusinessSessionRequest)
         .pipe(first())
         .subscribe((responseListModules) => {
 
             if (responseListModules && responseListModules.length > 0) this.setListModules(responseListModules);
 
-          }, error => { console.log(error); this.logout(); });
+          }, error => { this.logout(); });
 
     } else {
       // módulos activos de usuario
-      this.accountService.getModulesActiveUser( this.businessObservable.id, this.userObservable.idRol, this._HIdUserSessionRequest )
+      this.accountService.getModulesActiveUser(this.businessObservable.id, this.userObservable.idRol, this._HIdUserSessionRequest, this._HBusinessSessionRequest)
         .pipe(first())
         .subscribe((responseListModules) => {
 
-            if (responseListModules && responseListModules.length > 0) this.setListModules(responseListModules);
+          if (responseListModules && responseListModules.length > 0) {
 
-          }, error => { console.log(error); this.logout(); });
+            this.setListModules(responseListModules);
+
+          } else {
+             // #region "registro en bitácora no módulos activos"
+             let bit : Bitacora = new Bitacora( 'NO-LOG12', /** codigoInterno */
+                                                true, /** sesion */
+                                                false, /** consulta */
+                                                0, /** idCompania */
+                                                0, /** idModulo */
+                                                this.userObservable.id, /** idUsuario */
+                                                'No se han devuelto registros de módulos activos para el rol del usuario en esta compañía.', /** descripcion */
+                                                0, /** contadorSesion */
+                                                this.today, /** fechaSesion */
+                                                '', /** lugarSesion */
+                                                '', /** token */
+                                                '' /** urlConsulta */ );
+
+              // *****************************************************************
+              // REGISTRA EN BITÁCORA INTENTO DE INICIO DE SESIÓN DE ROL SIN PERMISOS
+              this.accountService.postBitacora(bit, this._HIdUserSessionRequest)
+                .pipe(first())
+                .subscribe(response => {
+
+                  this.userObservable.codeNoLogin = '404';
+                  this.userObservable.idRol = null;
+                  this.userObservable.token = null;
+                  this.accountService.loadUserAsObservable(this.userObservable);
+
+                  // redirect http nologin **
+                  this.router.navigate([this._httpNoModulesUserPage]);
+              });
+              // #endregion "registro en bitácora no módulos activos"
+          }
+
+        }, error => { this.logout(); });
     }
   }
 
   //#region BUSQUEDA DE LOS MÓDULOS.
-
   filtrarModulos(){
     if (!this.valorBuscado) {
       this.ListModulesFilter = this.ListModules;
@@ -89,7 +123,6 @@ export class IndexContentPageComponent extends OnSeguridad implements OnInit {
       });
     }
   }
-
   //#endregion
 
   public redirectPageConfigUser() : void {
@@ -170,9 +203,6 @@ export class IndexContentPageComponent extends OnSeguridad implements OnInit {
   selectModule(mod: Module) {
     let module: Module = this.ListModules.find((x) => x.id === mod.id);
     this.accountService.loadModuleAsObservable(module);
-
-    // sessionStorage.setItem(this.KeySessionStorageModule, module.identificador);
-    // sessionStorage.removeItem(this.KeySessionStorageModule);
 
     this.router.navigate([module.indexHTTP]);
   }

@@ -29,11 +29,6 @@ export class AddEditRolComponent extends OnSeguridad implements OnInit {
 
   tituloBasePantalla: string = 'Formulario de Registro de Roles del Sistema';
 
-//   public IdUserSessionRequest : string ;
-//   public UserSessionRequest : string ;
-//   public BusinessSessionRequest : string ;
-//   public ModuleSessionRequest : string ;
-
   constructor(private formBuilder: FormBuilder,
               private route: ActivatedRoute,
               private router: Router,
@@ -51,22 +46,7 @@ export class AddEditRolComponent extends OnSeguridad implements OnInit {
         this.businessObservable = this.accountService.businessValue;
 
         this.inicializaFormulario();
-
-        // this.inicializaHeaders();
     }
-
-    // inicializaHeaders() : void {
-
-    //     this.IdUserSessionRequest = this.userObservable ? this.userObservable.id.toString() : 'noIdUserValue';
-    //     this.UserSessionRequest = this.userObservable ? this.userObservable.nombreCompleto.toString() : 'noUserNameValue';
-    //     this.BusinessSessionRequest = this.businessObservable ? this.businessObservable.id.toString() : 'noBusinessValue';
-    //     this.ModuleSessionRequest = 'admin';
-
-    //     // this.IdUserSessionRequest = this.userObservable.id.toString();
-    //     // this.UserSessionRequest = this.userObservable.nombreCompleto.toString();
-    //     // this.BusinessSessionRequest = this.businessObservable.id.toString();
-    //     // this.ModuleSessionRequest = 'admin';
-    // }
 
     get f() { return this.rolForm.controls; }
 
@@ -122,9 +102,7 @@ export class AddEditRolComponent extends OnSeguridad implements OnInit {
         let rolForm: Role = this.crateObjectForm();
         let rolFormBusiness: RoleBusiness = this.crateObjectFormBusiness(rolForm);
 
-        this.accountService.addRol(rolForm, this._HIdUserSessionRequest,
-                                            // this.UserSessionRequest,
-                                            this._HBusinessSessionRequest)
+        this.accountService.addRol(rolForm, this._HIdUserSessionRequest, this._HBusinessSessionRequest)
             .pipe(first())
             .subscribe((responseAddRol) => {
 
@@ -148,9 +126,7 @@ export class AddEditRolComponent extends OnSeguridad implements OnInit {
     // MÉTODOS PRIVADOS
     private asociarRolEmpresa(rolCreado: RoleBusiness, responseMessageAddRol : string) {
 
-    this.accountService.assignRolBusiness(rolCreado,this._HIdUserSessionRequest,
-                                                    // this.UserSessionRequest,
-                                                    this._HBusinessSessionRequest)
+    this.accountService.assignRolBusiness(rolCreado, this._HIdUserSessionRequest, this._HBusinessSessionRequest)
         .pipe(first())
         .subscribe((response) => {
 

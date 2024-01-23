@@ -27,7 +27,6 @@ export class PendingUserPageComponent {
     this._mensajeReenvio = v;
   }
 
-
   constructor(private accountService: AccountService) {
     this.user = this.accountService.userValue;
   }

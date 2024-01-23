@@ -2,7 +2,6 @@
 
 export const environment = {
     production: false,
-    // apiUrl: 'http://10.100.242.70:81',
     apiUrl: 'http://localhost:4000',
 
     sessionStorageIdentificationUserKey: '_httpUsernameSessionStorageAppAdminModulesInraSA',
@@ -47,9 +46,8 @@ export const httpLandingIndexPage = {
     indexHTTPInactiveUser:      '/inra-sa/InactiveUserPage/index.html',
     indexHTTPInactiveRolUser:   '/inra-sa/InactiveRolPage/index.html',
     indexHTTPBlockedUser:       '/inra-sa/BlockedUserPage/index.html',
-    indexHTTPNoBussinesUser:    '/inra-sa/NotBusinessPage/index.html'
-    // ,
-    // urlPageNotBusiness:         '/inra-sa/NotBusinessPage/index.html'
+    indexHTTPNoBussinesUser:    '/inra-sa/NotBusinessPage/index.html',
+    indexHTTPNoModulesUser:     '/inra-sa/NotModulesPage/index.html'
 };
 
 export const ModulesSystem = {

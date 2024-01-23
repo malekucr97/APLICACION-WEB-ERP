@@ -40,11 +40,6 @@ export class ListModuleBusinessComponent extends OnSeguridad implements OnInit {
 
     public pbusinessId : number;
 
-    // public IdUserSessionRequest : string ;
-    // public UserSessionRequest : string ;
-    // public BusinessSessionRequest : string ;
-    // public ModuleSessionRequest : string ;
-
     constructor(private accountService: AccountService,
                 private route: ActivatedRoute,
                 private alertService: AlertService,
@@ -64,22 +59,7 @@ export class ListModuleBusinessComponent extends OnSeguridad implements OnInit {
         this.listBusinessSubject    = this.accountService.businessListValue;
 
         this.pbusinessId = this.route.snapshot.params.pidBusiness;
-
-        // this.inicializaHeaders();
     }
-
-    // inicializaHeaders() : void {
-
-    //     this.IdUserSessionRequest = this.userObservable ? this.userObservable.id.toString() : 'noIdUserValue';
-    //     this.UserSessionRequest = this.userObservable ? this.userObservable.nombreCompleto.toString() : 'noUserNameValue';
-    //     this.BusinessSessionRequest = this.businessObservable ? this.businessObservable.id.toString() : 'noBusinessValue';
-    //     this.ModuleSessionRequest = 'admin';
-
-    //     // this.IdUserSessionRequest = this.userObservable.id.toString();
-    //     // this.UserSessionRequest = this.userObservable.nombreCompleto.toString();
-    //     // this.BusinessSessionRequest = this.businessObservable.id.toString();
-    //     // this.ModuleSessionRequest = 'admin';
-    //   }
 
     ngOnInit() {
 
@@ -88,17 +68,13 @@ export class ListModuleBusinessComponent extends OnSeguridad implements OnInit {
         this.seleccionEmpresa = true;
         this.business = this.listBusinessSubject.find(x => x.id === +this.pbusinessId);
 
-        this.accountService.getModulesSystem(   this._HIdUserSessionRequest, 
-                                                // this._HUserSessionRequest,
-                                                this._HBusinessSessionRequest)
+        this.accountService.getModulesSystem(this._HIdUserSessionRequest, this._HBusinessSessionRequest)
             .pipe(first())
             .subscribe(listModulesSystemResponse => {
 
                 this.listModulesSystem = listModulesSystemResponse;
 
-                this.accountService.getModulesBusiness(this.business.id,this._HIdUserSessionRequest, 
-                                                                        // this._HUserSessionRequest, 
-                                                                        this._HBusinessSessionRequest)
+                this.accountService.getModulesBusiness(this.business.id, this._HIdUserSessionRequest, this._HBusinessSessionRequest)
                     .pipe(first())
                     .subscribe(listModulesResponse => {
 
@@ -127,9 +103,7 @@ export class ListModuleBusinessComponent extends OnSeguridad implements OnInit {
 
         let module : Module = this.listModulesSystem.find(x => x.identificador === identificadorModulo);
 
-        this.accountService.assignModuleToBusiness(module.id, this.business.id, this._HIdUserSessionRequest, 
-                                                                                // this._HUserSessionRequest,
-                                                                                this._HBusinessSessionRequest)
+        this.accountService.assignModuleToBusiness(module.id, this.business.id, this._HIdUserSessionRequest, this._HBusinessSessionRequest)
             .pipe(first())
             .subscribe( response => {
 
@@ -155,9 +129,7 @@ export class ListModuleBusinessComponent extends OnSeguridad implements OnInit {
 
         let module : Module = this.listModulesBusiness.find(x => x.identificador === identificadorModulo);
 
-        this.accountService.desAssignModuleToBusiness(module.id, this.business.id,  this._HIdUserSessionRequest, 
-                                                                                    // this._HUserSessionRequest,
-                                                                                    this._HBusinessSessionRequest)
+        this.accountService.desAssignModuleToBusiness(module.id, this.business.id, this._HIdUserSessionRequest, this._HBusinessSessionRequest)
             .pipe(first())
             .subscribe( response => {
 

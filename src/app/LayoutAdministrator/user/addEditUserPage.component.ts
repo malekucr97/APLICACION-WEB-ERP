@@ -18,6 +18,11 @@ export class AddEditUserComponent extends OnSeguridad implements OnInit {
   businessObservable: Compania;
 
   response: ResponseMessage;
+
+  pwdPattern : string = "^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?!.*\s).{5,12}$";
+  ussPattern : string = "^[a-zA-Z0-9]{5,15}$";
+
+  emailPattern = "^[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$";
   
   loading : boolean = false;
   submitFormUsuario : boolean = false;
@@ -41,11 +46,6 @@ export class AddEditUserComponent extends OnSeguridad implements OnInit {
 
   usuarioSeleccionado : User = new User();
 
-  // public IdUserSessionRequest : string ;
-  // public UserSessionRequest : string ;
-  // public BusinessSessionRequest : string ;
-  // public ModuleSessionRequest : string ;
-
   constructor(private formBuilder: FormBuilder,
               private route: ActivatedRoute,
               private router: Router,
@@ -65,21 +65,7 @@ export class AddEditUserComponent extends OnSeguridad implements OnInit {
     if (super.validarUsuarioAdmin()) this.URLRedirectPage = this.URLListUserPage;
 
     this.inicializaFormulario();
-    // this.inicializaHeaders();
   }
-
-  // inicializaHeaders() : void {
-
-  //   this.IdUserSessionRequest = this.userObservable ? this.userObservable.id.toString() : 'noIdUserValue';
-  //   this.UserSessionRequest = this.userObservable ? this.userObservable.nombreCompleto.toString() : 'noUserNameValue';
-  //   this.BusinessSessionRequest = this.businessObservable ? this.businessObservable.id.toString() : 'noBusinessValue';
-  //   this.ModuleSessionRequest = 'admin';
-
-  //   // this.IdUserSessionRequest = this.userObservable.id.toString();
-  //   // this.UserSessionRequest = this.userObservable.nombreCompleto.toString();
-  //   // this.BusinessSessionRequest = this.businessObservable.id.toString();
-  //   // this.ModuleSessionRequest = 'admin';
-  // }
 
   get f() { return this.usuarioForm.controls; }
 
@@ -91,25 +77,22 @@ export class AddEditUserComponent extends OnSeguridad implements OnInit {
       this.pIdentifUserUpdate = this.route.snapshot.params.pidentificationUser;
 
       this.usuarioForm.controls.rolUsuario.disable();
+      this.usuarioForm.controls.identificacionUsuario.disable();
 
-      if (!this.userObservable.esAdmin && this.userObservable.idRol !== administrator.adminSociedad) {
-        this.usuarioForm.controls.identificacionUsuario.disable();
+      if (!this.userObservable.esAdmin && 
+          this.userObservable.idRol !== administrator.adminSociedad) 
+      {  
         this.usuarioForm.controls.correoElectronicoUsuario.disable();
         this.usuarioForm.controls.puestoUsuario.disable();
-      } else if (this.pIdentifUserUpdate === administrator.identification) {
-        this.usuarioForm.controls.identificacionUsuario.disable();
       }
 
-      this.accountService.getUserByIdentification(this.pIdentifUserUpdate,this._HIdUserSessionRequest,
-                                                                          // this.UserSessionRequest,
-                                                                          this._HBusinessSessionRequest)
+      this.accountService.getUserByIdentification(this.pIdentifUserUpdate, this._HIdUserSessionRequest, this._HBusinessSessionRequest)
         .pipe(first())
         .subscribe((responseUser) => {
 
           if (responseUser.idRol) {
 
             this.accountService.getRolUserBusiness(responseUser.idRol,this.businessObservable.id, this._HIdUserSessionRequest,
-                                                                                                  // this.UserSessionRequest,
                                                                                                   this._HBusinessSessionRequest)
             .pipe(first())
             .subscribe((responseRole) => {
@@ -121,7 +104,7 @@ export class AddEditUserComponent extends OnSeguridad implements OnInit {
 
           } else {
             this.role = null;
-            this.inicializaFormularioUpdateUser(responseUser, this.nombreRol);
+            this.inicializaFormularioUpdateUser(responseUser, 'Rol no asignado');
           }  
         });
       
@@ -148,13 +131,13 @@ export class AddEditUserComponent extends OnSeguridad implements OnInit {
     if (userUpdate) {
 
       this.usuarioForm = this.formBuilder.group({
-        identificacionUsuario:    [userUpdate.identificacion, Validators.required],
+        identificacionUsuario:    [userUpdate.identificacion],
         nombreCompletoUsuario:    [userUpdate.nombreCompleto, Validators.required],
-        correoElectronicoUsuario: [userUpdate.email, Validators.required],
+        correoElectronicoUsuario: [userUpdate.email,Validators.required],
         puestoUsuario:            [userUpdate.puesto],
         numeroTelefonoUsuario:    [userUpdate.numeroTelefono],
         rolUsuario:               [nombreRol],
-        passwordUsuario:          ['', [Validators.minLength(5)]]
+        passwordUsuario:          ['']
       });
 
     } else {
@@ -166,7 +149,7 @@ export class AddEditUserComponent extends OnSeguridad implements OnInit {
         puestoUsuario:            [''],
         numeroTelefonoUsuario:    [''],
         rolUsuario:               [''],
-        passwordUsuario:          ['', [Validators.minLength(5)]]
+        passwordUsuario:          ['', Validators.required]
       });
     }
 
@@ -180,7 +163,7 @@ export class AddEditUserComponent extends OnSeguridad implements OnInit {
       puestoUsuario:            [''],
       numeroTelefonoUsuario:    [''],
       rolUsuario:               [{value: '', disabled: true}],
-      passwordUsuario:          ['', [Validators.required, Validators.minLength(5)]]
+      passwordUsuario:          ['', [Validators.required]]
     });
   }
   
@@ -211,9 +194,7 @@ export class AddEditUserComponent extends OnSeguridad implements OnInit {
     let userForm: User = this.crateObjectForm();
     userForm.id = this.usuarioSeleccionado.id;
 
-    this.accountService.updateUser(this.pIdentifUserUpdate, userForm, this._HIdUserSessionRequest,
-                                                                      // this.UserSessionRequest,
-                                                                      this._HBusinessSessionRequest)
+    this.accountService.updateUser(userForm, this._HIdUserSessionRequest, this._HBusinessSessionRequest)
         .pipe(first())
         .subscribe((responseUpdate) => {
 
@@ -247,9 +228,7 @@ export class AddEditUserComponent extends OnSeguridad implements OnInit {
 
     let userForm: User = this.crateObjectForm();
 
-    this.accountService.addUser(userForm, this._HIdUserSessionRequest,
-                                          // this.UserSessionRequest,
-                                          this._HBusinessSessionRequest)
+    this.accountService.addUser(userForm, this._HIdUserSessionRequest, this._HBusinessSessionRequest)
         .pipe(first())
         .subscribe((responseAddUser) => {
 
@@ -275,8 +254,7 @@ export class AddEditUserComponent extends OnSeguridad implements OnInit {
   // MÉTODOS PRIVADOS
   private asociarUsuarioEmpresa(inUsuarioCreado: User, responseMessageAddUser : string) {
 
-    this.accountService.assignBusinessUser(inUsuarioCreado.id, this.businessObservable.id,this._HIdUserSessionRequest,
-                                                                                          // this.UserSessionRequest,
+    this.accountService.assignBusinessUser(inUsuarioCreado.id, this.businessObservable.id,this._HIdUserSessionRequest, 
                                                                                           this._HBusinessSessionRequest)
       .pipe(first())
       .subscribe((response) => {

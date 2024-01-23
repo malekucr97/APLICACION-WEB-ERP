@@ -23,12 +23,7 @@ export class AddModuleRoleComponent extends OnSeguridad implements OnInit {
 
   listRolesSubject: Role[];
 
-  _pRolIdParam : string ; 
-
-  // public IdUserSessionRequest : string ;
-  // public UserSessionRequest : string ;
-  // public BusinessSessionRequest : string ;
-  // public ModuleSessionRequest : string ;
+  _pRolIdParam : string ;
 
   constructor(  private route: ActivatedRoute,
                 private accountService: AccountService,
@@ -50,30 +45,13 @@ export class AddModuleRoleComponent extends OnSeguridad implements OnInit {
 
     this._pRolIdParam = this.route.snapshot.params.pidRole;
     this.role = this.listRolesSubject.find((x) => x.id === this._pRolIdParam);
-
-    // this.inicializaHeaders();
   }
-
-  // inicializaHeaders() : void {
-
-  //   this.IdUserSessionRequest = this.userObservable ? this.userObservable.id.toString() : 'noIdUserValue';
-  //   this.UserSessionRequest = this.userObservable ? this.userObservable.nombreCompleto.toString() : 'noUserNameValue';
-  //   this.BusinessSessionRequest = this.businessObservable ? this.businessObservable.id.toString() : 'noBusinessValue';
-  //   this.ModuleSessionRequest = 'admin';
-
-  //   // this.IdUserSessionRequest = this.userObservable.id.toString();
-  //   // this.UserSessionRequest = this.userObservable.nombreCompleto.toString();
-  //   // this.BusinessSessionRequest = this.businessObservable.id.toString();
-  //   // this.ModuleSessionRequest = 'admin';
-  // }
 
   ngOnInit() {
 
     if (this.role.id !== administrator.identification && this.role.id !== administrator.adminSociedad) {
 
-      this.accountService.getModulesBusiness(this.businessObservable.id,this._HIdUserSessionRequest,
-                                                                        // this.UserSessionRequest,
-                                                                        this._HBusinessSessionRequest)
+      this.accountService.getModulesBusiness(this.businessObservable.id, this._HIdUserSessionRequest, this._HBusinessSessionRequest)
         .pipe(first())
         .subscribe((responseModulesSystem) => {
 
@@ -82,7 +60,6 @@ export class AddModuleRoleComponent extends OnSeguridad implements OnInit {
               this.listModulesBusiness = responseModulesSystem;
 
               this.accountService.getModulesByRolAndBusiness(this._pRolIdParam,this.businessObservable.id,this._HIdUserSessionRequest,
-                                                                                                          // this.UserSessionRequest,
                                                                                                           this._HBusinessSessionRequest)
                 .pipe(first())
                 .subscribe((responseModulesRol) => {
@@ -130,9 +107,7 @@ export class AddModuleRoleComponent extends OnSeguridad implements OnInit {
 
     let module: Module = this.listModulesBusiness.find((m) => m.id == idModule);
 
-    this.accountService.grantAccessModuleToRol(this.role.id, module.id,this.businessObservable.id,this._HIdUserSessionRequest,
-                                                                                                  // this.UserSessionRequest,
-                                                                                                  this._HBusinessSessionRequest)
+    this.accountService.grantAccessModuleToRol(this.role.id, module.id,this.businessObservable.id,this._HIdUserSessionRequest,this._HBusinessSessionRequest)
       .pipe(first())
       .subscribe((response) => {
 
@@ -170,9 +145,7 @@ export class AddModuleRoleComponent extends OnSeguridad implements OnInit {
 
     let module: Module = this.listModulesRol.find((m) => m.id == idModule);
 
-    this.accountService.deleteAccessModuleToRol( this.role.id, module.id,this.businessObservable.id,this._HIdUserSessionRequest,
-                                                                                                    // this.UserSessionRequest,
-                                                                                                    this._HBusinessSessionRequest)
+    this.accountService.deleteAccessModuleToRol(this.role.id, module.id,this.businessObservable.id,this._HIdUserSessionRequest,this._HBusinessSessionRequest)
       .pipe(first())
       .subscribe((response) => {
 

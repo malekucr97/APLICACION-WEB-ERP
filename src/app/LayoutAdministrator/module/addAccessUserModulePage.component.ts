@@ -21,8 +21,8 @@ export class AddAccessUserModuleComponent extends OnSeguridad implements OnInit 
     @ViewChild(MatSidenav) sidenav !: MatSidenav;
 
     private nombrePantalla  : string = 'HTML_AddAccessUserModulePage.html';
-    public nombreModulo     : string = 'Módulo de Administración / '
-    + 'Administración de Pantallas por Módulo y Accesos de Pantallas por Usuario';;
+    public nombreModulo     : string = 
+    'Módulo de Administración / Administración de Pantallas por Módulo y Accesos de Pantallas por Usuario';
 
     URLListIndexModules: string = httpAccessAdminPage.urlPageListModule;
 
@@ -60,11 +60,6 @@ export class AddAccessUserModuleComponent extends OnSeguridad implements OnInit 
 
     public today : Date = new Date();
 
-    // public IdUserSessionRequest : string ;
-    // public UserSessionRequest : string ;
-    // public BusinessSessionRequest : string ;
-    // public ModuleSessionRequest : string ;
-
     constructor (   private route:          ActivatedRoute,
                     private alertService:   AlertService,
                     private formBuilder:    FormBuilder,
@@ -89,22 +84,7 @@ export class AddAccessUserModuleComponent extends OnSeguridad implements OnInit 
 
         this.buscarModuloId(this.pidModuleParam);
         this.buscarUsuariosCompania();
-
-        // this.inicializaHeaders();
     }
-
-    // inicializaHeaders() : void {
-
-    //     this.IdUserSessionRequest = this.userObservable ? this.userObservable.id.toString() : 'noIdUserValue';
-    //     this.UserSessionRequest = this.userObservable ? this.userObservable.nombreCompleto.toString() : 'noUserNameValue';
-    //     this.BusinessSessionRequest = this.companiaObservable ? this.companiaObservable.id.toString() : 'noBusinessValue';
-    //     this.ModuleSessionRequest = 'admin';
-
-    //     // this.IdUserSessionRequest = this.userObservable.id.toString();
-    //     // this.UserSessionRequest = this.userObservable.nombreCompleto.toString();
-    //     // this.BusinessSessionRequest = this.companiaObservable.id.toString();
-    //     // this.ModuleSessionRequest = 'admin';
-    // }
     
     get m () {   return this.formPantallasModulo.controls;  }
 
@@ -183,9 +163,7 @@ export class AddAccessUserModuleComponent extends OnSeguridad implements OnInit 
     }
 
     buscarModuloId(moduleId : number) : void {
-        this.accountService.getModuleId(moduleId,   this._HIdUserSessionRequest, 
-                                                    // this._HUserSessionRequest, 
-                                                    this._HBusinessSessionRequest)
+        this.accountService.getModuleId(moduleId, this._HIdUserSessionRequest, this._HBusinessSessionRequest)
             .pipe(first())
             .subscribe(response => {
 
@@ -199,8 +177,7 @@ export class AddAccessUserModuleComponent extends OnSeguridad implements OnInit 
 
         this.alertService.clear();
 
-        this.accountService.getUsersBusiness(this.userObservable.empresa,   this._HIdUserSessionRequest, 
-                                                                            this._HBusinessSessionRequest)
+        this.accountService.getUsersBusiness(this.userObservable.empresa, this._HIdUserSessionRequest, this._HBusinessSessionRequest)
             .pipe(first())
             .subscribe(response => {
 
@@ -220,7 +197,6 @@ export class AddAccessUserModuleComponent extends OnSeguridad implements OnInit 
         this.listUsuariosCompaniaPantalla = [];
 
         this.accountService.getUsersBusinessScreenModule(objetoPantalla.id,this.companiaObservable.id,false,this._HIdUserSessionRequest, 
-                                                                                                            // this._HUserSessionRequest, 
                                                                                                             this._HBusinessSessionRequest)
             .pipe(first())
             .subscribe(response => {
@@ -228,6 +204,7 @@ export class AddAccessUserModuleComponent extends OnSeguridad implements OnInit 
                 if ( response && response.length > 0 ) {
 
                     this.habilitaListaUsuariosAccesoPantalla = true;
+                    this.habilitaListasUsuarioCompania = true;
 
                     this.listUsuariosCompaniaPantalla = response;
 
@@ -246,8 +223,7 @@ export class AddAccessUserModuleComponent extends OnSeguridad implements OnInit 
 
             if (!nombrePantalla) nombrePantalla = "%%" ;
 
-            this.accountService.getPantallasNombre(nombrePantalla,this.companiaObservable.id,false, this._HIdUserSessionRequest, 
-                                                                                                    // this._HUserSessionRequest, 
+            this.accountService.getPantallasNombre(nombrePantalla,this.companiaObservable.id,false, this._HIdUserSessionRequest,
                                                                                                     this._HBusinessSessionRequest)
                 .pipe(first())
                 .subscribe(response => {
@@ -271,8 +247,7 @@ export class AddAccessUserModuleComponent extends OnSeguridad implements OnInit 
 
         } else {
 
-            this.accountService.getPantallasModulo(idModuleSelected,this.companiaObservable.id,true,this._HIdUserSessionRequest, 
-                                                                                                    // this._HUserSessionRequest, 
+            this.accountService.getPantallasModulo(idModuleSelected,this.companiaObservable.id,true,this._HIdUserSessionRequest,
                                                                                                     this._HBusinessSessionRequest)
             .pipe(first())
             .subscribe(response => {
@@ -309,9 +284,8 @@ export class AddAccessUserModuleComponent extends OnSeguridad implements OnInit 
         var pantallaId : number = this.formPantallasModulo.controls['idPantalla'].value;
         var screenObject : ScreenAccessUser = this.crearPantallaAccesoUsuarioObject(objeto.id, pantallaId);
 
-        this.accountService.deleteAccesoPantallaUsuario( screenObject.idUsuario,screenObject.idPantalla,screenObject.idCompania,this._HIdUserSessionRequest, 
-                                                                                                                                // this._HUserSessionRequest, 
-                                                                                                                                this._HBusinessSessionRequest)
+        this.accountService.deleteAccesoPantallaUsuario( screenObject.idUsuario,screenObject.idPantalla,screenObject.idCompania,this._HIdUserSessionRequest,
+                                                                                                                                this._HBusinessSessionRequest )
             .pipe(first())
             .subscribe(response => {
 
@@ -346,9 +320,7 @@ export class AddAccessUserModuleComponent extends OnSeguridad implements OnInit 
             screenAccessUserObject.adicionadoPor = this.userObservable.identificacion;
             screenAccessUserObject.fechaAdicion = this.today;
 
-            this.accountService.postPantallaAccesoUsuario(screenAccessUserObject,   this._HIdUserSessionRequest, 
-                                                                                    // this._HUserSessionRequest, 
-                                                                                    this._HBusinessSessionRequest)
+            this.accountService.postPantallaAccesoUsuario(screenAccessUserObject, this._HIdUserSessionRequest, this._HBusinessSessionRequest)
                 .pipe(first())
                 .subscribe(response => {
 
@@ -377,9 +349,7 @@ export class AddAccessUserModuleComponent extends OnSeguridad implements OnInit 
         pantallaModuloForm.adicionadoPor = this.userObservable.identificacion;
         pantallaModuloForm.fechaAdicion = this.today;
 
-        this.accountService.postPantallaModulo(pantallaModuloForm,  this._HIdUserSessionRequest, 
-                                                                    // this._HUserSessionRequest, 
-                                                                    this._HBusinessSessionRequest)
+        this.accountService.postPantallaModulo(pantallaModuloForm, this._HIdUserSessionRequest, this._HBusinessSessionRequest)
             .pipe(first())
             .subscribe(response => {
 
@@ -451,9 +421,7 @@ export class AddAccessUserModuleComponent extends OnSeguridad implements OnInit 
         pantallaModuloForm.modificadoPor        = this.userObservable.identificacion;
         pantallaModuloForm.fechaModificacion    = this.today;
 
-        this.accountService.putPantallaModulo(pantallaModuloForm,   this._HIdUserSessionRequest, 
-                                                                    // this._HUserSessionRequest, 
-                                                                    this._HBusinessSessionRequest)
+        this.accountService.putPantallaModulo(pantallaModuloForm, this._HIdUserSessionRequest, this._HBusinessSessionRequest)
             .pipe(first())
             .subscribe(response => {
 

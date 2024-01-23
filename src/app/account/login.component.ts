@@ -14,6 +14,9 @@ export class LoginComponent implements OnInit {
     userLog : User = new User ;
 
     pathImageInitial : string = './assets/images/inra/BANKAP_Header_2023-02.jpg';
+    
+    pwdPattern : string = "^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?!.*\s).{5,12}$";
+    ussPattern : string = "^[a-zA-Z0-9]{5,15}$";
 
     loading     : boolean = false;
     submitted   : boolean = false;
@@ -22,6 +25,7 @@ export class LoginComponent implements OnInit {
     mostrarContrasena: boolean = false;
 
     private UrlHome : string;
+    private SSLState : boolean;
 
     _httpInactiveUserPage   : string = httpLandingIndexPage.indexHTTPInactiveUser;
     _httpPendingUserPage    : string = httpLandingIndexPage.indexHTTPPendingUser;
@@ -30,8 +34,6 @@ export class LoginComponent implements OnInit {
     _httpInactiveRolePage   : string = httpLandingIndexPage.indexHTTPInactiveRolUser;
 
     private KeySessionStorageUserName : string = environment.sessionStorageIdentificationUserKey;
-
-    SSLState : boolean = false;
 
     constructor(private formBuilder: FormBuilder,
                 private route: ActivatedRoute,
@@ -44,9 +46,12 @@ export class LoginComponent implements OnInit {
                     this.inicializaFormularioLogin();
 
                     this.UrlHome = this.route.snapshot.queryParams.returnUrl || '/';
-                }
+    }
 
     get f() { return this.form.controls; }
+
+    get username() { return this.form.get('username'); } 
+    get password() { return this.form.get('password'); }
 
     ngOnInit() { }
 
@@ -55,7 +60,9 @@ export class LoginComponent implements OnInit {
         let username : string = '';
         this.intentosFallidosInicioSesion = 0;
 
+        this.SSLState = false;
         if (sessionStorage.getItem(this.KeySessionStorageUserName)) this.SSLState = true;
+
         if (this.SSLState) username = sessionStorage.getItem(this.KeySessionStorageUserName);
 
         this.form = this.formBuilder.group({username:   [username,  Validators.required],
@@ -75,7 +82,9 @@ export class LoginComponent implements OnInit {
         let userName : string = this.f.username.value;
         let password : string = this.f.password.value;
 
-        if (this.f.rememberme.value) { sessionStorage.setItem(this.KeySessionStorageUserName, userName); }
+        if (this.f.rememberme.value) { 
+            sessionStorage.setItem(this.KeySessionStorageUserName, userName); 
+        }
         else { sessionStorage.removeItem(this.KeySessionStorageUserName); }
 
         this.accountService.login(userName.trim(), password.trim())
@@ -96,37 +105,29 @@ export class LoginComponent implements OnInit {
                             break;
                         }
 
-                        case "NO-LOG01": { this.alertService.info(this.userLog.messageNoLogin); break; } // usuario no registrado
+                        case "NO-LOG01": { this.alertService.info('El usuario no está registrado en el sistema.'); break; } // usuario no registrado 
                         case "NO-LOG02": { this.router.navigate([this._httpBlockedUserPage]);   break; } // usuario bloqueado
                         case "NO-LOG03": { this.router.navigate([this._httpInactiveUserPage]);  break; } // usuario inactivo
                         case "NO-LOG04": { this.router.navigate([this._httpPendingUserPage]);   break; } // usuario pendiente
                         case "NO-LOG05": { this.router.navigate([this._httpNotRoleUserPage]);   break; } // usuario sin rol
                         case "NO-LOG06": {
                           this.intentosFallidosInicioSesion++;
-                          this.alertService.info(this.userLog.messageNoLogin);
+                          this.alertService.info('La contraseña ingresada no es correcta.');
                           break;
                         } // contraseña incorrecta
 
-                        default: { this.alertService.info("Excepción no controlada."); break; }
+                        default: { this.alertService.info('Excepción no controlada.'); break; }
                     }
-
-                    if (this.userLog.codeNoLogin !== '202') this.userLog.codeNoLogin = '404';
 
                 // ************************
                 // http null response *****
-                } else { this.alertService.error('Ocurrió un error al procesar los credenciales del usuario.'); }
-
-                // ***************************************************
-                // suscribe a usuario en memoria de la aplicación ****
-                this.accountService.loadUserAsObservable(this.userLog);
+                } else { this.alertService.error('sin resultados'); }
 
                 this.loading    = false;
                 this.submitted  = false;
-            },
-            (error) => { this.alertService.error('Problemas al obtener respuesta del Servidor. Por favor contacte al administrador.' + error); });
+                
+            }, (error) => { this.alertService.error('Problemas al obtener respuesta del Servidor. Por favor contacte al administrador.' + error); });
     }
 
-    visualizarContrasena(){
-      this.mostrarContrasena = !this.mostrarContrasena;
-    }
+    visualizarContrasena() { this.mostrarContrasena = !this.mostrarContrasena; }
 }

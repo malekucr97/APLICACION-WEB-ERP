@@ -45,9 +45,9 @@ export class HomeComponent extends OnSeguridad implements OnInit {
     ngOnInit() {
 
         this.conexion   = true;
-        this.message    = 'Seleccione la Compañía';
+        this.message    = 'Por Favor Seleccione la Compañía para Iniciar la Sesión';
 
-        if (this.userObservable && this.userObservable.esAdmin) {
+        if (this.userObservable.esAdmin) {
 
             this.accountService.getAllBusiness( this._HIdUserSessionRequest )
                 .pipe(first())
@@ -56,21 +56,42 @@ export class HomeComponent extends OnSeguridad implements OnInit {
                     if (listBusinessResponse && listBusinessResponse.length > 0) {
                         this.listBusiness = listBusinessResponse;
 
-                        if (this.listBusiness.length === 1) this.selectBusiness(this.listBusiness[0]);
+                        if (this.listBusiness.length === 1) this.selectBusiness(this.listBusiness[0]) ;
 
                     } else {
-                        this.userObservable.codeNoLogin = '404';
-                        this.userObservable.messageNoLogin = 'Sin compañías.';
-                        this.userObservable.idRol = null;
-                        this.userObservable.token = null;
-                        this.accountService.loadUserAsObservable(this.userObservable);
+                        // #region "registro en bitácora"
+                        let bit : Bitacora = new Bitacora(  'NO-LOG11', /** codigoInterno */
+                                                            true, /** sesion */
+                                                            false, /** consulta */
+                                                            0, /** idCompania */
+                                                            0, /** idModulo */
+                                                            this.userObservable.id, /** idUsuario */
+                                                            'No se han devuelto registros de compañías para el usuario al iniciar sesión.', /** descripcion */
+                                                            0, /** contadorSesion */
+                                                            this.today, /** fechaSesion */
+                                                            '', /** lugarSesion */
+                                                            '', /** token */
+                                                            '' /** urlConsulta */ );
 
-                        // redirect http nologin **
-                        this.router.navigate([this._httpNoBusinessUserPage]);
+                        // *****************************************************************
+                        // REGISTRA EN BITÁCORA INTENTO DE INICIO DE SESIÓN DE ROL SIN PERMISOS
+                        this.accountService.postBitacora(bit, this._HIdUserSessionRequest)
+                            .pipe(first())
+                            .subscribe(response => {
+
+                                this.userObservable.codeNoLogin = '404';
+                                this.userObservable.idRol = null;
+                                this.userObservable.token = null;
+                                this.accountService.loadUserAsObservable(this.userObservable);
+
+                                // redirect http nologin **
+                                this.router.navigate([this._httpNoBusinessUserPage]);
+                            });
+                        // #endregion "registro en bitácora"
                     }
                 });
 
-        } else if (this.userObservable && !this.userObservable.esAdmin) {
+        } else {
 
             this.accountService.getBusinessActiveUser(this.userObservable.id, this._HIdUserSessionRequest )
                 .pipe(first())
@@ -82,26 +103,38 @@ export class HomeComponent extends OnSeguridad implements OnInit {
                         if (this.listBusiness.length === 1) this.selectBusiness(this.listBusiness[0]);
 
                     } else {
-                        this.userObservable.codeNoLogin = '404';
-                        this.userObservable.messageNoLogin = 'Sin compañías.';
-                        this.userObservable.idRol = null;
-                        this.userObservable.token = null;
-                        this.accountService.loadUserAsObservable(this.userObservable);
+                        // #region "registro en bitácora"
+                        let bit : Bitacora = new Bitacora(  'NO-LOG10', /** codigoInterno */
+                                                            true, /** sesion */
+                                                            false, /** consulta */
+                                                            0, /** idCompania */
+                                                            0, /** idModulo */
+                                                            this.userObservable.id, /** idUsuario */
+                                                            'No se han devuelto registros de compañías para el usuario al iniciar sesión.', /** descripcion */
+                                                            0, /** contadorSesion */
+                                                            this.today, /** fechaSesion */
+                                                            '', /** lugarSesion */
+                                                            '', /** token */
+                                                            '' /** urlConsulta */ );
 
-                        // redirect http nologin **
-                        this.router.navigate([this._httpNoBusinessUserPage]);
+                        // *****************************************************************
+                        // REGISTRA EN BITÁCORA INTENTO DE INICIO DE SESIÓN DE ROL SIN PERMISOS
+                        this.accountService.postBitacora(bit, this._HIdUserSessionRequest)
+                            .pipe(first())
+                            .subscribe(response => {
+
+                                this.userObservable.codeNoLogin = '404';
+                                this.userObservable.idRol = null;
+                                this.userObservable.token = null;
+                                this.accountService.loadUserAsObservable(this.userObservable);
+
+                                // redirect http nologin **
+                                this.router.navigate([this._httpNoBusinessUserPage]);
+                            });
+                        // #endregion "registro en bitácora"
                     }
                 });
         }
-    }
-
-    validateAccessRolUserBusiness(idbusiness : number, idrol : string) : boolean {
-
-        this.accountService.getRolUserBusiness(idrol,idbusiness, this._HIdUserSessionRequest)
-            .pipe(first())
-            .subscribe(responseRole => { if (responseRole.estado===active.state) return true; });
-
-        return false;
     }
 
     selectBusiness(business: Compania) {
@@ -109,26 +142,58 @@ export class HomeComponent extends OnSeguridad implements OnInit {
         let rolId : string = this.userObservable.idRol;
         let businessId : number = business.id;
 
-        this.accountService.getRolUserBusiness(rolId,businessId, this._HIdUserSessionRequest)
+        this._HBusinessSessionRequest = businessId.toString();
+        
+        this.accountService.getRolUserBusiness(rolId, businessId, this._HIdUserSessionRequest, this._HBusinessSessionRequest)
             .pipe(first())
-            .subscribe(responseRole => { 
+            .subscribe(responseRole => {
 
                 if ( responseRole ) {
 
                     if (responseRole.estado===active.state || responseRole.estado===administrator.state ) {
+                        
                         this.userObservable.empresa = businessId;
-
                         this.accountService.loadUserAsObservable(this.userObservable);
                         this.accountService.loadBusinessAsObservable(business);
     
                         // *****************************************************************
                         // redirect http index /* ** INDEX MÓDULOS ** */ .html
                         this.router.navigate([httpLandingIndexPage.indexHTTP]);
+
+                    } else {
+                        // #region "registro en bitácora"
+                        let bit : Bitacora = new Bitacora(  'NO-LOG09', /** codigoInterno */
+                                                            true, /** sesion */
+                                                            false, /** consulta */
+                                                            businessId, /** idCompania */
+                                                            0, /** idModulo */
+                                                            this.userObservable.id, /** idUsuario */
+                                                            'Rol asignado a usuario inactivo.', /** descripcion */
+                                                            0, /** contadorSesion */
+                                                            this.today, /** fechaSesion */
+                                                            '', /** lugarSesion */
+                                                            '', /** token */
+                                                            '' /** urlConsulta */ );
+
                         // *****************************************************************
+                        // REGISTRA EN BITÁCORA INTENTO DE INICIO DE SESIÓN DE ROL SIN PERMISOS
+                        this.accountService.postBitacora(bit, this._HIdUserSessionRequest)
+                            .pipe(first())
+                            .subscribe(response => {
+
+                                this.userObservable.codeNoLogin = '404';
+                                this.userObservable.idRol = null;
+                                this.userObservable.token = null;
+                                this.accountService.loadUserAsObservable(this.userObservable);
+
+                                // redirect http nologin **
+                                this.router.navigate([this._httpInactiveRolUserPage]);
+                            });
+                        // #endregion "registro en bitácora"
                     }
 
                 } else {
-
+                    // #region "registro en bitácora"
                     let bit : Bitacora = new Bitacora(  'NO-LOG08', /** codigoInterno */
                                                         true, /** sesion */
                                                         false, /** consulta */
@@ -149,7 +214,6 @@ export class HomeComponent extends OnSeguridad implements OnInit {
                         .subscribe(response => {
 
                             this.userObservable.codeNoLogin = '404';
-                            this.userObservable.messageNoLogin = 'Rol inactivo.';
                             this.userObservable.idRol = null;
                             this.userObservable.token = null;
                             this.accountService.loadUserAsObservable(this.userObservable);
@@ -157,6 +221,7 @@ export class HomeComponent extends OnSeguridad implements OnInit {
                             // redirect http nologin **
                             this.router.navigate([this._httpInactiveRolUserPage]);
                         });
+                    // #endregion "registro en bitácora"
                 }
             });
     }

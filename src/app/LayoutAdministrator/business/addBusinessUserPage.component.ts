@@ -63,7 +63,7 @@ export class AddBusinessUserComponent extends OnSeguridad implements OnInit {
 
             this.existeRol = true;
 
-            this.accountService.getRolUserBusiness(this.userToAssign.idRol, this.businessObservable.id, this._HIdUserSessionRequest,
+            this.accountService.getRolUserBusiness(this.userToAssign.idRol, this.businessObservable.id, this._HIdUserSessionRequest, 
                                                                                                         this._HBusinessSessionRequest)
                 .pipe(first())
                 .subscribe(responseRole => { this.role = responseRole; });
@@ -116,9 +116,7 @@ export class AddBusinessUserComponent extends OnSeguridad implements OnInit {
 
         let business : Compania = this.listAllBusiness.find(m => m.id == idBusiness);
 
-        this.accountService.assignBusinessUser(this.userToAssign.id, idBusiness,this._HIdUserSessionRequest,
-                                                                                // this.UserSessionRequest,
-                                                                                this._HBusinessSessionRequest)
+        this.accountService.assignBusinessUser(this.userToAssign.id, idBusiness,this._HIdUserSessionRequest, this._HBusinessSessionRequest)
             .pipe(first())
             .subscribe( response => {
 

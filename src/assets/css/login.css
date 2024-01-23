@@ -1,0 +1,39 @@
+/* .textalign-center {
+    text-align: center;
+}
+
+.contLogin {
+    position: absolute; 
+    left: 50%; 
+    top: 45%; 
+    transform: translate(-50%, -35%); 
+    background-color: var(--color_gris)
+  }
+  .contLoginHeader {
+
+    border-radius: 5px;
+    
+    padding-top: 20px;
+    padding-bottom: 20px;
+
+    background-image: url('../../assets/images/inra/BANKAP_Header_2023-02.jpg');
+  }
+  .imgLoginHeaderTitle {
+    width: 45%;
+  }
+
+  .card-body__login {
+    flex: 1 1 auto;
+    min-height: 1px;
+    padding-left: 8%;
+    padding-right: 8%;
+    padding-bottom: 10%;
+    padding-top: 5%;
+}
+
+.btn-iniciarsesion {
+    position: fixed;
+    left: 50%; 
+    top: 90%; 
+    transform: translate(-50%, -90%);
+} */

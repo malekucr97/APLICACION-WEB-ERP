@@ -8,6 +8,7 @@ import { InactiveUserPageComponent } from './nologgin/inactiveUserPage.component
 import { InactiveRolPageComponent } from './nologgin/inactiveRolPage.component';
 import { NotBusinessUserPageComponent } from './nologgin/notBusinessUserPage.component';
 import { BlockedUserPageComponent } from './nologgin/blockedUserPage.component';
+import { NotModulePageComponent } from './nologgin/notModulePage.component';
 
 const routes: Routes = [
     {
@@ -33,6 +34,8 @@ const routes: Routes = [
             { path: 'NotBusinessPage/index.html', component: NotBusinessUserPageComponent },
             // Usuario bloqueado
             { path: 'BlockedUserPage/index.html', component: BlockedUserPageComponent },
+            // No módulos activos
+            { path: 'NotModulesPage/index.html', component: NotModulePageComponent },
         ]
     }
 ];

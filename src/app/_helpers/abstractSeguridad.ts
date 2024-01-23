@@ -43,7 +43,6 @@ export class OnSeguridad {
   validarAccesoPantalla(): void {
     this._accountService.validateAccessUser(  this._userObservable.id, this._moduleObservable.id, this._nombrePantalla, this._businessObservable.id,
                                               this._HIdUserSessionRequest,
-                                              // this._HUserSessionRequest,
                                               this._HBusinessSessionRequest,
                                               this._HModuleSessionRequest )
       .pipe(first())

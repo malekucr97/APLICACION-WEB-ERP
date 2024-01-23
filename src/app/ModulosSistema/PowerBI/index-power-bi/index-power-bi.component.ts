@@ -1,4 +1,3 @@
-import { HttpHeaders } from '@angular/common/http';
 import { Component, OnInit, ViewEncapsulation } from '@angular/core';
 import { DomSanitizer } from '@angular/platform-browser';
 import { Router } from '@angular/router';
@@ -29,6 +28,23 @@ export class IndexPowerBiComponent extends OnSeguridad implements OnInit {
 
   mostrarReporte: boolean = false;
 
+  // basicFilter: models.IBasicFilter = {
+  //   $schema: 'http://powerbi.com/product/schema#basic',
+  //   target: {
+  //     table: 'items',
+  //     column: 'id',
+  //   },
+  //   operator: 'In',
+  //   values: [1,2,3],
+  //   filterType: models.FilterType.Basic,
+  //   requireSingleSelection: true,
+  //   displaySettings: {
+  //     /** Hiding filter pane */
+  //     isLockedInViewMode: true,
+  //     isHiddenInViewMode: true,
+  //   },
+  // };
+
   //CONFIGURACION DEL REPORTE
   phasedEmbeddingFlag = false;
   reportClass = 'reporteCSS';
@@ -44,7 +60,10 @@ export class IndexPowerBiComponent extends OnSeguridad implements OnInit {
       background: models.BackgroundType.Transparent,
       navContentPaneEnabled: false,
       hideErrors: true
-    },
+    }
+    // ,
+    // // filtros básicos powerbi embed
+    // filters: [this.basicFilter]
   };
 
   //#endregion
@@ -78,27 +97,17 @@ export class IndexPowerBiComponent extends OnSeguridad implements OnInit {
   ngOnInit(): void {}
 
   private ObtenerReportePowerBI() {
-    let oScreenModule = { idCompania: this.businessObservable.id,
-                          idModulo: this.moduleObservable.id,
-                          nombre: this.nombrePantalla } as ScreenModule;
+    let screen = {  
+      idCompania: this.businessObservable.id, 
+      idModulo: this.moduleObservable.id, 
+      nombre: this.nombrePantalla 
+    } as ScreenModule;
 
-    // let IdUserSessionRequest : string = this.userObservable.id.toString();
-    // let UserSessionRequest : string = this.userObservable.nombreCompleto.toString();
-    // let BusinessSessionRequest : string = this.businessObservable.id.toString() ;
-    // let ModuleSessionRequest : string = this.moduleObservable.id.toString();
-
-    // let IdUserSessionRequest : string = 'noValue';
-    // let UserSessionRequest : string = 'noValue';
-    // let BusinessSessionRequest : string = 'noValue';
-    // let ModuleSessionRequest : string = 'noValue';
-
-    this.powerBIService.getURLExterna(oScreenModule,  this._HIdUserSessionRequest, 
-                                                      // this._HUserSessionRequest, 
-                                                      this._HBusinessSessionRequest, this._HModuleSessionRequest)
+    this.powerBIService.getURLExterna(screen, this.userObservable.id.toString(), screen.idCompania.toString(), screen.idModulo.toString())
       .pipe(first())
       .subscribe((response) => {
         if (response.exito) {
-          this.SetURLPowerBI(oScreenModule);
+          this.SetURLPowerBI(screen);
         } else {
           this.alertService.error( 'No se ha indicado correctamente el URL del reporte' );
           this.mostrarReporte = false;
@@ -106,10 +115,11 @@ export class IndexPowerBiComponent extends OnSeguridad implements OnInit {
       });
   }
 
-  private SetURLPowerBI(datosUrlPantalla: ScreenModule) {
+  private SetURLPowerBI(pss: ScreenModule) {
     this.reportConfig = {
       ...this.reportConfig,
-      embedUrl: `${environment.apiUrl}/PowerBI/reporte?tk=${this.userObservable.token}&cp=${datosUrlPantalla.idCompania}&md=${datosUrlPantalla.idModulo}&sc=${datosUrlPantalla.nombre}`,
+      embedUrl: 
+        `${environment.apiUrl}/powerbi/reporte?tk=${this.userObservable.token}&cp=${pss.idCompania}&md=${pss.idModulo}&sc=${pss.nombre}`,
       
     };
     this.mostrarReporte = true;

@@ -28,11 +28,6 @@ export class AddRoleUserComponent extends OnSeguridad implements OnInit {
 
   listUserSubject: User[];
 
-  // public IdUserSessionRequest : string ;
-  // public UserSessionRequest : string ;
-  // public BusinessSessionRequest : string ;
-  // public ModuleSessionRequest : string ;
-
   constructor(  private route: ActivatedRoute,
                 private accountService: AccountService,
                 private alertService: AlertService,
@@ -54,28 +49,11 @@ export class AddRoleUserComponent extends OnSeguridad implements OnInit {
     this._userIdentificationParam = this.route.snapshot.params.pidentificationUser;
 
     this.userToAssign = this.listUserSubject.find(x => x.identificacion === this._userIdentificationParam);
-  
-    // this.inicializaHeaders();
   }
-
-  // inicializaHeaders() : void {
-
-  //   this.IdUserSessionRequest = this.userObservable ? this.userObservable.id.toString() : 'noIdUserValue';
-  //   this.UserSessionRequest = this.userObservable ? this.userObservable.nombreCompleto.toString() : 'noUserNameValue';
-  //   this.BusinessSessionRequest = this.businessObservable ? this.businessObservable.id.toString() : 'noBusinessValue';
-  //   this.ModuleSessionRequest = 'admin';
-
-  //   // this.IdUserSessionRequest = this.userObservable.id.toString();
-  //   // this.UserSessionRequest = this.userObservable.nombreCompleto.toString();
-  //   // this.BusinessSessionRequest = this.businessObservable.id.toString();
-  //   // this.ModuleSessionRequest = 'admin';
-  // }
 
   ngOnInit() {
 
-      this.accountService.getRolesBusiness(this.businessObservable.id,this._HIdUserSessionRequest,
-                                                                      // this.UserSessionRequest,
-                                                                      this._HBusinessSessionRequest)
+      this.accountService.getRolesBusiness(this.businessObservable.id,this._HIdUserSessionRequest, this._HBusinessSessionRequest)
         .pipe(first())
         .subscribe((responseListRole) => {
 
@@ -100,9 +78,7 @@ export class AddRoleUserComponent extends OnSeguridad implements OnInit {
     this.alertService.clear();
     this.isAsignRole = true;
 
-    this.accountService.assignRoleUser(idRole, this.userToAssign.identificacion,this._HIdUserSessionRequest,
-                                                                                // this.UserSessionRequest,
-                                                                                this._HBusinessSessionRequest)
+    this.accountService.assignRoleUser(idRole, this.userToAssign.identificacion,this._HIdUserSessionRequest, this._HBusinessSessionRequest)
       .pipe(first())
       .subscribe((response) => {
 
@@ -129,9 +105,7 @@ export class AddRoleUserComponent extends OnSeguridad implements OnInit {
     this.alertService.clear();  
     this.isDesAsignRoles = true;
 
-    this.accountService.removeRoleUser(this.userToAssign, this._HIdUserSessionRequest,
-                                                          // this.UserSessionRequest,
-                                                          this._HBusinessSessionRequest)
+    this.accountService.removeRoleUser(this.userToAssign, this._HIdUserSessionRequest, this._HBusinessSessionRequest)
       .pipe(first())
       .subscribe((response) => {
 

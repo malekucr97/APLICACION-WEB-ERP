@@ -9,19 +9,14 @@ import { environment } from '@environments/environment';
 export class PowerBIService {
   constructor(private router: Router, private http: HttpClient) {}
 
-  getURLExterna(inScreenModulo: ScreenModule, pIdUserSessionRequest : string = 'novalue',
-                                              pBusinessSessionRequest : string = 'novalue',
-                                              pModuleSessionRequest : string = 'novalue') {
+  getURLExterna(imod: ScreenModule, pidsession : string = '', pbusiness : string = '', pmod : string = '') {
     // ** header
-    const session = { IdUserSessionRequest : pIdUserSessionRequest,
-                      BusinessSessionRequest : pBusinessSessionRequest,
-                      ModuleSessionRequest : pModuleSessionRequest };
+    const session = { _idsession : pidsession, _business : pbusiness, _module : pmod };
     const httpHeaders = { headers: new HttpHeaders(session) }
     // **
     return this.http.get<ResponseMessage>(
-      `${environment.apiUrl}/powerbi/geturlexterna?idModulo=${inScreenModulo.idModulo}
-                                                  &idCompania=${inScreenModulo.idCompania}
-                                                  &nombrePantalla=${inScreenModulo.nombre}`, httpHeaders
+      `${environment.apiUrl}/powerbi/geturlexterna?idModulo=${imod.idModulo}&idCompania=${imod.idCompania}&nombrePantalla=${imod.nombre}`,
+        httpHeaders
     );
   }
 }

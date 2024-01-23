@@ -25,11 +25,6 @@ export class ListRoleComponent extends OnSeguridad implements OnInit {
 
   idBusiness: string;
 
-  // public IdUserSessionRequest : string ;
-  // public UserSessionRequest : string ;
-  // public BusinessSessionRequest : string ;
-  // public ModuleSessionRequest : string ;
-
   constructor(  private accountService: AccountService,
                 private alertService: AlertService,
                 private router: Router ) {
@@ -43,29 +38,12 @@ export class ListRoleComponent extends OnSeguridad implements OnInit {
 
     this.userObservable = this.accountService.userValue;
     this.businessObservable = this.accountService.businessValue;
-
-    // this.inicializaHeaders();
   }
-
-  // inicializaHeaders() : void {
-
-  //   this.IdUserSessionRequest = this.userObservable ? this.userObservable.id.toString() : 'noIdUserValue';
-  //   this.UserSessionRequest = this.userObservable ? this.userObservable.nombreCompleto.toString() : 'noUserNameValue';
-  //   this.BusinessSessionRequest = this.businessObservable ? this.businessObservable.id.toString() : 'noBusinessValue';
-  //   this.ModuleSessionRequest = 'admin';
-
-  //   // this.IdUserSessionRequest = this.userObservable.id.toString();
-  //   // this.UserSessionRequest = this.userObservable.nombreCompleto.toString();
-  //   // this.BusinessSessionRequest = this.businessObservable.id.toString();
-  //   // this.ModuleSessionRequest = 'admin';
-  // }
 
   ngOnInit() { this.obtenerRoles(); }
 
   private obtenerRoles() {
-    this.accountService.getRolesBusiness(this.businessObservable.id,this._HIdUserSessionRequest,
-                                                                    // this.UserSessionRequest,
-                                                                    this._HBusinessSessionRequest)
+    this.accountService.getRolesBusiness(this.businessObservable.id, this._HIdUserSessionRequest, this._HBusinessSessionRequest)
       .pipe(first())
       .subscribe((responseRoles) => {
 
@@ -85,9 +63,7 @@ export class ListRoleComponent extends OnSeguridad implements OnInit {
 
   private updateRol( rolUpdate: Role): void {
     
-    this.accountService.updateRol(rolUpdate,this.businessObservable.id, this._HIdUserSessionRequest,
-                                                                        // this.UserSessionRequest,
-                                                                        this._HBusinessSessionRequest)
+    this.accountService.updateRol(rolUpdate,this.businessObservable.id, this._HIdUserSessionRequest, this._HBusinessSessionRequest)
       .pipe(first())
       .subscribe((responseUpdate) => {
 

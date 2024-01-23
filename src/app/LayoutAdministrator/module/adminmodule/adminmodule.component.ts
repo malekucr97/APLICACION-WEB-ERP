@@ -120,9 +120,7 @@ export class AdminmoduleComponent extends OnSeguridad implements OnInit {
 
   private obtenerListaModulos() {
     // SE OBTIENE LA LISTA DE MODULOS ASOCIADOS AL NEGOCIO
-    this.accountService.getModulesBusiness(this.businessObservable.id,this._HIdUserSessionRequest,
-                                                                      // this.UserSessionRequest,
-                                                                      this._HBusinessSessionRequest)
+    this.accountService.getModulesBusiness(this.businessObservable.id,this._HIdUserSessionRequest, this._HBusinessSessionRequest)
       .pipe(first())
       .subscribe((response) => {
         if (response && response.length > 0) {
@@ -194,9 +192,7 @@ export class AdminmoduleComponent extends OnSeguridad implements OnInit {
 
   private AsignarRolEmpresa(inModulo: Module, idNegocio: number) {
 
-    this.accountService.assignModuleToBusiness(inModulo.id, idNegocio,this._HIdUserSessionRequest,
-                                                                      // this.UserSessionRequest,
-                                                                      this._HBusinessSessionRequest)
+    this.accountService.assignModuleToBusiness(inModulo.id, idNegocio, this._HIdUserSessionRequest, this._HBusinessSessionRequest)
       .pipe(first())
       .subscribe((response) => {
         if (response.exito) {
@@ -220,9 +216,7 @@ export class AdminmoduleComponent extends OnSeguridad implements OnInit {
     pantallaForm.adicionadoPor = this.userObservable.identificacion;
     pantallaForm.fechaAdicion = new Date();
 
-    this.accountService.postPantallaModulo(pantallaForm,this._HIdUserSessionRequest,
-                                                        // this.UserSessionRequest,
-                                                        this._HBusinessSessionRequest)
+    this.accountService.postPantallaModulo(pantallaForm, this._HIdUserSessionRequest, this._HBusinessSessionRequest)
       .pipe(first())
       .subscribe(
         (response) => {
@@ -275,9 +269,7 @@ export class AdminmoduleComponent extends OnSeguridad implements OnInit {
     let oModuloIngresadoUsuario = this.obtenerDatosFormulario();
     if (!oModuloIngresadoUsuario) return;
 
-    this.accountService.postModule(oModuloIngresadoUsuario, this._HIdUserSessionRequest,
-                                                            // this.UserSessionRequest,
-                                                            this._HBusinessSessionRequest)
+    this.accountService.postModule(oModuloIngresadoUsuario, this._HIdUserSessionRequest, this._HBusinessSessionRequest)
       .pipe(first())
       .subscribe((response) => {
         if (response.exito) {
@@ -297,9 +289,7 @@ export class AdminmoduleComponent extends OnSeguridad implements OnInit {
     let oModuloIngresadoUsuario = this.obtenerDatosFormulario();
     if (!oModuloIngresadoUsuario) return;
     
-    this.accountService.updateModule(oModuloIngresadoUsuario, this._HIdUserSessionRequest,
-                                                              // this.UserSessionRequest,
-                                                              this._HBusinessSessionRequest)
+    this.accountService.updateModule(oModuloIngresadoUsuario, this._HIdUserSessionRequest, this._HBusinessSessionRequest)
       .pipe(first())
       .subscribe((response) => {
         if (response.exito) {
@@ -316,9 +306,7 @@ export class AdminmoduleComponent extends OnSeguridad implements OnInit {
 
     if (!this.moduloSeleccionado) return;
     
-    this.accountService .deleteModule(this.moduloSeleccionado,this._HIdUserSessionRequest,
-                                                              // this.UserSessionRequest,
-                                                              this._HBusinessSessionRequest)
+    this.accountService.deleteModule(this.moduloSeleccionado, this._HIdUserSessionRequest, this._HBusinessSessionRequest)
       .pipe(first())
       .subscribe((response) => {
         if (response.exito) {

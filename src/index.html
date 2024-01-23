@@ -1,36 +1,36 @@
 <!DOCTYPE html>
 <html>
   <head>
+
     <base href="/" />
     <title>INRA - Banking APP</title>
+
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <link rel="icon" type="image/png" href="./assets/images/icons/favicon.ico" />
+    <meta http-equiv="Content-Security-Policy" content="default-src 'self';
+                                                        connect-src 'self' http://10.100.242.70:81;
+                                                        form-action 'self' http://10.100.242.70;
+                                                        script-src 'self'; script-src-attr 'self' 'unsafe-inline';
+                                                        style-src 'self'; style-src-elem 'self' 'unsafe-inline'; style-src-attr 'self' 'unsafe-inline';
+                                                        img-src 'self';
+                                                        frame-src 'self' http://10.100.242.70:81 https://app.powerbi.com;
+                                                        font-src 'self' https://fonts.gstatic.com https://cdn.linearicons.com;" />
 
-    <link href="https://fonts.googleapis.com/css?family=Roboto:300,400,500&display=swap" rel="stylesheet" />
-    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet" />
+    <link rel="icon" type="image/png" href="./assets/images/icons/favicon.ico" />
   </head>
 
   <body class="mat-typography classBody">
     <header>
-      <div style="width: 100%; background-image: url('./assets/images/inra/BANKAP_Header_2023-01.jpg'); background-repeat: no-repeat; background-size: cover; background-position: center">
+      <div class="imagenHeader">
         <a href="#/inra-sa/index.html">
-          <img style="margin: 1% 1% 1% 2%; height: 50%; width: 10%" src="./assets/images/inra/img_bankap_logo.png" alt="inicio" />
+          <img class="logoHeader" src="./assets/images/inra/img_bankap_logo.png" alt="inicio" />
         </a>
       </div>
     </header>
 
-    <section class="contenidoSitio">
-      <app>Cargando contenido...</app>
-    </section>
+    <section class="contenidoSitio"> <app>Cargando contenido...</app> </section>
 
     <footer class="contenidoFooter">
-      <!-- <aside class="tipoCambio">
-        <span class="textos">US$ Compra: 615.00</span>
-        <span class="textos">US$ Venta: 628.00</span>
-        <span class="textos">€ Compra: 716.97</span>
-        <span class="textos">{{vcompra}}</span>
-      </aside> -->
       <section class="datosEmpresa">
         <span class="textos">Soluciones INRA - BANKAP - © Derechos reservados 2023</span>
       </section>
