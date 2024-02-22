@@ -280,8 +280,6 @@ iframe {
   color: #fff;
   text-transform: uppercase;
   text-align: center;
-  /* line-height: 1.2;
-  text-align: left; */
 }
 
 .login100-form-title::before {
@@ -638,3 +636,40 @@ input.input100 {
 }
 
 
+/* //login */
+.textalign-center {
+  text-align: center;
+}
+.contLogin {
+  position: absolute; 
+  left: 50%; 
+  top: 45%; 
+  transform: translate(-50%, -35%); 
+  background-color: var(--color_gris);
+
+  width: 550px;
+  height: 400px;
+}
+.headerLogin {
+  border-radius: 5px;
+  padding-top: 20px;
+  padding-bottom: 20px;
+  background-image: url('../../assets/images/inra/INRA-INITIAL.jpg');
+}
+.imgLoginHeaderTitle {
+  width: 45%;
+}
+.bodyLogin {
+  flex: 1 1 auto;
+  min-height: 1px;
+  padding-left: 8%;
+  padding-right: 8%;
+  padding-bottom: 10%;
+  padding-top: 5%;
+}
+.btn-iniciarsesion {
+  position: fixed;
+  left: 50%; 
+  top: 90%; 
+  transform: translate(-50%, -90%);
+}

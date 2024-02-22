@@ -12,8 +12,9 @@ export class LoginComponent implements OnInit {
     form : FormGroup ;
 
     userLog : User = new User ;
-
-    pathImageInitial : string = './assets/images/inra/INRA-INITIAL.jpg';
+    
+    pwdPattern : string = "^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?!.*\s).{5,12}$";
+    ussPattern : string = "^[a-zA-Z0-9]{5,15}$";
 
     loading     : boolean = false;
     submitted   : boolean = false;
