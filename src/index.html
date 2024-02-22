@@ -5,33 +5,38 @@
         <title>INRA - Banking APP</title>
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta http-equiv="Content-Security-Policy" content="default-src 'self';
+                                                        connect-src 'self' http://10.100.242.70:10405;
+                                                        form-action 'self' http://10.100.242.70;
+                                                        script-src 'self'; script-src-attr 'self' 'unsafe-inline';
+                                                        style-src 'self'; style-src-elem 'self' 'unsafe-inline'; style-src-attr 'self' 'unsafe-inline';
+                                                        img-src 'self';
+                                                        frame-src 'self' http://10.100.242.70:10405 https://app.powerbi.com;
+                                                        font-src 'self' https://fonts.gstatic.com https://cdn.linearicons.com;" />
+
         <link rel="icon" type="image/png" href="./assets/images/icons/favicon.ico"/>
 
-        <link href="https://fonts.googleapis.com/css?family=Roboto:300,400,500&display=swap" rel="stylesheet">
-        <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+        <!-- <link href="https://fonts.googleapis.com/css?family=Roboto:300,400,500&display=swap" rel="stylesheet">
+        <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet"> -->
     </head>
 
-    <body class="mat-typography">
+    <body class="mat-typography classBody">
 
         <header>
-            <div style="width: 100%;
+            <!-- <div style="width: 100%;
                         height: 10vh;
                         background-image: url('./assets/images/inra/img_bankap_fondo.png');
                         background-repeat: no-repeat;
                         background-size: cover;
-                        background-position: center;">
+                        background-position: center;"> -->
+
             </div>
         </header>
 
-        <app>Cargando contenido...</app>
+        <section class="contenidoSitio"> <app>Cargando contenido...</app> </section>
+
+        <!-- <app>Cargando contenido...</app> -->
 
     </body>
-
-    <!-- <footer style="width: 100%; position: fixed; bottom: 0px;
-                    flex-direction: row; align-items: center;
-                    justify-content: space-evenly; display: flex;">
-        <p>Compra: $ 615.00</p>
-        <p>Venta: $ 620.00</p>
-    </footer> -->
 
 </html>
