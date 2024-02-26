@@ -19,6 +19,11 @@ export class OnSeguridad {
   _redireccionURL: string;
   _mensajeError: string = 'El usuario no cuenta con los accesos correspondientes o la pantalla se encuentra inactiva.';
 
+  public _HIdUserSessionRequest : string ;
+  public _HUserSessionRequest : string ;
+  public _HBusinessSessionRequest : string ;
+  public _HModuleSessionRequest : string ;
+
   constructor(alertService: AlertService, accountService: AccountService, router: Router) {
 
     this._alertService = alertService;
@@ -28,13 +33,18 @@ export class OnSeguridad {
     this._moduleObservable = accountService.moduleValue;
     this._businessObservable = accountService.businessValue;
     this._redireccionURL = this._moduleObservable?.indexHTTP && '';
+
+    this._HIdUserSessionRequest = this._userObservable ? this._userObservable.id.toString() : '';
+    this._HUserSessionRequest = this._userObservable ? this._userObservable.nombreCompleto : '';
+    this._HBusinessSessionRequest = this._businessObservable ? this._businessObservable.id.toString() : '';
+    this._HModuleSessionRequest = this._moduleObservable ? this._moduleObservable.id.toString() : '';
   }
 
   validarAccesoPantalla(): void {
-    this._accountService.validateAccessUser(  this._userObservable.id,
-                                              this._moduleObservable.id,
-                                              this._nombrePantalla,
-                                              this._businessObservable.id )
+    this._accountService.validateAccessUser(this._userObservable.id, this._moduleObservable.id, this._nombrePantalla, this._businessObservable.id,
+                                            this._HIdUserSessionRequest,
+                                            this._HBusinessSessionRequest,
+                                            this._HModuleSessionRequest)
       .pipe(first())
       .subscribe((response) => {
 

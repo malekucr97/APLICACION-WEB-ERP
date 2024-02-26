@@ -68,13 +68,13 @@ export class ListModuleBusinessComponent extends OnSeguridad implements OnInit {
         this.seleccionEmpresa = true;
         this.business = this.listBusinessSubject.find(x => x.id === +this.pbusinessId);
 
-        this.accountService.getModulesSystem()
+        this.accountService.getModulesSystem(this._HIdUserSessionRequest, this._HBusinessSessionRequest)
             .pipe(first())
             .subscribe(listModulesSystemResponse => {
 
                 this.listModulesSystem = listModulesSystemResponse;
 
-                this.accountService.getModulesBusiness(this.business.id)
+                this.accountService.getModulesBusiness(this.business.id, this._HIdUserSessionRequest, this._HBusinessSessionRequest)
                     .pipe(first())
                     .subscribe(listModulesResponse => {
 
@@ -103,7 +103,7 @@ export class ListModuleBusinessComponent extends OnSeguridad implements OnInit {
 
         let module : Module = this.listModulesSystem.find(x => x.identificador === identificadorModulo);
 
-        this.accountService.assignModuleToBusiness(module.id, this.business.id)
+        this.accountService.assignModuleToBusiness(module.id, this.business.id, this._HIdUserSessionRequest, this._HBusinessSessionRequest)
             .pipe(first())
             .subscribe( response => {
 
@@ -129,7 +129,7 @@ export class ListModuleBusinessComponent extends OnSeguridad implements OnInit {
 
         let module : Module = this.listModulesBusiness.find(x => x.identificador === identificadorModulo);
 
-        this.accountService.desAssignModuleToBusiness(module.id, this.business.id)
+        this.accountService.desAssignModuleToBusiness(module.id, this.business.id, this._HIdUserSessionRequest, this._HBusinessSessionRequest)
             .pipe(first())
             .subscribe( response => {
 

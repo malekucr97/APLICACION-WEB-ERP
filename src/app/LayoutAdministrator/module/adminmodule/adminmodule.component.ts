@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
+import { OnSeguridad } from '@app/_helpers/abstractSeguridad';
 import { Compania, Module, User } from '@app/_models';
 import { ScreenModule } from '@app/_models/admin/screenModule';
 import { AccountService, AlertService } from '@app/_services';
@@ -15,7 +16,7 @@ import { first } from 'rxjs/operators';
     '../../../../assets/scss/administrator/app.scss',
   ],
 })
-export class AdminmoduleComponent implements OnInit {
+export class AdminmoduleComponent extends OnSeguridad implements OnInit {
   URLIndexAdminPage: string = httpAccessAdminPage.urlPageListModule;
   parametroTipoMantenimiento: string = undefined;
 
@@ -41,12 +42,14 @@ export class AdminmoduleComponent implements OnInit {
   lstModulosComponente: Module[] = [];
   moduloSeleccionado: Module = undefined;
 
-  constructor(
-    private accountService: AccountService,
-    private alertService: AlertService,
-    private formBuilder: FormBuilder,
-    private route: ActivatedRoute
-  ) {
+  constructor(private accountService: AccountService,
+              private alertService: AlertService,
+              private formBuilder: FormBuilder,
+              private route: ActivatedRoute,
+              private router: Router ) {
+
+    super(alertService, accountService, router);
+
     if (this.route.snapshot.params.tipoMantenimiento) {
       this.parametroTipoMantenimiento =
         this.route.snapshot.params.tipoMantenimiento;
@@ -97,7 +100,7 @@ export class AdminmoduleComponent implements OnInit {
 
   private obtenerListaModulos() {
     // SE OBTIENE LA LISTA DE MODULOS ASOCIADOS AL NEGOCIO
-    this.accountService.getModulesBusiness(this.businessObservable.id)
+    this.accountService.getModulesBusiness(this.businessObservable.id, this._HIdUserSessionRequest, this._HBusinessSessionRequest)
       .pipe(first())
       .subscribe((response) => {
         if (response && response.length > 0) {
@@ -169,7 +172,7 @@ export class AdminmoduleComponent implements OnInit {
 
   private AsignarRolEmpresa(inModulo: Module, idNegocio: number) {
     this.accountService
-      .assignModuleToBusiness(inModulo.id, idNegocio)
+      .assignModuleToBusiness(inModulo.id, idNegocio, this._HIdUserSessionRequest, this._HBusinessSessionRequest)
       .pipe(first())
       .subscribe((response) => {
         if (response.exito) {
@@ -193,8 +196,7 @@ export class AdminmoduleComponent implements OnInit {
     pantallaForm.adicionadoPor = this.userObservable.identificacion;
     pantallaForm.fechaAdicion = new Date();
 
-    this.accountService
-      .postPantallaModulo(pantallaForm)
+    this.accountService.postPantallaModulo(pantallaForm, this._HIdUserSessionRequest, this._HBusinessSessionRequest)
       .pipe(first())
       .subscribe(
         (response) => {
@@ -252,7 +254,7 @@ export class AdminmoduleComponent implements OnInit {
     }
 
     this.accountService
-      .postModule(oModuloIngresadoUsuario)
+      .postModule(oModuloIngresadoUsuario, this._HIdUserSessionRequest, this._HBusinessSessionRequest)
       .pipe(first())
       .subscribe((response) => {
         if (response.exito) {
@@ -274,8 +276,7 @@ export class AdminmoduleComponent implements OnInit {
       return;
     }
 
-    this.accountService
-      .updateModule(oModuloIngresadoUsuario)
+    this.accountService.updateModule(oModuloIngresadoUsuario, this._HIdUserSessionRequest, this._HBusinessSessionRequest)
       .pipe(first())
       .subscribe((response) => {
         if (response.exito) {
@@ -294,7 +295,7 @@ export class AdminmoduleComponent implements OnInit {
     }
 
     this.accountService
-      .deleteModule(this.moduloSeleccionado)
+      .deleteModule(this.moduloSeleccionado, this._HIdUserSessionRequest, this._HBusinessSessionRequest)
       .pipe(first())
       .subscribe((response) => {
         if (response.exito) {

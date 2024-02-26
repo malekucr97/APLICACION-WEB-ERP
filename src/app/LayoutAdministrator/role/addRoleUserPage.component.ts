@@ -53,7 +53,7 @@ export class AddRoleUserComponent extends OnSeguridad implements OnInit {
 
   ngOnInit() {
 
-      this.accountService.getRolesBusiness(this.businessObservable.id)
+      this.accountService.getRolesBusiness(this.businessObservable.id, this._HIdUserSessionRequest, this._HBusinessSessionRequest)
         .pipe(first())
         .subscribe((responseListRole) => {
 
@@ -78,7 +78,7 @@ export class AddRoleUserComponent extends OnSeguridad implements OnInit {
     this.alertService.clear();
     this.isAsignRole = true;
 
-    this.accountService.assignRoleUser(idRole, this.userToAssign.identificacion)
+    this.accountService.assignRoleUser(idRole, this.userToAssign.identificacion, this._HIdUserSessionRequest, this._HBusinessSessionRequest)
       .pipe(first())
       .subscribe((response) => {
 
@@ -105,7 +105,7 @@ export class AddRoleUserComponent extends OnSeguridad implements OnInit {
     this.alertService.clear();  
     this.isDesAsignRoles = true;
 
-    this.accountService.removeRoleUser(this.userToAssign)
+    this.accountService.removeRoleUser(this.userToAssign, this._HIdUserSessionRequest, this._HBusinessSessionRequest)
       .pipe(first())
       .subscribe((response) => {
 

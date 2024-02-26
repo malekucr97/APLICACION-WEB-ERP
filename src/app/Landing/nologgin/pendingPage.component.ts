@@ -38,10 +38,7 @@ export class PendingUserPageComponent {
 
   reenviarEmail() {
     this.mostrarMensajeReenvio = false;
-    this.accountService.reenviarCorreoActivacion(
-      this.user.identificacion,
-      'n/a'
-      )
+    this.accountService.reenviarCorreoActivacion(this.user.identificacion,'n/a', 'email')
       .pipe(first())
       .subscribe((response) => {
         this.mensajeReenvio = response.responseMesagge;

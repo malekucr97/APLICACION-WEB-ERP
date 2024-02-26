@@ -48,7 +48,7 @@ export class HomeComponent extends OnSeguridad implements OnInit {
 
         if (this.userObservable && this.userObservable.esAdmin) {
 
-            this.accountService.getAllBusiness()
+            this.accountService.getAllBusiness(this._HIdUserSessionRequest)
                 .pipe(first())
                 .subscribe(listBusinessResponse => {
 
@@ -71,7 +71,7 @@ export class HomeComponent extends OnSeguridad implements OnInit {
 
         } else if (this.userObservable && !this.userObservable.esAdmin) {
 
-            this.accountService.getBusinessActiveUser(this.userObservable.id)
+            this.accountService.getBusinessActiveUser(this.userObservable.id, this._HIdUserSessionRequest)
                 .pipe(first())
                 .subscribe(listBusinessResponse => {
 
@@ -94,23 +94,16 @@ export class HomeComponent extends OnSeguridad implements OnInit {
         }
     }
 
-    validateAccessRolUserBusiness(idbusiness : number, idrol : string) : boolean {
-
-        this.accountService.getRolUserBusiness(idrol, idbusiness)
-            .pipe(first())
-            .subscribe(responseRole => { if (responseRole.estado===active.state) return true; });
-
-        return false;
-    }
-
     selectBusiness(business: Compania) {
 
         let rolId : string = this.userObservable.idRol;
         let businessId : number = business.id;
 
-        this.accountService.getRolUserBusiness(rolId, businessId)
+        this.accountService.getRolUserBusiness(rolId, businessId, this._HIdUserSessionRequest, this._HBusinessSessionRequest)
             .pipe(first())
-            .subscribe(responseRole => { if (responseRole.estado===active.state) {
+            .subscribe(responseRole => { 
+                
+                if (responseRole.estado===active.state) {
 
                     this.userObservable.empresa = businessId;
 
@@ -139,7 +132,7 @@ export class HomeComponent extends OnSeguridad implements OnInit {
 
                     // *****************************************************************
                     // REGISTRA EN BITÁCORA INTENTO DE INICIO DE SESIÓN DE ROL SIN PERMISOS
-                    this.accountService.postBitacora(bit)
+                    this.accountService.postBitacora(bit, this._HIdUserSessionRequest)
                         .pipe(first())
                         .subscribe(response => {
 

@@ -88,7 +88,7 @@ export class AddEditUserComponent extends OnSeguridad implements OnInit {
 
           if (responseUser.idRol) {
 
-            this.accountService.getRolUserBusiness(responseUser.idRol, this.businessObservable.id)
+            this.accountService.getRolUserBusiness(responseUser.idRol, this.businessObservable.id, this._HIdUserSessionRequest,this._HBusinessSessionRequest)
             .pipe(first())
             .subscribe((responseRole) => {
 
@@ -189,7 +189,7 @@ export class AddEditUserComponent extends OnSeguridad implements OnInit {
     let userForm: User = this.crateObjectForm();
     userForm.id = this.usuarioSeleccionado.id;
 
-    this.accountService.updateUser(this.pIdentifUserUpdate, userForm)
+    this.accountService.updateUser(userForm, this._HIdUserSessionRequest, this._HBusinessSessionRequest)
         .pipe(first())
         .subscribe((responseUpdate) => {
 
@@ -223,7 +223,7 @@ export class AddEditUserComponent extends OnSeguridad implements OnInit {
 
     let userForm: User = this.crateObjectForm();
 
-    this.accountService.addUser(userForm)
+    this.accountService.addUser(userForm, this._HIdUserSessionRequest, this._HBusinessSessionRequest)
         .pipe(first())
         .subscribe((responseAddUser) => {
 
@@ -249,7 +249,7 @@ export class AddEditUserComponent extends OnSeguridad implements OnInit {
   // MÉTODOS PRIVADOS
   private asociarUsuarioEmpresa(inUsuarioCreado: User, responseMessageAddUser : string) {
 
-    this.accountService.assignBusinessUser(inUsuarioCreado.id, this.businessObservable.id)
+    this.accountService.assignBusinessUser(inUsuarioCreado.id, this.businessObservable.id, this._HIdUserSessionRequest, this._HBusinessSessionRequest)
       .pipe(first())
       .subscribe((response) => {
 

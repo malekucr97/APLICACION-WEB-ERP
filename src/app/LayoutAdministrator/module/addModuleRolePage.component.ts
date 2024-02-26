@@ -51,7 +51,7 @@ export class AddModuleRoleComponent extends OnSeguridad implements OnInit {
 
     if (this.role.id !== administrator.identification && this.role.id !== administrator.adminSociedad) {
 
-      this.accountService.getModulesBusiness(this.businessObservable.id)
+      this.accountService.getModulesBusiness(this.businessObservable.id, this._HIdUserSessionRequest, this._HBusinessSessionRequest)
         .pipe(first())
         .subscribe((responseModulesSystem) => {
 
@@ -59,7 +59,7 @@ export class AddModuleRoleComponent extends OnSeguridad implements OnInit {
 
               this.listModulesBusiness = responseModulesSystem;
 
-              this.accountService.getModulesByRolAndBusiness(this._pRolIdParam, this.businessObservable.id)
+              this.accountService.getModulesByRolAndBusiness(this._pRolIdParam,this.businessObservable.id,this._HIdUserSessionRequest,this._HBusinessSessionRequest)
                 .pipe(first())
                 .subscribe((responseModulesRol) => {
 
@@ -106,7 +106,7 @@ export class AddModuleRoleComponent extends OnSeguridad implements OnInit {
 
     let module: Module = this.listModulesBusiness.find((m) => m.id == idModule);
 
-    this.accountService.grantAccessModuleToRol(this.role.id, module.id, this.businessObservable.id)
+    this.accountService.grantAccessModuleToRol(this.role.id, module.id, this.businessObservable.id,this._HIdUserSessionRequest,this._HBusinessSessionRequest)
       .pipe(first())
       .subscribe((response) => {
 
@@ -144,7 +144,7 @@ export class AddModuleRoleComponent extends OnSeguridad implements OnInit {
 
     let module: Module = this.listModulesRol.find((m) => m.id == idModule);
 
-    this.accountService.deleteAccessModuleToRol( this.role.id, module.id, this.businessObservable.id )
+    this.accountService.deleteAccessModuleToRol(this.role.id, module.id, this.businessObservable.id,this._HIdUserSessionRequest,this._HBusinessSessionRequest)
       .pipe(first())
       .subscribe((response) => {
 

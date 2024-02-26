@@ -1,7 +1,6 @@
 ﻿<div class="contLogin">
   <div class="login100-form-title headerLogin"> 
     <span class="login100-form-title-1"> Login </span>
-    <!-- <img src="./assets/images/inra/securebi.png" class="imgLoginHeaderTitle" /> -->
   </div>
 
   <div class="bodyLogin">
@@ -21,7 +20,7 @@
         <div *ngIf="submitted && f.username.errors" class="invalid-feedback">
           <div *ngIf="f.username.errors.required" class="textalign-center">El nombre de usuario es requerido</div>
         </div>
-        <div *ngIf="username.errors?.pattern" class="invalid-feedback">
+        <div *ngIf="f.username.errors?.pattern" class="invalid-feedback">
           <div class="textalign-center">no cumple con la regla regex de seguridad</div>
         </div> 
         
@@ -43,7 +42,7 @@
           <div *ngIf="submitted && f.password.errors" class="invalid-feedback">
             <div *ngIf="f.password.errors.required" class="textalign-center">La contraseña es requerida</div>
           </div>
-          <div *ngIf="password.errors?.pattern" class="invalid-feedback">
+          <div *ngIf="f.password.errors?.pattern" class="invalid-feedback">
             <div class="textalign-center">no cumple con la regla regex de seguridad</div> </div>
 
         </div>

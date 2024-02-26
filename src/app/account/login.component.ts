@@ -127,7 +127,5 @@ export class LoginComponent implements OnInit {
             (error) => { this.alertService.error('Problemas al obtener respuesta del Servidor. Por favor contacte al administrador.' + error); });
     }
 
-    visualizarContrasena(){
-      this.mostrarContrasena = !this.mostrarContrasena;
-    }
+    visualizarContrasena() { this.mostrarContrasena = !this.mostrarContrasena; }
 }

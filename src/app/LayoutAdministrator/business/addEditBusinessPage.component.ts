@@ -62,8 +62,7 @@ export class AddEditBusinessComponent extends OnSeguridad implements OnInit {
     });
 
     if (this.updateBusiness) {
-      this.accountService
-        .getBusinessById(this.pidBusiness)
+      this.accountService.getBusinessById(this.pidBusiness, this._HIdUserSessionRequest, this._HBusinessSessionRequest)
         .pipe(first())
         .subscribe(
           (responseBusiness) => {
@@ -139,8 +138,7 @@ export class AddEditBusinessComponent extends OnSeguridad implements OnInit {
     if (this.updateBusiness) {
       this.business.id = this.pidBusiness;
 
-      this.accountService
-        .updateBusiness(this.business)
+      this.accountService.updateBusiness(this.business, this._HIdUserSessionRequest, this._HBusinessSessionRequest)
         .pipe(first())
         .subscribe(
           (response) => {

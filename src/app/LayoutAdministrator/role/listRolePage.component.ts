@@ -43,7 +43,7 @@ export class ListRoleComponent extends OnSeguridad implements OnInit {
   ngOnInit() { this.obtenerRoles(); }
 
   private obtenerRoles() {
-    this.accountService.getRolesBusiness(this.businessObservable.id)
+    this.accountService.getRolesBusiness(this.businessObservable.id, this._HIdUserSessionRequest, this._HBusinessSessionRequest)
       .pipe(first())
       .subscribe((responseRoles) => {
 
@@ -63,7 +63,7 @@ export class ListRoleComponent extends OnSeguridad implements OnInit {
 
   private updateRol( rolUpdate: Role): void {
     
-    this.accountService.updateRol(rolUpdate, this.businessObservable.id)
+    this.accountService.updateRol(rolUpdate, this.businessObservable.id, this._HIdUserSessionRequest, this._HBusinessSessionRequest)
       .pipe(first())
       .subscribe((responseUpdate) => {
 
