@@ -16,6 +16,16 @@ import {MatIconModule} from '@angular/material/icon';
 import {MatToolbarModule} from '@angular/material/toolbar';
 
 import {LocationStrategy, HashLocationStrategy} from '@angular/common';
+import { TranslateComponent } from './_components/translate/translate.component';
+import { MatSelectModule } from '@angular/material/select';
+
+import { TranslateModule, TranslateLoader, TranslateService } from '@ngx-translate/core';
+import { TranslateHttpLoader } from '@ngx-translate/http-loader';
+import { HttpClient } from '@angular/common/http';
+
+export function HttpLoaderFactory(http: HttpClient) {
+    return new TranslateHttpLoader(http);
+}
 
 @NgModule({
     imports: [
@@ -27,12 +37,22 @@ import {LocationStrategy, HashLocationStrategy} from '@angular/common';
         BrowserAnimationsModule,
         MatTreeModule,
         MatTooltipModule,
-        MatToolbarModule
+        MatToolbarModule,
+        MatSelectModule,
+        
+        TranslateModule.forRoot({
+            loader: {
+              provide: TranslateLoader,
+              useFactory: HttpLoaderFactory,
+              deps: [HttpClient]
+            }
+          })
     ],
     declarations: [
         AppComponent,
         AlertComponent,
-        HomeComponent
+        HomeComponent,
+        TranslateComponent
     ],
     providers: [
         { provide: HTTP_INTERCEPTORS, useClass: JwtInterceptor, multi: true },
@@ -40,6 +60,9 @@ import {LocationStrategy, HashLocationStrategy} from '@angular/common';
         // ## rewrrite /# ## //
         { provide: LocationStrategy,  useClass: HashLocationStrategy }
     ],
-    bootstrap: [AppComponent]
+    bootstrap: [
+        AppComponent, 
+        TranslateComponent
+    ]
 })
 export class AppModule { }

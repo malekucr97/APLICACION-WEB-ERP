@@ -1,0 +1,13 @@
+<div class="fonTranslate">
+  <mat-form-field>
+      <mat-select
+        id="idioma" 
+        class="select"
+        [(value)]="selected"
+        (selectionChange)="onChangeSelect()"
+        required
+      >
+        <mat-option *ngFor="let lenguaje of lenguageList" class="option-selection" [value]="lenguaje.code">{{lenguaje.label}}</mat-option>        
+      </mat-select>
+  </mat-form-field>
+</div>

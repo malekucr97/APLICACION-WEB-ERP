@@ -1,0 +1,43 @@
+
+
+.fonTranslate {
+    position: absolute;
+    right: 0;
+    bottom: 0;
+    width: 150px; 
+    height: 40px; 
+    line-height: 30px;
+    background: #fff;
+    /* border-radius: 4px; */
+    overflow: hidden;    
+    display: flex;
+    flex-shrink: 1 auto;
+    justify-content: left;
+    align-items: center;
+    padding: 0 5px;
+}
+
+.select {
+    width: 70%;
+    height: 100%;
+    border: none;
+    outline: none;
+    background: transparent;
+    font-size: 1em;
+    color: #343434;
+    cursor: pointer;
+    display: flex;
+    justify-content: left;
+    align-items: center;
+}
+
+.select-label {
+    font-size: 1em;
+    color: #343434;
+    margin-right: 5px;
+}
+
+.option-selection {
+    opacity: 0.75;
+    font-size: 1em;
+  }
