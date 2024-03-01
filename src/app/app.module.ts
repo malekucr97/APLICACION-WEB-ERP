@@ -41,11 +41,13 @@ export function HttpLoaderFactory(http: HttpClient) {
         MatSelectModule,
         
         TranslateModule.forRoot({
+            defaultLanguage: 'es',
+            extend: true,
             loader: {
               provide: TranslateLoader,
               useFactory: HttpLoaderFactory,
               deps: [HttpClient]
-            }
+            },
           })
     ],
     declarations: [

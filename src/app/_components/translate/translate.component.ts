@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import {TranslateService} from '@ngx-translate/core';
 
 @Component({
   selector: 'app-translate',
@@ -6,22 +7,22 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./translate.component.css']
 })
 export class TranslateComponent implements OnInit {
-
   selected = 'es';	
-
   lenguageList = [
     { code: 'es', label: 'Español' },
     { code: 'en', label: 'English' }
   ];
 
-  constructor() { }
+  constructor(private translate: TranslateService) { 
+    translate.addLangs(['en', 'es']);
+    translate.setDefaultLang('es');
+  }
 
   ngOnInit(): void {
   }
 
   onChangeSelect() {
-    console.log("Nuevo valor seleccionado:", this.selected);
-    // Aquí puedes ejecutar cualquier otra lógica que necesites
+    this.translate.use(this.selected);
   }
 
 }

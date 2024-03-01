@@ -1,0 +1,14 @@
+{
+    "HOME": {
+        "USERNAME": "Nombre de usuario",
+        "PASSWORD": "Contraseña",
+        "REMEMBER": "Recuerdame",
+        "LOGIN": "Iniciar sesión",
+        "VALIDATES": {
+            "USERNAME": "El nombre de usuario es requerido",
+            "PASSWORD": "La contraseña es requerida",
+            "USERNAME_OR_PASSWORD_REGEX": "No cumple con la regla regex de seguridad",
+            "FAIL_LOGIN": "Inicio fallido, intento número: {{intentosFallidosInicioSesion}} de 3"            
+        }
+    }
+}
