@@ -7,7 +7,6 @@
         "VALIDATES": {
             "USERNAME": "El nombre de usuario es requerido",
             "PASSWORD": "La contraseña es requerida",
-            "USERNAME_OR_PASSWORD_REGEX": "No cumple con la regla regex de seguridad",
             "FAIL_LOGIN": "Inicio fallido, intento número: {{intentosFallidosInicioSesion}} de 3"            
         },
         "RIGHTS": "Soluciones INRA - BANKAP - © Derechos reservados {{year}}"
@@ -64,10 +63,40 @@
             "TBL_KIND": "Tipo",
             "TBL_BTN_STATUS_MODULE": "Estado Rol",
             "TBL_BTN_MODULE": "Módulos Activos"
+        },
+        "ADD_EDIT_USER": {
+            "TITLE": "Parametrización de Usuarios",
+            "PARAMETERS_USER": "Parámetros del Usuario: {{nombreCompleto}}",
+            "REGISTER_USER": "Registro de Usuarios",
+            "SELECT_USER": "Usuario seleccionado",
+            "TABLE": {
+                "ID": "Identificación",
+                "USERNAME": "Nombre Completo",
+                "EMAIL": "Email",
+                "POSITION": "Puesto",
+                "ROLE": "Rol Asignado"
+            },
+            "FORM": {
+                "TXT_ID": "Identificación",
+                "TXT_USERNAME": "Nombre Completo",	
+                "TXT_EMAIL": "Correo Electrónico",
+                "TXT_PHONE": "Teléfono",
+                "TXT_PASSWORD": "Contraseña",
+                "TXT_POSITION": "Puesto o Cargo",
+                "TXT_ROLE": "Rol de usuario"
+            }
         }
     },
     "GENERAL": {
         "NAME_COMPANY": "INRA SOLUCIONES SOCIEDAD ANONIMA",
-        "BTN_BACK": "Regresar"
+        "BTN_BACK": "Regresar",
+        "BTN_UPDATE": "Actualizar",
+        "BTN_REGISTER": "Registrar",
+        "VALIDATES": {
+            "EMPTY": "El campo es requerido",
+            "REGEX": "No cumple con la regla regex de seguridad",
+            "PASSWORD":"La contraseña es requerida",
+            "PASSWORD_MIN":"La contraseña debe tener al menos {MIN} caracteres"
+        }
     }
 }

@@ -42,8 +42,6 @@ export class AddEditUserComponent extends OnSeguridad implements OnInit {
 
   nombreRol : string = 'Sin Asignar';
 
-  tituloBasePantalla: string = 'Parametrización de Usuarios';
-
   usuarioSeleccionado : User = new User();
 
   constructor(private formBuilder: FormBuilder,

@@ -20,7 +20,7 @@
           <div *ngIf="f.username.errors.required" class="textalign-center">{{ 'HOME.VALIDATES.USERNAME' | translate }}</div>
         </div>
         <div *ngIf="username.errors?.pattern" class="invalid-feedback">
-          <div class="textalign-center">{{ 'HOME.VALIDATES.USERNAME_OR_PASSWORD_REGEX' | translate }}</div>
+          <div class="textalign-center">{{ 'GENERAL.VALIDATES.REGEX' | translate }}</div>
         </div> 
         
       </div>
@@ -42,7 +42,7 @@
             <div *ngIf="f.password.errors.required" class="textalign-center">{{ 'HOME.VALIDATES.PASSWORD' | translate }}</div>
           </div>
           <div *ngIf="password.errors?.pattern" class="invalid-feedback">
-            <div class="textalign-center">{{ 'HOME.VALIDATES.USERNAME_OR_PASSWORD_REGEX' | translate }}</div> </div>
+            <div class="textalign-center">{{ 'GENERAL.VALIDATES.REGEX' | translate }}</div> </div>
 
         </div>
         <div class="iconoVisibilidad" (click)="visualizarContrasena()"> <mat-icon>visibility</mat-icon> </div>

@@ -7,7 +7,6 @@
         "VALIDATES": {
             "USERNAME": "Username is required",
             "PASSWORD": "Password is required",
-            "USERNAME_OR_PASSWORD_REGEX": "Doesn't comply with the regex safety rule",
             "FAIL_LOGIN": "Login failed, attempt number: {{intentosFallidosInicioSesion}} of 3"
         },
         "RIGHTS": "Soluciones INRA - BANKAP - © All rights reserved {{year}}"
@@ -64,10 +63,40 @@
             "TBL_KIND": "Type",
             "TBL_BTN_STATUS_MODULE": "Role Status",
             "TBL_BTN_MODULE": "Active Modules"
+        },
+        "ADD_EDIT_USER": {
+            "TITLE": "User Parameterization",
+            "PARAMETERS_USER": "User Parameters: {{nombreCompleto}}",
+            "REGISTER_USER": "User Registration",
+            "SELECT_USER": "Selected User",
+            "TABLE": {
+                "ID": "ID",
+                "USERNAME": "Full Name",
+                "EMAIL": "Email",
+                "POSITION": "Job Position",
+                "ROLE": "Assigned Role"
+            },
+            "FORM": {
+                "TXT_ID": "ID",
+                "TXT_USERNAME": "Full Name",	
+                "TXT_EMAIL": "Email",
+                "TXT_PHONE": "Phone",
+                "TXT_PASSWORD": "Password",
+                "TXT_POSITION": "Job Position",
+                "TXT_ROLE": "User Role"
+            }
         }        
     },
     "GENERAL": {
         "NAME_COMPANY": "INRA SOLUCIONES SOCIEDAD ANONIMA",
-        "BTN_BACK": "Back"
+        "BTN_BACK": "Back",
+        "BTN_UPDATE": "Update",
+        "BTN_REGISTER": "Save",
+        "VALIDATES": {
+            "EMPTY": "The field is required",
+            "REGEX": "Doesn't comply with the regex safety rule",
+            "PASSWORD":"Password is required",
+            "PASSWORD_MIN":"Password must be at least {MIN} characters long"
+        }
     }
 }
