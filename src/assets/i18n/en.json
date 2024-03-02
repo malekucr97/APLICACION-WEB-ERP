@@ -17,6 +17,7 @@
         "SEARCH": "Search"
     },
     "CONFIGURATION": {
+        "TITLE": "Internal System Administration",	
         "WELCOME": "Welcome!",
         "USER_PARAMETERS": "User parameters",
         "MODULES_SISTEM_ADMIN": "System Administration Modules",
@@ -54,6 +55,15 @@
             "TBL_DESCRIPTION": "Description",
             "TBL_STATUS": "Module Status",
             "TBL_SCREENS": "Active Screens"
+        },
+        "ADMIN_PAGE_LIST_ROLES": {
+            "TITLE": "Role Administration",
+            "SUBTITLE": "Update the Status or Review the Modules with Access.",
+            "TBL_DESCRIPTION": "Description",
+            "TBL_STATUS": "Status",
+            "TBL_KIND": "Type",
+            "TBL_BTN_STATUS_MODULE": "Role Status",
+            "TBL_BTN_MODULE": "Active Modules"
         }        
     },
     "GENERAL": {

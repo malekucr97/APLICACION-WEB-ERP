@@ -17,6 +17,7 @@
         "SEARCH": "Buscar"
     },
     "CONFIGURATION": {
+        "TITLE": "Administración Interna del Sistema",
         "WELCOME": "Bienvenido!",
         "USER_PARAMETERS": "Parámetros de usuario",
         "MODULES_SISTEM_ADMIN": "Módulos de Administración del Sistema",
@@ -54,6 +55,15 @@
             "TBL_DESCRIPTION": "Descripción",
             "TBL_STATUS": "Estado Módulo",
             "TBL_SCREENS": "Pantallas Activas"
+        },
+        "ADMIN_PAGE_LIST_ROLES": {
+            "TITLE": "Administración de Roles",
+            "SUBTITLE": "Actualice el Estado o Revise los Módulos con Acceso.",
+            "TBL_DESCRIPTION": "Descripción",
+            "TBL_STATUS": "Estado",
+            "TBL_KIND": "Tipo",
+            "TBL_BTN_STATUS_MODULE": "Estado Rol",
+            "TBL_BTN_MODULE": "Módulos Activos"
         }
     },
     "GENERAL": {
