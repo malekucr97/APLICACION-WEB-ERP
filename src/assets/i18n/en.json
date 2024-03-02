@@ -25,6 +25,28 @@
         "BTN_ADMIN_COMPANIES": "Companies administration",
         "BTN_ADMIN_MODULES": "Module administration",
         "BTN_ADMIN_ROLES": "Role administration",
-        "ADMIN_PAGE_LIST_USERS": {}
+        "ADMIN_PAGE_LIST_USERS": {
+            "TITLE": "User Administration",
+            "SUBTITLE": "List of users registered in the system",
+            "TBL_ID": "ID",
+            "TBL_USERNAME": "Name",
+            "TBL_EMAIL": "Email",
+            "TBL_ROL": "Role",
+            "TBL_STATUS": "Status",
+            "TBL_BTN_COMPANY": "Company",
+            "TBL_BTN_ROLE": "Role"
+        },
+        "ADMIN_PAGE_LIST_COMPANIES": {
+            "TITLE": "Company Administration",
+            "SUBTITLE": "List of companies registered in the system",
+            "TBL_ID": "ID",
+            "TBL_USERNAME": "Company Name",
+            "TBL_EMAIL": "Email",
+            "TBL_PHONE": "Phone Number",
+            "TBL_POWER_BI": "Power BI"
+        }        
+    },
+    "GENERAL": {
+        "BTN_BACK": "Back"
     }
 }

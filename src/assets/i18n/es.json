@@ -25,6 +25,29 @@
         "BTN_ADMIN_COMPANIES": "Administración de Empresas",
         "BTN_ADMIN_MODULES": "Administración de Módulos",
         "BTN_ADMIN_ROLES": "Administración de Roles",
-        "ADMIN_PAGE_LIST_USERS": {}
+        "ADMIN_PAGE_LIST_USERS": {
+            "TITLE": "Administración de usuarios",
+            "SUBTITLE": "Lista de de usuarios registrados en el sistema",
+            "TBL_ID": "Identificación",
+            "TBL_USERNAME": "Nombre",
+            "TBL_EMAIL": "Correo electrónico",
+            "TBL_ROL": "Rol",
+            "TBL_STATUS": "Estado",
+            "TBL_BTN_COMPANY": "Empresa",
+            "TBL_BTN_ROLE": "Rol"
+        },
+        "ADMIN_PAGE_LIST_COMPANIES": {
+            "TITLE": "Administración de Empresas",
+            "SUBTITLE": "Lista de compañías registradas en el sistema",
+            "TBL_ID": "Identificación",
+            "TBL_USERNAME": "Nombre de la Compañía",
+            "TBL_EMAIL": "Correo Electrónico",
+            "TBL_PHONE": "Número de Teléfono",
+            "TBL_POWER_BI": "Power BI"
+        }
+
+    },
+    "GENERAL": {
+        "BTN_BACK": "Regresar"
     }
 }

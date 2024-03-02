@@ -1,6 +1,6 @@
-<h1 style="color:#1A5276">Usuarios</h1>
-<h4>Lista de de usuarios registrados en el sistema</h4>
-<a routerLink="{{URLAdministratorPage}}" class="btn btn-light mb-2 mr-3">Volver</a><br>
+<h1 style="color:#1A5276">{{ 'CONFIGURATION.ADMIN_PAGE_LIST_USERS.TITLE' | translate }}</h1>
+<h4>{{ 'CONFIGURATION.ADMIN_PAGE_LIST_USERS.SUBTITLE' | translate }}</h4>
+<a routerLink="{{URLAdministratorPage}}" class="btn btn-light mb-2 mr-3">{{ 'GENERAL.BTN_BACK' | translate }}</a><br>
 <div class="card">
 
     <div class="card-body">
@@ -14,11 +14,11 @@
             <thead>
                 <tr>
                     <th style="width: 1%"></th>
-                    <th style="width: 9%">Identificación</th>
-                    <th style="width: 20%">Nombre</th>
-                    <th style="width: 20%">Email</th>
-                    <th style="width: 25%">Puesto</th>
-                    <th style="width: 10%">Estado</th>
+                    <th style="width: 9%">{{ 'CONFIGURATION.ADMIN_PAGE_LIST_USERS.TBL_ID' | translate }}</th>
+                    <th style="width: 20%">{{ 'CONFIGURATION.ADMIN_PAGE_LIST_USERS.TBL_USERNAME' | translate }}</th>
+                    <th style="width: 20%">{{ 'CONFIGURATION.ADMIN_PAGE_LIST_USERS.TBL_EMAIL' | translate }}</th>
+                    <th style="width: 25%">{{ 'CONFIGURATION.ADMIN_PAGE_LIST_USERS.TBL_ROL' | translate }}</th>
+                    <th style="width: 10%">{{ 'CONFIGURATION.ADMIN_PAGE_LIST_USERS.TBL_STATUS' | translate }}</th>
 
                     <th style="width: 1%"></th>
                     <th style="width: 1%"></th>
@@ -47,14 +47,14 @@
                     <td style="white-space: normal">
                         <button *ngIf="isUserSuperAdmin" (click)="selectEmpresa(us)" 
                                                             class="btn-sm item-list__admin__view"> 
-                            Empresa 
+                            {{ 'CONFIGURATION.ADMIN_PAGE_LIST_USERS.TBL_BTN_COMPANY' | translate }} 
                         </button>
                     </td>
 
                     <td style="white-space: normal">
                         <button routerLink="{{URLAddRoleUsertPage}}{{us.identificacion}}" 
                                 class="btn-sm item-list__admin__view"> 
-                            Rol 
+                            {{ 'CONFIGURATION.ADMIN_PAGE_LIST_USERS.TBL_BTN_ROLE' | translate }} 
                         </button>
                     </td>
 
