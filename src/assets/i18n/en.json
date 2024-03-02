@@ -44,9 +44,20 @@
             "TBL_EMAIL": "Email",
             "TBL_PHONE": "Phone Number",
             "TBL_POWER_BI": "Power BI"
+        },
+        "ADMIN_PAGE_LIST_MODULES": {
+            "TITLE": "Module Administration",
+            "SUBTITLE": "Update the Status or Review the Screens with Access.",
+            "BTN_MANTEINANCE_POWER_BI": "Power BI reports maintenance",
+            "TBL_ID": "Identification",
+            "TBL_NAME": "Name",
+            "TBL_DESCRIPTION": "Description",
+            "TBL_STATUS": "Module Status",
+            "TBL_SCREENS": "Active Screens"
         }        
     },
     "GENERAL": {
+        "NAME_COMPANY": "INRA SOLUCIONES SOCIEDAD ANONIMA",
         "BTN_BACK": "Back"
     }
 }

@@ -44,10 +44,20 @@
             "TBL_EMAIL": "Correo Electrónico",
             "TBL_PHONE": "Número de Teléfono",
             "TBL_POWER_BI": "Power BI"
+        },
+        "ADMIN_PAGE_LIST_MODULES": {
+            "TITLE": "Administración de Módulos",
+            "SUBTITLE": "Actualice el Estado o Revise las Pantallas con Acceso.",
+            "BTN_MANTEINANCE_POWER_BI": "Mantenimiento reportes Power BI",
+            "TBL_ID": "Identificación",
+            "TBL_NAME": "Nombre",
+            "TBL_DESCRIPTION": "Descripción",
+            "TBL_STATUS": "Estado Módulo",
+            "TBL_SCREENS": "Pantallas Activas"
         }
-
     },
     "GENERAL": {
+        "NAME_COMPANY": "INRA SOLUCIONES SOCIEDAD ANONIMA",
         "BTN_BACK": "Regresar"
     }
 }
