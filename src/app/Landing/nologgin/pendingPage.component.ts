@@ -10,22 +10,13 @@ import { first } from 'rxjs/operators';
 export class PendingUserPageComponent {
   user = new User();
 
-
   private _mostrarMensajeReenvio : boolean;
-  public get mostrarMensajeReenvio() : boolean {
-    return this._mostrarMensajeReenvio;
-  }
-  public set mostrarMensajeReenvio(v : boolean) {
-    this._mostrarMensajeReenvio = v;
-  }
+  public get mostrarMensajeReenvio() : boolean { return this._mostrarMensajeReenvio; }
+  public set mostrarMensajeReenvio(v : boolean) { this._mostrarMensajeReenvio = v; }
 
   private _mensajeReenvio : string;
-  public get mensajeReenvio() : string {
-    return this._mensajeReenvio;
-  }
-  public set mensajeReenvio(v : string) {
-    this._mensajeReenvio = v;
-  }
+  public get mensajeReenvio() : string { return this._mensajeReenvio; }
+  public set mensajeReenvio(v : string) { this._mensajeReenvio = v; }
 
   constructor(private accountService: AccountService) {
     this.user = this.accountService.userValue;

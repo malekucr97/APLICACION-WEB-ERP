@@ -13,36 +13,20 @@ export class ActivateUserPageComponent {
   private urlTree: UrlTree;
 
   private _tokenUser: string;
-  public get tokenUser(): string {
-    return this._tokenUser;
-  }
-  public set tokenUser(v: string) {
-    this._tokenUser = v;
-  }
+  public get tokenUser(): string { return this._tokenUser; }
+  public set tokenUser(v: string) { this._tokenUser = v; }
 
   private _identificacionUser: string;
-  public get identificacionUser(): string {
-    return this._identificacionUser;
-  }
-  public set identificacionUser(v: string) {
-    this._identificacionUser = v;
-  }
+  public get identificacionUser(): string { return this._identificacionUser; }
+  public set identificacionUser(v: string) { this._identificacionUser = v; }
 
   private _cargandoActivacion: boolean = true;
-  public get cargandoActivacion(): boolean {
-    return this._cargandoActivacion;
-  }
-  public set cargandoActivacion(v: boolean) {
-    this._cargandoActivacion = v;
-  }
+  public get cargandoActivacion(): boolean { return this._cargandoActivacion; }
+  public set cargandoActivacion(v: boolean) { this._cargandoActivacion = v; }
 
   private _mensajeUsuario: string = '';
-  public get mensajeUsuario(): string {
-    return this._mensajeUsuario;
-  }
-  public set mensajeUsuario(v: string) {
-    this._mensajeUsuario = v;
-  }
+  public get mensajeUsuario(): string { return this._mensajeUsuario; }
+  public set mensajeUsuario(v: string) { this._mensajeUsuario = v; }
 
   constructor(private router: Router, private accountService: AccountService) {
     this.user = this.accountService.userValue;
@@ -52,7 +36,6 @@ export class ActivateUserPageComponent {
     this.identificacionUser = this.urlTree.queryParams['ui'];
 
     this.activarUsuarioPorEmail();
-
   }
 
   private activarUsuarioPorEmail() {
@@ -71,8 +54,7 @@ export class ActivateUserPageComponent {
     } as User;
 
     // SE REALIZA LA CONSULTA AL API.
-    this.accountService
-      .activateByEmail(objUser)
+    this.accountService.activateByEmail(objUser)
       .pipe(first())
       .subscribe((response) => {
         this.mensajeUsuario = response.responseMesagge;
@@ -80,7 +62,5 @@ export class ActivateUserPageComponent {
       });
   }
 
-  redirect() {
-    this.accountService.logout();
-  }
+  redirect() { this.accountService.logout(); }
 }
