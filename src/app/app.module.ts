@@ -21,7 +21,8 @@ import { MatSelectModule } from '@angular/material/select';
 
 import { TranslateModule, TranslateLoader, TranslateService } from '@ngx-translate/core';
 import { TranslateHttpLoader } from '@ngx-translate/http-loader';
-import { HttpClient } from '@angular/common/http';
+import { HttpClient } from '@angular/common/http';;
+import { FooterComponent } from './_components/footer/footer.component'
 
 export function HttpLoaderFactory(http: HttpClient) {
     return new TranslateHttpLoader(http);
@@ -54,7 +55,8 @@ export function HttpLoaderFactory(http: HttpClient) {
         AppComponent,
         AlertComponent,
         HomeComponent,
-        TranslateComponent
+        TranslateComponent,
+        FooterComponent
     ],
     providers: [
         { provide: HTTP_INTERCEPTORS, useClass: JwtInterceptor, multi: true },
@@ -64,7 +66,8 @@ export function HttpLoaderFactory(http: HttpClient) {
     ],
     bootstrap: [
         AppComponent, 
-        TranslateComponent
+        TranslateComponent,
+        FooterComponent
     ]
 })
 export class AppModule { }

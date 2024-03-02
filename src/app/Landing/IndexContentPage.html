@@ -43,7 +43,7 @@
             <div>
               <div class="wrap-input100 m-b-19 form-group">
                 <span class="lnr lnr-magnifier label-input100"></span>
-                <input type="search"  class="input100" placeholder="Busqueda" [(ngModel)]="valorBuscado" (input)="filtrarModulos()" />
+                <input type="search"  class="input100" [placeholder]="'INIT.SEARCH' | translate" [(ngModel)]="valorBuscado" (input)="filtrarModulos()" />
                 <span class="focus-input100"></span>
               </div>
             </div>

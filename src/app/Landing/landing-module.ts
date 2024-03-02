@@ -20,6 +20,7 @@ import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
 import { MatDividerModule } from '@angular/material/divider';
 import { ActivateUserPageComponent } from './nologgin/activateUserPage.component';
+import { TranslateModule } from '@ngx-translate/core';
 
 
 @NgModule({
@@ -29,6 +30,7 @@ import { ActivateUserPageComponent } from './nologgin/activateUserPage.component
         ReactiveFormsModule,
         LandingRoutingModule,
         CommonModule,
+        TranslateModule.forChild(),
         // ******************
         // -- Utilidades menú
         MatToolbarModule,

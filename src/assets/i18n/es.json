@@ -9,6 +9,22 @@
             "PASSWORD": "La contraseña es requerida",
             "USERNAME_OR_PASSWORD_REGEX": "No cumple con la regla regex de seguridad",
             "FAIL_LOGIN": "Inicio fallido, intento número: {{intentosFallidosInicioSesion}} de 3"            
-        }
+        },
+        "RIGHTS": "Soluciones INRA - BANKAP - © Derechos reservados {{year}}"
+    },
+    "INIT": {
+        "NAME": "Sistema de Gestión Administrativo Financiero",
+        "SEARCH": "Buscar"
+    },
+    "CONFIGURATION": {
+        "WELCOME": "Bienvenido!",
+        "USER_PARAMETERS": "Parámetros de usuario",
+        "MODULES_SISTEM_ADMIN": "Módulos de Administración del Sistema",
+        "BTN_UPDATE_INFORMATION": "Actualizar información",
+        "BTN_ADMIN_USERS": "Administración de usuarios",
+        "BTN_ADMIN_COMPANIES": "Administración de Empresas",
+        "BTN_ADMIN_MODULES": "Administración de Módulos",
+        "BTN_ADMIN_ROLES": "Administración de Roles",
+        "ADMIN_PAGE_LIST_USERS": {}
     }
 }
