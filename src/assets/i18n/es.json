@@ -145,6 +145,18 @@
                 "TXT_PATH_URL": "URL Externa(opcional)",
                 "CHK_STATUS": "Estado"
             }
+        },
+        "ADD_MODULES_ROLE": {
+            "TITLE":"Módulos de compañía",
+            "MODULES_PERMITTED": "Tiene acceso a los siguientes Módulos",
+            "MODULES_NOT_PERMITTED": "No tiene acceso a los siguientes Módulos",
+            "TABLE": {
+                "NAME": "Nombre",
+                "DESCRIPTION": "Descripción",
+                "STATUS": "Estado",
+                "BTN_PERMIT_ACCESS": "Permitir acceso",
+                "BTN_DENY_ACCESS": "Quitar acceso"
+            }
         }        
     },
     "GENERAL": {

@@ -145,7 +145,19 @@
                 "TXT_PATH_URL": "External URL (optional)",
                 "CHK_STATUS": "Status"
             }
-        }        
+        },
+        "ADD_MODULES_ROLE": {
+            "TITLE":"Company Modules",
+            "MODULES_PERMITTED": "Has access to the following Modules",
+            "MODULES_NOT_PERMITTED": "Does not have access to the following Modules",
+            "TABLE": {
+                "NAME": "Name",
+                "DESCRIPTION": "Description",
+                "STATUS": "Status",
+                "BTN_PERMIT_ACCESS": "Allow access",
+                "BTN_DENY_ACCESS": "Remove access"
+            }
+        }   
     },
     "GENERAL": {
         "NAME_COMPANY": "INRA SOLUCIONES SOCIEDAD ANONIMA",

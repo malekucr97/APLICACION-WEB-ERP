@@ -1,9 +1,8 @@
-<h1 style="display: inline; color:#1A5276">Módulos </h1>
-<h1 style="display: inline;">de Compañía</h1>
+<h1 style="display: inline; color:#1A5276">{{ 'CONFIGURATION.ADD_MODULES_ROLE.TITLE' | translate }}</h1>
 
 <br><br>
 
-<a routerLink="{{urladminListRole}}" class="btn btn-light mb-2 mr-3">Volver</a><br>
+<a routerLink="{{urladminListRole}}" class="btn btn-light mb-2 mr-3">{{ 'GENERAL.BTN_BACK' | translate }}</a><br>
 
 <div class="card">
     <div class="card-body">
@@ -17,14 +16,14 @@
         <div>
             <div *ngIf="listModulesRol">
 
-                <h3 style="color:#1A5276;">Tiene acceso a los siguientes Módulos</h3>
+                <h3 style="color:#1A5276;">{{ 'CONFIGURATION.ADD_MODULES_ROLE.MODULES_PERMITTED' | translate }}</h3>
 
                 <table class="table table-striped">
                     <thead>
                         <tr>
-                            <th style="width: 29%">Nombre</th>
-                            <th style="width: 60%">Descripción</th>
-                            <th style="width: 10%">Estado</th>
+                            <th style="width: 29%">{{ 'CONFIGURATION.ADD_MODULES_ROLE.TABLE.NAME' | translate }}</th>
+                            <th style="width: 60%">{{ 'CONFIGURATION.ADD_MODULES_ROLE.TABLE.DESCRIPTION' | translate }}</th>
+                            <th style="width: 10%">{{ 'CONFIGURATION.ADD_MODULES_ROLE.TABLE.STATUS' | translate }}</th>
                             <th style="width: 1%"></th>
                         </tr>
                     </thead>
@@ -41,7 +40,7 @@
                                 <button class="btn-sm item-list__admin__danger"
                                         (click)="eliminarAcceso(modAss.id)" >
                                         <mat-icon>lock</mat-icon>
-                                    Quitar Acceso
+                                        {{ 'CONFIGURATION.ADD_MODULES_ROLE.TABLE.BTN_DENY_ACCESS' | translate }}
                                 </button>
                             </td>
 
@@ -53,13 +52,13 @@
 
             <div *ngIf="listModulesBusiness">
                 <br>
-                <h3 style="color:#1A5276">No tiene acceso a los siguientes Módulos</h3>
+                <h3 style="color:#1A5276">{{ 'CONFIGURATION.ADD_MODULES_ROLE.MODULES_NOT_PERMITTED' | translate }}</h3>
                 <table class="table table-striped">
                     <thead>
                         <tr>
-                            <th style="width: 29%">Nombre</th>
-                            <th style="width: 60%">Descripción</th>
-                            <th style="width: 10%">Estado</th>
+                            <th style="width: 29%">{{ 'CONFIGURATION.ADD_MODULES_ROLE.TABLE.NAME' | translate }}</th>
+                            <th style="width: 60%">{{ 'CONFIGURATION.ADD_MODULES_ROLE.TABLE.DESCRIPTION' | translate }}</th>
+                            <th style="width: 10%">{{ 'CONFIGURATION.ADD_MODULES_ROLE.TABLE.STATUS' | translate }}</th>
                             <th style="width: 1%"></th>
                         </tr>
                     </thead>
@@ -76,7 +75,7 @@
                                 <button class="btn-sm item-list__admin__ok"
                                     (click)="otorgarAcceso(modRol.id)"
                                     > <mat-icon>lock_open</mat-icon>
-                                    Permitir Acceso
+                                    {{ 'CONFIGURATION.ADD_MODULES_ROLE.TABLE.BTN_PERMIT_ACCESS' | translate }}
                                 </button>
                             </td>
 
