@@ -48,12 +48,22 @@
         "ADMIN_PAGE_LIST_MODULES": {
             "TITLE": "Administración de Módulos",
             "SUBTITLE": "Actualice el Estado o Revise las Pantallas con Acceso.",
+            "TITLE_MANTEINANCE_TO": "Mantenimiento a {{namepg}}",
+            "TITLE_LIST_MANTEINANCE_TO": "Lista de {{namepg}} de la compañía",
+            "TITLE_MANTEINANCE_FOR": "Mantenimiento para {{company}}",
             "BTN_MANTEINANCE_POWER_BI": "Mantenimiento reportes Power BI",
             "TBL_ID": "Identificación",
             "TBL_NAME": "Nombre",
             "TBL_DESCRIPTION": "Descripción",
+            "TBL_IMAGE": "Imágen",
             "TBL_STATUS": "Estado Módulo",
             "TBL_SCREENS": "Pantallas Activas",
+            "FORM": {
+                "TXT_ID": "Identificación",
+                "TXT_NAME": "Nombre",
+                "TXT_DESCRIPTION": "Descripción",
+                "TXT_IMAGE": "Ruta de la imágen"
+            },
             "BUSINESS": {
                 "TITLE": "Módulos",
                 "SUBTITLE": "Asigne o elimine módulos en la Compañía.",
@@ -115,9 +125,11 @@
     },
     "GENERAL": {
         "NAME_COMPANY": "INRA SOLUCIONES SOCIEDAD ANONIMA",
+        "BTN_NEW": "Nuevo",
         "BTN_BACK": "Regresar",
         "BTN_UPDATE": "Actualizar",
         "BTN_REGISTER": "Registrar",
+        "BTN_DELETE": "Eliminar",
         "VALIDATES": {
             "EMPTY": "El campo es requerido",
             "REGEX": "No cumple con la regla regex de seguridad",

@@ -5,8 +5,8 @@
       <section>
         <div class="articulo__contenedor__header">
           <div class="articulo__contenedor__header__prev">
-            <p>Manteniemiento para {{ businessObservable.nombre }}</p>
-            <a routerLink="{{ URLIndexAdminPage }}" class="btn btn-light mb-2 mr-3">Volver</a>
+            <p>{{ 'CONFIGURATION.ADMIN_PAGE_LIST_MODULES.TITLE_MANTEINANCE_FOR' | translate: {company: businessObservable.nombre} }}</p>
+            <a routerLink="{{ URLIndexAdminPage }}" class="btn btn-light mb-2 mr-3">{{ 'GENERAL.BTN_BACK' | translate }}</a>
           </div>
 
           <div class="articulo__contenedor__header__next"></div>
@@ -22,14 +22,14 @@
             <div class="articulo__contenedor__body__prev__form">
               <div class="articulo__contenedor__body__prev__form__header p-2">
                 <div class="articulo__contenedor__body__prev__form__header__prev">
-                  <p class="articulo__contenedor__body__prev__form__header__titulo">Mantenimiento de {{tituloBasePantalla}}</p>
+                  <p class="articulo__contenedor__body__prev__form__header__titulo">{{ 'CONFIGURATION.ADMIN_PAGE_LIST_MODULES.TITLE_MANTEINANCE_TO' | translate: {namepg: tituloBasePantalla} }}</p>
                 </div>
 
                 <div class="articulo__contenedor__body__prev__form__header__next">
-                  <button *ngIf="habilitaBtnNuevo" class="articulo__contenedor__body__prev__form__header__prev__btns__new" mat-flat-button (click)="limpiarFormulario()">Nuevo</button>
-                  <button *ngIf="habilitaBtnActualiza" class="articulo__contenedor__header__prev__btns__warn" mat-flat-button (click)="actualizarModulo()">Actualizar</button>
-                  <button *ngIf="habilitaBtnRegistro" class="articulo__contenedor__header__prev__btns__ok" mat-flat-button (click)="registrarModulo()">Registrar</button>
-                  <button *ngIf="habilitaBtnEliminar" class="articulo__contenedor__header__prev__btns__danger" mat-flat-button (click)="eliminarModulo()">Eliminar</button>
+                  <button *ngIf="habilitaBtnNuevo" class="articulo__contenedor__body__prev__form__header__prev__btns__new" mat-flat-button (click)="limpiarFormulario()">{{ 'GENERAL.BTN_NEW' | translate }}</button>
+                  <button *ngIf="habilitaBtnActualiza" class="articulo__contenedor__header__prev__btns__warn" mat-flat-button (click)="actualizarModulo()">{{ 'GENERAL.BTN_UPDATE' | translate }}</button>
+                  <button *ngIf="habilitaBtnRegistro" class="articulo__contenedor__header__prev__btns__ok" mat-flat-button (click)="registrarModulo()">{{ 'GENERAL.BTN_REGISTER' | translate }}</button>
+                  <button *ngIf="habilitaBtnEliminar" class="articulo__contenedor__header__prev__btns__danger" mat-flat-button (click)="eliminarModulo()">{{ 'GENERAL.BTN_DELETE' | translate }}</button>
                 </div>
               </div>
 
@@ -37,7 +37,7 @@
                 <form [formGroup]="formAdminModule" class="row">
 
                   <div class="form-group col-md-6">
-                    <label for="lblIdentificador" class="form-label">Identificador</label>
+                    <label for="lblIdentificador" class="form-label">{{ 'CONFIGURATION.ADMIN_PAGE_LIST_MODULES.FORM.TXT_ID' | translate }}</label>
                     <input
                       maxlength="50"
                       formControlName="Identificador"
@@ -50,12 +50,12 @@
                       [readOnly]="readOnlyInputIdentficador"
                     />
                     <div *ngIf="submitFormAdminModule && m.Identificador.errors" class="invalid-feedback">
-                      <div *ngIf="m.Identificador.errors.required">El campo es requerido.</div>
+                      <div *ngIf="m.Identificador.errors.required">{{ 'GENERAL.VALIDATES.EMPTY' | translate }}</div>
                     </div>
                   </div>
 
                   <div class="form-group col-md-6">
-                    <label for="lblNombre" class="form-label">Nombre</label>
+                    <label for="lblNombre" class="form-label">{{ 'CONFIGURATION.ADMIN_PAGE_LIST_MODULES.FORM.TXT_NAME' | translate }}</label>
                     <input
                       maxlength="150"
                       formControlName="Nombre"
@@ -67,12 +67,12 @@
                       }"
                     />
                     <div *ngIf="submitFormAdminModule && m.Nombre.errors" class="invalid-feedback">
-                      <div *ngIf="m.Nombre.errors.required">El campo es requerido.</div>
+                      <div *ngIf="m.Nombre.errors.required">{{ 'GENERAL.VALIDATES.EMPTY' | translate }}</div>
                     </div>
                   </div>
 
                   <div class="form-group col-md-12">
-                    <label for="lblDescripcion" class="form-label">Descripción</label>
+                    <label for="lblDescripcion" class="form-label">{{ 'CONFIGURATION.ADMIN_PAGE_LIST_MODULES.FORM.TXT_DESCRIPTION' | translate }}</label>
                     <input
                       maxlength="200"
                       formControlName="Descripcion"
@@ -84,12 +84,12 @@
                       }"
                     />
                     <div *ngIf="submitFormAdminModule && m.Descripcion.errors" class="invalid-feedback">
-                      <div *ngIf="m.Descripcion.errors.required">El campo es requerido.</div>
+                      <div *ngIf="m.Descripcion.errors.required">{{ 'GENERAL.VALIDATES.EMPTY' | translate }}</div>
                     </div>
                   </div>
 
                   <div class="form-group col-md-12">
-                    <label for="lblDireccionLogo" class="form-label">Dirección de Imágen</label>
+                    <label for="lblDireccionLogo" class="form-label">{{ 'CONFIGURATION.ADMIN_PAGE_LIST_MODULES.FORM.TXT_IMAGE' | translate }}</label>
                     <input
                       formControlName="DireccionLogo"
                       class="form-control"
@@ -100,7 +100,7 @@
                       }"
                     />
                     <div *ngIf="submitFormAdminModule && m.DireccionLogo.errors" class="invalid-feedback">
-                      <div *ngIf="m.DireccionLogo.errors.required">El campo es requerido.</div>
+                      <div *ngIf="m.DireccionLogo.errors.required">{{ 'GENERAL.VALIDATES.EMPTY' | translate }}</div>
                     </div>
                   </div>
 
@@ -120,9 +120,9 @@
             <div class="articulo__contenedor__body__next__list">
               <div class="articulo__contenedor__body__next__list__header">
                 <div class="articulo__contenedor__body__prev__list__header__prev">
-                  <p class="articulo__contenedor__body__prev__list__header__titulo">Lista de {{tituloBasePantalla}} de la compañía</p>
+                  <p class="articulo__contenedor__body__prev__list__header__titulo">{{ 'CONFIGURATION.ADMIN_PAGE_LIST_MODULES.TITLE_LIST_MANTEINANCE_TO' | translate: {namepg: tituloBasePantalla} }}</p>
                   <div class="form-group col-md-4">
-                    <label for="lblbusquedaModulo" class="form-label">Buscar</label>
+                    <label for="lblbusquedaModulo" class="form-label">{{ 'INIT.SEARCH' | translate }}</label>
                     <input class="form-control" type="text" id="id_busquedaModulo" [(ngModel)]="buscarModulo" (keyup)="filtrarLista()" />
                   </div>
                 </div>
@@ -136,10 +136,10 @@
                     <thead>
                       <tr>
                         <th></th>
-                        <th style="width: 25%">Identificación</th>
-                        <th style="width: 20%">Nombre</th>
-                        <th style="width: 30%">Descripción</th>
-                        <th style="width: 25%">Imágen</th>
+                        <th style="width: 25%">{{ 'CONFIGURATION.ADMIN_PAGE_LIST_MODULES.TBL_ID' | translate }}</th>
+                        <th style="width: 20%">{{ 'CONFIGURATION.ADMIN_PAGE_LIST_MODULES.TBL_NAME' | translate }}</th>
+                        <th style="width: 30%">{{ 'CONFIGURATION.ADMIN_PAGE_LIST_MODULES.TBL_DESCRIPTION' | translate }}</th>
+                        <th style="width: 25%">{{ 'CONFIGURATION.ADMIN_PAGE_LIST_MODULES.TBL_IMAGE' | translate }}</th>
                       </tr>
                     </thead>
                     <tbody>
