@@ -121,6 +121,30 @@
                     "ID": "The company's legal ID is required"
                 }
             }
+        },
+        "ADD_EDIT_ACCES_USER_PAGE_MODULE": {
+            "SUBTITLE": "Module Administration / Screen Administration by Module and Screen Access by User",
+            "SELECT_SCREEN": "The selected screen belongs to the module",
+            "TITLE_SCREENS_MAINTENANCE": "Screens Maintenance",
+            "TITLE_GRANT_ACCES": "People with Access to the Company",
+            "TITLE_GRANT_ACCES_SCREEN": "People with Access to the Screen",
+            "TITLE_SCREENS": "List of Screens",
+            "TABLE": {
+                "ID": "Identification",
+                "CODE": "Code",
+                "NAME": "Name",
+                "EMAIL": "Email",
+                "STATUS": "Status",
+                "MODIFIED": "Modified",
+                "DATE_UPDATE": "Updated"
+            },
+            "FORM":{
+                "TXT_ID": "Id",
+                "TXT_CODE": "Code",
+                "TXT_NAME": "Name",
+                "TXT_PATH_URL": "External URL (optional)",
+                "CHK_STATUS": "Status"
+            }
         }        
     },
     "GENERAL": {

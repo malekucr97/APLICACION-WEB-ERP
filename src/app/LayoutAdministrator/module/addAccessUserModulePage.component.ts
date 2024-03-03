@@ -21,8 +21,6 @@ export class AddAccessUserModuleComponent extends OnSeguridad implements OnInit 
     @ViewChild(MatSidenav) sidenav !: MatSidenav;
 
     private nombrePantalla  : string = 'HTML_AddAccessUserModulePage.html';
-    public nombreModulo     : string = 
-    'Módulo de Administración / Administración de Pantallas por Módulo y Accesos de Pantallas por Usuario';
 
     URLListIndexModules: string = httpAccessAdminPage.urlPageListModule;
 

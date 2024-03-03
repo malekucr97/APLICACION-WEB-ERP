@@ -121,6 +121,30 @@
                     "ID": "La cédula jurídica de la empresa es requerida"
                 }
             }
+        },
+        "ADD_EDIT_ACCES_USER_PAGE_MODULE": {
+            "SUBTITLE": "Módulo de Administración / Administración de Pantallas por Módulo y Accesos de Pantallas por Usuario",
+            "SELECT_SCREEN": "La pantalla seleccionada pertenece al módulo",
+            "TITLE_SCREENS_MAINTENANCE": "Mantenimiento de Pantallas",
+            "TITLE_GRANT_ACCES": "Personas con Acceso a la Compañía",
+            "TITLE_GRANT_ACCES_SCREEN": "Personas con Acceso a la Pantalla",
+            "TITLE_SCREENS": "Lista de Pantallas",
+            "TABLE": {
+                "ID": "Identificación",
+                "CODE": "Código",
+                "NAME": "Nombre",
+                "EMAIL": "Correo",
+                "STATUS": "Estado",
+                "MODIFIED": "Modiciado",
+                "DATE_UPDATE": "Se actualizó"
+            },
+            "FORM":{
+                "TXT_ID": "Id",
+                "TXT_CODE": "Código",
+                "TXT_NAME": "Nombre",
+                "TXT_PATH_URL": "URL Externa(opcional)",
+                "CHK_STATUS": "Estado"
+            }
         }        
     },
     "GENERAL": {

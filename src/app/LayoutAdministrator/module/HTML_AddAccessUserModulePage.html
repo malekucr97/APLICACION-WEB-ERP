@@ -1,9 +1,9 @@
 <h2>{{moduleScreen.descripcion}}</h2>
-<p>{{nombreModulo}}</p>
+<p>{{ 'CONFIGURATION.ADD_EDIT_ACCES_USER_PAGE_MODULE.SUBTITLE' | translate }}</p>
 <!-- <p *ngIf="moduleItemList">La pantalla seleccionada pertenece al módulo </p>
 <b *ngIf="moduleItemList">{{moduleItemList.nombre}}</b> -->
 <!-- <br> -->
-<a routerLink="{{ URLListIndexModules }}" class="btn btn-light mb-2 mr-3">Volver</a>
+<a routerLink="{{ URLListIndexModules }}" class="btn btn-light mb-2 mr-3">{{ 'GENERAL.BTN_BACK' | translate }}</a>
 
 <main>
     <article class="articulo">
@@ -23,7 +23,7 @@
                         
                         
 
-                        <p *ngIf="moduleItemList">La pantalla seleccionada pertenece al módulo </p>
+                        <p *ngIf="moduleItemList">{{ 'CONFIGURATION.ADD_EDIT_ACCES_USER_PAGE_MODULE.SELECT_SCREEN' | translate }}</p>
                         <b *ngIf="moduleItemList">{{moduleItemList.nombre}}</b>
                     </div>
 
@@ -57,24 +57,24 @@
                                         <div class="articulo__contenedor__body__prev__form__header">
 
                                             <div class="articulo__contenedor__body__prev__form__header__prev" >
-                                                <p class="articulo__contenedor__body__prev__form__header__titulo">Mantenimiento de Pantallas</p>
+                                                <p class="articulo__contenedor__body__prev__form__header__titulo">{{ 'CONFIGURATION.ADD_EDIT_ACCES_USER_PAGE_MODULE.TITLE_SCREENS_MAINTENANCE' | translate }}</p>
                                             </div>
 
                                             <div class="articulo__contenedor__body__prev__form__header__next" >
 
                                                 <button *ngIf="habilitaBtnNuevo" class="articulo__contenedor__body__prev__form__header__prev__btns__new"
                                                         mat-flat-button
-                                                        (click)="nuevoRegistroPantalla()">Nuevo</button>
+                                                        (click)="nuevoRegistroPantalla()">{{ 'GENERAL.BTN_NEW' | translate }}</button>
 
                                                 <button *ngIf="habilitaBtnActualiza" class="articulo__contenedor__header__prev__btns__warn"
                                                         mat-flat-button
-                                                        (click)="actualizaPantallaModulo()">Actualizar</button>
+                                                        (click)="actualizaPantallaModulo()">{{ 'GENERAL.BTN_UPDATE' | translate }}</button>
                                                 <button *ngIf="habilitaBtnRegistro" class="articulo__contenedor__header__prev__btns__ok"
                                                         mat-flat-button
-                                                        (click)="submitPantallaModulo()">Registrar</button>
+                                                        (click)="submitPantallaModulo()">{{ 'GENERAL.BTN_REGISTER' | translate }}</button>
                                                 <button *ngIf="habilitaBtnElimibar" class="articulo__contenedor__header__prev__btns__danger"
                                                         mat-flat-button
-                                                        (click)="eliminarPantallaModulo()">Eliminar</button>
+                                                        (click)="eliminarPantallaModulo()">{{ 'GENERAL.BTN_DELETE' | translate }}</button>
 
                                             </div>
 
@@ -85,12 +85,12 @@
                                             <form [formGroup]="formPantallasModulo" class="row">
 
                                                 <div class="form-group col-md-2">
-                                                    <label for="id_idPantalla" class="form-label">Id</label>
+                                                    <label for="id_idPantalla" class="form-label">{{ 'CONFIGURATION.ADD_EDIT_ACCES_USER_PAGE_MODULE.FORM.TXT_ID' | translate }}</label>
                                                     <input formControlName="idPantalla" class="form-control" type="text" id="id_idPantalla" readonly />
                                                 </div>
 
                                                 <div class="form-group col-md-2">
-                                                    <label for="id_codigoPantalla" class="form-label">Código</label>
+                                                    <label for="id_codigoPantalla" class="form-label">{{ 'CONFIGURATION.ADD_EDIT_ACCES_USER_PAGE_MODULE.FORM.TXT_CODE' | translate }}</label>
                                                     <input maxlength="5" formControlName="codigoPantalla" class="form-control" type="text" id="id_codigoPantalla"
                                                         [ngClass]="{ 'is-invalid': submittedPantallasModuloForm && m.codigoPantalla.errors }" />
                                                     <div *ngIf="submittedPantallasModuloForm && m.codigoPantalla.errors" class="invalid-feedback">
@@ -99,7 +99,7 @@
                                                 </div>
 
                                                 <div class="form-group col-md-6">
-                                                    <label for="id_nombrePantalla" class="form-label">Nombre</label>
+                                                    <label for="id_nombrePantalla" class="form-label">{{ 'CONFIGURATION.ADD_EDIT_ACCES_USER_PAGE_MODULE.FORM.TXT_NAME' | translate }}</label>
                                                     <input formControlName="nombrePantalla" class="form-control" type="text" id="id_nombrePantalla"
                                                         [ngClass]="{ 'is-invalid': submittedPantallasModuloForm && m.nombrePantalla.errors }" />
                                                     <div *ngIf="submittedPantallasModuloForm && m.nombrePantalla.errors" class="invalid-feedback">
@@ -114,12 +114,12 @@
                                                 <div class="col-sm-1"> </div>
 
                                                 <div class="form-group col-md-10">
-                                                  <label for="id_urlExterna" class="form-label">URL Externa(opcional)</label>
+                                                  <label for="id_urlExterna" class="form-label">{{ 'CONFIGURATION.ADD_EDIT_ACCES_USER_PAGE_MODULE.FORM.TXT_PATH_URL' | translate }}</label>
                                                   <input formControlName="urlExterna" class="form-control" type="text" id="id_urlExterna" />
                                               </div>
 
                                                 <div class="form-group col-sm-1 margin-icos-mat">
-                                                    <mat-checkbox formControlName="estadoPantalla">Estado</mat-checkbox>
+                                                    <mat-checkbox formControlName="estadoPantalla">{{ 'CONFIGURATION.ADD_EDIT_ACCES_USER_PAGE_MODULE.FORM.CHK_STATUS' | translate }}</mat-checkbox>
                                                 </div>
 
                                             </form>
@@ -144,7 +144,7 @@
                                         <div class="articulo__contenedor__body__next__list__header">
 
                                             <div class="articulo__contenedor__body__next__list__header__prev" >
-                                                <p class="articulo__contenedor__body__next__list__header__titulo">Lista de Pantallas</p>
+                                                <p class="articulo__contenedor__body__next__list__header__titulo">{{ 'CONFIGURATION.ADD_EDIT_ACCES_USER_PAGE_MODULE.TITLE_SCREENS' | translate }}</p>
                                             </div>
 
                                             <div class="articulo__contenedor__body__next__list__header__next" > </div>
@@ -159,11 +159,11 @@
                                                         <tr>
                                                             <th style="width: 5%"></th>
 
-                                                            <th style="width: 8%">Código</th>
-                                                            <th style="width: 15%">Nombre</th>
-                                                            <th style="width: 8%">Estado</th>
-                                                            <th style="width: 10%">Modificado</th>
-                                                            <th style="width: 10%">Se actualizó</th>
+                                                            <th style="width: 8%">{{ 'CONFIGURATION.ADD_EDIT_ACCES_USER_PAGE_MODULE.TABLE.CODE' | translate }}</th>
+                                                            <th style="width: 15%">{{ 'CONFIGURATION.ADD_EDIT_ACCES_USER_PAGE_MODULE.TABLE.NAME' | translate }}</th>
+                                                            <th style="width: 8%">{{ 'CONFIGURATION.ADD_EDIT_ACCES_USER_PAGE_MODULE.TABLE.STATUS' | translate }}</th>
+                                                            <th style="width: 10%">{{ 'CONFIGURATION.ADD_EDIT_ACCES_USER_PAGE_MODULE.TABLE.MODIFIED' | translate }}</th>
+                                                            <th style="width: 10%">{{ 'CONFIGURATION.ADD_EDIT_ACCES_USER_PAGE_MODULE.TABLE.DATE_UPDATE' | translate }}</th>
                                                         </tr>
                                                     </thead>
                                                     <tbody>
@@ -216,7 +216,7 @@
                                         <div class="articulo__contenedor__body__prev__list__header">
 
                                             <div class="articulo__contenedor__body__prev__list__header__prev" >
-                                                <p class="articulo__contenedor__body__prev__list__header__titulo">Personas con Acceso a la Compañía</p>
+                                                <p class="articulo__contenedor__body__prev__list__header__titulo">{{ 'CONFIGURATION.ADD_EDIT_ACCES_USER_PAGE_MODULE.TITLE_GRANT_ACCES' | translate }}</p>
                                             </div>
 
                                             <div class="articulo__contenedor__body__prev__list__header__next" > </div>
@@ -230,10 +230,10 @@
                                                     <thead>
                                                         <tr>
 
-                                                            <th style="width: 20%">Identificación</th>
-                                                            <th style="width: 25%">Nombre</th>
-                                                            <th style="width: 30%">Correo</th>
-                                                            <th style="width: 20%">Estado</th>
+                                                            <th style="width: 20%">{{ 'CONFIGURATION.ADD_EDIT_ACCES_USER_PAGE_MODULE.TABLE.ID' | translate }}</th>
+                                                            <th style="width: 25%">{{ 'CONFIGURATION.ADD_EDIT_ACCES_USER_PAGE_MODULE.TABLE.NAME' | translate }}</th>
+                                                            <th style="width: 30%">{{ 'CONFIGURATION.ADD_EDIT_ACCES_USER_PAGE_MODULE.TABLE.EMAIL' | translate }}</th>
+                                                            <th style="width: 20%">{{ 'CONFIGURATION.ADD_EDIT_ACCES_USER_PAGE_MODULE.TABLE.STATUS' | translate }}</th>
                                                             <th style="width: 5%"></th>
                                                         </tr>
                                                     </thead>
@@ -275,7 +275,7 @@
                                         <div class="articulo__contenedor__body__prev__list__header">
 
                                             <div class="articulo__contenedor__body__prev__list__header__prev" >
-                                                <p class="articulo__contenedor__body__prev__list__header__titulo">Personas con Acceso a la Pantalla</p>
+                                                <p class="articulo__contenedor__body__prev__list__header__titulo">{{ 'CONFIGURATION.ADD_EDIT_ACCES_USER_PAGE_MODULE.TITLE_GRANT_ACCES_SCREEN' | translate }}</p>
                                             </div>
 
                                             <div class="articulo__contenedor__body__prev__list__header__next" > </div>
@@ -289,10 +289,10 @@
                                                     <thead>
                                                         <tr>
                                                             <th style="width: 5%"></th>
-                                                            <th style="width: 10%">Identificación</th>
-                                                            <th style="width: 20%">Nombre</th>
-                                                            <th style="width: 20%">Correo</th>
-                                                            <th style="width: 20%">Estado</th>
+                                                            <th style="width: 10%">{{ 'CONFIGURATION.ADD_EDIT_ACCES_USER_PAGE_MODULE.TABLE.ID' | translate }}</th>
+                                                            <th style="width: 20%">{{ 'CONFIGURATION.ADD_EDIT_ACCES_USER_PAGE_MODULE.TABLE.NAME' | translate }}</th>
+                                                            <th style="width: 20%">{{ 'CONFIGURATION.ADD_EDIT_ACCES_USER_PAGE_MODULE.TABLE.EMAIL' | translate }}</th>
+                                                            <th style="width: 20%">{{ 'CONFIGURATION.ADD_EDIT_ACCES_USER_PAGE_MODULE.TABLE.STATUS' | translate }}</th>
                                                         </tr>
                                                     </thead>
                                                     <tbody>
