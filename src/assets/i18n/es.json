@@ -53,7 +53,16 @@
             "TBL_NAME": "Nombre",
             "TBL_DESCRIPTION": "Descripción",
             "TBL_STATUS": "Estado Módulo",
-            "TBL_SCREENS": "Pantallas Activas"
+            "TBL_SCREENS": "Pantallas Activas",
+            "BUSINESS": {
+                "TITLE": "Módulos",
+                "SUBTITLE": "Asigne o elimine módulos en la Compañía.",
+                "SELECT_MODULE_ACTIVE": "Seleccione el módulo al que va a deshabilitar el acceso",
+                "SELECT_MODULE_INACTIVE": "Seleccione el módulo al que otorgará acceso en la compañía",
+                "TBL_ID": "Identificación",
+                "TBL_NAME": "Nombre",
+                "TBL_DESCRIPTION": "Descripción"
+            }
         },
         "ADMIN_PAGE_LIST_ROLES": {
             "TITLE": "Administración de Roles",

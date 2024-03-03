@@ -1,7 +1,7 @@
-<h1 style="color:#1A5276">Módulos </h1>
-<h4>Asigne o elimine módulos en la Compañía.</h4>
+<h1 style="color:#1A5276">{{ 'CONFIGURATION.ADMIN_PAGE_LIST_MODULES.BUSINESS.TITLE' | translate }}</h1>
+<h4>{{ 'CONFIGURATION.ADMIN_PAGE_LIST_MODULES.BUSINESS.SUBTITLE' | translate }}</h4>
 
-<a routerLink="{{HTTPListBusinessPage}}" class="btn btn-light mb-2 mr-3">Volver</a>
+<a routerLink="{{HTTPListBusinessPage}}" class="btn btn-light mb-2 mr-3">{{ 'GENERAL.BTN_BACK' | translate }}</a>
 
 <div class="card">
     <div class="card-body">
@@ -11,14 +11,14 @@
         <br>
         <div *ngIf="listModulesBusiness">
 
-            <h4 *ngIf="seleccionEmpresa" style="color:#1A5276">Seleccione el módulo al que va a deshabilitar el acceso</h4>
+            <h4 *ngIf="seleccionEmpresa" style="color:#1A5276">{{ 'CONFIGURATION.ADMIN_PAGE_LIST_MODULES.BUSINESS.SELECT_MODULE_ACTIVE' | translate }}</h4>
 
             <table class="table table-striped">
                 <thead>
                     <tr>
-                        <th style="width: 25%">Identificador</th>
-                        <th style="width: 25%">Nombre</th>
-                        <th style="width: 49%">Descripción</th>
+                        <th style="width: 25%">{{ 'CONFIGURATION.ADMIN_PAGE_LIST_MODULES.BUSINESS.TBL_ID' | translate }}</th>
+                        <th style="width: 25%">{{ 'CONFIGURATION.ADMIN_PAGE_LIST_MODULES.BUSINESS.TBL_NAME' | translate }}</th>
+                        <th style="width: 49%">{{ 'CONFIGURATION.ADMIN_PAGE_LIST_MODULES.BUSINESS.TBL_DESCRIPTION' | translate }}</th>
                         <th style="width: 1%"></th>
                     </tr>
                 </thead>
@@ -45,13 +45,13 @@
 
         <div *ngIf="listModulesSystem">
             <br>
-            <h4 *ngIf="seleccionEmpresa" style="color:#1A5276">Seleccione el módulo al que otorgará acceso en la compañía</h4>
+            <h4 *ngIf="seleccionEmpresa" style="color:#1A5276">{{ 'CONFIGURATION.ADMIN_PAGE_LIST_MODULES.BUSINESS.SELECT_MODULE_INACTIVE' | translate }}</h4>
             <table class="table table-striped">
                 <thead>
                     <tr>
-                        <th style="width: 25%">Identificador</th>
-                        <th style="width: 25%">Nombre</th>
-                        <th style="width: 49%">Descripción</th>
+                        <th style="width: 25%">{{ 'CONFIGURATION.ADMIN_PAGE_LIST_MODULES.BUSINESS.TBL_ID' | translate }}</th>
+                        <th style="width: 25%">{{ 'CONFIGURATION.ADMIN_PAGE_LIST_MODULES.BUSINESS.TBL_NAME' | translate }}</th>
+                        <th style="width: 49%">{{ 'CONFIGURATION.ADMIN_PAGE_LIST_MODULES.BUSINESS.TBL_DESCRIPTION' | translate }}</th>
                         <th style="width: 1%"></th>
                     </tr>
                 </thead>

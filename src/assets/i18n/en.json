@@ -53,7 +53,16 @@
             "TBL_NAME": "Name",
             "TBL_DESCRIPTION": "Description",
             "TBL_STATUS": "Module Status",
-            "TBL_SCREENS": "Active Screens"
+            "TBL_SCREENS": "Active Screens",
+            "BUSINESS": {
+                "TITLE": "Modules",
+                "SUBTITLE": "Assign or remove modules in the Company.",
+                "SELECT_MODULE_ACTIVE": "Select the module to which you will disable access",
+                "SELECT_MODULE_INACTIVE": "Select the module to which you will grant access in the company",
+                "TBL_ID": "Identification",
+                "TBL_NAME": "Name",
+                "TBL_DESCRIPTION": "Description"
+            }
         },
         "ADMIN_PAGE_LIST_ROLES": {
             "TITLE": "Role Administration",
