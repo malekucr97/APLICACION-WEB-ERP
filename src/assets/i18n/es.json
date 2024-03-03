@@ -85,7 +85,24 @@
                 "TXT_POSITION": "Puesto o Cargo",
                 "TXT_ROLE": "Rol de usuario"
             }
-        }
+        },
+        "ADD_EDIT_COMPANY": {
+            "TITLE": "Registrar",
+            "PARAMETERS_COMPANY": "Parámetros de la Empresa: {{nombreEmpresa}}",
+            "REGISTER_COMPANY": "Registro de Empresas",
+            "SELECT_COMPANY": "Empresa seleccionada",
+            "FORM": {
+                "TXT_ID": "Cédula Jurídica",
+                "TXT_NAME": "Nombre de la Empresa",
+                "CHK_POWER_BI": "Activar mantenimiento para Reportes Power BI",
+                "CHK_DEFAULT_SIZE": "Aplicar tamaño fijo en los nombres de los módulos",
+                "CHK_DEFAULT_EMAIL": "Utilizar como cuenta de correo por defecto",
+                "VALIDATE": {
+                    "NAME": "El nombre de la empresa es requerido",
+                    "ID": "La cédula jurídica de la empresa es requerida"
+                }
+            }
+        }        
     },
     "GENERAL": {
         "NAME_COMPANY": "INRA SOLUCIONES SOCIEDAD ANONIMA",

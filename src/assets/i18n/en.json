@@ -85,6 +85,23 @@
                 "TXT_POSITION": "Job Position",
                 "TXT_ROLE": "User Role"
             }
+        },
+        "ADD_EDIT_COMPANY": {
+            "TITLE": "Register",
+            "PARAMETERS_COMPANY": "Company Parameters: {{companyName}}",
+            "REGISTER_COMPANY": "Company Registration",
+            "SELECT_COMPANY": "Selected Company",
+            "FORM": {
+                "TXT_ID": "Legal ID",
+                "TXT_NAME": "Company Name",
+                "CHK_POWER_BI": "Activate maintenance for Power BI Reports",
+                "CHK_DEFAULT_SIZE": "Apply fixed size to module names",
+                "CHK_DEFAULT_EMAIL": "Use as default email account",
+                "VALIDATE": {
+                    "NAME": "The company name is required",
+                    "ID": "The company's legal ID is required"
+                }
+            }
         }        
     },
     "GENERAL": {
