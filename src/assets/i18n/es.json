@@ -157,7 +157,33 @@
                 "BTN_PERMIT_ACCESS": "Permitir acceso",
                 "BTN_DENY_ACCESS": "Quitar acceso"
             }
-        }        
+        },
+        "ADD_EDIT_ROLE": {
+            "TITLE": "Registrar rol",
+            "SUBTITLE":"Formulario de Registro de Roles del Sistema",
+            "FORM": {
+                "TXT_ID": "Identificación",
+                "TXT_NAME": "Nombre o Asignación",
+                "TXT_DESCRIPTION": "Descripción del Rol",
+                "TXT_ADMIN": "Es administrador",
+                "TXT_STATUS": "Estado del Rol",
+                "TXT_KIND": "Tipo de Permisos"
+            }
+        },
+        "ADD_EDIT_ROLE_USER": {
+            "TITLE": "Roles de compañía",
+            "SUBTITLE": "Asigne el Rol al Usuario Seleccionado",
+            "BTN_DELETE_ROLE": "Eliminar Rol",
+            "TABLE": {
+                "NAME": "Nombre",
+                "DESCRIPTION": "Descripción",
+                "STATUS": "Estado",
+                "KIND": "Tipo"
+            },
+            "VALIDATION": {
+                "ROLE_NOT_ASSIGNED": "Rol de usuario no asignado"
+            }
+        }  
     },
     "GENERAL": {
         "NAME_COMPANY": "INRA SOLUCIONES SOCIEDAD ANONIMA",
