@@ -19,7 +19,7 @@ import {LocationStrategy, HashLocationStrategy} from '@angular/common';
 import { TranslateComponent } from './_components/translate/translate.component';
 import { MatSelectModule } from '@angular/material/select';
 
-import { TranslateModule, TranslateLoader, TranslateService } from '@ngx-translate/core';
+import { TranslateModule, TranslateLoader } from '@ngx-translate/core';
 import { TranslateHttpLoader } from '@ngx-translate/http-loader';
 import { HttpClient } from '@angular/common/http';;
 import { FooterComponent } from './_components/footer/footer.component'

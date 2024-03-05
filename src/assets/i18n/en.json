@@ -7,7 +7,7 @@
         "VALIDATES": {
             "USERNAME": "Username is required",
             "PASSWORD": "Password is required",
-            "FAIL_LOGIN": "Login failed, attempt number: {{intentosFallidosInicioSesion}} of 3"
+            "FAIL_LOGIN": "Login failed, attempt number: {{intentosFallidosInicioSesion}} of 3" 
         },
         "RIGHTS": "Soluciones INRA - BANKAP - © All rights reserved {{year}}"
     },
@@ -213,5 +213,19 @@
             "PASSWORD":"Password is required",
             "PASSWORD_MIN":"Password must be at least {MIN} characters long"
         }
+    },
+    "ALERTS": {
+        "USER_NOT_REGISTERED": "The user is not registered",
+        "PASSWORD_ERROR": "The password is not correct",
+        "WITHOUT_RESULTS": "No results",
+        "EXCEPTION_NOT_CONTROLLED": "An uncontrolled exception occurred",
+        "ERROR_CATCH": "Problems getting response from the Server. Please contact the administrator. {{ERROR}}",
+        "NO_COMPANY_RECORDS": "No company records found at the moment",
+        "ERROR_LIST_COMPANIES": "Problems with the list of companies for the assignment of the selected user. {{ERROR}}",
+        "CONNECTION_ERROR": "Connection problems. {{ERROR}}",
+        "USER_ASSIGNED": "The user is already assigned"
+    },
+    "DIALOGS":{
+        "DELETE_MODULE_TO_SCREEN": "Are you sure you want delete the record?"
     }
 }

@@ -7,7 +7,7 @@
         "VALIDATES": {
             "USERNAME": "El nombre de usuario es requerido",
             "PASSWORD": "La contraseña es requerida",
-            "FAIL_LOGIN": "Inicio fallido, intento número: {{intentosFallidosInicioSesion}} de 3"            
+            "FAIL_LOGIN": "Inicio fallido, intento número: {{intentosFallidosInicioSesion}} de 3"
         },
         "RIGHTS": "Soluciones INRA - BANKAP - © Derechos reservados {{year}}"
     },
@@ -213,5 +213,19 @@
             "PASSWORD":"La contraseña es requerida",
             "PASSWORD_MIN":"La contraseña debe tener al menos {MIN} caracteres"
         }
+    },
+    "ALERTS": {
+        "USER_NOT_REGISTERED": "El usuario no se encuentra registrado",
+        "PASSWORD_ERROR": "La contraseña ingresada no es correcta",
+        "WITHOUT_RESULTS": "Sin resultados",
+        "EXCEPTION_NOT_CONTROLLED": "Excepción no controlada",
+        "ERROR_CATCH": "Problemas al obtener respuesta del Servidor. Por favor contacte al administrador. {{ERROR}}",
+        "NO_COMPANY_RECORDS": "No se encontraron registros de empresas por el momento",
+        "ERROR_LIST_COMPANIES": "Problemas al consultar la lista de compañías para la asignación del usuario seleccionado. {{ERROR}}",
+        "CONNECTION_ERROR": "Problemas de conexión. {{ERROR}}",
+        "USER_ASSIGNED": "El usuario ya se encuentra asignado"
+    },
+    "DIALOGS":{
+        "DELETE_MODULE_TO_SCREEN": "Segur@ que desea eliminar el registro para siempre?"
     }
 }
