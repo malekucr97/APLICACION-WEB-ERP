@@ -183,7 +183,22 @@
             "VALIDATION": {
                 "ROLE_NOT_ASSIGNED": "Rol de usuario no asignado"
             }
-        }  
+        },
+        "ADD_EDIT_BUSINESS_USER": {
+            "TITLE": "Compañías del Sistema",
+            "LIST_COMPANIES_ACCES": "Lista de Compañías Con Acceso",
+            "LIST_COMPANIES_NOT_ACCES": "Lista de Compañías Sin Acceso",
+            "BTN_DELETE_ROLE": "Eliminar Acceso de TODAS las Empresas",
+            "TABLE": {
+                "ID": "Identificación",
+                "NAME": "Nombre de la Compañía",
+                "EMAIL": "Correo Electrónico",
+                "PHONE": "Número de Teléfono"
+            },
+            "VALIDATION": {
+                "ROLE_NOT_ASSIGNED": "Rol de usuario no asignado"
+            }
+        } 
     },
     "GENERAL": {
         "NAME_COMPANY": "INRA SOLUCIONES SOCIEDAD ANONIMA",
