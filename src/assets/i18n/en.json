@@ -1,231 +1,265 @@
 {
-    "HOME": {
-        "USERNAME": "Username",
-        "PASSWORD": "Password",
-        "REMEMBER": "Remember",
-        "LOGIN": "Login",
-        "VALIDATES": {
-            "USERNAME": "Username is required",
-            "PASSWORD": "Password is required",
-            "FAIL_LOGIN": "Login failed, attempt number: {{intentosFallidosInicioSesion}} of 3" 
-        },
-        "RIGHTS": "Soluciones INRA - BANKAP - © All rights reserved {{year}}"
+  "HOME": {
+    "USERNAME": "Username",
+    "PASSWORD": "Password",
+    "REMEMBER": "Remember",
+    "LOGIN": "Login",
+    "VALIDATES": {
+      "USERNAME": "Username is required",
+      "PASSWORD": "Password is required",
+      "FAIL_LOGIN": "Login failed, attempt number: {{intentosFallidosInicioSesion}} of 3"
     },
-    "INIT": {
-        "NAME": "Business Management System",
-        "SEARCH": "Search"
+    "RIGHTS": "Soluciones INRA - BANKAP - © All rights reserved {{year}}"
+  },
+  "INIT": {
+    "NAME": "Business Management System",
+    "SEARCH": "Search"
+  },
+  "CONFIGURATION": {
+    "TITLE": "Internal System Administration",
+    "WELCOME": "Welcome!",
+    "USER_PARAMETERS": "User parameters",
+    "MODULES_SISTEM_ADMIN": "System Administration Modules",
+    "BTN_UPDATE_INFORMATION": "Update information",
+    "BTN_ADMIN_USERS": "Users administration",
+    "BTN_ADMIN_COMPANIES": "Companies administration",
+    "BTN_ADMIN_MODULES": "Module administration",
+    "BTN_ADMIN_ROLES": "Role administration",
+    "ADMIN_PAGE_LIST_USERS": {
+      "TITLE": "User Administration",
+      "SUBTITLE": "List of users registered in the system",
+      "TBL_ID": "ID",
+      "TBL_USERNAME": "Name",
+      "TBL_EMAIL": "Email",
+      "TBL_ROL": "Role",
+      "TBL_STATUS": "Status",
+      "TBL_BTN_COMPANY": "Company",
+      "TBL_BTN_ROLE": "Role"
     },
-    "CONFIGURATION": {
-        "TITLE": "Internal System Administration",	
-        "WELCOME": "Welcome!",
-        "USER_PARAMETERS": "User parameters",
-        "MODULES_SISTEM_ADMIN": "System Administration Modules",
-        "BTN_UPDATE_INFORMATION": "Update information",
-        "BTN_ADMIN_USERS": "Users administration",
-        "BTN_ADMIN_COMPANIES": "Companies administration",
-        "BTN_ADMIN_MODULES": "Module administration",
-        "BTN_ADMIN_ROLES": "Role administration",
-        "ADMIN_PAGE_LIST_USERS": {
-            "TITLE": "User Administration",
-            "SUBTITLE": "List of users registered in the system",
-            "TBL_ID": "ID",
-            "TBL_USERNAME": "Name",
-            "TBL_EMAIL": "Email",
-            "TBL_ROL": "Role",
-            "TBL_STATUS": "Status",
-            "TBL_BTN_COMPANY": "Company",
-            "TBL_BTN_ROLE": "Role"
-        },
-        "ADMIN_PAGE_LIST_COMPANIES": {
-            "TITLE": "Company Administration",
-            "SUBTITLE": "List of companies registered in the system",
-            "TBL_ID": "ID",
-            "TBL_USERNAME": "Company Name",
-            "TBL_EMAIL": "Email",
-            "TBL_PHONE": "Phone Number",
-            "TBL_POWER_BI": "Power BI"
-        },
-        "ADMIN_PAGE_LIST_MODULES": {
-            "TITLE": "Module Administration",
-            "SUBTITLE": "Update the Status or Review the Screens with Access.",
-            "TITLE_MANTEINANCE_TO": "Maintenance to {{namepg}}",
-            "TITLE_LIST_MANTEINANCE_TO": "List of {{namepg}} of the company",
-            "TITLE_MANTEINANCE_FOR": "Maintenance for {{company}}",
-            "BTN_MANTEINANCE_POWER_BI": "Power BI reports configuration",
-            "TBL_ID": "Identification",
-            "TBL_NAME": "Name",
-            "TBL_DESCRIPTION": "Description",
-            "TBL_IMAGE": "Image",
-            "TBL_STATUS": "Module Status",
-            "TBL_SCREENS": "Active Screens",
-            "FORM": {
-                "TXT_ID": "Identification",
-                "TXT_NAME": "Name",
-                "TXT_DESCRIPTION": "Description",
-                "TXT_IMAGE": "Image path"
-            },
-            "BUSINESS": {
-                "TITLE": "Modules",
-                "SUBTITLE": "Assign or remove modules in the Company.",
-                "SELECT_MODULE_ACTIVE": "Select the module to which you will disable access",
-                "SELECT_MODULE_INACTIVE": "Select the module to which you will grant access in the company",
-                "TBL_ID": "Identification",
-                "TBL_NAME": "Name",
-                "TBL_DESCRIPTION": "Description"
-            }
-        },
-        "ADMIN_PAGE_LIST_ROLES": {
-            "TITLE": "Role Administration",
-            "SUBTITLE": "Update the Status or Review the Modules with Access.",
-            "TBL_DESCRIPTION": "Description",
-            "TBL_STATUS": "Status",
-            "TBL_KIND": "Type",
-            "TBL_BTN_STATUS_MODULE": "Role Status",
-            "TBL_BTN_MODULE": "Active Modules"
-        },
-        "ADD_EDIT_USER": {
-            "TITLE": "User Parameterization",
-            "PARAMETERS_USER": "User Parameters: {{nombreCompleto}}",
-            "REGISTER_USER": "User Registration",
-            "SELECT_USER": "Selected User",
-            "TABLE": {
-                "ID": "ID",
-                "USERNAME": "Full Name",
-                "EMAIL": "Email",
-                "POSITION": "Job Position",
-                "ROLE": "Assigned Role"
-            },
-            "FORM": {
-                "TXT_ID": "ID",
-                "TXT_USERNAME": "Full Name",	
-                "TXT_EMAIL": "Email",
-                "TXT_PHONE": "Phone",
-                "TXT_PASSWORD": "Password",
-                "TXT_POSITION": "Job Position",
-                "TXT_ROLE": "User Role"
-            }
-        },
-        "ADD_EDIT_COMPANY": {
-            "TITLE": "Register",
-            "PARAMETERS_COMPANY": "Company Parameters: {{companyName}}",
-            "REGISTER_COMPANY": "Company Registration",
-            "SELECT_COMPANY": "Selected Company",
-            "FORM": {
-                "TXT_ID": "Legal ID",
-                "TXT_NAME": "Company Name",
-                "CHK_POWER_BI": "Activate maintenance for Power BI Reports",
-                "CHK_DEFAULT_SIZE": "Apply fixed size to module names",
-                "CHK_DEFAULT_EMAIL": "Use as default email account",
-                "VALIDATE": {
-                    "NAME": "The company name is required",
-                    "ID": "The company's legal ID is required"
-                }
-            }
-        },
-        "ADD_EDIT_ACCES_USER_PAGE_MODULE": {
-            "SUBTITLE": "Module Administration / Screen Administration by Module and Screen Access by User",
-            "SELECT_SCREEN": "The selected screen belongs to the module",
-            "TITLE_SCREENS_MAINTENANCE": "Screens Maintenance",
-            "TITLE_GRANT_ACCES": "People with Access to the Company",
-            "TITLE_GRANT_ACCES_SCREEN": "People with Access to the Screen",
-            "TITLE_SCREENS": "List of Screens",
-            "TABLE": {
-                "ID": "Identification",
-                "CODE": "Code",
-                "NAME": "Name",
-                "EMAIL": "Email",
-                "STATUS": "Status",
-                "MODIFIED": "Modified",
-                "DATE_UPDATE": "Updated"
-            },
-            "FORM":{
-                "TXT_ID": "Id",
-                "TXT_CODE": "Code",
-                "TXT_NAME": "Name",
-                "TXT_PATH_URL": "External URL (optional)",
-                "CHK_STATUS": "Status"
-            }
-        },
-        "ADD_MODULES_ROLE": {
-            "TITLE":"Company Modules",
-            "MODULES_PERMITTED": "Has access to the following Modules",
-            "MODULES_NOT_PERMITTED": "Does not have access to the following Modules",
-            "TABLE": {
-                "NAME": "Name",
-                "DESCRIPTION": "Description",
-                "STATUS": "Status",
-                "BTN_PERMIT_ACCESS": "Allow access",
-                "BTN_DENY_ACCESS": "Remove access"
-            }
-        },
-        "ADD_EDIT_ROLE": {
-            "TITLE": "Register Role",
-            "SUBTITLE":"System Role Registration Form",
-            "FORM": {
-                "TXT_ID": "Identification",
-                "TXT_NAME": "Name or Assignment",
-                "TXT_DESCRIPTION": "Role Description",
-                "TXT_ADMIN": "Is Administrator",
-                "TXT_STATUS": "Role Status",
-                "TXT_KIND": "Type of Permissions"
-            }
-        },
-        "ADD_EDIT_ROLE_USER": {
-            "TITLE": "Company Roles",
-            "SUBTITLE": "Assign the Role to the Selected User",
-            "BTN_DELETE_ROLE": "Delete Role",
-            "TABLE": {
-                "NAME": "Name",
-                "DESCRIPTION": "Description",
-                "STATUS": "Status",
-                "KIND": "Type"
-            },
-            "VALIDATION": {
-                "ROLE_NOT_ASSIGNED": "User role not assigned"
-            }
-        },
-        "ADD_EDIT_BUSINESS_USER": {
-            "TITLE": "System Companies",
-            "LIST_COMPANIES_ACCES": "List of Companies with Access",
-            "LIST_COMPANIES_NOT_ACCES": "List of Companies without Access",
-            "BTN_DELETE_ROLE": "Remove Access from ALL Companies",
-            "TABLE": {
-                "ID": "Identification",
-                "NAME": "Company Name",
-                "EMAIL": "Email",
-                "PHONE": "Phone Number"
-            },
-            "VALIDATION": {
-                "ROLE_NOT_ASSIGNED": "User role not assigned"
-            }
-        }       
+    "ADMIN_PAGE_LIST_COMPANIES": {
+      "TITLE": "Company Administration",
+      "SUBTITLE": "List of companies registered in the system",
+      "TBL_ID": "ID",
+      "TBL_USERNAME": "Company Name",
+      "TBL_EMAIL": "Email",
+      "TBL_PHONE": "Phone Number",
+      "TBL_POWER_BI": "Power BI"
     },
-    "GENERAL": {
-        "NAME_COMPANY": "INRA SOLUCIONES SOCIEDAD ANONIMA",
-        "BTN_NEW": "New",
-        "BTN_BACK": "Back",
-        "BTN_UPDATE": "Update",
-        "BTN_REGISTER": "Save",
-        "BTN_DELETE": "Delete",
-        "VALIDATES": {
-            "EMPTY": "The field is required",
-            "REGEX": "Doesn't comply with the regex safety rule",
-            "PASSWORD":"Password is required",
-            "PASSWORD_MIN":"Password must be at least {MIN} characters long"
+    "ADMIN_PAGE_LIST_MODULES": {
+      "TITLE": "Module Administration",
+      "SUBTITLE": "Update the Status or Review the Screens with Access.",
+      "TITLE_MANTEINANCE_TO": "Maintenance to {{namepg}}",
+      "TITLE_LIST_MANTEINANCE_TO": "List of {{namepg}} of the company",
+      "TITLE_MANTEINANCE_FOR": "Maintenance for {{company}}",
+      "BTN_MANTEINANCE_POWER_BI": "Power BI reports configuration",
+      "TBL_ID": "Identification",
+      "TBL_NAME": "Name",
+      "TBL_DESCRIPTION": "Description",
+      "TBL_IMAGE": "Image",
+      "TBL_STATUS": "Module Status",
+      "TBL_SCREENS": "Active Screens",
+      "FORM": {
+        "TXT_ID": "Identification",
+        "TXT_NAME": "Name",
+        "TXT_DESCRIPTION": "Description",
+        "TXT_IMAGE": "Image path"
+      },
+      "BUSINESS": {
+        "TITLE": "Modules",
+        "SUBTITLE": "Assign or remove modules in the Company.",
+        "SELECT_MODULE_ACTIVE": "Select the module to which you will disable access",
+        "SELECT_MODULE_INACTIVE": "Select the module to which you will grant access in the company",
+        "TBL_ID": "Identification",
+        "TBL_NAME": "Name",
+        "TBL_DESCRIPTION": "Description"
+      }
+    },
+    "ADMIN_PAGE_LIST_ROLES": {
+      "TITLE": "Role Administration",
+      "SUBTITLE": "Update the Status or Review the Modules with Access.",
+      "TBL_DESCRIPTION": "Description",
+      "TBL_STATUS": "Status",
+      "TBL_KIND": "Type",
+      "TBL_BTN_STATUS_MODULE": "Role Status",
+      "TBL_BTN_MODULE": "Active Modules"
+    },
+    "ADD_EDIT_USER": {
+      "TITLE": "User Parameterization",
+      "PARAMETERS_USER": "User Parameters: {{nombreCompleto}}",
+      "REGISTER_USER": "User Registration",
+      "SELECT_USER": "Selected User",
+      "TABLE": {
+        "ID": "ID",
+        "USERNAME": "Full Name",
+        "EMAIL": "Email",
+        "POSITION": "Job Position",
+        "ROLE": "Assigned Role"
+      },
+      "FORM": {
+        "TXT_ID": "ID",
+        "TXT_USERNAME": "Full Name",
+        "TXT_EMAIL": "Email",
+        "TXT_PHONE": "Phone",
+        "TXT_PASSWORD": "Password",
+        "TXT_POSITION": "Job Position",
+        "TXT_ROLE": "User Role"
+      }
+    },
+    "ADD_EDIT_COMPANY": {
+      "TITLE": "Register",
+      "PARAMETERS_COMPANY": "Company Parameters: {{companyName}}",
+      "REGISTER_COMPANY": "Company Registration",
+      "SELECT_COMPANY": "Selected Company",
+      "FORM": {
+        "TXT_ID": "Legal ID",
+        "TXT_NAME": "Company Name",
+        "CHK_POWER_BI": "Activate maintenance for Power BI Reports",
+        "CHK_DEFAULT_SIZE": "Apply fixed size to module names",
+        "CHK_DEFAULT_EMAIL": "Use as default email account",
+        "VALIDATE": {
+          "NAME": "The company name is required",
+          "ID": "The company's legal ID is required"
         }
+      }
     },
-    "ALERTS": {
-        "USER_NOT_REGISTERED": "The user is not registered",
-        "PASSWORD_ERROR": "The password is not correct",
-        "WITHOUT_RESULTS": "No results",
-        "EXCEPTION_NOT_CONTROLLED": "An uncontrolled exception occurred",
-        "ERROR_CATCH": "Problems getting response from the Server. Please contact the administrator. {{ERROR}}",
-        "NO_COMPANY_RECORDS": "No company records found at the moment",
-        "ERROR_LIST_COMPANIES": "Problems with the list of companies for the assignment of the selected user. {{ERROR}}",
-        "CONNECTION_ERROR": "Connection problems. {{ERROR}}",
-        "USER_ASSIGNED": "The user is already assigned"
+    "ADD_EDIT_ACCES_USER_PAGE_MODULE": {
+      "SUBTITLE": "Module Administration / Screen Administration by Module and Screen Access by User",
+      "SELECT_SCREEN": "The selected screen belongs to the module",
+      "TITLE_SCREENS_MAINTENANCE": "Screens Maintenance",
+      "TITLE_GRANT_ACCES": "People with Access to the Company",
+      "TITLE_GRANT_ACCES_SCREEN": "People with Access to the Screen",
+      "TITLE_SCREENS": "List of Screens",
+      "TABLE": {
+        "ID": "Identification",
+        "CODE": "Code",
+        "NAME": "Name",
+        "EMAIL": "Email",
+        "STATUS": "Status",
+        "MODIFIED": "Modified",
+        "DATE_UPDATE": "Updated"
+      },
+      "FORM": {
+        "TXT_ID": "Id",
+        "TXT_CODE": "Code",
+        "TXT_NAME": "Name",
+        "TXT_PATH_URL": "External URL (optional)",
+        "CHK_STATUS": "Status"
+      }
     },
-    "DIALOGS":{
-        "DELETE_MODULE_TO_SCREEN": "Are you sure you want delete the record?"
+    "ADD_MODULES_ROLE": {
+      "TITLE": "Company Modules",
+      "MODULES_PERMITTED": "Has access to the following Modules",
+      "MODULES_NOT_PERMITTED": "Does not have access to the following Modules",
+      "TABLE": {
+        "NAME": "Name",
+        "DESCRIPTION": "Description",
+        "STATUS": "Status",
+        "BTN_PERMIT_ACCESS": "Allow access",
+        "BTN_DENY_ACCESS": "Remove access"
+      }
+    },
+    "ADD_EDIT_ROLE": {
+      "TITLE": "Register Role",
+      "SUBTITLE": "System Role Registration Form",
+      "FORM": {
+        "TXT_ID": "Identification",
+        "TXT_NAME": "Name or Assignment",
+        "TXT_DESCRIPTION": "Role Description",
+        "TXT_ADMIN": "Is Administrator",
+        "TXT_STATUS": "Role Status",
+        "TXT_KIND": "Type of Permissions"
+      }
+    },
+    "ADD_EDIT_ROLE_USER": {
+      "TITLE": "Company Roles",
+      "SUBTITLE": "Assign the Role to the Selected User",
+      "BTN_DELETE_ROLE": "Delete Role",
+      "TABLE": {
+        "NAME": "Name",
+        "DESCRIPTION": "Description",
+        "STATUS": "Status",
+        "KIND": "Type"
+      },
+      "VALIDATION": {
+        "ROLE_NOT_ASSIGNED": "User role not assigned"
+      }
+    },
+    "ADD_EDIT_BUSINESS_USER": {
+      "TITLE": "System Companies",
+      "LIST_COMPANIES_ACCES": "List of Companies with Access",
+      "LIST_COMPANIES_NOT_ACCES": "List of Companies without Access",
+      "BTN_DELETE_ROLE": "Remove Access from ALL Companies",
+      "TABLE": {
+        "ID": "Identification",
+        "NAME": "Company Name",
+        "EMAIL": "Email",
+        "PHONE": "Phone Number"
+      },
+      "VALIDATION": {
+        "ROLE_NOT_ASSIGNED": "User role not assigned"
+      }
     }
+  },
+  "MODULES": {
+    "GENERAL": {
+      "TITLE": "{{DESC}} / Company Parameters {{NM}}",
+      "SUBTITLE": "Company Parameterization",
+      "TITLE_LIST": "Company Parameterization List",
+      "TABLE": {
+        "TABLE_HEADER_NAME": "Name",
+        "TABLE_HEADER_LEGAL_ID": "Legal ID",
+        "TABLE_HEADER_EMAIL": "Email",
+        "TABLE_HEADER_ADDRESS_DETAIL": "Address Detail",
+        "TABLE_HEADER_PHONE": "Phone",
+        "TABLE_HEADER_UPDATED": "Updated",
+        "TABLE_HEADER_DATE": "Date"
+      },
+      "FORM": {
+        "TYPE_IDENTIFICATION": "Identification Type",
+        "IDENTIFICATION": "Identification",
+        "COMPANY_NAME": "Company Name",
+        "COUNTRY_CODE": "Country Code",
+        "PROVINCE": "Province",
+        "CANTON": "Canton",
+        "DISTRICT": "District",
+        "NEIGHBORHOOD": "Neighborhood",
+        "ADDRESS_DETAIL": "Address Detail",
+        "AREA_CODE_PHONE": "Area Code Phone",
+        "PHONE": "Phone",
+        "EMAIL": "Email",
+        "PASSWORD": "Password",
+        "EMAIL_PROVIDER_HOST": "Email Provider Host",
+        "PORT": "Port",
+        "SSL_STATUS": "SSL Status"
+      }
+    }
+  },
+  "GENERAL": {
+    "NAME_COMPANY": "INRA SOLUCIONES SOCIEDAD ANONIMA",
+    "BTN_NEW": "New",
+    "BTN_BACK": "Back",
+    "BTN_UPDATE": "Update",
+    "BTN_REGISTER": "Save",
+    "BTN_DELETE": "Delete",
+    "VALIDATES": {
+      "EMPTY": "The field is required",
+      "REGEX": "Doesn't comply with the regex safety rule",
+      "PASSWORD": "Password is required",
+      "PASSWORD_MIN": "Password must be at least {MIN} characters long"
+    }
+  },
+  "ALERTS": {
+    "USER_NOT_REGISTERED": "The user is not registered",
+    "PASSWORD_ERROR": "The password is not correct",
+    "WITHOUT_RESULTS": "No results",
+    "EXCEPTION_NOT_CONTROLLED": "An uncontrolled exception occurred",
+    "ERROR_CATCH": "Problems getting response from the Server. Please contact the administrator. {{ERROR}}",
+    "NO_COMPANY_RECORDS": "No company records found at the moment",
+    "ERROR_LIST_COMPANIES": "Problems with the list of companies for the assignment of the selected user. {{ERROR}}",
+    "CONNECTION_ERROR": "Connection problems. {{ERROR}}",
+    "USER_ASSIGNED": "The user is already assigned"
+  },
+  "DIALOGS": {
+    "DELETE_MODULE_TO_SCREEN": "Are you sure you want delete the record?"
+  }
 }
