@@ -232,6 +232,46 @@
         "PORT": "Puerto",
         "SSL_STATUS": "Estado del SSL"
       }
+    },
+    "GENERAL_TIPO_CAMBIO": {
+        "TITLE": "{{NM}} / Mantenimiento de Tipo de Cambio",
+        "CURRENCY_TYPE": "Tipo de Moneda",
+        "LIST_TYPE_CURRENCY": "Lista de Tipos de Moneda",
+        "CURRENT_ECHANGE_RATE": "Tipo de Cambio de Moneda",
+        "LIST_CURRENCT_ECHANGE_RATE": "Listado de Tipos de Cambio de la Moneda",
+        "FORM":{
+          "Id": "Id",
+          "InternalCode": "Código Interno",
+          "CurrencyCodeRequired": "El código de la moneda es requerido",
+          "Character": "Caracter",
+          "CurrencySymbolRequired": "El símbolo de la moneda es requerido",
+          "Description": "Descripción",
+          "CurrencyDescriptionRequired": "La descripción de la moneda es requerida",
+          "BCCRPurchase": "BCCR ICompra",
+          "PurchaseIndicatorRequired": "El indicador de la compra del bccr es requerido",
+          "BCCRSale": "BCCR IVenta",
+          "SaleIndicatorRequired": "El indicador de la venta del bccr es requerido",
+          "Status": "Estado",
+          "Currency": "Moneda",
+          "QueryDate": "Fecha de Consulta",
+          "Purchase": "Compra",
+          "Sale": "Venta",
+          "CurrencyTypeIsRequired": "El Tipo de Moneda es requerido",
+          "PurchaseIsRequired": "La compra es requerida",
+          "FirstAliasIsRequired": "El primer alias es requerido"
+      },
+      "TABLE": {
+        "Symbol": "Símbolo",
+        "Description": "Descripción",
+        "BCCR_ICompra": "BCCR ICompra",
+        "BCCR_IVenta": "BCCR IVenta",
+        "Status": "Estado",
+        "Modified": "Modificado",
+        "Updated": "Se actualizó",
+        "QueryDate": "Fecha de Consulta",
+        "SaleAmount": "Monto de Venta",
+        "PurchaseAmount": "Monto de Compra"
+      }
     }
   },
   "GENERAL": {
@@ -241,6 +281,7 @@
     "BTN_UPDATE": "Actualizar",
     "BTN_REGISTER": "Registrar",
     "BTN_DELETE": "Eliminar",
+    "BTN_CORRENCY_RATE": "Consultar Tipo de Cambio BCCR",
     "VALIDATES": {
       "EMPTY": "El campo es requerido",
       "REGEX": "No cumple con la regla regex de seguridad",
@@ -261,5 +302,12 @@
   },
   "DIALOGS": {
     "DELETE_MODULE_TO_SCREEN": "Segur@ que desea eliminar el registro para siempre?"
+  }, 
+  "MENU": {
+    "GENERAL":{
+      "PARAMETERS": "Parámetros",
+      "COMPANY": "Compañía",
+      "EXCHANGE_RATE": "Tipo de Cambio"
+    }
   }
 }

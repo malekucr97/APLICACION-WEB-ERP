@@ -232,6 +232,46 @@
         "PORT": "Port",
         "SSL_STATUS": "SSL Status"
       }
+    },
+    "GENERAL_TIPO_CAMBIO": {
+      "TITLE": "{{NM}} / Maintenance of Exchange Rate",
+      "CURRENCY_TYPE": "Currency Type",
+      "LIST_TYPE_CURRENCY": "List of Currency Types",
+      "CURRENT_ECHANGE_RATE": "Currency Exchange Rate",
+      "LIST_CURRENCT_ECHANGE_RATE": "List of Currency Exchange Rates",
+      "FORM":{
+          "Id": "Id",
+          "InternalCode": "Internal Code",
+          "CurrencyCodeRequired": "Currency code is required",
+          "Character": "Character",
+          "CurrencySymbolRequired": "Currency symbol is required",
+          "Description": "Description",
+          "CurrencyDescriptionRequired": "Currency description is required",
+          "BCCRPurchase": "BCCR Purchase",
+          "PurchaseIndicatorRequired": "BCCR purchase indicator is required",
+          "BCCRSale": "BCCR Sale",
+          "SaleIndicatorRequired": "BCCR sale indicator is required",
+          "Status": "Status",
+          "Currency": "Currency",
+          "QueryDate": "Query Date",
+          "Purchase": "Purchase",
+          "Sale": "Sale",
+          "CurrencyTypeIsRequired": "Currency Type is required",
+          "PurchaseIsRequired": "Purchase is required",
+          "FirstAliasIsRequired": "First alias is required"
+      },
+      "TABLE": {
+          "Symbol": "Symbol",
+          "Description": "Description",
+          "BCCR_ICompra": "BCCR Purchase",
+          "BCCR_IVenta": "BCCR Sale",
+          "Status": "Status",
+          "Modified": "Modified",
+          "Updated": "Updated",
+          "QueryDate": "Query Date",
+          "SaleAmount": "Sale Amount",
+          "PurchaseAmount": "Purchase Amount"
+      }
     }
   },
   "GENERAL": {
@@ -241,6 +281,7 @@
     "BTN_UPDATE": "Update",
     "BTN_REGISTER": "Save",
     "BTN_DELETE": "Delete",
+    "BTN_CORRENCY_RATE": "Check BCCR Exchange Rate",
     "VALIDATES": {
       "EMPTY": "The field is required",
       "REGEX": "Doesn't comply with the regex safety rule",
@@ -261,5 +302,12 @@
   },
   "DIALOGS": {
     "DELETE_MODULE_TO_SCREEN": "Are you sure you want delete the record?"
+  },
+  "MENU": {
+    "GENERAL":{
+      "PARAMETERS": "Parameters",
+      "COMPANY": "Company",
+      "EXCHANGE_RATE": "Exchange Rate"
+    }
   }
 }
