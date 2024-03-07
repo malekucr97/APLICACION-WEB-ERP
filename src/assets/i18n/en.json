@@ -275,12 +275,14 @@
     }
   },
   "GENERAL": {
+    "HI": "Hi",
     "NAME_COMPANY": "INRA SOLUCIONES SOCIEDAD ANONIMA",
     "BTN_NEW": "New",
     "BTN_BACK": "Back",
     "BTN_UPDATE": "Update",
     "BTN_REGISTER": "Save",
     "BTN_DELETE": "Delete",
+    "BTN_BACK_LOGIN": "Go to Login",
     "BTN_CORRENCY_RATE": "Check BCCR Exchange Rate",
     "VALIDATES": {
       "EMPTY": "The field is required",
@@ -298,7 +300,27 @@
     "NO_COMPANY_RECORDS": "No company records found at the moment",
     "ERROR_LIST_COMPANIES": "Problems with the list of companies for the assignment of the selected user. {{ERROR}}",
     "CONNECTION_ERROR": "Connection problems. {{ERROR}}",
-    "USER_ASSIGNED": "The user is already assigned"
+    "USER_ASSIGNED": "The user is already assigned",
+    "BLOCKED_USER": "Blocked user",
+    "ACTIVATION_USER": "Activation user",
+    "ACTIVATION_FOR_EMAIL": "Process to activate the account registered in the application, through email.",
+    "ACTIVATION_PROCCESS": "Activation Process",
+    "BLOCKED_USER_BY_PASSWORD": "The user was blocked for attempting to enter the password incorrectly the allowed number of times in the system.",
+    "BLOCKED_TUTORIAL": "Please contact the administrator and request account activation and password update for your user: {{identificacion}}",
+    "PENDING_ACTIVATION": "Pending Module Activation",
+    "ACTIVATION_TUTORIAL": "Please contact the administrator to request the activation of the corresponding modules for the company.",
+    "ROLE_INACTIVE": "The role is inactive",
+    "ROLE_INACTIVE_EXPLAIN": "For security reasons the role assigned to this user has been deactivated, Please contact the administrator.",
+    "USER_INACTIVE": "Inactive User",
+    "USER_INACTIVE_EXPLAIN": "Please contact the administrator to request account activation.",
+    "USER_PENDING_COMPANY_ASSIGNMENT": "User Pending Company Assignment",
+    "USER_PENDING_COMPANY_ASSIGNMENT_EXPLAIN": "Please contact the administrator to request assignment to a company.",
+    "USER_PENDING_ACTIVATION": "User Pending Activation",
+    "USER_PENDING_ACTIVATION_EXPLAIN": "Please check the email registered to your account: {{identificacion}}, you will find an attached link for account activation.",
+    "USER_PENDING_EMAIL_RECIVE": "If you have not received the email, select the button or contact the administrator.",
+    "USER_SEND_EMAIL": "resend email",
+    "USER_PENDING_ROLE_ASSIGNMENT": "User Pending Role Assignment",
+    "USER_PENDING_ROLE_ASSIGNMENT_EXPLAIN": "Please contact the administrator to request the assignment of the respective role in the system."
   },
   "DIALOGS": {
     "DELETE_MODULE_TO_SCREEN": "Are you sure you want delete the record?"

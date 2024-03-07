@@ -275,12 +275,14 @@
     }
   },
   "GENERAL": {
+    "HI": "Hola",
     "NAME_COMPANY": "INRA SOLUCIONES SOCIEDAD ANONIMA",
     "BTN_NEW": "Nuevo",
     "BTN_BACK": "Regresar",
     "BTN_UPDATE": "Actualizar",
     "BTN_REGISTER": "Registrar",
     "BTN_DELETE": "Eliminar",
+    "BTN_BACK_LOGIN": "Volver a Inicio de Sesión",
     "BTN_CORRENCY_RATE": "Consultar Tipo de Cambio BCCR",
     "VALIDATES": {
       "EMPTY": "El campo es requerido",
@@ -298,7 +300,28 @@
     "NO_COMPANY_RECORDS": "No se encontraron registros de empresas por el momento",
     "ERROR_LIST_COMPANIES": "Problemas al consultar la lista de compañías para la asignación del usuario seleccionado. {{ERROR}}",
     "CONNECTION_ERROR": "Problemas de conexión. {{ERROR}}",
-    "USER_ASSIGNED": "El usuario ya se encuentra asignado"
+    "USER_ASSIGNED": "El usuario ya se encuentra asignado",
+    "BLOCKED_USER": "Usuario Bloqueado",
+    "ACTIVATION_USER": "Activación de Usuario",
+    "ACTIVATION_FOR_EMAIL": "Proceso para activar la cuenta registrada en la aplicación, por medio del correo electónico.",
+    "ACTIVATION_PROCCESS": "Proceso de activación",
+    "BLOCKED_USER_BY_PASSWORD": "El usuario fue Bloqueado al intentar ingresar de forma incorrecta la contraseña la cantidad de veces permitidas en el sistema.",
+    "BLOCKED_TUTORIAL": "Por favor contacte al administrador y solicite la activación de la cuenta y la actualización de la contraseña para su usuario: {{identificacion}}",
+    "PENDING_ACTIVATION": "Pendiente de Activación de Módulos",
+    "ACTIVATION_TUTORIAL": "Por favor contacte al administrador para solicitar la activación de los módulos correspondientes a la compañía.",    
+    "ROLE_INACTIVE": "El rol se encuentra inactivo",
+    "ROLE_INACTIVE_EXPLAIN": "Por motivos de seguridad el rol asignado a este usuario fue inactivado, Por favor contacte al administrador.",
+    "USER_INACTIVE": "Usuario Inactivo",
+    "USER_INACTIVE_EXPLAIN": "Por favor contacte al administrador para solicitar la activación de la cuenta.",
+    "USER_PENDING_COMPANY_ASSIGNMENT": "Usuario Pendiente de Asignación Empresa",
+    "USER_PENDING_COMPANY_ASSIGNMENT_EXPLAIN": "Por favor contacte al administrador para solicitar la asignación a una empresa o sociedad.",
+    "USER_PENDING_ACTIVATION": "Usuario Pendiente de Activación",
+    "USER_PENDING_ACTIVATION_EXPLAIN": "Por favor revisar el correo electrónico registrado para su cuenta: {{identificacion}} , adjunto encontrará un link para la activación de la cuenta.",
+    "USER_PENDING_EMAIL_RECIVE": "Si no ha recibido el correo seleccione el botón o contacte al administrador. ",
+    "USER_SEND_EMAIL": "reenviar correo",
+    "USER_PENDING_ROLE_ASSIGNMENT": "Usuario Pendiente de Asignación de Rol",
+    "USER_PENDING_ROLE_ASSIGNMENT_EXPLAIN": "Por favor contacte al administrador para solicitar la asignación del rol respectivo en el sistema."
+
   },
   "DIALOGS": {
     "DELETE_MODULE_TO_SCREEN": "Segur@ que desea eliminar el registro para siempre?"
