@@ -1,0 +1,17 @@
+{
+  "locale": "en-US",
+  "translations": {
+    "5830993795694306586": "No se puede modificar el estado de la cuenta administradora del sistema",
+    "2876639712385010521": "Problemas al consultar el artículo 15. ' + {$PH}",
+    "8219164128388996272": "Está seguro que desea eliminar el riesgo de artículo 15  {$PH}",
+    "6386591933469065009": "aaDebe de registrar los Indicadores del tipo de cambio de Compra y Venta asignados por el BCCR a la moneda que corresponde.",
+    "2712349246571167231": "Moneda {$PH} registrada con éxito.",
+    "3232781939944878046": "No fue posible registrar la moneda .",
+    "1546150927289127584": "Problemas al establecer la conexión con el servidor. Detalle: {$PH}",
+    "6728495722209112184": "Registro exitoso .",
+    "7120025440548283354": "No fue posible realizar el registro .",
+    "1651471704255372114": "Segur@ que desea eliminar el registro para siempre ?",
+    "7363011826806604766": "No fue posible actualizar el registro .",
+    "4489680794802146352": "Registro actulizado con éxito ."
+  }
+}

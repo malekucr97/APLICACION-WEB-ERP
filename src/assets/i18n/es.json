@@ -320,8 +320,17 @@
     "USER_PENDING_EMAIL_RECIVE": "Si no ha recibido el correo seleccione el botón o contacte al administrador. ",
     "USER_SEND_EMAIL": "reenviar correo",
     "USER_PENDING_ROLE_ASSIGNMENT": "Usuario Pendiente de Asignación de Rol",
-    "USER_PENDING_ROLE_ASSIGNMENT_EXPLAIN": "Por favor contacte al administrador para solicitar la asignación del rol respectivo en el sistema."
-
+    "USER_PENDING_ROLE_ASSIGNMENT_EXPLAIN": "Por favor contacte al administrador para solcitar la asignación del rol respectivo en el sistema.",
+  
+    "noModulesAssigned": "Aún no hay Módulos asignados a la compañía: ",
+    "systemModuleQueryError": "Problemas al consultar los módulos del sistema.",
+    "adminAccessAllModules": "El Usuario Administrador tiene acceso a todos los módulos activos en la compañía: ",
+    "grantAccessError": "Problemas al otorgar acceso de rol al módulo de la compañía.",
+    "deleteAccessError": "Problemas al eliminar acceso de rol al módulo de la compañía.",   
+    "adminAccountModificationAlert": "No se puede modificar el estado de la cuenta administradora del sistema",
+    "adminPermissionChangeAlert": "No se puede cambiar el tipo de permisos de la cuenta administradora del sistema",
+    "companyNotRoleAssignment": "La compañía no tiene roles asignados"
+        
   },
   "DIALOGS": {
     "DELETE_MODULE_TO_SCREEN": "Segur@ que desea eliminar el registro para siempre?"

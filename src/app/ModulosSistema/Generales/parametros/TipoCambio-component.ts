@@ -154,7 +154,7 @@ export class TipoCambioComponent  extends OnSeguridad implements OnInit {
         if (isNaN(+bccrIndicadorVenta) == false && bccrIndicadorVenta > 0 && poseeIndicadoresBCCR) poseeIndicadoresBCCR = true ;
 
         if(!poseeIndicadoresBCCR){
-            this.alertService.error( `Debe de registrar los Indicadores del tipo de cambio de Compra y Venta asignados por el BCCR a la moneda que corresponde.` );
+            this.alertService.error( $localize`Debe de registrar los Indicadores del tipo de cambio de Compra y Venta asignados por el BCCR a la moneda que corresponde.` );
             return ;
         }
 
@@ -420,12 +420,12 @@ export class TipoCambioComponent  extends OnSeguridad implements OnInit {
 
                     this.inicializaFormTipoMoneda();
 
-                    this.alertService.success( `Moneda ${response.codigoMoneda} registrada con éxito.` );
+                    this.alertService.success($localize `Moneda ${response.codigoMoneda} registrada con éxito.` );
 
-                } else { this.alertService.error(`No fue posible registrar la moneda .`); }
+                } else { this.alertService.error($localize`No fue posible registrar la moneda .`); }
 
             }, error => {
-                this.alertService.error( `Problemas al establecer la conexión con el servidor. Detalle: ${ error }` );
+                this.alertService.error( $localize`Problemas al establecer la conexión con el servidor. Detalle: ${ error }` );
             });
     }
     submitFormTipoCambio() : void {
@@ -454,12 +454,12 @@ export class TipoCambioComponent  extends OnSeguridad implements OnInit {
 
                     this.habilitaListaTipoCambio = true ;
 
-                    this.alertService.success( `Registro exitoso .` );
+                    this.alertService.success( $localize`Registro exitoso .` );
 
-                } else { this.alertService.error(`No fue posible realizar el registro .`); }
+                } else { this.alertService.error($localize`No fue posible realizar el registro .`); }
 
             }, error => {
-                this.alertService.error( `Problemas al establecer la conexión con el servidor. Detalle: ${ error }` );
+                this.alertService.error( $localize`Problemas al establecer la conexión con el servidor. Detalle: ${ error }` );
             });
     }
 
@@ -473,7 +473,7 @@ export class TipoCambioComponent  extends OnSeguridad implements OnInit {
         var id : number = this.formTipoMoneda.controls['id'].value;
 
         this.dialogo.open(DialogoConfirmacionComponent, {
-            data: `Segur@ que desea eliminar el registro para siempre ?`
+            data: $localize`Segur@ que desea eliminar el registro para siempre ?`
         })
         .afterClosed()
         .subscribe((confirmado: Boolean) => {
@@ -509,7 +509,7 @@ export class TipoCambioComponent  extends OnSeguridad implements OnInit {
         var id : number = this.formTipoCambio.controls['id'].value;
 
         this.dialogo.open(DialogoConfirmacionComponent, {
-            data: `Segur@ que desea eliminar el registro para siempre ?`
+            data: $localize`Segur@ que desea eliminar el registro para siempre ?`
         })
         .afterClosed()
         .subscribe((confirmado: Boolean) => {
@@ -574,10 +574,10 @@ export class TipoCambioComponent  extends OnSeguridad implements OnInit {
 
                     this.alertService.success( `Moneda ${response.codigoMoneda} actualizada con éxito.` );
 
-                } else { this.alertService.error(`No fue posible actualizar el registro .`); }
+                } else { this.alertService.error($localize`No fue posible actualizar el registro .`); }
 
             }, error => {
-                this.alertService.error( `Problemas al establecer la conexión con el servidor. Detalle: ${ error }` );
+                this.alertService.error( $localize`Problemas al establecer la conexión con el servidor. Detalle: ${ error }` );
             });
     }
     actualizaObjetoMontoPersona() : void {
@@ -607,12 +607,12 @@ export class TipoCambioComponent  extends OnSeguridad implements OnInit {
 
                     this.inicializaFormularioTipoCambio();
 
-                    this.alertService.success( `Registro actulizado con éxito .` );
+                    this.alertService.success( $localize`Registro actulizado con éxito .` );
 
-                } else { this.alertService.error(`No fue posible actualizar el registro .`); }
+                } else { this.alertService.error($localize`No fue posible actualizar el registro .`); }
 
             }, error => {
-                this.alertService.error( `Problemas al establecer la conexión con el servidor. Detalle: ${ error }` );
+                this.alertService.error( $localize`Problemas al establecer la conexión con el servidor. Detalle: ${ error }` );
             });
     }
 }

@@ -320,7 +320,16 @@
     "USER_PENDING_EMAIL_RECIVE": "If you have not received the email, select the button or contact the administrator.",
     "USER_SEND_EMAIL": "resend email",
     "USER_PENDING_ROLE_ASSIGNMENT": "User Pending Role Assignment",
-    "USER_PENDING_ROLE_ASSIGNMENT_EXPLAIN": "Please contact the administrator to request the assignment of the respective role in the system."
+    "USER_PENDING_ROLE_ASSIGNMENT_EXPLAIN": "Please contact the administrator to request the assignment of the respective role in the system.",
+    
+    "noModulesAssigned": "No modules have been assigned to the company yet: ",
+    "systemModuleQueryError": "Problems querying the system modules.",
+    "adminAccessAllModules": "The Administrator User has access to all active modules in the company: ",
+    "grantAccessError": "Problems granting role access to the company module.",
+    "deleteAccessError": "Problems deleting role access to the company module.",
+    "adminAccountModificationAlert": "The system administrator's account status cannot be modified",
+    "adminPermissionChangeAlert": "The system administrator's account permissions cannot be changed"
+
   },
   "DIALOGS": {
     "DELETE_MODULE_TO_SCREEN": "Are you sure you want delete the record?"

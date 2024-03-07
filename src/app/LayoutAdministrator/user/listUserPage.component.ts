@@ -148,7 +148,7 @@ export class ListUserComponent extends OnSeguridad implements OnInit {
 
       this.updateStateUser(userUpdate);
       
-    } else { this.alertService.info('No se puede modificar el estado de la cuenta administradora del sistema'); }
+    } else { this.alertService.info($localize`No se puede modificar el estado de la cuenta administradora del sistema`); }
   }
 
   inActivateUser(identificacion : string, idUser : number) {
@@ -162,6 +162,6 @@ export class ListUserComponent extends OnSeguridad implements OnInit {
 
       this.updateStateUser(userUpdate);
       
-    } else { this.alertService.info('No se puede modificar el estado de la cuenta administradora del sistema'); }
+    } else { this.alertService.info($localize`No se puede modificar el estado de la cuenta administradora del sistema`); }
   }
 }

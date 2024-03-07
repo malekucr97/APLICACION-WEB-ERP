@@ -6,6 +6,7 @@ import { Compania } from '@app/_models/modules/compania';
 import { Router } from '@angular/router';
 import { OnSeguridad } from '@app/_helpers/abstractSeguridad';
 import { administrator, httpAccessAdminPage } from '@environments/environment';
+import { TranslateService } from '@ngx-translate/core';
 
 @Component({templateUrl: 'HTML_ListRolePage.html',
             styleUrls: [  '../../../assets/scss/app.scss', '../../../assets/scss/administrator/app.scss']
@@ -27,7 +28,8 @@ export class ListRoleComponent extends OnSeguridad implements OnInit {
 
   constructor(  private accountService: AccountService,
                 private alertService: AlertService,
-                private router: Router ) {
+                private router: Router,
+                private translate: TranslateService ) {
 
     super(alertService, accountService, router);
 
@@ -57,7 +59,7 @@ export class ListRoleComponent extends OnSeguridad implements OnInit {
   
           this.accountService.suscribeListRol(this.listRoles);
 
-        } else { this.alertService.info('La compañía ' + this.businessObservable.nombre + ' no posee roles asignados.'); }
+        } else { this.alertService.info(this.translate.instant('ALERTS.companyNotRoleAssignment')); }
       });
   }
 
@@ -89,7 +91,7 @@ export class ListRoleComponent extends OnSeguridad implements OnInit {
 
       this.updateRol(rolUpdate);
 
-    } else { this.alertService.info('No se puede modificar el estado de la cuenta administradora del sistema'); }
+    } else { this.alertService.info(this.translate.instant('ALERTS.adminAccountModificationAlert')); }
   }
 
   inActivateRole(idRol: string) {
@@ -103,7 +105,7 @@ export class ListRoleComponent extends OnSeguridad implements OnInit {
 
       this.updateRol(rolUpdate);
 
-    } else { this.alertService.info('No se puede modificar el estado de la cuenta administradora del sistema'); }
+    } else { this.alertService.info(this.translate.instant('ALERTS.adminAccountModificationAlert')); }
   }
 
   escritura(idRol: string) {
@@ -116,7 +118,7 @@ export class ListRoleComponent extends OnSeguridad implements OnInit {
 
       this.updateRol(rolUpdate);
 
-    } else { this.alertService.info('No se puede cambiar el tipo de permisos de la cuenta administradora del sistema'); }
+    } else { this.alertService.info(this.translate.instant('ALERTS.adminPermissionChangeAlert')); }
   }
 
   lectura(idRol: string) {
@@ -129,6 +131,6 @@ export class ListRoleComponent extends OnSeguridad implements OnInit {
 
       this.updateRol(rolUpdate);
 
-    } else { this.alertService.info('No se puede cambiar el tipo de permisos de la cuenta administradora del sistema'); }
+    } else { this.alertService.info(this.translate.instant('ALERTS.adminPermissionChangeAlert')); }
   }
 }
