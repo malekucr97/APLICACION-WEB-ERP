@@ -5,13 +5,13 @@
 
             <section>
                 <div class="articulo__contenedor__body">
-                    <h1>Hola !</h1>
-                    <h4>Usuario Pendiente de Asignación de Rol</h4>
+                    <h1>{{ 'GENERAL.HI' | translate }}</h1>
+                    <h4>{{ 'ALERTS.USER_PENDING_ROLE_ASSIGNMENT' | translate }}</h4>
                     <br>
-                    <p>Por favor contacte al administrador para solicitar la asignación del rol respectivo en el sistema.</p>
+                    <p>{{ 'ALERTS.USER_PENDING_ROLE_ASSIGNMENT_EXPLAIN' | translate }}</p>
                     
                     <button (click)="redirect()" class="btn-redirect-login" >
-                        Volver a Inicio de Sesión
+                        {{ 'GENERAL.BTN_BACK_LOGIN' | translate }}
                     </button>
                 </div>
             </section>

@@ -6,6 +6,7 @@ import { User, Role } from '@app/_models';
 import { Compania } from '../../_models/modules/compania';
 import { OnSeguridad } from '@app/_helpers/abstractSeguridad';
 import { httpAccessAdminPage } from '@environments/environment';
+import { TranslateService } from '@ngx-translate/core';
 
 @Component({templateUrl: 'HTML_AddBusinessUserPage.html',
             styleUrls: ['../../../assets/scss/app.scss', '../../../assets/scss/administrator/app.scss']
@@ -35,7 +36,8 @@ export class AddBusinessUserComponent extends OnSeguridad implements OnInit {
     constructor(private route: ActivatedRoute,
                 private accountService: AccountService,
                 private alertService: AlertService,
-                private router: Router) {
+                private router: Router,
+                private translate: TranslateService ) {
 
         super(alertService, accountService, router);
 
@@ -103,10 +105,10 @@ export class AddBusinessUserComponent extends OnSeguridad implements OnInit {
                 } else {
                     this.listAllBusiness = null; 
                     this.listBusinessUser = null;
-                    this.alertService.info('No se encontraron registro de empresas por el momento.');
+                    this.alertService.info(this.translate.instant('ALERTS.NO_COMPANY_RECORDS'));
                 }
             },
-            error => { this.alertService.error('Problemas al consultar la lista de compañías para la asignación del usuario seleccionado.' + error); });
+            error => { this.alertService.error(this.translate.instant('ALERTS.ERROR_LIST_COMPANIES', {ERROR: error})); });
     }
 
     assignBusinessUser(idBusiness: number) {

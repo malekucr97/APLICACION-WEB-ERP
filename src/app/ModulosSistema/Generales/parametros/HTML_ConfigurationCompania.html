@@ -5,8 +5,8 @@
       <section>
         <div class="articulo__contenedor__header">
           <div class="articulo__contenedor__header__prev">
-            <p>{{moduleObservable.descripcion}} / Parámetros de la Companía {{companiaObservable.nombre}}</p>
-            <a routerLink="{{ URLIndexHomeGenerales }}" class="btn btn-light mb-2 mr-3">Volver</a>
+            <p>{{ 'MODULES.GENERAL.TITLE' | translate: {DESC:moduleObservable.descripcion, NM:companiaObservable.nombre} }}</p>
+            <a routerLink="{{ URLIndexHomeGenerales }}" class="btn btn-light mb-2 mr-3">{{ 'GENERAL.BTN_BACK' | translate }}</a>
           </div>
 
           <div class="articulo__contenedor__header__next"></div>
@@ -22,142 +22,142 @@
             <div class="articulo__contenedor__body__prev__form">
               <div class="articulo__contenedor__body__prev__form__header p-2">
                 <div class="articulo__contenedor__body__prev__form__header__prev">
-                  <p class="articulo__contenedor__body__prev__form__header__titulo">{{tituloBasePantalla}}</p>
+                  <p class="articulo__contenedor__body__prev__form__header__titulo">{{ 'MODULES.GENERAL.SUBTITLE' | translate }}</p>
                 </div>
 
                 <div class="articulo__contenedor__body__prev__form__header__next">
-                  <button class="articulo__contenedor__header__prev__btns__warn" mat-flat-button (click)="UpdateCompania()">Actualizar</button>
+                  <button class="articulo__contenedor__header__prev__btns__warn" mat-flat-button (click)="UpdateCompania()">{{ 'GENERAL.BTN_UPDATE' | translate }}</button>
                 </div>
               </div>
 
               <div class="articulo__contenedor__body__prev__form__content p-2">
                 <form [formGroup]="companiaForm" class="row">
                   <div class="form-group col-md-3">
-                    <label for="lbltipoIdentificacionCompania" class="form-label">Tipo de Identificación</label>
+                    <label for="lbltipoIdentificacionCompania" class="form-label">{{ 'MODULES.GENERAL.FORM.TYPE_IDENTIFICATION' | translate }}</label>
                     <input maxlength="50" formControlName="tipoIdentificacionCompania" class="form-control" type="text" id="id_tipoIdentificacion" [ngClass]="{'is-invalid': submitFormCompania && f.tipoIdentificacionCompania.errors}" />
                     <div *ngIf="submitFormCompania && f.tipoIdentificacionCompania.errors" class="invalid-feedback">
-                      <div *ngIf="f.tipoIdentificacionCompania.errors.required">El campo es requerido.</div>
+                      <div *ngIf="f.tipoIdentificacionCompania.errors.required">{{ 'GENERAL.VALIDATES.EMPTY' | translate }}</div>
                     </div>
                   </div>
 
                   <div class="form-group col-md-3">
-                    <label for="lblnumeroIdentificacionCompania" class="form-label">Identificación</label>
+                    <label for="lblnumeroIdentificacionCompania" class="form-label">{{ 'MODULES.GENERAL.FORM.IDENTIFICATION' | translate }}</label>
                     <input maxlength="200" formControlName="numeroIdentificacionCompania" class="form-control" type="text" id="id_numeroIdentificacionCompania" [ngClass]="{'is-invalid': submitFormCompania && f.numeroIdentificacionCompania.errors}" />
                     <div *ngIf="submitFormCompania && f.numeroIdentificacionCompania.errors" class="invalid-feedback">
-                      <div *ngIf="f.numeroIdentificacionCompania.errors.required">El campo es requerido.</div>
+                      <div *ngIf="f.numeroIdentificacionCompania.errors.required">{{ 'GENERAL.VALIDATES.EMPTY' | translate }}</div>
                     </div>
                   </div>
 
                   <div class="form-group col-md-6">
-                    <label for="lblnombreCompania" class="form-label">Nombre de Compañía</label>
+                    <label for="lblnombreCompania" class="form-label">{{ 'MODULES.GENERAL.FORM.COMPANY_NAME' | translate }}</label>
                     <input maxlength="50" formControlName="nombreCompania" class="form-control" type="text" id="id_nombreCompania" [ngClass]="{'is-invalid': submitFormCompania && f.nombreCompania.errors}" />
                     <div *ngIf="submitFormCompania && f.nombreCompania.errors" class="invalid-feedback">
-                      <div *ngIf="f.nombreCompania.errors.required">El campo es requerido.</div>
+                      <div *ngIf="f.nombreCompania.errors.required">{{ 'GENERAL.VALIDATES.EMPTY' | translate }}</div>
                     </div>
                   </div>
 
                   <div class="form-group col-md-4">
-                    <label for="lblcodigoPaisUbicacionCompania" class="form-label">Código de País</label>
+                    <label for="lblcodigoPaisUbicacionCompania" class="form-label">{{ 'MODULES.GENERAL.FORM.COUNTRY_CODE' | translate }}</label>
                     <input formControlName="codigoPaisUbicacionCompania" class="form-control" type="text" id="id_codigoPaisUbicacionCompania" [ngClass]="{'is-invalid': submitFormCompania && f.codigoPaisUbicacionCompania.errors}" />
                     <div *ngIf="submitFormCompania && f.codigoPaisUbicacionCompania.errors" class="invalid-feedback">
-                      <div *ngIf="f.codigoPaisUbicacionCompania.errors.required">El campo es requerido.</div>
+                      <div *ngIf="f.codigoPaisUbicacionCompania.errors.required">{{ 'GENERAL.VALIDATES.EMPTY' | translate }}</div>
                     </div>
                   </div>
 
                   <div class="form-group col-md-2">
-                    <label for="lblprovinciaCompania" class="form-label">Provincia</label>
+                    <label for="lblprovinciaCompania" class="form-label">{{ 'MODULES.GENERAL.FORM.PROVINCE' | translate }}</label>
                     <input formControlName="provinciaCompania" class="form-control" type="text" id="id_provinciaCompania" [ngClass]="{'is-invalid': submitFormCompania && f.provinciaCompania.errors}" />
                     <div *ngIf="submitFormCompania && f.provinciaCompania.errors" class="invalid-feedback">
-                      <div *ngIf="f.provinciaCompania.errors.required">El campo es requerido.</div>
+                      <div *ngIf="f.provinciaCompania.errors.required">{{ 'GENERAL.VALIDATES.EMPTY' | translate }}</div>
                     </div>
                   </div>
 
                   <div class="form-group col-md-2">
-                    <label for="lblcantonCompania" class="form-label">Cantón</label>
+                    <label for="lblcantonCompania" class="form-label">{{ 'MODULES.GENERAL.FORM.CANTON' | translate }}</label>
                     <input formControlName="cantonCompania" class="form-control" type="text" id="id_cantonCompania" [ngClass]="{'is-invalid': submitFormCompania && f.cantonCompania.errors}" />
                     <div *ngIf="submitFormCompania && f.cantonCompania.errors" class="invalid-feedback">
-                      <div *ngIf="f.cantonCompania.errors.required">El campo es requerido.</div>
+                      <div *ngIf="f.cantonCompania.errors.required">{{ 'GENERAL.VALIDATES.EMPTY' | translate }}</div>
                     </div>
                   </div>
 
                   <div class="form-group col-md-2">
-                    <label for="lbldistritoCompania" class="form-label">Distrito</label>
+                    <label for="lbldistritoCompania" class="form-label">{{ 'MODULES.GENERAL.FORM.DISTRICT' | translate }}</label>
                     <input formControlName="distritoCompania" class="form-control" type="text" id="id_distritoCompania" [ngClass]="{'is-invalid': submitFormCompania && f.distritoCompania.errors}" />
                     <div *ngIf="submitFormCompania && f.distritoCompania.errors" class="invalid-feedback">
-                      <div *ngIf="f.distritoCompania.errors.required">El campo es requerido.</div>
+                      <div *ngIf="f.distritoCompania.errors.required">{{ 'GENERAL.VALIDATES.EMPTY' | translate }}</div>
                     </div>
                   </div>
 
                   <div class="form-group col-md-2">
-                    <label for="lblbarrioCompania" class="form-label">Barrio</label>
+                    <label for="lblbarrioCompania" class="form-label">{{ 'MODULES.GENERAL.FORM.NEIGHBORHOOD' | translate }}</label>
                     <input formControlName="barrioCompania" class="form-control" type="text" id="id_barrioCompania" [ngClass]="{'is-invalid': submitFormCompania && f.barrioCompania.errors}" />
                     <div *ngIf="submitFormCompania && f.barrioCompania.errors" class="invalid-feedback">
-                      <div *ngIf="f.barrioCompania.errors.required">El campo es requerido.</div>
+                      <div *ngIf="f.barrioCompania.errors.required">{{ 'GENERAL.VALIDATES.EMPTY' | translate }}</div>
                     </div>
                   </div>
 
                   <div class="form-group col-md-2"></div>
 
                   <div class="form-group col-md-12">
-                    <label for="lbldetalleDireccionCompania" class="form-label">Detalle de Dirección</label>
+                    <label for="lbldetalleDireccionCompania" class="form-label">{{ 'MODULES.GENERAL.FORM.ADDRESS_DETAIL' | translate }}</label>
                     <input formControlName="detalleDireccionCompania" class="form-control" type="text" id="id_detalleDireccionCompania" [ngClass]="{'is-invalid': submitFormCompania && f.detalleDireccionCompania.errors}" />
                     <div *ngIf="submitFormCompania && f.detalleDireccionCompania.errors" class="invalid-feedback">
-                      <div *ngIf="f.detalleDireccionCompania.errors.required">El campo es requerido.</div>
+                      <div *ngIf="f.detalleDireccionCompania.errors.required">{{ 'GENERAL.VALIDATES.EMPTY' | translate }}</div>
                     </div>
                   </div>
 
                   <div class="form-group col-md-4">
-                    <label for="lblcodigoTelefonoCompania" class="form-label">Código Área Teléfono</label>
+                    <label for="lblcodigoTelefonoCompania" class="form-label">{{ 'MODULES.GENERAL.FORM.AREA_CODE_PHONE' | translate }}</label>
                     <input formControlName="codigoTelefonoCompania" class="form-control" type="text" id="id_codigoTelefonoCompania" [ngClass]="{'is-invalid': submitFormCompania && f.codigoTelefonoCompania.errors}" />
                     <div *ngIf="submitFormCompania && f.codigoTelefonoCompania.errors" class="invalid-feedback">
-                      <div *ngIf="f.codigoTelefonoCompania.errors.required">El campo es requerido.</div>
+                      <div *ngIf="f.codigoTelefonoCompania.errors.required">{{ 'GENERAL.VALIDATES.EMPTY' | translate }}</div>
                     </div>
                   </div>
 
                   <div class="form-group col-md-4">
-                    <label for="lbltelefonoCompania" class="form-label">Teléfono</label>
+                    <label for="lbltelefonoCompania" class="form-label">{{ 'MODULES.GENERAL.FORM.PHONE' | translate }}</label>
                     <input formControlName="telefonoCompania" class="form-control" type="text" id="id_telefonoCompania" [ngClass]="{'is-invalid': submitFormCompania && f.telefonoCompania.errors}" />
                     <div *ngIf="submitFormCompania && f.telefonoCompania.errors" class="invalid-feedback">
-                      <div *ngIf="f.telefonoCompania.errors.required">El campo es requerido.</div>
+                      <div *ngIf="f.telefonoCompania.errors.required">{{ 'GENERAL.VALIDATES.EMPTY' | translate }}</div>
                     </div>
                   </div>
 
                   <div class="form-group col-md-4"></div>
 
                   <div class="form-group col-md-6">
-                    <label for="lblcorreoElectronicoCompania" class="form-label">Correo Electrónico</label>
+                    <label for="lblcorreoElectronicoCompania" class="form-label">{{ 'MODULES.GENERAL.FORM.EMAIL' | translate }}</label>
                     <input formControlName="correoElectronicoCompania" class="form-control" type="text" id="id_correoElectronicoCompania" [ngClass]="{'is-invalid': submitFormCompania && f.correoElectronicoCompania.errors}" />
                     <div *ngIf="submitFormCompania && f.correoElectronicoCompania.errors" class="invalid-feedback">
-                      <div *ngIf="f.correoElectronicoCompania.errors.required">El campo es requerido.</div>
+                      <div *ngIf="f.correoElectronicoCompania.errors.required">{{ 'GENERAL.VALIDATES.EMPTY' | translate }}</div>
                     </div>
                   </div>
 
                   <div class="form-group col-md-6">
-                    <label for="lblclaveCorreoCompania" class="form-label">Contraseña</label>
+                    <label for="lblclaveCorreoCompania" class="form-label">{{ 'MODULES.GENERAL.FORM.PASSWORD' | translate }}</label>
                     <input formControlName="claveCorreoCompania" class="form-control" type="password" id="id_claveCorreoCompania" [ngClass]="{'is-invalid': submitFormCompania && f.claveCorreoCompania.errors}" />
                     <div *ngIf="submitFormCompania && f.claveCorreoCompania.errors" class="invalid-feedback">
-                      <div *ngIf="f.claveCorreoCompania.errors.required">El campo es requerido.</div>
+                      <div *ngIf="f.claveCorreoCompania.errors.required">{{ 'GENERAL.VALIDATES.EMPTY' | translate }}</div>
                     </div>
                   </div>
 
                   <div class="form-group col-md-5">
-                    <label for="lblhostCorreoCompania" class="form-label">Host de Proveedor Correo</label>
+                    <label for="lblhostCorreoCompania" class="form-label">{{ 'MODULES.GENERAL.FORM.EMAIL_PROVIDER_HOST' | translate }}</label>
                     <input formControlName="hostCorreoCompania" class="form-control" type="text" id="id_hostCorreoCompania" [ngClass]="{'is-invalid': submitFormCompania && f.hostCorreoCompania.errors}" />
                     <div *ngIf="submitFormCompania && f.hostCorreoCompania.errors" class="invalid-feedback">
-                      <div *ngIf="f.hostCorreoCompania.errors.required">El campo es requerido.</div>
+                      <div *ngIf="f.hostCorreoCompania.errors.required">{{ 'GENERAL.VALIDATES.EMPTY' | translate }}</div>
                     </div>
                   </div>
 
                   <div class="form-group col-md-2">
-                    <label for="lblpuertoCorreoCompania" class="form-label">Puerto</label>
+                    <label for="lblpuertoCorreoCompania" class="form-label">{{ 'MODULES.GENERAL.FORM.PORT' | translate }}</label>
                     <input formControlName="puertoCorreoCompania" class="form-control" type="text" id="id_puertoCorreoCompania" [ngClass]="{'is-invalid': submitFormCompania && f.puertoCorreoCompania.errors}" />
                     <div *ngIf="submitFormCompania && f.puertoCorreoCompania.errors" class="invalid-feedback">
-                      <div *ngIf="f.puertoCorreoCompania.errors.required">El campo es requerido.</div>
+                      <div *ngIf="f.puertoCorreoCompania.errors.required">{{ 'GENERAL.VALIDATES.EMPTY' | translate }}</div>
                     </div>
                   </div>
 
                   <div class="form-group col-md-2 margin-icos-mat">
-                    <mat-checkbox formControlName="estadoSSLCompania">Estado del SSL</mat-checkbox>
+                    <mat-checkbox formControlName="estadoSSLCompania">{{ 'MODULES.GENERAL.FORM.SSL_STATUS' | translate }}</mat-checkbox>
                   </div>
                 </form>
               </div>
@@ -175,7 +175,7 @@
             <div class="articulo__contenedor__body__next__list">
               <div class="articulo__contenedor__body__next__list__header">
                 <div class="articulo__contenedor__body__prev__list__header__prev">
-                  <p class="articulo__contenedor__body__prev__list__header__titulo">Lista de {{tituloBasePantalla}} de la compañía</p>
+                  <p class="articulo__contenedor__body__prev__list__header__titulo">{{ 'MODULES.GENERAL.TITLE_LIST' | translate }}</p>
                   <!-- <div class="form-group col-md-4">
                       <label for="lblbusquedaModulo" class="form-label">Buscar</label>
                       <input class="form-control" type="text" id="id_busquedaModulo" [(ngModel)]="buscarModulo" (keyup)="filtrarLista()" />
@@ -190,13 +190,13 @@
                   <table class="table table-striped">
                     <thead>
                       <tr>
-                        <th style="width: 20%">Nombre</th>
-                        <th style="width: 10%">Cédula Jurídica</th>
-                        <th style="width: 20%">Email</th>
-                        <th style="width: 30%">Detalle Dirección</th>
-                        <th style="width: 5%">Teléfono</th>
-                        <th style="width: 5%">Actualizó</th>
-                        <th style="width: 10%">Fecha</th>
+                        <th style="width: 20%">{{ 'MODULES.GENERAL.TABLE.TABLE_HEADER_NAME' | translate }}</th>
+                        <th style="width: 10%">{{ 'MODULES.GENERAL.TABLE.TABLE_HEADER_LEGAL_ID' | translate }}</th>
+                        <th style="width: 20%">{{ 'MODULES.GENERAL.TABLE.TABLE_HEADER_EMAIL' | translate }}</th>
+                        <th style="width: 30%">{{ 'MODULES.GENERAL.TABLE.TABLE_HEADER_ADDRESS_DETAIL' | translate }}</th>
+                        <th style="width: 5%">{{ 'MODULES.GENERAL.TABLE.TABLE_HEADER_PHONE' | translate }}</th>
+                        <th style="width: 5%">{{ 'MODULES.GENERAL.TABLE.TABLE_HEADER_UPDATED' | translate }}</th>
+                        <th style="width: 10%">{{ 'MODULES.GENERAL.TABLE.TABLE_HEADER_DATE' | translate }}</th>
                       </tr>
                     </thead>
                     <tbody>

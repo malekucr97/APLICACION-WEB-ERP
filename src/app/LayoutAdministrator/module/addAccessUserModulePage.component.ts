@@ -10,6 +10,7 @@ import { ScreenModule } from '@app/_models/admin/screenModule';
 import { ActivatedRoute, Router } from '@angular/router';
 import { administrator, httpAccessAdminPage } from '@environments/environment';
 import { OnSeguridad } from '@app/_helpers/abstractSeguridad';
+import { TranslateService } from '@ngx-translate/core';
 
 declare var $: any;
 
@@ -21,8 +22,6 @@ export class AddAccessUserModuleComponent extends OnSeguridad implements OnInit 
     @ViewChild(MatSidenav) sidenav !: MatSidenav;
 
     private nombrePantalla  : string = 'HTML_AddAccessUserModulePage.html';
-    public nombreModulo     : string = 
-    'Módulo de Administración / Administración de Pantallas por Módulo y Accesos de Pantallas por Usuario';
 
     URLListIndexModules: string = httpAccessAdminPage.urlPageListModule;
 
@@ -65,7 +64,8 @@ export class AddAccessUserModuleComponent extends OnSeguridad implements OnInit 
                     private formBuilder:    FormBuilder,
                     private accountService: AccountService,
                     private dialogo:        MatDialog,
-                    private router:         Router ) {
+                    private router:         Router,
+                    private translate: TranslateService ) {
 
         super(alertService, accountService, router);
 
@@ -190,7 +190,7 @@ export class AddAccessUserModuleComponent extends OnSeguridad implements OnInit 
 
                 } else { this.habilitaListasUsuarioCompania = false; }
 
-            }, error => { this.alertService.error('Problemas de conexión . ' + error); });
+            }, error => { this.alertService.error(this.translate.instant('ALERTS.CONNECTION_ERROR', {ERROR: error})); });
     }
     private consultaUsuariosAccesoPantalla(objetoPantalla: ScreenModule) : void {
 
@@ -243,7 +243,7 @@ export class AddAccessUserModuleComponent extends OnSeguridad implements OnInit 
 
                         this.inicializaFormPantallaModulo();
                     }
-                }, error => { this.alertService.error('Problemas de conexión: ' + error); });
+                }, error => { this.alertService.error(this.translate.instant('ALERTS.CONNECTION_ERROR', {ERROR: error})); });
 
         } else {
 
@@ -265,7 +265,7 @@ export class AddAccessUserModuleComponent extends OnSeguridad implements OnInit 
 
                     this.inicializaFormPantallaModulo();
                 }
-            }, error => { this.alertService.error('Problemas de conexión: ' + error); });
+            }, error => { this.alertService.error(this.translate.instant('ALERTS.CONNECTION_ERROR', {ERROR: error})); });
         }
     }
 
@@ -334,7 +334,7 @@ export class AddAccessUserModuleComponent extends OnSeguridad implements OnInit 
 
                     } else { this.alertService.error(response.responseMesagge); }
                 });
-        } else {  this.alertService.info( `Parece que este usuario ya ha sido asignado .` ); }
+        } else {  this.alertService.info( this.translate.instant('ALERTS.USER_ASSIGNED') ); }
     }
 
     submitPantallaModulo() : void {
@@ -364,7 +364,7 @@ export class AddAccessUserModuleComponent extends OnSeguridad implements OnInit 
 
                 } else { this.alertService.error(response.responseMesagge); }
 
-            }, error => { this.alertService.error( `Problemas al establecer la conexión con el servidor. Detalle: ${ error }` ); });
+            }, error => { this.alertService.error(this.translate.instant('ALERTS.CONNECTION_ERROR', {ERROR: error})); });
     }
 
     eliminarPantallaModulo() : void {
@@ -376,7 +376,7 @@ export class AddAccessUserModuleComponent extends OnSeguridad implements OnInit 
 
         var id : number = this.formPantallasModulo.controls['idPantalla'].value;
 
-        this.dialogo.open(DialogoConfirmacionComponent, { data: `Segur@ que desea eliminar el registro para siempre ?` })
+        this.dialogo.open(DialogoConfirmacionComponent, { data: this.translate.instant('DIALOGS.DELETE_MODULE_TO_SCREEN') })
             .afterClosed()
             .subscribe((confirmado: Boolean) => {
 
@@ -439,6 +439,6 @@ export class AddAccessUserModuleComponent extends OnSeguridad implements OnInit 
 
                 } else { this.alertService.error(response.responseMesagge); }
 
-            }, error => { this.alertService.error( `Problemas al establecer la conexión con el servidor. Detalle: ${ error }` ); });
+            }, error => { this.alertService.error(this.translate.instant('ALERTS.CONNECTION_ERROR', {ERROR: error})); });
     }
 }

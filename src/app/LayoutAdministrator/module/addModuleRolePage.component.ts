@@ -6,6 +6,7 @@ import { User, Role, Module } from '@app/_models';
 import { Compania } from '../../_models/modules/compania';
 import { OnSeguridad } from '@app/_helpers/abstractSeguridad';
 import { administrator, httpAccessAdminPage } from '@environments/environment';
+import { TranslateService } from '@ngx-translate/core';
 
 @Component({templateUrl: 'HTML_AddModuleRolePage.html',
             styleUrls: [ '../../../assets/scss/app.scss', '../../../assets/scss/administrator/app.scss']
@@ -28,7 +29,8 @@ export class AddModuleRoleComponent extends OnSeguridad implements OnInit {
   constructor(  private route: ActivatedRoute,
                 private accountService: AccountService,
                 private alertService: AlertService,
-                private router: Router ) {
+                private router: Router,
+                private translate: TranslateService ) {
 
     super(alertService, accountService, router);
 
@@ -81,20 +83,20 @@ export class AddModuleRoleComponent extends OnSeguridad implements OnInit {
                   });
             } else {
               this.alertService.info(
-                'Aún no hay Módulos asignados a la compañía: ' + this.businessObservable.nombre, 
+                this.translate.instant('ALERTS.noModulesAssigned') + this.businessObservable.nombre, 
                 { keepAfterRouteChange: true }
               );
               this.router.navigate([this.urladminListRole]); 
             }
           },
           (error) => {
-            this.alertService.error('Problemas al consultar los módulos del sistema.' + error, { keepAfterRouteChange: true });
+            this.alertService.error(this.translate.instant('ALERTS.systemModuleQueryError') + error, { keepAfterRouteChange: true });
             this.router.navigate([this.urladminListRole]); 
           }
         );
     } else {
       this.alertService.success(
-        'El Usuario Administrador tiene acceso a todos los módulos activos en la compañía: ' + this.businessObservable.nombre, 
+        this.translate.instant('ALERTS.adminAccessAllModules') + this.businessObservable.nombre, 
         { keepAfterRouteChange: true }
       );
       this.router.navigate([this.urladminListRole]);
@@ -131,7 +133,7 @@ export class AddModuleRoleComponent extends OnSeguridad implements OnInit {
         },
         (error) => {
           this.alertService.error(
-            'Problemas al otorgar acceso de rol al módulo de la compañía.' + error, 
+            this.translate.instant('ALERTS.grantAccessError') + error, 
             { keepAfterRouteChange: true }
           );
           this.router.navigate([this.urladminListRole]);
@@ -169,7 +171,7 @@ export class AddModuleRoleComponent extends OnSeguridad implements OnInit {
         },
         (error) => {
           this.alertService.error(
-            'Problemas al eliminar acceso de rol al módulo de la compañía.' + error, 
+            this.translate.instant('ALERTS.deleteAccessError') + error, 
             { keepAfterRouteChange: true }
           );
           this.router.navigate([this.urladminListRole]);

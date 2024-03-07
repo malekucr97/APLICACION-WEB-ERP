@@ -1,7 +1,7 @@
 <!-- <h1>Administración Interna del Sistema</h1> -->
 <br>
 <hr>
-<h2 style="margin-left: 1%; display: inline;">Bienvenido !</h2>
+<h2 style="margin-left: 1%; display: inline;">{{ 'CONFIGURATION.WELCOME' | translate}}</h2>
 <!-- <h2 style="margin-left: 2%; display: inline; color:#1A5276"> {{userObservable.nombreCompleto}} !</h2> -->
 <br>
 <!-- <br> -->
@@ -9,19 +9,19 @@
 <div class="card">
     <div class="card-body">
         <br>
-        <h1 style="color:#1A5276">Parámetros de Usuario</h1>
+        <h1 style="color:#1A5276">{{ 'CONFIGURATION.USER_PARAMETERS' | translate}}</h1>
         <br>
-        <a routerLink="{{URLConfigureUserPage}}{{userObservable.identificacion}}" class="btn btn-outline-dark mb-2">Actualizar Información</a>
+        <a routerLink="{{URLConfigureUserPage}}{{userObservable.identificacion}}" class="btn btn-outline-dark mb-2">{{ 'CONFIGURATION.BTN_UPDATE_INFORMATION' | translate}}</a>
         <br><hr><br>
 
         <!-- // *************************************************************************************************************************************************** // -->
 
-        <h1 style="color:#1A5276">Módulos de Administración del Sistema</h1>
+        <h1 style="color:#1A5276">{{ 'CONFIGURATION.MODULES_SISTEM_ADMIN' | translate}}</h1>
         <br>
-        <a style="margin-right: 1%;" routerLink="{{URLListUserPage}}" class="btn btn-outline-dark mb-2">Administración de Usuarios</a>
-        <a *ngIf="userObservable.esAdmin" style="margin-right: 1%;" routerLink="{{URLListBusinessPage}}" class="btn btn-outline-dark mb-2">Administración de Empresas</a>
-        <a style="margin-right: 1%;" routerLink="{{URLListModulePage}}" class="btn btn-outline-dark mb-2">Administración de Módulos</a>
-        <a style="margin-right: 1%;" routerLink="{{URLListRolePage}}" class="btn btn-outline-dark mb-2">Administración de Roles</a>
+        <a style="margin-right: 1%;" routerLink="{{URLListUserPage}}" class="btn btn-outline-dark mb-2">{{ 'CONFIGURATION.BTN_ADMIN_USERS' | translate}}</a>
+        <a *ngIf="userObservable.esAdmin" style="margin-right: 1%;" routerLink="{{URLListBusinessPage}}" class="btn btn-outline-dark mb-2">{{ 'CONFIGURATION.BTN_ADMIN_COMPANIES' | translate}}</a>
+        <a style="margin-right: 1%;" routerLink="{{URLListModulePage}}" class="btn btn-outline-dark mb-2">{{ 'CONFIGURATION.BTN_ADMIN_MODULES' | translate}}</a>
+        <a style="margin-right: 1%;" routerLink="{{URLListRolePage}}" class="btn btn-outline-dark mb-2">{{ 'CONFIGURATION.BTN_ADMIN_ROLES' | translate}}</a>
         <br>
     </div>
 </div>

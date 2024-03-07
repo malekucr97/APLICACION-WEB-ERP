@@ -5,8 +5,8 @@
         <section>
           <div class="articulo__contenedor__header">
             <div class="articulo__contenedor__header__prev">
-              <p >Registro de Rol</p>
-              <a routerLink="{{ URLRedirectPage }}" class="btn btn-light mb-2 mr-3">Volver</a>
+              <p>{{ 'CONFIGURATION.ADD_EDIT_ROLE.TITLE' | translate }}</p>
+              <a routerLink="{{ URLRedirectPage }}" class="btn btn-light mb-2 mr-3">{{ 'GENERAL.BTN_BACK' | translate }}</a>
             </div>
   
             <div class="articulo__contenedor__header__next"></div>
@@ -22,11 +22,11 @@
               <div class="articulo__contenedor__body__prev__form">
                 <div class="articulo__contenedor__body__prev__form__header p-2">
                   <div class="articulo__contenedor__body__prev__form__header__prev">
-                    <p class="articulo__contenedor__body__prev__form__header__titulo">{{tituloBasePantalla}}</p>
+                    <p class="articulo__contenedor__body__prev__form__header__titulo">{{ 'CONFIGURATION.ADD_EDIT_ROLE.SUBTITLE' | translate }}</p>
                   </div>
   
                   <div class="articulo__contenedor__body__prev__form__header__next">
-                    <button class="articulo__contenedor__header__prev__btns__ok" mat-flat-button (click)="registrarRol()">Registrar</button>
+                    <button class="articulo__contenedor__header__prev__btns__ok" mat-flat-button (click)="registrarRol()">{{ 'GENERAL.BTN_REGISTER' | translate }}</button>
                   </div>
                 </div>
   
@@ -34,7 +34,7 @@
                     <form [formGroup]="rolForm" class="row">
 
                         <div class="form-group col-md-4">
-                        <label for="identificacionRol" class="form-label">Identificación</label>
+                        <label for="identificacionRol" class="form-label">{{ 'CONFIGURATION.ADD_EDIT_ROLE.FORM.TXT_ID' | translate }}</label>
                         <input
                             maxlength="15"
                             formControlName="identificacionRol"
@@ -44,12 +44,12 @@
                             [ngClass]="{'is-invalid': submitFormRol && f.identificacionRol.errors}"
                         />
                         <div *ngIf="submitFormRol && f.identificacionRol.errors" class="invalid-feedback">
-                            <div *ngIf="f.identificacionRol.errors.required">El campo es requerido.</div>
+                            <div *ngIf="f.identificacionRol.errors.required">{{ 'GENERAL.VALIDATES.EMPTY' | translate }}</div>
                         </div>
                         </div>
 
                         <div class="form-group col-md-8">
-                            <label for="nombreRol" class="form-label">Nombre o Asignación</label>
+                            <label for="nombreRol" class="form-label">{{ 'CONFIGURATION.ADD_EDIT_ROLE.FORM.TXT_NAME' | translate }}</label>
                             <input
                             maxlength="300"
                             formControlName="nombreRol"
@@ -59,12 +59,12 @@
                             [ngClass]="{'is-invalid': submitFormRol && f.nombreRol.errors}"
                             />
                             <div *ngIf="submitFormRol && f.nombreRol.errors" class="invalid-feedback">
-                            <div *ngIf="f.nombreRol.errors.required">El campo es requerido.</div>
+                            <div *ngIf="f.nombreRol.errors.required">{{ 'GENERAL.VALIDATES.EMPTY' | translate }}</div>
                             </div>
                         </div>
 
                         <div class="form-group col-md-4">
-                        <label for="rolEsAdministrador" class="form-label">Es administrador</label>
+                        <label for="rolEsAdministrador" class="form-label">{{ 'CONFIGURATION.ADD_EDIT_ROLE.FORM.TXT_ADMIN' | translate }}</label>
                         <input
                             maxlength="15"
                             formControlName="rolEsAdministrador"
@@ -74,12 +74,12 @@
                             [ngClass]="{'is-invalid': submitFormRol && f.rolEsAdministrador.errors}"
                         />
                         <div *ngIf="submitFormRol && f.rolEsAdministrador.errors" class="invalid-feedback">
-                            <div *ngIf="f.rolEsAdministrador.errors.required">El campo es requerido.</div>
+                            <div *ngIf="f.rolEsAdministrador.errors.required">{{ 'GENERAL.VALIDATES.EMPTY' | translate }}</div>
                         </div>
                     </div>
 
                     <div class="form-group col-md-8">
-                        <label for="descripcionRol" class="form-label">Descripción del Rol</label>
+                        <label for="descripcionRol" class="form-label">{{ 'CONFIGURATION.ADD_EDIT_ROLE.FORM.TXT_DESCRIPTION' | translate }}</label>
                         <input
                             maxlength="200"
                             formControlName="descripcionRol"
@@ -89,12 +89,12 @@
                             [ngClass]="{'is-invalid': submitFormRol && f.descripcionRol.errors}"
                         />
                         <div *ngIf="submitFormRol && f.descripcionRol.errors" class="invalid-feedback">
-                            <div *ngIf="f.descripcionRol.errors.required">El campo es requerido.</div>
+                            <div *ngIf="f.descripcionRol.errors.required">{{ 'GENERAL.VALIDATES.EMPTY' | translate }}</div>
                         </div>
                     </div>
 
                     <div class="form-group col-md-4">
-                        <label for="estadoRol" class="form-label">Estado del Rol</label>
+                        <label for="estadoRol" class="form-label">{{ 'CONFIGURATION.ADD_EDIT_ROLE.FORM.TXT_STATUS' | translate }}</label>
                         <input
                             maxlength="15"
                             formControlName="estadoRol"
@@ -104,12 +104,12 @@
                             [ngClass]="{'is-invalid': submitFormRol && f.estadoRol.errors}"
                         />
                         <div *ngIf="submitFormRol && f.estadoRol.errors" class="invalid-feedback">
-                            <div *ngIf="f.estadoRol.errors.required">El campo es requerido.</div>
+                            <div *ngIf="f.estadoRol.errors.required">{{ 'GENERAL.VALIDATES.EMPTY' | translate }}</div>
                         </div>
                     </div>
 
                     <div class="form-group col-md-8">
-                        <label for="tipoRol" class="form-label">Tipo de Permisos</label>
+                        <label for="tipoRol" class="form-label">{{ 'CONFIGURATION.ADD_EDIT_ROLE.FORM.TXT_KIND' | translate }}</label>
                         <input
                             maxlength="100"
                             formControlName="tipoRol"
@@ -119,7 +119,7 @@
                             [ngClass]="{'is-invalid': submitFormRol && f.tipoRol.errors}"
                         />
                         <div *ngIf="submitFormRol && f.tipoRol.errors" class="invalid-feedback">
-                            <div *ngIf="f.tipoRol.errors.required">El campo es requerido.</div>
+                            <div *ngIf="f.tipoRol.errors.required">{{ 'GENERAL.VALIDATES.EMPTY' | translate }}</div>
                         </div>
                     </div>
 

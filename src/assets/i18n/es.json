@@ -1,0 +1,345 @@
+{
+  "HOME": {
+    "USERNAME": "Nombre de usuario",
+    "PASSWORD": "Contraseña",
+    "REMEMBER": "Recuerdame",
+    "LOGIN": "Iniciar sesión",
+    "VALIDATES": {
+      "USERNAME": "El nombre de usuario es requerido",
+      "PASSWORD": "La contraseña es requerida",
+      "FAIL_LOGIN": "Inicio fallido, intento número: {{intentosFallidosInicioSesion}} de 3"
+    },
+    "RIGHTS": "Soluciones INRA - BANKAP - © Derechos reservados {{year}}"
+  },
+  "INIT": {
+    "NAME": "Sistema de Gestión Administrativo Financiero",
+    "SEARCH": "Buscar"
+  },
+  "CONFIGURATION": {
+    "TITLE": "Administración Interna del Sistema",
+    "WELCOME": "Bienvenido!",
+    "USER_PARAMETERS": "Parámetros de usuario",
+    "MODULES_SISTEM_ADMIN": "Módulos de Administración del Sistema",
+    "BTN_UPDATE_INFORMATION": "Actualizar información",
+    "BTN_ADMIN_USERS": "Administración de usuarios",
+    "BTN_ADMIN_COMPANIES": "Administración de Empresas",
+    "BTN_ADMIN_MODULES": "Administración de Módulos",
+    "BTN_ADMIN_ROLES": "Administración de Roles",
+    "ADMIN_PAGE_LIST_USERS": {
+      "TITLE": "Administración de usuarios",
+      "SUBTITLE": "Lista de de usuarios registrados en el sistema",
+      "TBL_ID": "Identificación",
+      "TBL_USERNAME": "Nombre",
+      "TBL_EMAIL": "Correo electrónico",
+      "TBL_ROL": "Rol",
+      "TBL_STATUS": "Estado",
+      "TBL_BTN_COMPANY": "Empresa",
+      "TBL_BTN_ROLE": "Rol"
+    },
+    "ADMIN_PAGE_LIST_COMPANIES": {
+      "TITLE": "Administración de Empresas",
+      "SUBTITLE": "Lista de compañías registradas en el sistema",
+      "TBL_ID": "Identificación",
+      "TBL_USERNAME": "Nombre de la Compañía",
+      "TBL_EMAIL": "Correo Electrónico",
+      "TBL_PHONE": "Número de Teléfono",
+      "TBL_POWER_BI": "Power BI"
+    },
+    "ADMIN_PAGE_LIST_MODULES": {
+      "TITLE": "Administración de Módulos",
+      "SUBTITLE": "Actualice el Estado o Revise las Pantallas con Acceso.",
+      "TITLE_MANTEINANCE_TO": "Mantenimiento a {{namepg}}",
+      "TITLE_LIST_MANTEINANCE_TO": "Lista de {{namepg}} de la compañía",
+      "TITLE_MANTEINANCE_FOR": "Mantenimiento para {{company}}",
+      "BTN_MANTEINANCE_POWER_BI": "Mantenimiento reportes Power BI",
+      "TBL_ID": "Identificación",
+      "TBL_NAME": "Nombre",
+      "TBL_DESCRIPTION": "Descripción",
+      "TBL_IMAGE": "Imágen",
+      "TBL_STATUS": "Estado Módulo",
+      "TBL_SCREENS": "Pantallas Activas",
+      "FORM": {
+        "TXT_ID": "Identificación",
+        "TXT_NAME": "Nombre",
+        "TXT_DESCRIPTION": "Descripción",
+        "TXT_IMAGE": "Ruta de la imágen"
+      },
+      "BUSINESS": {
+        "TITLE": "Módulos",
+        "SUBTITLE": "Asigne o elimine módulos en la Compañía.",
+        "SELECT_MODULE_ACTIVE": "Seleccione el módulo al que va a deshabilitar el acceso",
+        "SELECT_MODULE_INACTIVE": "Seleccione el módulo al que otorgará acceso en la compañía",
+        "TBL_ID": "Identificación",
+        "TBL_NAME": "Nombre",
+        "TBL_DESCRIPTION": "Descripción"
+      }
+    },
+    "ADMIN_PAGE_LIST_ROLES": {
+      "TITLE": "Administración de Roles",
+      "SUBTITLE": "Actualice el Estado o Revise los Módulos con Acceso.",
+      "TBL_DESCRIPTION": "Descripción",
+      "TBL_STATUS": "Estado",
+      "TBL_KIND": "Tipo",
+      "TBL_BTN_STATUS_MODULE": "Estado Rol",
+      "TBL_BTN_MODULE": "Módulos Activos"
+    },
+    "ADD_EDIT_USER": {
+      "TITLE": "Parametrización de Usuarios",
+      "PARAMETERS_USER": "Parámetros del Usuario: {{nombreCompleto}}",
+      "REGISTER_USER": "Registro de Usuarios",
+      "SELECT_USER": "Usuario seleccionado",
+      "TABLE": {
+        "ID": "Identificación",
+        "USERNAME": "Nombre Completo",
+        "EMAIL": "Email",
+        "POSITION": "Puesto",
+        "ROLE": "Rol Asignado"
+      },
+      "FORM": {
+        "TXT_ID": "Identificación",
+        "TXT_USERNAME": "Nombre Completo",
+        "TXT_EMAIL": "Correo Electrónico",
+        "TXT_PHONE": "Teléfono",
+        "TXT_PASSWORD": "Contraseña",
+        "TXT_POSITION": "Puesto o Cargo",
+        "TXT_ROLE": "Rol de usuario"
+      }
+    },
+    "ADD_EDIT_COMPANY": {
+      "TITLE": "Registrar",
+      "PARAMETERS_COMPANY": "Parámetros de la Empresa: {{nombreEmpresa}}",
+      "REGISTER_COMPANY": "Registro de Empresas",
+      "SELECT_COMPANY": "Empresa seleccionada",
+      "FORM": {
+        "TXT_ID": "Cédula Jurídica",
+        "TXT_NAME": "Nombre de la Empresa",
+        "CHK_POWER_BI": "Activar mantenimiento para Reportes Power BI",
+        "CHK_DEFAULT_SIZE": "Aplicar tamaño fijo en los nombres de los módulos",
+        "CHK_DEFAULT_EMAIL": "Utilizar como cuenta de correo por defecto",
+        "VALIDATE": {
+          "NAME": "El nombre de la empresa es requerido",
+          "ID": "La cédula jurídica de la empresa es requerida"
+        }
+      }
+    },
+    "ADD_EDIT_ACCES_USER_PAGE_MODULE": {
+      "SUBTITLE": "Módulo de Administración / Administración de Pantallas por Módulo y Accesos de Pantallas por Usuario",
+      "SELECT_SCREEN": "La pantalla seleccionada pertenece al módulo",
+      "TITLE_SCREENS_MAINTENANCE": "Mantenimiento de Pantallas",
+      "TITLE_GRANT_ACCES": "Personas con Acceso a la Compañía",
+      "TITLE_GRANT_ACCES_SCREEN": "Personas con Acceso a la Pantalla",
+      "TITLE_SCREENS": "Lista de Pantallas",
+      "TABLE": {
+        "ID": "Identificación",
+        "CODE": "Código",
+        "NAME": "Nombre",
+        "EMAIL": "Correo",
+        "STATUS": "Estado",
+        "MODIFIED": "Modiciado",
+        "DATE_UPDATE": "Se actualizó"
+      },
+      "FORM": {
+        "TXT_ID": "Id",
+        "TXT_CODE": "Código",
+        "TXT_NAME": "Nombre",
+        "TXT_PATH_URL": "URL Externa(opcional)",
+        "CHK_STATUS": "Estado"
+      }
+    },
+    "ADD_MODULES_ROLE": {
+      "TITLE": "Módulos de compañía",
+      "MODULES_PERMITTED": "Tiene acceso a los siguientes Módulos",
+      "MODULES_NOT_PERMITTED": "No tiene acceso a los siguientes Módulos",
+      "TABLE": {
+        "NAME": "Nombre",
+        "DESCRIPTION": "Descripción",
+        "STATUS": "Estado",
+        "BTN_PERMIT_ACCESS": "Permitir acceso",
+        "BTN_DENY_ACCESS": "Quitar acceso"
+      }
+    },
+    "ADD_EDIT_ROLE": {
+      "TITLE": "Registrar rol",
+      "SUBTITLE": "Formulario de Registro de Roles del Sistema",
+      "FORM": {
+        "TXT_ID": "Identificación",
+        "TXT_NAME": "Nombre o Asignación",
+        "TXT_DESCRIPTION": "Descripción del Rol",
+        "TXT_ADMIN": "Es administrador",
+        "TXT_STATUS": "Estado del Rol",
+        "TXT_KIND": "Tipo de Permisos"
+      }
+    },
+    "ADD_EDIT_ROLE_USER": {
+      "TITLE": "Roles de compañía",
+      "SUBTITLE": "Asigne el Rol al Usuario Seleccionado",
+      "BTN_DELETE_ROLE": "Eliminar Rol",
+      "TABLE": {
+        "NAME": "Nombre",
+        "DESCRIPTION": "Descripción",
+        "STATUS": "Estado",
+        "KIND": "Tipo"
+      },
+      "VALIDATION": {
+        "ROLE_NOT_ASSIGNED": "Rol de usuario no asignado"
+      }
+    },
+    "ADD_EDIT_BUSINESS_USER": {
+      "TITLE": "Compañías del Sistema",
+      "LIST_COMPANIES_ACCES": "Lista de Compañías Con Acceso",
+      "LIST_COMPANIES_NOT_ACCES": "Lista de Compañías Sin Acceso",
+      "BTN_DELETE_ROLE": "Eliminar Acceso de TODAS las Empresas",
+      "TABLE": {
+        "ID": "Identificación",
+        "NAME": "Nombre de la Compañía",
+        "EMAIL": "Correo Electrónico",
+        "PHONE": "Número de Teléfono"
+      },
+      "VALIDATION": {
+        "ROLE_NOT_ASSIGNED": "Rol de usuario no asignado"
+      }
+    }
+  },
+  "MODULES": {
+    "GENERAL": {
+      "TITLE": "{{DESC}} / Parámetros de la Companía {{NM}}",
+      "SUBTITLE": "Parametrización de la Compañía",
+      "TITLE_LIST": "Lista de Parametrización de la Compañía",
+      "TABLE": {
+        "TABLE_HEADER_NAME": "Nombre",
+        "TABLE_HEADER_LEGAL_ID": "Cédula Jurídica",
+        "TABLE_HEADER_EMAIL": "Email",
+        "TABLE_HEADER_ADDRESS_DETAIL": "Detalle Dirección",
+        "TABLE_HEADER_PHONE": "Teléfono",
+        "TABLE_HEADER_UPDATED": "Actualizó",
+        "TABLE_HEADER_DATE": "Fecha"
+      },
+      "FORM": {
+        "TYPE_IDENTIFICATION": "Tipo de Identificación",
+        "IDENTIFICATION": "Identificación",
+        "COMPANY_NAME": "Nombre de Compañía",
+        "COUNTRY_CODE": "Código de País",
+        "PROVINCE": "Provincia",
+        "CANTON": "Cantón",
+        "DISTRICT": "Distrito",
+        "NEIGHBORHOOD": "Barrio",
+        "ADDRESS_DETAIL": "Detalle de Dirección",
+        "AREA_CODE_PHONE": "Código Área Teléfono",
+        "PHONE": "Teléfono",
+        "EMAIL": "Correo Electrónico",
+        "PASSWORD": "Contraseña",
+        "EMAIL_PROVIDER_HOST": "Host de Proveedor Correo",
+        "PORT": "Puerto",
+        "SSL_STATUS": "Estado del SSL"
+      }
+    },
+    "GENERAL_TIPO_CAMBIO": {
+        "TITLE": "{{NM}} / Mantenimiento de Tipo de Cambio",
+        "CURRENCY_TYPE": "Tipo de Moneda",
+        "LIST_TYPE_CURRENCY": "Lista de Tipos de Moneda",
+        "CURRENT_ECHANGE_RATE": "Tipo de Cambio de Moneda",
+        "LIST_CURRENCT_ECHANGE_RATE": "Listado de Tipos de Cambio de la Moneda",
+        "FORM":{
+          "Id": "Id",
+          "InternalCode": "Código Interno",
+          "CurrencyCodeRequired": "El código de la moneda es requerido",
+          "Character": "Caracter",
+          "CurrencySymbolRequired": "El símbolo de la moneda es requerido",
+          "Description": "Descripción",
+          "CurrencyDescriptionRequired": "La descripción de la moneda es requerida",
+          "BCCRPurchase": "BCCR ICompra",
+          "PurchaseIndicatorRequired": "El indicador de la compra del bccr es requerido",
+          "BCCRSale": "BCCR IVenta",
+          "SaleIndicatorRequired": "El indicador de la venta del bccr es requerido",
+          "Status": "Estado",
+          "Currency": "Moneda",
+          "QueryDate": "Fecha de Consulta",
+          "Purchase": "Compra",
+          "Sale": "Venta",
+          "CurrencyTypeIsRequired": "El Tipo de Moneda es requerido",
+          "PurchaseIsRequired": "La compra es requerida",
+          "FirstAliasIsRequired": "El primer alias es requerido"
+      },
+      "TABLE": {
+        "Symbol": "Símbolo",
+        "Description": "Descripción",
+        "BCCR_ICompra": "BCCR ICompra",
+        "BCCR_IVenta": "BCCR IVenta",
+        "Status": "Estado",
+        "Modified": "Modificado",
+        "Updated": "Se actualizó",
+        "QueryDate": "Fecha de Consulta",
+        "SaleAmount": "Monto de Venta",
+        "PurchaseAmount": "Monto de Compra"
+      }
+    }
+  },
+  "GENERAL": {
+    "HI": "Hola",
+    "NAME_COMPANY": "INRA SOLUCIONES SOCIEDAD ANONIMA",
+    "BTN_NEW": "Nuevo",
+    "BTN_BACK": "Regresar",
+    "BTN_UPDATE": "Actualizar",
+    "BTN_REGISTER": "Registrar",
+    "BTN_DELETE": "Eliminar",
+    "BTN_BACK_LOGIN": "Volver a Inicio de Sesión",
+    "BTN_CORRENCY_RATE": "Consultar Tipo de Cambio BCCR",
+    "VALIDATES": {
+      "EMPTY": "El campo es requerido",
+      "REGEX": "No cumple con la regla regex de seguridad",
+      "PASSWORD": "La contraseña es requerida",
+      "PASSWORD_MIN": "La contraseña debe tener al menos {MIN} caracteres"
+    }
+  },
+  "ALERTS": {
+    "USER_NOT_REGISTERED": "El usuario no se encuentra registrado",
+    "PASSWORD_ERROR": "La contraseña ingresada no es correcta",
+    "WITHOUT_RESULTS": "Sin resultados",
+    "EXCEPTION_NOT_CONTROLLED": "Excepción no controlada",
+    "ERROR_CATCH": "Problemas al obtener respuesta del Servidor. Por favor contacte al administrador. {{ERROR}}",
+    "NO_COMPANY_RECORDS": "No se encontraron registros de empresas por el momento",
+    "ERROR_LIST_COMPANIES": "Problemas al consultar la lista de compañías para la asignación del usuario seleccionado. {{ERROR}}",
+    "CONNECTION_ERROR": "Problemas de conexión. {{ERROR}}",
+    "USER_ASSIGNED": "El usuario ya se encuentra asignado",
+    "BLOCKED_USER": "Usuario Bloqueado",
+    "ACTIVATION_USER": "Activación de Usuario",
+    "ACTIVATION_FOR_EMAIL": "Proceso para activar la cuenta registrada en la aplicación, por medio del correo electónico.",
+    "ACTIVATION_PROCCESS": "Proceso de activación",
+    "BLOCKED_USER_BY_PASSWORD": "El usuario fue Bloqueado al intentar ingresar de forma incorrecta la contraseña la cantidad de veces permitidas en el sistema.",
+    "BLOCKED_TUTORIAL": "Por favor contacte al administrador y solicite la activación de la cuenta y la actualización de la contraseña para su usuario: {{identificacion}}",
+    "PENDING_ACTIVATION": "Pendiente de Activación de Módulos",
+    "ACTIVATION_TUTORIAL": "Por favor contacte al administrador para solicitar la activación de los módulos correspondientes a la compañía.",    
+    "ROLE_INACTIVE": "El rol se encuentra inactivo",
+    "ROLE_INACTIVE_EXPLAIN": "Por motivos de seguridad el rol asignado a este usuario fue inactivado, Por favor contacte al administrador.",
+    "USER_INACTIVE": "Usuario Inactivo",
+    "USER_INACTIVE_EXPLAIN": "Por favor contacte al administrador para solicitar la activación de la cuenta.",
+    "USER_PENDING_COMPANY_ASSIGNMENT": "Usuario Pendiente de Asignación Empresa",
+    "USER_PENDING_COMPANY_ASSIGNMENT_EXPLAIN": "Por favor contacte al administrador para solicitar la asignación a una empresa o sociedad.",
+    "USER_PENDING_ACTIVATION": "Usuario Pendiente de Activación",
+    "USER_PENDING_ACTIVATION_EXPLAIN": "Por favor revisar el correo electrónico registrado para su cuenta: {{identificacion}} , adjunto encontrará un link para la activación de la cuenta.",
+    "USER_PENDING_EMAIL_RECIVE": "Si no ha recibido el correo seleccione el botón o contacte al administrador. ",
+    "USER_SEND_EMAIL": "reenviar correo",
+    "USER_PENDING_ROLE_ASSIGNMENT": "Usuario Pendiente de Asignación de Rol",
+    "USER_PENDING_ROLE_ASSIGNMENT_EXPLAIN": "Por favor contacte al administrador para solcitar la asignación del rol respectivo en el sistema.",
+  
+    "noModulesAssigned": "Aún no hay Módulos asignados a la compañía: ",
+    "systemModuleQueryError": "Problemas al consultar los módulos del sistema.",
+    "adminAccessAllModules": "El Usuario Administrador tiene acceso a todos los módulos activos en la compañía: ",
+    "grantAccessError": "Problemas al otorgar acceso de rol al módulo de la compañía.",
+    "deleteAccessError": "Problemas al eliminar acceso de rol al módulo de la compañía.",   
+    "adminAccountModificationAlert": "No se puede modificar el estado de la cuenta administradora del sistema",
+    "adminPermissionChangeAlert": "No se puede cambiar el tipo de permisos de la cuenta administradora del sistema",
+    "companyNotRoleAssignment": "La compañía no tiene roles asignados"
+        
+  },
+  "DIALOGS": {
+    "DELETE_MODULE_TO_SCREEN": "Segur@ que desea eliminar el registro para siempre?"
+  }, 
+  "MENU": {
+    "GENERAL":{
+      "PARAMETERS": "Parámetros",
+      "COMPANY": "Compañía",
+      "EXCHANGE_RATE": "Tipo de Cambio"
+    }
+  }
+}

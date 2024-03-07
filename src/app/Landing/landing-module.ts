@@ -20,6 +20,8 @@ import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
 import { MatDividerModule } from '@angular/material/divider';
 import { ActivateUserPageComponent } from './nologgin/activateUserPage.component';
+import { TranslateModule } from '@ngx-translate/core';
+import { NotModulePageComponent } from './nologgin/notModulePage.component';
 
 
 @NgModule({
@@ -29,6 +31,7 @@ import { ActivateUserPageComponent } from './nologgin/activateUserPage.component
         ReactiveFormsModule,
         LandingRoutingModule,
         CommonModule,
+        TranslateModule.forChild(),
         // ******************
         // -- Utilidades menú
         MatToolbarModule,
@@ -55,7 +58,8 @@ import { ActivateUserPageComponent } from './nologgin/activateUserPage.component
         NotBusinessUserPageComponent,
         InactiveRolPageComponent,
         BlockedUserPageComponent,
-        ActivateUserPageComponent
+        ActivateUserPageComponent,
+        NotModulePageComponent
     ]
 })
 export class LandingModule { }

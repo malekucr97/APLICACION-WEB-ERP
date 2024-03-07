@@ -5,19 +5,19 @@
 
             <section>
                 <div class="articulo__contenedor__body">
-                    <h1>Hola !</h1>
-                    <h4>Usuario Pendiente de Activación</h4>
+                    <h1>{{ 'GENERAL.HI' | translate }}</h1>
+                    <h4>{{ 'ALERTS.USER_PENDING_ACTIVATION' | translate }}</h4>
                     <br>
-                    <p>Por favor revisar el correo electrónico: {{user.email}} , adjunto encontrará un link para la activación de la cuenta.</p>
-                    <p>Si no ha recibido el correo seleccione 
-                        <strong class="articulo__contenedor__enlace" (click)="reenviarEmail()"> reenviar correo </strong> o contacte al administrador.
+                    <p>{{ 'ALERTS.USER_PENDING_ACTIVATION_EXPLAIN' | translate: {identificacion: user.identificacion} }}</p>
+                    <p>{{ 'ALERTS.USER_PENDING_EMAIL_RECIVE' | translate }} 
+                        <strong class="articulo__contenedor__enlace" (click)="reenviarEmail()"> {{ 'ALERTS.USER_SEND_EMAIL' | translate }}</strong>
                     </p>
 
                     <br>
                     <p *ngIf="mostrarMensajeReenvio">{{mensajeReenvio}}</p>
 
                     <button (click)="redirect()" class="btn-redirect-login" >
-                        Volver a Inicio de Sesión
+                        {{ 'GENERAL.BTN_BACK_LOGIN' | translate }}
                     </button>
                 </div>
             </section>

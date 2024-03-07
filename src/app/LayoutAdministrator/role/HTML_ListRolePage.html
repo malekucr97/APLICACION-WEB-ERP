@@ -1,6 +1,6 @@
-<h1>Roles </h1>
+<h1>{{ 'CONFIGURATION.ADMIN_PAGE_LIST_ROLES.TITLE' | translate }}</h1>
 
-<a routerLink="{{URLAdministratorPage}}" class="btn btn-light mb-2">Volver</a><br>
+<a routerLink="{{URLAdministratorPage}}" class="btn btn-light mb-2">{{ 'GENERAL.BTN_BACK' | translate }}</a><br>
 
 <div class="card">
     
@@ -13,14 +13,14 @@
         
         <h3 style="color:#1A5276"><b>{{businessObservable.nombre}} </b></h3>
         <br>
-        <h3 style="color:#1A5276">Actualice el Estado o Revise los Módulos con Acceso.</h3>
+        <h3 style="color:#1A5276">{{ 'CONFIGURATION.ADMIN_PAGE_LIST_ROLES.SUBTITLE' | translate }}</h3>
 
         <table class="table table-striped">
             <thead>
                 <tr>
-                    <th style="width: 52%">Descripción</th>
-                    <th style="width: 10%">Estado</th>
-                    <th style="width: 35%">Tipo</th>
+                    <th style="width: 52%">{{ 'CONFIGURATION.ADMIN_PAGE_LIST_ROLES.TBL_DESCRIPTION' | translate }}</th>
+                    <th style="width: 10%">{{ 'CONFIGURATION.ADMIN_PAGE_LIST_ROLES.TBL_STATUS' | translate }}</th>
+                    <th style="width: 35%">{{ 'CONFIGURATION.ADMIN_PAGE_LIST_ROLES.TBL_KIND' | translate }}</th>
 
 
                     <th style="width: 1%"></th>
@@ -43,14 +43,14 @@
                                 class="btn-sm item-list__admin__ok" >
 
                                 <mat-icon>thumb_down_alt</mat-icon>
-                                Estado Rol
+                                {{ 'CONFIGURATION.ADMIN_PAGE_LIST_ROLES.TBL_BTN_STATUS_MODULE' | translate }}
                         </button>
                         <button *ngIf="rol.estado=='Activo'"  
                                 (click)="inActivateRole(rol.id)" 
                                 class="btn-sm item-list__admin__warn" >
 
                                 <mat-icon>thumb_up_alt</mat-icon>
-                                Estado Rol
+                                {{ 'CONFIGURATION.ADMIN_PAGE_LIST_ROLES.TBL_BTN_STATUS_MODULE' | translate }}
                         </button>
                     </td>
 
@@ -66,7 +66,7 @@
                     <td>
                         <button routerLink="{{URLAddModuleRolPage}}{{rol.id}}" 
                             class="btn-sm item-list__admin__view"> 
-                            <mat-icon>apps</mat-icon> Módulos Activos
+                            <mat-icon>apps</mat-icon> {{ 'CONFIGURATION.ADMIN_PAGE_LIST_ROLES.TBL_BTN_MODULE' | translate }}
                         </button>
                     </td>
 

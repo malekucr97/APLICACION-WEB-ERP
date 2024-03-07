@@ -1,18 +1,17 @@
-<h1 style="display: inline;">Roles </h1>
-<h1 style="display: inline;">de Compañía </h1>
+<h1 style="display: inline;">{{ 'CONFIGURATION.ADD_EDIT_ROLE_USER.TITLE' | translate }}</h1>
 <br><br>
 <h3 style="color:#1A5276"><b>{{businessObservable.nombre}} </b></h3>
 
 <br>
 
-<a routerLink="{{HTTPListUserPage}}" class="btn btn-light mb-2 mr-3">Volver</a><br>
+<a routerLink="{{HTTPListUserPage}}" class="btn btn-light mb-2 mr-3">{{ 'GENERAL.BTN_BACK' | translate }}</a><br>
 
 <div class="card">
     <div class="card-body">
 
 
         <h3 *ngIf="isRolAssign" style="color:#1A5276"><b>{{role.nombre}} </b></h3>
-        <h3 *ngIf="!isRolAssign">&emsp;<b>Rol de usuario no asignado</b></h3>
+        <h3 *ngIf="!isRolAssign">&emsp;<b>{{ 'CONFIGURATION.ADD_EDIT_ROLE_USER.VALIDATION.ROLE_NOT_ASSIGNED' | translate }}</b></h3>
         <br>
 
         <h3 style="display: inline;"><b>{{userToAssign.identificacion}} </b></h3>
@@ -22,22 +21,22 @@
         <button
                 (click)="desAsignAllRolesUser()" 
                 class="btn-sm items__btns__danger float-right">
-            <span>Eliminar Rol</span>
+            <span>{{ 'CONFIGURATION.ADD_EDIT_ROLE_USER.BTN_DELETE_ROLE' | translate }}</span>
         </button>
 
         <br>
 
         <div *ngIf="listAllRoles">
             <br>
-            <h3 style="color:#1A5276">Asigne el Rol al Usuario Seleccionado</h3>
+            <h3 style="color:#1A5276">{{ 'CONFIGURATION.ADD_EDIT_ROLE_USER.SUBTITLE' | translate }}</h3>
             <table class="table table-striped">
             
                 <thead>
                     <tr>
-                        <th style="width: 30%">Nombre</th>
-                        <th style="width: 30%">Descripción</th>
-                        <th style="width: 10%">Estado</th>
-                        <th style="width: 20%">Tipo</th>
+                        <th style="width: 30%">{{ 'CONFIGURATION.ADD_EDIT_ROLE_USER.TABLE.NAME' | translate }}</th>
+                        <th style="width: 30%">{{ 'CONFIGURATION.ADD_EDIT_ROLE_USER.TABLE.DESCRIPTION' | translate }}</th>
+                        <th style="width: 10%">{{ 'CONFIGURATION.ADD_EDIT_ROLE_USER.TABLE.STATUS' | translate }}</th>
+                        <th style="width: 20%">{{ 'CONFIGURATION.ADD_EDIT_ROLE_USER.TABLE.KIND' | translate }}</th>
                         <th style="width: 10%"></th>
                     </tr>
                 </thead>
