@@ -357,7 +357,8 @@
     "SUCCESSFUL_PERSON_AMOUNT_UPDATE": "Person's amounts successfully updated.",
     "SUCCESSFUL_PERSON_TYPE_REGISTRATION": "Person type {{$PH}} successfully registered.",
     "FAILED_PERSON_TYPE_REGISTRATION": "It was not possible to register the person type.",
-    "SUCCESSFUL_PERSON_TYPE_UPDATE": "Person type {{$PH}} successfully updated."
+    "SUCCESSFUL_PERSON_TYPE_UPDATE": "Person type {{$PH}} successfully updated.",
+    "PATH_REPORT_NOT_FOUND": "The path to the report was not found"
 
   },
   "DIALOGS": {

@@ -357,7 +357,8 @@
     "SUCCESSFUL_PERSON_AMOUNT_UPDATE": "Montos de Persona actualizado con éxito.",
     "SUCCESSFUL_PERSON_TYPE_REGISTRATION": "Tipo de persona {{$PH}} registrado con éxito.",
     "FAILED_PERSON_TYPE_REGISTRATION": "No fue posible registrar el tipo de persona.",
-    "SUCCESSFUL_PERSON_TYPE_UPDATE": "Tipo de persona {{$PH}} actualizado con éxito."
+    "SUCCESSFUL_PERSON_TYPE_UPDATE": "Tipo de persona {{$PH}} actualizado con éxito.",
+    "PATH_REPORT_NOT_FOUND": "La dirección del reporte no se encuentra registrada"
         
   },
   "DIALOGS": {
