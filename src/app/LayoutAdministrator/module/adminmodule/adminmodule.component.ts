@@ -6,6 +6,7 @@ import { Compania, Module, User } from '@app/_models';
 import { ScreenModule } from '@app/_models/admin/screenModule';
 import { AccountService, AlertService } from '@app/_services';
 import { httpAccessAdminPage } from '@environments/environment';
+import { TranslateService } from '@ngx-translate/core';
 import { first } from 'rxjs/operators';
 
 @Component({
@@ -51,7 +52,8 @@ export class AdminmoduleComponent extends OnSeguridad implements OnInit {
               private alertService: AlertService,
               private formBuilder: FormBuilder,
               private route: ActivatedRoute,
-              private router: Router ) {
+              private router: Router,
+              private translate: TranslateService ) {
 
     super(alertService, accountService, router);
 
@@ -144,7 +146,7 @@ export class AdminmoduleComponent extends OnSeguridad implements OnInit {
     this.submitFormAdminModule = true;
 
     if (this.formAdminModule.invalid) {
-      this.alertService.error('La información indicada no es válida.');
+      this.alertService.error(this.translate.instant('ALERTS.informationNotValid'));
       return undefined;
     }
 
@@ -222,17 +224,17 @@ export class AdminmoduleComponent extends OnSeguridad implements OnInit {
         (response) => {
           if (response) {
             this.alertService.success(
-              `Pantalla ${pantallaForm.nombre} registrada con éxito.`
+              this.translate.instant('ALERTS.screenRegisterSuccess',{$PH:pantallaForm.nombre})
             );
             this.obtenerListaModulos();
             this.iniciarFormulario();
           } else {
-            this.alertService.error(`No fue posible registrar la pantalla .`);
+            this.alertService.error(this.translate.instant('ALERTS.screenRegisterError'));
           }
         },
         (error) => {
           this.alertService.error(
-            `Problemas al establecer la conexión con el servidor. Detalle: ${error}`
+            this.translate.instant('ALERTS.errorConnectionServer',{$PH:error})
           );
         }
       );
@@ -282,7 +284,7 @@ export class AdminmoduleComponent extends OnSeguridad implements OnInit {
 
   actualizarModulo() {
     if (!this.moduloSeleccionado) {
-      this.alertService.error('No se ha seleccionado una opción correcta.');
+      this.alertService.error(this.translate.instant('ALERTS.notCorrectOption'));
       return;
     }
 

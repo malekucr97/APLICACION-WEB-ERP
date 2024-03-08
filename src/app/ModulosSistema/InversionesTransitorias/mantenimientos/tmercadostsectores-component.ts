@@ -16,6 +16,7 @@ import { InvTipoCambio } from '@app/_models/Inversiones/TipoCambio';
 import { InvPeriocidad } from '@app/_models/Inversiones/Periocidad';
 import { InvTipoMercado } from '@app/_models/Inversiones/TipoMercado';
 import { InvTipoSector } from '@app/_models/Inversiones/TipoSector';
+import { TranslateService } from '@ngx-translate/core';
 
 declare var $: any;
 
@@ -62,7 +63,8 @@ export class InvTMercadosTSectoresComponent implements OnInit {
                     private inversionesService:     InversionesService,
                     private formBuilder:       FormBuilder,
                     private accountService:     AccountService,
-                    private dialogo:           MatDialog ) {
+                    private dialogo:           MatDialog,
+                    private translate: TranslateService ) {
 
         this.userObservable = this.accountService.userValue;
         this.moduleObservable = this.accountService.moduleValue;
@@ -117,11 +119,11 @@ export class InvTMercadosTSectoresComponent implements OnInit {
                 } else { 
                 
                     this.inicializaFormularioMercado();
-                    this.alertService.info('No se encontraron registros .');
+                    this.alertService.info(this.translate.instant('ALERTS.NO_RECORDS_FOUND'));
                 }
             },
             error => {
-                let message : string = 'Problemas de conexión: ' + error;
+                let message : string = this.translate.instant('ALERTS.CONNECTION_PROBLEMS',{$PH:error});
                 this.alertService.error(message);
             });
     }
@@ -147,11 +149,11 @@ export class InvTMercadosTSectoresComponent implements OnInit {
                 } else { 
                 
                     this.inicializaFormularioSector();
-                    this.alertService.info('No se encontraron registros .');
+                    this.alertService.info(this.translate.instant('ALERTS.NO_RECORDS_FOUND'));
                 }
             },
             error => {
-                let message : string = 'Problemas de conexión: ' + error;
+                let message : string = this.translate.instant('ALERTS.CONNECTION_PROBLEMS',{$PH:error});
                 this.alertService.error(message);
             });
     }
@@ -268,12 +270,12 @@ export class InvTMercadosTSectoresComponent implements OnInit {
 
                     this.inicializaFormularioMercado();
 
-                    this.alertService.success( `Registro exitoso .` );
+                    this.alertService.success( this.translate.instant('ALERTS.SUCCESSFUL_REGISTRATION') );
 
-                } else { this.alertService.error(`No fue posible registrar la moneda .`); }
+                } else { this.alertService.error(this.translate.instant('ALERTS.FAILED_CURRENCY_REGISTRATION')); }
 
             }, error => {
-                this.alertService.error( `Problemas al establecer la conexión con el servidor. Detalle: ${ error }` );
+                this.alertService.error( this.translate.instant('ALERTS.errorConnectionServer',{$PH:error}) );
             });
     }
     submitSector() : void {
@@ -298,12 +300,12 @@ export class InvTMercadosTSectoresComponent implements OnInit {
 
                     this.inicializaFormularioSector();
 
-                    this.alertService.success( `Registro exitoso .` );
+                    this.alertService.success( this.translate.instant('ALERTS.SUCCESSFUL_REGISTRATION') );
 
-                } else { this.alertService.error(`No fue posible registrar la moneda .`); }
+                } else { this.alertService.error(this.translate.instant('ALERTS.FAILED_CURRENCY_REGISTRATION')); }
 
             }, error => {
-                this.alertService.error( `Problemas al establecer la conexión con el servidor. Detalle: ${ error }` );
+                this.alertService.error( this.translate.instant('ALERTS.errorConnectionServer',{$PH:error}) );
             });
     }
 
@@ -317,7 +319,7 @@ export class InvTMercadosTSectoresComponent implements OnInit {
         var id : number = this.formularioMercado.controls['idMercado'].value;
 
         this.dialogo.open(DialogoConfirmacionComponent, {
-            data: `Segur@ que desea eliminar el registro para siempre ?`
+            data: this.translate.instant('ALERTS.dialogConfirmDelete')
         })
         .afterClosed()
         .subscribe((confirmado: Boolean) => {
@@ -351,7 +353,7 @@ export class InvTMercadosTSectoresComponent implements OnInit {
         var id : number = this.formularioSector.controls['idSector'].value;
 
         this.dialogo.open(DialogoConfirmacionComponent, {
-            data: `Segur@ que desea eliminar el registro para siempre ?`
+            data: this.translate.instant('ALERTS.dialogConfirmDelete')
         })
         .afterClosed()
         .subscribe((confirmado: Boolean) => {
@@ -412,12 +414,12 @@ export class InvTMercadosTSectoresComponent implements OnInit {
 
                     this.inicializaFormularioMercado();
 
-                    this.alertService.success( `Registro actualizado con éxito.` );
+                    this.alertService.success( this.translate.instant('ALERTS.SUCCESSFUL_UPDATE') );
 
-                } else { this.alertService.error(`No fue posible actualizar el registro .`); }
+                } else { this.alertService.error(this.translate.instant('ALERTS.FAILED_UPDATE')); }
 
             }, error => {
-                this.alertService.error( `Problemas al establecer la conexión con el servidor. Detalle: ${ error }` );
+                this.alertService.error( this.translate.instant('ALERTS.errorConnectionServer',{$PH:error}) );
             });
     }
 
@@ -448,12 +450,12 @@ export class InvTMercadosTSectoresComponent implements OnInit {
 
                     this.inicializaFormularioSector();
 
-                    this.alertService.success( `Registro actualizado con éxito.` );
+                    this.alertService.success( this.translate.instant('ALERTS.SUCCESSFUL_UPDATE') );
 
-                } else { this.alertService.error(`No fue posible actualizar el registro .`); }
+                } else { this.alertService.error(this.translate.instant('ALERTS.FAILED_UPDATE')); }
 
             }, error => {
-                this.alertService.error( `Problemas al establecer la conexión con el servidor. Detalle: ${ error }` );
+                this.alertService.error( this.translate.instant('ALERTS.errorConnectionServer',{$PH:error}) );
             });
     }
 }

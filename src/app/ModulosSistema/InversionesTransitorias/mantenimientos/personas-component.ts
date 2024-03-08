@@ -15,6 +15,7 @@ import { InvTipoPersona } from '@app/_models/Inversiones/TipoPersona';
 import { InvPersona } from '@app/_models/Inversiones/Persona';
 import { InvMontoMaximoPersona } from '@app/_models/Inversiones/MontoMaximoPersona';
 import { InvTipoMoneda } from '@app/_models/Inversiones/TipoMoneda';
+import { TranslateService } from '@ngx-translate/core';
 
 declare var $: any;
 
@@ -70,7 +71,8 @@ export class InvPersonasComponent implements OnInit {
                     private inversionesService:     InversionesService,
                     private formBuilder:       FormBuilder,
                     private accountService:     AccountService,
-                    private dialogo:           MatDialog ) {
+                    private dialogo:           MatDialog,
+                    private translate: TranslateService ) {
 
         this.userObservable = this.accountService.userValue;
         this.moduleObservable = this.accountService.moduleValue;
@@ -141,11 +143,11 @@ export class InvPersonasComponent implements OnInit {
                     
                 } else { 
                     this.inicializaformulario();
-                    this.alertService.info('No se encontraron registros .'); 
+                    this.alertService.info(this.translate.instant('ALERTS.NO_RECORDS_FOUND')); 
                 }
             },
             error => {
-                let message : string = 'Problemas de conexión: ' + error;
+                let message : string = this.translate.instant('ALERTS.CONNECTION_PROBLEMS',{$PH:error});
                 this.alertService.error(message);
             });
     }
@@ -314,12 +316,12 @@ export class InvPersonasComponent implements OnInit {
 
                     this.inicializaformulario();
 
-                    this.alertService.success( `Persona ${response.identificacion} registrada con éxito .` );
+                    this.alertService.success( this.translate.instant('ALERTS.SUCCESSFUL_PERSON_REGISTRATION',{$PH:response.identificacion}) );
 
-                } else { this.alertService.error(`No fue posible realizar el registro .`); }
+                } else { this.alertService.error(this.translate.instant('ALERTS.FAILED_REGISTRATION')); }
 
             }, error => {
-                this.alertService.error( `Problemas al establecer la conexión con el servidor. Detalle: ${ error }` );
+                this.alertService.error( this.translate.instant('ALERTS.errorConnectionServer',{$PH:error}) );
             });
     }
     submitFormMontosPersona() : void {
@@ -348,12 +350,12 @@ export class InvPersonasComponent implements OnInit {
 
                     this.habilitaListaMontosPersona = true ;
 
-                    this.alertService.success( `Monto registrado con éxito .` );
+                    this.alertService.success( this.translate.instant('ALERTS.SUCCESSFUL_AMOUNT_REGISTRATION') );
 
-                } else { this.alertService.error(`No fue posible realizar el registro .`); }
+                } else { this.alertService.error(this.translate.instant('ALERTS.FAILED_REGISTRATION')); }
 
             }, error => {
-                this.alertService.error( `Problemas al establecer la conexión con el servidor. Detalle: ${ error }` );
+                this.alertService.error( this.translate.instant('ALERTS.errorConnectionServer',{$PH:error}) );
             });
     }
 
@@ -367,7 +369,7 @@ export class InvPersonasComponent implements OnInit {
         var id : number = this.formulario.controls['id'].value;
 
         this.dialogo.open(DialogoConfirmacionComponent, {
-            data: `Segur@ que desea eliminar el registro para siempre ?`
+            data: this.translate.instant('ALERTS.dialogConfirmDelete')
         })
         .afterClosed()
         .subscribe((confirmado: Boolean) => {
@@ -401,7 +403,7 @@ export class InvPersonasComponent implements OnInit {
         var id : number = this.formularioMontosPersona.controls['id'].value;
 
         this.dialogo.open(DialogoConfirmacionComponent, {
-            data: `Segur@ que desea eliminar el registro para siempre ?`
+            data: this.translate.instant('ALERTS.dialogConfirmDelete')
         })
         .afterClosed()
         .subscribe((confirmado: Boolean) => {
@@ -468,12 +470,12 @@ export class InvPersonasComponent implements OnInit {
 
                     this.inicializaformulario();
 
-                    this.alertService.success( `Persona ${response.identificacion} actualizada con éxito.` );
+                    this.alertService.success( this.translate.instant('ALERTS.SUCCESSFUL_PERSON_UPDATE',{$PH:response.identificacion}) );
 
-                } else { this.alertService.error(`No fue posible actualizar el registro .`); }
+                } else { this.alertService.error(this.translate.instant('ALERTS.FAILED_UPDATE')); }
 
             }, error => {
-                this.alertService.error( `Problemas al establecer la conexión con el servidor. Detalle: ${ error }` );
+                this.alertService.error( this.translate.instant('ALERTS.errorConnectionServer',{$PH:error}) );
             });
     }
     actualizaObjetoMontoPersona() : void {
@@ -503,12 +505,12 @@ export class InvPersonasComponent implements OnInit {
 
                     this.inicializaFormularioMontosPersona();
 
-                    this.alertService.success( `Montos de Persona actualizado con éxito.` );
+                    this.alertService.success( this.translate.instant('ALERTS.SUCCESSFUL_PERSON_AMOUNT_UPDATE') );
 
-                } else { this.alertService.error(`No fue posible actualizar el registro .`); }
+                } else { this.alertService.error(this.translate.instant('ALERTS.FAILED_UPDATE')); }
 
             }, error => {
-                this.alertService.error( `Problemas al establecer la conexión con el servidor. Detalle: ${ error }` );
+                this.alertService.error( this.translate.instant('ALERTS.errorConnectionServer',{$PH:error}) );
             });
     }
 }
