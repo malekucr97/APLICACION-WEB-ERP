@@ -14,6 +14,7 @@ import { GenTipoMoneda } from '@app/_models/Generales/TipoMoneda';
 import { GenTipoCambio } from '@app/_models/Generales/TipoCambio';
 import { OnSeguridad } from '@app/_helpers/abstractSeguridad';
 import { Router } from '@angular/router';
+import { TranslateService } from '@ngx-translate/core';
 
 declare var $: any;
 
@@ -67,7 +68,8 @@ export class TipoCambioComponent  extends OnSeguridad implements OnInit {
                     private formBuilder:       FormBuilder,
                     private accountService:     AccountService,
                     private dialogo:           MatDialog,
-                    private router: Router ) {
+                    private router: Router,
+                    private translate: TranslateService ) {
 
         //#region VALIDACIÓN DE ACCESO A LAS PANTALLAS
         super(alertService, accountService, router);
@@ -154,7 +156,7 @@ export class TipoCambioComponent  extends OnSeguridad implements OnInit {
         if (isNaN(+bccrIndicadorVenta) == false && bccrIndicadorVenta > 0 && poseeIndicadoresBCCR) poseeIndicadoresBCCR = true ;
 
         if(!poseeIndicadoresBCCR){
-            this.alertService.error( $localize`Debe de registrar los Indicadores del tipo de cambio de Compra y Venta asignados por el BCCR a la moneda que corresponde.` );
+            this.alertService.error(this.translate.instant('ALERTS.BCCR_ExchangeRate_Indicators_Required'));
             return ;
         }
 
@@ -209,12 +211,12 @@ export class TipoCambioComponent  extends OnSeguridad implements OnInit {
                 } else { 
                 
                     this.inicializaFormTipoMoneda();
-                    this.alertService.info('No se encontraron registros .'); 
+                    this.alertService.info(this.translate.instant('ALERTS.NO_RECORDS_FOUND')); 
                 
                 }
             },
             error => {
-                let message : string = 'Problemas de conexión: ' + error;
+                let message : string = this.translate.instant('ALERTS.CONNECTION_PROBLEMS',{$PH:error});
                 this.alertService.error(message);
             });
     }
@@ -248,11 +250,11 @@ export class TipoCambioComponent  extends OnSeguridad implements OnInit {
                     this.habilitaListaTipoCambio = false ;
                 
                     this.inicializaFormularioTipoCambio();
-                    this.alertService.info('No se encontraron registros para el ' + fechaConsultaCompleta);
+                    this.alertService.info(this.translate.instant('ALERTS.NO_RECORDS_FOUND'));
                 }
             },
             error => {
-                let message : string = 'Problemas de conexión: ' + error;
+                let message : string = this.translate.instant('ALERTS.CONNECTION_PROBLEMS',{$PH:error});
                 this.alertService.error(message);
             });
     }
@@ -420,12 +422,12 @@ export class TipoCambioComponent  extends OnSeguridad implements OnInit {
 
                     this.inicializaFormTipoMoneda();
 
-                    this.alertService.success($localize `Moneda ${response.codigoMoneda} registrada con éxito.` );
+                    this.alertService.success( this.translate.instant('ALERTS.SUCCESSFUL_CURRENCY_REGISTRATION',{$PH:response.codigoMoneda}) );
 
-                } else { this.alertService.error($localize`No fue posible registrar la moneda .`); }
+                } else { this.alertService.error(this.translate.instant('ALERTS.FAILED_CURRENCY_REGISTRATION')); }
 
             }, error => {
-                this.alertService.error( $localize`Problemas al establecer la conexión con el servidor. Detalle: ${ error }` );
+                this.alertService.error( this.translate.instant('ALERTS.errorConnectionServer',{$PH:error}) );
             });
     }
     submitFormTipoCambio() : void {
@@ -454,12 +456,12 @@ export class TipoCambioComponent  extends OnSeguridad implements OnInit {
 
                     this.habilitaListaTipoCambio = true ;
 
-                    this.alertService.success( $localize`Registro exitoso .` );
+                    this.alertService.success( this.translate.instant('ALERTS.SUCCESSFUL_REGISTRATION') );
 
-                } else { this.alertService.error($localize`No fue posible realizar el registro .`); }
+                } else { this.alertService.error(this.translate.instant('ALERTS.FAILED_REGISTRATION')); }
 
             }, error => {
-                this.alertService.error( $localize`Problemas al establecer la conexión con el servidor. Detalle: ${ error }` );
+                this.alertService.error( this.translate.instant('ALERTS.errorConnectionServer',{$PH:error}) );
             });
     }
 
@@ -473,7 +475,7 @@ export class TipoCambioComponent  extends OnSeguridad implements OnInit {
         var id : number = this.formTipoMoneda.controls['id'].value;
 
         this.dialogo.open(DialogoConfirmacionComponent, {
-            data: $localize`Segur@ que desea eliminar el registro para siempre ?`
+            data: this.translate.instant('ALERTS.dialogConfirmDelete')
         })
         .afterClosed()
         .subscribe((confirmado: Boolean) => {
@@ -509,7 +511,7 @@ export class TipoCambioComponent  extends OnSeguridad implements OnInit {
         var id : number = this.formTipoCambio.controls['id'].value;
 
         this.dialogo.open(DialogoConfirmacionComponent, {
-            data: $localize`Segur@ que desea eliminar el registro para siempre ?`
+            data: this.translate.instant('ALERTS.dialogConfirmDelete')
         })
         .afterClosed()
         .subscribe((confirmado: Boolean) => {
@@ -572,12 +574,12 @@ export class TipoCambioComponent  extends OnSeguridad implements OnInit {
 
                     this.inicializaFormTipoMoneda();
 
-                    this.alertService.success( `Moneda ${response.codigoMoneda} actualizada con éxito.` );
+                    this.alertService.success( this.translate.instant('ALERTS.SUCCESSFUL_CURRENCY_UPDATE',{$PH:response.codigoMoneda}) );
 
-                } else { this.alertService.error($localize`No fue posible actualizar el registro .`); }
+                } else { this.alertService.error(this.translate.instant('ALERTS.FAILED_UPDATE')); }
 
             }, error => {
-                this.alertService.error( $localize`Problemas al establecer la conexión con el servidor. Detalle: ${ error }` );
+                this.alertService.error( this.translate.instant('ALERTS.errorConnectionServer',{$PH:error}) );
             });
     }
     actualizaObjetoMontoPersona() : void {
@@ -607,12 +609,12 @@ export class TipoCambioComponent  extends OnSeguridad implements OnInit {
 
                     this.inicializaFormularioTipoCambio();
 
-                    this.alertService.success( $localize`Registro actulizado con éxito .` );
+                    this.alertService.success( this.translate.instant('ALERTS.SUCCESSFUL_UPDATE') );
 
-                } else { this.alertService.error($localize`No fue posible actualizar el registro .`); }
+                } else { this.alertService.error(this.translate.instant('ALERTS.FAILED_UPDATE')); }
 
             }, error => {
-                this.alertService.error( $localize`Problemas al establecer la conexión con el servidor. Detalle: ${ error }` );
+                this.alertService.error( this.translate.instant('ALERTS.errorConnectionServer',{$PH:error}) );
             });
     }
 }

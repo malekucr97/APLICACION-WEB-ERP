@@ -12,6 +12,7 @@ import { DialogoConfirmacionComponent }             from '@app/_components/dialo
 import { InversionesService }                       from '@app/_services/inversiones.service';
 import { first } from 'rxjs/operators';
 import { InvTipoPersona } from '@app/_models/Inversiones/TipoPersona';
+import { TranslateService } from '@ngx-translate/core';
 
 declare var $: any;
 
@@ -50,7 +51,8 @@ export class InvTiposPersonasComponent implements OnInit {
                     private inversionesService:     InversionesService,
                     private formBuilder:       FormBuilder,
                     private accountService:     AccountService,
-                    private dialogo:           MatDialog ) {
+                    private dialogo:           MatDialog,
+                    private translate: TranslateService ) {
 
         this.userObservable = this.accountService.userValue;
         this.moduleObservable = this.accountService.moduleValue;
@@ -96,11 +98,11 @@ export class InvTiposPersonasComponent implements OnInit {
 
                 } else { 
                     this.inicializaformTipoPersona(response[0]);
-                    this.alertService.info('No se encontraron registros .'); 
+                    this.alertService.info(this.translate.instant('ALERTS.NO_RECORDS_FOUND')); 
                 }
             },
             error => {
-                let message : string = 'Problemas de conexión: ' + error;
+                let message : string = this.translate.instant('ALERTS.CONNECTION_PROBLEMS',{$PH:error});
                 this.alertService.error(message);
             });
     }
@@ -174,12 +176,12 @@ export class InvTiposPersonasComponent implements OnInit {
 
                     this.inicializaformTipoPersona();
 
-                    this.alertService.success( `Tipo de persona ${response.descripcion} registrado con éxito.` );
+                    this.alertService.success( this.translate.instant('ALERTS.SUCCESSFUL_PERSON_TYPE_REGISTRATION',{$PH:response.descripcion}) );
 
-                } else { this.alertService.error(`No fue posible registrar el tipo de persona .`); }
+                } else { this.alertService.error( this.translate.instant('ALERTS.FAILED_PERSON_TYPE_REGISTRATION')); }
 
             }, error => {
-                this.alertService.error( `Problemas al establecer la conexión con el servidor. Detalle: ${ error }` );
+                this.alertService.error( this.translate.instant('ALERTS.errorConnectionServer',{$PH:error}) );
             });
     }
 
@@ -193,7 +195,7 @@ export class InvTiposPersonasComponent implements OnInit {
         var id : number = this.formTipoPersona.controls['id'].value;
 
         this.dialogo.open(DialogoConfirmacionComponent, {
-            data: `Segur@ que desea eliminar el registro para siempre ?`
+            data: this.translate.instant('ALERTS.dialogConfirmDelete')
         })
         .afterClosed()
         .subscribe((confirmado: Boolean) => {
@@ -250,12 +252,12 @@ export class InvTiposPersonasComponent implements OnInit {
 
                     this.inicializaformTipoPersona();
 
-                    this.alertService.success( `Tipo de persona ${response.descripcion} actualizado con éxito.` );
+                    this.alertService.success( this.translate.instant('ALERTS.SUCCESSFUL_PERSON_TYPE_UPDATE',{$PH:response.descripcion}) );
 
-                } else { this.alertService.error(`No fue posible actualizar el registro .`); }
+                } else { this.alertService.error(this.translate.instant('ALERTS.FAILED_UPDATE')); }
 
             }, error => {
-                this.alertService.error( `Problemas al establecer la conexión con el servidor. Detalle: ${ error }` );
+                this.alertService.error( this.translate.instant('ALERTS.errorConnectionServer',{$PH:error}) );
             });
     }
 }

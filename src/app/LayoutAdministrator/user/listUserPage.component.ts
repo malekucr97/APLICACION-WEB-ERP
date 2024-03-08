@@ -8,6 +8,7 @@ import { administrator, httpAccessAdminPage } from '@environments/environment';
 import { OnSeguridad } from '@app/_helpers/abstractSeguridad';
 import { MatDialog } from '@angular/material/dialog';
 import { DialogoConfirmacionComponent } from '@app/_components/dialogo-confirmacion/dialogo-confirmacion.component';
+import { TranslateService } from '@ngx-translate/core';
 
 @Component({templateUrl: 'HTML_ListUserPage.html',
             styleUrls: [ '../../../assets/scss/app.scss', '../../../assets/scss/administrator/app.scss']
@@ -34,7 +35,8 @@ export class ListUserComponent extends OnSeguridad implements OnInit {
   constructor(  private accountService: AccountService,
                 private alertService: AlertService,
                 private router: Router,
-                private dialogo: MatDialog ) {
+                private dialogo: MatDialog,
+                private translate: TranslateService ) {
 
     super(alertService, accountService, router);
 
@@ -91,8 +93,7 @@ export class ListUserComponent extends OnSeguridad implements OnInit {
 
     if (identificacionUsuario !== administrator.identification) {
 
-      this.dialogo.open(DialogoConfirmacionComponent, { data: `Segur@ que desea eliminar el registro ${identificacionUsuario} para siempre ?
-                                                              Asegurese de que el usuario no esté asignado a una Compañía` })
+      this.dialogo.open(DialogoConfirmacionComponent, { data: this.translate.instant('ALERTS.dialogConfirmDelete') })
             .afterClosed()
             .subscribe((confirmado: Boolean) => {
 
@@ -116,7 +117,7 @@ export class ListUserComponent extends OnSeguridad implements OnInit {
                 } else { return; }
             });
 
-    } else { this.alertService.info('No se puede eliminar la cuenta administradora del sistema'); }
+    } else { this.alertService.info(this.translate.instant('ALERTS.superAdminNotDelete')); }
   }
 
   updateStateUser(userStateUpdate : User) : void {
@@ -148,7 +149,7 @@ export class ListUserComponent extends OnSeguridad implements OnInit {
 
       this.updateStateUser(userUpdate);
       
-    } else { this.alertService.info($localize`No se puede modificar el estado de la cuenta administradora del sistema`); }
+    } else { this.alertService.info(this.translate.instant('ALERTS.superAdminNotModification')); }
   }
 
   inActivateUser(identificacion : string, idUser : number) {
@@ -162,6 +163,6 @@ export class ListUserComponent extends OnSeguridad implements OnInit {
 
       this.updateStateUser(userUpdate);
       
-    } else { this.alertService.info($localize`No se puede modificar el estado de la cuenta administradora del sistema`); }
+    } else { this.alertService.info(this.translate.instant('ALERTS.superAdminNotModification')); }
   }
 }
