@@ -86,7 +86,7 @@ export class IndexPowerBiComponent extends OnSeguridad implements OnInit {
     } as ScreenModule;
 
     this.powerBIService
-      .getURLExterna(oScreenModule)
+      .getURLExterna(oScreenModule, this.userObservable.id.toString(), oScreenModule.idCompania.toString(), oScreenModule.idModulo.toString())
       .pipe(first())
       .subscribe((response) => {
         if (response.exito) {

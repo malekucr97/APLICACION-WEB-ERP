@@ -1,8 +1,8 @@
 // ## ** enviroment desarrollo ** ## //
 
 export const environment = {
-    production: false,
-    apiUrl: 'http://localhost:4000',
+    production: true,
+    apiUrl: 'http://192.168.1.98:10405',
 
     sessionStorageIdentificationUserKey: '_httpUsernameSessionStorageAppAdminModulesInraSA',
     sessionStorageModuleIdentification : '_httpModuleSelectedSessionStorageAppAdminModulesInraSA'

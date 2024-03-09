@@ -1,4 +1,4 @@
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
 import { ResponseMessage } from '@app/_models';
@@ -9,9 +9,17 @@ import { environment } from '@environments/environment';
 export class PowerBIService {
   constructor(private router: Router, private http: HttpClient) {}
 
-  getURLExterna(inScreenModulo: ScreenModule) {
+  getURLExterna(imod: ScreenModule, pidsession : string = '', pbusiness : string = '', pmod : string = '') {
+    // ** header
+    const session = { _idsession : pidsession, _business : pbusiness, _module : pmod };
+    const httpHeaders = { headers: new HttpHeaders(session) }
+    // **
+    // return this.http.get<ResponseMessage>(
+    //   `${environment.apiUrl}/PowerBI/getURLExterna/${inScreenModulo.idModulo}/${inScreenModulo.idCompania}/${inScreenModulo.nombre}`
+    // );
     return this.http.get<ResponseMessage>(
-      `${environment.apiUrl}/PowerBI/getURLExterna/${inScreenModulo.idModulo}/${inScreenModulo.idCompania}/${inScreenModulo.nombre}`
+      `${environment.apiUrl}/powerbi/geturlexterna?idModulo=${imod.idModulo}&idCompania=${imod.idCompania}&nombrePantalla=${imod.nombre}`,
+        httpHeaders
     );
   }
 }
