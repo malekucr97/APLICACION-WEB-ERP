@@ -358,7 +358,10 @@
     "SUCCESSFUL_PERSON_TYPE_REGISTRATION": "Person type {{$PH}} successfully registered.",
     "FAILED_PERSON_TYPE_REGISTRATION": "It was not possible to register the person type.",
     "SUCCESSFUL_PERSON_TYPE_UPDATE": "Person type {{$PH}} successfully updated.",
-    "PATH_REPORT_NOT_FOUND": "The path to the report was not found"
+    "PATH_REPORT_NOT_FOUND": "The path to the report was not found",
+    
+    "SUCCESSFUL_OPERATION": "Operation completed successfully.",
+    "FAILED_OPERATION": "The operation could not be completed, please contact the administrator."
 
   },
   "DIALOGS": {

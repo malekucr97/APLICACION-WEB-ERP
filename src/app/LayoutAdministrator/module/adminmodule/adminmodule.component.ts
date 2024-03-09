@@ -5,8 +5,8 @@ import { OnSeguridad } from '@app/_helpers/abstractSeguridad';
 import { Compania, Module, User } from '@app/_models';
 import { ScreenModule } from '@app/_models/admin/screenModule';
 import { AccountService, AlertService } from '@app/_services';
+import { TranslateMessagesService } from '@app/_services/translate-messages.service';
 import { httpAccessAdminPage } from '@environments/environment';
-import { TranslateService } from '@ngx-translate/core';
 import { first } from 'rxjs/operators';
 
 @Component({
@@ -53,7 +53,7 @@ export class AdminmoduleComponent extends OnSeguridad implements OnInit {
               private formBuilder: FormBuilder,
               private route: ActivatedRoute,
               private router: Router,
-              private translate: TranslateService ) {
+              private translate: TranslateMessagesService ) {
 
     super(alertService, accountService, router);
 
@@ -146,7 +146,7 @@ export class AdminmoduleComponent extends OnSeguridad implements OnInit {
     this.submitFormAdminModule = true;
 
     if (this.formAdminModule.invalid) {
-      this.alertService.error(this.translate.instant('ALERTS.informationNotValid'));
+      this.alertService.error(this.translate.translateKey('ALERTS.informationNotValid'));
       return undefined;
     }
 
@@ -224,17 +224,17 @@ export class AdminmoduleComponent extends OnSeguridad implements OnInit {
         (response) => {
           if (response) {
             this.alertService.success(
-              this.translate.instant('ALERTS.screenRegisterSuccess',{$PH:pantallaForm.nombre})
+              this.translate.translateKeyP('ALERTS.screenRegisterSuccess',{$PH:pantallaForm.nombre})
             );
             this.obtenerListaModulos();
             this.iniciarFormulario();
           } else {
-            this.alertService.error(this.translate.instant('ALERTS.screenRegisterError'));
+            this.alertService.error(this.translate.translateKey('ALERTS.screenRegisterError'));
           }
         },
         (error) => {
           this.alertService.error(
-            this.translate.instant('ALERTS.errorConnectionServer',{$PH:error})
+            this.translate.translateKeyP('ALERTS.errorConnectionServer',{$PH:error})
           );
         }
       );
@@ -284,7 +284,7 @@ export class AdminmoduleComponent extends OnSeguridad implements OnInit {
 
   actualizarModulo() {
     if (!this.moduloSeleccionado) {
-      this.alertService.error(this.translate.instant('ALERTS.notCorrectOption'));
+      this.alertService.error(this.translate.translateKey('ALERTS.notCorrectOption'));
       return;
     }
 

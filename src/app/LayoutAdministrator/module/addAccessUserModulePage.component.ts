@@ -10,7 +10,7 @@ import { ScreenModule } from '@app/_models/admin/screenModule';
 import { ActivatedRoute, Router } from '@angular/router';
 import { administrator, httpAccessAdminPage } from '@environments/environment';
 import { OnSeguridad } from '@app/_helpers/abstractSeguridad';
-import { TranslateService } from '@ngx-translate/core';
+import { TranslateMessagesService } from '@app/_services/translate-messages.service';
 
 declare var $: any;
 
@@ -65,7 +65,7 @@ export class AddAccessUserModuleComponent extends OnSeguridad implements OnInit 
                     private accountService: AccountService,
                     private dialogo:        MatDialog,
                     private router:         Router,
-                    private translate: TranslateService ) {
+                    private translate: TranslateMessagesService ) {
 
         super(alertService, accountService, router);
 
@@ -190,7 +190,7 @@ export class AddAccessUserModuleComponent extends OnSeguridad implements OnInit 
 
                 } else { this.habilitaListasUsuarioCompania = false; }
 
-            }, error => { this.alertService.error(this.translate.instant('ALERTS.CONNECTION_ERROR', {ERROR: error})); });
+            }, error => { this.alertService.error(this.translate.translateKeyP('ALERTS.CONNECTION_ERROR', {ERROR: error})); });
     }
     private consultaUsuariosAccesoPantalla(objetoPantalla: ScreenModule) : void {
 
@@ -243,7 +243,7 @@ export class AddAccessUserModuleComponent extends OnSeguridad implements OnInit 
 
                         this.inicializaFormPantallaModulo();
                     }
-                }, error => { this.alertService.error(this.translate.instant('ALERTS.CONNECTION_ERROR', {ERROR: error})); });
+                }, error => { this.alertService.error(this.translate.translateKeyP('ALERTS.CONNECTION_ERROR', {ERROR: error})); });
 
         } else {
 
@@ -265,7 +265,7 @@ export class AddAccessUserModuleComponent extends OnSeguridad implements OnInit 
 
                     this.inicializaFormPantallaModulo();
                 }
-            }, error => { this.alertService.error(this.translate.instant('ALERTS.CONNECTION_ERROR', {ERROR: error})); });
+            }, error => { this.alertService.error(this.translate.translateKeyP('ALERTS.CONNECTION_ERROR', {ERROR: error})); });
         }
     }
 
@@ -334,7 +334,7 @@ export class AddAccessUserModuleComponent extends OnSeguridad implements OnInit 
 
                     } else { this.alertService.error(response.responseMesagge); }
                 });
-        } else {  this.alertService.info( this.translate.instant('ALERTS.USER_ASSIGNED') ); }
+        } else {  this.alertService.info( this.translate.translateKey('ALERTS.USER_ASSIGNED') ); }
     }
 
     submitPantallaModulo() : void {
@@ -364,7 +364,7 @@ export class AddAccessUserModuleComponent extends OnSeguridad implements OnInit 
 
                 } else { this.alertService.error(response.responseMesagge); }
 
-            }, error => { this.alertService.error(this.translate.instant('ALERTS.CONNECTION_ERROR', {ERROR: error})); });
+            }, error => { this.alertService.error(this.translate.translateKeyP('ALERTS.CONNECTION_ERROR', {ERROR: error})); });
     }
 
     eliminarPantallaModulo() : void {
@@ -376,7 +376,7 @@ export class AddAccessUserModuleComponent extends OnSeguridad implements OnInit 
 
         var id : number = this.formPantallasModulo.controls['idPantalla'].value;
 
-        this.dialogo.open(DialogoConfirmacionComponent, { data: this.translate.instant('DIALOGS.DELETE_MODULE_TO_SCREEN') })
+        this.dialogo.open(DialogoConfirmacionComponent, { data: this.translate.translateKey('DIALOGS.DELETE_MODULE_TO_SCREEN') })
             .afterClosed()
             .subscribe((confirmado: Boolean) => {
 
@@ -439,6 +439,6 @@ export class AddAccessUserModuleComponent extends OnSeguridad implements OnInit 
 
                 } else { this.alertService.error(response.responseMesagge); }
 
-            }, error => { this.alertService.error(this.translate.instant('ALERTS.CONNECTION_ERROR', {ERROR: error})); });
+            }, error => { this.alertService.error(this.translate.translateKeyP('ALERTS.CONNECTION_ERROR', {ERROR: error})); });
     }
 }

@@ -13,7 +13,7 @@ import {
 import { ModulesSystem, httpLandingIndexPage } from '@environments/environment';
 
 import { Compania } from '../../_models/modules/compania';
-import { TranslateService } from '@ngx-translate/core';
+import { TranslateMessagesService } from '@app/_services/translate-messages.service';
 
 interface FoodNode {
   name: string;
@@ -51,18 +51,18 @@ export class MenuGeneralesComponent implements OnInit {
 
   public TREE_DATA: FoodNode[] = [
     {
-      name: this.translate.instant('MENU.GENERAL.PARAMETERS'),
+      name: this.translate.translateKey('MENU.GENERAL.PARAMETERS'),
       link: '',
       icon: '',
       children: [
         // {name: 'Generales', link: '/', icon: ''},
         {
-          name: this.translate.instant('MENU.GENERAL.COMPANY'),
+          name: this.translate.translateKey('MENU.GENERAL.COMPANY'),
           link: ModulesSystem.generalesbasehref + 'ConfiguracionCompania.html',
           icon: '',
         },
         {
-          name: this.translate.instant('MENU.GENERAL.EXCHANGE_RATE'),
+          name: this.translate.translateKey('MENU.GENERAL.EXCHANGE_RATE'),
           link: ModulesSystem.generalesbasehref + 'TipoCambio.html',
           icon: '',
         },
@@ -92,7 +92,7 @@ export class MenuGeneralesComponent implements OnInit {
   constructor(
     private accountService: AccountService,
     private router: Router,
-    private translate: TranslateService
+    private translate: TranslateMessagesService
   ) {
     this.userObservable = this.accountService.userValue;
     this.moduleObservable = this.accountService.moduleValue;

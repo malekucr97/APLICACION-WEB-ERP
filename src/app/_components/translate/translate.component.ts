@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import {TranslateService} from '@ngx-translate/core';
+import { TranslateMessagesService } from '@app/_services/translate-messages.service';
 
 @Component({
   selector: 'app-translate',
@@ -13,16 +13,15 @@ export class TranslateComponent implements OnInit {
     { code: 'en', label: 'English' }
   ];
 
-  constructor(private translate: TranslateService) { 
-    translate.addLangs(['en', 'es']);
-    translate.setDefaultLang('es');
+  constructor(private translate: TranslateMessagesService) { 
+    translate.setDefaultLanguage('es');
   }
 
   ngOnInit(): void {
   }
 
   onChangeSelect() {
-    this.translate.use(this.selected);
+    this.translate.changeTranslateLanguage(this.selected);
   }
 
 }

@@ -1,8 +1,8 @@
 ﻿import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
-import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
+import { HttpClientModule, HTTP_INTERCEPTORS, HttpBackend } from '@angular/common/http';
 import { AppRoutingModule } from './app-routing.module';
-import { JwtInterceptor, ErrorInterceptor } from './_helpers';
+import { JwtInterceptor, ErrorInterceptor, TranslateMessageInterceptor } from './_helpers';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { MatTreeModule } from '@angular/material/tree';
 import { MatTooltipModule } from '@angular/material/tooltip';
@@ -23,9 +23,11 @@ import { TranslateModule, TranslateLoader } from '@ngx-translate/core';
 import { TranslateHttpLoader } from '@ngx-translate/http-loader';
 import { HttpClient } from '@angular/common/http';;
 import { FooterComponent } from './_components/footer/footer.component'
+import { TranslateMessagesService } from './_services/translate-messages.service';
 
-export function HttpLoaderFactory(http: HttpClient) {
-    return new TranslateHttpLoader(http);
+export function HttpLoaderFactory(httpHandler: HttpBackend) {
+    // return new TranslateHttpLoader(http);
+    return new TranslateHttpLoader(new HttpClient(httpHandler));
 }
 
 @NgModule({
@@ -47,7 +49,7 @@ export function HttpLoaderFactory(http: HttpClient) {
             loader: {
               provide: TranslateLoader,
               useFactory: HttpLoaderFactory,
-              deps: [HttpClient]
+              deps: [HttpBackend]
             },
           })
     ],
@@ -61,6 +63,7 @@ export function HttpLoaderFactory(http: HttpClient) {
     providers: [
         { provide: HTTP_INTERCEPTORS, useClass: JwtInterceptor, multi: true },
         { provide: HTTP_INTERCEPTORS, useClass: ErrorInterceptor, multi: true },
+        { provide: HTTP_INTERCEPTORS, useClass: TranslateMessageInterceptor, multi: true},        
         // ## rewrrite /# ## //
         { provide: LocationStrategy,  useClass: HashLocationStrategy }
     ],

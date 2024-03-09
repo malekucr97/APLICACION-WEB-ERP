@@ -12,7 +12,7 @@ import { DialogoConfirmacionComponent }             from '@app/_components/dialo
 import { InversionesService }                       from '@app/_services/inversiones.service';
 import { first } from 'rxjs/operators';
 import { InvTipoPersona } from '@app/_models/Inversiones/TipoPersona';
-import { TranslateService } from '@ngx-translate/core';
+import { TranslateMessagesService } from '@app/_services/translate-messages.service';
 
 declare var $: any;
 
@@ -52,7 +52,7 @@ export class InvTiposPersonasComponent implements OnInit {
                     private formBuilder:       FormBuilder,
                     private accountService:     AccountService,
                     private dialogo:           MatDialog,
-                    private translate: TranslateService ) {
+                    private translate: TranslateMessagesService ) {
 
         this.userObservable = this.accountService.userValue;
         this.moduleObservable = this.accountService.moduleValue;
@@ -98,11 +98,11 @@ export class InvTiposPersonasComponent implements OnInit {
 
                 } else { 
                     this.inicializaformTipoPersona(response[0]);
-                    this.alertService.info(this.translate.instant('ALERTS.NO_RECORDS_FOUND')); 
+                    this.alertService.info(this.translate.translateKey('ALERTS.NO_RECORDS_FOUND')); 
                 }
             },
             error => {
-                let message : string = this.translate.instant('ALERTS.CONNECTION_PROBLEMS',{$PH:error});
+                let message : string = this.translate.translateKeyP('ALERTS.CONNECTION_PROBLEMS',{$PH:error});
                 this.alertService.error(message);
             });
     }
@@ -176,12 +176,12 @@ export class InvTiposPersonasComponent implements OnInit {
 
                     this.inicializaformTipoPersona();
 
-                    this.alertService.success( this.translate.instant('ALERTS.SUCCESSFUL_PERSON_TYPE_REGISTRATION',{$PH:response.descripcion}) );
+                    this.alertService.success( this.translate.translateKeyP('ALERTS.SUCCESSFUL_PERSON_TYPE_REGISTRATION',{$PH:response.descripcion}) );
 
-                } else { this.alertService.error( this.translate.instant('ALERTS.FAILED_PERSON_TYPE_REGISTRATION')); }
+                } else { this.alertService.error( this.translate.translateKey('ALERTS.FAILED_PERSON_TYPE_REGISTRATION')); }
 
             }, error => {
-                this.alertService.error( this.translate.instant('ALERTS.errorConnectionServer',{$PH:error}) );
+                this.alertService.error( this.translate.translateKeyP('ALERTS.errorConnectionServer',{$PH:error}) );
             });
     }
 
@@ -195,7 +195,7 @@ export class InvTiposPersonasComponent implements OnInit {
         var id : number = this.formTipoPersona.controls['id'].value;
 
         this.dialogo.open(DialogoConfirmacionComponent, {
-            data: this.translate.instant('ALERTS.dialogConfirmDelete')
+            data: this.translate.translateKey('ALERTS.dialogConfirmDelete')
         })
         .afterClosed()
         .subscribe((confirmado: Boolean) => {
@@ -252,12 +252,12 @@ export class InvTiposPersonasComponent implements OnInit {
 
                     this.inicializaformTipoPersona();
 
-                    this.alertService.success( this.translate.instant('ALERTS.SUCCESSFUL_PERSON_TYPE_UPDATE',{$PH:response.descripcion}) );
+                    this.alertService.success( this.translate.translateKeyP('ALERTS.SUCCESSFUL_PERSON_TYPE_UPDATE',{$PH:response.descripcion}) );
 
-                } else { this.alertService.error(this.translate.instant('ALERTS.FAILED_UPDATE')); }
+                } else { this.alertService.error(this.translate.translateKey('ALERTS.FAILED_UPDATE')); }
 
             }, error => {
-                this.alertService.error( this.translate.instant('ALERTS.errorConnectionServer',{$PH:error}) );
+                this.alertService.error( this.translate.translateKeyP('ALERTS.errorConnectionServer',{$PH:error}) );
             });
     }
 }
