@@ -440,7 +440,21 @@
       "userApproves2": "User Approves 2",
       "expires": "Expires?",
       "calculatesCoupon": "Calculates Coupon?",
-      "investmentList": "Investment List"
+      "investmentList": "Investment List",
+      "menu_maintenances": "Maintenances",
+      "menu_currencyTypes": "Currency Types",
+      "menu_personTypes": "Person Types",
+      "menu_yearTypes": "Year Types",
+      "menu_rates": "Rates",
+      "menu_cdpsTitles": "CDPS Titles",
+      "menu_periodicities": "Periodicities",
+      "menu_marketsAndSectors": "Markets & Sectors",
+      "menu_investmentClassesAndTerms": "Investment Classes & Terms",
+      "menu_issuers": "Issuers",
+      "menu_persons": "Persons",
+      "menu_transactions": "Transactions",
+      "menu_termOperations": "Term Operations",
+      "menu_inclusionOfOperations": "Inclusion of Operations"
     }
   },
   "GENERAL": {

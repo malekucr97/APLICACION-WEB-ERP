@@ -440,7 +440,21 @@
       "userApproves2": "Usuario Aprueba 2",
       "expires": "Vence ?",
       "calculatesCoupon": "Calcula Cupón?",
-      "investmentList": "Lista de Inversiones"
+      "investmentList": "Lista de Inversiones",
+      "menu_maintenances": "Mantenimientos",
+      "menu_currencyTypes": "Tipos de Monedas",
+      "menu_personTypes": "Tipos de Personas",
+      "menu_yearTypes": "Tipos de Años",
+      "menu_rates": "Tasas",
+      "menu_cdpsTitles": "Títulos CDPS",
+      "menu_periodicities": "Periocidades",
+      "menu_marketsAndSectors": "Mercados & Sectores",
+      "menu_investmentClassesAndTerms": "Clases & Plazos de Inversión",
+      "menu_issuers": "Emisores",
+      "menu_persons": "Personas",
+      "menu_transactions": "Transacciones",
+      "menu_termOperations": "Operaciones a Plazo",
+      "menu_inclusionOfOperations": "Inclusión de Operaciones"
     }
   },
   "GENERAL": {
