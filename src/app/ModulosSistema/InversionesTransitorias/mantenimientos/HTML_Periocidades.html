@@ -10,7 +10,7 @@
 
                     <div class="articulo__contenedor__header__prev" >
 
-                        <p>{{nombreModulo}} / Mantenimiento de Periocidades</p>
+                        <p>{{ 'MODULES.INVERSIONES_TRANSITORIAS.maintenancePeriodicity' | translate: {$INTERPOLATION: nombreModulo} }}</p>
 
                     </div>
 
@@ -44,24 +44,24 @@
                                         <div class="articulo__contenedor__body__prev__form__header"> 
                                             
                                             <div class="articulo__contenedor__body__prev__form__header__prev" > 
-                                                <p class="articulo__contenedor__body__prev__form__header__titulo">Tipos de Monedas</p>
+                                                <p class="articulo__contenedor__body__prev__form__header__titulo">{{ 'MODULES.INVERSIONES_TRANSITORIAS.currencyTypes' | translate }}</p>
                                             </div>
 
                                             <div class="articulo__contenedor__body__prev__form__header__next" > 
 
                                                 <button *ngIf="habilitaBtnNuevo" class="articulo__contenedor__body__prev__form__header__prev__btns__new" 
                                                         mat-flat-button
-                                                        (click)="limpiarFormulario()">Nuevo</button>
+                                                        (click)="limpiarFormulario()">{{ 'GENERAL.BTN_NEW' | translate }}</button>
 
                                                 <button *ngIf="habilitaBtnActualiza" class="articulo__contenedor__header__prev__btns__warn" 
                                                         mat-flat-button
-                                                        (click)="actualizaObjeto()">Actualizar</button>
+                                                        (click)="actualizaObjeto()">{{ 'GENERAL.BTN_UPDATE' | translate }}</button>
                                                 <button *ngIf="habilitaBtnRegistro" class="articulo__contenedor__header__prev__btns__ok" 
                                                         mat-flat-button
-                                                        (click)="submit()">Registrar</button>
+                                                        (click)="submit()">{{ 'GENERAL.BTN_REGISTER' | translate }}</button>
                                                 <button *ngIf="habilitaBtnElimibar" class="articulo__contenedor__header__prev__btns__danger" 
                                                         mat-flat-button
-                                                        (click)="eliminarObjeto()">Eliminar</button>
+                                                        (click)="eliminarObjeto()">{{ 'GENERAL.BTN_DELETE' | translate }}</button>
 
                                             </div>
                                         
@@ -77,11 +77,11 @@
                                                 </div>
                                                 
                                                 <div class="form-group col-md-6">
-                                                    <label for="lblCodigoPeriocidad" class="form-label">Código Interno</label>
+                                                    <label for="lblCodigoPeriocidad" class="form-label">{{ 'MODULES.INVERSIONES_TRANSITORIAS.internalCode' | translate }}</label>
                                                     <input formControlName="codigoPeriocidad" class="form-control" type="text" id="id_codigoPeriocidad"
                                                         [ngClass]="{ 'is-invalid': submittedForm && m.codigoPeriocidad.errors }" />
                                                     <div *ngIf="submittedForm && m.codigoPeriocidad.errors" class="invalid-feedback">
-                                                        <div *ngIf="m.codigoPeriocidad.errors.required">El código de la periocidad es requerido .</div>
+                                                        <div *ngIf="m.codigoPeriocidad.errors.required">{{ 'MODULES.INVERSIONES_TRANSITORIAS.periodicityCodeRequired' | translate }}</div>
                                                     </div>
                                                 </div>
                     
@@ -90,25 +90,25 @@
                                                 </div>
                     
                                                 <div class="form-group col-md-6">
-                                                    <label for="lblDescripcion" class="form-label">Descripción</label>
+                                                    <label for="lblDescripcion" class="form-label" >{{ 'MODULES.INVERSIONES_TRANSITORIAS.description' | translate }}</label>
                                                     <input formControlName="descripcion" class="form-control" type="text" id="id_descripcion"
                                                         [ngClass]="{ 'is-invalid': submittedForm && m.descripcion.errors }" />
                                                     <div *ngIf="submittedForm && m.descripcion.errors" class="invalid-feedback">
-                                                        <div *ngIf="m.descripcion.errors.required">La descripción de la periocidad es requerida .</div>
+                                                        <div *ngIf="m.descripcion.errors.required" >{{ 'MODULES.INVERSIONES_TRANSITORIAS.periodicityDescriptionRequired' | translate }}</div>
                                                     </div>
                                                 </div>
 
                                                 <div class="form-group col-md-2">
-                                                    <label for="lblVecesxAnio" class="form-label">Veces por Año</label>
+                                                    <label for="lblVecesxAnio" class="form-label" >{{ 'MODULES.INVERSIONES_TRANSITORIAS.timesPerYear' | translate }}</label>
                                                     <input formControlName="vecesxAnio" class="form-control" type="text" id="id_vecesxAnio"
                                                         [ngClass]="{ 'is-invalid': submittedForm && m.vecesxAnio.errors }" />
                                                     <div *ngIf="submittedForm && m.vecesxAnio.errors" class="invalid-feedback">
-                                                        <div *ngIf="m.vecesxAnio.errors.required">La cantidad de veces por año para la periocidad es requerida .</div>
+                                                        <div *ngIf="m.vecesxAnio.errors.required" >{{ 'MODULES.INVERSIONES_TRANSITORIAS.timesPerYearRequired' | translate }}</div>
                                                     </div>
                                                 </div>
                     
                                                 <div class="form-group col-sm-1 margin-icos-mat">
-                                                    <mat-checkbox formControlName="estado">Estado</mat-checkbox>
+                                                    <mat-checkbox formControlName="estado" >{{ 'MODULES.INVERSIONES_TRANSITORIAS.status' | translate }}</mat-checkbox>
                                                 </div>
                     
                                             </form>
@@ -133,7 +133,7 @@
                                         <div class="articulo__contenedor__body__next__list__header"> 
                                             
                                             <div class="articulo__contenedor__body__next__list__header__prev" > 
-                                                <p class="articulo__contenedor__body__next__list__header__titulo">Listado de Periocidades</p>
+                                                <p class="articulo__contenedor__body__next__list__header__titulo">{{ 'MODULES.INVERSIONES_TRANSITORIAS.periodicityList' | translate }}</p>
                                             </div>
 
                                             <div class="articulo__contenedor__body__next__list__header__next" > </div>
@@ -148,12 +148,12 @@
                                                         <tr>
                                                             <th style="width: 5%"></th>
                                                             
-                                                            <th style="width: 8%">Código interno</th>
-                                                            <th style="width: 12%">Descripción</th>
-                                                            <th style="width: 13%">Veces por año</th>
-                                                            <th style="width: 10%">Estado</th>
-                                                            <th style="width: 12%">Modificado</th>
-                                                            <th style="width: 15%">Se actualizó</th>
+                                                            <th style="width: 8%"  >{{ 'MODULES.INVERSIONES_TRANSITORIAS.internalCode' | translate }}</th>
+                                                            <th style="width: 12%" >{{ 'MODULES.INVERSIONES_TRANSITORIAS.description' | translate }}</th>
+                                                            <th style="width: 13%" >{{ 'MODULES.INVERSIONES_TRANSITORIAS.timesPerYear' | translate }}</th>
+                                                            <th style="width: 10%" >{{ 'MODULES.INVERSIONES_TRANSITORIAS.status' | translate }}</th>
+                                                            <th style="width: 12%" >{{ 'MODULES.INVERSIONES_TRANSITORIAS.modified' | translate }}</th>
+                                                            <th style="width: 15%" >{{ 'MODULES.INVERSIONES_TRANSITORIAS.updated' | translate }}</th>
                                                         </tr>
                                                     </thead>
                                                     <tbody>

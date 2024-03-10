@@ -10,7 +10,7 @@
 
                     <div class="articulo__contenedor__header__prev" >
 
-                        <p>{{nombreModulo}} / Mantenimiento de Tasas</p>
+                        <p >{{ 'MODULES.INVERSIONES_TRANSITORIAS.rateMaintenance' | translate: {$INTERPOLATION: nombreModulo} }}</p>
 
                     </div>
 
@@ -44,24 +44,24 @@
                                         <div class="articulo__contenedor__body__prev__form__header"> 
                                             
                                             <div class="articulo__contenedor__body__prev__form__header__prev" > 
-                                                <p class="articulo__contenedor__body__prev__form__header__titulo">Tasas</p>
+                                                <p class="articulo__contenedor__body__prev__form__header__titulo">{{ 'MODULES.INVERSIONES_TRANSITORIAS.rates' | translate }}</p>
                                             </div>
 
                                             <div class="articulo__contenedor__body__prev__form__header__next" > 
 
                                                 <button *ngIf="habilitaBtnNuevo" class="articulo__contenedor__body__prev__form__header__prev__btns__new" 
                                                         mat-flat-button
-                                                        (click)="limpiarFormulario()">Nuevo</button>
+                                                        (click)="limpiarFormulario()">{{ 'GENERAL.BTN_NEW' | translate }}</button>
 
                                                 <button *ngIf="habilitaBtnActualiza" class="articulo__contenedor__header__prev__btns__warn" 
                                                         mat-flat-button
-                                                        (click)="actualizaObjeto()">Actualizar</button>
+                                                        (click)="actualizaObjeto()">{{ 'GENERAL.BTN_UPDATE' | translate }}</button>
                                                 <button *ngIf="habilitaBtnRegistro" class="articulo__contenedor__header__prev__btns__ok" 
                                                         mat-flat-button
-                                                        (click)="submit()">Registrar</button>
+                                                        (click)="submit()">{{ 'GENERAL.BTN_REGISTER' | translate }}</button>
                                                 <button *ngIf="habilitaBtnElimibar" class="articulo__contenedor__header__prev__btns__danger" 
                                                         mat-flat-button
-                                                        (click)="eliminarObjeto()">Eliminar</button>
+                                                        (click)="eliminarObjeto()">{{ 'GENERAL.BTN_DELETE' | translate }}</button>
 
                                             </div>
                                         
@@ -72,25 +72,25 @@
                                             <form [formGroup]="formulario" class="row">
                     
                                                 <div class="form-group col-md-2">
-                                                    <label for="lblIdTasa" class="form-label">Id</label>
+                                                    <label for="lblIdTasa" class="form-label" >{{ 'MODULES.INVERSIONES_TRANSITORIAS.id' | translate }}</label>
                                                     <input formControlName="idTasa" class="form-control" type="text" id="id_idTasa" readonly />
                                                 </div>
 
                                                 <div class="form-group col-md-3">
-                                                    <label for="lblCodigoTasa" class="form-label">Código Interno</label>
+                                                    <label for="lblCodigoTasa" class="form-label" >{{ 'MODULES.INVERSIONES_TRANSITORIAS.internalCode' | translate }}</label>
                                                     <input formControlName="codigoTasa" class="form-control" type="text" id="id_codigoTasa"
                                                         [ngClass]="{ 'is-invalid': submittedForm && m.codigoTasa.errors }" />
                                                     <div *ngIf="submittedForm && m.codigoTasa.errors" class="invalid-feedback">
-                                                        <div *ngIf="m.codigoTasa.errors.required">El código interno para la tasa es requeridos .</div>
+                                                        <div *ngIf="m.codigoTasa.errors.required" >{{ 'MODULES.INVERSIONES_TRANSITORIAS.internalCodeForRateRequired' | translate }}</div>
                                                     </div>
                                                 </div>
                                                 
                                                 <div class="form-group col-md-6">
-                                                    <label for="lblDescripcionTasa" class="form-label">Descripción</label>
+                                                    <label for="lblDescripcionTasa" class="form-label" >{{ 'MODULES.INVERSIONES_TRANSITORIAS.description' | translate }}</label>
                                                     <input formControlName="descripcionTasa" class="form-control" type="text" id="id_descripcionTasa"
                                                         [ngClass]="{ 'is-invalid': submittedForm && m.descripcionTasa.errors }" />
                                                     <div *ngIf="submittedForm && m.descripcionTasa.errors" class="invalid-feedback">
-                                                        <div *ngIf="m.descripcionTasa.errors.required">La descripción de la tasa es requerida .</div>
+                                                        <div *ngIf="m.descripcionTasa.errors.required" >{{ 'MODULES.INVERSIONES_TRANSITORIAS.rateDescriptionRequired' | translate }}</div>
                                                     </div>
                                                 </div>
                     
@@ -99,20 +99,20 @@
                                                 </div>
 
                                                 <div class="form-group col-sm-2 margin-icos-mat">
-                                                    <mat-checkbox formControlName="porcentual">Es porcentual ?</mat-checkbox>
+                                                    <mat-checkbox formControlName="porcentual" >{{ 'MODULES.INVERSIONES_TRANSITORIAS.isPercentage' | translate }}</mat-checkbox>
                                                 </div>
 
                                                 <div class="form-group col-md-3">
-                                                    <label for="lblTasa" class="form-label">Tasade Interés</label>
+                                                    <label for="lblTasa" class="form-label" >{{ 'MODULES.INVERSIONES_TRANSITORIAS.interestRate' | translate }}</label>
                                                     <input formControlName="tasa" class="form-control" type="text" id="id_tasa"
                                                         [ngClass]="{ 'is-invalid': submittedForm && m.tasa.errors }" />
                                                     <div *ngIf="submittedForm && m.tasa.errors" class="invalid-feedback">
-                                                        <div *ngIf="m.tasa.errors.required">La tasa es requerida .</div>
+                                                        <div *ngIf="m.tasa.errors.required" >{{ 'MODULES.INVERSIONES_TRANSITORIAS.rateRequired' | translate }}</div>
                                                     </div>
                                                 </div>
                     
                                                 <div class="form-group col-sm-1 margin-icos-mat">
-                                                    <mat-checkbox formControlName="estadoTasa">Estado</mat-checkbox>
+                                                    <mat-checkbox formControlName="estadoTasa" >{{ 'MODULES.INVERSIONES_TRANSITORIAS.status' | translate }}</mat-checkbox>
                                                 </div>
                     
                                             </form>
@@ -137,7 +137,7 @@
                                         <div class="articulo__contenedor__body__next__list__header"> 
                                             
                                             <div class="articulo__contenedor__body__next__list__header__prev" > 
-                                                <p class="articulo__contenedor__body__next__list__header__titulo">Listado de Clases de Inversión</p>
+                                                <p class="articulo__contenedor__body__next__list__header__titulo" >{{ 'MODULES.INVERSIONES_TRANSITORIAS.listClasInvestments' | translate }}</p>
                                             </div>
 
                                             <div class="articulo__contenedor__body__next__list__header__next" > </div>
@@ -152,13 +152,13 @@
                                                         <tr>
                                                             <th style="width: 5%"></th>
                                                             
-                                                            <th style="width: 15%">Código Interno</th>
-                                                            <th style="width: 15%">Descripción</th>
-                                                            <th style="width: 10%">Tasa de Interés</th>
-                                                            <th style="width: 10%">Porcentual</th>
-                                                            <th style="width: 10%">Estado</th>
-                                                            <th style="width: 12%">Modificado</th>
-                                                            <th style="width: 15%">Se actualizó</th>
+                                                            <th style="width: 15%">{{ 'MODULES.INVERSIONES_TRANSITORIAS.internalCode' | translate }}</th>
+                                                            <th style="width: 15%" >{{ 'MODULES.INVERSIONES_TRANSITORIAS.description' | translate }}</th>
+                                                            <th style="width: 10%" >{{ 'MODULES.INVERSIONES_TRANSITORIAS.interestRate' | translate }}</th>
+                                                            <th style="width: 10%" >{{ 'MODULES.INVERSIONES_TRANSITORIAS.percentage' | translate }}</th>
+                                                            <th style="width: 10%" >{{ 'MODULES.INVERSIONES_TRANSITORIAS.status' | translate }}</th>
+                                                            <th style="width: 12%" >{{ 'MODULES.INVERSIONES_TRANSITORIAS.modified' | translate }}</th>
+                                                            <th style="width: 15%" >{{ 'MODULES.INVERSIONES_TRANSITORIAS.updated' | translate }}</th>
                                                         </tr>
                                                     </thead>
                                                     <tbody>

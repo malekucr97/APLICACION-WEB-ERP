@@ -10,7 +10,7 @@
 
                     <div class="articulo__contenedor__header__prev" >
 
-                        <p>{{nombreModulo}} / Mantenimiento de Clases de Inversión & Plazos de Inversión</p>
+                        <p>{{ 'MODULES.INVERSIONES_TRANSITORIAS.title' | translate: {$INTERPOLATION: nombreModulo} }}</p>
 
                     </div>
 
@@ -40,24 +40,24 @@
                                         <div class="articulo__contenedor__body__prev__form__header"> 
                                             
                                             <div class="articulo__contenedor__body__prev__form__header__prev" > 
-                                                <p class="articulo__contenedor__body__prev__form__header__titulo">Clases de Inversiones</p>
+                                                <p class="articulo__contenedor__body__prev__form__header__titulo" >{{ 'MODULES.INVERSIONES_TRANSITORIAS.classInvestment' | translate }}</p>
                                             </div>
 
                                             <div class="articulo__contenedor__body__prev__form__header__next" > 
 
                                                 <button *ngIf="habilitaBtnNuevo" class="articulo__contenedor__body__prev__form__header__prev__btns__new" 
                                                         mat-flat-button
-                                                        (click)="limpiarFormulario()">Nuevo</button>
+                                                        (click)="limpiarFormulario()">{{ 'GENERAL.BTN_NEW' | translate }}</button>
 
                                                 <button *ngIf="habilitaBtnActualiza" class="articulo__contenedor__header__prev__btns__warn" 
                                                         mat-flat-button
-                                                        (click)="actualizaObjeto()">Actualizar</button>
+                                                        (click)="actualizaObjeto()">{{ 'GENERAL.BTN_UPDATE' | translate }}</button>
                                                 <button *ngIf="habilitaBtnRegistro" class="articulo__contenedor__header__prev__btns__ok" 
                                                         mat-flat-button
-                                                        (click)="submit()">Registrar</button>
+                                                        (click)="submit()">{{ 'GENERAL.BTN_REGISTER' | translate }}</button>
                                                 <button *ngIf="habilitaBtnElimibar" class="articulo__contenedor__header__prev__btns__danger" 
                                                         mat-flat-button
-                                                        (click)="eliminarObjeto()">Eliminar</button>
+                                                        (click)="eliminarObjeto()">{{ 'GENERAL.BTN_DELETE' | translate }}</button>
 
                                             </div>
                                         
@@ -68,25 +68,25 @@
                                             <form [formGroup]="formulario" class="row">
                     
                                                 <div class="form-group col-md-2">
-                                                    <label for="lblIdClase" class="form-label">Id</label>
+                                                    <label for="lblIdClase" class="form-label">{{ 'MODULES.INVERSIONES_TRANSITORIAS.id' | translate }}</label>
                                                     <input formControlName="idClase" class="form-control" type="text" id="id_idClase" readonly />
                                                 </div>
 
                                                 <div class="form-group col-md-3">
-                                                    <label for="lblCodigoClase" class="form-label">Código Interno</label>
+                                                    <label for="lblCodigoClase" class="form-label">{{ 'MODULES.INVERSIONES_TRANSITORIAS.internalCode' | translate }}</label>
                                                     <input formControlName="codigoClase" class="form-control" type="text" id="id_codigoClase"
                                                         [ngClass]="{ 'is-invalid': submittedForm && f.codigoClase.errors }" />
                                                     <div *ngIf="submittedForm && f.codigoClase.errors" class="invalid-feedback">
-                                                        <div *ngIf="f.codigoClase.errors.required">El código interno para la clase es requeridos .</div>
+                                                        <div *ngIf="f.codigoClase.errors.required">{{ 'MODULES.INVERSIONES_TRANSITORIAS.internalCodeRequired' | translate }}</div>
                                                     </div>
                                                 </div>
                                                 
                                                 <div class="form-group col-md-6">
-                                                    <label for="lblDescripcionClase" class="form-label">Descripción</label>
+                                                    <label for="lblDescripcionClase" class="form-label">{{ 'MODULES.INVERSIONES_TRANSITORIAS.description' | translate }}</label>
                                                     <input formControlName="descripcionClase" class="form-control" type="text" id="id_descripcionClase"
                                                         [ngClass]="{ 'is-invalid': submittedForm && f.descripcionClase.errors }" />
                                                     <div *ngIf="submittedForm && f.descripcionClase.errors" class="invalid-feedback">
-                                                        <div *ngIf="f.descripcionClase.errors.required">La descripción de la clase es requerida .</div>
+                                                        <div *ngIf="f.descripcionClase.errors.required">{{ 'MODULES.INVERSIONES_TRANSITORIAS.classDescriptionRequired' | translate }}</div>
                                                     </div>
                                                 </div>
                     
@@ -95,7 +95,7 @@
                                                 </div>
                     
                                                 <div class="form-group col-sm-1 margin-icos-mat">
-                                                    <mat-checkbox formControlName="estadoClase">Estado</mat-checkbox>
+                                                    <mat-checkbox formControlName="estadoClase">{{ 'MODULES.INVERSIONES_TRANSITORIAS.status' | translate }}</mat-checkbox>
                                                 </div>
                     
                                             </form>
@@ -120,7 +120,7 @@
                                         <div class="articulo__contenedor__body__next__list__header"> 
                                             
                                             <div class="articulo__contenedor__body__next__list__header__prev" > 
-                                                <p class="articulo__contenedor__body__next__list__header__titulo">Listado de Clases de Inversión</p>
+                                                <p class="articulo__contenedor__body__next__list__header__titulo">{{ 'MODULES.INVERSIONES_TRANSITORIAS.listClasInvestments' | translate }}</p>
                                             </div>
 
                                             <div class="articulo__contenedor__body__next__list__header__next" > </div>
@@ -135,11 +135,11 @@
                                                         <tr>
                                                             <th style="width: 5%"></th>
                                                             
-                                                            <th style="width: 15%">Código Interno</th>
-                                                            <th style="width: 15%">Descripción</th>
-                                                            <th style="width: 10%">Estado</th>
-                                                            <th style="width: 12%">Modificado</th>
-                                                            <th style="width: 15%">Se actualizó</th>
+                                                            <th style="width: 15%">{{ 'MODULES.INVERSIONES_TRANSITORIAS.internalCode' | translate }}</th>
+                                                            <th style="width: 15%">{{ 'MODULES.INVERSIONES_TRANSITORIAS.description' | translate }}</th>
+                                                            <th style="width: 10%">{{ 'MODULES.INVERSIONES_TRANSITORIAS.status' | translate }}</th>
+                                                            <th style="width: 12%">{{ 'MODULES.INVERSIONES_TRANSITORIAS.modified' | translate }}</th>
+                                                            <th style="width: 15%">{{ 'MODULES.INVERSIONES_TRANSITORIAS.updated' | translate }}</th>
                                                         </tr>
                                                     </thead>
                                                     <tbody>
@@ -189,24 +189,24 @@
                                         <div class="articulo__contenedor__body__prev__form__header"> 
                                             
                                             <div class="articulo__contenedor__body__prev__form__header__prev" > 
-                                                <p class="articulo__contenedor__body__prev__form__header__titulo">Plazos de Inversión</p>
+                                                <p class="articulo__contenedor__body__prev__form__header__titulo">{{ 'MODULES.INVERSIONES_TRANSITORIAS.investmentTerms' | translate }}</p>
                                             </div>
 
                                             <div class="articulo__contenedor__body__prev__form__header__next" > 
 
                                                 <button *ngIf="habilitaBtnNuevoPlazoInversion" class="articulo__contenedor__body__prev__form__header__prev__btns__new" 
                                                         mat-flat-button
-                                                        (click)="limpiarFormularioPlazoInversion()">Nuevo</button>
+                                                        (click)="limpiarFormularioPlazoInversion()">{{ 'GENERAL.BTN_NEW' | translate }}</button>
 
                                                 <button *ngIf="habilitaBtnActualizaPlazoInversion" class="articulo__contenedor__header__prev__btns__warn" 
                                                         mat-flat-button
-                                                        (click)="actualizaObjetoPlazoInversion()">Actualizar</button>
+                                                        (click)="actualizaObjetoPlazoInversion()">{{ 'GENERAL.BTN_UPDATE' | translate }}</button>
                                                 <button *ngIf="habilitaBtnRegistroPlazoInversion" class="articulo__contenedor__header__prev__btns__ok" 
                                                         mat-flat-button
-                                                        (click)="submitPlazoInversion()">Registrar</button>
+                                                        (click)="submitPlazoInversion()">{{ 'GENERAL.BTN_REGISTER' | translate }}</button>
                                                 <button *ngIf="habilitaBtnEliminarPlazoInversion" class="articulo__contenedor__header__prev__btns__danger" 
                                                         mat-flat-button
-                                                        (click)="eliminarObjetoEmisor()">Eliminar</button>
+                                                        (click)="eliminarObjetoEmisor()">{{ 'GENERAL.BTN_DELETE' | translate }}</button>
 
                                             </div>
                                         
@@ -217,16 +217,16 @@
                                             <form [formGroup]="formularioPlazoInversion" class="row">
                     
                                                 <div class="form-group col-md-1">
-                                                    <label for="lblIdMercado" class="form-label">Id</label>
+                                                    <label for="lblIdMercado" class="form-label">{{ 'MODULES.INVERSIONES_TRANSITORIAS.id' | translate }}</label>
                                                     <input formControlName="idPlazoInversion" class="form-control" type="text" id="id_idEmisor" readonly />
                                                 </div>
 
                                                 <div class="form-group col-md-9">
-                                                    <label for="lblDescripcionPlazoInversion" class="form-label">Descripción</label>
+                                                    <label for="lblDescripcionPlazoInversion" class="form-label">{{ 'MODULES.INVERSIONES_TRANSITORIAS.description' | translate }}</label>
                                                     <input formControlName="descripcionPlazoInversion" class="form-control" type="text" id="id_descripcionPlazoInversion"
                                                         [ngClass]="{ 'is-invalid': submittedFormPlazoInversion && m.descripcionPlazoInversion.errors }" />
                                                     <div *ngIf="submittedFormPlazoInversion && m.descripcionPlazoInversion.errors" class="invalid-feedback">
-                                                        <div *ngIf="m.descripcionPlazoInversion.errors.required">La descripción del plazo es requerida .</div>
+                                                        <div *ngIf="m.descripcionPlazoInversion.errors.required">{{ 'MODULES.INVERSIONES_TRANSITORIAS.descriptionInvestmentTermsRequired' | translate }}</div>
                                                     </div>
                                                 </div>
                     
@@ -235,25 +235,25 @@
                                                 </div>
 
                                                 <div class="form-group col-md-5">
-                                                    <label for="lblMinimoPlazoInversion" class="form-label">Mínimo</label>
+                                                    <label for="lblMinimoPlazoInversion" class="form-label">{{ 'MODULES.INVERSIONES_TRANSITORIAS.min' | translate }}</label>
                                                     <input formControlName="minimoPlazoInversion" class="form-control" type="text" id="id_minimoPlazoInversion"
                                                         [ngClass]="{ 'is-invalid': submittedFormPlazoInversion && m.minimoPlazoInversion.errors }" />
                                                     <div *ngIf="submittedFormPlazoInversion && m.minimoPlazoInversion.errors" class="invalid-feedback">
-                                                        <div *ngIf="m.minimoPlazoInversion.errors.required">El mínimo de inversión es requerido .</div>
+                                                        <div *ngIf="m.minimoPlazoInversion.errors.required">{{ 'MODULES.INVERSIONES_TRANSITORIAS.minRequired' | translate }}</div>
                                                     </div>
                                                 </div>
 
                                                 <div class="form-group col-md-5">
-                                                    <label for="lblMaximoPlazoInversion" class="form-label">Máximo</label>
+                                                    <label for="lblMaximoPlazoInversion" class="form-label">{{ 'MODULES.INVERSIONES_TRANSITORIAS.max' | translate }}</label>
                                                     <input formControlName="maximoPlazoInversion" class="form-control" type="text" id="id_maximoPlazoInversion"
                                                         [ngClass]="{ 'is-invalid': submittedFormPlazoInversion && m.maximoPlazoInversion.errors }" />
                                                     <div *ngIf="submittedFormPlazoInversion && m.maximoPlazoInversion.errors" class="invalid-feedback">
-                                                        <div *ngIf="m.maximoPlazoInversion.errors.required">El máximo de inversión es requerido .</div>
+                                                        <div *ngIf="m.maximoPlazoInversion.errors.required">{{ 'MODULES.INVERSIONES_TRANSITORIAS.maxRequired' | translate }}</div>
                                                     </div>
                                                 </div>
 
                                                 <div class="form-group col-sm-1 margin-icos-mat">
-                                                    <mat-checkbox formControlName="estadoPlazoInversion">Estado</mat-checkbox>
+                                                    <mat-checkbox formControlName="estadoPlazoInversion">{{ 'MODULES.INVERSIONES_TRANSITORIAS.status' | translate }}</mat-checkbox>
                                                 </div>
                     
                                             </form>
@@ -278,7 +278,7 @@
                                         <div class="articulo__contenedor__body__next__list__header"> 
                                             
                                             <div class="articulo__contenedor__body__next__list__header__prev" > 
-                                                <p class="articulo__contenedor__body__next__list__header__titulo">Listado de Plazos de Inversión</p>
+                                                <p class="articulo__contenedor__body__next__list__header__titulo">{{ 'MODULES.INVERSIONES_TRANSITORIAS.listInvestmentTerm' | translate }}</p>
                                             </div>
 
                                             <div class="articulo__contenedor__body__next__list__header__next" > </div>
@@ -293,14 +293,12 @@
                                                         <tr>
                                                             <th style="width: 5%"></th>
                                                             
-                                                            <th style="width: 15%">Descripción</th>
-
-                                                            <th style="width: 10%">Mínimo</th>
-                                                            <th style="width: 10%">Máximo</th>
-
-                                                            <th style="width: 10%">Estado</th>
-                                                            <th style="width: 12%">Modificado</th>
-                                                            <th style="width: 15%">Se actualizó</th>
+                                                            <th style="width: 15%">{{ 'MODULES.INVERSIONES_TRANSITORIAS.description' | translate }}Descripción</th>
+                                                            <th style="width: 10%">{{ 'MODULES.INVERSIONES_TRANSITORIAS.min' | translate }}Mínimo</th>
+                                                            <th style="width: 10%">{{ 'MODULES.INVERSIONES_TRANSITORIAS.max' | translate }}Máximo</th>
+                                                            <th style="width: 10%">{{ 'MODULES.INVERSIONES_TRANSITORIAS.status' | translate }}Estado</th>
+                                                            <th style="width: 12%">{{ 'MODULES.INVERSIONES_TRANSITORIAS.modified' | translate }}Modificado</th>
+                                                            <th style="width: 15%">{{ 'MODULES.INVERSIONES_TRANSITORIAS.updated' | translate }}Se actualizó</th>
                                                         </tr>
                                                     </thead>
                                                     <tbody>

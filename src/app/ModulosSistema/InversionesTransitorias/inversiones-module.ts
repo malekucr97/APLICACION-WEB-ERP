@@ -34,6 +34,7 @@ import { InvTitulosComponent } from './mantenimientos/titulos-component';
 import { InvTasasComponent } from './mantenimientos/tasas-component';
 import { InvClasesPlazosInversionesComponent } from './mantenimientos/clasesplazosinversiones-component';
 import { InvInclusionInversionOperacionesComponent } from './transacciones/operacionesPlazo/inclusionOperacionInversiones-component';
+import { TranslateModule } from '@ngx-translate/core';
 
 @NgModule({
     imports: [
@@ -57,7 +58,8 @@ import { InvInclusionInversionOperacionesComponent } from './transacciones/opera
 
         MatDialogModule,
         MatFormFieldModule,
-        MatListModule
+        MatListModule,
+        TranslateModule.forChild()
     ],
     declarations: [
         IndexInversionesComponent,

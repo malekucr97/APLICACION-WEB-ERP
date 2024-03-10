@@ -10,7 +10,7 @@
 
                     <div class="articulo__contenedor__header__prev" >
 
-                        <p>{{nombreModulo}} / Mantenimiento de Tipos de Persona</p>
+                        <p>{{ 'MODULES.INVERSIONES_TRANSITORIAS.personTypeMaintenance' | translate: {$INTERPOLATION: nombreModulo} }}</p>
 
                     </div>
 
@@ -44,24 +44,24 @@
                                         <div class="articulo__contenedor__body__prev__form__header"> 
                                             
                                             <div class="articulo__contenedor__body__prev__form__header__prev" > 
-                                                <p class="articulo__contenedor__body__prev__form__header__titulo">Tipos de Personas</p>
+                                                <p class="articulo__contenedor__body__prev__form__header__titulo" >{{ 'MODULES.INVERSIONES_TRANSITORIAS.typePerson' | translate }}</p>
                                             </div>
 
                                             <div class="articulo__contenedor__body__prev__form__header__next" > 
 
                                                 <button *ngIf="habilitaBtnNuevo" class="articulo__contenedor__header__prev__btns__new" 
                                                         mat-flat-button
-                                                        (click)="limpiarFormularioTipoPersona()">Nuevo</button>
+                                                        (click)="limpiarFormularioTipoPersona()">{{ 'GENERAL.BTN_NEW' | translate }}</button>
 
                                                 <button *ngIf="habilitaBtnActualiza" class="articulo__contenedor__header__prev__btns__warn" 
                                                         mat-flat-button
-                                                        (click)="actualizaTipoPersona()">Actualizar</button>
+                                                        (click)="actualizaTipoPersona()">{{ 'GENERAL.BTN_UPDATE' | translate }}</button>
                                                 <button *ngIf="habilitaBtnRegistro" class="articulo__contenedor__header__prev__btns__ok" 
                                                         mat-flat-button
-                                                        (click)="submitTipoPersona()">Registrar</button>
+                                                        (click)="submitTipoPersona()">{{ 'GENERAL.BTN_REGISTER' | translate }}</button>
                                                 <button *ngIf="habilitaBtnElimibar" class="articulo__contenedor__header__prev__btns__danger" 
                                                         mat-flat-button
-                                                        (click)="eliminarTipoPersona()">Eliminar</button>
+                                                        (click)="eliminarTipoPersona()">{{ 'GENERAL.BTN_DELETE' | translate }}</button>
 
                                             </div>
                                         
@@ -76,18 +76,18 @@
                                                 <!-- id -->
                     
                                                 <div class="form-group col-md-3">
-                                                    <label for="id" class="form-label">Id</label>
+                                                    <label for="id" class="form-label">{{ 'MODULES.INVERSIONES_TRANSITORIAS.id' | translate }}</label>
                                                     <input formControlName="id" class="form-control" type="text" id="id_id" readonly />
                                                 </div>
                     
                                                 <!-- search campos -->
                                                 
                                                 <div class="form-group col-md-7">
-                                                    <label for="lblDescripcion" class="form-label">Descripción</label>
+                                                    <label for="lblDescripcion" class="form-label" >{{ 'MODULES.INVERSIONES_TRANSITORIAS.description' | translate }}</label>
                                                     <input formControlName="descripcion" class="form-control" type="text" id="id_descripcion"
                                                         [ngClass]="{ 'is-invalid': submittedTipoPersonaForm && m.descripcion.errors }" />
                                                     <div *ngIf="submittedTipoPersonaForm && m.descripcion.errors" class="invalid-feedback">
-                                                        <div *ngIf="m.descripcion.errors.required">La descripcion es requerida .</div>
+                                                        <div *ngIf="m.descripcion.errors.required" >{{ 'MODULES.INVERSIONES_TRANSITORIAS.descriptionRequired' | translate }}</div>
                                                     </div>
                                                 </div>
                     
@@ -106,16 +106,16 @@
                                                 <!-- <div class="col-sm-1 margin-icos-mat"> </div> -->
                     
                                                 <div class="form-group col-md-3">
-                                                    <label for="mascaraIdentificacion" class="form-label">Máscara para la identificación</label>
+                                                    <label for="mascaraIdentificacion" class="form-label" >{{ 'MODULES.INVERSIONES_TRANSITORIAS.identificationMask' | translate }}</label>
                                                     <input formControlName="mascaraIdentificacion" class="form-control" type="text" id="id_mascara_identificacion"
                                                         [ngClass]="{ 'is-invalid': submittedTipoPersonaForm && m.mascaraIdentificacion.errors }" />
                                                     <div *ngIf="submittedTipoPersonaForm && m.mascaraIdentificacion.errors" class="invalid-feedback">
-                                                        <div *ngIf="m.mascaraIdentificacion.errors.required">La máscara para la identificación es requerida .</div>
+                                                        <div *ngIf="m.mascaraIdentificacion.errors.required" >{{ 'MODULES.INVERSIONES_TRANSITORIAS.identificationMaskRequired' | translate }}</div>
                                                     </div>
                                                 </div>
                     
                                                 <div class="form-group col-sm-1 margin-icos-mat">
-                                                    <mat-checkbox formControlName="estado">Estado</mat-checkbox>
+                                                    <mat-checkbox formControlName="estado" >{{ 'MODULES.INVERSIONES_TRANSITORIAS.status' | translate }}</mat-checkbox>
                                                 </div>
                     
                                                 <!-- <div class="col-sm-6 margin-icos-mat"> </div> -->
@@ -148,7 +148,7 @@
                                         <div class="articulo__contenedor__body__next__list__header"> 
                                             
                                             <div class="articulo__contenedor__body__next__list__header__prev" > 
-                                                <p class="articulo__contenedor__body__next__list__header__titulo">Listado de Tipos de Monedas</p>
+                                                <p class="articulo__contenedor__body__next__list__header__titulo" >{{ 'MODULES.INVERSIONES_TRANSITORIAS.currencyTypeList' | translate }}</p>
                                             </div>
 
                                             <div class="articulo__contenedor__body__next__list__header__next" > </div>
@@ -165,12 +165,12 @@
                                                     <table class="table table-striped">
                                                         <thead>
                                                             <tr>
-                                                                <th style="width: 10%">Id</th>
-                                                                <th style="width: 25%">Descripción</th>
-                                                                <th style="width: 10%">Máscara de Identificación</th>
-                                                                <th style="width: 10%">Estado</th>
-                                                                <th style="width: 10%">Modificado</th>
-                                                                <th style="width: 15%">Se actualizó</th>
+                                                                <th style="width: 10%" >{{ 'MODULES.INVERSIONES_TRANSITORIAS.id' | translate }}</th>
+                                                                <th style="width: 25%" >{{ 'MODULES.INVERSIONES_TRANSITORIAS.description' | translate }}</th>
+                                                                <th style="width: 10%" >{{ 'MODULES.INVERSIONES_TRANSITORIAS.identificationMask' | translate }}</th>
+                                                                <th style="width: 10%" >{{ 'MODULES.INVERSIONES_TRANSITORIAS.status' | translate }}</th>
+                                                                <th style="width: 10%" >{{ 'MODULES.INVERSIONES_TRANSITORIAS.modified' | translate }}</th>
+                                                                <th style="width: 15%" >{{ 'MODULES.INVERSIONES_TRANSITORIAS.updated' | translate }}</th>
                                                             </tr>
                                                         </thead>
                                                         <tbody>

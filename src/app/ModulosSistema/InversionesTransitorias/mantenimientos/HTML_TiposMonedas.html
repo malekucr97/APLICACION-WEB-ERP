@@ -10,7 +10,7 @@
 
                     <div class="articulo__contenedor__header__prev" >
 
-                        <p>{{nombreModulo}} / Mantenimiento de Monedas</p>
+                        <p>{{ 'MODULES.INVERSIONES_TRANSITORIAS.currencyMaintenance' | translate: {$INTERPOLATION: nombreModulo} }}</p>
 
                     </div>
 
@@ -44,24 +44,24 @@
                                         <div class="articulo__contenedor__body__prev__form__header"> 
                                             
                                             <div class="articulo__contenedor__body__prev__form__header__prev" > 
-                                                <p class="articulo__contenedor__body__prev__form__header__titulo">Tipos de Monedas</p>
+                                                <p class="articulo__contenedor__body__prev__form__header__titulo" >{{ 'MODULES.INVERSIONES_TRANSITORIAS.currencyTypes' | translate }}</p>
                                             </div>
 
                                             <div class="articulo__contenedor__body__prev__form__header__next" > 
 
                                                 <button *ngIf="habilitaBtnNuevo" class="articulo__contenedor__body__prev__form__header__prev__btns__new" 
                                                         mat-flat-button
-                                                        (click)="limpiarFormularioMoneda()">Nuevo</button>
+                                                        (click)="limpiarFormularioMoneda()">{{ 'GENERAL.BTN_NEW' | translate }}</button>
 
                                                 <button *ngIf="habilitaBtnActualiza" class="articulo__contenedor__header__prev__btns__warn" 
                                                         mat-flat-button
-                                                        (click)="actualizaMoneda()">Actualizar</button>
+                                                        (click)="actualizaMoneda()">{{ 'GENERAL.BTN_UPDATE' | translate }}</button>
                                                 <button *ngIf="habilitaBtnRegistro" class="articulo__contenedor__header__prev__btns__ok" 
                                                         mat-flat-button
-                                                        (click)="submitMoneda()">Registrar</button>
+                                                        (click)="submitMoneda()">{{ 'GENERAL.BTN_REGISTER' | translate }}</button>
                                                 <button *ngIf="habilitaBtnElimibar" class="articulo__contenedor__header__prev__btns__danger" 
                                                         mat-flat-button
-                                                        (click)="eliminarMoneda()">Eliminar</button>
+                                                        (click)="eliminarMoneda()">{{ 'GENERAL.BTN_DELETE' | translate }}</button>
 
                                             </div>
                                         
@@ -72,16 +72,16 @@
                                             <form [formGroup]="formTipoMoneda" class="row">
                     
                                                 <div class="form-group col-md-2">
-                                                    <label for="id" class="form-label">Id</label>
+                                                    <label for="id" class="form-label" >{{ 'MODULES.INVERSIONES_TRANSITORIAS.id' | translate }}</label>
                                                     <input formControlName="id" class="form-control" type="text" id="id_id" readonly />
                                                 </div>
                                                 
                                                 <div class="form-group col-md-7">
-                                                    <label for="lblCodigoMoneda" class="form-label">Código Interno</label>
+                                                    <label for="lblCodigoMoneda" class="form-label">{{ 'MODULES.INVERSIONES_TRANSITORIAS.internalCode' | translate }}</label>
                                                     <input formControlName="codigo_moneda" class="form-control" type="text" id="id_codigo_moneda"
                                                         [ngClass]="{ 'is-invalid': submittedTipoMonedaForm && m.codigo_moneda.errors }" />
                                                     <div *ngIf="submittedTipoMonedaForm && m.codigo_moneda.errors" class="invalid-feedback">
-                                                        <div *ngIf="m.codigo_moneda.errors.required">El código de la moneda es requerido .</div>
+                                                        <div *ngIf="m.codigo_moneda.errors.required" >{{ 'MODULES.INVERSIONES_TRANSITORIAS.currencyCodeRequired' | translate }}</div>
                                                     </div>
                                                 </div>
                     
@@ -90,43 +90,43 @@
                                                 </div>
                     
                                                 <div class="form-group col-md-2">
-                                                    <label for="simbolo" class="form-label">Caracter</label>
+                                                    <label for="simbolo" class="form-label" >{{ 'MODULES.INVERSIONES_TRANSITORIAS.character' | translate }}</label>
                                                     <input formControlName="simbolo" class="form-control" type="text" id="id_simbolo"
                                                         [ngClass]="{ 'is-invalid': submittedTipoMonedaForm && m.simbolo.errors }" />
                                                     <div *ngIf="submittedTipoMonedaForm && m.simbolo.errors" class="invalid-feedback">
-                                                        <div *ngIf="m.simbolo.errors.required">El símbolo de la moneda es requerido .</div>
+                                                        <div *ngIf="m.simbolo.errors.required" >{{ 'MODULES.INVERSIONES_TRANSITORIAS.currencySymbolRequired' | translate }}</div>
                                                     </div>
                                                 </div>
                     
                                                 <div class="form-group col-md-3">
-                                                    <label for="descripcion" class="form-label">Descripción</label>
+                                                    <label for="descripcion" class="form-label" >{{ 'MODULES.INVERSIONES_TRANSITORIAS.description' | translate }}</label>
                                                     <input formControlName="descripcion" class="form-control" type="text" id="id_descripcion"
                                                         [ngClass]="{ 'is-invalid': submittedTipoMonedaForm && m.descripcion.errors }" />
                                                     <div *ngIf="submittedTipoMonedaForm && m.descripcion.errors" class="invalid-feedback">
-                                                        <div *ngIf="m.descripcion.errors.required">La descripción de la moneda es requerida .</div>
+                                                        <div *ngIf="m.descripcion.errors.required" >{{ 'MODULES.INVERSIONES_TRANSITORIAS.internalCode' | translate }}</div>
                                                     </div>
                                                 </div>
 
                                                 <div class="form-group col-md-2">
-                                                    <label for="lblBccrIndicadorCompra" class="form-label">BCCR ICompra</label>
+                                                    <label for="lblBccrIndicadorCompra" class="form-label" >{{ 'MODULES.INVERSIONES_TRANSITORIAS.bccrPurchase' | translate }}</label>
                                                     <input formControlName="bccrIndicadorCompra" class="form-control" type="text" id="id_bccrIndicadorCompra"
                                                         [ngClass]="{ 'is-invalid': submittedTipoMonedaForm && m.bccrIndicadorCompra.errors }" />
                                                     <div *ngIf="submittedTipoMonedaForm && m.bccrIndicadorCompra.errors" class="invalid-feedback">
-                                                        <div *ngIf="m.bccrIndicadorCompra.errors.required">El indicador de la compra del bccr es requerido .</div>
+                                                        <div *ngIf="m.bccrIndicadorCompra.errors.required" >{{ 'MODULES.INVERSIONES_TRANSITORIAS.bccrPurchaseIndicatorRequired' | translate }}</div>
                                                     </div>
                                                 </div>
 
                                                 <div class="form-group col-md-2">
-                                                    <label for="lblBccrIndicadorVenta" class="form-label">BCCR IVenta</label>
+                                                    <label for="lblBccrIndicadorVenta" class="form-label" >{{ 'MODULES.INVERSIONES_TRANSITORIAS.bccrSale' | translate }}</label>
                                                     <input formControlName="bccrIndicadorVenta" class="form-control" type="text" id="id_bccrIndicadorVenta"
                                                         [ngClass]="{ 'is-invalid': submittedTipoMonedaForm && m.bccrIndicadorVenta.errors }" />
                                                     <div *ngIf="submittedTipoMonedaForm && m.bccrIndicadorVenta.errors" class="invalid-feedback">
-                                                        <div *ngIf="m.bccrIndicadorVenta.errors.required">El indicador de la venta del bccr es requerido .</div>
+                                                        <div *ngIf="m.bccrIndicadorVenta.errors.required" >{{ 'MODULES.INVERSIONES_TRANSITORIAS.bccrSaleIndicatorRequired' | translate }}</div>
                                                     </div>
                                                 </div>
                     
                                                 <div class="form-group col-sm-1 margin-icos-mat">
-                                                    <mat-checkbox formControlName="estado">Estado</mat-checkbox>
+                                                    <mat-checkbox formControlName="estado" >{{ 'MODULES.INVERSIONES_TRANSITORIAS.status' | translate }}</mat-checkbox>
                                                 </div>
                     
                                             </form>
@@ -151,7 +151,7 @@
                                         <div class="articulo__contenedor__body__next__list__header"> 
                                             
                                             <div class="articulo__contenedor__body__next__list__header__prev" > 
-                                                <p class="articulo__contenedor__body__next__list__header__titulo">Listado de Tipos de Monedas</p>
+                                                <p class="articulo__contenedor__body__next__list__header__titulo" >{{ 'MODULES.INVERSIONES_TRANSITORIAS.currencyTypeList' | translate }}</p>
                                             </div>
 
                                             <div class="articulo__contenedor__body__next__list__header__next" > </div>
@@ -166,13 +166,13 @@
                                                         <tr>
                                                             <th style="width: 5%"></th>
                                                             
-                                                            <th style="width: 8%">Símbolo</th>
-                                                            <th style="width: 12%">Descripción</th>
-                                                            <th style="width: 13%">BCCR ICompra</th>
-                                                            <th style="width: 13%">BCCR IVenta</th>
-                                                            <th style="width: 10%">Estado</th>
-                                                            <th style="width: 12%">Modificado</th>
-                                                            <th style="width: 15%">Se actualizó</th>
+                                                            <th style="width: 8%"  >{{ 'MODULES.INVERSIONES_TRANSITORIAS.symbol' | translate }}</th>
+                                                            <th style="width: 12%" >{{ 'MODULES.INVERSIONES_TRANSITORIAS.description' | translate }}</th>
+                                                            <th style="width: 13%" >{{ 'MODULES.INVERSIONES_TRANSITORIAS.bccrPurchase' | translate }}</th>
+                                                            <th style="width: 13%" >{{ 'MODULES.INVERSIONES_TRANSITORIAS.bccrSale' | translate }}</th>
+                                                            <th style="width: 10%" >{{ 'MODULES.INVERSIONES_TRANSITORIAS.status' | translate }}</th>
+                                                            <th style="width: 12%" >{{ 'MODULES.INVERSIONES_TRANSITORIAS.modified' | translate }}</th>
+                                                            <th style="width: 15%" >{{ 'MODULES.INVERSIONES_TRANSITORIAS.updated' | translate }}</th>
                                                         </tr>
                                                     </thead>
                                                     <tbody>
@@ -223,7 +223,7 @@
                                         <div class="articulo__contenedor__body__prev__form__header"> 
                                             
                                             <div class="articulo__contenedor__body__prev__form__header__prev" > 
-                                                <p class="articulo__contenedor__body__prev__form__header__titulo">Tipo de Cambio de Moneda</p>
+                                                <p class="articulo__contenedor__body__prev__form__header__titulo" >{{ 'MODULES.INVERSIONES_TRANSITORIAS.currencyExchangeType' | translate }}</p>
                                             </div>
 
                                             <div class="articulo__contenedor__body__prev__form__header__next" > 
@@ -231,21 +231,21 @@
 
                                                 <button class="articulo__contenedor__body__prev__form__header__prev__btns__otro" 
                                                         mat-flat-button
-                                                        (click)="consultarWSBCCRTipoCambio()">Consultar Tipo de Cambio BCCR</button>
+                                                        (click)="consultarWSBCCRTipoCambio()" >{{ 'MODULES.INVERSIONES_TRANSITORIAS.checkBccrExchangeRate' | translate }}</button>
 
                                                 <button *ngIf="habilitaBtnNuevoTC" class="articulo__contenedor__body__prev__form__header__prev__btns__new" 
                                                         mat-flat-button
-                                                        (click)="limpiarFormularioTipoCambio()">Nuevo</button>
+                                                        (click)="limpiarFormularioTipoCambio()">{{ 'GENERAL.BTN_NEW' | translate }}</button>
                         
                                                 <button *ngIf="habilitaBtnActualizaTC" class="articulo__contenedor__body__prev__form__header__prev__btns__warn" 
                                                         mat-flat-button
-                                                        (click)="actualizaObjetoMontoPersona()">Actualizar</button>
+                                                        (click)="actualizaObjetoMontoPersona()">{{ 'GENERAL.BTN_UPDATE' | translate }}</button>
                                                 <button *ngIf="habilitaBtnRegistroTC" class="articulo__contenedor__body__prev__form__header__prev__btns__ok" 
                                                         mat-flat-button
-                                                        (click)="submitFormTipoCambio()">Registrar</button>
+                                                        (click)="submitFormTipoCambio()">{{ 'GENERAL.BTN_REGISTER' | translate }}</button>
                                                 <button *ngIf="habilitaBtnEliminarTC" class="articulo__contenedor__body__prev__form__header__prev__btns__danger" 
                                                         mat-flat-button
-                                                        (click)="eliminarTipoCambio()">Eliminar</button>
+                                                        (click)="eliminarTipoCambio()">{{ 'GENERAL.BTN_DELETE' | translate }}</button>
 
                                             </div>
                                         
@@ -257,7 +257,7 @@
                     
 
                                                 <div class="form-group col-md-2">
-                                                    <label for="id" class="form-label">Id</label>
+                                                    <label for="id" class="form-label" >{{ 'MODULES.INVERSIONES_TRANSITORIAS.id' | translate }}</label>
                                                     <input formControlName="id" class="form-control" type="text" id="id_id" readonly />
                                                 </div>
 
@@ -267,18 +267,18 @@
                     
                     
                                                 <div class="form-group col-md-3">
-                                                    <label for="lblIdMoneda" class="form-label">Moneda</label>
+                                                    <label for="lblIdMoneda" class="form-label" >{{ 'MODULES.INVERSIONES_TRANSITORIAS.currency' | translate }}</label>
                                                     <select formControlName="idMoneda" class="form-control" name="selectIdMoneda"
                                                         [ngClass]="{ 'is-invalid': submittedFormTipoCambio && t.idMoneda.errors }">
-                                                            <option [disabled]="true" [ngValue]="objeto" *ngFor="let objeto of listTiposMonedas" >{{objeto.id}} - {{objeto.descripcion}}</option>
+                                                            <option [disabled]="true" [ngValue]="objeto" *ngFor="let objeto of listTiposMonedas" >{{ 'MODULES.INVERSIONES_TRANSITORIAS.textByText' | translate: {$INTERPOLATION: objeto.id, $INTERPOLATION_1: objeto.descripcion } }}</option>
                                                     </select>
                                                     <div *ngIf="submittedFormTipoCambio && t.idMoneda.errors" class="invalid-feedback">
-                                                        <div *ngIf="t.idMoneda.errors.required">El Tipo de Moneda es requerido .</div>
+                                                        <div *ngIf="t.idMoneda.errors.required" >{{ 'MODULES.INVERSIONES_TRANSITORIAS.currencyTypeRequired' | translate }}</div>
                                                     </div>
                                                 </div>
 
                                                 <div class="form-group col-md-3">
-                                                    <label for="lblFechaConsulta" class="form-label">Fecha de Consulta</label>
+                                                    <label for="lblFechaConsulta" class="form-label" >{{ 'MODULES.INVERSIONES_TRANSITORIAS.consultationDate' | translate }}</label>
                                                     <input formControlName="fechaConsulta" class="form-control" matInput [matDatepicker]="picker" >
                                                     <mat-datepicker-toggle class="item-list__calendar" matSuffix [for]="picker"></mat-datepicker-toggle>
                                                     <mat-datepicker #picker ></mat-datepicker>
@@ -293,22 +293,22 @@
                                                 <!-- linea 2 -->
 
                                                 <div class="form-group col-md-4">
-                                                    <label for="lblContoCompra" class="form-label">Compra</label>
+                                                    <label for="lblContoCompra" class="form-label" >{{ 'MODULES.INVERSIONES_TRANSITORIAS.purchase' | translate }}</label>
                                                     <input formControlName="montoCompra" class="form-control" type="text" id="id_montoCompra"
                                                             placeholder=".00"
                                                         [ngClass]="{ 'is-invalid': submittedFormTipoCambio && t.montoCompra.errors }" />
                                                     <div *ngIf="submittedFormTipoCambio && t.montoCompra.errors" class="invalid-feedback">
-                                                        <div *ngIf="t.montoCompra.errors.required">La compra es requerida .</div>
+                                                        <div *ngIf="t.montoCompra.errors.required" >{{ 'MODULES.INVERSIONES_TRANSITORIAS.purchaseRequired' | translate }}</div>
                                                     </div>
                                                 </div>
                     
                                                 <div class="form-group col-md-4">
-                                                    <label for="lblMontoVenta" class="form-label">Venta</label>
+                                                    <label for="lblMontoVenta" class="form-label" >{{ 'MODULES.INVERSIONES_TRANSITORIAS.sale' | translate }}</label>
                                                     <input formControlName="montoVenta" class="form-control" type="text" id="id_montoVenta"
                                                             placeholder=".00"
                                                         [ngClass]="{ 'is-invalid': submittedFormTipoCambio && t.montoVenta.errors }" />
                                                     <div *ngIf="submittedFormTipoCambio && t.montoVenta.errors" class="invalid-feedback">
-                                                        <div *ngIf="t.montoVenta.errors.required">El primer alias es requerido .</div>
+                                                        <div *ngIf="t.montoVenta.errors.required" >{{ 'MODULES.INVERSIONES_TRANSITORIAS.firstAliasRequired' | translate }}</div>
                                                     </div>
                                                 </div>
 
@@ -336,7 +336,7 @@
                                         <div class="articulo__contenedor__body__next__list__header"> 
                                             
                                             <div class="articulo__contenedor__body__next__list__header__prev" > 
-                                                <p class="articulo__contenedor__body__next__list__header__titulo">Listado de Tipos de Cambio de la Moneda</p>
+                                                <p class="articulo__contenedor__body__next__list__header__titulo" >{{ 'MODULES.INVERSIONES_TRANSITORIAS.currencyExchangeList' | translate }}</p>
                                             </div>
 
                                             <div class="articulo__contenedor__body__next__list__header__next" > </div>
@@ -350,11 +350,11 @@
                                                     <thead>
                                                         <tr>
                                                             <th style="width: 5%"></th>
-                                                            <th style="width: 25%">Fecha de Consulta</th>
-                                                            <th style="width: 20%">Monto de Compra</th>
-                                                            <th style="width: 20%">Monto de Venta</th>
-                                                            <th style="width: 10%">Modificado</th>
-                                                            <th style="width: 15%">Se actualizó</th>
+                                                            <th style="width: 25%" >{{ 'MODULES.INVERSIONES_TRANSITORIAS.consultationDate' | translate }}</th>
+                                                            <th style="width: 20%" >{{ 'MODULES.INVERSIONES_TRANSITORIAS.purchaseAmount' | translate }}</th>
+                                                            <th style="width: 20%" >{{ 'MODULES.INVERSIONES_TRANSITORIAS.saleAmount' | translate }}</th>
+                                                            <th style="width: 10%" >{{ 'MODULES.INVERSIONES_TRANSITORIAS.modified' | translate }}</th>
+                                                            <th style="width: 15%" >{{ 'MODULES.INVERSIONES_TRANSITORIAS.updated' | translate }}</th>
                                                         </tr>
                                                     </thead>
                                                     <tbody>
