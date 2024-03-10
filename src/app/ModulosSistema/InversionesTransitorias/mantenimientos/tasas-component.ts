@@ -14,7 +14,7 @@ import { InvTipoMoneda } from '@app/_models/Inversiones/TipoMoneda';
 import { first } from 'rxjs/operators';
 import { InvTipoCambio } from '@app/_models/Inversiones/TipoCambio';
 import { InvTasa } from '@app/_models/Inversiones/Tasa';
-import { TranslateService } from '@ngx-translate/core';
+import { TranslateMessagesService } from '@app/_services/translate-messages.service';
 
 declare var $: any;
 
@@ -55,7 +55,7 @@ export class InvTasasComponent implements OnInit {
                     private formBuilder:        FormBuilder,
                     private accountService:     AccountService,
                     private dialogo:            MatDialog,
-                    private translate: TranslateService ) {
+                    private translate: TranslateMessagesService ) {
 
         this.userObservable = this.accountService.userValue;
         this.moduleObservable = this.accountService.moduleValue;
@@ -105,11 +105,11 @@ export class InvTasasComponent implements OnInit {
                 } else { 
                 
                     this.inicializaFormulario();
-                    this.alertService.info(this.translate.instant('ALERTS.NO_RECORDS_FOUND'));
+                    this.alertService.info(this.translate.translateKey('ALERTS.NO_RECORDS_FOUND'));
                 }
             },
             error => {
-                let message : string = this.translate.instant('ALERTS.CONNECTION_PROBLEMS',{$PH:error});
+                let message : string = this.translate.translateKeyP('ALERTS.CONNECTION_PROBLEMS',{$PH:error});
                 this.alertService.error(message);
             });
     }
@@ -194,12 +194,12 @@ export class InvTasasComponent implements OnInit {
 
                     this.inicializaFormulario();
 
-                    this.alertService.success( this.translate.instant('ALERTS.SUCCESSFUL_REGISTRATION') );
+                    this.alertService.success( this.translate.translateKey('ALERTS.SUCCESSFUL_REGISTRATION') );
 
-                } else { this.alertService.error(this.translate.instant('ALERTS.FAILED_CURRENCY_REGISTRATION')); }
+                } else { this.alertService.error(this.translate.translateKey('ALERTS.FAILED_CURRENCY_REGISTRATION')); }
 
             }, error => {
-                this.alertService.error( this.translate.instant('ALERTS.errorConnectionServer',{$PH:error}) );
+                this.alertService.error( this.translate.translateKeyP('ALERTS.errorConnectionServer',{$PH:error}) );
             });
     }
 
@@ -213,7 +213,7 @@ export class InvTasasComponent implements OnInit {
         var id : number = this.formulario.controls['idTasa'].value;
 
         this.dialogo.open(DialogoConfirmacionComponent, {
-            data: this.translate.instant('ALERTS.dialogConfirmDelete')
+            data: this.translate.translateKey('ALERTS.dialogConfirmDelete')
         })
         .afterClosed()
         .subscribe((confirmado: Boolean) => {
@@ -270,12 +270,12 @@ export class InvTasasComponent implements OnInit {
 
                     this.inicializaFormulario();
 
-                    this.alertService.success( this.translate.instant('ALERTS.SUCCESSFUL_UPDATE') );
+                    this.alertService.success( this.translate.translateKey('ALERTS.SUCCESSFUL_UPDATE') );
 
-                } else { this.alertService.error(this.translate.instant('ALERTS.FAILED_UPDATE')); }
+                } else { this.alertService.error(this.translate.translateKey('ALERTS.FAILED_UPDATE')); }
 
             }, error => {
-                this.alertService.error( this.translate.instant('ALERTS.errorConnectionServer',{$PH:error}) );
+                this.alertService.error( this.translate.translateKeyP('ALERTS.errorConnectionServer',{$PH:error}) );
             });
     }
 }

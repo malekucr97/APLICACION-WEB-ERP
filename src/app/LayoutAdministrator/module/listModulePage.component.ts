@@ -6,7 +6,7 @@ import { User, Module } from '@app/_models';
 import { Compania } from '../../_models/modules/compania';
 import { httpAccessAdminPage } from '@environments/environment';
 import { OnSeguridad } from '@app/_helpers/abstractSeguridad';
-import { TranslateService } from '@ngx-translate/core';
+import { TranslateMessagesService } from '@app/_services/translate-messages.service';
 
 @Component({templateUrl: 'HTML_ListModulePage.html',
             styleUrls: [ '../../../assets/scss/app.scss', '../../../assets/scss/administrator/app.scss']
@@ -26,7 +26,7 @@ export class ListModuleComponent extends OnSeguridad implements OnInit {
     constructor(private accountService: AccountService,
                 private alertService: AlertService,
                 private router: Router,
-                private translate: TranslateService) {
+                private translate: TranslateMessagesService) {
 
             super(alertService, accountService, router);
 
@@ -72,7 +72,7 @@ export class ListModuleComponent extends OnSeguridad implements OnInit {
                 } else { this.alertService.error(responseActivate.responseMesagge); }
             },
             (error) => {
-                let message : string = this.translate.instant('ALERTS.problemToActivateModule',{$PH:error});
+                let message : string = this.translate.translateKeyP('ALERTS.problemToActivateModule',{$PH:error});
                 this.alertService.error(message);
             });
     }
@@ -97,7 +97,7 @@ export class ListModuleComponent extends OnSeguridad implements OnInit {
                 } else { this.alertService.error(responseInActivate.responseMesagge); }
             },
             (error) => {
-                let message : string = this.translate.instant('ALERTS.problemToInactivateModule',{$PH:error});
+                let message : string = this.translate.translateKeyP('ALERTS.problemToInactivateModule',{$PH:error});
                 this.alertService.error(message);
             });
     }

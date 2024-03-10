@@ -11,6 +11,7 @@ import { MatIconModule } from '@angular/material/icon';
 import { MatDividerModule } from '@angular/material/divider';
 import { MatTreeModule } from '@angular/material/tree';
 import { PowerBIEmbedModule } from 'powerbi-client-angular';
+import { TranslateModule } from '@ngx-translate/core';
 
 @NgModule({
   imports: [
@@ -23,7 +24,8 @@ import { PowerBIEmbedModule } from 'powerbi-client-angular';
     MatDividerModule,
     MatTreeModule,
     MatTooltipModule,
-    PowerBIEmbedModule
+    PowerBIEmbedModule,
+    TranslateModule.forChild()
   ],
   declarations: [
     IndexPowerBiComponent,

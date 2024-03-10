@@ -6,7 +6,7 @@ import { Compania } from '@app/_models/modules/compania';
 import { Router } from '@angular/router';
 import { OnSeguridad } from '@app/_helpers/abstractSeguridad';
 import { administrator, httpAccessAdminPage } from '@environments/environment';
-import { TranslateService } from '@ngx-translate/core';
+import { TranslateMessagesService } from '@app/_services/translate-messages.service';
 
 @Component({templateUrl: 'HTML_ListRolePage.html',
             styleUrls: [  '../../../assets/scss/app.scss', '../../../assets/scss/administrator/app.scss']
@@ -29,7 +29,7 @@ export class ListRoleComponent extends OnSeguridad implements OnInit {
   constructor(  private accountService: AccountService,
                 private alertService: AlertService,
                 private router: Router,
-                private translate: TranslateService ) {
+                private translate: TranslateMessagesService ) {
 
     super(alertService, accountService, router);
 
@@ -59,7 +59,7 @@ export class ListRoleComponent extends OnSeguridad implements OnInit {
   
           this.accountService.suscribeListRol(this.listRoles);
 
-        } else { this.alertService.info(this.translate.instant('ALERTS.companyNotRoleAssignment')); }
+        } else { this.alertService.info(this.translate.translateKey('ALERTS.companyNotRoleAssignment')); }
       });
   }
 
@@ -91,7 +91,7 @@ export class ListRoleComponent extends OnSeguridad implements OnInit {
 
       this.updateRol(rolUpdate);
 
-    } else { this.alertService.info(this.translate.instant('ALERTS.adminAccountModificationAlert')); }
+    } else { this.alertService.info(this.translate.translateKey('ALERTS.adminAccountModificationAlert')); }
   }
 
   inActivateRole(idRol: string) {
@@ -105,7 +105,7 @@ export class ListRoleComponent extends OnSeguridad implements OnInit {
 
       this.updateRol(rolUpdate);
 
-    } else { this.alertService.info(this.translate.instant('ALERTS.adminAccountModificationAlert')); }
+    } else { this.alertService.info(this.translate.translateKey('ALERTS.adminAccountModificationAlert')); }
   }
 
   escritura(idRol: string) {
@@ -118,7 +118,7 @@ export class ListRoleComponent extends OnSeguridad implements OnInit {
 
       this.updateRol(rolUpdate);
 
-    } else { this.alertService.info(this.translate.instant('ALERTS.adminPermissionChangeAlert')); }
+    } else { this.alertService.info(this.translate.translateKey('ALERTS.adminPermissionChangeAlert')); }
   }
 
   lectura(idRol: string) {
@@ -131,6 +131,6 @@ export class ListRoleComponent extends OnSeguridad implements OnInit {
 
       this.updateRol(rolUpdate);
 
-    } else { this.alertService.info(this.translate.instant('ALERTS.adminPermissionChangeAlert')); }
+    } else { this.alertService.info(this.translate.translateKey('ALERTS.adminPermissionChangeAlert')); }
   }
 }

@@ -6,7 +6,7 @@ import { User, Role } from '@app/_models';
 import { Compania } from '../../_models/modules/compania';
 import { OnSeguridad } from '@app/_helpers/abstractSeguridad';
 import { httpAccessAdminPage } from '@environments/environment';
-import { TranslateService } from '@ngx-translate/core';
+import { TranslateMessagesService } from '@app/_services/translate-messages.service';
 
 @Component({templateUrl: 'HTML_AddBusinessUserPage.html',
             styleUrls: ['../../../assets/scss/app.scss', '../../../assets/scss/administrator/app.scss']
@@ -37,7 +37,7 @@ export class AddBusinessUserComponent extends OnSeguridad implements OnInit {
                 private accountService: AccountService,
                 private alertService: AlertService,
                 private router: Router,
-                private translate: TranslateService ) {
+                private translate: TranslateMessagesService ) {
 
         super(alertService, accountService, router);
 
@@ -105,10 +105,10 @@ export class AddBusinessUserComponent extends OnSeguridad implements OnInit {
                 } else {
                     this.listAllBusiness = null; 
                     this.listBusinessUser = null;
-                    this.alertService.info(this.translate.instant('ALERTS.NO_COMPANY_RECORDS'));
+                    this.alertService.info(this.translate.translateKey('ALERTS.NO_COMPANY_RECORDS'));
                 }
             },
-            error => { this.alertService.error(this.translate.instant('ALERTS.ERROR_LIST_COMPANIES', {ERROR: error})); });
+            error => { this.alertService.error(this.translate.translateKeyP('ALERTS.ERROR_LIST_COMPANIES', {ERROR: error})); });
     }
 
     assignBusinessUser(idBusiness: number) {

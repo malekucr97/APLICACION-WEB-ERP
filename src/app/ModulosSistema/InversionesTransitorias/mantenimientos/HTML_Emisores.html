@@ -10,7 +10,7 @@
 
                     <div class="articulo__contenedor__header__prev" >
 
-                        <p>{{nombreModulo}} / Mantenimiento de Emisores</p>
+                        <p>{{ 'MODULES.INVERSIONES_TRANSITORIAS.title' | translate: {$INTERPOLATION: nombreModulo} }}</p>
 
                     </div>
 
@@ -39,24 +39,24 @@
                                         <div class="articulo__contenedor__body__prev__form__header"> 
                                             
                                             <div class="articulo__contenedor__body__prev__form__header__prev" > 
-                                                <p class="articulo__contenedor__body__prev__form__header__titulo">Emisores</p>
+                                                <p class="articulo__contenedor__body__prev__form__header__titulo">{{ 'MODULES.INVERSIONES_TRANSITORIAS.emmiter' | translate }}</p>
                                             </div>
 
                                             <div class="articulo__contenedor__body__prev__form__header__next" > 
 
                                                 <button *ngIf="habilitaBtnNuevoEmisor" class="articulo__contenedor__body__prev__form__header__prev__btns__new" 
                                                         mat-flat-button
-                                                        (click)="limpiarFormularioEmisor()">Nuevo</button>
+                                                        (click)="limpiarFormularioEmisor()">{{ 'GENERAL.BTN_NEW' | translate }}</button>
 
                                                 <button *ngIf="habilitaBtnActualizaEmisor" class="articulo__contenedor__header__prev__btns__warn" 
                                                         mat-flat-button
-                                                        (click)="actualizaObjetoEmisor()">Actualizar</button>
+                                                        (click)="actualizaObjetoEmisor()">{{ 'GENERAL.BTN_UPDATE' | translate }}</button>
                                                 <button *ngIf="habilitaBtnRegistroEmisor" class="articulo__contenedor__header__prev__btns__ok" 
                                                         mat-flat-button
-                                                        (click)="submitEmisor()">Registrar</button>
+                                                        (click)="submitEmisor()">{{ 'GENERAL.BTN_REGISTER' | translate }}</button>
                                                 <button *ngIf="habilitaBtnElimibarEmisor" class="articulo__contenedor__header__prev__btns__danger" 
                                                         mat-flat-button
-                                                        (click)="eliminarObjetoEmisor()">Eliminar</button>
+                                                        (click)="eliminarObjetoEmisor()">{{ 'GENERAL.BTN_DELETE' | translate }}</button>
 
                                             </div>
                                         
@@ -67,25 +67,25 @@
                                             <form [formGroup]="formularioEmisor" class="row">
                     
                                                 <div class="form-group col-md-1">
-                                                    <label for="lblIdMercado" class="form-label">Id</label>
+                                                    <label for="lblIdMercado" class="form-label">{{ 'MODULES.INVERSIONES_TRANSITORIAS.id' | translate }}</label>
                                                     <input formControlName="idEmisor" class="form-control" type="text" id="id_idEmisor" readonly />
                                                 </div>
                                                 
                                                 <div class="form-group col-md-3">
-                                                    <label for="lblCodigoEmisor" class="form-label">Código Interno</label>
+                                                    <label for="lblCodigoEmisor" class="form-label">{{ 'MODULES.INVERSIONES_TRANSITORIAS.internalCode' | translate }}</label>
                                                     <input formControlName="codigoEmisor" class="form-control" type="text" id="id_codigoEmisor"
                                                         [ngClass]="{ 'is-invalid': submittedFormEmisor && m.codigoEmisor.errors }" />
                                                     <div *ngIf="submittedFormEmisor && m.codigoEmisor.errors" class="invalid-feedback">
-                                                        <div *ngIf="m.codigoEmisor.errors.required">El código del emisor es requerido .</div>
+                                                        <div *ngIf="m.codigoEmisor.errors.required">{{ 'MODULES.INVERSIONES_TRANSITORIAS.emmiterCodeRequired' | translate }}</div>
                                                     </div>
                                                 </div>
 
                                                 <div class="form-group col-md-7">
-                                                    <label for="lblDescripcionEmisor" class="form-label">Descripción</label>
+                                                    <label for="lblDescripcionEmisor" class="form-label">{{ 'MODULES.INVERSIONES_TRANSITORIAS.description' | translate }}</label>
                                                     <input formControlName="descripcionEmisor" class="form-control" type="text" id="id_descripcionEmisor"
                                                         [ngClass]="{ 'is-invalid': submittedFormEmisor && m.descripcionEmisor.errors }" />
                                                     <div *ngIf="submittedFormEmisor && m.descripcionEmisor.errors" class="invalid-feedback">
-                                                        <div *ngIf="m.descripcionEmisor.errors.required">La descripción del emisor es requerida .</div>
+                                                        <div *ngIf="m.descripcionEmisor.errors.required">{{ 'MODULES.INVERSIONES_TRANSITORIAS.emmiterDescriptionRequired' | translate }}</div>
                                                     </div>
                                                 </div>
                     
@@ -95,47 +95,47 @@
 
 
                                                 <div class="form-group col-md-4">
-                                                    <label for="lblIdTipoPersonaEmisor" class="form-label">Tipo de Persona</label>
+                                                    <label for="lblIdTipoPersonaEmisor" class="form-label">{{ 'MODULES.INVERSIONES_TRANSITORIAS.typePerson' | translate }}</label>
                                                     <select formControlName="idTipoPersonaEmisor" class="form-control" name="selectIdTipoPersonaEmisor"
                                                         [ngClass]="{ 'is-invalid': submittedFormEmisor && m.idTipoPersonaEmisor.errors }" >
-                                                            <option [ngValue]="objeto" *ngFor="let objeto of listTiposPersonas">{{objeto.id}} - {{objeto.descripcion}}</option>
+                                                            <option [ngValue]="objeto" *ngFor="let objeto of listTiposPersonas" >{{ 'MODULES.INVERSIONES_TRANSITORIAS.textByText' | translate: {$INTERPOLATION: objeto.id, $INTERPOLATION_1: objeto.descripcion } }}</option>
                                                     </select>
                                                     <div *ngIf="submittedFormEmisor && m.idTipoPersonaEmisor.errors" class="invalid-feedback">
-                                                        <div *ngIf="m.idTipoPersonaEmisor.errors.required">El Tipo de Persona es requerido</div>
+                                                        <div *ngIf="m.idTipoPersonaEmisor.errors.required">{{ 'MODULES.INVERSIONES_TRANSITORIAS.typePersonRequired' | translate }}</div>
                                                     </div>
                                                 </div>
 
                                                 <div class="form-group col-md-4">
-                                                    <label for="lblIdTipoSectorEmisor" class="form-label">Tipo de Sector</label>
+                                                    <label for="lblIdTipoSectorEmisor" class="form-label">{{ 'MODULES.INVERSIONES_TRANSITORIAS.sectorTypes' | translate }}</label>
                                                     <select formControlName="idTipoSectorEmisor" class="form-control" name="selectIdTipoSectorEmisor"
                                                         [ngClass]="{ 'is-invalid': submittedFormEmisor && m.idTipoSectorEmisor.errors }" >
-                                                            <option [ngValue]="objeto" *ngFor="let objeto of listSectores">{{objeto.id}} - {{objeto.descripcion}}</option>
+                                                            <option [ngValue]="objeto" *ngFor="let objeto of listSectores" >{{ 'MODULES.INVERSIONES_TRANSITORIAS.textByText' | translate: {$INTERPOLATION: objeto.id, $INTERPOLATION_1: objeto.descripcion } }}</option>
                                                     </select>
                                                     <div *ngIf="submittedFormEmisor && m.idTipoSectorEmisor.errors" class="invalid-feedback">
-                                                        <div *ngIf="m.idTipoSectorEmisor.errors.required">El Tipo de Persona es requerido</div>
+                                                        <div *ngIf="m.idTipoSectorEmisor.errors.required">{{ 'MODULES.INVERSIONES_TRANSITORIAS.typePersonRequired' | translate }}</div>
                                                     </div>
                                                 </div>
 
                                                 <div class="form-group col-md-3">
-                                                    <label for="lblIdentificacionEmisor" class="form-label">Identificación del Emisor</label>
+                                                    <label for="lblIdentificacionEmisor" class="form-label">{{ 'MODULES.INVERSIONES_TRANSITORIAS.issuerIdentification' | translate }}</label>
                                                     <input formControlName="identificacionEmisor" class="form-control" type="text" id="id_identificacionEmisor"
                                                         [ngClass]="{ 'is-invalid': submittedFormEmisor && m.identificacionEmisor.errors }" />
                                                     <div *ngIf="submittedFormEmisor && m.identificacionEmisor.errors" class="invalid-feedback">
-                                                        <div *ngIf="m.identificacionEmisor.errors.required">La identificación del emisor es requerida .</div>
+                                                        <div *ngIf="m.identificacionEmisor.errors.required">{{ 'MODULES.INVERSIONES_TRANSITORIAS.issuerIdentificationRequired' | translate }}</div>
                                                     </div>
                                                 </div>
 
                                                 <div class="form-group col-md-10">
-                                                    <label for="lblOtrasResenasEmisor" class="form-label">Otras reseñas</label>
+                                                    <label for="lblOtrasResenasEmisor" class="form-label">{{ 'MODULES.INVERSIONES_TRANSITORIAS.otherReviews' | translate }}</label>
                                                     <textarea formControlName="otrasResenasEmisor" class="form-control" type="textarea" id="id_otrasResenasEmisor"
                                                         [ngClass]="{ 'is-invalid': submittedFormEmisor && m.otrasResenasEmisor.errors }" > </textarea>
                                                     <div *ngIf="submittedFormEmisor && m.otrasResenasEmisor.errors" class="invalid-feedback">   
-                                                        <div *ngIf="m.otrasResenasEmisor.errors.required">Las reseñas del emisor son requeridas .</div>
+                                                        <div *ngIf="m.otrasResenasEmisor.errors.required">{{ 'MODULES.INVERSIONES_TRANSITORIAS.issuerReviewsRequired' | translate }}</div>
                                                     </div>
                                                 </div>
 
                                                 <div class="form-group col-sm-1 margin-icos-mat">
-                                                    <mat-checkbox formControlName="estadoEmisor">Estado</mat-checkbox>
+                                                    <mat-checkbox formControlName="estadoEmisor">{{ 'MODULES.INVERSIONES_TRANSITORIAS.status' | translate }}</mat-checkbox>
                                                 </div>
                     
                                             </form>
@@ -160,7 +160,7 @@
                                         <div class="articulo__contenedor__body__next__list__header"> 
                                             
                                             <div class="articulo__contenedor__body__next__list__header__prev" > 
-                                                <p class="articulo__contenedor__body__next__list__header__titulo">Listado de Emisores</p>
+                                                <p class="articulo__contenedor__body__next__list__header__titulo">{{ 'MODULES.INVERSIONES_TRANSITORIAS.issuerList' | translate }}</p>
                                             </div>
 
                                             <div class="articulo__contenedor__body__next__list__header__next" > </div>
@@ -175,13 +175,13 @@
                                                         <tr>
                                                             <th style="width: 5%"></th>
                                                             
-                                                            <th style="width: 8%">Código</th>
-                                                            <th style="width: 15%">Descripción</th>
-                                                            <th style="width: 10%">Persona</th>
-                                                            <th style="width: 10%">Sector</th>
-                                                            <th style="width: 10%">Estado</th>
-                                                            <th style="width: 12%">Modificado</th>
-                                                            <th style="width: 15%">Se actualizó</th>
+                                                            <th style="width: 8%" >{{ 'MODULES.INVERSIONES_TRANSITORIAS.code' | translate }}Código</th>
+                                                            <th style="width: 15%">{{ 'MODULES.INVERSIONES_TRANSITORIAS.description' | translate }}Descripción</th>
+                                                            <th style="width: 10%">{{ 'MODULES.INVERSIONES_TRANSITORIAS.person' | translate }}Persona</th>
+                                                            <th style="width: 10%">{{ 'MODULES.INVERSIONES_TRANSITORIAS.sector' | translate }}Sector</th>
+                                                            <th style="width: 10%">{{ 'MODULES.INVERSIONES_TRANSITORIAS.status' | translate }}Estado</th>
+                                                            <th style="width: 12%">{{ 'MODULES.INVERSIONES_TRANSITORIAS.modified' | translate }}Modificado</th>
+                                                            <th style="width: 15%">{{ 'MODULES.INVERSIONES_TRANSITORIAS.updated' | translate }}Se actualizó</th>
                                                         </tr>
                                                     </thead>
                                                     <tbody>

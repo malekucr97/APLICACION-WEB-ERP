@@ -8,7 +8,7 @@ import { administrator, httpAccessAdminPage } from '@environments/environment';
 import { OnSeguridad } from '@app/_helpers/abstractSeguridad';
 import { MatDialog } from '@angular/material/dialog';
 import { DialogoConfirmacionComponent } from '@app/_components/dialogo-confirmacion/dialogo-confirmacion.component';
-import { TranslateService } from '@ngx-translate/core';
+import { TranslateMessagesService } from '@app/_services/translate-messages.service';
 
 @Component({templateUrl: 'HTML_ListUserPage.html',
             styleUrls: [ '../../../assets/scss/app.scss', '../../../assets/scss/administrator/app.scss']
@@ -36,7 +36,7 @@ export class ListUserComponent extends OnSeguridad implements OnInit {
                 private alertService: AlertService,
                 private router: Router,
                 private dialogo: MatDialog,
-                private translate: TranslateService ) {
+                private translateMessagesService: TranslateMessagesService ) {
 
     super(alertService, accountService, router);
 
@@ -93,7 +93,7 @@ export class ListUserComponent extends OnSeguridad implements OnInit {
 
     if (identificacionUsuario !== administrator.identification) {
 
-      this.dialogo.open(DialogoConfirmacionComponent, { data: this.translate.instant('ALERTS.dialogConfirmDelete') })
+      this.dialogo.open(DialogoConfirmacionComponent, { data: this.translateMessagesService.translateKey('ALERTS.dialogConfirmDelete') })
             .afterClosed()
             .subscribe((confirmado: Boolean) => {
 
@@ -117,7 +117,7 @@ export class ListUserComponent extends OnSeguridad implements OnInit {
                 } else { return; }
             });
 
-    } else { this.alertService.info(this.translate.instant('ALERTS.superAdminNotDelete')); }
+    } else { this.alertService.info(this.translateMessagesService.translateKey('ALERTS.superAdminNotDelete')); }
   }
 
   updateStateUser(userStateUpdate : User) : void {
@@ -149,7 +149,7 @@ export class ListUserComponent extends OnSeguridad implements OnInit {
 
       this.updateStateUser(userUpdate);
       
-    } else { this.alertService.info(this.translate.instant('ALERTS.superAdminNotModification')); }
+    } else { this.alertService.info(this.translateMessagesService.translateKey('ALERTS.superAdminNotModification')); }
   }
 
   inActivateUser(identificacion : string, idUser : number) {
@@ -163,6 +163,6 @@ export class ListUserComponent extends OnSeguridad implements OnInit {
 
       this.updateStateUser(userUpdate);
       
-    } else { this.alertService.info(this.translate.instant('ALERTS.superAdminNotModification')); }
+    } else { this.alertService.info(this.translateMessagesService.translateKey('ALERTS.superAdminNotModification')); }
   }
 }

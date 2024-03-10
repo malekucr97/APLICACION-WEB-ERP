@@ -6,7 +6,7 @@ import { User, Role, Module } from '@app/_models';
 import { Compania } from '../../_models/modules/compania';
 import { OnSeguridad } from '@app/_helpers/abstractSeguridad';
 import { administrator, httpAccessAdminPage } from '@environments/environment';
-import { TranslateService } from '@ngx-translate/core';
+import { TranslateMessagesService } from '@app/_services/translate-messages.service';
 
 @Component({templateUrl: 'HTML_AddModuleRolePage.html',
             styleUrls: [ '../../../assets/scss/app.scss', '../../../assets/scss/administrator/app.scss']
@@ -30,7 +30,7 @@ export class AddModuleRoleComponent extends OnSeguridad implements OnInit {
                 private accountService: AccountService,
                 private alertService: AlertService,
                 private router: Router,
-                private translate: TranslateService ) {
+                private translate: TranslateMessagesService ) {
 
     super(alertService, accountService, router);
 
@@ -83,20 +83,20 @@ export class AddModuleRoleComponent extends OnSeguridad implements OnInit {
                   });
             } else {
               this.alertService.info(
-                this.translate.instant('ALERTS.noModulesAssigned') + this.businessObservable.nombre, 
+                this.translate.translateKey('ALERTS.noModulesAssigned') + this.businessObservable.nombre, 
                 { keepAfterRouteChange: true }
               );
               this.router.navigate([this.urladminListRole]); 
             }
           },
           (error) => {
-            this.alertService.error(this.translate.instant('ALERTS.systemModuleQueryError') + error, { keepAfterRouteChange: true });
+            this.alertService.error(this.translate.translateKey('ALERTS.systemModuleQueryError') + error, { keepAfterRouteChange: true });
             this.router.navigate([this.urladminListRole]); 
           }
         );
     } else {
       this.alertService.success(
-        this.translate.instant('ALERTS.adminAccessAllModules') + this.businessObservable.nombre, 
+        this.translate.translateKey('ALERTS.adminAccessAllModules') + this.businessObservable.nombre, 
         { keepAfterRouteChange: true }
       );
       this.router.navigate([this.urladminListRole]);
@@ -133,7 +133,7 @@ export class AddModuleRoleComponent extends OnSeguridad implements OnInit {
         },
         (error) => {
           this.alertService.error(
-            this.translate.instant('ALERTS.grantAccessError') + error, 
+            this.translate.translateKey('ALERTS.grantAccessError') + error, 
             { keepAfterRouteChange: true }
           );
           this.router.navigate([this.urladminListRole]);
@@ -171,7 +171,7 @@ export class AddModuleRoleComponent extends OnSeguridad implements OnInit {
         },
         (error) => {
           this.alertService.error(
-            this.translate.instant('ALERTS.deleteAccessError') + error, 
+            this.translate.translateKey('ALERTS.deleteAccessError') + error, 
             { keepAfterRouteChange: true }
           );
           this.router.navigate([this.urladminListRole]);

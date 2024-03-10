@@ -21,7 +21,7 @@ import { InvTipoSector } from '@app/_models/Inversiones/TipoSector';
 import { InvPlazoInversion } from '@app/_models/Inversiones/PlazoInversion';
 import { InvTipoAnio } from '@app/_models/Inversiones/TipoAnio';
 import { InvEmisor } from '@app/_models/Inversiones/Emisor';
-import { TranslateService } from '@ngx-translate/core';
+import { TranslateMessagesService } from '@app/_services/translate-messages.service';
 
 declare var $: any;
 
@@ -78,7 +78,7 @@ export class InvInclusionInversionOperacionesComponent implements OnInit {
                     private formBuilder:       FormBuilder,
                     private accountService:     AccountService,
                     private dialogo:           MatDialog,
-                    private translate: TranslateService ) {
+                    private translate: TranslateMessagesService ) {
 
         this.userObservable = this.accountService.userValue;
         this.moduleObservable = this.accountService.moduleValue;
@@ -214,10 +214,10 @@ export class InvInclusionInversionOperacionesComponent implements OnInit {
                 } else { 
                 
                     this.inicializaFormularioEncabezado();
-                    this.alertService.info(this.translate.instant('ALERTS.NO_RECORDS_FOUND'));
+                    this.alertService.info(this.translate.translateKey('ALERTS.NO_RECORDS_FOUND'));
                 }
             },
-            error => { this.alertService.error(this.translate.instant('ALERTS.CONNECTION_PROBLEMS',{$PH:error})); });
+            error => { this.alertService.error(this.translate.translateKeyP('ALERTS.CONNECTION_PROBLEMS',{$PH:error})); });
     }
     buscarObjetoDetalleXEncabezado(idEncabezado : number) : void {
 
@@ -237,10 +237,10 @@ export class InvInclusionInversionOperacionesComponent implements OnInit {
                 } else { 
                 
                     this.inicializaFormularioDetalle();
-                    this.alertService.info(this.translate.instant('ALERTS.NO_RECORDS_FOUND'));
+                    this.alertService.info(this.translate.translateKey('ALERTS.NO_RECORDS_FOUND'));
                 }
             },
-            error => { this.alertService.error(this.translate.instant('ALERTS.CONNECTION_PROBLEMS',{$PH:error})); });
+            error => { this.alertService.error(this.translate.translateKeyP('ALERTS.CONNECTION_PROBLEMS',{$PH:error})); });
     }
     inicializaFormularioEncabezado(objeto : InvInversionEncabezado = null) : void {
 
@@ -451,11 +451,11 @@ export class InvInclusionInversionOperacionesComponent implements OnInit {
 
                     this.inicializaFormularioEncabezado();
 
-                    this.alertService.success( this.translate.instant('ALERTS.SUCCESSFUL_REGISTRATION') );
+                    this.alertService.success( this.translate.translateKey('ALERTS.SUCCESSFUL_REGISTRATION') );
 
-                } else { this.alertService.error(this.translate.instant('ALERTS.FAILED_CURRENCY_REGISTRATION')); }
+                } else { this.alertService.error(this.translate.translateKey('ALERTS.FAILED_CURRENCY_REGISTRATION')); }
 
-            }, error => { this.alertService.error( this.translate.instant('ALERTS.errorConnectionServer',{$PH:error}) ); });
+            }, error => { this.alertService.error( this.translate.translateKeyP('ALERTS.errorConnectionServer',{$PH:error}) ); });
     }
     submitDetalle() : void {
 
@@ -479,11 +479,11 @@ export class InvInclusionInversionOperacionesComponent implements OnInit {
 
                     this.inicializaFormularioDetalle();
 
-                    this.alertService.success( this.translate.instant('ALERTS.SUCCESSFUL_REGISTRATION') );
+                    this.alertService.success( this.translate.translateKey('ALERTS.SUCCESSFUL_REGISTRATION') );
 
-                } else { this.alertService.error(this.translate.instant('ALERTS.FAILED_CURRENCY_REGISTRATION')); }
+                } else { this.alertService.error(this.translate.translateKey('ALERTS.FAILED_CURRENCY_REGISTRATION')); }
 
-            }, error => { this.alertService.error( this.translate.instant('ALERTS.errorConnectionServer',{$PH:error}) ); });
+            }, error => { this.alertService.error( this.translate.translateKeyP('ALERTS.errorConnectionServer',{$PH:error}) ); });
     }
 
     eliminarObjetoEncabezado() : void {
@@ -496,7 +496,7 @@ export class InvInclusionInversionOperacionesComponent implements OnInit {
         var id : number = this.formularioEncabezado.controls['idEncabezado'].value;
 
         this.dialogo.open(DialogoConfirmacionComponent, {
-            data: this.translate.instant('ALERTS.dialogConfirmDelete')
+            data: this.translate.translateKey('ALERTS.dialogConfirmDelete')
         })
         .afterClosed()
         .subscribe((confirmado: Boolean) => {
@@ -530,7 +530,7 @@ export class InvInclusionInversionOperacionesComponent implements OnInit {
         var id : number = this.formularioDetalle.controls['idDetalle'].value;
 
         this.dialogo.open(DialogoConfirmacionComponent, {
-            data: this.translate.instant('ALERTS.dialogConfirmDelete')
+            data: this.translate.translateKey('ALERTS.dialogConfirmDelete')
         })
         .afterClosed()
         .subscribe((confirmado: Boolean) => {
@@ -585,12 +585,12 @@ export class InvInclusionInversionOperacionesComponent implements OnInit {
 
                     this.inicializaFormularioEncabezado();
 
-                    this.alertService.success( this.translate.instant('ALERTS.SUCCESSFUL_UPDATE') );
+                    this.alertService.success( this.translate.translateKey('ALERTS.SUCCESSFUL_UPDATE') );
 
-                } else { this.alertService.error(this.translate.instant('ALERTS.FAILED_UPDATE')); }
+                } else { this.alertService.error(this.translate.translateKey('ALERTS.FAILED_UPDATE')); }
 
             }, error => {
-                this.alertService.error( this.translate.instant('ALERTS.errorConnectionServer',{$PH:error}) );
+                this.alertService.error( this.translate.translateKeyP('ALERTS.errorConnectionServer',{$PH:error}) );
             });
     }
 
@@ -621,12 +621,12 @@ export class InvInclusionInversionOperacionesComponent implements OnInit {
 
                     this.inicializaFormularioDetalle();
 
-                    this.alertService.success( this.translate.instant('ALERTS.SUCCESSFUL_UPDATE') );
+                    this.alertService.success( this.translate.translateKey('ALERTS.SUCCESSFUL_UPDATE') );
 
-                } else { this.alertService.error(this.translate.instant('ALERTS.FAILED_UPDATE')); }
+                } else { this.alertService.error(this.translate.translateKey('ALERTS.FAILED_UPDATE')); }
 
             }, error => {
-                this.alertService.error( this.translate.instant('ALERTS.errorConnectionServer',{$PH:error}) );
+                this.alertService.error( this.translate.translateKeyP('ALERTS.errorConnectionServer',{$PH:error}) );
             });
     }
 }

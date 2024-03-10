@@ -1,7 +1,7 @@
 <main class="centrar">
   <section class="contenedorReporte">
     <section class="mensajeError" *ngIf="!mostrarReporte">
-      <p>La dirección del reporte no se encuentra registrada.</p>
+      <p>{{ 'ALERTS.PATH_REPORT_NOT_FOUND' | translate }}</p>
     </section>
     <powerbi-report
       *ngIf="mostrarReporte"
