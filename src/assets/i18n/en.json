@@ -501,7 +501,7 @@
     "USER_PENDING_ACTIVATION": "User Pending Activation",
     "USER_PENDING_ACTIVATION_EXPLAIN": "Please check the email registered to your account: {{identificacion}}, you will find an attached link for account activation.",
     "USER_PENDING_EMAIL_RECIVE": "If you have not received the email, select the button or contact the administrator.",
-    "USER_SEND_EMAIL": "resend email",
+    "USER_SEND_EMAIL": "forward mail",
     "USER_PENDING_ROLE_ASSIGNMENT": "User Pending Role Assignment",
     "USER_PENDING_ROLE_ASSIGNMENT_EXPLAIN": "Please contact the administrator to request the assignment of the respective role in the system.",
 
