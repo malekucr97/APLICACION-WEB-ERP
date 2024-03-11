@@ -268,7 +268,7 @@
                     
                     
                                                 <div class="form-group col-md-3">
-                                                    <label for="lblIdMoneda" class="form-label">{{ 'MODULES.GENERAL_TIPO_CAMBIO.FORM.Id' | translate }}</label>
+                                                    <label for="lblIdMoneda" class="form-label">{{ 'MODULES.GENERAL_TIPO_CAMBIO.FORM.Currency' | translate }}</label>
                                                     <select formControlName="idMoneda" class="form-control" name="selectIdMoneda"
                                                         [ngClass]="{ 'is-invalid': submittedFormTipoCambio && t.idMoneda.errors }">
                                                             <option [disabled]="true" [ngValue]="objeto" *ngFor="let objeto of listTiposMonedas" >{{objeto.id}} - {{objeto.descripcion}}</option>
