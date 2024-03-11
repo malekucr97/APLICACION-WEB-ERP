@@ -61,6 +61,7 @@ body, html {
   background-repeat: no-repeat;
   background-size: cover;
   background-position: center;
+  flex: none;
 }
 .classBody {
   background-color: var(--color_fondo);
