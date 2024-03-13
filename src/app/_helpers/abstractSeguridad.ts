@@ -1,6 +1,7 @@
 import { Router } from '@angular/router';
 import { Compania, Module, User } from '@app/_models';
 import { AccountService, AlertService } from '@app/_services';
+import { TranslateMessagesService } from '@app/_services/translate-messages.service';
 import { administrator } from '@environments/environment';
 import { first } from 'rxjs/operators';
 
@@ -17,18 +18,23 @@ export class OnSeguridad {
 
   public _nombrePantalla: string;
   public _redireccionURL: string;
-  public _mensajeError: string = 'El usuario no cuenta con los accesos correspondientes o la pantalla se encuentra inactiva.';
+  public _mensajeError: string;
 
   public _HIdUserSessionRequest : string ;
   public _HUserSessionRequest : string ;
   public _HBusinessSessionRequest : string ;
   public _HModuleSessionRequest : string ;
 
-  constructor(alertService: AlertService, accountService: AccountService, router: Router) {
+  constructor(alertService: AlertService, 
+    accountService: AccountService, 
+    router: Router,
+    translateMessagesService: TranslateMessagesService) {
 
     this._alertService = alertService;
     this._accountService = accountService;
     this._router = router;
+    this._mensajeError = translateMessagesService.translateKey('ALERTS.USER_WITHOUT_ACCESS');
+
     this._userObservable = accountService.userValue;
     this._moduleObservable = accountService.moduleValue;
     this._businessObservable = accountService.businessValue;
@@ -44,7 +50,7 @@ export class OnSeguridad {
     this._accountService.validateAccessUser(  this._userObservable.id, this._moduleObservable.id, this._nombrePantalla, this._businessObservable.id,
                                               this._HIdUserSessionRequest,
                                               this._HBusinessSessionRequest,
-                                              this._HModuleSessionRequest )
+                                              this._HModuleSessionRequest, )
       .pipe(first())
       .subscribe((response) => {
 

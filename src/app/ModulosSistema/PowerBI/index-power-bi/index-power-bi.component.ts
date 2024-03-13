@@ -5,6 +5,7 @@ import { OnSeguridad } from '@app/_helpers/abstractSeguridad';
 import { Compania, Module, User } from '@app/_models';
 import { ScreenModule } from '@app/_models/admin/screenModule';
 import { AccountService, AlertService, PowerBIService } from '@app/_services';
+import { TranslateMessagesService } from '@app/_services/translate-messages.service';
 import { environment } from '@environments/environment';
 import { IReportEmbedConfiguration, models } from 'powerbi-client';
 import { first } from 'rxjs/operators';
@@ -72,10 +73,11 @@ export class IndexPowerBiComponent extends OnSeguridad implements OnInit {
               private accountService: AccountService,
               private powerBIService: PowerBIService,
               private router: Router,
-              private sanitaizer: DomSanitizer  ) {
+              private sanitaizer: DomSanitizer,
+              private translate: TranslateMessagesService  ) {
 
     //#region VALIDACIÓN DE ACCESO Y AUTENTICACIÓN A LAS PANTALLAS
-    super(alertService, accountService, router);
+    super(alertService, accountService, router, translate);
 
     // ***************************************************************
     // VALIDA ACCESO PANTALLA LOGIN INDEX COMPONENT

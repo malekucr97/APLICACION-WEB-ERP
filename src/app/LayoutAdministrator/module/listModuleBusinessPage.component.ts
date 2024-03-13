@@ -6,6 +6,7 @@ import { User, Module } from '@app/_models';
 import { Compania } from '../../_models/modules/compania';
 import { httpAccessAdminPage } from '@environments/environment';
 import { OnSeguridad } from '@app/_helpers/abstractSeguridad';
+import { TranslateMessagesService } from '@app/_services/translate-messages.service';
 
 @Component({templateUrl: 'HTML_ListModuleBusinessPage.html',
             styleUrls: [    '../../../assets/scss/app.scss', '../../../assets/scss/administrator/app.scss']
@@ -43,9 +44,10 @@ export class ListModuleBusinessComponent extends OnSeguridad implements OnInit {
     constructor(private accountService: AccountService,
                 private route: ActivatedRoute,
                 private alertService: AlertService,
-                private router: Router) {
+                private router: Router,
+                private translate: TranslateMessagesService) {
 
-        super(alertService, accountService, router);
+        super(alertService, accountService, router, translate);
 
         // ***************************************************************
         // VALIDA ACCESO PANTALLA LOGIN ADMINISTRADOR

@@ -38,7 +38,7 @@ export class ListUserComponent extends OnSeguridad implements OnInit {
                 private dialogo: MatDialog,
                 private translateMessagesService: TranslateMessagesService ) {
 
-    super(alertService, accountService, router);
+    super(alertService, accountService, router, translateMessagesService);
 
     // ***************************************************************
     // VALIDA ACCESO PANTALLA LOGIN ADMINISTRADOR

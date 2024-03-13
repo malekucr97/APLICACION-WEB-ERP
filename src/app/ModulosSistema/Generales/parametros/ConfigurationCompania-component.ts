@@ -8,6 +8,7 @@ import { Compania } from '../../../_models/modules/compania';
 import { OnSeguridad } from '@app/_helpers/abstractSeguridad';
 import { Router } from '@angular/router';
 import { ModulesSystem } from '@environments/environment';
+import { TranslateMessagesService } from '@app/_services/translate-messages.service';
 
 declare var $: any;
 
@@ -38,10 +39,11 @@ export class ConfigurationCompaniaComponent extends OnSeguridad implements OnIni
                     private accountService: AccountService,
                     private generalesSerice: GeneralesService,
                     private alertService: AlertService,
-                    private router: Router) {
+                    private router: Router,
+                    private translate: TranslateMessagesService) {
 
         //#region VALIDACIÓN DE ACCESO A LAS PANTALLAS
-        super(alertService, accountService, router);
+        super(alertService, accountService, router, translate);
         super._nombrePantalla = this.nombrePantalla;
         super._redireccionURL = '/inra-sa/index.html'; // [OPCIONAL] SI NO SE INDICA SE REDIRECCIONA AL LA PÁGINA DEL MODULO.INDEXHTML
         super.validarAccesoPantalla();

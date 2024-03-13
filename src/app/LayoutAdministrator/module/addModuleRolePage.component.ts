@@ -32,7 +32,7 @@ export class AddModuleRoleComponent extends OnSeguridad implements OnInit {
                 private router: Router,
                 private translate: TranslateMessagesService ) {
 
-    super(alertService, accountService, router);
+    super(alertService, accountService, router, translate);
 
     // ***************************************************************
     // VALIDA ACCESO PANTALLA LOGIN ADMINISTRADOR
