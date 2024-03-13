@@ -7,6 +7,7 @@ import { User, Role, ResponseMessage, RoleBusiness } from '@app/_models';
 import { Compania } from '../../_models/modules/compania';
 import { httpAccessAdminPage } from '@environments/environment';
 import { OnSeguridad } from '@app/_helpers/abstractSeguridad';
+import { TranslateMessagesService } from '@app/_services/translate-messages.service';
 
 @Component({templateUrl: 'HTML_AddEditRolPage.html',
             styleUrls: [ '../../../assets/scss/app.scss', '../../../assets/scss/administrator/app.scss']
@@ -33,9 +34,10 @@ export class AddEditRolComponent extends OnSeguridad implements OnInit {
               private route: ActivatedRoute,
               private router: Router,
               private accountService: AccountService,
-              private alertService: AlertService ) {
+              private alertService: AlertService,
+              private translate: TranslateMessagesService ) {
 
-        super(alertService, accountService, router);
+        super(alertService, accountService, router, translate);
 
         // ***************************************************************
         // VALIDA ACCESO PANTALLA LOGIN ADMINISTRADOR

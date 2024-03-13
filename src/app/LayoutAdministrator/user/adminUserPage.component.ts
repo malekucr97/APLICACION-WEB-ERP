@@ -5,6 +5,7 @@ import { Compania } from '@app/_models/modules/compania';
 import { httpAccessAdminPage } from '@environments/environment';
 import { Router } from '@angular/router';
 import { OnSeguridad } from '@app/_helpers/abstractSeguridad';
+import { TranslateMessagesService } from '@app/_services/translate-messages.service';
 
 @Component({templateUrl: 'HTML_AdminUserPage.html',
             styleUrls: [  '../../../assets/scss/app.scss' ]
@@ -22,9 +23,10 @@ export class AdminUserComponent extends OnSeguridad implements OnInit {
 
     constructor(private accountService: AccountService,
                 private alertService: AlertService,
-                private router: Router) {
+                private router: Router,
+                private translate: TranslateMessagesService) {
 
-        super(alertService, accountService, router);
+        super(alertService, accountService, router, translate);
 
         // ***************************************************************
         // VALIDA ACCESO PANTALLA LOGIN ADMINISTRADOR

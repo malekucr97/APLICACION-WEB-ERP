@@ -72,7 +72,7 @@ export class TipoCambioComponent  extends OnSeguridad implements OnInit {
                     private translate: TranslateMessagesService ) {
 
         //#region VALIDACIÓN DE ACCESO A LAS PANTALLAS
-        super(alertService, accountService, router);
+        super(alertService, accountService, router, translate);
         super._nombrePantalla = this.nombrePantalla;
         super._redireccionURL = '/inra-sa/index.html'; // [OPCIONAL] SI NO SE INDICA SE REDIRECCIONA AL LA PÁGINA DEL MODULO.INDEXHTML
         super.validarAccesoPantalla();

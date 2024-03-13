@@ -8,6 +8,7 @@ import { MatSidenav } from '@angular/material/sidenav';
 import { Compania } from '@app/_models/modules/compania';
 import { OnSeguridad } from '@app/_helpers/abstractSeguridad';
 import { Bitacora } from '@app/_models/bitacora';
+import { TranslateMessagesService } from '@app/_services/translate-messages.service';
 
 @Component({
   templateUrl: 'IndexContentPage.html',
@@ -38,9 +39,10 @@ export class IndexContentPageComponent extends OnSeguridad implements OnInit {
   constructor(  private accountService: AccountService,
                 private router: Router,
                 private route: ActivatedRoute,
-                private alertService: AlertService ) {
+                private alertService: AlertService,
+                private translate: TranslateMessagesService ) {
 
-    super(alertService, accountService, router);
+    super(alertService, accountService, router, translate);
 
     // ***************************************************************
     // VALIDA ACCESO PANTALLA LOGIN ADMINISTRADOR

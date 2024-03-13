@@ -55,7 +55,7 @@ export class AdminmoduleComponent extends OnSeguridad implements OnInit {
               private router: Router,
               private translate: TranslateMessagesService ) {
 
-    super(alertService, accountService, router);
+    super(alertService, accountService, router, translate);
 
     if (this.route.snapshot.params.tipoMantenimiento) {
       this.parametroTipoMantenimiento = this.route.snapshot.params.tipoMantenimiento;

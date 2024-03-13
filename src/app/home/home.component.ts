@@ -8,6 +8,7 @@ import { active, httpLandingIndexPage } from '@environments/environment';
 import { OnSeguridad } from '@app/_helpers/abstractSeguridad';
 import { Bitacora } from '@app/_models/bitacora';
 import { administrator } from '@environments/environment.prod';
+import { TranslateMessagesService } from '@app/_services/translate-messages.service';
 
 @Component({templateUrl: 'HTML_HomePage.html',
             styleUrls: ['../../assets/scss/app.scss']
@@ -27,9 +28,10 @@ export class HomeComponent extends OnSeguridad implements OnInit {
 
     constructor(private accountService: AccountService,
                 private alertService: AlertService,
-                private router: Router) {
+                private router: Router,
+                private translate: TranslateMessagesService) {
 
-        super(alertService, accountService, router);
+        super(alertService, accountService, router, translate);
 
         // *********************************************************
         // VALIDA ACCESO PANTALLA

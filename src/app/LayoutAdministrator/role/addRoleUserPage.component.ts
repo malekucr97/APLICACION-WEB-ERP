@@ -5,6 +5,7 @@ import { AccountService, AlertService } from '@app/_services';
 import { User, Role, Compania } from '@app/_models';
 import { OnSeguridad } from '@app/_helpers/abstractSeguridad';
 import { administrator, httpAccessAdminPage } from '@environments/environment';
+import { TranslateMessagesService } from '@app/_services/translate-messages.service';
 
 @Component({templateUrl: 'HTML_AddRoleUserPage.html',
             styleUrls: ['../../../assets/scss/app.scss', '../../../assets/scss/administrator/app.scss']
@@ -31,9 +32,10 @@ export class AddRoleUserComponent extends OnSeguridad implements OnInit {
   constructor(  private route: ActivatedRoute,
                 private accountService: AccountService,
                 private alertService: AlertService,
-                private router: Router ) {
+                private router: Router,
+                private translate: TranslateMessagesService ) {
 
-    super(alertService, accountService, router);
+    super(alertService, accountService, router, translate);
 
     // ***************************************************************
     // VALIDA ACCESO PANTALLA LOGIN ADMINISTRADOR
