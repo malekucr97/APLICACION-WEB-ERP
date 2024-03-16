@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import { TranslateMessagesService } from '@app/_services/translate-messages.service';
+import { LocalStorageService, TranslateMessagesService } from '@app/_services';
+
 
 @Component({
   selector: 'app-translate',
@@ -13,8 +14,12 @@ export class TranslateComponent implements OnInit {
     { code: 'en', label: 'English' }
   ];
 
-  constructor(private translate: TranslateMessagesService) { 
-    translate.setDefaultLanguage('es');
+  constructor(
+    private translate: TranslateMessagesService,
+    private localStorageService: LocalStorageService
+    ) { 
+    this.selected = this.localStorageService.getLocalStorage('lenguage') || 'es';
+    translate.setDefaultLanguage(this.selected);
   }
 
   ngOnInit(): void {
@@ -22,6 +27,7 @@ export class TranslateComponent implements OnInit {
 
   onChangeSelect() {
     this.translate.changeTranslateLanguage(this.selected);
+    this.localStorageService.setLocalStorage('lenguage', this.selected);
   }
 
 }
