@@ -7,6 +7,7 @@ import { MatTreeFlatDataSource, MatTreeFlattener} from '@angular/material/tree';
 import { Module, User }   from '@app/_models';
 import { Compania }       from '../../_models/modules/compania';
 import { ModulesSystem, httpLandingIndexPage }  from '@environments/environment';
+import { TranslateMessagesService } from '@app/_services/translate-messages.service';
 
 /** menu - tree Interfaz o estructura del arbol  */
 interface FoodNode        { name: string; link: string; icon: string; children?: FoodNode[]; }
@@ -38,7 +39,8 @@ export class MenuPowerBIComponent {
         { menuLink: '/',        menuIcon: 'home',    menuName: 'submenu 2'}
     ];
 
-    constructor(private accountService: AccountService) {
+    constructor(private accountService: AccountService,
+        public translate: TranslateMessagesService) {
         this.userObservable = this.accountService.userValue;
         this.moduleObservable = this.accountService.moduleValue;
         this.businessObservable = this.accountService.businessValue;

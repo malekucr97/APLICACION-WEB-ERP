@@ -543,13 +543,16 @@
     "PATH_REPORT_NOT_FOUND": "La dirección del reporte no se encuentra registrada",
     "SUCCESSFUL_OPERATION": "Operación realizada con éxito.",
     "FAILED_OPERATION": "No fue posible realizar la operación, por favor contacte al administrador.",
-    "USER_WITHOUT_ACCESS":"El usuario no cuenta con los accesos correspondientes o la pantalla se encuentra inactiva."
+    "USER_WITHOUT_ACCESS":"El usuario no cuenta con los accesos correspondientes o la pantalla se encuentra inactiva.",
+    "URL_ERROR": "No se ha indicado correctamente el URL del reporte"
         
   },
   "DIALOGS": {
     "DELETE_MODULE_TO_SCREEN": "Segur@ que desea eliminar el registro para siempre?"
   }, 
   "MENU": {
+    "TLT_CLOSE_MENU": "Cerrar menú",
+    "TLT_SELECT_MODULE": "Seleccionar módulo",
     "GENERAL":{
       "PARAMETERS": "Parámetros",
       "COMPANY": "Compañía",

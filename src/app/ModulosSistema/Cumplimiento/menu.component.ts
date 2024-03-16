@@ -10,6 +10,7 @@ import {MatTreeFlatDataSource, MatTreeFlattener} from '@angular/material/tree';
 import { Compania } from '../../_models/modules/compania';
 
 import { ModulesSystem, httpLandingIndexPage } from '@environments/environment';
+import { TranslateMessagesService } from '@app/_services/translate-messages.service';
 
  interface FoodNode { name: string; link: string; icon: string; children?: FoodNode[]; }
  interface ExampleFlatNode { expandable: boolean; name: string; link?: string; icon?: string; level: number; }
@@ -116,7 +117,8 @@ export class MenuCumplimientoComponent implements OnInit {
 
     URLRedirectIndexContent: string = httpLandingIndexPage.indexHTTP;
 
-    constructor(private accountService: AccountService, private router: Router) {
+    constructor(private accountService: AccountService, private router: Router,
+      public translate: TranslateMessagesService) {
 
         this.userObservable = this.accountService.userValue;
         this.moduleObservable = this.accountService.moduleValue;

@@ -75,13 +75,13 @@
         <div class="info-modulo">
 
             <button class="menu-button-submodulo"
-                    matTooltip="Cerrar Menú"
+                    [matTooltip]="this.translate.translateKey('MENU.TLT_CLOSE_MENU')"
                     aria-label="Button that displays a tooltip when focused or hovered over" mat-button (click)="sidenav.toggle()">
                 <mat-icon>menu</mat-icon>
             </button>
 
             <button class="menu-button-submodulo"
-                    matTooltip="Seleccionar Módulo"
+                    [matTooltip]="this.translate.translateKey('MENU.TLT_SELECT_MODULE')"
                     aria-label="Button that displays a tooltip when focused or hovered over" mat-button class="menu-button-back" routerLink="{{URLRedirectIndexContent}}">
                 <mat-icon>reply</mat-icon>
             </button>

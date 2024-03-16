@@ -90,7 +90,7 @@ export class MenuInversionesComponent implements OnInit {
     constructor(
       private accountService: AccountService, 
       private router: Router,
-      private translate: TranslateMessagesService
+      public translate: TranslateMessagesService
       ) {
 
         this.userObservable = this.accountService.userValue;

@@ -92,7 +92,7 @@ export class MenuGeneralesComponent implements OnInit {
   constructor(
     private accountService: AccountService,
     private router: Router,
-    private translate: TranslateMessagesService
+    public translate: TranslateMessagesService
   ) {
     this.userObservable = this.accountService.userValue;
     this.moduleObservable = this.accountService.moduleValue;
