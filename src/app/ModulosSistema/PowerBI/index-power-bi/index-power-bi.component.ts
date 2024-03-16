@@ -111,7 +111,7 @@ export class IndexPowerBiComponent extends OnSeguridad implements OnInit {
         if (response.exito) {
           this.SetURLPowerBI(screen);
         } else {
-          this.alertService.error( 'No se ha indicado correctamente el URL del reporte' );
+          this.alertService.error( this.translate.translateKey('ALERTS.URL_ERROR') );
           this.mostrarReporte = false;
         }
       });

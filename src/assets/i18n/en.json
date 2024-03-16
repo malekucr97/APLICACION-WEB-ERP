@@ -543,12 +543,15 @@
     "PATH_REPORT_NOT_FOUND": "The path to the report was not found",
     "SUCCESSFUL_OPERATION": "Operation completed successfully.",
     "FAILED_OPERATION": "The operation could not be completed, please contact the administrator.",
-    "USER_WITHOUT_ACCESS":"The user does not have the corresponding access or the screen is inactive."
+    "USER_WITHOUT_ACCESS":"The user does not have the corresponding access or the screen is inactive.",
+    "URL_ERROR": "The report URL has not been correctly indicated"
   },
   "DIALOGS": {
     "DELETE_MODULE_TO_SCREEN": "Are you sure you want delete the record?"
   },
   "MENU": {
+    "TLT_CLOSE_MENU": "Close menu",
+    "TLT_SELECT_MODULE": "Select module",
     "GENERAL": {
       "PARAMETERS": "Parameters",
       "COMPANY": "Company",
