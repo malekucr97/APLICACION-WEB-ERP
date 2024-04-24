@@ -2,7 +2,7 @@
 
 export const environment = {
     production: false,
-    apiUrl: 'https://apibiwindows.azurewebsites.net',
+    apiUrl: 'http://localhost:4000',
 
     sessionStorageIdentificationUserKey: '_httpUsernameSessionStorageAppAdminModulesInraSA',
     sessionStorageModuleIdentification : '_httpModuleSelectedSessionStorageAppAdminModulesInraSA'
@@ -52,44 +52,47 @@ export const httpLandingIndexPage = {
 
 export const ModulesSystem = {
 
-    Identif_ActivosFijos:   'ID-BANKAP-ACT-FIJ',
-    activosfijosbasehref:   '/inra-sa/modulo-activos-fijos/',
+    Identif_Generales: 'ID-BANKAP-GENERAL',
+    generalesbasehref: '/inra-sa/general-module/',
 
-    Identif_Bancos:         'ID-BANKAP-BANCOS',
-    bancosbasehref:         '/inra-sa/modulo-bancos/',
+    Identif_PowerBI: 'ID-BANKAP-BI',
+    powerbibasehref: '/inra-sa/powerbi-module/'
 
-    Identif_Contabilidad:   'ID-BANKAP-CONTA',
-    contabilidadbasehref:   '/inra-sa/modulo-contabilidad/',
+    // Identif_ActivosFijos:   'ID-BANKAP-ACT-FIJ',
+    // activosfijosbasehref:   '/inra-sa/modulo-activos-fijos/',
 
-    Identif_CuentasCobrar:  'ID-BANKAP-CXC',
-    cuentascobrarbasehref:  '/inra-sa/modulo-cuentas-cobrar/',
+    // Identif_Bancos:         'ID-BANKAP-BANCOS',
+    // bancosbasehref:         '/inra-sa/modulo-bancos/',
 
-    Identif_CuentasPagar:   'ID-BANKAP-CXP',
-    cuentaspagarbasehref:   '/inra-sa/modulo-cuentas-pagar/',
+    // Identif_Contabilidad:   'ID-BANKAP-CONTA',
+    // contabilidadbasehref:   '/inra-sa/modulo-contabilidad/',
 
-    Identif_Facturacion:    'ID-BANKAP-FACTURA-E',
-    facturacionbasehref:    '/inra-sa/modulo-facturacion/',
+    // Identif_CuentasCobrar:  'ID-BANKAP-CXC',
+    // cuentascobrarbasehref:  '/inra-sa/modulo-cuentas-cobrar/',
 
-    Identif_Generales:      'ID-BANKAP-GENERAL',
-    generalesbasehref:      '/inra-sa/modulo-generales/',
+    // Identif_CuentasPagar:   'ID-BANKAP-CXP',
+    // cuentaspagarbasehref:   '/inra-sa/modulo-cuentas-pagar/',
 
-    Identif_Inventario:     'ID-BANKAP-INVENTARIO',
-    inventariobasehref:     '/inra-sa/modulo-inventario/',
+    // Identif_Facturacion:    'ID-BANKAP-FACTURA-E',
+    // facturacionbasehref:    '/inra-sa/modulo-facturacion/',
 
-    Identif_Cumplimiento:   'ID-BANKAP-CUMPLIMIENTO',
-    cumplimientobasehref:   '/inra-sa/modulo-cumplimiento/',
+    // Identif_Generales:      'ID-BANKAP-GENERAL',
+    // generalesbasehref:      '/inra-sa/modulo-generales/',
 
-    Identif_Macred:         'ID-BANKAP-MACRED',
-    macredbasehref:         '/inra-sa/modulo-macred/',
+    // Identif_Inventario:     'ID-BANKAP-INVENTARIO',
+    // inventariobasehref:     '/inra-sa/modulo-inventario/',
 
-    Identif_RiesgoCredito:  'ID-BANKAP-RIESGO-CREDITO',
-    riesgocreditobasehref:  '/inra-sa/modulo-riesgo-credito/',
+    // Identif_Cumplimiento:   'ID-BANKAP-CUMPLIMIENTO',
+    // cumplimientobasehref:   '/inra-sa/modulo-cumplimiento/',
 
-    Identif_Inversiones:  'ID-BANKAP-INVERSIONES',
-    inversionesbasehref:  '/inra-sa/modulo-inversiones/',
+    // Identif_Macred:         'ID-BANKAP-MACRED',
+    // macredbasehref:         '/inra-sa/modulo-macred/',
 
-    Identif_PowerBI:  'ID-BANKAP-BI',
-    powerbibasehref:  '/inra-sa/modulo-powerbi/',
+    // Identif_RiesgoCredito:  'ID-BANKAP-RIESGO-CREDITO',
+    // riesgocreditobasehref:  '/inra-sa/modulo-riesgo-credito/',
+
+    // Identif_Inversiones:  'ID-BANKAP-INVERSIONES',
+    // inversionesbasehref:  '/inra-sa/modulo-inversiones/',
 };
 
 export const httpAccessAdminPage = {

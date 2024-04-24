@@ -34,7 +34,7 @@ const TREE_DATA: FoodNode[] = [
     link: '',
     icon: '',
     children: [
-      { name: 'Carga de datos Crédito', link: ModulesSystem.riesgocreditobasehref + '/Mantenimientos/CargaCredito', icon: '' },
+      { name: 'Carga de datos Crédito', link: /*ModulesSystem.riesgocreditobasehref*/ '' + '/Mantenimientos/CargaCredito', icon: '' },
       { name: 'Carga de datos Z-Altman', link: '/', icon: '' },
     ],
   },

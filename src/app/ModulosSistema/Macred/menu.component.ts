@@ -21,14 +21,8 @@ const TREE_DATA: FoodNode[] = [
     name: 'Análisis de Personas',
     link: '',
     icon: '',
-    children: [
-        {
-          name: 'Asociados',    link: ModulesSystem.macredbasehref + 'asociados/calificacion-asociados.html',   icon: ''
-        },
-        {
-          name: 'No Asociados', link: '/',                                                                      icon: ''
-        }
-    ],
+    children: [{ name: 'Asociados', link: /*ModulesSystem.macredbasehref*/ '' + 'asociados/calificacion-asociados.html', icon: '' },
+              { name: 'No Asociados', link: '/', icon: '' }],
   },
   // PROCESOS
   {
@@ -39,8 +33,7 @@ const TREE_DATA: FoodNode[] = [
                 link: '',
                 icon: '',
                 children: [{name: 'Cargar Personas', link: '/', icon: ''},//monetization_on
-                          {name: 'Cargar Obligaciones', link: '/', icon: ''}
-                          ],
+                          {name: 'Cargar Obligaciones', link: '/', icon: ''}],
                 },
                 {name: 'Reportes',
                 link: '',
@@ -56,13 +49,13 @@ const TREE_DATA: FoodNode[] = [
     children: [{name: 'Personas',
                 link: '',
                 icon: '',
-                children: [{name: 'Datos Personas', link: ModulesSystem.macredbasehref + 'mantenimientos/personas/datos-personas.html', icon: ''},//monetization_on
-                          {name: 'Estado Civil', link: ModulesSystem.macredbasehref + 'mantenimientos/personas/estados-civiles.html', icon: ''},//monetization_on
-                          {name: 'Condición Laboral', link: ModulesSystem.macredbasehref + 'mantenimientos/personas/condiciones-laborales.html', icon: ''},//monetization_on
-                          {name: 'Tipos de Género', link: ModulesSystem.macredbasehref + 'mantenimientos/personas/tipos-generos.html', icon: ''},//monetization_on
-                          {name: 'Tipos de Persona', link: ModulesSystem.macredbasehref + 'mantenimientos/personas/tipos-personas.html', icon: ''},//monetization_on
-                          {name: 'Tipos de Asociado', link: ModulesSystem.macredbasehref + 'mantenimientos/personas/tipos-asociados.html', icon: ''},
-                          {name: 'Tipos de Actividad Económica', link: ModulesSystem.macredbasehref + 'mantenimientos/personas/tipo-actividad-economica.html', icon: ''}
+                children: [{name: 'Datos Personas', link: /*ModulesSystem.macredbasehref*/ '' + 'mantenimientos/personas/datos-personas.html', icon: ''},//monetization_on
+                          {name: 'Estado Civil', link: /*ModulesSystem.macredbasehref*/ '' + 'mantenimientos/personas/estados-civiles.html', icon: ''},//monetization_on
+                          {name: 'Condición Laboral', link: /*ModulesSystem.macredbasehref*/ '' + 'mantenimientos/personas/condiciones-laborales.html', icon: ''},//monetization_on
+                          {name: 'Tipos de Género', link: /*ModulesSystem.macredbasehref*/ '' + 'mantenimientos/personas/tipos-generos.html', icon: ''},//monetization_on
+                          {name: 'Tipos de Persona', link: /*ModulesSystem.macredbasehref*/ '' + 'mantenimientos/personas/tipos-personas.html', icon: ''},//monetization_on
+                          {name: 'Tipos de Asociado', link: /*ModulesSystem.macredbasehref*/ '' + 'mantenimientos/personas/tipos-asociados.html', icon: ''},
+                          {name: 'Tipos de Actividad Económica', link: /*ModulesSystem.macredbasehref*/ '' + 'mantenimientos/personas/tipo-actividad-economica.html', icon: ''}
                           ],
                 },
                 {name: 'Entidades',
@@ -72,7 +65,7 @@ const TREE_DATA: FoodNode[] = [
                 {name: 'Obligaciones',
                 link: '',
                 icon: '',
-                children: [{name: 'Formas de Pago', link: ModulesSystem.macredbasehref + 'mantenimientos/obligaciones/tipos-forma-pago-analisis.html', icon: ''},
+                children: [{name: 'Formas de Pago', link: /*ModulesSystem.macredbasehref*/ '' + 'mantenimientos/obligaciones/tipos-forma-pago-analisis.html', icon: ''},
                           {name: 'Periodicidades', link: '/', icon: ''},
                           {name: 'Tipos de Línea de Crédito', link: '/', icon: ''},
                           {name: 'Tipos de Categoría de Riesgo', link: '/', icon: ''}
@@ -80,8 +73,8 @@ const TREE_DATA: FoodNode[] = [
                 {name: 'Análisis de Personas',
                 link: '',
                 icon: '',
-                children: [{name: 'Tipo de Ingreso', link: ModulesSystem.macredbasehref + 'mantenimientos/analisispersonas/tipos-ingresos.html', icon: ''},
-                          {name: 'Tipo de Ingreso de Análisis', link: ModulesSystem.macredbasehref + 'mantenimientos/analisispersonas/tipos-ingresos-analisis.html', icon: ''},
+                children: [{name: 'Tipo de Ingreso', link: /*ModulesSystem.macredbasehref*/ '' + 'mantenimientos/analisispersonas/tipos-ingresos.html', icon: ''},
+                          {name: 'Tipo de Ingreso de Análisis', link: /*ModulesSystem.macredbasehref*/ '' + 'mantenimientos/analisispersonas/tipos-ingresos-analisis.html', icon: ''},
                           {name: 'Tipo de Deducciones', link: '/', icon: ''},
                           {name: 'Factores de Gastos Inferibles', link: '/', icon: ''},
                           {name: 'Rangos para las Extras por Ingreso', link: '/', icon: ''},
@@ -94,17 +87,17 @@ const TREE_DATA: FoodNode[] = [
                 {name: 'Modelos de Calificación',
                 link: '',
                 icon: '',
-                children: [{name: 'Indicadores Relevantes', link: ModulesSystem.macredbasehref + 'mantenimientos/modeloscalificacion/indicadores-relevantes.html', icon: ''},
+                children: [{name: 'Indicadores Relevantes', link: /*ModulesSystem.macredbasehref*/ '' + 'mantenimientos/modeloscalificacion/indicadores-relevantes.html', icon: ''},
                           {name: 'Configuración de Modelos', link: '/', icon: ''},
-                          {name: 'Variables Críticas', link: ModulesSystem.macredbasehref + 'mantenimientos/modeloscalificacion/variables-criticas.html', icon: ''},
-                          {name: 'Escenarios de Riesgos', link: ModulesSystem.macredbasehref + 'mantenimientos/modeloscalificacion/escenarios-riesgos.html', icon: ''},
-                          {name: 'Niveles Capacidad Pago (Global)', link: ModulesSystem.macredbasehref + 'mantenimientos/modeloscalificacion/niveles-capacidad-pago.html', icon: ''}
+                          {name: 'Variables Críticas', link: /*ModulesSystem.macredbasehref*/ '' + 'mantenimientos/modeloscalificacion/variables-criticas.html', icon: ''},
+                          {name: 'Escenarios de Riesgos', link: /*ModulesSystem.macredbasehref*/ '' + 'mantenimientos/modeloscalificacion/escenarios-riesgos.html', icon: ''},
+                          {name: 'Niveles Capacidad Pago (Global)', link: /*ModulesSystem.macredbasehref*/ '' + 'mantenimientos/modeloscalificacion/niveles-capacidad-pago.html', icon: ''}
                           ],},
                 {name: 'Parámetros',
                 link: '',
                 icon: '',
-                children: [{name: 'Configuración de Modelos', link: ModulesSystem.macredbasehref + 'mantenimientos/parametros/configuracion-modelos.html', icon: ''},
-                          {name: 'Variables de Análisis PD', link: ModulesSystem.macredbasehref + 'mantenimientos/parametros/configuracion-parametros-pd.html', icon: ''}
+                children: [{name: 'Configuración de Modelos', link: /*ModulesSystem.macredbasehref*/ '' + 'mantenimientos/parametros/configuracion-modelos.html', icon: ''},
+                          {name: 'Variables de Análisis PD', link: /*ModulesSystem.macredbasehref*/ '' + 'mantenimientos/parametros/configuracion-parametros-pd.html', icon: ''}
                           ],},
                 {name: 'Parámetros Scoring',
                 link: '',
@@ -128,7 +121,7 @@ const TREE_DATA: FoodNode[] = [
                           {name: 'Cambio Contraseña', link: '/', icon: ''}
                           ],
               },
-              {name: 'Parámetros', link: ModulesSystem.macredbasehref + 'configuracion/parametros-generales.html', icon: ''},//monetization_on
+              {name: 'Parámetros', link: /*ModulesSystem.macredbasehref*/ '' + 'configuracion/parametros-generales.html', icon: ''},//monetization_on
               {name: 'Menú Principal', link: '/', icon: ''}
     ],
   },

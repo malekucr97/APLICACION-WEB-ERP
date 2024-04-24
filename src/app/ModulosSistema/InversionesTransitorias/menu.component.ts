@@ -36,17 +36,16 @@ export class MenuInversionesComponent implements OnInit {
       name: this.translate.translateKey('MODULES.INVERSIONES_TRANSITORIAS.menu_maintenances'),
       link: '',
       icon: '',
-      children: [ {name: this.translate.translateKey('MODULES.INVERSIONES_TRANSITORIAS.menu_currencyTypes'),              link: ModulesSystem.inversionesbasehref + 'mantenimientos/tipos-monedas.html',            icon: ''},
-                  {name: this.translate.translateKey('MODULES.INVERSIONES_TRANSITORIAS.menu_personTypes'),             link: ModulesSystem.inversionesbasehref + 'mantenimientos/tipos-personas.html',           icon: ''},
-                  {name: this.translate.translateKey('MODULES.INVERSIONES_TRANSITORIAS.menu_yearTypes'),                 link: ModulesSystem.inversionesbasehref + 'mantenimientos/tipos-anios.html',              icon: ''},
-                  {name: this.translate.translateKey('MODULES.INVERSIONES_TRANSITORIAS.menu_rates'),                         link: ModulesSystem.inversionesbasehref + 'mantenimientos/tasas.html',                    icon: ''},
-                  {name: this.translate.translateKey('MODULES.INVERSIONES_TRANSITORIAS.menu_cdpsTitles'),                  link: ModulesSystem.inversionesbasehref + 'mantenimientos/titulos.html',                  icon: ''},
-                  {name: this.translate.translateKey('MODULES.INVERSIONES_TRANSITORIAS.menu_periodicities'),                  link: ModulesSystem.inversionesbasehref + 'mantenimientos/periocidades.html',             icon: ''},
-                  {name: this.translate.translateKey('MODULES.INVERSIONES_TRANSITORIAS.menu_marketsAndSectors'),           link: ModulesSystem.inversionesbasehref + 'mantenimientos/tmercados-tsectores.html',      icon: ''},
-                  {name: this.translate.translateKey('MODULES.INVERSIONES_TRANSITORIAS.menu_investmentClassesAndTerms'),  link: ModulesSystem.inversionesbasehref + 'mantenimientos/clasesplazos-inversiones.html', icon: ''},
-                  {name: this.translate.translateKey('MODULES.INVERSIONES_TRANSITORIAS.menu_issuers'),                      link: ModulesSystem.inversionesbasehref + 'mantenimientos/emisores.html',                 icon: ''},
-                  {name: this.translate.translateKey('MODULES.INVERSIONES_TRANSITORIAS.menu_persons'),                      link: ModulesSystem.inversionesbasehref + 'mantenimientos/personas.html',                 icon: ''}]
-                  
+      children: [ {name: this.translate.translateKey('MODULES.INVERSIONES_TRANSITORIAS.menu_currencyTypes'), link: /*ModulesSystem.inversionesbasehref*/ '' + 'mantenimientos/tipos-monedas.html', icon: ''},
+                  {name: this.translate.translateKey('MODULES.INVERSIONES_TRANSITORIAS.menu_personTypes'), link: /*ModulesSystem.inversionesbasehref*/ '' + 'mantenimientos/tipos-personas.html', icon: ''},
+                  {name: this.translate.translateKey('MODULES.INVERSIONES_TRANSITORIAS.menu_yearTypes'), link: /*ModulesSystem.inversionesbasehref*/ '' + 'mantenimientos/tipos-anios.html', icon: ''},
+                  {name: this.translate.translateKey('MODULES.INVERSIONES_TRANSITORIAS.menu_rates'), link: /*ModulesSystem.inversionesbasehref*/ '' + 'mantenimientos/tasas.html', icon: ''},
+                  {name: this.translate.translateKey('MODULES.INVERSIONES_TRANSITORIAS.menu_cdpsTitles'), link: /*ModulesSystem.inversionesbasehref*/ '' + 'mantenimientos/titulos.html', icon: ''},
+                  {name: this.translate.translateKey('MODULES.INVERSIONES_TRANSITORIAS.menu_periodicities'), link: /*ModulesSystem.inversionesbasehref*/ '' + 'mantenimientos/periocidades.html', icon: ''},
+                  {name: this.translate.translateKey('MODULES.INVERSIONES_TRANSITORIAS.menu_marketsAndSectors'), link: /*ModulesSystem.inversionesbasehref*/ '' + 'mantenimientos/tmercados-tsectores.html', icon: ''},
+                  {name: this.translate.translateKey('MODULES.INVERSIONES_TRANSITORIAS.menu_investmentClassesAndTerms'), link: /*ModulesSystem.inversionesbasehref*/ '' + 'mantenimientos/clasesplazos-inversiones.html', icon: ''},
+                  {name: this.translate.translateKey('MODULES.INVERSIONES_TRANSITORIAS.menu_issuers'), link: /*ModulesSystem.inversionesbasehref*/ '' + 'mantenimientos/emisores.html', icon: ''},
+                  {name: this.translate.translateKey('MODULES.INVERSIONES_TRANSITORIAS.menu_persons'), link: /*ModulesSystem.inversionesbasehref*/ '' + 'mantenimientos/personas.html', icon: ''}]
     },
     {
       name: this.translate.translateKey('MODULES.INVERSIONES_TRANSITORIAS.menu_transactions'),
@@ -55,7 +54,7 @@ export class MenuInversionesComponent implements OnInit {
       children: [{name: this.translate.translateKey('MODULES.INVERSIONES_TRANSITORIAS.menu_termOperations'), 
                   link: '',
                   icon: '', 
-                  children: [ {name: this.translate.translateKey('MODULES.INVERSIONES_TRANSITORIAS.menu_inclusionOfOperations'), link: ModulesSystem.inversionesbasehref + 'transacciones/operaciones-plazo/inclusionoperaciones-inversiones.html', icon: ''}]
+                  children: [ {name: this.translate.translateKey('MODULES.INVERSIONES_TRANSITORIAS.menu_inclusionOfOperations'), link: /*ModulesSystem.inversionesbasehref*/ '' + 'transacciones/operaciones-plazo/inclusionoperaciones-inversiones.html', icon: ''}]
                 }],
     }
     //,
