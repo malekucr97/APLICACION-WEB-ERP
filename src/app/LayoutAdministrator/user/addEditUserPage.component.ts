@@ -41,7 +41,7 @@ export class AddEditUserComponent extends OnSeguridad implements OnInit {
   URLRedirectPage: string = httpLandingIndexPage.indexHTTP;
   URLListUserPage: string = httpAccessAdminPage.urlPageListUsers;
 
-  nombreRol : string = 'Sin Asignar';
+  nombreRol : string = 'Role has not been assigned';
 
   usuarioSeleccionado : User = new User();
 
@@ -79,10 +79,8 @@ export class AddEditUserComponent extends OnSeguridad implements OnInit {
       this.usuarioForm.controls.rolUsuario.disable();
       this.usuarioForm.controls.identificacionUsuario.disable();
 
-      if (!this.userObservable.esAdmin && 
-          this.userObservable.idRol !== administrator.adminSociedad) 
-      {  
-        this.usuarioForm.controls.correoElectronicoUsuario.disable();
+      if (!this.userObservable.esAdmin && this.userObservable.idRol !== administrator.adminSociedad) {
+        this.usuarioForm.controls.correoElectronicoUsuario.disable(); 
         this.usuarioForm.controls.puestoUsuario.disable();
       }
 
@@ -92,8 +90,7 @@ export class AddEditUserComponent extends OnSeguridad implements OnInit {
 
           if (responseUser.idRol) {
 
-            this.accountService.getRolUserBusiness(responseUser.idRol,this.businessObservable.id, this._HIdUserSessionRequest,
-                                                                                                  this._HBusinessSessionRequest)
+            this.accountService.getRolUserBusiness(responseUser.idRol,this.businessObservable.id, this._HIdUserSessionRequest, this._HBusinessSessionRequest)
             .pipe(first())
             .subscribe((responseRole) => {
 
@@ -104,7 +101,7 @@ export class AddEditUserComponent extends OnSeguridad implements OnInit {
 
           } else {
             this.role = null;
-            this.inicializaFormularioUpdateUser(responseUser, 'Rol no asignado');
+            this.inicializaFormularioUpdateUser(responseUser, this.nombreRol);
           }  
         });
       

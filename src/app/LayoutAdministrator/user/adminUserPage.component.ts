@@ -7,8 +7,9 @@ import { Router } from '@angular/router';
 import { OnSeguridad } from '@app/_helpers/abstractSeguridad';
 import { TranslateMessagesService } from '@app/_services/translate-messages.service';
 
-@Component({templateUrl: 'HTML_AdminUserPage.html',
-            styleUrls: [  '../../../assets/scss/app.scss' ]
+@Component({
+    templateUrl: 'HTML_AdminUserPage.html',
+    styleUrls: [  '../../../assets/scss/app.scss' ]
 })
 export class AdminUserComponent extends OnSeguridad implements OnInit {
 

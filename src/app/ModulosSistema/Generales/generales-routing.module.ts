@@ -12,7 +12,7 @@ const routes: Routes = [
         children: [
             { path: '', component:              IndexGeneralesComponent },
             { path: 'index.html', component:    IndexGeneralesComponent },
-            { path: 'ConfiguracionCompania.html', component: ConfigurationCompaniaComponent },
+            { path: 'CompanySettings.html', component: ConfigurationCompaniaComponent },
             { path: 'TipoCambio.html', component: TipoCambioComponent },
         ]
     }

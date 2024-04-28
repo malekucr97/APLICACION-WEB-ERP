@@ -2,7 +2,7 @@
 
 export const environment = {
     production: false,
-    apiUrl: 'https://apibiwindows.azurewebsites.net',
+    apiUrl: 'http://localhost:4000',
 
     sessionStorageIdentificationUserKey: '_httpUsernameSessionStorageAppAdminModulesInraSA',
     sessionStorageModuleIdentification : '_httpModuleSelectedSessionStorageAppAdminModulesInraSA'
@@ -24,10 +24,7 @@ export const pending = {
     urlRedirect: ''
 };
 
-export const active = {
-    state: 'Activo',
-    urlRedirect: ''
-};
+export const active = { state: 'Active', urlRedirect: '' };
 
 export const inactive = {
     state: 'Inactivo',

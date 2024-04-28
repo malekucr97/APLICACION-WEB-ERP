@@ -60,7 +60,7 @@ const routes: Routes = [
             { path: 'adminpage-adminmodule.html/:tipoMantenimiento', component: AdminmoduleComponent },
 
             // ## ********* GENERALES -> PARÁMETROS********* ## //
-            { path: 'ConfiguracionCompania.html', component: ConfigurationCompaniaComponent },
+            { path: 'CompanySettings.html', component: ConfigurationCompaniaComponent },
         ]
     }
 ];

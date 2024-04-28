@@ -44,7 +44,7 @@
 
                         <td style="white-space: normal;">
 
-                            <button *ngIf="module.estado!='Activo'"
+                            <button *ngIf="module.estado!='Active'"
                                 (click)="activate(module.identificador)"
                                 class="btn-sm item-list__admin__ok" > 
                                 <!-- <mat-icon>star</mat-icon>  -->
@@ -55,7 +55,7 @@
                                 
                             </button>
 
-                            <button *ngIf="module.estado=='Activo'"
+                            <button *ngIf="module.estado=='Active'"
                                 (click)="inActivate(module.identificador)"
                                 class="btn-sm item-list__admin__warn" > 
                                 <!-- <mat-icon>star</mat-icon> -->

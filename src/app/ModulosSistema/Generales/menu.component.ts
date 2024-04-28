@@ -57,8 +57,8 @@ export class MenuGeneralesComponent implements OnInit {
       children: [
         // {name: 'Generales', link: '/', icon: ''},
         {
-          name: this.translate.translateKey('MENU.GENERAL.COMPANY'),
-          link: ModulesSystem.generalesbasehref + 'ConfiguracionCompania.html',
+          name: this.translate.translateKey('MENU.GENERAL.COMPANY_SETTINGS'),
+          link: ModulesSystem.generalesbasehref + 'CompanySettings.html',
           icon: '',
         },
         {

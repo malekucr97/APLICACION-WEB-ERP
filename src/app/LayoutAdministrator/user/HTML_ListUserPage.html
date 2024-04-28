@@ -59,13 +59,13 @@
                     </td>
 
                     <td style="white-space: normal">
-                        <button *ngIf="us.estado!='Activo'"
+                        <button *ngIf="us.estado!='Active'"
                             (click)="activateUser(us.identificacion, us.id)"
                             class="btn-sm item-list__admin__ok" 
                             mat-icon-button > <mat-icon>thumb_down_alt</mat-icon>
                         </button>
 
-                        <button *ngIf="us.estado=='Activo'"
+                        <button *ngIf="us.estado=='Active'"
                             (click)="inActivateUser(us.identificacion, us.id)"
                             class="btn-sm item-list__admin__warn" 
                             mat-icon-button > <mat-icon>thumb_up_alt</mat-icon>

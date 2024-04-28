@@ -121,9 +121,7 @@ export class ListUserComponent extends OnSeguridad implements OnInit {
   }
 
   updateStateUser(userStateUpdate : User) : void {
-    this.accountService.activateInactivateUser(userStateUpdate, this._HIdUserSessionRequest, 
-                                                                // this._HUserSessionRequest, 
-                                                                this._HBusinessSessionRequest)
+    this.accountService.activateInactivateUser(userStateUpdate, this._HIdUserSessionRequest, this._HBusinessSessionRequest)
     .pipe(first())
     .subscribe((responseActivate) => {
 
@@ -145,7 +143,7 @@ export class ListUserComponent extends OnSeguridad implements OnInit {
     if (identificacion !== administrator.identification) {
 
       let userUpdate: User = this.listUsers.find((x) => x.id === idUser);
-      userUpdate.estado = 'Activo';
+      userUpdate.estado = 'Active';
 
       this.updateStateUser(userUpdate);
       
@@ -159,7 +157,7 @@ export class ListUserComponent extends OnSeguridad implements OnInit {
     if (identificacion !== administrator.identification) {
 
       let userUpdate: User = this.listUsers.find((x) => x.id === idUser);
-      userUpdate.estado = 'Inactivo';
+      userUpdate.estado = 'In-Active';
 
       this.updateStateUser(userUpdate);
       

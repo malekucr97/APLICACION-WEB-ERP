@@ -87,7 +87,7 @@ export class ListRoleComponent extends OnSeguridad implements OnInit {
     if (idRol !== administrator.identification) {
       
       let rolUpdate : Role = this.listRoles.find((x) => x.id === idRol);
-      rolUpdate.estado = 'Activo';
+      rolUpdate.estado = 'Active';
 
       this.updateRol(rolUpdate);
 
@@ -101,7 +101,7 @@ export class ListRoleComponent extends OnSeguridad implements OnInit {
     if (idRol !== administrator.identification) {
 
       let rolUpdate = this.listRoles.find((x) => x.id === idRol);
-      rolUpdate.estado = 'Inactivo';
+      rolUpdate.estado = 'In-Active';
 
       this.updateRol(rolUpdate);
 
@@ -114,7 +114,7 @@ export class ListRoleComponent extends OnSeguridad implements OnInit {
     if (idRol !== administrator.identification) {
 
       let rolUpdate = this.listRoles.find((x) => x.id === idRol);
-      rolUpdate.tipo = 'Escritura';
+      rolUpdate.tipo = 'Writing';
 
       this.updateRol(rolUpdate);
 
@@ -127,7 +127,7 @@ export class ListRoleComponent extends OnSeguridad implements OnInit {
     if (idRol !== administrator.identification) {
 
       let rolUpdate = this.listRoles.find((x) => x.id === idRol);
-      rolUpdate.tipo = 'Lectura';
+      rolUpdate.tipo = 'Reading';
 
       this.updateRol(rolUpdate);
 

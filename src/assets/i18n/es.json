@@ -106,7 +106,7 @@
       }
     },
     "ADD_EDIT_COMPANY": {
-      "TITLE": "Registrar",
+      "TITLE": "Parámetros de Compañía",
       "PARAMETERS_COMPANY": "Parámetros de la Empresa: {{nombreEmpresa}}",
       "REGISTER_COMPANY": "Registro de Empresas",
       "SELECT_COMPANY": "Empresa seleccionada",
@@ -555,7 +555,7 @@
     "TLT_SELECT_MODULE": "Seleccionar módulo",
     "GENERAL":{
       "PARAMETERS": "Parámetros",
-      "COMPANY": "Compañía",
+      "COMPANY_SETTINGS": "Parámetros de Compañía",
       "EXCHANGE_RATE": "Tipo de Cambio"
     }
   }

@@ -9,8 +9,9 @@ import { httpAccessAdminPage } from '@environments/environment';
 import { OnSeguridad } from '@app/_helpers/abstractSeguridad';
 import { TranslateMessagesService } from '@app/_services/translate-messages.service';
 
-@Component({templateUrl: 'HTML_AddEditRolPage.html',
-            styleUrls: [ '../../../assets/scss/app.scss', '../../../assets/scss/administrator/app.scss']
+@Component({
+    templateUrl: 'HTML_AddEditRolPage.html',
+    styleUrls: [ '../../../assets/scss/app.scss', '../../../assets/scss/administrator/app.scss']
 })
 export class AddEditRolComponent extends OnSeguridad implements OnInit {
   rolForm: FormGroup;
@@ -60,8 +61,8 @@ export class AddEditRolComponent extends OnSeguridad implements OnInit {
             nombreRol:          ['', Validators.required],
             rolEsAdministrador: [{value: 'No', disabled: true}, Validators.required],
             descripcionRol:     ['', Validators.required],
-            estadoRol:          [{value: 'Activo', disabled: true}, Validators.required],
-            tipoRol:            [{value: 'Escritura', disabled: true}, Validators.required]
+            estadoRol:          [{value: 'Active', disabled: true}, Validators.required],
+            tipoRol:            [{value: 'Writing', disabled: true}, Validators.required]
         });
     }
     

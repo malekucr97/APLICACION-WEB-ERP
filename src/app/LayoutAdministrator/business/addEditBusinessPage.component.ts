@@ -26,11 +26,6 @@ export class AddEditBusinessComponent extends OnSeguridad implements OnInit {
 
   public urladminListBusiness: string = httpAccessAdminPage.urlPageListBusiness;
 
-  // public IdUserSessionRequest : string ;
-  // public UserSessionRequest : string ;
-  // public BusinessSessionRequest : string ;
-  // public ModuleSessionRequest : string ;
-
   constructor(private formBuilder: FormBuilder,
               private route: ActivatedRoute,
               private router: Router,
@@ -46,21 +41,7 @@ export class AddEditBusinessComponent extends OnSeguridad implements OnInit {
     // ***************************************************************
 
     this.userObserver = this.accountService.userValue;
-
-    // this.inicializaHeaders();
   }
-
-  // inicializaHeaders() : void {
-  //   this.IdUserSessionRequest = this.userObserver ? this.userObserver.id.toString() : 'noIdUserValue';
-  //   this.UserSessionRequest = this.userObserver ? this.userObserver.nombreCompleto.toString() : 'noUserNameValue';
-  //   this.BusinessSessionRequest = this.userObserver ? this.userObserver.empresa.toString() : 'noBusinessValue';
-  //   this.ModuleSessionRequest = 'admin';
-
-  //   // this.IdUserSessionRequest = this.userObserver.id.toString();
-  //   // this.UserSessionRequest = this.userObserver.nombreCompleto.toString();
-  //   // this.BusinessSessionRequest = this.userObserver.empresa.toString();
-  //   // this.ModuleSessionRequest = 'admin';
-  // }
 
   ngOnInit() {
 
@@ -70,9 +51,8 @@ export class AddEditBusinessComponent extends OnSeguridad implements OnInit {
     if (this.route.snapshot.params.pidBusiness) {
       this.pidBusiness = this.route.snapshot.params.pidBusiness;
       this.updateBusiness = true;
-    } else {
-      this.addBusiness = true;
-    }
+    } 
+    else { this.addBusiness = true; }
 
     this.form = this.formBuilder.group({
       nombre: ['', Validators.required],
@@ -93,26 +73,20 @@ export class AddEditBusinessComponent extends OnSeguridad implements OnInit {
             this.f.cuentaCorreoDefecto.setValue(responseBusiness.cuentaCorreoDefecto);
             this.f.tamanoModuloDefecto.setValue(responseBusiness.tamanoModuloDefecto);
           },
-          (error) => {
-            this.alertService.error(error);
-          }
+          (error) => { this.alertService.error(error); }
         );
     }
   }
 
-  get f() {
-    return this.form.controls;
-  }
+  get f() { return this.form.controls; }
 
   onSubmit() {
     this.submitted = true;
+    this.loading = true;
 
     let currentDate = new Date();
 
-    if (this.form.invalid) {
-      return;
-    }
-    this.loading = true;
+    if (this.form.invalid) return;
 
     this.business = new Compania();
 
@@ -129,9 +103,7 @@ export class AddEditBusinessComponent extends OnSeguridad implements OnInit {
     this.business.tamanoModuloDefecto = this.form.get('tamanoModuloDefecto').value;
 
     if (this.addBusiness) {
-      this.accountService.addBusiness(this.business,this._HIdUserSessionRequest,
-                                                    // this.UserSessionRequest,
-                                                    this._HBusinessSessionRequest)
+      this.accountService.addBusiness(this.business, this._HIdUserSessionRequest, this._HBusinessSessionRequest)
         .pipe(first())
         .subscribe(
           (response) => {
@@ -140,20 +112,13 @@ export class AddEditBusinessComponent extends OnSeguridad implements OnInit {
             });
 
             if (response.exito) {
-              this.alertService.success(response.responseMesagge, {
-                keepAfterRouteChange: true,
-              });
+              this.alertService.success(response.responseMesagge, { keepAfterRouteChange: true });
             } else {
-              this.alertService.error(response.responseMesagge, {
-                keepAfterRouteChange: true,
-              });
+              this.alertService.error(response.responseMesagge, { keepAfterRouteChange: true });
             }
             this.loading = false;
           },
-          (error) => {
-            this.alertService.error(error);
-            this.loading = false;
-          }
+          (error) => { this.alertService.error(error); this.loading = false; }
         );
     }
 

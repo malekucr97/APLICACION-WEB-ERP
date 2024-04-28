@@ -65,7 +65,7 @@ export class ListModuleComponent extends OnSeguridad implements OnInit {
 
                     this.alertService.success(responseActivate.responseMesagge);
 
-                    moduleList.estado = 'Activo';
+                    moduleList.estado = 'Active';
 
                     this.listModules[ this.listModules.findIndex( (u) => u.identificador == moduleList.identificador ) ] = moduleList; 
 
@@ -91,7 +91,7 @@ export class ListModuleComponent extends OnSeguridad implements OnInit {
 
                     this.alertService.success(responseInActivate.responseMesagge);
 
-                    moduleList.estado = 'Inactivo';
+                    moduleList.estado = 'In-Active';
                     this.listModules[ this.listModules.findIndex( (u) => u.identificador == moduleList.identificador ) ] = moduleList;
 
                 } else { this.alertService.error(responseInActivate.responseMesagge); }

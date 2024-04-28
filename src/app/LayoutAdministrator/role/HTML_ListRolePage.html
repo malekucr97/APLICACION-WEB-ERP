@@ -38,14 +38,14 @@
                     <td >{{rol.tipo}}</td>
 
                     <td style="white-space: normal" >
-                        <button *ngIf="rol.estado!='Activo'"  
+                        <button *ngIf="rol.estado!='Active'"  
                                 (click)="activateRole(rol.id)" 
                                 class="btn-sm item-list__admin__ok" >
 
                                 <mat-icon>thumb_down_alt</mat-icon>
                                 {{ 'CONFIGURATION.ADMIN_PAGE_LIST_ROLES.TBL_BTN_STATUS_MODULE' | translate }}
                         </button>
-                        <button *ngIf="rol.estado=='Activo'"  
+                        <button *ngIf="rol.estado=='Active'"  
                                 (click)="inActivateRole(rol.id)" 
                                 class="btn-sm item-list__admin__warn" >
 
@@ -55,10 +55,10 @@
                     </td>
 
                     <td>
-                        <button *ngIf="rol.tipo!='Lectura'" 
+                        <button *ngIf="rol.tipo!='Reading'" 
                                 (click)="lectura(rol.id)" > <mat-icon>mood</mat-icon>       +
                         </button>
-                        <button *ngIf="rol.tipo=='Lectura'"  
+                        <button *ngIf="rol.tipo=='Reading'"  
                                 (click)="escritura(rol.id)" > <mat-icon>mood_bad</mat-icon> -
                         </button>
                     </td>
