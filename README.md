@@ -18,3 +18,18 @@ git : https://github.com/malekucr97/APLICACION-WEB-ERP.git
 6. yarn
 8. npm run build
 7. npm run start
+
+
+**2024**
+
+1 - HABILITAR FRONT MODO DESARROLLO: ng serve -o --configuration development
+
+2 - HABILITAR BACK MODO DESARROLLO: Configurar el proyecto modo Debug e Iniciar el proyecto AccessAdministration
+
+3 - COMPILAR FRONT DIST: npm run ng build --configuration=production
+
+4 - PARA PUBLICAR FRONT EN PRODUCCIÓN SE HACE PULL REQUEST A BRANCH: publicadoAzure
+
+5 - PUBLICAR API EN AZURE: az webapp deployment source config-zip --resource-group SecureBI --name apiBIWindows --src 'C:\publicadosAppService\azure.zip'
+
+(EL .zip NO SE DEBE DE GENERAR DESDE UNA CARPETA, SE DEBEN DE SELECCIONAR TODOS LOS ARCHIVOS PREVIAMENTE PUBLICADOS DESE EL VISUAL STUDIO Y GENERAR EL .zip CON CLICK DERECHO, ENVIAR A->CARPETA COMPRIMIDA EN .zip)
