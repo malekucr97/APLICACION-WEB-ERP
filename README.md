@@ -18,3 +18,8 @@ git : https://github.com/malekucr97/APLICACION-WEB-ERP.git
 6. yarn
 8. npm run build
 7. npm run start
+
+
+**2024**
+
+PÚBLICACIÓN CAFSA: npm run ng build -- --configuration=production
