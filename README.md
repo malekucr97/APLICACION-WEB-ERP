@@ -26,7 +26,7 @@ git : https://github.com/malekucr97/APLICACION-WEB-ERP.git
 
 2 - HABILITAR BACK MODO DESARROLLO: Configurar el proyecto modo Debug e Iniciar el proyecto AccessAdministration
 
-3 - COMPILAR FRONT CAROERA DIST: npm run ng build -- --configuration=production
+3 - COMPILAR FRONT DIST: npm run ng build --configuration=production
 
 4 - PARA PUBLICAR FRONT EN PRODUCCIÓN SE HACE PULL REQUEST A BRANCH: publicadoAzure
 
