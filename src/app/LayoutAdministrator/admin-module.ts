@@ -38,6 +38,7 @@ import { MatListModule } from '@angular/material/list';
 import { AdminmoduleComponent } from './module/adminmodule/adminmodule.component';
 import { AddEditRolComponent } from './role/addEditRolPage.component';
 import { TranslateModule } from '@ngx-translate/core';
+import { ListPlanComponent } from './plan/listPlanPage.component';
 
 @NgModule({
     imports: [
@@ -69,6 +70,7 @@ import { TranslateModule } from '@ngx-translate/core';
         AddEditUserComponent,
         ListUserComponent,
         ListBusinessComponent,
+        ListPlanComponent,
         AddBusinessUserComponent,
         AddRoleUserComponent,
         AddEditBusinessComponent,

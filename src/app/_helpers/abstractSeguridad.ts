@@ -7,14 +7,21 @@ import { first } from 'rxjs/operators';
 
 export class OnSeguridad {
 
+  private _codeSuccessUser : string = '202';
+
+  // public _passwordPattern : string = "^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?!.*\s).{5,12}$";
+  // public _userPattern : string = "^[a-zA-Z0-9]{5,15}$";
+  // public _emailPattern : string = "^[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$";
+  public _passwordPattern : string ;
+  public _userPattern : string ;
+  public _emailPattern : string ;
+
   private _alertService: AlertService;
   private _accountService: AccountService;
   private _router: Router;
   private _userObservable: User;
   private _moduleObservable: Module;
   private _businessObservable: Compania;
-
-  private _codeSuccessUser : string = '202';
 
   public _nombrePantalla: string;
   public _redireccionURL: string;
@@ -26,9 +33,9 @@ export class OnSeguridad {
   public _HModuleSessionRequest : string ;
 
   constructor(alertService: AlertService, 
-    accountService: AccountService, 
-    router: Router,
-    translateMessagesService: TranslateMessagesService) {
+              accountService: AccountService, 
+              router: Router,
+              translateMessagesService: TranslateMessagesService) {
 
     this._alertService = alertService;
     this._accountService = accountService;
@@ -44,6 +51,10 @@ export class OnSeguridad {
     this._HUserSessionRequest = this._userObservable ? this._userObservable.nombreCompleto : '';
     this._HBusinessSessionRequest = this._businessObservable ? this._businessObservable.id.toString() : '';
     this._HModuleSessionRequest = this._moduleObservable ? this._moduleObservable.id.toString() : '';
+
+    this._passwordPattern = "^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?!.*\s).{5,12}$";
+    this._userPattern = "^[a-zA-Z0-9]{5,15}$";
+    this._emailPattern = "^[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$";
   }
 
   validarAccesoPantalla(): void {
@@ -64,8 +75,12 @@ export class OnSeguridad {
       });
   }
 
+  // **
+  // ** VALIDACIÓN DE USUARIO TÉCNICO O ADMINISTRADOR DE EMPRESAS
   validarUsuarioAdmin(): boolean {
-    if (this._userObservable.esAdmin || this._userObservable.idRol == administrator.adminSociedad) return true;
+    if (this._userObservable.esAdmin || 
+      this._userObservable.idRol == administrator.adminSociedad) return true;
+
     return false;
   }
 
@@ -80,7 +95,11 @@ export class OnSeguridad {
     return false;
   }
   userAuthenticateIndexHttp() : boolean {
-    if (this._userObservable && this._userObservable.codeNoLogin === this._codeSuccessUser && this._userObservable.idRol && this._businessObservable) return true;
+    if (this._userObservable && 
+        this._userObservable.codeNoLogin === this._codeSuccessUser && 
+        this._userObservable.idRol && 
+        this._businessObservable) return true;
+
     return false;
   }
   userAuthenticateIndexComponent() : boolean {

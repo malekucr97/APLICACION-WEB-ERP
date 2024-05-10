@@ -8,8 +8,7 @@ import { OnSeguridad } from '@app/_helpers/abstractSeguridad';
 import { TranslateMessagesService } from '@app/_services/translate-messages.service';
 
 @Component({
-    templateUrl: 'HTML_AdminUserPage.html',
-    styleUrls: [  '../../../assets/scss/app.scss' ]
+    templateUrl: 'HTML_AdminUserPage.html', styleUrls: [  '../../../assets/scss/app.scss' ]
 })
 export class AdminUserComponent extends OnSeguridad implements OnInit {
 
@@ -19,6 +18,7 @@ export class AdminUserComponent extends OnSeguridad implements OnInit {
     URLConfigureUserPage: string = httpAccessAdminPage.urlPageAddEditUser;
     URLListUserPage: string = httpAccessAdminPage.urlPageListUsers;
     URLListBusinessPage: string = httpAccessAdminPage.urlPageListBusiness;
+    URLListPlanPage: string = httpAccessAdminPage.urlPageListPlan;
     URLListModulePage: string = httpAccessAdminPage.urlPageListModule;
     URLListRolePage: string = httpAccessAdminPage.urlPageListRole;
 

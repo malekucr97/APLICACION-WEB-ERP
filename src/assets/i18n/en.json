@@ -17,14 +17,15 @@
   },
   "CONFIGURATION": {
     "TITLE": "Internal System Administration",
-    "WELCOME": "Welcome!",
+    "WELCOME": "Welcome",
     "USER_PARAMETERS": "User parameters",
     "MODULES_SISTEM_ADMIN": "System Administration Modules",
-    "BTN_UPDATE_INFORMATION": "Update information",
-    "BTN_ADMIN_USERS": "Users administration",
-    "BTN_ADMIN_COMPANIES": "Companies administration",
-    "BTN_ADMIN_MODULES": "Module administration",
-    "BTN_ADMIN_ROLES": "Role administration",
+    "BTN_UPDATE_INFORMATION": "Update Information",
+    "BTN_ADMIN_USERS": "Users Administration",
+    "BTN_ADMIN_COMPANIES": "Companies Administration",
+    "BTN_ADMIN_PLANES": "Plan Administration",
+    "BTN_ADMIN_MODULES": "Module Administration",
+    "BTN_ADMIN_ROLES": "Role Administration",
     "ADMIN_PAGE_LIST_USERS": {
       "TITLE": "User Administration",
       "SUBTITLE": "List of users registered in the system",
@@ -44,6 +45,19 @@
       "TBL_EMAIL": "Email",
       "TBL_PHONE": "Phone Number",
       "TBL_POWER_BI": "Power BI"
+    },
+    "ADMIN_PAGE_LIST_PLANES": {
+      "TITLE": "Plan Administration",
+      "SUBTITLE": "List of plans registered in the system",
+      "TBL_ID": "Id",
+      "TBL_NAME": "Name",
+      "TBL_TYPE": "Type",
+      "TBL_US_CANT_ADMIN": "Maximum Us. Administrators",
+      "TBL_US_CANT_FUNCTIONAL": "Maximum Us. Functional",
+      "TBL_MONTHLY_PRICE_SUPPORT": "$ Monthly",
+      "TBL_ANNUAL_PRICE_SUPPORT": "$ Annual",
+      "TBL_TECHNICAL_SUPPORT": "Support",
+      "TBL_APPLICABLE_PERCENTAGE_SUPPORT": "% Applied Support"
     },
     "ADMIN_PAGE_LIST_MODULES": {
       "TITLE": "Module Administration",

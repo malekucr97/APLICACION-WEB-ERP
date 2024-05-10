@@ -17,12 +17,13 @@
   },
   "CONFIGURATION": {
     "TITLE": "Administración Interna del Sistema",
-    "WELCOME": "Bienvenido!",
+    "WELCOME": "Bienvenido",
     "USER_PARAMETERS": "Parámetros de usuario",
     "MODULES_SISTEM_ADMIN": "Módulos de Administración del Sistema",
     "BTN_UPDATE_INFORMATION": "Actualizar información",
     "BTN_ADMIN_USERS": "Administración de usuarios",
     "BTN_ADMIN_COMPANIES": "Administración de Empresas",
+    "BTN_ADMIN_PLANES": "Administración de Planes",
     "BTN_ADMIN_MODULES": "Administración de Módulos",
     "BTN_ADMIN_ROLES": "Administración de Roles",
     "ADMIN_PAGE_LIST_USERS": {
@@ -44,6 +45,19 @@
       "TBL_EMAIL": "Correo Electrónico",
       "TBL_PHONE": "Número de Teléfono",
       "TBL_POWER_BI": "Power BI"
+    },
+    "ADMIN_PAGE_LIST_PLANES": {
+      "TITLE": "Administración de Planes",
+      "SUBTITLE": "Lista de planes registradas en el sistema",
+      "TBL_ID": "Id",
+      "TBL_NAME": "Nombre",
+      "TBL_TYPE": "Tipo",
+      "TBL_US_CANT_ADMIN": "Máximos Us. Administradores",
+      "TBL_US_CANT_FUNCTIONAL": "Máximo Us. Funcionales",
+      "TBL_MONTHLY_PRICE_SUPPORT": "$ Mensual",
+      "TBL_ANNUAL_PRICE_SUPPORT": "$ Anual",
+      "TBL_TECHNICAL_SUPPORT": "Soporte",
+      "TBL_APPLICABLE_PERCENTAGE_SUPPORT": "% Aplicado Soporte"
     },
     "ADMIN_PAGE_LIST_MODULES": {
       "TITLE": "Administración de Módulos",

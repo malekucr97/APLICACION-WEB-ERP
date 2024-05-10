@@ -28,6 +28,7 @@ import { ConfigurationCompaniaComponent } from '../ModulosSistema/Generales/para
 import { AddAccessUserModuleComponent } from './module/addAccessUserModulePage.component';
 import { AdminmoduleComponent } from './module/adminmodule/adminmodule.component';
 import { AddEditRolComponent } from './role/addEditRolPage.component';
+import { ListPlanComponent } from './plan/listPlanPage.component';
 
 const routes: Routes = [
     {
@@ -47,7 +48,8 @@ const routes: Routes = [
             { path: 'adminpage-addeditbusiness.html/:pidBusiness', component: AddEditBusinessComponent },
             { path: 'adminpage-listbusiness.html', component: ListBusinessComponent },
             { path: 'adminpage-addeditrol.html', component: AddEditRolComponent },
-
+            // -- plan
+            { path: 'adminpage-listplan.html', component: ListPlanComponent },
             // -- roles
             { path: 'adminpage-addroleuser.html/:pidentificationUser', component: AddRoleUserComponent },
             { path: 'adminpage-listroles.html', component: ListRoleComponent },

@@ -15,35 +15,44 @@ import { TranslateMessagesService } from '@app/_services/translate-messages.serv
 export class AddEditUserComponent extends OnSeguridad implements OnInit {
   usuarioForm: FormGroup;
 
-  userObservable: User;
-  businessObservable: Compania;
+  userObservable: User; businessObservable: Compania;
 
   response: ResponseMessage;
 
-  pwdPattern : string = "^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?!.*\s).{5,12}$";
-  ussPattern : string = "^[a-zA-Z0-9]{5,15}$";
+  // pwdPattern : string = "^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?!.*\s).{5,12}$";
+  // ussPattern : string = "^[a-zA-Z0-9]{5,15}$";
+  // emailPattern : string = "^[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$";
+  pwdPattern : string; ussPattern : string; emailPattern : string;
 
-  emailPattern = "^[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$";
+  // **
+  // ** VARIABLES DE REDIRECCIONAMIENTO
+  // URLRedirectPage: string = httpLandingIndexPage.indexHTTP;
+  // URLListUserPage: string = httpAccessAdminPage.urlPageListUsers;
+  URLRedirectPage: string; URLListUserPage: string;
+  // **
   
-  loading : boolean = false;
-  submitFormUsuario : boolean = false;
+  // loading : boolean = false;
+  // submitFormUsuario : boolean = false;
+  loading : boolean ;
+  submitFormUsuario : boolean ;
 
-  pIdentifUserUpdate: string;
+  pIdentifUserUpdate: string ;
   
-  esAdmin : boolean;
+  // esAdmin : boolean;
 
-  updateUser  : boolean = false;
-  addUser     : boolean = false;
+  // updateUser  : boolean = false;
+  // addUser     : boolean = false;
+  updateUser : boolean; addUser : boolean;
 
-  role: Role = new Role();
-  listRolesBusiness: Role[] = [];
+  // role: Role = new Role();
+  role: Role; nombreRol : string;
+  // listRolesBusiness: Role[] = [];
 
-  URLRedirectPage: string = httpLandingIndexPage.indexHTTP;
-  URLListUserPage: string = httpAccessAdminPage.urlPageListUsers;
+  // nombreRol : string = 'Role has not been assigned';
+  
 
-  nombreRol : string = 'Role has not been assigned';
-
-  usuarioSeleccionado : User = new User();
+  // usuarioSeleccionado : User = new User();
+  usuarioSeleccionado : User ;
 
   constructor(private formBuilder: FormBuilder,
               private route: ActivatedRoute,
@@ -59,7 +68,28 @@ export class AddEditUserComponent extends OnSeguridad implements OnInit {
     if (!super.userAuthenticateIndexHttp()) { this.accountService.logout(); return; }
     // ***************************************************************
 
-    this.userObservable = this.accountService.userValue;
+    // **
+    // ** INICIALIZACIÓN DE VARIABLES
+    this.URLRedirectPage = httpLandingIndexPage.indexHTTP;
+    this.URLListUserPage = httpAccessAdminPage.urlPageListUsers;
+
+    this.pwdPattern = this._passwordPattern;
+    this.ussPattern = this._userPattern;
+    this.emailPattern = this._emailPattern;
+
+    this.role = new Role();
+    this.nombreRol = 'Role has not been assigned';
+    
+    this.updateUser = false;
+    this.addUser    = false;
+
+    this.loading = false;
+    this.submitFormUsuario = false;
+
+    this.usuarioSeleccionado = new User();
+    // **
+
+    this.userObservable     = this.accountService.userValue;
     this.businessObservable = this.accountService.businessValue;
 
     if (super.validarUsuarioAdmin()) this.URLRedirectPage = this.URLListUserPage;
@@ -84,35 +114,98 @@ export class AddEditUserComponent extends OnSeguridad implements OnInit {
         this.usuarioForm.controls.puestoUsuario.disable();
       }
 
-      this.accountService.getUserByIdentification(this.pIdentifUserUpdate, this._HIdUserSessionRequest, this._HBusinessSessionRequest)
+      this.accountService.getUserByIdentification(this.pIdentifUserUpdate, 
+                                                  this._HIdUserSessionRequest, 
+                                                  this._HBusinessSessionRequest)
         .pipe(first())
         .subscribe((responseUser) => {
 
           if (responseUser.idRol) {
 
-            this.accountService.getRolUserBusiness(responseUser.idRol,this.businessObservable.id, this._HIdUserSessionRequest, this._HBusinessSessionRequest)
-            .pipe(first())
-            .subscribe((responseRole) => {
-
+            this.accountService.getRolUserBusiness( responseUser.idRol,
+                                                    this.businessObservable.id,
+                                                    this._HIdUserSessionRequest,
+                                                    this._HBusinessSessionRequest )
+              .pipe(first())
+              .subscribe((responseRole) => {
                 this.role = responseRole;
                 this.nombreRol = this.role.nombre;
                 this.inicializaFormularioUpdateUser(responseUser, this.nombreRol);
               });
-
-          } else {
-            this.role = null;
-            this.inicializaFormularioUpdateUser(responseUser, this.nombreRol);
-          }  
+          // **
+          // ** NO SE HA ASIGNADO ROL A USUARIO
+          } else { this.role = null;  this.inicializaFormularioUpdateUser(responseUser, this.nombreRol); }
+          // **
         });
-      
-    } else {
-      this.usuarioSeleccionado = null;
-      this.addUser = true;
-      this.inicializaFormularioAddUser();
-    }
+    // **
+    // ** INICIALIZA REGISTRO DE NUEVO USUARIO
+    } else { this.usuarioSeleccionado = null; this.addUser = true; this.inicializaFormularioAddUser(); }
+    // **
   }
 
-  inicializaFormulario() : void {
+  // **
+  // ** PROCEDIMIENTOS HTML
+  selectObjetoUsuario() : void { this.inicializaFormularioUpdateUser(this.usuarioSeleccionado, this.nombreRol); }
+
+  actualizarUsuario() : void {
+
+    this.alertService.clear();
+    this.submitFormUsuario = true; this.loading = true;
+
+    if (this.usuarioForm.invalid) return;
+
+    let userForm: User = this.crateObjectForm();
+    userForm.id = this.usuarioSeleccionado.id;
+
+    this.accountService.updateUser( userForm, 
+                                    this._HIdUserSessionRequest,
+                                    this._HBusinessSessionRequest )
+        .pipe(first())
+        .subscribe((responseUpdate) => {
+
+          if (responseUpdate.exito) {
+
+            this.alertService.success(responseUpdate.responseMesagge);
+            this.usuarioSeleccionado = responseUpdate.objetoDb;
+            this.inicializaFormularioUpdateUser(this.usuarioSeleccionado, this.nombreRol);
+
+          } else { this.alertService.error(responseUpdate.responseMesagge); }
+
+          this.submitFormUsuario = false; this.loading = false;
+          
+        }, (error) => { this.alertService.error(error); this.submitFormUsuario = false; this.loading = false; });
+  }
+
+  registrarUsuario() : void {
+
+    this.alertService.clear();
+    this.submitFormUsuario = true; this.loading = true;
+
+    if (this.usuarioForm.invalid) return;
+
+    let userForm: User = this.crateObjectForm();
+
+    this.accountService.addUser(userForm, 
+                                this._HIdUserSessionRequest,
+                                this._HBusinessSessionRequest)
+        .pipe(first())
+        .subscribe((responseAddUser) => {
+
+          if (responseAddUser.exito) {
+
+            if (responseAddUser.objetoDb) this.asociarUsuarioEmpresa(responseAddUser.objetoDb, responseAddUser.responseMesagge); 
+
+          } else { this.alertService.error(responseAddUser.responseMesagge); }
+
+          this.loading = false; this.submitFormUsuario = false;
+
+        }, (error) => { this.alertService.error(error); this.loading = false; this.submitFormUsuario = false; });
+  }
+  // **
+
+  // ****************************************************
+  // MÉTODOS PRIVADOS
+  private inicializaFormulario() : void {
     this.usuarioForm = this.formBuilder.group({
       identificacionUsuario:    [''],
       nombreCompletoUsuario:    [''],
@@ -123,7 +216,7 @@ export class AddEditUserComponent extends OnSeguridad implements OnInit {
       passwordUsuario:          ['']
     });
   }
-  inicializaFormularioUpdateUser(userUpdate : User = null, nombreRol : string = null) : void {
+  private inicializaFormularioUpdateUser(userUpdate : User = null, nombreRol : string = null) : void {
 
     if (userUpdate) {
 
@@ -149,10 +242,9 @@ export class AddEditUserComponent extends OnSeguridad implements OnInit {
         passwordUsuario:          ['', Validators.required]
       });
     }
-
     this.usuarioSeleccionado = userUpdate;
   }
-  inicializaFormularioAddUser() : void {
+  private inicializaFormularioAddUser() : void {
     this.usuarioForm = this.formBuilder.group({
       identificacionUsuario:    ['', Validators.required],
       nombreCompletoUsuario:    ['', Validators.required],
@@ -163,8 +255,7 @@ export class AddEditUserComponent extends OnSeguridad implements OnInit {
       passwordUsuario:          ['', [Validators.required]]
     });
   }
-  
-  crateObjectForm() : User {
+  private crateObjectForm() : User {
 
     let userForm: User = new User();
 
@@ -179,80 +270,12 @@ export class AddEditUserComponent extends OnSeguridad implements OnInit {
     return userForm;
   }
 
-  actualizarUsuario() : void {
-
-    this.alertService.clear();
-
-    this.submitFormUsuario = true;
-    this.loading = true;
-
-    if (this.usuarioForm.invalid) return;
-
-    let userForm: User = this.crateObjectForm();
-    userForm.id = this.usuarioSeleccionado.id;
-
-    this.accountService.updateUser(userForm, this._HIdUserSessionRequest, this._HBusinessSessionRequest)
-        .pipe(first())
-        .subscribe((responseUpdate) => {
-
-            if (responseUpdate.exito) {
-
-              this.alertService.success(responseUpdate.responseMesagge);
-              this.usuarioSeleccionado = responseUpdate.objetoDb;
-              this.inicializaFormularioUpdateUser(this.usuarioSeleccionado, this.nombreRol);
-
-            } else { this.alertService.error(responseUpdate.responseMesagge); }
-
-            this.submitFormUsuario = false;
-            this.loading = false;
-          },
-          (error) => {
-            this.alertService.error(error);
-            this.submitFormUsuario = false;
-            this.loading = false;
-          }
-        );
-  }
-
-  registrarUsuario() : void {
-
-    this.alertService.clear();
-
-    this.submitFormUsuario = true;
-    this.loading = true;
-
-    if (this.usuarioForm.invalid) return;
-
-    let userForm: User = this.crateObjectForm();
-
-    this.accountService.addUser(userForm, this._HIdUserSessionRequest, this._HBusinessSessionRequest)
-        .pipe(first())
-        .subscribe((responseAddUser) => {
-
-            if (responseAddUser.exito) {
-
-              if (responseAddUser.objetoDb) this.asociarUsuarioEmpresa(responseAddUser.objetoDb, responseAddUser.responseMesagge); 
-
-            } else { this.alertService.error(responseAddUser.responseMesagge); }
-
-            this.loading = false;
-            this.submitFormUsuario = false;
-          },
-          (error) => {
-            this.alertService.error(error);
-            this.loading = false;
-            this.submitFormUsuario = false;
-          });
-  }
-
-  selectObjetoUsuario() : void { this.inicializaFormularioUpdateUser(this.usuarioSeleccionado, this.nombreRol); }
-
-  // ****************************************************
-  // MÉTODOS PRIVADOS
   private asociarUsuarioEmpresa(inUsuarioCreado: User, responseMessageAddUser : string) {
 
-    this.accountService.assignBusinessUser(inUsuarioCreado.id, this.businessObservable.id,this._HIdUserSessionRequest, 
-                                                                                          this._HBusinessSessionRequest)
+    this.accountService.assignBusinessUser( inUsuarioCreado.id, 
+                                            this.businessObservable.id,
+                                            this._HIdUserSessionRequest, 
+                                            this._HBusinessSessionRequest )
       .pipe(first())
       .subscribe((response) => {
 
