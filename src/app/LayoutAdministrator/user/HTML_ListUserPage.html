@@ -5,7 +5,7 @@
 
     <div class="card-body">
 
-        <button routerLink="{{URLAddEditUsertPage}}"
+        <button (click)="selectObjetoUsuario()"
                 class="item-list__confirm float-right" 
                 mat-icon-button > <mat-icon>person_add</mat-icon>
         </button>
@@ -45,18 +45,26 @@
                     <td (click)="selectObjetoUsuario(us)">{{us.estado}}</td>
 
                     <td style="white-space: normal">
-                        <button *ngIf="isUserSuperAdmin" (click)="selectEmpresa(us)" 
-                                                            class="btn-sm item-list__admin__view"> 
+                        <button *ngIf="isUserSuperAdmin" 
+                                (click)="optionBusiness(us)" 
+                                class="btn-sm item-list__admin__view">
                             {{ 'CONFIGURATION.ADMIN_PAGE_LIST_USERS.TBL_BTN_COMPANY' | translate }} 
                         </button>
                     </td>
 
                     <td style="white-space: normal">
-                        <button routerLink="{{URLAddRoleUsertPage}}{{us.identificacion}}" 
+                        <button (click)="optionRole(us)" 
                                 class="btn-sm item-list__admin__view"> 
                             {{ 'CONFIGURATION.ADMIN_PAGE_LIST_USERS.TBL_BTN_ROLE' | translate }} 
                         </button>
                     </td>
+
+                    <!-- <td style="white-space: normal">
+                        <button routerLink="{{URLAddRoleUsertPage}}{{us.identificacion}}" 
+                                class="btn-sm item-list__admin__view"> 
+                            {{ 'CONFIGURATION.ADMIN_PAGE_LIST_USERS.TBL_BTN_ROLE' | translate }} 
+                        </button>
+                    </td> -->
 
                     <td style="white-space: normal">
                         <button *ngIf="us.estado!='Active'"

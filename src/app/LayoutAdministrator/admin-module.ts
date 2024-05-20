@@ -39,6 +39,7 @@ import { AdminmoduleComponent } from './module/adminmodule/adminmodule.component
 import { AddEditRolComponent } from './role/addEditRolPage.component';
 import { TranslateModule } from '@ngx-translate/core';
 import { ListPlanComponent } from './plan/listPlanPage.component';
+import { AddEditPlanComponent } from './plan/addEditPlanPage.component';
 
 @NgModule({
     imports: [
@@ -70,6 +71,7 @@ import { ListPlanComponent } from './plan/listPlanPage.component';
         AddEditUserComponent,
         ListUserComponent,
         ListBusinessComponent,
+        AddEditPlanComponent,
         ListPlanComponent,
         AddBusinessUserComponent,
         AddRoleUserComponent,

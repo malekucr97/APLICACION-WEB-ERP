@@ -1,0 +1,216 @@
+<main>
+    <article class="articulo">
+        <div class="articulo__contenedor mat-elevation-z4">
+            <!-- HEADER -->
+            <section>
+                <div class="articulo__contenedor__header">
+                    <div class="articulo__contenedor__header__prev">
+                        <p *ngIf="updatePlan">{{ 'CONFIGURATION.ADD_EDIT_PLAN.PARAMETERS_PLAN' | translate: { nombre: planSeleccionado.nombre } }}</p>
+                        <p *ngIf="addPlan">{{ 'CONFIGURATION.ADD_EDIT_PLAN.REGISTER_PLAN' | translate }}</p>
+                        <a routerLink="{{ URLListPlanPage }}" class="btn btn-light mb-2 mr-3">{{ 'GENERAL.BTN_BACK' | translate }}</a>
+                    </div>
+        
+                    <div class="articulo__contenedor__header__next"></div>
+                </div>
+            </section>
+  
+            <!-- *************************** -->
+            <!-- SECCIÓN FORMULARIO USUARIO  -->
+            <!-- *************************** -->
+            <section>
+                <div class="articulo__contenedor__body">
+                    <div class="articulo__contenedor__body__prev">
+                        <div class="articulo__contenedor__body__prev__form">
+
+                            <div class="articulo__contenedor__body__prev__form__header p-2">
+                                <div class="articulo__contenedor__body__prev__form__header__prev">
+                                    <p class="articulo__contenedor__body__prev__form__header__titulo">{{ 'CONFIGURATION.ADD_EDIT_PLAN.TITLE' | translate }}</p>
+                                </div>
+                
+                                <div class="articulo__contenedor__body__prev__form__header__next">
+                                    <button *ngIf="updatePlan" class="articulo__contenedor__header__prev__btns__warn" mat-flat-button (click)="actualizarPlan()">{{ 'GENERAL.BTN_UPDATE' | translate }}</button>
+                                    <button *ngIf="addPlan" class="articulo__contenedor__header__prev__btns__ok" mat-flat-button (click)="registrarPlan()">{{ 'GENERAL.BTN_REGISTER' | translate }}</button>
+                                </div>
+                            </div>
+        
+                            <div class="articulo__contenedor__body__prev__form__content p-2">
+
+                                <form [formGroup]="planForm" class="row">
+
+                                    <div class="form-group col-md-3">
+                                        <span for="lblNombrePlan" class="form-label">{{ 'CONFIGURATION.ADD_EDIT_PLAN.FORM.TXT_PLAN_NAME' | translate }}</span>
+                                        <input  maxlength="300"
+                                                formControlName="nombrePlan"
+                                                class="form-control"
+                                                type="text"
+                                                id="id_nombrePlan"
+                                                [ngClass]="{'is-invalid': submitFormPlan && f.nombrePlan.errors}" />
+                                        <div *ngIf="submitFormPlan && f.nombrePlan.errors" class="invalid-feedback">
+                                            <div *ngIf="f.nombrePlan.errors.required">{{ 'GENERAL.VALIDATES.EMPTY' | translate }}</div>
+                                        </div>
+                                    </div>
+
+                                    <div class="form-group col-md-3">
+                                        <span for="lblTipoPlan" class="form-label">{{ 'CONFIGURATION.ADD_EDIT_PLAN.FORM.TXT_TIPO_PLAN' | translate }}</span>
+                                        <select formControlName="tipoPlan" 
+                                                class="form-control" 
+                                                name="selectTipoPlan" [ngClass]="{ 'is-invalid': submitFormPlan && f.tipoPlan.errors }">
+                                                <option [disabled]="false" 
+                                                        [ngValue]="objeto" 
+                                                        *ngFor="let objeto of listTiposPlanes" >{{objeto.id}} - {{objeto.nombre}}</option>
+                                        </select>
+                                        <div *ngIf="submitFormPlan && f.tipoPlan.errors" class="invalid-feedback">
+                                            <div *ngIf="f.tipoPlan.errors.required">{{ 'CONFIGURATION.ADD_EDIT_PLAN.VALIDATE.TYPE_PLAN_REQUIRED' | translate }}</div>
+                                        </div>
+                                    </div>
+
+                                    <div class="form-group col-md-3">
+                                        <span for="lblSoportePlan" class="form-label">{{ 'CONFIGURATION.ADD_EDIT_PLAN.FORM.TXT_PLAN_SUPPORT' | translate }}</span>
+                                        <select formControlName="supportPlan" 
+                                                class="form-control" 
+                                                name="selectSoportePlan" [ngClass]="{ 'is-invalid': submitFormPlan && f.supportPlan.errors }">
+                                                <option [disabled]="false" 
+                                                        [ngValue]="objeto" 
+                                                        *ngFor="let objeto of listPlanesSupport" >{{objeto.id}} - {{objeto.nombre}}</option>
+                                        </select>
+                                        <div *ngIf="submitFormPlan && f.supportPlan.errors" class="invalid-feedback">
+                                            <div *ngIf="f.supportPlan.errors.required">{{ 'CONFIGURATION.ADD_EDIT_PLAN.VALIDATE.TYPE_PLAN_REQUIRED' | translate }}</div>
+                                        </div>
+                                    </div>
+
+                                    <div class="form-group col-md-3">
+                                        <span for="lblPorcentajeSoporte" class="form-label">{{ 'CONFIGURATION.ADD_EDIT_PLAN.FORM.TXT_SUPPORT_PERCENTAGE' | translate }}</span>
+                                        <input    formControlName="porcentajeSoporte"
+                                                class="form-control"
+                                                type="number"
+                                                id="id_porcentajeSoporte"
+                                                [ngClass]="{'is-invalid': submitFormPlan && f.porcentajeSoporte.errors}" />
+                                        <div *ngIf="submitFormPlan && f.porcentajeSoporte.errors" class="invalid-feedback">
+                                            <div *ngIf="f.porcentajeSoporte.errors.required">{{ 'GENERAL.VALIDATES.EMPTY' | translate }}</div>
+                                        </div>
+                                    </div>
+
+                                    <div class="form-group col-md-3">
+                                        <span for="lblMaxAdministradores" class="form-label">{{ 'CONFIGURATION.ADD_EDIT_PLAN.FORM.TXT_MAX_ADMIN' | translate }}</span>
+                                        <input    formControlName="maxAdmin"
+                                                    class="form-control"
+                                                    type="number"
+                                                    id="id_maxAdmin"
+                                                    [ngClass]="{'is-invalid': submitFormPlan && f.maxAdmin.errors}" />
+                                        <div *ngIf="submitFormPlan && f.maxAdmin.errors" class="invalid-feedback">
+                                            <div *ngIf="f.maxAdmin.errors.required">{{ 'GENERAL.VALIDATES.EMPTY' | translate }}</div>
+                                        </div>
+                                    </div>
+
+                                    <div class="form-group col-md-3">
+                                        <span for="lblMaxFuncionales" class="form-label">{{ 'CONFIGURATION.ADD_EDIT_PLAN.FORM.TXT_MAX_FUNCTIONAL' | translate }}</span>
+                                        <input  formControlName="maxFuncional"
+                                                class="form-control"
+                                                type="number"
+                                                id="id_maxFuncionales"
+                                                [ngClass]="{'is-invalid': submitFormPlan && f.maxFuncional.errors}" />
+                                        <div *ngIf="submitFormPlan && f.maxFuncional.errors" class="invalid-feedback">
+                                            <div *ngIf="f.maxFuncional.errors.required">{{ 'GENERAL.VALIDATES.EMPTY' | translate }}</div>
+                                        </div>
+                                    </div>
+
+                                    <div class="form-group col-md-3">
+                                        <span for="lblPrecioMensual" class="form-label">{{ 'CONFIGURATION.ADD_EDIT_PLAN.FORM.TXT_MONTHLY_PRICE' | translate }}</span>
+                                        <input  formControlName="precioMensual"
+                                                class="form-control"
+                                                type="number"
+                                                id="id_precioMensual"
+                                                [ngClass]="{'is-invalid': submitFormPlan && f.precioMensual.errors}" />
+                                        <div *ngIf="submitFormPlan && f.precioMensual.errors" class="invalid-feedback">
+                                            <div *ngIf="f.precioMensual.errors.required">{{ 'GENERAL.VALIDATES.EMPTY' | translate }}</div>
+                                        </div>
+                                    </div>
+                
+                                    <div class="form-group col-md-3">
+                                        <span for="lblPrecioAnual" class="form-label">{{ 'CONFIGURATION.ADD_EDIT_PLAN.FORM.TXT_ANNUAL_PRICE' | translate }}</span>
+                                        <input  formControlName="precioAnual"
+                                                class="form-control"
+                                                type="number"
+                                                id="id_precioAnual"
+                                                [ngClass]="{'is-invalid': submitFormPlan && f.precioAnual.errors}" />
+                                        <div *ngIf="submitFormPlan && f.precioAnual.errors" class="invalid-feedback">
+                                            <div *ngIf="f.precioAnual.errors.required">{{ 'GENERAL.VALIDATES.EMPTY' | translate }}</div>
+                                        </div>
+                                    </div>
+
+                                </form>
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+  
+            <!-- ************************ -->
+            <!-- USUARIO SELECCIONADO     -->
+            <!-- ************************ -->
+            <section *ngIf="updatePlan">
+                <div class="articulo__contenedor__body__complete">
+                    <div class="articulo__contenedor__body__next__list">
+                        <div class="articulo__contenedor__body__next__list">
+                            <div class="articulo__contenedor__body__next__list__header">
+                                <div class="articulo__contenedor__body__prev__list__header__prev">
+                                    <p class="articulo__contenedor__body__prev__list__header__titulo">{{ 'CONFIGURATION.ADD_EDIT_PLAN.TABLE.TITLE' | translate }}</p>
+                                </div>
+                
+                                <div class="articulo__contenedor__body__prev__list__header__next"></div>
+                            </div>
+            
+                            <div class="articulo__contenedor__body__next__list__content">
+                                <div>
+                                    <table class="table table-striped">
+                                        <thead>
+                                            <tr>
+                                                <th style="width: 16%">{{ 'CONFIGURATION.ADD_EDIT_PLAN.TABLE.TBL_NAME' | translate }}</th>
+                                                <th style="width: 11%">{{ 'CONFIGURATION.ADD_EDIT_PLAN.TABLE.TBL_TYPE' | translate }}</th>
+                                                <th style="width: 12%">{{ 'CONFIGURATION.ADD_EDIT_PLAN.TABLE.TBL_US_CANT_ADMIN' | translate }}</th>
+                                                <th style="width: 11%">{{ 'CONFIGURATION.ADD_EDIT_PLAN.TABLE.TBL_US_CANT_FUNCTIONAL' | translate }}</th>
+                                                <th style="width: 6%">{{ 'CONFIGURATION.ADD_EDIT_PLAN.TABLE.TBL_MONTHLY_PRICE_SUPPORT' | translate }}</th>
+                                                <th style="width: 6%">{{ 'CONFIGURATION.ADD_EDIT_PLAN.TABLE.TBL_ANNUAL_PRICE_SUPPORT' | translate }}</th>
+                                                <th style="width: 5%">{{ 'CONFIGURATION.ADD_EDIT_PLAN.TABLE.TBL_TECHNICAL_SUPPORT' | translate }}</th>
+                                                <th style="width: 6%">{{ 'CONFIGURATION.ADD_EDIT_PLAN.TABLE.TBL_APPLICABLE_PERCENTAGE_SUPPORT' | translate }}</th>
+                                                <th style="width: 5%">{{ 'CONFIGURATION.ADD_EDIT_PLAN.TABLE.TBL_ADD' | translate }}</th>
+                                                <th style="width: 9%">{{ 'CONFIGURATION.ADD_EDIT_PLAN.TABLE.TBL_DATE_ADD' | translate }}</th>
+                                                <th style="width: 5%">{{ 'CONFIGURATION.ADD_EDIT_PLAN.TABLE.TBL_UPDATE' | translate }}</th>
+                                                <th style="width: 8%">{{ 'CONFIGURATION.ADD_EDIT_PLAN.TABLE.TBL_DATE_UPDATE' | translate }}</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <tr class="item-list__list" (click)="selectObjetoPlan()" >
+                                                <td>{{planSeleccionado.nombre}}</td>
+                                                <td>{{planSeleccionado.tipo}}</td>
+                                                <td>{{planSeleccionado.maximoAdministradores}}</td>
+                                                <td>{{planSeleccionado.maximoFuncionales}}</td>
+                                                <td>{{planSeleccionado.precioMensual}}</td>
+                                                <td>{{planSeleccionado.precioAnual}}</td>
+                                                <td>{{planSeleccionado.soporte}}</td>
+                                                <td>{{planSeleccionado.porcentajeSoporteXUsuario}}</td>
+                                                <td>{{planSeleccionado.adicionadoPor}}</td>
+                                                <td>{{planSeleccionado.fechaAdicion}}</td>
+                                                <td>{{planSeleccionado.modificadoPor}}</td>
+                                                <td>{{planSeleccionado.fechaModificacion}}</td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+  
+            <!-- FOOTER -->
+            <section>
+                <div class="articulo__contenedor__footer">
+                    <div class="articulo__contenedor__footer__prev"></div>
+                    <div class="articulo__contenedor__footer__next"></div>
+                </div>
+            </section>
+        </div>
+    </article>
+</main>

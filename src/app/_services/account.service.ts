@@ -10,6 +10,8 @@ import { Compania, CompaniaUsuario } from '@app/_models/modules/compania';
 import { ScreenAccessUser } from '@app/_models/admin/screenAccessUser';
 import { ScreenModule } from '@app/_models/admin/screenModule';
 import { Bitacora } from '@app/_models/bitacora';
+import { AdminPlan } from '@app/_models/admin/planes/plan';
+import { AdminPlanXBusiness } from '@app/_models/admin/planes/planxBusiness';
 
 @Injectable({ providedIn: 'root' })
 export class AccountService {
@@ -98,10 +100,10 @@ export class AccountService {
     this.listRolesSubject.next(listaRoles);
   }
   // -- >> Suscribe lista de roles para administración
-  public suscribeListBusiness(listaRoles: Compania[]): void {
-    this.listBusinessSubject = new BehaviorSubject<Compania[]>(listaRoles);
+  public suscribeListBusiness(listaBusiness: Compania[]): void {
+    this.listBusinessSubject = new BehaviorSubject<Compania[]>(listaBusiness);
   }
-  // -- >> Actualiza lista de roles administración
+  // -- >> Actualiza lista de compañías administración
   public loadListBusiness(listaCompanias: Compania[]): void {
     this.listBusinessSubject.next(listaCompanias);
   }
@@ -682,4 +684,78 @@ export class AccountService {
     return this.http.post<ResponseMessage>( `${environment.apiUrl}/users/registrarrolcompania`, roleBusiness, httpHeaders );
   }
   // ***************************************************************
+
+  // -->> procedimientos planes
+  addPlan(plan: AdminPlan, pidsession : string = '', pbusiness : string = '') {
+    // ** header
+    const session = { _idsession : pidsession, _business : pbusiness, _module : 'admin' };
+    const httpHeaders = { headers: new HttpHeaders(session) }
+    // **
+    return this.http.post<ResponseMessage>(
+      `${environment.apiUrl}/users/createplan`, plan, httpHeaders
+    );
+  }
+  getAllPlanes( pidsession : string = '', pbusiness : string = '') {
+    // ** header
+    const session = { _idsession : pidsession, _business : pbusiness };
+    const httpHeaders = { headers: new HttpHeaders(session) }
+    // **
+    return this.http.get<AdminPlan[]>(
+      `${environment.apiUrl}/users/listplanes`, httpHeaders
+    );
+  }
+  getPlanById(id: number, pidsession : string = '', pbusiness : string = '') {
+    // ** header
+    const session = { _idsession : pidsession, _business : pbusiness, _module : 'admin' };
+    const httpHeaders = { headers: new HttpHeaders(session) }
+    // **
+    return this.http.get<AdminPlan>(
+      `${environment.apiUrl}/users/getplanid?idPlan=${id}`,httpHeaders
+    );
+  }
+  updatePlan(planUpdate: AdminPlan, pidsession : string = '', pbusiness : string = '') {
+    // ** header
+    const session = { _idsession : pidsession, _business : pbusiness, _module : 'admin' };
+    const httpHeaders = { headers: new HttpHeaders(session) }
+    // **
+    return this.http.put<ResponseMessage>(
+      `${environment.apiUrl}/users/updateplan`, planUpdate, httpHeaders
+    );
+  }
+  deletePlan(idPlan: number,pidsession : string = '', pbusiness : string = '') {
+    // ** header
+    const session = { _idsession : pidsession, _business : pbusiness, _module : 'admin' };
+    const httpHeaders = { headers: new HttpHeaders(session) }
+    // **
+    return this.http.delete<ResponseMessage>(
+      `${environment.apiUrl}/users/deleteplan?id=${idPlan}`, httpHeaders
+    );
+  }
+  getPlanBusiness(idBusiness: number, pidsession : string = '', pbusiness : string = '') {
+    // ** header
+    const session = { _idsession : pidsession, _business : pbusiness, _module : 'admin' };
+    const httpHeaders = { headers: new HttpHeaders(session) }
+    // **
+    return this.http.get<AdminPlan>(
+      `${environment.apiUrl}/users/getplanbusiness?idBusiness=${idBusiness}`, httpHeaders);
+  }
+  addPlanBusiness(planBusiness: AdminPlanXBusiness, pidsession : string = '', pbusiness : string = '') {
+    // ** header
+    const session = { _idsession : pidsession, _business : pbusiness, _module : 'admin' };
+    const httpHeaders = { headers: new HttpHeaders(session) }
+    // **
+    return this.http.post<ResponseMessage>(
+      `${environment.apiUrl}/users/createplanbusiness`, planBusiness, httpHeaders
+    );
+  }
+  removePlanBusiness(idPlan: number,idBusiness: number,pidsession : string = '', pbusiness : string = '') {
+    // ** header
+    const session = { _idsession : pidsession, _business : pbusiness, _module : 'admin' };
+    const httpHeaders = { headers: new HttpHeaders(session) }
+    // **
+    return this.http.delete<ResponseMessage>(
+      `${environment.apiUrl}/users/removeplanbusiness?idPlan=${idPlan}&idBusiness=${idBusiness}`, httpHeaders
+    );
+  }
+  // -->>
 }

@@ -49,7 +49,8 @@
     "ADMIN_PAGE_LIST_PLANES": {
       "TITLE": "Administración de Planes",
       "SUBTITLE": "Lista de planes registradas en el sistema",
-      "TBL_ID": "Id",
+      "SUBTITLE_PLAN_BUSINESS": "Plan de la Compañía",
+      "SUBTITLE_PLAN_SYSTEM": "Planes del Sistema",
       "TBL_NAME": "Nombre",
       "TBL_TYPE": "Tipo",
       "TBL_US_CANT_ADMIN": "Máximos Us. Administradores",
@@ -57,7 +58,9 @@
       "TBL_MONTHLY_PRICE_SUPPORT": "$ Mensual",
       "TBL_ANNUAL_PRICE_SUPPORT": "$ Anual",
       "TBL_TECHNICAL_SUPPORT": "Soporte",
-      "TBL_APPLICABLE_PERCENTAGE_SUPPORT": "% Aplicado Soporte"
+      "TBL_APPLICABLE_PERCENTAGE_SUPPORT": "% Aplicado Soporte",
+      "TBL_ICO_GRANT_PLAN": "Asignar Plan",
+      "TBL_ICO_REMOVE_PLAN": "Eliminar Plan"
     },
     "ADMIN_PAGE_LIST_MODULES": {
       "TITLE": "Administración de Módulos",
@@ -117,6 +120,40 @@
         "TXT_PASSWORD": "Contraseña",
         "TXT_POSITION": "Puesto o Cargo",
         "TXT_ROLE": "Rol de usuario"
+      }
+    },
+    "ADD_EDIT_PLAN": {
+      "TITLE": "Parametrización de Plan",
+      "PARAMETERS_PLAN": "Parámetros del Plan: {{nombre}}",
+      "REGISTER_PLAN": "Registro de Plan",
+      "TABLE": {
+        "TITLE": "Plan Seleccionado",
+        "TBL_NAME": "Nombre",
+        "TBL_TYPE": "Tipo",
+        "TBL_US_CANT_ADMIN": "Máximo Us. Administradores",
+        "TBL_US_CANT_FUNCTIONAL": "Máximo Us. Funcionales",
+        "TBL_MONTHLY_PRICE_SUPPORT": "$ Mensual",
+        "TBL_ANNUAL_PRICE_SUPPORT": "$ Anual",
+        "TBL_TECHNICAL_SUPPORT": "Soporte",
+        "TBL_APPLICABLE_PERCENTAGE_SUPPORT": "% Aplicado",
+
+        "TBL_ADD": "Registra",
+        "TBL_DATE_ADD": "Fecha Registro",
+        "TBL_UPDATE": "Actualiza",
+        "TBL_DATE_UPDATE": "Fecha Actualiza"
+      },
+      "FORM": {
+        "TXT_PLAN_NAME": "Nombre del Plan",
+        "TXT_TIPO_PLAN": "Tipo de Plan",
+        "TXT_MAX_ADMIN": "Cant. Máxima de Administradores",
+        "TXT_MAX_FUNCTIONAL": "Cant. Máxima de Us. Funcionales",
+        "TXT_MONTHLY_PRICE": "Precio Mensual",
+        "TXT_ANNUAL_PRICE": "Precio Anual",
+        "TXT_PLAN_SUPPORT": "Posee Soporte",
+        "TXT_SUPPORT_PERCENTAGE": "% Soporte"
+      },
+      "VALIDATE": {
+        "TYPE_PLAN_REQUIRED": "El tipo de plan es requerido"
       }
     },
     "ADD_EDIT_COMPANY": {
@@ -533,7 +570,7 @@
     "notCorrectOption": "No se ha seleccionado una opción correcta.",
     "problemToActivateModule": "Problemas al activar el estado del módulo seleccionado {{$PH}}",
     "problemToInactivateModule": "Problemas al inactivar el estado del módulo seleccionado {{$PH}}",
-    "dialogConfirmDelete": "Segur@ que desea eliminar el registro para siempre ?",
+    "dialogConfirmDelete": "Seguro que desea eliminar el registro para siempre ?",
     "superAdminNotDelete": "No se puede eliminar la cuenta administradora del sistema",
     "superAdminNotModification": "No se puede modificar el estado de la cuenta administradora del sistema",
     "BCCR_ExchangeRate_Indicators_Required": "Debe de registrar los Indicadores del tipo de cambio de Compra y Venta asignados por el BCCR a la moneda que corresponde.",
@@ -558,8 +595,13 @@
     "SUCCESSFUL_OPERATION": "Operación realizada con éxito.",
     "FAILED_OPERATION": "No fue posible realizar la operación, por favor contacte al administrador.",
     "USER_WITHOUT_ACCESS":"El usuario no cuenta con los accesos correspondientes o la pantalla se encuentra inactiva.",
-    "URL_ERROR": "No se ha indicado correctamente el URL del reporte"
-        
+    "URL_ERROR": "No se ha indicado correctamente el URL del reporte",
+    "USER_COUNT_NOT_ALLOWED": "La cantidad de usuarios de la compañía sobrepasa el límite del plan seleccionado",
+    "PLAN_HAS_BEEN_ALREADY_ASSIGNED": "La compañía ya cuenta con un plan asignado",
+    "PLAN_DES_ASSIGNED": "Seguro que desea des-asignar el plan de la compañía?",
+    "BUSINESS_NO_PLAN": "No se ha asignado un plan a la compañía",
+    "USER_NO_ROL": "No se ha asignado un rol al usuario",
+    "NO_ASIGN_ROL_USER": "No es posible asignar este rol, asigne primero los administradores según el plan de la compañía"
   },
   "DIALOGS": {
     "DELETE_MODULE_TO_SCREEN": "Segur@ que desea eliminar el registro para siempre?"

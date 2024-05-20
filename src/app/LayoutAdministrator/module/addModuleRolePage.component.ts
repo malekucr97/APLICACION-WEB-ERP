@@ -109,7 +109,11 @@ export class AddModuleRoleComponent extends OnSeguridad implements OnInit {
 
     let module: Module = this.listModulesBusiness.find((m) => m.id == idModule);
 
-    this.accountService.grantAccessModuleToRol(this.role.id, module.id,this.businessObservable.id,this._HIdUserSessionRequest,this._HBusinessSessionRequest)
+    this.accountService.grantAccessModuleToRol( this.role.id,
+                                                module.id,
+                                                this.businessObservable.id,
+                                                this._HIdUserSessionRequest,
+                                                this._HBusinessSessionRequest)
       .pipe(first())
       .subscribe((response) => {
 

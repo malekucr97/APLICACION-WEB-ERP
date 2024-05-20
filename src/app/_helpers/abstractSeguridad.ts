@@ -52,8 +52,8 @@ export class OnSeguridad {
     this._HBusinessSessionRequest = this._businessObservable ? this._businessObservable.id.toString() : '';
     this._HModuleSessionRequest = this._moduleObservable ? this._moduleObservable.id.toString() : '';
 
-    this._passwordPattern = "^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?!.*\s).{5,12}$";
     this._userPattern = "^[a-zA-Z0-9]{5,15}$";
+    this._passwordPattern = "^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?!.*\s).{5,12}$";
     this._emailPattern = "^[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$";
   }
 

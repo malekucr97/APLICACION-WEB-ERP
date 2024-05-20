@@ -9,51 +9,23 @@ import { administrator, httpAccessAdminPage, httpLandingIndexPage } from '@envir
 import { OnSeguridad } from '@app/_helpers/abstractSeguridad';
 import { TranslateMessagesService } from '@app/_services/translate-messages.service';
 
-@Component({templateUrl: 'HTML_AddEditUserPage.html',
-            styleUrls: [ '../../../assets/scss/app.scss', '../../../assets/scss/administrator/app.scss']
+@Component({
+  templateUrl: 'HTML_AddEditUserPage.html', 
+  styleUrls: [ '../../../assets/scss/app.scss', '../../../assets/scss/administrator/app.scss']
 })
 export class AddEditUserComponent extends OnSeguridad implements OnInit {
+  
   usuarioForm: FormGroup;
-
-  userObservable: User; businessObservable: Compania;
-
   response: ResponseMessage;
-
-  // pwdPattern : string = "^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?!.*\s).{5,12}$";
-  // ussPattern : string = "^[a-zA-Z0-9]{5,15}$";
-  // emailPattern : string = "^[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$";
-  pwdPattern : string; ussPattern : string; emailPattern : string;
-
-  // **
-  // ** VARIABLES DE REDIRECCIONAMIENTO
-  // URLRedirectPage: string = httpLandingIndexPage.indexHTTP;
-  // URLListUserPage: string = httpAccessAdminPage.urlPageListUsers;
+  pIdentifUserUpdate: string;
+  usuarioSeleccionado: User;
+  loading: boolean; submitFormUsuario: boolean;
+  userObservable: User; businessObservable: Compania;
+  pwdPattern: string; ussPattern: string; emailPattern: string;
+  updateUser: boolean; addUser: boolean;
+  role: Role; nombreRol: string;
   URLRedirectPage: string; URLListUserPage: string;
-  // **
   
-  // loading : boolean = false;
-  // submitFormUsuario : boolean = false;
-  loading : boolean ;
-  submitFormUsuario : boolean ;
-
-  pIdentifUserUpdate: string ;
-  
-  // esAdmin : boolean;
-
-  // updateUser  : boolean = false;
-  // addUser     : boolean = false;
-  updateUser : boolean; addUser : boolean;
-
-  // role: Role = new Role();
-  role: Role; nombreRol : string;
-  // listRolesBusiness: Role[] = [];
-
-  // nombreRol : string = 'Role has not been assigned';
-  
-
-  // usuarioSeleccionado : User = new User();
-  usuarioSeleccionado : User ;
-
   constructor(private formBuilder: FormBuilder,
               private route: ActivatedRoute,
               private router: Router,
@@ -81,7 +53,7 @@ export class AddEditUserComponent extends OnSeguridad implements OnInit {
     this.nombreRol = 'Role has not been assigned';
     
     this.updateUser = false;
-    this.addUser    = false;
+    this.addUser = false;
 
     this.loading = false;
     this.submitFormUsuario = false;
@@ -147,7 +119,7 @@ export class AddEditUserComponent extends OnSeguridad implements OnInit {
   // ** PROCEDIMIENTOS HTML
   selectObjetoUsuario() : void { this.inicializaFormularioUpdateUser(this.usuarioSeleccionado, this.nombreRol); }
 
-  actualizarUsuario() : void {
+  public actualizarUsuario() : void {
 
     this.alertService.clear();
     this.submitFormUsuario = true; this.loading = true;
@@ -176,7 +148,7 @@ export class AddEditUserComponent extends OnSeguridad implements OnInit {
         }, (error) => { this.alertService.error(error); this.submitFormUsuario = false; this.loading = false; });
   }
 
-  registrarUsuario() : void {
+  public registrarUsuario() : void {
 
     this.alertService.clear();
     this.submitFormUsuario = true; this.loading = true;

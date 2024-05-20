@@ -19,6 +19,7 @@ export class ListBusinessComponent extends OnSeguridad implements OnInit {
     public URLAdministratorPage         : string = httpAccessAdminPage.urlPageAdministrator;
     public urlPageAddEditBusiness       : string = httpAccessAdminPage.urlPageAddEditBusiness;
     public urlPageListBusinessModules   : string = httpAccessAdminPage.urlPageListBusinessModule;
+    public urlPageListBusinessPlanes   : string = httpAccessAdminPage.urlPageListPlan;
 
     listBusiness: Compania[] = [];
 

@@ -26,7 +26,6 @@ import { FooterComponent } from './_components/footer/footer.component'
 import { TranslateMessagesService } from './_services/translate-messages.service';
 
 export function HttpLoaderFactory(httpHandler: HttpBackend) {
-    // return new TranslateHttpLoader(http);
     return new TranslateHttpLoader(new HttpClient(httpHandler));
 }
 
