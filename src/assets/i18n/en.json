@@ -601,7 +601,8 @@
     "PLAN_DES_ASSIGNED": "Are you sure you want to unassign the company plan?",
     "BUSINESS_NO_PLAN": "A plan has not been assigned to the company",
     "USER_NO_ROL": "The user has not been assigned a role",
-    "NO_ASIGN_ROL_USER": "It is not possible to assign this role, assign administrators first according to the company plan"
+    "NO_ASIGN_ROL_USER": "It is not possible to assign this role, assign administrators first according to the company plan",
+    "EXISTING_IDENTIFICATION_BUSINESS": "The identification number entered has already been assigned to a Company"
   },
   "DIALOGS": {
     "DELETE_MODULE_TO_SCREEN": "Are you sure you want delete the record?"

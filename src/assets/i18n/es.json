@@ -601,7 +601,8 @@
     "PLAN_DES_ASSIGNED": "Seguro que desea des-asignar el plan de la compañía?",
     "BUSINESS_NO_PLAN": "No se ha asignado un plan a la compañía",
     "USER_NO_ROL": "No se ha asignado un rol al usuario",
-    "NO_ASIGN_ROL_USER": "No es posible asignar este rol, asigne primero los administradores según el plan de la compañía"
+    "NO_ASIGN_ROL_USER": "No es posible asignar este rol, asigne primero los administradores según el plan de la compañía",
+    "EXISTING_IDENTIFICATION_BUSINESS": "El número de identificación ingresado ya ha sido asignado a una Compañía"
   },
   "DIALOGS": {
     "DELETE_MODULE_TO_SCREEN": "Segur@ que desea eliminar el registro para siempre?"

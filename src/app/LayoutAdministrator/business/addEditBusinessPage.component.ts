@@ -18,7 +18,7 @@ export class AddEditBusinessComponent extends OnSeguridad implements OnInit {
   public urladminListBusiness: string;
 
   public userObserver: User;
-  public business: Compania;
+  public listBusinessSubs: Compania[]; public business: Compania;
 
   public pidBusiness: number;
 
@@ -45,6 +45,7 @@ export class AddEditBusinessComponent extends OnSeguridad implements OnInit {
     this.loading = false; this.submitted = false;
 
     this.userObserver = this.accountService.userValue;
+    this.listBusinessSubs = this.accountService.businessListValue;
 
     this.inicializaFormulario();
   }
@@ -76,6 +77,7 @@ export class AddEditBusinessComponent extends OnSeguridad implements OnInit {
   }
 
   onSubmit() {
+
     this.submitted = true; this.loading = true;
 
     let currentDate = new Date();
@@ -100,23 +102,27 @@ export class AddEditBusinessComponent extends OnSeguridad implements OnInit {
     // registro compañía
     if (this.addBusiness) {
 
-      this.accountService.addBusiness(this.business,
-                                      this._HIdUserSessionRequest,
-                                      this._HBusinessSessionRequest)
-        .pipe(first())
-        .subscribe((response) => {
+      if (this.validaRegistroCompania(this.business.cedulaJuridica)) {
+        
+        this.accountService.addBusiness(this.business,
+                                        this._HIdUserSessionRequest,
+                                        this._HBusinessSessionRequest)
+          .pipe(first())
+          .subscribe((response) => {
 
-          this.loading = false;
+            this.loading = false;
 
-          if (response.exito) {
-            this.alertService.success(response.responseMesagge, { keepAfterRouteChange: true });
-          } else {
-            this.alertService.error(response.responseMesagge, { keepAfterRouteChange: true });
-          }
-          
-          this.router.navigate([this.urladminListBusiness], { relativeTo: this.route });
-  
-        }, (error) => { this.alertService.error(error); this.loading = false; });
+            if (response.exito) {
+              this.alertService.success(response.responseMesagge, { keepAfterRouteChange: true });
+            } else {
+              this.alertService.error(response.responseMesagge, { keepAfterRouteChange: true });
+            }
+
+            this.router.navigate([this.urladminListBusiness], { relativeTo: this.route });
+
+          }, (error) => { this.alertService.error(error); this.loading = false; });
+      
+      } else { this.loading = false; this.alertService.info(this.translate.translateKey('ALERTS.EXISTING_IDENTIFICATION_BUSINESS')); }
     }
 
     // actualiza compañía
@@ -144,10 +150,22 @@ export class AddEditBusinessComponent extends OnSeguridad implements OnInit {
 
   // -- // métodos privados
   private inicializaFormulario() : void {
+
     this.form = this.formBuilder.group({nombreCompania: ['', Validators.required],
                                         cedulajuridica: ['', Validators.required],
                                         mantenimientoReportes: [false, Validators.required],
                                         cuentaCorreoDefecto: [false, Validators.required],
                                         tamanoModuloDefecto: [false, Validators.required]});
+  }
+  private validaRegistroCompania(pcedulaJuridica: string) : boolean {
+
+    if (this.listBusinessSubs && this.listBusinessSubs.length > 0) {
+     
+      for (let index = 0; index < this.listBusinessSubs.length; index++) {
+
+        if (this.listBusinessSubs[index].cedulaJuridica === pcedulaJuridica) return false ;
+      }
+    }
+    return true;
   }
 }
