@@ -13,15 +13,15 @@ import { TranslateMessagesService } from '@app/_services/translate-messages.serv
 })
 export class ListBusinessComponent extends OnSeguridad implements OnInit {
     
-    userObservable      : User;
-    businessObservable  : Compania;
+    userObservable : User;
+    businessObservable : Compania;
 
-    public URLAdministratorPage         : string = httpAccessAdminPage.urlPageAdministrator;
-    public urlPageAddEditBusiness       : string = httpAccessAdminPage.urlPageAddEditBusiness;
-    public urlPageListBusinessModules   : string = httpAccessAdminPage.urlPageListBusinessModule;
-    public urlPageListBusinessPlanes   : string = httpAccessAdminPage.urlPageListPlan;
+    public URLAdministratorPage : string;
+    public urlPageAddEditBusiness : string;
+    public urlPageListBusinessModules : string;
+    public urlPageListBusinessPlanes : string;
 
-    listBusiness: Compania[] = [];
+    public listBusiness: Compania[];
 
     constructor(private accountService: AccountService, 
                 private router: Router,
@@ -34,20 +34,25 @@ export class ListBusinessComponent extends OnSeguridad implements OnInit {
         // VALIDA ACCESO PANTALLA LOGIN ADMINISTRADOR
         if (!super.userAuthenticateAdmin()) { this.accountService.logout(); return; }
         // ***************************************************************
+
+        this.URLAdministratorPage = httpAccessAdminPage.urlPageAdministrator;
+        this.urlPageAddEditBusiness = httpAccessAdminPage.urlPageAddEditBusiness;
+        this.urlPageListBusinessModules = httpAccessAdminPage.urlPageListBusinessModule;
+        this.urlPageListBusinessPlanes = httpAccessAdminPage.urlPageListPlan;
         
         this.userObservable = this.accountService.userValue;
         this.businessObservable = this.accountService.businessValue;
+
+        this.listBusiness = null;
     }
 
     ngOnInit() {
-
+        
         this.accountService.getAllBusiness( this._HIdUserSessionRequest, this._HBusinessSessionRequest)
             .pipe(first())
             .subscribe(response => {
-                if (response && response.length > 0) {
-                    this.listBusiness = response;
-                    this.accountService.suscribeListBusiness(this.listBusiness);
-                }
+                this.listBusiness = response;
+                this.accountService.suscribeListBusiness(this.listBusiness);
             });
     }
 }

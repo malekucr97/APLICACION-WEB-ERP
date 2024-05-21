@@ -164,8 +164,8 @@
       "FORM": {
         "TXT_ID": "Legal ID",
         "TXT_NAME": "Company Name",
-        "CHK_POWER_BI": "Activate maintenance for Power BI Reports",
-        "CHK_DEFAULT_SIZE": "Apply fixed size to module names",
+        "CHK_POWER_BI": "Modules Type Power BI Reports",
+        "CHK_DEFAULT_SIZE": "Fixed Size in Company Modules",
         "CHK_DEFAULT_EMAIL": "Use as default email account",
         "VALIDATE": {
           "NAME": "The company name is required",
