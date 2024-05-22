@@ -143,36 +143,36 @@ export class ListUserComponent extends OnSeguridad implements OnInit {
     } else { this.alertService.info(this.translateMessagesService.translateKey('ALERTS.BUSINESS_NO_PLAN')); }
   }
 
-  deleteUser(identificacionUsuario : string, idUser : number) {
+  deleteUser(idUser : number) {
 
     this.alertService.clear();
 
-    if (identificacionUsuario !== administrator.identification) {
+    this.dialogo.open(DialogoConfirmacionComponent, { data: this.translateMessagesService.translateKey('ALERTS.dialogConfirmDelete') })
+      .afterClosed()
+      .subscribe((confirmado: Boolean) => {
 
-      this.dialogo.open(DialogoConfirmacionComponent, { data: this.translateMessagesService.translateKey('ALERTS.dialogConfirmDelete') })
-            .afterClosed()
-            .subscribe((confirmado: Boolean) => {
+          if (confirmado) {
 
-                if (confirmado) {
+            this.accountService.deleteUser( idUser, 
+                                            this.businessObservable.id,
+                                            this._HIdUserSessionRequest,
+                                            this._HBusinessSessionRequest )
+              .pipe(first())
+              .subscribe((responseDelete) => {
+      
+                if (responseDelete.exito) {
+                  
+                  this.alertService.success(responseDelete.responseMesagge);
+                  this.listUsers.splice( this.listUsers.findIndex((u) => u.id == idUser), 1 );
 
-                  this.accountService.deleteUser(idUser, this.businessObservable.id,this._HIdUserSessionRequest, this._HBusinessSessionRequest)
-                  .pipe(first())
-                  .subscribe((responseDelete) => {
-          
-                      if (responseDelete.exito) {
-                        this.alertService.success(responseDelete.responseMesagge);
-                        this.listUsers.splice( this.listUsers.findIndex((u) => u.id == idUser), 1 );
-          
-                        this.accountService.loadListUsers(this.listUsers);
-          
-                      } else { this.alertService.error(responseDelete.responseMesagge); }
-                    
-                    }, (error) => { this.alertService.error(error); });
+                  this.accountService.loadListUsers(this.listUsers);
+    
+                } else { this.alertService.error(responseDelete.responseMesagge); }
+                
+              }, (error) => { this.alertService.error(error); });
 
-                } else { return; }
-            });
-
-    } else { this.alertService.info(this.translateMessagesService.translateKey('ALERTS.superAdminNotDelete')); }
+          } else { return; }
+      });
   }
 
   updateStateUser(userStateUpdate : User) : void {

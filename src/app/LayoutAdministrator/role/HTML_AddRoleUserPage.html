@@ -26,7 +26,7 @@
 
         <br>
 
-        <div *ngIf="listAllRoles">
+        <div *ngIf="listRolesBusiness">
             <br>
             <h3 style="color:#1A5276">{{ 'CONFIGURATION.ADD_EDIT_ROLE_USER.SUBTITLE' | translate }}</h3>
             <table class="table table-striped">
@@ -41,7 +41,7 @@
                     </tr>
                 </thead>
                 <tbody>
-                    <tr *ngFor="let rol of listAllRoles"
+                    <tr *ngFor="let rol of listRolesBusiness"
                         class="item-list__list">
                         <td>{{rol.nombre}}</td>
                         <td>{{rol.descripcion}}</td>

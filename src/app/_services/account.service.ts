@@ -624,9 +624,10 @@ export class AccountService {
     const session = { _idsession : pidsession, _business : pbusiness, _module : 'admin' };
     const httpHeaders = { headers: new HttpHeaders(session) }
     // **
-    return this.http.delete<ResponseMessage>( `${environment.apiUrl}/users/deleteuser?idUser=${idUser}&idBusiness=${idBusiness}`, httpHeaders ).pipe(
-        map((x) => { if (idUser === this.userValue.id) this.logout(); return x; }
-      ));
+    return this.http.delete<ResponseMessage>( 
+      `${environment.apiUrl}/users/deleteuser?idUser=${idUser}&idBusiness=${idBusiness}`, httpHeaders
+    ).pipe(
+        map((x) => { if (idUser === this.userValue.id) { this.logout(); } return x; }));
   }
 
   //#endregion

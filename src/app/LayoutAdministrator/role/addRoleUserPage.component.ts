@@ -15,7 +15,7 @@ export class AddRoleUserComponent extends OnSeguridad implements OnInit {
   
   public userObservable: User; public businessObservable: Compania;
 
-  listAllRoles: Role[] = [];
+  public listRolesBusiness: Role[];
 
   isDesAsignRoles: boolean;
   isAsignRole: boolean;
@@ -27,8 +27,6 @@ export class AddRoleUserComponent extends OnSeguridad implements OnInit {
   public isRolAssign: boolean;
 
   public identificationUserSelected : string;
-  
-  public addPlanBusiness: boolean;
 
   public cantAdministradores : number;
   public cantFuncionales : number;
@@ -39,28 +37,29 @@ export class AddRoleUserComponent extends OnSeguridad implements OnInit {
   public userToAssign: User;
   public listUsers: User[];
 
-  constructor(private accountService: AccountService,  
-              private alertService: AlertService,
+  constructor(private route: ActivatedRoute, 
               private router: Router,
-              private route: ActivatedRoute,
+              private accountService: AccountService,
+              private alertService: AlertService,
               private translate: TranslateMessagesService ) {
 
     super(alertService, accountService, router, translate);
 
     // ***************************************************************
     // VALIDA ACCESO PANTALLA LOGIN ADMINISTRADOR
-    if (!super.userAuthenticateAdmin()) { this.accountService.logout(); return; }
+    if (!super.userAuthenticateIndexHttp()) { this.accountService.logout(); return; }
+    if (!super.validarUsuarioAdmin()) { this.accountService.logout(); return; }
     // ***************************************************************
 
     this.userObservable = this.accountService.userValue;
     this.businessObservable = this.accountService.businessValue;
-
-    this.userToAssign = new User();
-
-    this.addPlanBusiness = false; this.isRolAssign = false;
+    
+    this.isRolAssign = false;
     
     // --
     this.HTTPListUserPage = httpAccessAdminPage.urlPageListUsers;
+
+    this.userToAssign = new User();
 
     this.listUsers = [];
     this.roleUser = null;
@@ -69,52 +68,37 @@ export class AddRoleUserComponent extends OnSeguridad implements OnInit {
     this.adminBusinessUserId = administrator.adminSociedad;
 
     this.obtenerPlanCompania();
-    // this.validarCantTiposUsuarios();
+    this.obtenerRolesCompania();
   }
 
   ngOnInit() {
 
     if (this.route.snapshot.params.pidentificationUser) {
-      
+
       this.identificationUserSelected = this.route.snapshot.params.pidentificationUser;
 
-      this.addPlanBusiness = true;
-
-      this.accountService.getRolesBusiness( this.businessObservable.id,
-                                            this._HIdUserSessionRequest,
-                                            this._HBusinessSessionRequest )
-        .pipe(first())
-        .subscribe((responseListRole) => {
-
-          if (responseListRole && responseListRole.length > 0) {
-
-            this.listAllRoles = responseListRole;
-            this.listAllRoles.splice( this.listAllRoles.findIndex((r) => r.id == this.technicalUserId), 1 );
-
-            this.accountService.getUsersBusiness( this.businessObservable.id, 
+      this.accountService.getUserByIdentification(this.identificationUserSelected, 
                                                   this._HIdUserSessionRequest, 
-                                                  this._HBusinessSessionRequest )
+                                                  this._HBusinessSessionRequest)
+        .pipe(first())
+        .subscribe((responseUser) => {
+
+          this.userToAssign = responseUser;
+
+          if (this.userToAssign && this.userToAssign.idRol) {
+
+            this.accountService.getRolUserBusiness( this.userToAssign.idRol,
+                                                    this.businessObservable.id,
+                                                    this._HIdUserSessionRequest,
+                                                    this._HBusinessSessionRequest )
               .pipe(first())
-              .subscribe((response) => {
-
-                if (response && response.length > 0) {
-
-                  this.listUsers = response;
-                  this.listUsers.splice( this.listUsers.findIndex((m) => m.identificacion == this.technicalUserId), 1 );
-
-                  this.userToAssign = this.listUsers.find(x => x.identificacion === this.identificationUserSelected);
-
-                  if (this.userToAssign.idRol) {
-
-                    this.isRolAssign = true;
-                    this.roleUser = this.listAllRoles.find( (x) => x.id === this.userToAssign.idRol );
-      
-                  } else { this.roleUser = null; }
-                }
-              });
-          }}, (error) => { this.alertService.error(error); });
-
-    } else { this.accountService.logout(); }
+              .subscribe((responseRole) => { this.isRolAssign = true; this.roleUser = responseRole; });
+          // **
+          // ** NO SE HA ASIGNADO ROL A USUARIO
+          } else { this.roleUser = null; }
+          // **
+        });
+    }
   }
 
   assignRoleUser(idRole: string): void {
@@ -147,9 +131,9 @@ export class AddRoleUserComponent extends OnSeguridad implements OnInit {
 
           if (response.exito) {
 
-            this.roleUser = this.listAllRoles.find((x) => x.id === idRole);
             this.isRolAssign = true;
-
+            this.roleUser = this.listRolesBusiness.find((x) => x.id === idRole);
+            
             this.userToAssign.idRol = idRole;
             this.listUsers[ this.listUsers.findIndex( (u) => u.id == this.userToAssign.id ) ] = this.userToAssign;
 
@@ -208,5 +192,20 @@ export class AddRoleUserComponent extends OnSeguridad implements OnInit {
       if (this.listUsers[i].idRol && this.listUsers[i].idRol.match(this.adminBusinessUserId)) cant++ ; 
     }
     return cant;
+  }
+  private obtenerRolesCompania() : void {
+
+    this.accountService.getRolesBusiness( this.userObservable.empresa,
+                                          this._HIdUserSessionRequest,
+                                          this._HBusinessSessionRequest )
+      .pipe(first())
+      .subscribe((responseListRole) => {
+
+        if (responseListRole) {
+
+          this.listRolesBusiness = responseListRole;
+          this.listRolesBusiness.splice( this.listRolesBusiness.findIndex((r) => r.id == this.technicalUserId), 1 );
+        }
+      }, (error) => { this.alertService.error(error); });
   }
 }

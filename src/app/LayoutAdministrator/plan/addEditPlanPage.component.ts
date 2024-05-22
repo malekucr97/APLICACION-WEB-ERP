@@ -70,7 +70,7 @@ export class AddEditPlanComponent extends OnSeguridad implements OnInit {
             this.updatePlan = true;
             this.pidPlanUpdate = this.route.snapshot.params.pidPlan;
 
-            this.accountService.getPlanById(  this.pidPlanUpdate,
+            this.accountService.getPlanById(this.pidPlanUpdate,
                                             this._HIdUserSessionRequest,
                                             this._HBusinessSessionRequest)
             .pipe(first())

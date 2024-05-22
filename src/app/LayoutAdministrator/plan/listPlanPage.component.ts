@@ -186,36 +186,37 @@ export class ListPlanComponent extends OnSeguridad implements OnInit {
 
         this.alertService.clear();
     
-          this.dialogo.open(DialogoConfirmacionComponent, { data: this.translateMessagesService.translateKey('ALERTS.dialogConfirmDelete') })
-                .afterClosed()
-                .subscribe((confirmado: Boolean) => {
-    
-                    if (confirmado) {
-    
-                        this.accountService.deletePlan( idPlan,
-                                                        this._HIdUserSessionRequest,
-                                                        this._HBusinessSessionRequest)
-                            .pipe(first())
-                            .subscribe((responseDelete) => {
-              
-                                if (responseDelete.exito) {
-                                    this.alertService.success(responseDelete.responseMesagge);
-                                    this.listPlanes.splice( this.listPlanes.findIndex((u) => u.id == idPlan), 1 );
+        this.dialogo.open(DialogoConfirmacionComponent, { data: this.translateMessagesService.translateKey('ALERTS.dialogConfirmDelete') })
+            .afterClosed()
+            .subscribe((confirmado: Boolean) => {
+
+                if (confirmado) {
+
+                    this.accountService.deletePlan( idPlan,
+                                                    this._HIdUserSessionRequest,
+                                                    this._HBusinessSessionRequest)
+                        .pipe(first())
+                        .subscribe((responseDelete) => {
+            
+                            if (responseDelete.exito) {
+                                this.alertService.success(responseDelete.responseMesagge);
+                                this.listPlanes.splice( this.listPlanes.findIndex((u) => u.id == idPlan), 1 );
+                
+                            } else { this.alertService.error(responseDelete.responseMesagge); }
                     
-                                } else { this.alertService.error(responseDelete.responseMesagge); }
-                        
-                            }, (error) => { this.alertService.error(error); });
-    
-                    } else { return; }
-                });
+                        }, (error) => { this.alertService.error(error); });
+
+                } else { return; }
+            });
     }
 
     private cantidadAdministradores(listUsers : User[]) : number {
 
         let cant : number = 0;
 
-        for (let i = 0; i < listUsers.length; i++) { if (listUsers[i].idRol.match(this.adminBusinessUser)) cant++ ; }
-
+        for (let i = 0; i < listUsers.length; i++) { 
+            if (listUsers[i].idRol && listUsers[i].idRol.match(this.adminBusinessUser)) cant++ ; 
+        }
         return cant;
     }
 }

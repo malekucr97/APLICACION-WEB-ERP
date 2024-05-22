@@ -31,7 +31,7 @@ export class AddBusinessUserComponent extends OnSeguridad implements OnInit {
 
     public HTTPListUserPage: string = httpAccessAdminPage.urlPageListUsers;
 
-    listUserSubject : User[];
+    public listUserSubject : User[];
 
     constructor(private route: ActivatedRoute,
                 private accountService: AccountService,
@@ -57,20 +57,6 @@ export class AddBusinessUserComponent extends OnSeguridad implements OnInit {
         this.userToAssign = this.listUserSubject.find(x => x.identificacion === this._userIdentificationParam);
 
         this.consultarRolUsuarioCompania(this.userToAssign.idRol);
-    }
-
-    consultarRolUsuarioCompania(idRolUser : string) : void {
-
-        if (idRolUser) {
-
-            this.existeRol = true;
-
-            this.accountService.getRolUserBusiness(this.userToAssign.idRol, this.businessObservable.id, this._HIdUserSessionRequest, 
-                                                                                                        this._HBusinessSessionRequest)
-                .pipe(first())
-                .subscribe(responseRole => { this.role = responseRole; });
-
-        } else { this.role = null; }
     }
 
     ngOnInit() {
@@ -197,5 +183,20 @@ export class AddBusinessUserComponent extends OnSeguridad implements OnInit {
                 } else { this.alertService.error(response.responseMesagge); }
             },
             error => { this.alertService.error(error); });
+    }
+
+    // métodos privados
+    private consultarRolUsuarioCompania(idRolUser : string) : void {
+
+        if (idRolUser) {
+
+            this.existeRol = true;
+
+            this.accountService.getRolUserBusiness(this.userToAssign.idRol, this.businessObservable.id, this._HIdUserSessionRequest, 
+                                                                                                        this._HBusinessSessionRequest)
+                .pipe(first())
+                .subscribe(responseRole => { this.role = responseRole; });
+
+        } else { this.role = null; }
     }
 }
