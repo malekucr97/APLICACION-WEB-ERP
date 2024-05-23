@@ -232,7 +232,11 @@
         "KIND": "Tipo"
       },
       "VALIDATION": {
-        "ROLE_NOT_ASSIGNED": "Rol de usuario no asignado"
+        "ROLE_NOT_ASSIGNED": "Rol de usuario no asignado",
+        "USER_NOT_BUSINESS_ASSIGN": "El Usuario Seleccionado no Pertenece a la Compañía en donde se inició la Sesión",
+        "SELECT_COMPANY_USER": "Inicie Sesión en la Compañía Correcta",
+        "NO_ROLES_BUSINESS": "No existen Roles Registrados en esta Compañía",
+        "CONTACT_ADMIN": "Contacte al Administrador"
       }
     },
     "ADD_EDIT_BUSINESS_USER": {

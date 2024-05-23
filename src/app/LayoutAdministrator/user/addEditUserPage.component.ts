@@ -252,13 +252,13 @@ export class AddEditUserComponent extends OnSeguridad implements OnInit {
       .subscribe((response) => {
 
           if (response.exito) {
+
             this.alertService.success(responseMessageAddUser + ' ' + response.responseMesagge, { keepAfterRouteChange: true });
             this.router.navigate([this.URLRedirectPage], { relativeTo: this.route });
           
-          } else { this.alertService.error(response.responseMesagge); }
-        },
-        (error) => { this.alertService.error(error); }
-      );
+          } else { this.alertService.error(response.responseMesagge, { keepAfterRouteChange: true }); }
+      
+        }, (error) => { this.alertService.error(error); });
   }
   // ****************************************************
 }

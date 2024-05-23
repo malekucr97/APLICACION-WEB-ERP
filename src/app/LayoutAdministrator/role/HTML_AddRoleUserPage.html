@@ -6,7 +6,31 @@
 
 <a routerLink="{{HTTPListUserPage}}" class="btn btn-light mb-2 mr-3">{{ 'GENERAL.BTN_BACK' | translate }}</a><br>
 
-<div class="card">
+<div *ngIf="!isListRolesBusiness" class="card">
+    <div class="card-body">
+
+        <section class="content__menu">
+            <p class="content__menu__item content__menu__item__titulo col-md-12">{{ 'CONFIGURATION.ADD_EDIT_ROLE_USER.VALIDATION.NO_ROLES_BUSINESS' | translate }}</p>
+            <p class="content__menu__item  content__menu__item__subtitulo col-md-12">{{ 'CONFIGURATION.ADD_EDIT_ROLE_USER.VALIDATION.CONTACT_ADMIN' | translate }}</p>
+          </section>
+
+    </div>
+</div>
+
+<br>
+
+<div *ngIf="!isUserinBusiness" class="card">
+    <div class="card-body">
+
+        <section class="content__menu">
+            <p class="content__menu__item content__menu__item__titulo col-md-12">{{ 'CONFIGURATION.ADD_EDIT_ROLE_USER.VALIDATION.USER_NOT_BUSINESS_ASSIGN' | translate }}</p>
+            <p class="content__menu__item  content__menu__item__subtitulo col-md-12">{{ 'CONFIGURATION.ADD_EDIT_ROLE_USER.VALIDATION.SELECT_COMPANY_USER' | translate }}</p>
+          </section>
+
+    </div>
+</div>
+
+<div *ngIf="isUserinBusiness && isListRolesBusiness" class="card">
     <div class="card-body">
 
 

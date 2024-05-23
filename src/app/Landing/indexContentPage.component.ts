@@ -36,6 +36,9 @@ export class IndexContentPageComponent extends OnSeguridad implements OnInit {
 
   public today : Date ;
 
+  // --
+  public existenModulos : boolean;
+
   constructor(  private accountService: AccountService,
                 private router: Router,
                 private route: ActivatedRoute,
@@ -55,17 +58,24 @@ export class IndexContentPageComponent extends OnSeguridad implements OnInit {
     this.accountService.clearObjectModuleObservable();
 
     this.today = new Date();
+
+    // --
+    this.existenModulos = true;
   }
 
   ngOnInit() {
 
     if ( super.validarUsuarioAdmin() ) {
 
-      this.accountService.getModulesActiveBusiness(this.businessObservable.id, this._HIdUserSessionRequest, this._HBusinessSessionRequest)
+      this.accountService.getModulesActiveBusiness( this.businessObservable.id,
+                                                    this._HIdUserSessionRequest,
+                                                    this._HBusinessSessionRequest )
         .pipe(first())
         .subscribe((responseListModules) => {
 
-            if (responseListModules && responseListModules.length > 0) this.setListModules(responseListModules);
+            if (responseListModules && responseListModules.length > 0) { 
+              this.setListModules(responseListModules); 
+            } else { this.existenModulos = false; }
 
           }, error => { this.logout(); });
 
@@ -80,6 +90,8 @@ export class IndexContentPageComponent extends OnSeguridad implements OnInit {
             this.setListModules(responseListModules);
 
           } else {
+
+            this.existenModulos = false;
              // #region "registro en bitácora no módulos activos"
              let bit : Bitacora = new Bitacora( 'NO-LOG12', /** codigoInterno */
                                                 true, /** sesion */

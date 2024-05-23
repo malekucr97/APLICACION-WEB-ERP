@@ -65,7 +65,9 @@ export class ListUserComponent extends OnSeguridad implements OnInit {
 
   ngOnInit() {
 
-    if (this.userObservable.esAdmin) { this.isUserSuperAdmin = true;
+    if (this.userObservable.esAdmin) { 
+      
+      this.isUserSuperAdmin = true;
       
       this.accountService.getAllUsers(this._HIdUserSessionRequest, this._HBusinessSessionRequest)
           .pipe(first())
@@ -76,7 +78,9 @@ export class ListUserComponent extends OnSeguridad implements OnInit {
             }
           });
 
-    } else if ( this.userObservable.idRol === administrator.adminSociedad ) { this.isUserAdminBusiness = true;
+    } else if ( this.userObservable.idRol === administrator.adminSociedad ) { 
+      
+      this.isUserAdminBusiness = true;
 
       this.accountService.getUsersBusiness( this.userObservable.empresa, 
                                             this._HIdUserSessionRequest, 
@@ -125,6 +129,7 @@ export class ListUserComponent extends OnSeguridad implements OnInit {
         }
       } else { this.alertService.info(this.translateMessagesService.translateKey('ALERTS.BUSINESS_NO_PLAN')); }
 
+      // -- ## editar información de usuarios
     } else { this.router.navigate([this.URLAddEditUsertPage + userSelected.identificacion]); }
   }
 

@@ -232,7 +232,11 @@
         "KIND": "Type"
       },
       "VALIDATION": {
-        "ROLE_NOT_ASSIGNED": "User role not assigned"
+        "ROLE_NOT_ASSIGNED": "User role not assigned",
+        "USER_NOT_BUSINESS_ASSIGN": "The Selected User does not belong to the Company where the Session was started",
+        "SELECT_COMPANY_USER": "Sign in to the Right Company",
+        "NO_ROLES_BUSINESS": "There are no Registered Roles in this Company",
+        "CONTACT_ADMIN": "Contact Administrator"
       }
     },
     "ADD_EDIT_BUSINESS_USER": {

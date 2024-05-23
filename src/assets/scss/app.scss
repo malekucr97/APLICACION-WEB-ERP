@@ -158,6 +158,16 @@ td {
                     font-size: 1.5rem;
                 }
             }
+            &__subtitulo {
+                color: #F9A01B;
+                font-size: 1rem;
+                font-weight: 700;
+                transition: color 0.2s ease-in-out;
+
+                @media (min-width: 1500px) {
+                    font-size: 1rem;
+                }
+            }
             &__logo{
                 margin-top: 5%;
                 border-radius: 50%;

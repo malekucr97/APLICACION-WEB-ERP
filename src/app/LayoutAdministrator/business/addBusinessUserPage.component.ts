@@ -192,10 +192,17 @@ export class AddBusinessUserComponent extends OnSeguridad implements OnInit {
 
             this.existeRol = true;
 
-            this.accountService.getRolUserBusiness(this.userToAssign.idRol, this.businessObservable.id, this._HIdUserSessionRequest, 
-                                                                                                        this._HBusinessSessionRequest)
+            this.accountService.getRolUserBusiness( this.userToAssign.idRol,
+                                                    this.businessObservable.id,
+                                                    this._HIdUserSessionRequest, 
+                                                    this._HBusinessSessionRequest)
                 .pipe(first())
-                .subscribe(responseRole => { this.role = responseRole; });
+                .subscribe(responseRole => {
+
+                    if (responseRole) {
+                        this.role = responseRole;   
+                    }
+                });
 
         } else { this.role = null; }
     }

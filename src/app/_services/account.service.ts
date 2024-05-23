@@ -288,8 +288,7 @@ export class AccountService {
     const httpHeaders = { headers: new HttpHeaders(session) };
     // **
     return this.http.get<Module[]>(
-      `${environment.apiUrl}/users/modulosactsociedad?idEmpresa=${idEmpresa}`,
-      httpHeaders 
+      `${environment.apiUrl}/users/modulosactsociedad?idEmpresa=${idEmpresa}`, httpHeaders 
     );
   }
   getModulesSystem( pidsession : string = '', pbusiness : string = '') {
@@ -603,6 +602,15 @@ export class AccountService {
       `${environment.apiUrl}/users/usuarioidentification?identUsuario=${identification}`,
       httpHeaders
     ); 
+  }
+  getUserBusiness(idUser:number, idEmpresa: number, pidsession : string = '', pbusiness : string = '') {
+    // ** header
+    const session = { _idsession : pidsession, _business : pbusiness, _module : 'admin' };
+    const httpHeaders = { headers: new HttpHeaders(session) }
+    // **
+    return this.http.get<User[]>(
+      `${environment.apiUrl}/users/usuarioempresa?idUser=${idUser}&idEmpresa=${idEmpresa}`, httpHeaders
+    );
   }
   getUsersBusiness(idEmpresa: number, pidsession : string = '', pbusiness : string = '') {
     // ** header
