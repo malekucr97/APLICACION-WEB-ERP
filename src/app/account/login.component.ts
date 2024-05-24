@@ -113,9 +113,13 @@ export class LoginComponent implements OnInit {
                         case "NO-LOG04": { this.router.navigate([this._httpPendingUserPage]);   break; } // usuario pendiente
                         case "NO-LOG05": { this.router.navigate([this._httpNotRoleUserPage]);   break; } // usuario sin rol
                         case "NO-LOG06": {
-                          this.intentosFallidosInicioSesion++;
-                          this.alertService.info(this.translate.instant('ALERTS.PASSWORD_ERROR'));
-                          break;
+                            this.intentosFallidosInicioSesion++;
+                            this.alertService.info(this.translate.instant('ALERTS.PASSWORD_ERROR'));
+                            break;
+                        } // contraseña incorrecta
+                        case "NO-LOG07": {
+                            this.alertService.info(this.translate.instant('ALERTS.ACTIVATE_EMAIL_NOT_SEND'));
+                            break;
                         } // contraseña incorrecta
 
                         default: { this.alertService.info(this.translate.instant('ALERTS.EXCEPTION_NOT_CONTROLLED')); break; }
