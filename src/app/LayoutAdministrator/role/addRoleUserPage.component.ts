@@ -52,13 +52,12 @@ export class AddRoleUserComponent extends OnSeguridad implements OnInit {
 
     this.userToAssign = new User(); this.roleUser = new Role();
 
-    this.listUsers = [];
-
     this.technicalUserId = administrator.identification; 
     this.adminBusinessUserId = administrator.adminSociedad;
 
     this.obtenerPlanCompania();
     this.obtenerRolesCompania();
+    this.obtenerUsuariosCompania();
   }
 
   ngOnInit() {
@@ -108,7 +107,6 @@ export class AddRoleUserComponent extends OnSeguridad implements OnInit {
     let asignarRol : boolean = false;
 
     this.alertService.clear();
-    // this.isAsignRole = true;
 
     this.validarCantTiposUsuarios();
 
@@ -143,18 +141,14 @@ export class AddRoleUserComponent extends OnSeguridad implements OnInit {
 
           } else { this.alertService.error(response.responseMesagge); }
 
-        }, (error) => { 
-          // this.isAsignRole = false;
-          this.alertService.error(error); 
-        });
+        }, (error) => {  this.alertService.error(error); });
       
     } else { this.alertService.info(this.translate.translateKey('ALERTS.NO_ASIGN_ROL_USER')); }
   }
 
   desAsignAllRolesUser() {
 
-    this.alertService.clear();  
-    // this.isDesAsignRoles = true;
+    this.alertService.clear();
 
     this.accountService.removeRoleUser(this.userToAssign, this._HIdUserSessionRequest, this._HBusinessSessionRequest)
       .pipe(first())
@@ -171,11 +165,7 @@ export class AddRoleUserComponent extends OnSeguridad implements OnInit {
         
         } else { this.alertService.error(response.responseMesagge); }
         
-        }, (error) => {
-          // this.isDesAsignRoles = false; 
-          this.alertService.error(error); 
-        }
-      );
+        }, (error) => { this.alertService.error(error); });
   }
 
   private obtenerPlanCompania() : void {
@@ -218,4 +208,18 @@ export class AddRoleUserComponent extends OnSeguridad implements OnInit {
 
       }, (error) => { this.alertService.error(error); });
   }
+  private obtenerUsuariosCompania() : void {
+
+    this.accountService.getUsersBusiness( this.userObservable.empresa, 
+                                          this._HIdUserSessionRequest, 
+                                          this._HBusinessSessionRequest )
+      .pipe(first())
+      .subscribe((users) => {
+        if (users && users.length > 0) { 
+          this.listUsers = users;
+          this.listUsers.splice( this.listUsers.findIndex((m) => m.identificacion == this.technicalUserId), 1 );
+        }
+      });
+  }
+
 }

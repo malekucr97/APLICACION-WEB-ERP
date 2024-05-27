@@ -98,6 +98,8 @@ export class ListUserComponent extends OnSeguridad implements OnInit {
 
   selectObjetoUsuario(userSelected : User = null) : void {
 
+    this.alertService.clear();
+
     let listUsers: User[] = [];
 
     if (!userSelected) {

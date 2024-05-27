@@ -61,13 +61,6 @@
                         </button>
                     </td>
 
-                    <!-- <td style="white-space: normal">
-                        <button routerLink="{{URLAddRoleUsertPage}}{{us.identificacion}}" 
-                                class="btn-sm item-list__admin__view"> 
-                            {{ 'CONFIGURATION.ADMIN_PAGE_LIST_USERS.TBL_BTN_ROLE' | translate }} 
-                        </button>
-                    </td> -->
-
                     <td style="white-space: normal">
                         <button *ngIf="us.estado!='Active'"
                             (click)="activateUser(us.identificacion, us.id)"
