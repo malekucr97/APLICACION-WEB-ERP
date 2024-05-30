@@ -71,7 +71,7 @@ export class AddEditUserComponent extends OnSeguridad implements OnInit {
 
   get f() { return this.usuarioForm.controls; }
 
-  public redirectListUsersPage() : void { this.router.navigate([this.URLListUserPage]); }
+  public redirectListUsersPage() : void { this.router.navigate([this.URLRedirectPage]); }
 
   ngOnInit() {
 
