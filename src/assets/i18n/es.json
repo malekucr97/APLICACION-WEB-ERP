@@ -64,11 +64,12 @@
     },
     "ADMIN_PAGE_LIST_MODULES": {
       "TITLE": "Administración de Módulos",
-      "SUBTITLE": "Actualice el Estado o Revise las Pantallas con Acceso.",
+      "SUBTITLE": "Habilite o Deshabilite el Acceso a los Módulos - Pantallas por Módulo",
+      "SUBTITLE_POWERBI_FORM": "Formulario - Administración de Módulos PowerBI",
       "TITLE_MANTEINANCE_TO": "Mantenimiento a {{namepg}}",
       "TITLE_LIST_MANTEINANCE_TO": "Lista de {{namepg}} de la compañía",
-      "TITLE_MANTEINANCE_FOR": "Mantenimiento para {{company}}",
-      "BTN_MANTEINANCE_POWER_BI": "Mantenimiento reportes Power BI",
+      "TITLE_MANTEINANCE_FOR": "Módulos PowerBI",
+      "BTN_MANTEINANCE_POWER_BI": "Mantenimiento de Módulos PowerBI",
       "TBL_ID": "Identificación",
       "TBL_NAME": "Nombre",
       "TBL_DESCRIPTION": "Descripción",
@@ -102,8 +103,8 @@
     },
     "ADD_EDIT_USER": {
       "TITLE": "Parametrización de Usuarios",
-      "PARAMETERS_USER": "Parámetros del Usuario: {{nombreCompleto}}",
-      "REGISTER_USER": "Registro de Usuarios",
+      "PARAMETERS_USER": "Mantenimiento para el Usuario: {{nombreCompleto}}",
+      "REGISTER_USER": "Formulario - Registro de Usuarios",
       "SELECT_USER": "Usuario seleccionado",
       "TABLE": {
         "ID": "Identificación",
@@ -174,11 +175,11 @@
       }
     },
     "ADD_EDIT_ACCES_USER_PAGE_MODULE": {
-      "SUBTITLE": "Módulo de Administración / Administración de Pantallas por Módulo y Accesos de Pantallas por Usuario",
-      "SELECT_SCREEN": "La pantalla seleccionada pertenece al módulo",
+      "SUBTITLE": "Pantallas por Módulo - Habilita y Deshabilita Acceso a Usuarios Funcionales",
+      "SELECT_SCREEN": "Mantenimiento de pantallas por módulo",
       "TITLE_SCREENS_MAINTENANCE": "Mantenimiento de Pantallas",
-      "TITLE_GRANT_ACCES": "Personas con Acceso a la Compañía",
-      "TITLE_GRANT_ACCES_SCREEN": "Personas con Acceso a la Pantalla",
+      "TITLE_GRANT_ACCES": "Seleccione el usuario para dar acceso a la pantalla",
+      "TITLE_GRANT_ACCES_SCREEN": "Seleccione el usuario para quitar  el acceso a la pantalla",
       "TITLE_SCREENS": "Lista de Pantallas",
       "TABLE": {
         "ID": "Identificación",
@@ -198,7 +199,7 @@
       }
     },
     "ADD_MODULES_ROLE": {
-      "TITLE": "Módulos de compañía",
+      "TITLE": "Habilite o Deshabilite el acceso al Módulo para el Rol Seleccionado",
       "MODULES_PERMITTED": "Tiene acceso a los siguientes Módulos",
       "MODULES_NOT_PERMITTED": "No tiene acceso a los siguientes Módulos",
       "TABLE": {
@@ -211,7 +212,8 @@
     },
     "ADD_EDIT_ROLE": {
       "TITLE": "Registrar rol",
-      "SUBTITLE": "Formulario de Registro de Roles del Sistema",
+      "SUBTITLE": "Formulario - Registro de Roles",
+      "TITLE_FORM": "Formulario de Registro de Roles del Sistema",
       "FORM": {
         "TXT_ID": "Identificación",
         "TXT_NAME": "Nombre o Asignación",
@@ -222,7 +224,7 @@
       }
     },
     "ADD_EDIT_ROLE_USER": {
-      "TITLE": "Roles de compañía",
+      "TITLE": "Asignación de Roles al Usuario",
       "SUBTITLE": "Asigne el Rol al Usuario Seleccionado",
       "BTN_DELETE_ROLE": "Eliminar Rol",
       "TABLE": {
@@ -607,7 +609,9 @@
     "USER_NO_ROL": "No se ha asignado un rol al usuario",
     "NO_ASIGN_ROL_USER": "No es posible asignar este rol, asigne primero los administradores según el plan de la compañía",
     "EXISTING_IDENTIFICATION_BUSINESS": "El número de identificación ingresado ya ha sido asignado a una Compañía",
-    "ACTIVATE_EMAIL_NOT_SEND": "El Correo de Activación No ha sido Enviado. Valide la Información de la Cuenta de Correo de la Compañía"
+    "ACTIVATE_EMAIL_NOT_SEND": "El Correo de Activación No ha sido Enviado. Valide la Información de la Cuenta de Correo de la Compañía",
+    "NO_MODULES_ROL_USER": "No se han Activado Módulos al Rol del Usuario que ha Iniciado la Sesión",
+    "CONTACT_ADMIN": "Contacte al Administrador"
   },
   "DIALOGS": {
     "DELETE_MODULE_TO_SCREEN": "Segur@ que desea eliminar el registro para siempre?"

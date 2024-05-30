@@ -642,6 +642,15 @@ export class AccountService {
 
   // ***************************************************************
   // PROCS . ROLES
+  getRolById(idRol: string, pidsession : string = '', pbusiness : string = '') {
+    // ** header
+    const session = { _idsession : pidsession, _business : pbusiness, _module : "admin" };
+    const httpHeaders = { headers: new HttpHeaders(session) }
+    // **
+    return this.http.get<Role>(
+      `${environment.apiUrl}/users/getrolid?idRol=${idRol}`, httpHeaders
+    );
+  }
   getRolUserBusiness(idRol: string, idBusiness: number, pidsession : string = '', pbusiness : string = '') {
     // ** header
     const session = { _idsession : pidsession, _business : pbusiness, _module : "admin" };

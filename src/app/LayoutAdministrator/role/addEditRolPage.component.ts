@@ -53,6 +53,8 @@ export class AddEditRolComponent extends OnSeguridad implements OnInit {
 
     get f() { return this.rolForm.controls; }
 
+    public redirectListRolesPage() : void { this.router.navigate([this.URLRedirectPage]); }
+
     ngOnInit() { }
 
     inicializaFormulario() : void {

@@ -50,6 +50,10 @@ export class ListModuleComponent extends OnSeguridad implements OnInit {
             .pipe(first())
             .subscribe(response => { this.listModules = response; });
     }
+    
+    public redirectAdminUsersPage() : void { this.router.navigate([this.URLIndexAdminPage]); }
+    public redirectAdminModulePowerBiPage() : void { this.router.navigate([this.URLAdminModulePage + 'mantenimientoReportes']); }
+
 
     activate(identificadorModulo: string) {
 

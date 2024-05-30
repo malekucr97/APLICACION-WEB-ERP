@@ -61,15 +61,21 @@
             <div  [ngClass]="['menu-module-item-section__item', businessObservable.tamanoModuloDefecto || module.identificador.includes('ID-BANKAP-BI') ? 'max' : '']" 
                   *ngFor="let module of ListModulesFilter">
               <section (click)="selectModule(module)">
-                <a> <img class="menu-module-item-section__item__logo" src="{{module.pathLogo}}" title="{{module.descripcion}}" /> </a>
+                <a> 
+                  <img  class="menu-module-item-section__item__logo" 
+                        src="{{module.pathLogo}}" 
+                        title="{{module.descripcion}}"/>
+                </a>
                 <p class="menu-module-item-section__item__titulo">{{module.nombre}}</p>
               </section>
             </div>
           </section>
 
+          <!-- {{ 'ALERTS.NO_MODULES_ROL_USER' | translate }} -->
+
           <section *ngIf="!existenModulos" class="content__menu">
-            <p class="content__menu__item content__menu__item__titulo col-md-12">No se han Activado Módulos al Rol del Usuario que ha Iniciado la Sesión</p>
-            <p class="content__menu__item  content__menu__item__subtitulo col-md-12">Contacte al Administrador</p>
+            <p class="content__menu__item content__menu__item__titulo col-md-12">{{ 'ALERTS.NO_MODULES_ROL_USER' | translate }}</p>
+            <p class="content__menu__item  content__menu__item__subtitulo col-md-12">{{ 'ALERTS.CONTACT_ADMIN' | translate }}</p>
           </section>
 
           <br><hr><br>

@@ -174,39 +174,6 @@ export class IndexContentPageComponent extends OnSeguridad implements OnInit {
         indexHTTPModule = ModulesSystem.powerbibasehref + 'index.html'; // ## Power BI ## //
         break;
       default: indexHTTPModule = this.UrlHome;
-      // case ModulesSystem.Identif_ActivosFijos:
-      //   indexHTTPModule = ModulesSystem.activosfijosbasehref + 'index.html'; // ## activos fijos ## //
-      //   break;
-      // case ModulesSystem.Identif_Bancos:
-      //   indexHTTPModule = ModulesSystem.bancosbasehref + 'index.html'; // ## bancos ## //
-      //   break;
-      // case ModulesSystem.Identif_Contabilidad:
-      //   indexHTTPModule = ModulesSystem.contabilidadbasehref + 'index.html'; // ## contabilidad ## //
-      //   break;
-      // case ModulesSystem.Identif_CuentasCobrar:
-      //   indexHTTPModule = ModulesSystem.cuentascobrarbasehref + 'index.html'; // ## cuentas cobrar ## //
-      //   break;
-      // case ModulesSystem.Identif_CuentasPagar:
-      //   indexHTTPModule = ModulesSystem.cuentaspagarbasehref + 'index.html'; // ## cuentas pagar ## //
-      //   break;
-      // case ModulesSystem.Identif_Facturacion:
-      //   indexHTTPModule = ModulesSystem.facturacionbasehref + 'index.html'; // ## facturación ## //
-      //   break;
-      // case ModulesSystem.Identif_Inventario:
-      //   indexHTTPModule = ModulesSystem.inventariobasehref + 'index.html'; // ## inventario ## //
-      //   break;
-      // case ModulesSystem.Identif_Cumplimiento:
-      //   indexHTTPModule = ModulesSystem.cumplimientobasehref + 'index.html'; // ## cumplimiento ## //
-      //   break;
-      // case ModulesSystem.Identif_Macred:
-      //   indexHTTPModule = ModulesSystem.macredbasehref + 'index.html'; // ## macred ## //
-      //   break;
-      // case ModulesSystem.Identif_RiesgoCredito:
-      //   indexHTTPModule = ModulesSystem.riesgocreditobasehref + 'index.html'; // ## riesgo crédito ## //
-      //   break;
-      // case ModulesSystem.Identif_Inversiones:
-      //   indexHTTPModule = ModulesSystem.inversionesbasehref + 'index.html'; // ## inversiones transitorias ## //
-      //   break;
     }
     return indexHTTPModule;
   }

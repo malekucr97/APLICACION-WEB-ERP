@@ -25,7 +25,7 @@ export class AddRoleUserComponent extends OnSeguridad implements OnInit {
   
   // --
   public identificationUserSelected : string;
-  public isListRolesBusiness : boolean;  public isRolAssign: boolean; public isUserinBusiness : boolean;
+  public isListRolesBusiness : boolean;  public isRolAssign: boolean; public isUserinBusiness : boolean; public enableRoleUser:boolean;
 
   public roleUser: Role; public userToAssign: User;
 
@@ -55,10 +55,14 @@ export class AddRoleUserComponent extends OnSeguridad implements OnInit {
     this.technicalUserId = administrator.identification; 
     this.adminBusinessUserId = administrator.adminSociedad;
 
+    this.enableRoleUser = false;
+
     this.obtenerPlanCompania();
     this.obtenerRolesCompania();
     this.obtenerUsuariosCompania();
   }
+
+  public redirectListUsersPage() : void { this.router.navigate([this.HTTPListUserPage]); }
 
   ngOnInit() {
 
@@ -92,11 +96,13 @@ export class AddRoleUserComponent extends OnSeguridad implements OnInit {
                     .pipe(first())
                     .subscribe((responseRole) => { if (responseRole) { this.roleUser = responseRole; } else { this.isRolAssign = false; } });
                 
-                  } else { this.isUserinBusiness = true; }
+                  } else { this.isUserinBusiness = false; }
+
+                  this.enableRoleUser = true;
               });
           // **
           // ** NO SE HA ASIGNADO ROL A USUARIO
-          } else { this.isRolAssign = false; }
+          } else { this.isRolAssign = false; this.enableRoleUser = true; }
           // **
         });
     }

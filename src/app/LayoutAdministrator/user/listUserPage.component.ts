@@ -63,6 +63,8 @@ export class ListUserComponent extends OnSeguridad implements OnInit {
     this.obtenerPlanCompania();
   }
 
+  public redirectAdminUsersPage() : void { this.router.navigate([this.URLAdministratorPage]); }
+
   ngOnInit() {
 
     if (this.userObservable.esAdmin) { 

@@ -18,7 +18,7 @@ import { first } from 'rxjs/operators';
   ],
 })
 export class AdminmoduleComponent extends OnSeguridad implements OnInit {
-  URLIndexAdminPage: string = httpAccessAdminPage.urlPageListModule;
+  URLListModulesPage: string = httpAccessAdminPage.urlPageListModule;
   parametroTipoMantenimiento: string = undefined;
 
   userObservable: User;
@@ -30,7 +30,7 @@ export class AdminmoduleComponent extends OnSeguridad implements OnInit {
     return this.formAdminModule.controls;
   }
 
-  tituloBasePantalla: string = 'Módulos';
+  public tituloBasePantalla: string = 'Modules Power BI';
   private baseIdentificadorReportesPowerBI: string = 'ID-BANKAP-BI-';
   readOnlyInputIdentficador: boolean = false;
   habilitaBtnNuevo: boolean = true;
@@ -86,10 +86,12 @@ export class AdminmoduleComponent extends OnSeguridad implements OnInit {
 
   //#region METODOS | FUNCIONES
 
+  public redirectListModulesPage() : void { this.router.navigate([this.URLListModulesPage]); }
+
   private ValidarTipoMantenimiento() {
-    this.tituloBasePantalla = 'Módulos';
+    // this.tituloBasePantalla = 'Módulos';
     if (this.parametroTipoMantenimiento == 'mantenimientoReportes') {
-      this.tituloBasePantalla = 'Reportes Power BI';
+      // this.tituloBasePantalla = 'Reportes Power BI';
       this.readOnlyInputIdentficador = true;
     } else {
       this.readOnlyInputIdentficador = false;

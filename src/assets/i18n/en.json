@@ -64,11 +64,12 @@
     },
     "ADMIN_PAGE_LIST_MODULES": {
       "TITLE": "Module Administration",
-      "SUBTITLE": "Update the Status or Review the Screens with Access.",
+      "SUBTITLE": "Enable or Disable Access to Modules - Screens per Module",
+      "SUBTITLE_POWERBI_FORM": "Form - PowerBI Module Administration",
       "TITLE_MANTEINANCE_TO": "Maintenance to {{namepg}}",
       "TITLE_LIST_MANTEINANCE_TO": "List of {{namepg}} of the company",
-      "TITLE_MANTEINANCE_FOR": "Maintenance for {{company}}",
-      "BTN_MANTEINANCE_POWER_BI": "Power BI reports configuration",
+      "TITLE_MANTEINANCE_FOR": "PowerBI Modules",
+      "BTN_MANTEINANCE_POWER_BI": "Maintenance of PowerBI Modules",
       "TBL_ID": "Identification",
       "TBL_NAME": "Name",
       "TBL_DESCRIPTION": "Description",
@@ -102,8 +103,8 @@
     },
     "ADD_EDIT_USER": {
       "TITLE": "User Parameterization",
-      "PARAMETERS_USER": "User Parameters: {{nombreCompleto}}",
-      "REGISTER_USER": "User Registration",
+      "PARAMETERS_USER": "User Maintenance: {{nombreCompleto}}",
+      "REGISTER_USER": "Form - User Registration",
       "SELECT_USER": "Selected User",
       "TABLE": {
         "ID": "ID",
@@ -174,11 +175,11 @@
       }
     },
     "ADD_EDIT_ACCES_USER_PAGE_MODULE": {
-      "SUBTITLE": "Module Administration / Screen Administration by Module and Screen Access by User",
-      "SELECT_SCREEN": "The selected screen belongs to the module",
+      "SUBTITLE": "Screens per Module - Enables and Disables Access to Functional Users",
+      "SELECT_SCREEN": "Screen maintenance per module",
       "TITLE_SCREENS_MAINTENANCE": "Screens Maintenance",
-      "TITLE_GRANT_ACCES": "People with Access to the Company",
-      "TITLE_GRANT_ACCES_SCREEN": "People with Access to the Screen",
+      "TITLE_GRANT_ACCES": "Select the user to give access to the screen",
+      "TITLE_GRANT_ACCES_SCREEN": "Select the user to remove access to the screen",
       "TITLE_SCREENS": "List of Screens",
       "TABLE": {
         "ID": "Identification",
@@ -198,7 +199,7 @@
       }
     },
     "ADD_MODULES_ROLE": {
-      "TITLE": "Company Modules",
+      "TITLE": "Enable or Disable access to the Module for the Selected Role",
       "MODULES_PERMITTED": "Has access to the following Modules",
       "MODULES_NOT_PERMITTED": "Does not have access to the following Modules",
       "TABLE": {
@@ -211,7 +212,8 @@
     },
     "ADD_EDIT_ROLE": {
       "TITLE": "Register Role",
-      "SUBTITLE": "System Role Registration Form",
+      "SUBTITLE": "Form - Role Registration",
+      "TITLE_FORM": "System Role Registration Form",
       "FORM": {
         "TXT_ID": "Identification",
         "TXT_NAME": "Name or Assignment",
@@ -222,7 +224,7 @@
       }
     },
     "ADD_EDIT_ROLE_USER": {
-      "TITLE": "Company Roles",
+      "TITLE": "Assignment of Roles to the User",
       "SUBTITLE": "Assign the Role to the Selected User",
       "BTN_DELETE_ROLE": "Delete Role",
       "TABLE": {
@@ -607,7 +609,9 @@
     "USER_NO_ROL": "The user has not been assigned a role",
     "NO_ASIGN_ROL_USER": "It is not possible to assign this role, assign administrators first according to the company plan",
     "EXISTING_IDENTIFICATION_BUSINESS": "The identification number entered has already been assigned to a Company",
-    "ACTIVATE_EMAIL_NOT_SEND": "The Activation Email has Not Been Sent. Validate the Company Email Account Information"
+    "ACTIVATE_EMAIL_NOT_SEND": "The Activation Email has Not Been Sent. Validate the Company Email Account Information",
+    "NO_MODULES_ROL_USER": "No Modules have been Activated for the Role of the User who has Started the Session",
+    "CONTACT_ADMIN": "Contact Administrator"
   },
   "DIALOGS": {
     "DELETE_MODULE_TO_SCREEN": "Are you sure you want delete the record?"

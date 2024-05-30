@@ -1,60 +1,66 @@
-<div>
-        <hr>
-        <div class="administracion-contenedor">
-
-                <div class="administracion-contenedor__content">
-
-                        <!-- // *************************************************************************************************************************************************** // -->
-
+<main>
+        <article>
+                <section>
                         <div>
-
-                                <button class=" administracion-contenedor__content__item
-                                                administracion-contenedor__content__item__listUsers
-                                                icon-button-large"
-                                        title="{{ 'CONFIGURATION.BTN_ADMIN_USERS' | translate}}"
-                                        mat-icon-button 
-                                        (click)="redirectListUsersPage()"> <mat-icon>people</mat-icon>
-                                </button>
-
-                                <button *ngIf="userObservable.esAdmin" 
-                                        class=" administracion-contenedor__content__item
-                                                administracion-contenedor__content__item__listCompanies 
-                                                icon-button-large"
-                                        title="{{ 'CONFIGURATION.BTN_ADMIN_COMPANIES' | translate}}"
-                                        mat-icon-button
-                                        (click)="redirectListComapniesPage()"> <mat-icon>account_balance</mat-icon>
-                                </button>
-
-                                <button *ngIf="userObservable.esAdmin" 
-                                        class=" administracion-contenedor__content__item
-                                                administracion-contenedor__content__item__listPlanes
-                                                icon-button-large"
-                                        title="{{ 'CONFIGURATION.BTN_ADMIN_PLANES' | translate}}"
-                                        mat-icon-button
-                                        (click)="redirectListPlanesPage()"> <mat-icon>star</mat-icon>
-                                </button>
-
-                                <button class=" administracion-contenedor__content__item
-                                                administracion-contenedor__content__item__listModules
-                                                icon-button-large"
-                                        title="{{ 'CONFIGURATION.BTN_ADMIN_MODULES' | translate}}"
-                                        mat-icon-button
-                                        (click)="redirectListModulesPage()"> <mat-icon>apps</mat-icon>
-                                </button>
-
-                                <button class=" administracion-contenedor__content__item 
-                                                administracion-contenedor__content__item__listRoles
-                                                icon-button-large"
-                                        title="{{ 'CONFIGURATION.BTN_ADMIN_ROLES' | translate}}"
-                                        mat-icon-button
-                                        (click)="redirectListRolesPage()"> <mat-icon>how_to_reg</mat-icon>
-                                </button>
-
+                                <hr>
+                                <div class="administracion-contenedor">
+                        
+                                        <div class="administracion-contenedor__content">
+                        
+                                                <!-- // *************************************************************************************************************************************************** // -->
+                        
+                                                <div>
+                        
+                                                        <button class=" administracion-contenedor__content__item
+                                                                        administracion-contenedor__content__item__listUsers
+                                                                        icon-button-large"
+                                                                title="{{ 'CONFIGURATION.BTN_ADMIN_USERS' | translate}}"
+                                                                mat-icon-button 
+                                                                (click)="redirectListUsersPage()"> <mat-icon>people</mat-icon>
+                                                        </button>
+                        
+                                                        <button *ngIf="userObservable.esAdmin" 
+                                                                class=" administracion-contenedor__content__item
+                                                                        administracion-contenedor__content__item__listCompanies 
+                                                                        icon-button-large"
+                                                                title="{{ 'CONFIGURATION.BTN_ADMIN_COMPANIES' | translate}}"
+                                                                mat-icon-button
+                                                                (click)="redirectListComapniesPage()"> <mat-icon>account_balance</mat-icon>
+                                                        </button>
+                        
+                                                        <button *ngIf="userObservable.esAdmin" 
+                                                                class=" administracion-contenedor__content__item
+                                                                        administracion-contenedor__content__item__listPlanes
+                                                                        icon-button-large"
+                                                                title="{{ 'CONFIGURATION.BTN_ADMIN_PLANES' | translate}}"
+                                                                mat-icon-button
+                                                                (click)="redirectListPlanesPage()"> <mat-icon>star</mat-icon>
+                                                        </button>
+                        
+                                                        <button class=" administracion-contenedor__content__item
+                                                                        administracion-contenedor__content__item__listModules
+                                                                        icon-button-large"
+                                                                title="{{ 'CONFIGURATION.BTN_ADMIN_MODULES' | translate}}"
+                                                                mat-icon-button
+                                                                (click)="redirectListModulesPage()"> <mat-icon>apps</mat-icon>
+                                                        </button>
+                        
+                                                        <button class=" administracion-contenedor__content__item 
+                                                                        administracion-contenedor__content__item__listRoles
+                                                                        icon-button-large"
+                                                                title="{{ 'CONFIGURATION.BTN_ADMIN_ROLES' | translate}}"
+                                                                mat-icon-button
+                                                                (click)="redirectListRolesPage()"> <mat-icon>how_to_reg</mat-icon>
+                                                        </button>
+                        
+                                                </div>
+                        
+                                                <!-- // *************************************************************************************************************************************************** // -->
+                        
+                                        </div>
+                                </div>
+                                <hr>
                         </div>
-
-                        <!-- // *************************************************************************************************************************************************** // -->
-
-                </div>
-        </div>
-        <hr>
-</div>
+                </section>
+        </article>
+</main>

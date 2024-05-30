@@ -15,7 +15,8 @@ export class ListRoleComponent extends OnSeguridad implements OnInit {
   userObservable: User;
   businessObservable: Compania;
 
-  listRoles: Role[] = [];
+  public listRoles: Role[];
+  public existenRoles: boolean;
 
   adminBoss: boolean;
   adminBusiness: boolean;
@@ -40,12 +41,20 @@ export class ListRoleComponent extends OnSeguridad implements OnInit {
 
     this.userObservable = this.accountService.userValue;
     this.businessObservable = this.accountService.businessValue;
+
+    // -- #
+    this.listRoles = null;
+    this.existenRoles = false;
   }
 
   ngOnInit() { this.obtenerRoles(); }
 
+  public redirectListModulesPage() : void { this.router.navigate([this.URLAdministratorPage]); }
+
   private obtenerRoles() {
-    this.accountService.getRolesBusiness(this.businessObservable.id, this._HIdUserSessionRequest, this._HBusinessSessionRequest)
+    this.accountService.getRolesBusiness( this.businessObservable.id, 
+                                          this._HIdUserSessionRequest,
+                                          this._HBusinessSessionRequest)
       .pipe(first())
       .subscribe((responseRoles) => {
 
@@ -54,6 +63,8 @@ export class ListRoleComponent extends OnSeguridad implements OnInit {
           if (this.userObservable.idRol == administrator.adminSociedad) {
             // elimina el rol admin general de la lista si quien inicia sesión es un admin de empresa
             this.listRoles = responseRoles.filter( (x) => x.id !== administrator.identification );
+
+            this.existenRoles = true;
           }
           else { this.listRoles = responseRoles; } 
   

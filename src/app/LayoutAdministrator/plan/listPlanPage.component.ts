@@ -34,7 +34,7 @@ export class ListPlanComponent extends OnSeguridad implements OnInit {
                 private alertService: AlertService,
                 private dialogo: MatDialog,
                 private translateMessagesService: TranslateMessagesService,
-                private translate: TranslateMessagesService,) {
+                private translate: TranslateMessagesService) {
 
         super(alertService, accountService, router, translate);
 
