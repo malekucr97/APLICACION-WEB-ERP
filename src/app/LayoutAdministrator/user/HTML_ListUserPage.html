@@ -66,8 +66,7 @@
                                     </thead>
                                     <tbody>
                         
-                                        <tr *ngFor="let us of listUsers"
-                                            class="item-list__list" >
+                                        <tr *ngFor="let us of listUsers" class="item-list__list" >
                         
                                             <td style="white-space: nowrap" 
                                                 class="item-list__edit"
@@ -117,8 +116,14 @@
                                                     mat-icon-button > <mat-icon>delete</mat-icon>
                                                 </button>
                                             </td>
-                        
                                         </tr>
+
+                                        <tr *ngIf="!enableList">
+                                            <td colspan="10" class="text-center">
+                                                <span class="spinner-border spinner-border-lg align-center"></span>
+                                            </td>
+                                        </tr>
+
                                     </tbody>
                         
                                 </table>

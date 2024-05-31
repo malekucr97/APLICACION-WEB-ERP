@@ -30,6 +30,8 @@ export class ListUserComponent extends OnSeguridad implements OnInit {
 
   public listUsers: User[];
 
+  public enableList:boolean;
+
   constructor(  private accountService: AccountService,
                 private alertService: AlertService,
                 private router: Router,
@@ -48,7 +50,7 @@ export class ListUserComponent extends OnSeguridad implements OnInit {
     this.URLAddRoleUsertPage = httpAccessAdminPage.urlPageAddRUser;
     this.URLAdministratorPage = httpAccessAdminPage.urlPageAdministrator;
 
-    this.isUserSuperAdmin = false; this.isUserAdminBusiness = false;
+    this.isUserSuperAdmin = false; this.isUserAdminBusiness = false; this.enableList = false;
 
     this.userObservable = this.accountService.userValue;
     this.businessObservable = this.accountService.businessValue;
@@ -77,6 +79,7 @@ export class ListUserComponent extends OnSeguridad implements OnInit {
             if (users) {
               this.listUsers = users;
               this.accountService.suscribeListUser(this.listUsers);
+              this.enableList = true;
             }
           });
 

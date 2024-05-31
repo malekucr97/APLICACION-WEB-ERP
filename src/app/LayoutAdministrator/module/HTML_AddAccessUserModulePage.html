@@ -6,7 +6,16 @@
             <div class="articulo__contenedor__tittle">
                 <p class="articulo__contenedor__tittle__h2">{{moduleScreen.descripcion}}</p>
                 <p class="articulo__contenedor__tittle__h3">{{ 'CONFIGURATION.ADD_EDIT_ACCES_USER_PAGE_MODULE.SUBTITLE' | translate }}</p>
-                <a routerLink="{{ URLListIndexModules }}" class="btn btn-light mb-2 mr-3">{{ 'GENERAL.BTN_BACK' | translate }}</a>
+
+                <button class=" administracion-contenedor__content__item
+                                administracion-contenedor__content__item__backIco-sm
+                                icon-button-medium"
+                        title="{{ 'CONFIGURATION.BTN_ADMIN_USERS' | translate}}"
+                        mat-icon-button 
+                        (click)="redirectListModulesPage()"> <mat-icon>arrow_back</mat-icon>
+                </button>
+
+                <!-- <a routerLink="{{ URLListIndexModules }}" class="btn btn-light mb-2 mr-3">{{ 'GENERAL.BTN_BACK' | translate }}</a> -->
             </div>
 
             <article class="card">

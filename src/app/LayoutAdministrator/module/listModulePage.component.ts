@@ -16,8 +16,11 @@ export class ListModuleComponent extends OnSeguridad implements OnInit {
     userObservable : User;
     businessObservable : Compania;
 
-    listModules : Module[] = [];
-    listModulesSystem : Module[] = [];
+    // listModules : Module[] = [];
+    // listModulesSystem : Module[] = [];
+
+    listModules : Module[];
+    listModulesSystem : Module[];
 
     public URLIndexAdminPage : string = httpAccessAdminPage.urlPageAdministrator;
     public URLAdminModulePage : string = httpAccessAdminPage.urlPageAdminModule;
@@ -38,6 +41,9 @@ export class ListModuleComponent extends OnSeguridad implements OnInit {
             this.userObservable     = this.accountService.userValue;
             this.businessObservable = this.accountService.businessValue;
             this.habilitarBtnMantenimientoReportes = this.businessObservable.mantenimientoReportes;
+
+            this.listModules = null;
+            this.listModulesSystem = null;
     }
 
     ngOnInit() {
