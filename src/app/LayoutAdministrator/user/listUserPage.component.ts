@@ -95,6 +95,7 @@ export class ListUserComponent extends OnSeguridad implements OnInit {
           if (users && users.length > 0) {
             this.listUsers = users;
             this.accountService.suscribeListUser(this.listUsers);
+            this.enableList = true;
           }
         });
 
