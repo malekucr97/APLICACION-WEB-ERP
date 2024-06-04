@@ -1,25 +1,36 @@
 <article class="var-menu">
   <section>
+    
     <!-- menú -->
-    <div class="var-menu__prev"> </div>
 
-    <!-- título -->
-    <div class="var-menu__center">
-      <div class="var-menu__center__left"> </div>
-      <div class="var-menu__center__center">
-        <p class="var-menu__center__center__titulo">{{ 'CONFIGURATION.TITLE' | translate }}</p>
+    <div class="var-menu__prev-index-icons"> </div>
+
+    <div class="var-menu__prev-index">
+      <div class="var-menu__prev-index__div">
+        <img class="var-menu__prev-index__div__img" src="./assets/images/inra/img_bankap_left.png " />
       </div>
-      <div class="var-menu__center__rigth"> </div>
     </div>
 
-    <!-- cerrar sesión -->
-    <div class="var-menu__next">
-      <button class="btn-sm var-menu__next__home" mat-icon-button routerLink="/">
-        <mat-icon>home</mat-icon>
-      </button>
-      <button class="btn-sm var-menu__next__logout" mat-icon-button (click)="logout()">
-        <mat-icon>input</mat-icon>
-      </button>
+    <!-- título -->
+    <div class="var-menu__center-index">
+      <p class="var-menu__center-index__titulo">{{ 'CONFIGURATION.TITLE' | translate }}</p>
+    </div>
+
+    <div class="var-menu__next-index">
+      <div class="var-menu__next-index__div">
+        <img class="var-menu__next-index__div__img" src="./assets/images/inra/img_bankap_rigth.png " />
+      </div>
+    </div>
+
+    <div class="var-menu__next-index-icons">
+
+      <button class="var-menu__next__home" 
+              mat-icon-button
+              (click)="redirectIndex()"> <mat-icon>home</mat-icon> </button>
+
+      <button class="var-menu__next__logout" 
+              mat-icon-button 
+              (click)="logout()"> <mat-icon>input</mat-icon> </button>
     </div>
   </section>
 </article>

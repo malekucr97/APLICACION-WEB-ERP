@@ -8,6 +8,7 @@ import { Module, User }   from '@app/_models';
 import { Compania }       from '../../_models/modules/compania';
 import { ModulesSystem, httpLandingIndexPage }  from '@environments/environment';
 import { TranslateMessagesService } from '@app/_services/translate-messages.service';
+import { Router } from '@angular/router';
 
 /** menu - tree Interfaz o estructura del arbol  */
 interface FoodNode        { name: string; link: string; icon: string; children?: FoodNode[]; }
@@ -40,7 +41,9 @@ export class MenuPowerBIComponent {
     ];
 
     constructor(private accountService: AccountService,
-        public translate: TranslateMessagesService) {
+                private router: Router,
+                public translate: TranslateMessagesService) {
+                    
         this.userObservable = this.accountService.userValue;
         this.moduleObservable = this.accountService.moduleValue;
         this.businessObservable = this.accountService.businessValue;
@@ -49,6 +52,8 @@ export class MenuPowerBIComponent {
     }
 
     logout() { this.accountService.logout(); }
+
+    redirectIndex() : void { this.router.navigate([this.URLRedirectIndexContent]); }
 
     /* Menu-Tree */
     private _transformer = (node: FoodNode, level: number) => {

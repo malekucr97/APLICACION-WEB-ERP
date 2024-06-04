@@ -29,12 +29,8 @@ interface ExampleFlatNode {
   level: number;
 }
 
-@Component({
-  templateUrl: '../menu.html',
-  styleUrls: [
-    '../../../assets/scss/app.scss',
-    '../../../assets/scss/menus.scss',
-  ],
+@Component({templateUrl: '../menu.html',
+            styleUrls: [ '../../../assets/scss/app.scss', '../../../assets/scss/menus.scss']
 })
 export class MenuGeneralesComponent implements OnInit {
   @ViewChild(MatSidenav)
@@ -134,7 +130,7 @@ export class MenuGeneralesComponent implements OnInit {
     this.router.navigate([linkRedireccionMenu]);
   }
 
-  logout() {
-    this.accountService.logout();
-  }
+  redirectIndex() : void { this.router.navigate([this.URLRedirectIndexContent]); }
+
+  logout() { this.accountService.logout(); }
 }
