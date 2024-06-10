@@ -5,16 +5,16 @@
     position: absolute;
     right: 0;
     bottom: 0;
-    width: 90px;
-    height: 25px;
-    border-radius: 4px;
+    width: 84px;
+    height: 21px;
+    border-radius: 3px;
     overflow: hidden;
 
     display: flex;
     align-items: center;
 
-    padding-left: 10px;
-    padding-top: 10px;
+    padding-left: 9px;
+    padding-top: 9px;
 
     @media (max-width: 800px) { 
         width: 75px;

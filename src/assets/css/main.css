@@ -90,7 +90,18 @@
   position: relative;
   border-bottom: 1px solid #b2b2b2;
 }
+.wrap-input100-index {
+  width: 100%;
+  position: relative;
+  border-bottom: 1px solid #b2b2b2;
+}
 .label-input100 {
+  font-size: 20px;
+  color: #808080;
+  position: absolute;
+  top: 14px;
+}
+.label-input100-index {
   font-size: 20px;
   color: #808080;
   position: absolute;
@@ -166,21 +177,6 @@
     margin-top: 50%;
   }
 }
-
-/* @media (max-width: 480px) {
-  .login100-form {
-    padding: 43px 15px 57px 15px;
-  }
-
-  .label-input100 {
-    text-align: left;
-    position: unset;
-    top: unset;
-    left: unset;
-    width: 100%;
-    padding: 0 5px;
-  }
-} */
 
 /* act */
 
@@ -496,16 +492,44 @@ iframe {
 
   background: var(--color_accent);
 }
-/* #28a745 */
-
-/* 57b846 */
 
 
 /*---------------------------------------------*/
+
 input.input100 {
   height: 45px;
 }
+input.input100-index {
+  height: 45px;
 
+  margin-left: 10%;
+
+  font-family: Poppins-Regular;
+  font-size: 15px;
+  color: #555555;
+  line-height: 1.2;
+
+  display: block;
+  width: 100%;
+  background: transparent;
+  padding: 0 5px;
+}
+@media (max-width: 800px) {
+  .label-input100-index {
+    font-size: 15px;
+    color: #808080;
+    position: absolute;
+    /* top: 8px; */
+  }
+}
+@media (max-width: 300px) {
+  .label-input100-index {
+    font-size: 15px;
+    color: #808080;
+    position: absolute;
+    left: -10px;
+  }
+}
 
 .input100:focus + .focus-input100::before {
   width: 100%;
