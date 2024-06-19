@@ -1,17 +1,10 @@
-﻿<div>
-    
-    <article class="alerta">
-        <section>
-            <div class="alerta__messaje">
-                <alert></alert>
-            </div>
-        </section>
-    </article>
-
-    <article>
-        <div class="app-container" [ngClass]="{ 'bg-light': user }">
+﻿<article>
+    <section class="alerta">
+        <div class="alerta__messaje"> <alert></alert> </div>
+    </section>
+    <section>
+        <div class="bg-light">
             <router-outlet></router-outlet>
         </div>
-    </article>
-
-</div>
+    </section>
+</article>

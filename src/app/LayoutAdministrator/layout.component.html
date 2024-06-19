@@ -2,7 +2,6 @@
   <section>
     
     <!-- menú -->
-
     <div class="var-menu__prev-index-icons"> </div>
 
     <div class="var-menu__prev-index">
@@ -23,7 +22,6 @@
     </div>
 
     <div class="var-menu__next-index-icons">
-
       <button class="var-menu__next__home" 
               mat-icon-button
               (click)="redirectIndex()"> <mat-icon>home</mat-icon> </button>
@@ -32,9 +30,8 @@
               mat-icon-button 
               (click)="logout()"> <mat-icon>input</mat-icon> </button>
     </div>
+
   </section>
 </article>
 
-<div class="styleLayout">
-  <router-outlet></router-outlet>
-</div>
+<main class="main-contenidoadmin"> <router-outlet></router-outlet> </main>

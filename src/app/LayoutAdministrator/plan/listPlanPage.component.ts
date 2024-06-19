@@ -12,7 +12,7 @@ import { User } from '@app/_models/user';
 import { AdminPlanXBusiness } from '@app/_models/admin/planes/planxBusiness';
 
 @Component({templateUrl:'HTML_ListPlanPage.html',
-            styleUrls:['../../../assets/scss/app.scss']
+            styleUrls:['../../../assets/scss/app.scss', '../../../assets/scss/administrator/app.scss']
 })
 export class ListPlanComponent extends OnSeguridad implements OnInit {
 
@@ -53,6 +53,8 @@ export class ListPlanComponent extends OnSeguridad implements OnInit {
 
         this.addPlanBusiness = false;
     }
+
+    public redirectAdminUsersPage() : void { this.router.navigate([this.URLAdministratorPage]); }
 
     ngOnInit() {
 

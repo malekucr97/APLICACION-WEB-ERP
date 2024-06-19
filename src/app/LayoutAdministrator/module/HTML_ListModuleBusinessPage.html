@@ -1,87 +1,91 @@
-<h1 style="color:#1A5276">{{ 'CONFIGURATION.ADMIN_PAGE_LIST_MODULES.BUSINESS.TITLE' | translate }}</h1>
-<h4>{{ 'CONFIGURATION.ADMIN_PAGE_LIST_MODULES.BUSINESS.SUBTITLE' | translate }}</h4>
+<article class="articulo">
+    <section>
+        <div class="articulo__contenedor__tittle">
+            <p class="articulo__contenedor__tittle__h1">{{businessObservable.nombre}}</p>
+            <p class="articulo__contenedor__tittle__h2">{{ 'CONFIGURATION.ADMIN_PAGE_LIST_MODULES.BUSINESS.SUBTITLE' | translate }}</p>
+          </div>
+          <hr>
+          <div>
+              <button class=" administracion-contenedor__content__item
+                              administracion-contenedor__content__item__backIco-sm
+                              icon-button-medium"
+                      title="{{ 'CONFIGURATION.BTN_ADMIN_USERS' | translate}}"
+                      mat-icon-button 
+                      (click)="redirectListUsersPage()"> <mat-icon>arrow_back</mat-icon>
+              </button>
+          </div>
 
-<a routerLink="{{HTTPListBusinessPage}}" class="btn btn-light mb-2 mr-3">{{ 'GENERAL.BTN_BACK' | translate }}</a>
-
-<div class="card">
-    <div class="card-body">
-
-        <h3 style="color:#1A5276"><b>{{business.nombre}} </b></h3>
-
-        <br>
-        <div *ngIf="listModulesBusiness">
-
-            <h4 *ngIf="seleccionEmpresa" style="color:#1A5276">{{ 'CONFIGURATION.ADMIN_PAGE_LIST_MODULES.BUSINESS.SELECT_MODULE_ACTIVE' | translate }}</h4>
-
-            <table class="table table-striped">
-                <thead>
-                    <tr>
-                        <th style="width: 25%">{{ 'CONFIGURATION.ADMIN_PAGE_LIST_MODULES.BUSINESS.TBL_ID' | translate }}</th>
-                        <th style="width: 25%">{{ 'CONFIGURATION.ADMIN_PAGE_LIST_MODULES.BUSINESS.TBL_NAME' | translate }}</th>
-                        <th style="width: 49%">{{ 'CONFIGURATION.ADMIN_PAGE_LIST_MODULES.BUSINESS.TBL_DESCRIPTION' | translate }}</th>
-                        <th style="width: 1%"></th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr *ngFor="let module of listModulesBusiness"
-                        class="item-list__list" >
-                        <td>{{module.identificador}}</td>
-                        <td>{{module.nombre}}</td>
-                        <td>{{module.descripcion}}</td>
-
-                        <td style="white-space: normal">
-
-                            <button title="Módulos {{business.nombre}}" class="items__btns__list__danger"
-                                    (click)="desAssignModuleBusiness(module.identificador)" >
-                                    <mat-icon>highlight_off</mat-icon>
-                            </button>
-            
-                        </td>
-
-                    </tr>
-                </tbody>
-            </table>
+          <div class="card">
+            <div class="card-body">
+        
+                <div *ngIf="listModulesBusiness" class="articulo__contenedor__table">
+        
+                    <p *ngIf="seleccionEmpresa" class="articulo__contenedor__tittle__h3">{{ 'CONFIGURATION.ADMIN_PAGE_LIST_MODULES.BUSINESS.SELECT_MODULE_ACTIVE' | translate }}</p>
+        
+                    <table class="table table-striped">
+                        <thead>
+                            <tr>
+                                <th style="width: 25%">{{ 'CONFIGURATION.ADMIN_PAGE_LIST_MODULES.BUSINESS.TBL_ID' | translate }}</th>
+                                <th style="width: 25%">{{ 'CONFIGURATION.ADMIN_PAGE_LIST_MODULES.BUSINESS.TBL_NAME' | translate }}</th>
+                                <th style="width: 49%">{{ 'CONFIGURATION.ADMIN_PAGE_LIST_MODULES.BUSINESS.TBL_DESCRIPTION' | translate }}</th>
+                                <th style="width: 1%"></th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr *ngFor="let module of listModulesBusiness"
+                                class="item-list__list" >
+                                <td>{{module.identificador}}</td>
+                                <td>{{module.nombre}}</td>
+                                <td>{{module.descripcion}}</td>
+        
+                                <td style="white-space: normal">
+                                    <button title="Módulos {{business.nombre}}" class="items__btns__list__danger"
+                                            (click)="desAssignModuleBusiness(module.identificador)" >
+                                            <mat-icon>highlight_off</mat-icon>
+                                    </button>
+                                </td>
+        
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+        
+                <div *ngIf="listModulesSystem" class="articulo__contenedor__table">
+                    <br>
+                    <p *ngIf="seleccionEmpresa" class="articulo__contenedor__tittle__h3">{{ 'CONFIGURATION.ADMIN_PAGE_LIST_MODULES.BUSINESS.SELECT_MODULE_INACTIVE' | translate }}</p>
+                    <table class="table table-striped">
+                        <thead>
+                            <tr>
+                                <th style="width: 25%">{{ 'CONFIGURATION.ADMIN_PAGE_LIST_MODULES.BUSINESS.TBL_ID' | translate }}</th>
+                                <th style="width: 25%">{{ 'CONFIGURATION.ADMIN_PAGE_LIST_MODULES.BUSINESS.TBL_NAME' | translate }}</th>
+                                <th style="width: 49%">{{ 'CONFIGURATION.ADMIN_PAGE_LIST_MODULES.BUSINESS.TBL_DESCRIPTION' | translate }}</th>
+                                <th style="width: 1%"></th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr *ngFor="let module of listModulesSystem"
+                                class="item-list__list" >
+                                <td>{{module.identificador}}</td>
+                                <td>{{module.nombre}}</td>
+                                <td>{{module.descripcion}}</td>
+        
+                                <td style="white-space: normal">
+                                    <div *ngIf="seleccionEmpresa">
+        
+                                        <button title="Módulos {{business.nombre}}" class="items__btns__list__ok"
+                                            (click)="assignModuleBusiness(module.identificador)" >
+                                            <mat-icon>highlight</mat-icon>
+                                        </button>
+                                    </div>
+                                </td>
+                            </tr>
+        
+                        </tbody>
+                    </table>
+                </div>
+        
+            </div>
         </div>
 
-        <div *ngIf="listModulesSystem">
-            <br>
-            <h4 *ngIf="seleccionEmpresa" style="color:#1A5276">{{ 'CONFIGURATION.ADMIN_PAGE_LIST_MODULES.BUSINESS.SELECT_MODULE_INACTIVE' | translate }}</h4>
-            <table class="table table-striped">
-                <thead>
-                    <tr>
-                        <th style="width: 25%">{{ 'CONFIGURATION.ADMIN_PAGE_LIST_MODULES.BUSINESS.TBL_ID' | translate }}</th>
-                        <th style="width: 25%">{{ 'CONFIGURATION.ADMIN_PAGE_LIST_MODULES.BUSINESS.TBL_NAME' | translate }}</th>
-                        <th style="width: 49%">{{ 'CONFIGURATION.ADMIN_PAGE_LIST_MODULES.BUSINESS.TBL_DESCRIPTION' | translate }}</th>
-                        <th style="width: 1%"></th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr *ngFor="let module of listModulesSystem"
-                        class="item-list__list" >
-                        <td>{{module.identificador}}</td>
-                        <td>{{module.nombre}}</td>
-                        <td>{{module.descripcion}}</td>
-
-                        <td style="white-space: normal">
-            
-                            <div *ngIf="seleccionEmpresa">
-
-                                <button title="Módulos {{business.nombre}}" class="items__btns__list__ok"
-                                    (click)="assignModuleBusiness(module.identificador)" >
-                                    <mat-icon>highlight</mat-icon>
-                                </button>
-
-
-                            </div>
-                            
-                        </td>
-
-
-                    </tr>
-
-                </tbody>
-            </table>
-        </div>
-
-    </div>
-</div>
+    </section>
+</article>

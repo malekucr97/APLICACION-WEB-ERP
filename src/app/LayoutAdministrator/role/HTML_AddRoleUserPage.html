@@ -1,107 +1,101 @@
-<main>
-    <article class="article">
-        
-        <section>
-            <div class="articulo__contenedor__tittle">
-                <p class="articulo__contenedor__tittle__h1">{{businessObservable.nombre}}</p>
-                <p class="articulo__contenedor__tittle__h2">{{ 'CONFIGURATION.ADD_EDIT_ROLE_USER.TITLE' | translate }}</p>
+<article class="articulo">
+    
+    <section>
+        <div class="articulo__contenedor__tittle">
+            <p class="articulo__contenedor__tittle__h1">{{businessObservable.nombre}}</p>
+            <p class="articulo__contenedor__tittle__h2">{{ 'CONFIGURATION.ADD_EDIT_ROLE_USER.TITLE' | translate }}</p>
+        </div>
+
+        <hr>
+
+        <button class=" administracion-contenedor__content__item
+                        administracion-contenedor__content__item__backIco-sm
+                        icon-button-medium"
+            title="{{ 'CONFIGURATION.BTN_ADMIN_USERS' | translate}}"
+            mat-icon-button 
+            (click)="redirectListUsersPage()"> <mat-icon>arrow_back</mat-icon>
+        </button>
+    </section>
+
+    <section>
+        <div *ngIf="!isListRolesBusiness" class="card">
+            <div class="card-body">
+                <section class="content__menu">
+                    <p class="content__menu__item content__menu__item__titulo col-md-12">{{ 'CONFIGURATION.ADD_EDIT_ROLE_USER.VALIDATION.NO_ROLES_BUSINESS' | translate }}</p>
+                    <p class="content__menu__item  content__menu__item__subtitulo col-md-12">{{ 'CONFIGURATION.ADD_EDIT_ROLE_USER.VALIDATION.CONTACT_ADMIN' | translate }}</p>
+                </section>
             </div>
-
-            <hr>
-
-            <button class=" administracion-contenedor__content__item
-                            administracion-contenedor__content__item__backIco-sm
-                            icon-button-medium"
-                title="{{ 'CONFIGURATION.BTN_ADMIN_USERS' | translate}}"
-                mat-icon-button 
-                (click)="redirectListUsersPage()"> <mat-icon>arrow_back</mat-icon>
-            </button>
-        </section>
-
-        <section>
-            <div *ngIf="!isListRolesBusiness" class="card">
-                <div class="card-body">
-                    <section class="content__menu">
-                        <p class="content__menu__item content__menu__item__titulo col-md-12">{{ 'CONFIGURATION.ADD_EDIT_ROLE_USER.VALIDATION.NO_ROLES_BUSINESS' | translate }}</p>
-                        <p class="content__menu__item  content__menu__item__subtitulo col-md-12">{{ 'CONFIGURATION.ADD_EDIT_ROLE_USER.VALIDATION.CONTACT_ADMIN' | translate }}</p>
-                    </section>
-                </div>
+        </div>
+        <div *ngIf="!isUserinBusiness" class="card">
+            <div class="card-body">
+                <section class="content__menu">
+                    <p class="content__menu__item content__menu__item__titulo col-md-12">{{ 'CONFIGURATION.ADD_EDIT_ROLE_USER.VALIDATION.USER_NOT_BUSINESS_ASSIGN' | translate }}</p>
+                    <p class="content__menu__item  content__menu__item__subtitulo col-md-12">{{ 'CONFIGURATION.ADD_EDIT_ROLE_USER.VALIDATION.SELECT_COMPANY_USER' | translate }}</p>
+                </section>
             </div>
-            <div *ngIf="!isUserinBusiness" class="card">
-                <div class="card-body">
-                    <section class="content__menu">
-                        <p class="content__menu__item content__menu__item__titulo col-md-12">{{ 'CONFIGURATION.ADD_EDIT_ROLE_USER.VALIDATION.USER_NOT_BUSINESS_ASSIGN' | translate }}</p>
-                        <p class="content__menu__item  content__menu__item__subtitulo col-md-12">{{ 'CONFIGURATION.ADD_EDIT_ROLE_USER.VALIDATION.SELECT_COMPANY_USER' | translate }}</p>
-                    </section>
-                </div>
-            </div>
-        </section>
+        </div>
+    </section>
 
-        <section *ngIf="isUserinBusiness && isListRolesBusiness">
-            <div class="card">
-                <div class="card-body">
+    <section *ngIf="isUserinBusiness && isListRolesBusiness">
+        <div class="card">
+            <div class="card-body">
 
-                    <span *ngIf="!enableRoleUser" class="spinner-border spinner-border-lg align-center"></span>
+                <span *ngIf="!enableRoleUser" class="spinner-border spinner-border-lg align-center"></span>
 
-                    <section *ngIf="enableRoleUser">
-                        <div>
-                            <h3><b>ROL</b></h3>
-                            <h3 *ngIf="isRolAssign" class="articulo__contenedor__tittle__h3"><b>{{roleUser.nombre}} </b></h3>
-                            <h3 *ngIf="!isRolAssign">&emsp;<b>{{ 'CONFIGURATION.ADD_EDIT_ROLE_USER.VALIDATION.ROLE_NOT_ASSIGNED' | translate }}</b></h3>
-                    
-                            <h3 style="display: inline;"><b>Identificación: </b></h3>
-                            <h2 style="display:inline; color:#1A5276">{{userToAssign.identificacion}}</h2>
-                            <h3 style="display: inline;"><b> - Correo: </b></h3>
-                            <h2 style="display:inline; color:#1A5276">{{userToAssign.email}}</h2>
-                            <br>
-                    
-                            <button (click)="desAsignAllRolesUser()" 
-                                    class="btn-sm items__btns__danger float-right">
-                                <span>{{ 'CONFIGURATION.ADD_EDIT_ROLE_USER.BTN_DELETE_ROLE' | translate }}</span>
-                            </button>
-                            <br>
-                        </div>
-                    </section>
-                    
-
-                    <section *ngIf="listRolesBusiness && isListRolesBusiness">
-                        <div>
-                            <br>
-                            <h3 style="color:#1A5276">{{ 'CONFIGURATION.ADD_EDIT_ROLE_USER.SUBTITLE' | translate }}</h3>
-                            <table class="table table-striped">
-                            
-                                <thead>
-                                    <tr>
-                                        <th style="width: 30%">{{ 'CONFIGURATION.ADD_EDIT_ROLE_USER.TABLE.NAME' | translate }}</th>
-                                        <th style="width: 30%">{{ 'CONFIGURATION.ADD_EDIT_ROLE_USER.TABLE.DESCRIPTION' | translate }}</th>
-                                        <th style="width: 10%">{{ 'CONFIGURATION.ADD_EDIT_ROLE_USER.TABLE.STATUS' | translate }}</th>
-                                        <th style="width: 20%">{{ 'CONFIGURATION.ADD_EDIT_ROLE_USER.TABLE.KIND' | translate }}</th>
-                                        <th style="width: 10%"></th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    <tr *ngFor="let rol of listRolesBusiness"
-                                        class="item-list__list">
-                                        <td>{{rol.nombre}}</td>
-                                        <td>{{rol.descripcion}}</td>
-                                        <td>{{rol.estado}}</td>
-                                        <td>{{rol.tipo}}</td>
+                <section *ngIf="enableRoleUser">
+                    <div>
+                        <h3 style="display: inline;"><b>{{ 'CONFIGURATION.ADD_EDIT_BUSINESS_USER.ROLE_USER' | translate }}: </b></h3>
+                        <h3 *ngIf="isRolAssign" style="display: inline;" class="articulo__contenedor__tittle__h3">{{roleUser.nombre}}</h3>
+                        <h3 *ngIf="!isRolAssign" style="display: inline;" class="articulo__contenedor__tittle__h3">{{ 'CONFIGURATION.ADD_EDIT_ROLE_USER.VALIDATION.ROLE_NOT_ASSIGNED' | translate }}</h3>
+                        <br>
+                        <h2 style="display:inline;" class="articulo__contenedor__tittle__h2">{{userToAssign.email}}</h2>
+                        <br>
                 
-                                        <td style="white-space: nowrap" 
-                                            class="item-list__confirm"
-                                            (click)="assignRoleUser(rol.id)">
-                                            <a> <mat-icon>vpn_key</mat-icon> </a>
-                                        </td>
-                                    </tr>
-                                </tbody>
-                            </table>
-                        </div>
-                    </section>
+                        <button (click)="desAsignAllRolesUser()" 
+                                class="btn-sm items__btns__danger float-right">
+                            <span><b>{{ 'CONFIGURATION.ADD_EDIT_ROLE_USER.BTN_DELETE_ROLE' | translate }}</b></span>
+                        </button>
+                        <br>
+                    </div>
+                </section>
+            
+                <section *ngIf="listRolesBusiness && isListRolesBusiness">
+                    <div class="articulo__contenedor__table">
+                        <br>
+                        <p class="articulo__contenedor__tittle__h3">{{ 'CONFIGURATION.ADD_EDIT_ROLE_USER.SUBTITLE' | translate }}</p>
+                        <table class="table table-striped">
+                        
+                            <thead>
+                                <tr>
+                                    <th style="width: 30%">{{ 'CONFIGURATION.ADD_EDIT_ROLE_USER.TABLE.NAME' | translate }}</th>
+                                    <th style="width: 30%">{{ 'CONFIGURATION.ADD_EDIT_ROLE_USER.TABLE.DESCRIPTION' | translate }}</th>
+                                    <th style="width: 10%">{{ 'CONFIGURATION.ADD_EDIT_ROLE_USER.TABLE.STATUS' | translate }}</th>
+                                    <th style="width: 20%">{{ 'CONFIGURATION.ADD_EDIT_ROLE_USER.TABLE.KIND' | translate }}</th>
+                                    <th style="width: 10%"></th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr *ngFor="let rol of listRolesBusiness"
+                                    class="item-list__list">
+                                    <td>{{rol.nombre}}</td>
+                                    <td>{{rol.descripcion}}</td>
+                                    <td>{{rol.estado}}</td>
+                                    <td>{{rol.tipo}}</td>
+            
+                                    <td style="white-space: nowrap" 
+                                        class="item-list__confirm"
+                                        (click)="assignRoleUser(rol.id)">
+                                        <a> <mat-icon>vpn_key</mat-icon> </a>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </section>
 
-                </div>
             </div>
-        </section>
+        </div>
+    </section>
 
 
-    </article>
-</main>
+</article>

@@ -1,39 +1,36 @@
-<main>
-    <article class="articulo">
-        <section>
-            <div>
-                <div class="articulo__contenedor__tittle">
-                    <p class="articulo__contenedor__tittle__h1">{{ 'CONFIGURATION.ADD_MODULES_ROLE.TITLE' | translate }}</p>
-                    <p class="articulo__contenedor__tittle__h2">in {{businessObservable.nombre}}</p>
-                </div>
-                <hr>
-                <button class=" administracion-contenedor__content__item
-                                administracion-contenedor__content__item__backIco-sm
-                                icon-button-medium"
-                        title="{{ 'CONFIGURATION.BTN_ADMIN_USERS' | translate}}"
-                        mat-icon-button
-                        (click)="redirectListRolesPage()"> <mat-icon>arrow_back</mat-icon>
-                </button>
+<article class="articulo">
+    <section>
+        <div>
+            <div class="articulo__contenedor__tittle">
+                <p class="articulo__contenedor__tittle__h1">{{ 'CONFIGURATION.ADD_MODULES_ROLE.TITLE' | translate }}</p>
+                <p class="articulo__contenedor__tittle__h2">in {{businessObservable.nombre}}</p>
             </div>
-        </section>
-        <!-- / -->
-        <section>
+            <hr>
+            <button class=" administracion-contenedor__content__item
+                            administracion-contenedor__content__item__backIco-sm
+                            icon-button-medium"
+                    title="{{ 'CONFIGURATION.BTN_ADMIN_USERS' | translate}}"
+                    mat-icon-button
+                    (click)="redirectListRolesPage()"> <mat-icon>arrow_back</mat-icon>
+            </button>
+        </div>
+    </section>
+    <!-- / -->
+    <section>
+        <div class="card">
+            <div class="card-body">
 
-            <div class="card">
+                <span *ngIf="!enableModulesRole" class="spinner-border spinner-border-lg align-center"></span>
 
-                <div class="card-body">
+                <section *ngIf="enableModulesRole">
 
-                    <span *ngIf="!enableModulesRole" class="spinner-border spinner-border-lg align-center"></span>
+                    <h3 style="display: inline;"><b>ROL</b></h3>
+                    <p class="articulo__contenedor__tittle__h1">{{role.nombre}}</p>
 
-                    <section *ngIf="enableModulesRole">
-
-                        <h3 style="display: inline;"><b>ROL</b></h3>
-                        <p class="articulo__contenedor__tittle__h1">{{role.nombre}}</p>
-
-                        <div>
-
-                            <div *ngIf="listModulesRol">
-                                <p class="articulo__contenedor__tittle__h3" style="color: green;">{{ 'CONFIGURATION.ADD_MODULES_ROLE.MODULES_PERMITTED' | translate }}</p>
+                    <div>
+                        <div *ngIf="listModulesRol">
+                            <p class="articulo__contenedor__tittle__h3" style="color: green;">{{ 'CONFIGURATION.ADD_MODULES_ROLE.MODULES_PERMITTED' | translate }}</p>
+                            <div class="articulo__contenedor__table">
                                 <table class="table table-striped">
                                     <thead>
                                         <tr>
@@ -61,11 +58,13 @@
                                     </tbody>
                                 </table>
                             </div>
-                
-                            <hr><br>
-                
-                            <div *ngIf="listModulesBusiness">
-                                <p class="articulo__contenedor__tittle__h3" style="color: orangered;">{{ 'CONFIGURATION.ADD_MODULES_ROLE.MODULES_NOT_PERMITTED' | translate }}</p>
+                        </div>
+            
+                        <hr><br>
+            
+                        <div *ngIf="listModulesBusiness">
+                            <p class="articulo__contenedor__tittle__h3" style="color: orangered;">{{ 'CONFIGURATION.ADD_MODULES_ROLE.MODULES_NOT_PERMITTED' | translate }}</p>
+                            <div class="articulo__contenedor__table">
                                 <table class="table table-striped">
                                     <thead>
                                         <tr>
@@ -94,9 +93,9 @@
                                 </table>
                             </div>
                         </div>
-                    </section>
-                </div>
+                    </div>
+                </section>
             </div>
-        </section>
-    </article>
-</main>
+        </div>
+    </section>
+</article>

@@ -63,6 +63,8 @@ export class ListModuleBusinessComponent extends OnSeguridad implements OnInit {
         this.pbusinessId = this.route.snapshot.params.pidBusiness;
     }
 
+    public redirectListUsersPage() : void { this.router.navigate([this.HTTPListBusinessPage]); }
+
     ngOnInit() {
 
         this.business = new Compania;

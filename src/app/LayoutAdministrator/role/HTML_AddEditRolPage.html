@@ -1,148 +1,145 @@
-<main>
-  <article class="articulo">
+<article class="articulo">
 
-    <section>
-      <div class="articulo__contenedor__tittle">
-        <p class="articulo__contenedor__tittle__h1">{{businessObservable.nombre}}</p>
-        <p class="articulo__contenedor__tittle__h2">{{ 'CONFIGURATION.ADD_EDIT_ROLE.TITLE' | translate }}</p>
-      </div>
-      <hr>
-      <button class=" administracion-contenedor__content__item
-                      administracion-contenedor__content__item__backIco-sm
-                      icon-button-medium"
-              title="{{ 'CONFIGURATION.BTN_ADMIN_USERS' | translate}}"
-              mat-icon-button 
-              (click)="redirectListRolesPage()"> <mat-icon>arrow_back</mat-icon>
-      </button>
-    </section>
+  <section>
+    <div class="articulo__contenedor__tittle">
+      <p class="articulo__contenedor__tittle__h1">{{businessObservable.nombre}}</p>
+      <p class="articulo__contenedor__tittle__h2">{{ 'CONFIGURATION.ADD_EDIT_ROLE.TITLE' | translate }}</p>
+    </div>
+    <hr>
+    <button class=" administracion-contenedor__content__item
+                    administracion-contenedor__content__item__backIco-sm
+                    icon-button-medium"
+            title="{{ 'CONFIGURATION.BTN_ADMIN_USERS' | translate}}"
+            mat-icon-button 
+            (click)="redirectListRolesPage()"> <mat-icon>arrow_back</mat-icon> </button>
+  </section>
 
-    <section>
-      <div class="card">
-        <div class="card-body">
+  <section>
+    <div class="card">
+      <div class="card-body">
 
-          <p class="articulo__contenedor__tittle__h3">{{ 'CONFIGURATION.ADD_EDIT_ROLE.TITLE_FORM' | translate }}</p>
-          <hr>
+        <p class="articulo__contenedor__tittle__h3">{{ 'CONFIGURATION.ADD_EDIT_ROLE.TITLE_FORM' | translate }}</p>
+        <hr>
 
-          <div class="articulo__contenedor">
-      
-            <!-- *************************** -->
-            <!-- SECCIÓN FORMULARIO USUARIO  -->
-            <!-- *************************** -->
-            <section>
-              <div class="articulo__contenedor__body">
-                <div class="articulo__contenedor__body__prev">
-                  <div class="articulo__contenedor__body__prev__form">
-                    <div class="articulo__contenedor__body__prev__form__header p-2">
-                      <div class="articulo__contenedor__body__prev__form__header__prev">
-                        <p class="articulo__contenedor__body__prev__form__header__titulo">{{ 'CONFIGURATION.ADD_EDIT_ROLE.SUBTITLE' | translate }}</p>
-                      </div>
-      
-                      <div class="articulo__contenedor__body__prev__form__header__next">
-                        <button class="articulo__contenedor__header__prev__btns__ok" mat-flat-button (click)="registrarRol()">{{ 'GENERAL.BTN_REGISTER' | translate }}</button>
-                      </div>
-                    </div>
-      
-                    <div class="articulo__contenedor__body__prev__form__content p-2">
-                        <form [formGroup]="rolForm" class="row">
+        <div class="articulo__contenedor">
     
-                            <div class="form-group col-md-4">
-                              <span for="identificacionRol" class="form-label">{{ 'CONFIGURATION.ADD_EDIT_ROLE.FORM.TXT_ID' | translate }}</span>
-                              <input  maxlength="15"
-                                      formControlName="identificacionRol"
+          <!-- *************************** -->
+          <!-- SECCIÓN FORMULARIO USUARIO  -->
+          <!-- *************************** -->
+          <section>
+            <div class="articulo__contenedor__body">
+              <div class="articulo__contenedor__body__prev">
+                <div class="articulo__contenedor__body__prev__form">
+                  <div class="articulo__contenedor__body__prev__form__header p-2">
+                    <div class="articulo__contenedor__body__prev__form__header__prev">
+                      <p class="tittle_form_h1">{{ 'CONFIGURATION.ADD_EDIT_ROLE.SUBTITLE' | translate }}</p>
+                    </div>
+    
+                    <div class="articulo__contenedor__body__prev__form__header__next">
+                      <button class="articulo__contenedor__header__prev__btns__ok" mat-flat-button (click)="registrarRol()">{{ 'GENERAL.BTN_REGISTER' | translate }}</button>
+                    </div>
+                  </div>
+    
+                  <div class="articulo__contenedor__body__prev__form__content p-2">
+                      <form [formGroup]="rolForm" class="row">
+  
+                          <div class="form-group col-md-4">
+                            <span for="identificacionRol" class="form-label">{{ 'CONFIGURATION.ADD_EDIT_ROLE.FORM.TXT_ID' | translate }}</span>
+                            <input  maxlength="15"
+                                    formControlName="identificacionRol"
+                                    class="form-control"
+                                    type="text"
+                                    id="id_identificacionRol"
+                                    [ngClass]="{'is-invalid': submitFormRol && f.identificacionRol.errors}"/>
+                            <div *ngIf="submitFormRol && f.identificacionRol.errors" class="invalid-feedback">
+                                <div *ngIf="f.identificacionRol.errors.required">{{ 'GENERAL.VALIDATES.EMPTY' | translate }}</div>
+                            </div>
+                          </div>
+  
+                          <div class="form-group col-md-8">
+                              <span for="nombreRol" class="form-label">{{ 'CONFIGURATION.ADD_EDIT_ROLE.FORM.TXT_NAME' | translate }}</span>
+                              <input  maxlength="300"
+                                      formControlName="nombreRol"
                                       class="form-control"
                                       type="text"
-                                      id="id_identificacionRol"
-                                      [ngClass]="{'is-invalid': submitFormRol && f.identificacionRol.errors}"/>
-                              <div *ngIf="submitFormRol && f.identificacionRol.errors" class="invalid-feedback">
-                                  <div *ngIf="f.identificacionRol.errors.required">{{ 'GENERAL.VALIDATES.EMPTY' | translate }}</div>
+                                      id="id_nombreRol"
+                                      [ngClass]="{'is-invalid': submitFormRol && f.nombreRol.errors}" />
+                              <div *ngIf="submitFormRol && f.nombreRol.errors" class="invalid-feedback">
+                                <div *ngIf="f.nombreRol.errors.required">{{ 'GENERAL.VALIDATES.EMPTY' | translate }}</div>
                               </div>
-                            </div>
-    
-                            <div class="form-group col-md-8">
-                                <span for="nombreRol" class="form-label">{{ 'CONFIGURATION.ADD_EDIT_ROLE.FORM.TXT_NAME' | translate }}</span>
-                                <input  maxlength="300"
-                                        formControlName="nombreRol"
-                                        class="form-control"
-                                        type="text"
-                                        id="id_nombreRol"
-                                        [ngClass]="{'is-invalid': submitFormRol && f.nombreRol.errors}" />
-                                <div *ngIf="submitFormRol && f.nombreRol.errors" class="invalid-feedback">
-                                  <div *ngIf="f.nombreRol.errors.required">{{ 'GENERAL.VALIDATES.EMPTY' | translate }}</div>
-                                </div>
-                            </div>
-    
-                            <div class="form-group col-md-4">
-                            <span for="rolEsAdministrador" class="form-label">{{ 'CONFIGURATION.ADD_EDIT_ROLE.FORM.TXT_ADMIN' | translate }}</span>
-                            <input  maxlength="15"
-                                    formControlName="rolEsAdministrador"
-                                    class="form-control"
-                                    type="text"
-                                    id="id_rolEsAdministrador"
-                                    [ngClass]="{'is-invalid': submitFormRol && f.rolEsAdministrador.errors}"/>
-                            <div *ngIf="submitFormRol && f.rolEsAdministrador.errors" class="invalid-feedback">
-                                <div *ngIf="f.rolEsAdministrador.errors.required">{{ 'GENERAL.VALIDATES.EMPTY' | translate }}</div>
-                            </div>
-                        </div>
-    
-                        <div class="form-group col-md-8">
-                            <span for="descripcionRol" class="form-label">{{ 'CONFIGURATION.ADD_EDIT_ROLE.FORM.TXT_DESCRIPTION' | translate }}</span>
-                            <input  maxlength="200"
-                                    formControlName="descripcionRol"
-                                    class="form-control"
-                                    type="text"
-                                    id="id_descripcionRol"
-                                    [ngClass]="{'is-invalid': submitFormRol && f.descripcionRol.errors}"/>
-                            <div *ngIf="submitFormRol && f.descripcionRol.errors" class="invalid-feedback">
-                                <div *ngIf="f.descripcionRol.errors.required">{{ 'GENERAL.VALIDATES.EMPTY' | translate }}</div>
-                            </div>
-                        </div>
-    
-                        <div class="form-group col-md-4">
-                            <span for="estadoRol" class="form-label">{{ 'CONFIGURATION.ADD_EDIT_ROLE.FORM.TXT_STATUS' | translate }}</span>
-                            <input  maxlength="15"
-                                    formControlName="estadoRol"
-                                    class="form-control"
-                                    type="text"
-                                    id="id_estadoRol"
-                                    [ngClass]="{'is-invalid': submitFormRol && f.estadoRol.errors}"/>
-                            <div *ngIf="submitFormRol && f.estadoRol.errors" class="invalid-feedback">
-                                <div *ngIf="f.estadoRol.errors.required">{{ 'GENERAL.VALIDATES.EMPTY' | translate }}</div>
-                            </div>
-                        </div>
-    
-                        <div class="form-group col-md-8">
-                            <span for="tipoRol" class="form-label">{{ 'CONFIGURATION.ADD_EDIT_ROLE.FORM.TXT_KIND' | translate }}</span>
-                            <input  maxlength="100"
-                                    formControlName="tipoRol"
-                                    class="form-control"
-                                    type="text"
-                                    id="id_tipoRol"
-                                    [ngClass]="{'is-invalid': submitFormRol && f.tipoRol.errors}"/>
-                            <div *ngIf="submitFormRol && f.tipoRol.errors" class="invalid-feedback">
-                                <div *ngIf="f.tipoRol.errors.required">{{ 'GENERAL.VALIDATES.EMPTY' | translate }}</div>
-                            </div>
-                        </div>
-    
-                      </form>
-                    </div>
+                          </div>
+  
+                          <div class="form-group col-md-4">
+                          <span for="rolEsAdministrador" class="form-label">{{ 'CONFIGURATION.ADD_EDIT_ROLE.FORM.TXT_ADMIN' | translate }}</span>
+                          <input  maxlength="15"
+                                  formControlName="rolEsAdministrador"
+                                  class="form-control"
+                                  type="text"
+                                  id="id_rolEsAdministrador"
+                                  [ngClass]="{'is-invalid': submitFormRol && f.rolEsAdministrador.errors}"/>
+                          <div *ngIf="submitFormRol && f.rolEsAdministrador.errors" class="invalid-feedback">
+                              <div *ngIf="f.rolEsAdministrador.errors.required">{{ 'GENERAL.VALIDATES.EMPTY' | translate }}</div>
+                          </div>
+                      </div>
+  
+                      <div class="form-group col-md-8">
+                          <span for="descripcionRol" class="form-label">{{ 'CONFIGURATION.ADD_EDIT_ROLE.FORM.TXT_DESCRIPTION' | translate }}</span>
+                          <input  maxlength="200"
+                                  formControlName="descripcionRol"
+                                  class="form-control"
+                                  type="text"
+                                  id="id_descripcionRol"
+                                  [ngClass]="{'is-invalid': submitFormRol && f.descripcionRol.errors}"/>
+                          <div *ngIf="submitFormRol && f.descripcionRol.errors" class="invalid-feedback">
+                              <div *ngIf="f.descripcionRol.errors.required">{{ 'GENERAL.VALIDATES.EMPTY' | translate }}</div>
+                          </div>
+                      </div>
+  
+                      <div class="form-group col-md-4">
+                          <span for="estadoRol" class="form-label">{{ 'CONFIGURATION.ADD_EDIT_ROLE.FORM.TXT_STATUS' | translate }}</span>
+                          <input  maxlength="15"
+                                  formControlName="estadoRol"
+                                  class="form-control"
+                                  type="text"
+                                  id="id_estadoRol"
+                                  [ngClass]="{'is-invalid': submitFormRol && f.estadoRol.errors}"/>
+                          <div *ngIf="submitFormRol && f.estadoRol.errors" class="invalid-feedback">
+                              <div *ngIf="f.estadoRol.errors.required">{{ 'GENERAL.VALIDATES.EMPTY' | translate }}</div>
+                          </div>
+                      </div>
+  
+                      <div class="form-group col-md-8">
+                          <span for="tipoRol" class="form-label">{{ 'CONFIGURATION.ADD_EDIT_ROLE.FORM.TXT_KIND' | translate }}</span>
+                          <input  maxlength="100"
+                                  formControlName="tipoRol"
+                                  class="form-control"
+                                  type="text"
+                                  id="id_tipoRol"
+                                  [ngClass]="{'is-invalid': submitFormRol && f.tipoRol.errors}"/>
+                          <div *ngIf="submitFormRol && f.tipoRol.errors" class="invalid-feedback">
+                              <div *ngIf="f.tipoRol.errors.required">{{ 'GENERAL.VALIDATES.EMPTY' | translate }}</div>
+                          </div>
+                      </div>
+  
+                    </form>
                   </div>
                 </div>
               </div>
-            </section>
-      
-            <!-- FOOTER -->
-            <section>
-              <div class="articulo__contenedor__footer">
-                <div class="articulo__contenedor__footer__prev"></div>
-      
-                <div class="articulo__contenedor__footer__next"></div>
-              </div>
-            </section>
-          </div>
-
+            </div>
+          </section>
+    
+          <!-- FOOTER -->
+          <section>
+            <div class="articulo__contenedor__footer">
+              <div class="articulo__contenedor__footer__prev"></div>
+    
+              <div class="articulo__contenedor__footer__next"></div>
+            </div>
+          </section>
         </div>
-      </div>
-    </section>
 
-  </article>
-</main>
+      </div>
+    </div>
+  </section>
+
+</article>

@@ -1,35 +1,37 @@
-<main>
-    <article class="articulo">
+<article class="articulo">
 
-        <section>
+    <section>
+        <div>
             <div class="articulo__contenedor__tittle">
                 <p class="articulo__contenedor__tittle__h1">{{businessObservable.nombre}}</p>
                 <p class="articulo__contenedor__tittle__h2">{{ 'CONFIGURATION.ADMIN_PAGE_LIST_ROLES.TITLE' | translate }}</p>
             </div>
-
             <hr>
+            <div>
+                <button class=" administracion-contenedor__content__item
+                                administracion-contenedor__content__item__backIco
+                                icon-button-medium"
+                        title="{{ 'CONFIGURATION.BTN_ADMIN_USERS' | translate}}"
+                        mat-icon-button
+                        (click)="redirectListModulesPage()"> <mat-icon>arrow_back</mat-icon>
+                </button>
+            </div>
+        </div>
+    </section>
 
-            <button class=" administracion-contenedor__content__item
-                            administracion-contenedor__content__item__backIco
-                            icon-button-medium"
-                    title="{{ 'CONFIGURATION.BTN_ADMIN_USERS' | translate}}"
-                    mat-icon-button
-                    (click)="redirectListModulesPage()"> <mat-icon>arrow_back</mat-icon>
-            </button>
-        </section>
 
+    <section>
+        <div class="card">
+            <div class="card-body">
 
-        <section>
-            <div class="card">
-                <div class="card-body">
+                <section>
+                    <button routerLink="{{URLAddEditRolPage}}"
+                            class="item-list__confirm float-right"
+                            mat-icon-button > <mat-icon>portrait</mat-icon>
+                    </button>
 
-                    <section>
-                        <button routerLink="{{URLAddEditRolPage}}"
-                                class="item-list__confirm float-right"
-                                mat-icon-button > <mat-icon>portrait</mat-icon>
-                        </button>
-
-                        <p class="articulo__contenedor__tittle__h3">{{ 'CONFIGURATION.ADMIN_PAGE_LIST_ROLES.SUBTITLE' | translate }}</p>
+                    <p class="articulo__contenedor__tittle__h3">{{ 'CONFIGURATION.ADMIN_PAGE_LIST_ROLES.SUBTITLE' | translate }}</p>
+                    <div class="articulo__contenedor__table">
                         <table class="table table-striped">
                             <thead>
                                 <tr>
@@ -90,10 +92,10 @@
                                 </tr>
                             </tbody>
                         </table>
-                    </section>
+                    </div>
+                </section>
 
-                </div>
             </div>
-        </section>
-    </article>
-</main>
+        </div>
+    </section>
+</article>

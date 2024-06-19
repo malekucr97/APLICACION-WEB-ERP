@@ -20,7 +20,8 @@ declare var $: any;
 
 @Component({
     templateUrl: 'HTML_TipoCambio.html',
-    styleUrls: ['../../../../assets/scss/app.scss', '../../../../assets/scss/inversiones/app.scss'],
+    styleUrls: ['../../../../assets/scss/app.scss', '../../../../assets/scss/generales/app.scss',
+                                                    '../../../../assets/scss/administrator/app.scss']
 })
 export class TipoCambioComponent  extends OnSeguridad implements OnInit {
     @ViewChild(MatSidenav) sidenav !: MatSidenav;

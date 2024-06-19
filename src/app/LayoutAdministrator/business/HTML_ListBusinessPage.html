@@ -1,71 +1,96 @@
-<h1 style="color: #1a5276">{{ 'CONFIGURATION.ADMIN_PAGE_LIST_COMPANIES.TITLE' | translate }}</h1>
-<h4>{{ 'CONFIGURATION.ADMIN_PAGE_LIST_COMPANIES.SUBTITLE' | translate }}</h4>
-<a routerLink="{{URLAdministratorPage}}" class="btn btn-light mb-2 mr-3">{{ 'GENERAL.BTN_BACK' | translate }}</a>
+<article class="articulo">
+  <section>
+    <div>
+      <div>
+          <p class="articulo__contenedor__tittle__h1">{{ 'CONFIGURATION.ADMIN_PAGE_LIST_COMPANIES.TITLE' | translate }}</p>
+          <p class="articulo__contenedor__tittle__h2">{{ 'CONFIGURATION.ADMIN_PAGE_LIST_COMPANIES.SUBTITLE' | translate }}</p>
+      </div>
 
-<div class="card">
-  <div class="card-body">
+      <hr>
 
-    <button routerLink="{{urlPageAddEditBusiness}}"
-                class="item-list__confirm float-right" 
-                mat-icon-button > <mat-icon>group_add</mat-icon> </button>
+      <div>
+          <button class=" administracion-contenedor__content__item
+                          administracion-contenedor__content__item__backIco
+                          icon-button-medium"
+                  title="{{ 'CONFIGURATION.BTN_ADMIN_USERS' | translate}}"
+                  mat-icon-button 
+                  (click)="redirectAdminUsersPage()"> <mat-icon>arrow_back</mat-icon>
+          </button>
+      </div>
+    </div>
 
-    <table class="table table-striped">
-      <thead>
+    <div class="card">
+      <div class="card-body">
+    
+        <button routerLink="{{urlPageAddEditBusiness}}"
+                    class="item-list__confirm float-right" 
+                    mat-icon-button > <mat-icon>group_add</mat-icon> </button>
+    
+        <div class="articulo__contenedor__table">
+        <table class="table table-striped">
+          <thead>
+    
+            <tr>
+              <th style="width: 5%"></th>
+    
+              <th style="width: 15%">{{ 'CONFIGURATION.ADMIN_PAGE_LIST_COMPANIES.TBL_ID' | translate }}</th>
+              <th style="width: 29%">{{ 'CONFIGURATION.ADMIN_PAGE_LIST_COMPANIES.TBL_USERNAME' | translate }}</th>
+              <th style="width: 20%">{{ 'CONFIGURATION.ADMIN_PAGE_LIST_COMPANIES.TBL_EMAIL' | translate }}</th>
+              <th style="width: 13%">{{ 'CONFIGURATION.ADMIN_PAGE_LIST_COMPANIES.TBL_PHONE' | translate }}</th>
+              <th style="width: 8%">{{ 'CONFIGURATION.ADMIN_PAGE_LIST_COMPANIES.TBL_POWER_BI' | translate }}</th>
+              <th style="width: 5%"></th>
+              <th style="width: 5%"></th>
+            </tr>
+    
+          </thead>
+    
+          <tbody>
+    
+            <tr *ngFor="let business of listBusiness" 
+                class="item-list__list" 
+                style="white-space: normal">
+    
+              <td class="item-list__edit" routerLink="{{urlPageAddEditBusiness}}{{business.id}}">
+                  <mat-icon>edit</mat-icon>
+              </td>
+    
+              <td routerLink="{{urlPageAddEditBusiness}}{{business.id}}">{{business.cedulaJuridica}}</td>
+              <td routerLink="{{urlPageAddEditBusiness}}{{business.id}}">{{business.nombre}}</td>
+              <td routerLink="{{urlPageAddEditBusiness}}{{business.id}}">{{business.correoElectronico}}</td>
+              <td routerLink="{{urlPageAddEditBusiness}}{{business.id}}">{{business.telefono}}</td>
+              <td routerLink="{{urlPageAddEditBusiness}}{{business.id}}">{{business.mantenimientoReportes ? 'Active': 'In-Active'}}</td>
+    
+              <td>
+                <button title="Planes {{business.nombre}}" class="items__btns__list__otro"
+                        routerLink="{{urlPageListBusinessPlanes}}{{business.id}}">
+                        <mat-icon>view_carousel</mat-icon>
+                </button>
+              </td>
+    
+              <td>
+                <button title="Módulos {{business.nombre}}" class="items__btns__list__otro"
+                        routerLink="{{urlPageListBusinessModules}}{{business.id}}" >
+                        <mat-icon>apps</mat-icon>
+                </button>
+              </td>
+    
+            </tr>
+    
+            <tr *ngIf="!listBusiness">
+              <td colspan="8" class="text-center">
+                <span class="spinner-border spinner-border-lg align-center"></span>
+              </td>
+            </tr>
+    
+          </tbody>
+    
+        </table>
+      </div>
+      </div>
+    </div>
 
-        <tr>
-          <th style="width: 5%"></th>
 
-          <th style="width: 15%">{{ 'CONFIGURATION.ADMIN_PAGE_LIST_COMPANIES.TBL_ID' | translate }}</th>
-          <th style="width: 29%">{{ 'CONFIGURATION.ADMIN_PAGE_LIST_COMPANIES.TBL_USERNAME' | translate }}</th>
-          <th style="width: 20%">{{ 'CONFIGURATION.ADMIN_PAGE_LIST_COMPANIES.TBL_EMAIL' | translate }}</th>
-          <th style="width: 13%">{{ 'CONFIGURATION.ADMIN_PAGE_LIST_COMPANIES.TBL_PHONE' | translate }}</th>
-          <th style="width: 8%">{{ 'CONFIGURATION.ADMIN_PAGE_LIST_COMPANIES.TBL_POWER_BI' | translate }}</th>
-          <th style="width: 5%"></th>
-          <th style="width: 5%"></th>
-        </tr>
+  </section>
+</article>
 
-      </thead>
 
-      <tbody>
-
-        <tr *ngFor="let business of listBusiness" 
-            class="item-list__list" 
-            style="white-space: normal">
-
-          <td class="item-list__edit" routerLink="{{urlPageAddEditBusiness}}{{business.id}}">
-              <mat-icon>edit</mat-icon>
-          </td>
-
-          <td routerLink="{{urlPageAddEditBusiness}}{{business.id}}">{{business.cedulaJuridica}}</td>
-          <td routerLink="{{urlPageAddEditBusiness}}{{business.id}}">{{business.nombre}}</td>
-          <td routerLink="{{urlPageAddEditBusiness}}{{business.id}}">{{business.correoElectronico}}</td>
-          <td routerLink="{{urlPageAddEditBusiness}}{{business.id}}">{{business.telefono}}</td>
-          <td routerLink="{{urlPageAddEditBusiness}}{{business.id}}">{{business.mantenimientoReportes ? 'Active': 'In-Active'}}</td>
-
-          <td>
-            <button title="Planes {{business.nombre}}" class="items__btns__list__otro"
-                    routerLink="{{urlPageListBusinessPlanes}}{{business.id}}">
-                    <mat-icon>view_carousel</mat-icon>
-            </button>
-          </td>
-
-          <td>
-            <button title="Módulos {{business.nombre}}" class="items__btns__list__otro"
-                    routerLink="{{urlPageListBusinessModules}}{{business.id}}" >
-                    <mat-icon>apps</mat-icon>
-            </button>
-          </td>
-
-        </tr>
-
-        <tr *ngIf="!listBusiness">
-          <td colspan="8" class="text-center">
-            <span class="spinner-border spinner-border-lg align-center"></span>
-          </td>
-        </tr>
-
-      </tbody>
-
-    </table>
-  </div>
-</div>

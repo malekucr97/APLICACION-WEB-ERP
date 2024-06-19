@@ -59,6 +59,8 @@ export class AddBusinessUserComponent extends OnSeguridad implements OnInit {
         this.consultarRolUsuarioCompania(this.userToAssign.idRol);
     }
 
+    public redirectAdminUsersPage() : void { this.router.navigate([this.HTTPListUserPage]); }
+
     ngOnInit() {
 
         this.accountService.getAllBusiness( this._HIdUserSessionRequest, this._HBusinessSessionRequest)

@@ -1,72 +1,83 @@
-<div class="card">
-  <h4 class="card-header">{{ 'CONFIGURATION.ADD_EDIT_COMPANY.TITLE' | translate }}</h4>
-  <div class="card-body">
+<article class="articulo">
+  <section>
 
-    <a routerLink="{{urladminListBusiness}}" class="btn btn-outline-secondary mb-2"> {{ 'GENERAL.BTN_BACK' | translate }}</a>
+    <div class="articulo__contenedor__tittle">
+      <p class="articulo__contenedor__tittle__h1">{{ 'CONFIGURATION.ADD_EDIT_COMPANY.TITLE' | translate }}</p>
+      <!-- <p class="articulo__contenedor__tittle__h2">{{ 'CONFIGURATION.ADMIN_PAGE_LIST_USERS.TITLE' | translate }}</p> -->
+    </div>
 
-    <hr><br>
+    <hr>
 
-    <form [formGroup]="form" class="row" (ngSubmit)="onSubmit()">
-
-      <div class="form-group col-md-1"></div>
-      <div class="form-group col-md-5">
-        <span for="lblnombre" class="col-form-label-lg">{{ 'CONFIGURATION.ADD_EDIT_COMPANY.FORM.TXT_NAME' | translate }}</span>
-        <input  type="text"
-                maxlength="300"
-                formControlName="nombreCompania"
-                id="id_nombreCompania"
-                class="form-control" 
-                [ngClass]="{ 'is-invalid': submitted && f.nombreCompania.errors }" />
-        <div *ngIf="submitted && f.nombreCompania.errors" class="invalid-feedback">
-          <div *ngIf="f.nombreCompania.errors.required">{{ 'CONFIGURATION.ADD_EDIT_COMPANY.FORM.VALIDATE.NAME' | translate }}</div>
-        </div>
+    <div class="card">
+      <!-- <p class="articulo__contenedor__tittle__h1">{{ 'CONFIGURATION.ADD_EDIT_COMPANY.TITLE' | translate }}</p> -->
+      <div class="card-body">
+    
+        <a routerLink="{{urladminListBusiness}}" class="btn btn-outline-secondary mb-2"> {{ 'GENERAL.BTN_BACK' | translate }}</a>
+    
+        <hr><br>
+    
+        <form [formGroup]="form" class="row" (ngSubmit)="onSubmit()">
+    
+          <div class="form-group col-md-1"></div>
+          <div class="form-group col-md-5">
+            <span for="lblnombre" class="col-form-label-lg">{{ 'CONFIGURATION.ADD_EDIT_COMPANY.FORM.TXT_NAME' | translate }}</span>
+            <input  type="text"
+                    maxlength="300"
+                    formControlName="nombreCompania"
+                    id="id_nombreCompania"
+                    class="form-control" 
+                    [ngClass]="{ 'is-invalid': submitted && f.nombreCompania.errors }" />
+            <div *ngIf="submitted && f.nombreCompania.errors" class="invalid-feedback">
+              <div *ngIf="f.nombreCompania.errors.required">{{ 'CONFIGURATION.ADD_EDIT_COMPANY.FORM.VALIDATE.NAME' | translate }}</div>
+            </div>
+          </div>
+    
+          <div class="form-group col-md-4">
+            <span for="lblcedulajuridica" class="col-form-label-lg">{{ 'CONFIGURATION.ADD_EDIT_COMPANY.FORM.TXT_ID' | translate }}</span>
+            <input  type="text"
+                    maxlength="50"
+                    formControlName="cedulajuridica" 
+                    id="id_cedulajuridica"
+                    class="form-control" 
+                    [ngClass]="{ 'is-invalid': submitted && f.cedulajuridica.errors }" />
+            <div *ngIf="submitted && f.cedulajuridica.errors" class="invalid-feedback">
+              <div *ngIf="f.cedulajuridica.errors.required">{{ 'CONFIGURATION.ADD_EDIT_COMPANY.FORM.VALIDATE.ID' | translate }}</div>
+            </div>
+          </div>
+          <div class="form-group col-md-2"></div>
+    
+          <div class="form-group col-md-1"></div>
+          <div class="form-group col-md-11">
+            <mat-checkbox formControlName="mantenimientoReportes">{{ 'CONFIGURATION.ADD_EDIT_COMPANY.FORM.CHK_POWER_BI' | translate }}</mat-checkbox>
+          </div>
+    
+          <div class="form-group col-md-1"></div>
+          <div class="form-group col-md-11">
+            <mat-checkbox formControlName="tamanoModuloDefecto">{{ 'CONFIGURATION.ADD_EDIT_COMPANY.FORM.CHK_DEFAULT_SIZE' | translate }}</mat-checkbox>
+          </div>
+    
+          <div class="form-group col-md-1"></div>
+          <div class="form-group col-md-1">
+            <mat-checkbox formControlName="cuentaCorreoDefecto">{{ 'CONFIGURATION.ADD_EDIT_COMPANY.FORM.CHK_DEFAULT_EMAIL' | translate }}</mat-checkbox>
+          </div>
+    
+          <div class="form-group col-md-8"></div>
+          <div class="form-group">
+    
+            <button *ngIf="updateBusiness" class="btn btn-outline-warning mb-2 float-right">
+              <span *ngIf="loading" class="spinner-border spinner-border-sm mr-1"></span>
+              {{ 'GENERAL.BTN_UPDATE' | translate }}
+            </button>
+    
+            <button *ngIf="addBusiness" class="btn btn-outline-success mb-2 float-right">
+              <span *ngIf="loading" class="spinner-border spinner-border-sm mr-1"></span>
+              {{ 'GENERAL.BTN_REGISTER' | translate }}
+            </button>
+    
+          </div>
+    
+        </form>
       </div>
-
-      <div class="form-group col-md-4">
-        <span for="lblcedulajuridica" class="col-form-label-lg">{{ 'CONFIGURATION.ADD_EDIT_COMPANY.FORM.TXT_ID' | translate }}</span>
-        <input  type="text"
-                maxlength="50"
-                formControlName="cedulajuridica" 
-                id="id_cedulajuridica"
-                class="form-control" 
-                [ngClass]="{ 'is-invalid': submitted && f.cedulajuridica.errors }" />
-        <div *ngIf="submitted && f.cedulajuridica.errors" class="invalid-feedback">
-          <div *ngIf="f.cedulajuridica.errors.required">{{ 'CONFIGURATION.ADD_EDIT_COMPANY.FORM.VALIDATE.ID' | translate }}</div>
-        </div>
-      </div>
-      <div class="form-group col-md-2"></div>
-
-      <div class="form-group col-md-1"></div>
-      <div class="form-group col-md-11">
-        <mat-checkbox formControlName="mantenimientoReportes">{{ 'CONFIGURATION.ADD_EDIT_COMPANY.FORM.CHK_POWER_BI' | translate }}</mat-checkbox>
-      </div>
-
-      <div class="form-group col-md-1"></div>
-      <div class="form-group col-md-11">
-        <mat-checkbox formControlName="tamanoModuloDefecto">{{ 'CONFIGURATION.ADD_EDIT_COMPANY.FORM.CHK_DEFAULT_SIZE' | translate }}</mat-checkbox>
-      </div>
-
-      <div class="form-group col-md-1"></div>
-      <div class="form-group col-md-1">
-        <mat-checkbox formControlName="cuentaCorreoDefecto">{{ 'CONFIGURATION.ADD_EDIT_COMPANY.FORM.CHK_DEFAULT_EMAIL' | translate }}</mat-checkbox>
-      </div>
-
-      <div class="form-group col-md-8"></div>
-      <div class="form-group">
-
-        <button *ngIf="updateBusiness" class="btn btn-outline-warning mb-2 float-right">
-          <span *ngIf="loading" class="spinner-border spinner-border-sm mr-1"></span>
-          {{ 'GENERAL.BTN_UPDATE' | translate }}
-        </button>
-
-        <button *ngIf="addBusiness" class="btn btn-outline-success mb-2 float-right">
-          <span *ngIf="loading" class="spinner-border spinner-border-sm mr-1"></span>
-          {{ 'GENERAL.BTN_REGISTER' | translate }}
-        </button>
-
-      </div>
-
-    </form>
-
-  </div>
-</div>
+    </div>
+  </section>
+</article>

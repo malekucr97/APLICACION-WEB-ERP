@@ -63,6 +63,8 @@ export class AddEditPlanComponent extends OnSeguridad implements OnInit {
 
     get f() { return this.planForm.controls; }
 
+    public redirectListUsersPage() : void { this.router.navigate([this.URLListPlanPage]); }
+
     ngOnInit() {
 
         if (this.route.snapshot.params.pidPlan) {

@@ -124,7 +124,8 @@
       }
     },
     "ADD_EDIT_PLAN": {
-      "TITLE": "Plan Parameterization",
+      "TITLE": "Plan Administration",
+      "TITLE_FORM": "Plan Parameterization",
       "PARAMETERS_PLAN": "Plan Parameters: {{nombre}}",
       "REGISTER_PLAN": "Plan Registration",
       "TABLE": {
@@ -158,7 +159,7 @@
       }
     },
     "ADD_EDIT_COMPANY": {
-      "TITLE": "Company Parameters",
+      "TITLE": "Company Maintenance",
       "PARAMETERS_COMPANY": "Company Parameters: {{companyName}}",
       "REGISTER_COMPANY": "Company Registration",
       "SELECT_COMPANY": "Selected Company",
@@ -242,10 +243,11 @@
       }
     },
     "ADD_EDIT_BUSINESS_USER": {
-      "TITLE": "System Companies",
+      "TITLE": "Entry Permits for System Companies",
       "LIST_COMPANIES_ACCES": "List of Companies with Access",
       "LIST_COMPANIES_NOT_ACCES": "List of Companies without Access",
       "BTN_DELETE_ROLE": "Remove Access from ALL Companies",
+      "ROLE_USER":"Selected User Role",
       "TABLE": {
         "ID": "Identification",
         "NAME": "Company Name",
@@ -523,7 +525,7 @@
     "BTN_REGISTER": "Save",
     "BTN_DELETE": "Delete",
     "BTN_BACK_LOGIN": "Go to Login",
-    "BTN_CORRENCY_RATE": "Check BCCR Exchange Rate",
+    "BTN_CORRENCY_RATE": "Check BCCR",
     "VALIDATES": {
       "EMPTY": "The field is required",
       "REGEX": "Doesn't comply with the regex safety rule",

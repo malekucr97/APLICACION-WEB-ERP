@@ -10,7 +10,7 @@ import { OnSeguridad } from '@app/_helpers/abstractSeguridad';
 import { TranslateMessagesService } from '@app/_services/translate-messages.service';
 
 @Component({templateUrl: 'HTML_AddEditBusinessPage.html',
-            styleUrls: [ '../../../assets/vendor/bootstrap/css/bootstrap.css']
+            styleUrls: [ '../../../assets/scss/app.scss', '../../../assets/scss/administrator/app.scss']
 })
 export class AddEditBusinessComponent extends OnSeguridad implements OnInit {
   

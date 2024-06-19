@@ -1,400 +1,321 @@
-<main>
-    <article class="articulo">
+<article class="articulo-generales">
+    <section>
+        <div>
+            <p class="tittle_h2">{{ 'MODULES.GENERAL_TIPO_CAMBIO.TITLE' | translate: {NM:nombreModulo} }}</p>
+          </div>
+    </section>
 
-        <div class="articulo__contenedor mat-elevation-z4">
+    <section>
+        <div class="card">
+            <div class="card-body">
 
-            <!-- // ************
-            // ** HEADER ** -->
-            <section>
-                <div class="articulo__contenedor__header">
+                <article class="articulo-generales__contenedor__body">
 
-                    <div class="articulo__contenedor__header__prev" >
-
-                        <p>{{ 'MODULES.GENERAL_TIPO_CAMBIO.TITLE' | translate: {NM:nombreModulo} }}</p>
-
-                    </div>
-
-                    <div class="articulo__contenedor__header__next" > </div>
-
-                </div>
-            </section>
-
-            <!-- // **********
-            // ** BODY ** -->
-
-            <!-- *************** -->
-            <!-- SECCIÓN PERSONA -->
-            <!-- *************** -->
-
-            
-            <!-- ********************** -->
-            <!-- SECCIÓN MONTOS MÁXIMOS -->
-            <!-- ********************** -->
-
-            <section >
-                <div class="articulo__contenedor__body">
-
-                    <div class="articulo__contenedor__body__prev" >
-
-                        <article>
-                            <div>
-                                <section>
-                                    <div class="articulo__contenedor__body__prev__form">
-
-                                        <div class="articulo__contenedor__body__prev__form__header"> 
-                                            
-                                            <div class="articulo__contenedor__body__prev__form__header__prev" > 
-                                                <p class="articulo__contenedor__body__prev__form__header__titulo">{{ 'MODULES.GENERAL_TIPO_CAMBIO.CURRENCY_TYPE' | translate }}</p>
-                                            </div>
-
-                                            <div class="articulo__contenedor__body__prev__form__header__next" > 
-
-                                                <button *ngIf="habilitaBtnNuevo" class="articulo__contenedor__body__prev__form__header__prev__btns__new" 
-                                                        mat-flat-button
-                                                        (click)="limpiarFormularioMoneda()">{{ 'GENERAL.BTN_NEW' | translate }}</button>
-
-                                                <button *ngIf="habilitaBtnActualiza" class="articulo__contenedor__header__prev__btns__warn" 
-                                                        mat-flat-button
-                                                        (click)="actualizaMoneda()">{{ 'GENERAL.BTN_UPDATE' | translate }}</button>
-                                                <button *ngIf="habilitaBtnRegistro" class="articulo__contenedor__header__prev__btns__ok" 
-                                                        mat-flat-button
-                                                        (click)="submitMoneda()">{{ 'GENERAL.BTN_REGISTER' | translate }}</button>
-                                                <button *ngIf="habilitaBtnElimibar" class="articulo__contenedor__header__prev__btns__danger" 
-                                                        mat-flat-button
-                                                        (click)="eliminarMoneda()">{{ 'GENERAL.BTN_DELETE' | translate }}</button>
-
-                                            </div>
-                                        
-                                        </div>
-
-                                        <div class="articulo__contenedor__body__prev__form__content">
-
-                                            <form [formGroup]="formTipoMoneda" class="row">
-                    
-                                                <div class="form-group col-md-2">
-                                                    <label for="id" class="form-label">{{ 'MODULES.GENERAL_TIPO_CAMBIO.FORM.Id' | translate }}</label>
-                                                    <input formControlName="id" class="form-control" type="text" id="id_id" readonly />
-                                                </div>
-                                                
-                                                <div class="form-group col-md-7">
-                                                    <label for="lblCodigoMoneda" class="form-label">{{ 'MODULES.GENERAL_TIPO_CAMBIO.FORM.InternalCode' | translate }}</label>
-                                                    <input formControlName="codigo_moneda" class="form-control" type="text" id="id_codigo_moneda"
-                                                        [ngClass]="{ 'is-invalid': submittedTipoMonedaForm && m.codigo_moneda.errors }" />
-                                                    <div *ngIf="submittedTipoMonedaForm && m.codigo_moneda.errors" class="invalid-feedback">
-                                                        <div *ngIf="m.codigo_moneda.errors.required">{{ 'MODULES.GENERAL_TIPO_CAMBIO.FORM.CurrencyCodeRequired' | translate }}</div>
-                                                    </div>
-                                                </div>
-                    
-                                                <div class="col-sm-3 margin-icos-mat">
-                                                    <a class="item-list__search"> <mat-icon (click)="buscarMoneda()">search</mat-icon> </a>
-                                                </div>
-                    
-                                                <div class="form-group col-md-2">
-                                                    <label for="simbolo" class="form-label">{{ 'MODULES.GENERAL_TIPO_CAMBIO.FORM.Character' | translate }}</label>
-                                                    <input formControlName="simbolo" class="form-control" type="text" id="id_simbolo"
-                                                        [ngClass]="{ 'is-invalid': submittedTipoMonedaForm && m.simbolo.errors }" />
-                                                    <div *ngIf="submittedTipoMonedaForm && m.simbolo.errors" class="invalid-feedback">
-                                                        <div *ngIf="m.simbolo.errors.required">{{ 'MODULES.GENERAL_TIPO_CAMBIO.FORM.CurrencySymbolRequired' | translate }}</div>
-                                                    </div>
-                                                </div>
-                    
-                                                <div class="form-group col-md-3">
-                                                    <label for="descripcion" class="form-label">{{ 'MODULES.GENERAL_TIPO_CAMBIO.FORM.Description' | translate }}</label>
-                                                    <input formControlName="descripcion" class="form-control" type="text" id="id_descripcion"
-                                                        [ngClass]="{ 'is-invalid': submittedTipoMonedaForm && m.descripcion.errors }" />
-                                                    <div *ngIf="submittedTipoMonedaForm && m.descripcion.errors" class="invalid-feedback">
-                                                        <div *ngIf="m.descripcion.errors.required">{{ 'MODULES.GENERAL_TIPO_CAMBIO.FORM.CurrencyDescriptionRequired' | translate }}</div>
-                                                    </div>
-                                                </div>
-
-                                                <div class="form-group col-md-2">
-                                                    <label for="lblBccrIndicadorCompra" class="form-label">{{ 'MODULES.GENERAL_TIPO_CAMBIO.FORM.BCCRPurchase' | translate }}</label>
-                                                    <input formControlName="bccrIndicadorCompra" class="form-control" type="text" id="id_bccrIndicadorCompra"
-                                                        [ngClass]="{ 'is-invalid': submittedTipoMonedaForm && m.bccrIndicadorCompra.errors }" />
-                                                    <div *ngIf="submittedTipoMonedaForm && m.bccrIndicadorCompra.errors" class="invalid-feedback">
-                                                        <div *ngIf="m.bccrIndicadorCompra.errors.required">{{ 'MODULES.GENERAL_TIPO_CAMBIO.FORM.PurchaseIndicatorRequired' | translate }}</div>
-                                                    </div>
-                                                </div>
-
-                                                <div class="form-group col-md-2">
-                                                    <label for="lblBccrIndicadorVenta" class="form-label">{{ 'MODULES.GENERAL_TIPO_CAMBIO.FORM.BCCRSale' | translate }}</label>
-                                                    <input formControlName="bccrIndicadorVenta" class="form-control" type="text" id="id_bccrIndicadorVenta"
-                                                        [ngClass]="{ 'is-invalid': submittedTipoMonedaForm && m.bccrIndicadorVenta.errors }" />
-                                                    <div *ngIf="submittedTipoMonedaForm && m.bccrIndicadorVenta.errors" class="invalid-feedback">
-                                                        <div *ngIf="m.bccrIndicadorVenta.errors.required">{{ 'MODULES.GENERAL_TIPO_CAMBIO.FORM.SaleIndicatorRequired' | translate }}</div>
-                                                    </div>
-                                                </div>
-                    
-                                                <div class="form-group col-sm-1 margin-icos-mat">
-                                                    <mat-checkbox formControlName="estado">{{ 'MODULES.GENERAL_TIPO_CAMBIO.FORM.Status' | translate }}</mat-checkbox>
-                                                </div>
-                    
-                                            </form>
-
-                                        </div>
-
-                                    </div>
-                                </section>
+                    <section class="articulo-generales__contenedor__body__prev">
+                        <div>
+                            <div class="articulo-generales__contenedor__body__prev__form__header">
+                                <div class="articulo-generales__contenedor__body__prev__form__header__prev" > 
+                                    <p class="tittle_form_h1">{{ 'MODULES.GENERAL_TIPO_CAMBIO.CURRENCY_TYPE' | translate }}</p>
+                                </div>
+                                <div class="articulo-generales__contenedor__body__prev__form__header__next">
+                                    <button *ngIf="habilitaBtnNuevo" 
+                                            class="button_form_new"
+                                            mat-flat-button
+                                            (click)="limpiarFormularioMoneda()">{{ 'GENERAL.BTN_NEW' | translate }}</button>
+                                    <button *ngIf="habilitaBtnActualiza" 
+                                            class="button_form_update" 
+                                            mat-flat-button
+                                            (click)="actualizaMoneda()">{{ 'GENERAL.BTN_UPDATE' | translate }}</button>
+                                    <button *ngIf="habilitaBtnElimibar"
+                                            class="button_form_delete" 
+                                            mat-flat-button
+                                            (click)="eliminarMoneda()">{{ 'GENERAL.BTN_DELETE' | translate }}</button>
+                                    <button *ngIf="habilitaBtnRegistro" 
+                                            class="button_form_create"
+                                            mat-flat-button
+                                            (click)="submitMoneda()">{{ 'GENERAL.BTN_REGISTER' | translate }}</button>
+                                </div>
                             </div>
-                        </article>
 
-                    </div>
-                    
-
-                    <div class="articulo__contenedor__body__next">
-
-                        <article>
                             <div>
-                                <section>
-                                    <div class="articulo__contenedor__body__next__list">
+                                <form   [formGroup]="formTipoMoneda" 
+                                        class="row articulo-generales__contenedor__body__prev__form">
 
-                                        <div class="articulo__contenedor__body__next__list__header"> 
-                                            
-                                            <div class="articulo__contenedor__body__next__list__header__prev" > 
-                                                <p class="articulo__contenedor__body__next__list__header__titulo">{{ 'MODULES.GENERAL_TIPO_CAMBIO.LIST_TYPE_CURRENCY' | translate }}</p>
-                                            </div>
-
-                                            <div class="articulo__contenedor__body__next__list__header__next" > </div>
-                                        
-                                        </div>
-
-                                        <div class="articulo__contenedor__body__next__list__content">
-
-                                            <div *ngIf="listTiposMonedas" class="articulo__contenedor__body__next__tabla">
-                                                <table class="table table-striped">
-                                                    <thead>
-                                                        <tr>
-                                                            <th style="width: 5%"></th>
-                                                            
-                                                            <th style="width: 8%"> {{ 'MODULES.GENERAL_TIPO_CAMBIO.TABLE.Symbol' | translate }}</th>
-                                                            <th style="width: 12%">{{ 'MODULES.GENERAL_TIPO_CAMBIO.TABLE.Description' | translate }}</th>
-                                                            <th style="width: 13%">{{ 'MODULES.GENERAL_TIPO_CAMBIO.TABLE.BCCR_ICompra' | translate }}</th>
-                                                            <th style="width: 13%">{{ 'MODULES.GENERAL_TIPO_CAMBIO.TABLE.BCCR_IVenta' | translate }}</th>
-                                                            <th style="width: 10%">{{ 'MODULES.GENERAL_TIPO_CAMBIO.TABLE.Status' | translate }}</th>
-                                                            <th style="width: 12%">{{ 'MODULES.GENERAL_TIPO_CAMBIO.TABLE.Modified' | translate }}</th>
-                                                            <th style="width: 15%">{{ 'MODULES.GENERAL_TIPO_CAMBIO.TABLE.Updated' | translate }}</th>
-                                                        </tr>
-                                                    </thead>
-                                                    <tbody>
-                                                        <tr *ngFor="let obj of listTiposMonedas" class="item-list__list" (click)="selectMoneda(obj)" >
-                                                            <td  style="white-space: nowrap" class="item-list__view">
-                                                                <div> <a > <mat-icon>swap_horiz</mat-icon> </a> </div>
-                                                            </td>
-                                                            
-                                                            <td>{{obj.simbolo}}</td>
-                                                            <td>{{obj.descripcion}}</td>
-                                                            <td>{{obj.bccrIndicadorCompra}}</td>
-                                                            <td>{{obj.bccrIndicadorVenta}}</td>
-                                                            <td>{{obj.estado}}</td>
-                                                            <td>{{obj.modificadoPor}}</td>
-                                                            <td>{{obj.fechaModificacion}}</td>
-                                                        </tr>
-                                                    </tbody>
-                                                </table>
-                                            </div>
-                        
-                                        </div>
-
+                                    <div class="form-group col-md-2">
+                                        <span for="id" class="form-label">{{ 'MODULES.GENERAL_TIPO_CAMBIO.FORM.Id' | translate }}</span>
+                                        <input  formControlName="id" 
+                                                class="form-control" 
+                                                type="text" 
+                                                id="id_id" 
+                                                readonly/>
                                     </div>
-                                </section>
-                            </div>
-                        </article>
-
-                    </div>
-                    
-                </div>
-            </section>
-
-
-            <!-- *********************** -->
-            <!-- SECCIÓN TIPOS DE CAMBIO -->
-            <!-- *********************** -->
-
-            <section *ngIf="habilitaTipoCambioMoneda">
-                <div class="articulo__contenedor__body">
-
-                    <div *ngIf="habilitaFormularioTipoCambio" class="articulo__contenedor__body__prev" >
-
-                        <article>
-                            <div>
-                                <section>
-                                    <div class="articulo__contenedor__body__prev__form">
-
-                                        <div class="articulo__contenedor__body__prev__form__header"> 
-                                            
-                                            <div class="articulo__contenedor__body__prev__form__header__prev" > 
-                                                <p class="articulo__contenedor__body__prev__form__header__titulo">{{ 'MODULES.GENERAL_TIPO_CAMBIO.CURRENT_ECHANGE_RATE' | translate }}</p>
-                                            </div>
-
-                                            <div class="articulo__contenedor__body__prev__form__header__next" > 
-
-
-                                                <button class="articulo__contenedor__body__prev__form__header__prev__btns__otro" 
-                                                        mat-flat-button
-                                                        (click)="consultarWSBCCRTipoCambio()">{{ 'GENERAL.BTN_CORRENCY_RATE' | translate }}</button>
-
-                                                <button *ngIf="habilitaBtnNuevoTC" class="articulo__contenedor__body__prev__form__header__prev__btns__new" 
-                                                        mat-flat-button
-                                                        (click)="limpiarFormularioTipoCambio()">{{ 'GENERAL.BTN_NEW' | translate }}</button>
-                        
-                                                <button *ngIf="habilitaBtnActualizaTC" class="articulo__contenedor__body__prev__form__header__prev__btns__warn" 
-                                                        mat-flat-button
-                                                        (click)="actualizaObjetoMontoPersona()">{{ 'GENERAL.BTN_UPDATE' | translate }}</button>
-                                                <button *ngIf="habilitaBtnRegistroTC" class="articulo__contenedor__body__prev__form__header__prev__btns__ok" 
-                                                        mat-flat-button
-                                                        (click)="submitFormTipoCambio()">{{ 'GENERAL.BTN_REGISTER' | translate }}</button>
-                                                <button *ngIf="habilitaBtnEliminarTC" class="articulo__contenedor__body__prev__form__header__prev__btns__danger" 
-                                                        mat-flat-button
-                                                        (click)="eliminarTipoCambio()">{{ 'GENERAL.BTN_DELETE' | translate }}</button>
-
-                                            </div>
-                                        
+                                    <div class="form-group col-md-9">
+                                        <span for="lblCodigoMoneda" class="form-label">{{ 'MODULES.GENERAL_TIPO_CAMBIO.FORM.InternalCode' | translate }}</span>
+                                        <input  formControlName="codigo_moneda" 
+                                                class="form-control" 
+                                                type="text" 
+                                                id="id_codigo_moneda"
+                                                [ngClass]="{ 'is-invalid': submittedTipoMonedaForm && m.codigo_moneda.errors }"/>
+                                        <div *ngIf="submittedTipoMonedaForm && m.codigo_moneda.errors" class="invalid-feedback">
+                                            <div *ngIf="m.codigo_moneda.errors.required">{{ 'MODULES.GENERAL_TIPO_CAMBIO.FORM.CurrencyCodeRequired' | translate }}</div>
                                         </div>
+                                    </div>
+                                    <div class="col-md-1 margin-icos-mat">
+                                        <a class="item-list__search"> <mat-icon (click)="buscarMoneda()">search</mat-icon> </a>
+                                    </div>
 
-                                        <div class="articulo__contenedor__body__prev__form__content">
+                                    <div class="col-md-12"></div>
+        
+                                    <div class="form-group col-md-2">
+                                        <span for="simbolo" class="form-label">{{ 'MODULES.GENERAL_TIPO_CAMBIO.FORM.Character' | translate }}</span>
+                                        <input  formControlName="simbolo" 
+                                                class="form-control" 
+                                                type="text" 
+                                                id="id_simbolo"
+                                                [ngClass]="{ 'is-invalid': submittedTipoMonedaForm && m.simbolo.errors }"/>
+                                        <div *ngIf="submittedTipoMonedaForm && m.simbolo.errors" class="invalid-feedback">
+                                            <div *ngIf="m.simbolo.errors.required">{{ 'MODULES.GENERAL_TIPO_CAMBIO.FORM.CurrencySymbolRequired' | translate }}</div>
+                                        </div>
+                                    </div>
+                                    <div class="form-group col-md-3">
+                                        <span for="descripcion" class="form-label">{{ 'MODULES.GENERAL_TIPO_CAMBIO.FORM.Description' | translate }}</span>
+                                        <input  formControlName="descripcion" 
+                                                class="form-control" 
+                                                type="text" 
+                                                id="id_descripcion"
+                                                [ngClass]="{ 'is-invalid': submittedTipoMonedaForm && m.descripcion.errors }"/>
+                                        <div *ngIf="submittedTipoMonedaForm && m.descripcion.errors" class="invalid-feedback">
+                                            <div *ngIf="m.descripcion.errors.required">{{ 'MODULES.GENERAL_TIPO_CAMBIO.FORM.CurrencyDescriptionRequired' | translate }}</div>
+                                        </div>
+                                    </div>
+                                    <div class="form-group col-md-3">
+                                        <span for="lblBccrIndicadorCompra" class="form-label">{{ 'MODULES.GENERAL_TIPO_CAMBIO.FORM.BCCRPurchase' | translate }}</span>
+                                        <input  formControlName="bccrIndicadorCompra" 
+                                                class="form-control" 
+                                                type="text" 
+                                                id="id_bccrIndicadorCompra"
+                                                [ngClass]="{ 'is-invalid': submittedTipoMonedaForm && m.bccrIndicadorCompra.errors }" />
+                                        <div *ngIf="submittedTipoMonedaForm && m.bccrIndicadorCompra.errors" class="invalid-feedback">
+                                            <div *ngIf="m.bccrIndicadorCompra.errors.required">{{ 'MODULES.GENERAL_TIPO_CAMBIO.FORM.PurchaseIndicatorRequired' | translate }}</div>
+                                        </div>
+                                    </div>
+                                    <div class="form-group col-md-3">
+                                        <span for="lblBccrIndicadorVenta" class="form-label">{{ 'MODULES.GENERAL_TIPO_CAMBIO.FORM.BCCRSale' | translate }}</span>
+                                        <input  formControlName="bccrIndicadorVenta" 
+                                                class="form-control" 
+                                                type="text" 
+                                                id="id_bccrIndicadorVenta"
+                                                [ngClass]="{ 'is-invalid': submittedTipoMonedaForm && m.bccrIndicadorVenta.errors }"/>
+                                        <div *ngIf="submittedTipoMonedaForm && m.bccrIndicadorVenta.errors" class="invalid-feedback">
+                                            <div *ngIf="m.bccrIndicadorVenta.errors.required">{{ 'MODULES.GENERAL_TIPO_CAMBIO.FORM.SaleIndicatorRequired' | translate }}</div>
+                                        </div>
+                                    </div>
+                                    <div class="form-group col-md-1 margin-icos-mat">
+                                        <mat-checkbox formControlName="estado"></mat-checkbox>
+                                        <!-- <mat-checkbox formControlName="estado">{{ 'MODULES.GENERAL_TIPO_CAMBIO.FORM.Status' | translate }}</mat-checkbox> -->
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+                    </section>
+                    
+                    <section class="articulo-generales__contenedor__body__next">
+                        <div>
+                            <div> 
+                                <div class="articulo-generales__contenedor__body__next__list__header__prev"> 
+                                    <p class="tittle_h3">{{ 'MODULES.GENERAL_TIPO_CAMBIO.LIST_TYPE_CURRENCY' | translate }}</p>
+                                </div>
+                                <div class="articulo-generales__contenedor__body__next__list__header__next"> </div>
+                            </div>
 
-                                            <form [formGroup]="formTipoCambio" class="row">
-                    
+                            <div *ngIf="listTiposMonedas">
+                                <div class="table_responsive">
+                                    <table class="table table-striped">
+                                        <thead>
+                                            <tr>
+                                                <th style="width: 10%"></th>
+                                                <th style="width: 20%">{{ 'MODULES.GENERAL_TIPO_CAMBIO.TABLE.Symbol' | translate }}</th>
+                                                <th style="width: 20%">{{ 'MODULES.GENERAL_TIPO_CAMBIO.TABLE.Description' | translate }}</th>
+                                                <th style="width: 25%">{{ 'MODULES.GENERAL_TIPO_CAMBIO.TABLE.BCCR_ICompra' | translate }}</th>
+                                                <th style="width: 25%">{{ 'MODULES.GENERAL_TIPO_CAMBIO.TABLE.BCCR_IVenta' | translate }}</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <tr *ngFor="let obj of listTiposMonedas" 
+                                                class="item-list__list" 
+                                                (click)="selectMoneda(obj)">
 
-                                                <div class="form-group col-md-2">
-                                                    <label for="id" class="form-label">{{ 'MODULES.GENERAL_TIPO_CAMBIO.FORM.Id' | translate }}</label>
-                                                    <input formControlName="id" class="form-control" type="text" id="id_id" readonly />
-                                                </div>
+                                                <td style="white-space: nowrap" 
+                                                    class="item-list__view">
+                                                    <div> <a> <mat-icon>swap_horiz</mat-icon> </a> </div>
+                                                </td>
+                                                <td>{{obj.simbolo}}</td>
+                                                <td>{{obj.descripcion}}</td>
+                                                <td>{{obj.bccrIndicadorCompra}}</td>
+                                                <td>{{obj.bccrIndicadorVenta}}</td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
 
-                                                <!-- actualiza form -->
-                    
-                                                <!-- linea 1 -->
-                    
-                    
-                                                <div class="form-group col-md-3">
-                                                    <label for="lblIdMoneda" class="form-label">{{ 'MODULES.GENERAL_TIPO_CAMBIO.FORM.Currency' | translate }}</label>
-                                                    <select formControlName="idMoneda" class="form-control" name="selectIdMoneda"
+                        </div>
+                    </section>
+                </article>
+
+                <div class="card" *ngIf="habilitaTipoCambioMoneda">
+                    <div class="card-body">
+                        <article class="articulo-generales__contenedor__body">
+                            <section *ngIf="habilitaFormularioTipoCambio" class="articulo-generales__contenedor__body__prev">
+                                <div>    
+                                    <div class="articulo-generales__contenedor__body__prev__form__header">
+                                        <div class="articulo-generales__contenedor__body__prev__form__header__prev">
+                                            <p class="tittle_form_h1">{{ 'MODULES.GENERAL_TIPO_CAMBIO.CURRENT_ECHANGE_RATE' | translate }}</p>
+                                        </div>
+    
+                                        <div class="articulo-generales__contenedor__body__prev__form__header__next">
+                                            <button class="button_form_others"
+                                                    mat-flat-button
+                                                    (click)="consultarWSBCCRTipoCambio()">{{ 'GENERAL.BTN_CORRENCY_RATE' | translate }}</button>
+                                            <button *ngIf="habilitaBtnNuevoTC" 
+                                                    class="button_form_new" 
+                                                    mat-flat-button
+                                                    (click)="limpiarFormularioTipoCambio()">{{ 'GENERAL.BTN_NEW' | translate }}</button>
+                                            <button *ngIf="habilitaBtnActualizaTC" 
+                                                    class="button_form_update" 
+                                                    mat-flat-button
+                                                    (click)="actualizaObjetoMontoPersona()">{{ 'GENERAL.BTN_UPDATE' | translate }}</button>
+                                            <button *ngIf="habilitaBtnRegistroTC" 
+                                                    class="button_form_create" 
+                                                    mat-flat-button
+                                                    (click)="submitFormTipoCambio()">{{ 'GENERAL.BTN_REGISTER' | translate }}</button>
+                                            <button *ngIf="habilitaBtnEliminarTC" 
+                                                    class="button_form_delete" 
+                                                    mat-flat-button
+                                                    (click)="eliminarTipoCambio()">{{ 'GENERAL.BTN_DELETE' | translate }}</button>
+                                        </div>
+                                    </div>
+    
+                                    <div>
+                                        <form   [formGroup]="formTipoCambio" 
+                                                class="row articulo-generales__contenedor__body__prev__form">
+                                            <div class="form-group col-md-3">
+                                                <span for="id" class="form-label">{{ 'MODULES.GENERAL_TIPO_CAMBIO.FORM.Id' | translate }}</span>
+                                                <input  formControlName="id" 
+                                                        class="form-control" 
+                                                        type="text" 
+                                                        id="id_id" 
+                                                        readonly/>
+                                            </div>
+                                            <div class="form-group col-md-3">
+                                                <span for="lblIdMoneda" class="form-label">{{ 'MODULES.GENERAL_TIPO_CAMBIO.FORM.Currency' | translate }}</span>
+                                                <select formControlName="idMoneda" 
+                                                        class="form-control" 
+                                                        name="selectIdMoneda"
                                                         [ngClass]="{ 'is-invalid': submittedFormTipoCambio && t.idMoneda.errors }">
-                                                            <option [disabled]="true" [ngValue]="objeto" *ngFor="let objeto of listTiposMonedas" >{{objeto.id}} - {{objeto.descripcion}}</option>
-                                                    </select>
-                                                    <div *ngIf="submittedFormTipoCambio && t.idMoneda.errors" class="invalid-feedback">
-                                                        <div *ngIf="t.idMoneda.errors.required">{{ 'MODULES.GENERAL_TIPO_CAMBIO.FORM.CurrencyTypeIsRequired' | translate }}</div>
-                                                    </div>
+                                                        <option [disabled]="true" 
+                                                                [ngValue]="objeto" 
+                                                                *ngFor="let objeto of listTiposMonedas" >{{objeto.id}} - {{objeto.descripcion}}</option>
+                                                </select>
+                                                <div *ngIf="submittedFormTipoCambio && t.idMoneda.errors" class="invalid-feedback">
+                                                    <div *ngIf="t.idMoneda.errors.required">{{ 'MODULES.GENERAL_TIPO_CAMBIO.FORM.CurrencyTypeIsRequired' | translate }}</div>
                                                 </div>
-
-                                                <div class="form-group col-md-3">
-                                                    <label for="lblFechaConsulta" class="form-label">{{ 'MODULES.GENERAL_TIPO_CAMBIO.FORM.QueryDate' | translate }}</label>
-                                                    <input formControlName="fechaConsulta" class="form-control" matInput [matDatepicker]="picker" >
-                                                    <mat-datepicker-toggle class="item-list__calendar" matSuffix [for]="picker"></mat-datepicker-toggle>
-                                                    <mat-datepicker #picker ></mat-datepicker>
-                                                </div>
-
-                                                <div class="col-sm-3 margin-icos-mat">
-                                                    <a class="item-list__search"> <mat-icon (click)="buscarTipoCambio()">search</mat-icon> </a>
-                                                </div>
-                    
-                                                <!-- linea 1 -->
-                    
-                                                <!-- linea 2 -->
-
-                                                <div class="form-group col-md-4">
-                                                    <label for="lblContoCompra" class="form-label">{{ 'MODULES.GENERAL_TIPO_CAMBIO.FORM.Purchase' | translate }}</label>
-                                                    <input formControlName="montoCompra" class="form-control" type="text" id="id_montoCompra"
-                                                            placeholder=".00"
+                                            </div>
+                                            <div class="form-group col-md-5">
+                                                <span for="lblFechaConsulta" class="form-label">{{ 'MODULES.GENERAL_TIPO_CAMBIO.FORM.QueryDate' | translate }}</span>
+                                                <input  formControlName="fechaConsulta" 
+                                                        class="form-control" 
+                                                        matInput 
+                                                        [matDatepicker]="picker">
+                                                <mat-datepicker-toggle class="item-list__calendar" matSuffix [for]="picker"></mat-datepicker-toggle>
+                                                <mat-datepicker #picker ></mat-datepicker>
+                                            </div>
+                                            <div class="col-md-1 margin-icos-mat">
+                                                <a class="item-list__search"> <mat-icon (click)="buscarTipoCambio()">search</mat-icon> </a>
+                                            </div>
+                                            <div class="col-md-12"></div>
+                                            <div class="form-group col-md-6">
+                                                <span for="lblContoCompra" class="form-label">{{ 'MODULES.GENERAL_TIPO_CAMBIO.FORM.Purchase' | translate }}</span>
+                                                <input formControlName="montoCompra" 
+                                                        class="form-control" 
+                                                        type="text" 
+                                                        id="id_montoCompra"
+                                                        placeholder=".00"
                                                         [ngClass]="{ 'is-invalid': submittedFormTipoCambio && t.montoCompra.errors }" />
-                                                    <div *ngIf="submittedFormTipoCambio && t.montoCompra.errors" class="invalid-feedback">
-                                                        <div *ngIf="t.montoCompra.errors.required">{{ 'MODULES.GENERAL_TIPO_CAMBIO.FORM.PurchaseIsRequired' | translate }}</div>
-                                                    </div>
+                                                <div *ngIf="submittedFormTipoCambio && t.montoCompra.errors" class="invalid-feedback">
+                                                    <div *ngIf="t.montoCompra.errors.required">{{ 'MODULES.GENERAL_TIPO_CAMBIO.FORM.PurchaseIsRequired' | translate }}</div>
                                                 </div>
-                    
-                                                <div class="form-group col-md-4">
-                                                    <label for="lblMontoVenta" class="form-label">{{ 'MODULES.GENERAL_TIPO_CAMBIO.FORM.Sale' | translate }}</label>
-                                                    <input formControlName="montoVenta" class="form-control" type="text" id="id_montoVenta"
-                                                            placeholder=".00"
-                                                        [ngClass]="{ 'is-invalid': submittedFormTipoCambio && t.montoVenta.errors }" />
-                                                    <div *ngIf="submittedFormTipoCambio && t.montoVenta.errors" class="invalid-feedback">
-                                                        <div *ngIf="t.montoVenta.errors.required">{{ 'MODULES.GENERAL_TIPO_CAMBIO.FORM.FirstAliasIsRequired' | translate }}</div>
-                                                    </div>
+                                            </div>
+                                            <div class="form-group col-md-6">
+                                                <span for="lblMontoVenta" class="form-label">{{ 'MODULES.GENERAL_TIPO_CAMBIO.FORM.Sale' | translate }}</span>
+                                                <input  formControlName="montoVenta" 
+                                                        class="form-control" 
+                                                        type="text" 
+                                                        id="id_montoVenta"
+                                                        placeholder=".00"
+                                                    [ngClass]="{ 'is-invalid': submittedFormTipoCambio && t.montoVenta.errors }" />
+                                                <div *ngIf="submittedFormTipoCambio && t.montoVenta.errors" class="invalid-feedback">
+                                                    <div *ngIf="t.montoVenta.errors.required">{{ 'MODULES.GENERAL_TIPO_CAMBIO.FORM.FirstAliasIsRequired' | translate }}</div>
                                                 </div>
-
-                                                <!-- linea 2 -->
-                    
-                                            </form>
-
-                                        </div>
-
-                                    </div>
-                                </section>
-                            </div>
-                        </article>
-
-                    </div>
-                    
-
-                    <div *ngIf="habilitaListaTipoCambio" class="articulo__contenedor__body__next">
-
-                        <article>
-                            <div>
-                                <section>
-                                    <div class="articulo__contenedor__body__next__list">
-
-                                        <div class="articulo__contenedor__body__next__list__header"> 
-                                            
-                                            <div class="articulo__contenedor__body__next__list__header__prev" > 
-                                                <p class="articulo__contenedor__body__next__list__header__titulo">{{ 'MODULES.GENERAL_TIPO_CAMBIO.LIST_CURRENCT_ECHANGE_RATE' | translate }}</p>
                                             </div>
-
-                                            <div class="articulo__contenedor__body__next__list__header__next" > </div>
-                                        
-                                        </div>
-
-                                        <div class="articulo__contenedor__body__next__list__content">
-
-                                            <div *ngIf="listObjetosTipoCambio">
-                                                <table class="table table-striped">
-                                                    <thead>
-                                                        <tr>
-                                                            <th style="width: 5%"></th>
-                                                            <th style="width: 25%">{{ 'MODULES.GENERAL_TIPO_CAMBIO.TABLE.QueryDate' | translate }}</th>
-                                                            <th style="width: 20%">{{ 'MODULES.GENERAL_TIPO_CAMBIO.TABLE.PurchaseAmount' | translate }}</th>
-                                                            <th style="width: 20%">{{ 'MODULES.GENERAL_TIPO_CAMBIO.TABLE.SaleAmount' | translate }}</th>
-                                                            <th style="width: 10%">{{ 'MODULES.GENERAL_TIPO_CAMBIO.TABLE.Modified' | translate }}</th>
-                                                            <th style="width: 15%">{{ 'MODULES.GENERAL_TIPO_CAMBIO.TABLE.Updated' | translate }}</th>
-                                                        </tr>
-                                                    </thead>
-                                                    <tbody>
-                                                        <tr *ngFor="let obj of listObjetosTipoCambio" class="item-list__list" (click)="selectObjectListTipoCambio(obj)" >
-                                                            <td  style="white-space: nowrap" class="item-list__view">
-                                                                <div> <a > <mat-icon>swap_horiz</mat-icon> </a> </div>
-                                                            </td>
-                                                            <td>{{obj.fechaConsulta}}</td>
-                                                            <td>{{obj.montoCompra}}</td>
-                                                            <td>{{obj.montoVenta}}</td>
-                                                            <td>{{obj.modificadoPor}}</td>
-                                                            <td>{{obj.fechaModificacion}}</td>
-                                                        </tr>
-                                                    </tbody>
-                                                </table>
-                                            </div>
-
-                                        </div>
-
+                                        </form>
                                     </div>
-                                </section>
-                            </div>
+                                </div>
+                            </section>
+                        
+                            <section *ngIf="habilitaListaTipoCambio" class="articulo-generales__contenedor__body__next">
+                                <div>
+                                    <div> 
+                                        <div class="articulo-generales__contenedor__body__next__list__header__prev">
+                                            <p class="tittle_h3">{{ 'MODULES.GENERAL_TIPO_CAMBIO.LIST_CURRENCT_ECHANGE_RATE' | translate }}</p>
+                                        </div>
+                                        <div class="articulo-generales__contenedor__body__next__list__header__next"></div>
+                                    </div>
+        
+                                    <div *ngIf="listObjetosTipoCambio">
+                                        <div class="table_responsive">
+                                            <table class="table table-striped">
+                                                <thead>
+                                                    <tr>
+                                                        <th style="width: 10%"></th>
+                                                        <th style="width: 40%">{{ 'MODULES.GENERAL_TIPO_CAMBIO.TABLE.QueryDate' | translate }}</th>
+                                                        <th style="width: 25%">{{ 'MODULES.GENERAL_TIPO_CAMBIO.TABLE.PurchaseAmount' | translate }}</th>
+                                                        <th style="width: 25%">{{ 'MODULES.GENERAL_TIPO_CAMBIO.TABLE.SaleAmount' | translate }}</th>
+                                                    </tr>
+                                                </thead>
+                                                <tbody>
+                                                    <tr *ngFor="let obj of listObjetosTipoCambio" 
+                                                        class="item-list__list" 
+                                                        (click)="selectObjectListTipoCambio(obj)">
+
+                                                        <td style="white-space: nowrap" 
+                                                            class="item-list__view">
+                                                            <div> <a> <mat-icon>swap_horiz</mat-icon> </a> </div>
+                                                        </td>
+                                                        <td>{{obj.fechaConsulta}}</td>
+                                                        <td>{{obj.montoCompra}}</td>
+                                                        <td>{{obj.montoVenta}}</td>
+                                                    </tr>
+                                                </tbody>
+                                            </table>
+                                        </div>
+        
+                                    </div>
+        
+                                </div>
+                            </section>
                         </article>
-
                     </div>
-                    
                 </div>
-            </section>
 
-            <!-- // ************
-            // ** FOOTER ** -->
-            <section>
-                <div class="articulo__contenedor__footer">
-                    <div class="articulo__contenedor__footer__prev" > </div>
-
-                    <div class="articulo__contenedor__footer__next" > </div>
-                </div>
-            </section>
-
+            </div>
         </div>
+    </section>
 
-    </article>
-</main>
+    <section>
+        <div class="articulo__contenedor__footer">
+            <div class="articulo__contenedor__footer__prev" > </div>
+            <div class="articulo__contenedor__footer__next" > </div>
+        </div>
+    </section>
+</article>

@@ -40,6 +40,63 @@ td {
     height: 40px;
 }
 
+.table_responsive{
+    width: 100%;
+    @media (max-width: 1200px) { overflow-x:auto; }
+}
+
+// TÍTULOS
+.tittle_h1{
+    color: #053254;
+    font-size: 1.5rem;
+    font-weight: 700;
+    @media (max-width: 800px) { font-size: 1rem; }
+}
+.tittle_h2{
+    color: #B3B3B3;
+    font-size: 1.2rem;
+    font-weight: 500;
+    @media (max-width: 800px) { font-size: 1rem; }
+}
+.tittle_h3{
+    color: #005188;
+    font-size: 1.2rem;
+    font-weight: 500;
+    @media (max-width: 800px) { font-size: 1rem; }
+}
+.tittle_form_h1{
+    color: white;
+    font-size: 1rem;
+    font-weight: 500;
+    @media (max-width: 800px) { font-size: 0.9rem; }
+}
+
+// BOTONES
+.button_form_new{
+    margin-right: 1%;
+    margin-bottom: 1%;
+    &:hover { color: #005188; cursor: pointer; }
+}
+.button_form_update{
+    margin-bottom: 1%;
+    &:hover { color: #F9A01B; cursor: pointer; }
+}
+.button_form_delete{
+    margin-left: 1%;
+    margin-bottom: 1%;
+    &:hover { color: #b82424; cursor: pointer; }
+}
+.button_form_create{
+    margin-bottom: 1%;
+    &:hover { color: #129523; cursor: pointer; }
+}
+.button_form_others{
+    margin-right: 1%;
+    margin-bottom: 1%;
+    &:hover { color: #00AEEF; cursor: pointer; }
+}
+
+
 // ********************************
 // ## -- >> mensaje de alerta
 .alerta {
@@ -294,8 +351,8 @@ td {
         align-items: center;
         height: 100%;
 
-        margin-right: 50px;
-        margin-left: 20px;
+        // margin-right: 50px;
+        // margin-left: 20px;
 
         text-align: center;
 
@@ -661,7 +718,6 @@ td {
             }
         }
     }
-
     &__edit {
 
         display: inline-block;
@@ -674,26 +730,15 @@ td {
         }
     }
     &__view {
-
         color: #053254;
         transition: color 0.2s ease-in-out;
-
         text-align: center;
-
-        &:hover {
-            color: #053254;
-            cursor: pointer;
-        }
+        &:hover { color: #129523; cursor: pointer; }
     }
     &__list {
-
         color: #053254;
         transition: color 0.2s ease-in-out;
-
-        &:hover {
-            color: #F9A01B;
-            cursor: pointer;
-        }
+        &:hover { color: #F9A01B; cursor: pointer; }
     }
     &__delete {
         display: inline-block;
@@ -715,13 +760,9 @@ td {
         }
     }
     &__search {
-
         color: #053254;
         transition: color 0.2s ease-in-out;
-        &:hover {
-            color: #129523;
-            cursor: pointer;
-        }
+        &:hover { color: #129523; cursor: pointer; }
     }
     &__calendar {
 

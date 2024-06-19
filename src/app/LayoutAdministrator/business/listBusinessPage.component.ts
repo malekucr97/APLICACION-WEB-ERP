@@ -9,7 +9,7 @@ import { OnSeguridad } from '@app/_helpers/abstractSeguridad';
 import { TranslateMessagesService } from '@app/_services/translate-messages.service';
 
 @Component({templateUrl: 'HTML_ListBusinessPage.html',
-            styleUrls: ['../../../assets/scss/app.scss'] 
+            styleUrls: ['../../../assets/scss/app.scss', '../../../assets/scss/administrator/app.scss'] 
 })
 export class ListBusinessComponent extends OnSeguridad implements OnInit {
     
@@ -45,6 +45,8 @@ export class ListBusinessComponent extends OnSeguridad implements OnInit {
 
         this.listBusiness = null;
     }
+
+    public redirectAdminUsersPage() : void { this.router.navigate([this.URLAdministratorPage]); }
 
     ngOnInit() {
         

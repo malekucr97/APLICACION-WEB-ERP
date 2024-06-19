@@ -5,19 +5,15 @@
 @mixin bg-color-skyblue { background-color: #00AEEF; }
 @mixin bg-color-light-gray { background-color: #B3B3B3; }
 
-// @mixin font-aero {
-//     font-family: "../../assets/fonts/Aero.ttf";
-//     font-size: 1.8rem;
-//     font-weight: 750;
-//     text-align: center;
-//     @media (max-width: 800px) {
-//         font-size: 1.5rem;
-//     }
-// }
 @mixin font-info {
     font-size: 0.8rem;
     font-weight: 550;
     text-align: center;
+}
+
+.main-contenidoadmin {
+    margin-left: 1%;
+    margin-right: 1%;
 }
 
 .info {
@@ -69,7 +65,6 @@
         color: white;
         display: flex;
         padding-top: 1%;
-        // @include font-aero;
     }
 
     &__deco--left {
@@ -117,12 +112,7 @@
     }
 }
 
-.styleLayout {
-    // margin-top: 1%;
-    padding-bottom: 1%;
-    // margin-left: 2%;
-    // margin-right: 1%;
-}
+
 
 .content {
     height: calc(100vh - 98px);
@@ -181,13 +171,15 @@ mat-divider {
 
 .articulo {
 
+    margin-top: 1%;
+    margin-bottom: 1%;
+
     &__contenedor {
 
         &__tittle{
 
             &__h1{
                 color: #053254;
-
                 font-size: 1.5rem;
                 font-weight: 700;
                 @media (max-width: 800px) {
@@ -195,9 +187,7 @@ mat-divider {
                 }
             }
             &__h2{
-
                 color: #B3B3B3;
-
                 font-size: 1.2rem;
                 font-weight: 500;
                 @media (max-width: 800px) {
@@ -206,7 +196,6 @@ mat-divider {
             }
             &__h3{
                 color: #005188;
-
                 font-size: 1.2rem;
                 font-weight: 500;
                 @media (max-width: 800px) {
@@ -214,12 +203,6 @@ mat-divider {
                 }
             }
         }
-
-        // height: 800px;
-
-        // margin: 1% 1% 1% 1%;
-        border-radius: 10px;
-
         // ************
         // ** HEADER **
         &__header {
@@ -301,62 +284,49 @@ mat-divider {
                 text-align: right;
             }
         }
-
         // **********
         // ** BODY **
         &__body {
 
-            padding-top: 1%;
-            padding-bottom: 1%;
-            padding-left: 1%;
-            padding-right: 1%;
-
             display: flex;
 
             &__prev_list{
-                background-color: white;
-
-                border-radius: 10px;
-
-                width: 49%;
-
+                // background-color: white;
+                // border-radius: 10px;
+                width: 50%;
                 display: flex;
                 flex-direction: column;
-
-                margin-right: 1%;
+                margin-right: 0.5%;
             }
+
+            &__prev_form{
+                background-color: #254156;
+                color: white;
+                width: 50%;
+                display: flex;
+                flex-direction: column;
+                border-radius: 10px;
+                margin-top: 1%;
+            }
+
             &__prev {
 
                 background-color: #254156;
                 color: white;
-
                 width: 50%;
-
                 display: flex;
                 flex-direction: column;
-
                 border-radius: 10px;
+                @media (max-width: 1200px) { width: 100%; }
 
                 &__form {
-
                     &__header {
-
-                        &__titulo{
-                            color: white;
-                            
-                            font-size: 1rem;
-                            font-weight: 500;
-                            @media (max-width: 800px) {
-                                font-size: 0.9rem;
-                            }
-                        }
 
                         border-bottom: 1px solid white;
 
                         &__prev {
                             width: 50%;
                             padding-left: 2%;
-
                             display: inline-block;
                             text-align: left;
 
@@ -366,7 +336,7 @@ mat-divider {
 
                                 &__ok{
                                     &:hover {
-                                        color: #129523;
+                                        color: #0F426A;
                                         cursor: pointer;
                                     }
                                 }
@@ -379,7 +349,7 @@ mat-divider {
                                 &__new{
 
                                     &:hover {
-                                        color: #005188;
+                                        color: green;
                                         cursor: pointer;
                                     }
                                 }
@@ -399,7 +369,7 @@ mat-divider {
                         }
                         &__next {
                             width: 50%;
-                            padding-right   : 2%;
+                            padding-right : 2%;
                             padding-top: 0.5%;
                             display: inline-block;
                             text-align: right;
@@ -407,17 +377,13 @@ mat-divider {
                     }
 
                     &__content{
-                        width: 100%;
-
-                        padding-left: 4%;
-                        padding-right: 4%;
-
+                        padding-top: 1%;
+                        padding-left: 3%;
+                        padding-right: 1%;
                         &__span{
                             color: white;
-                            
                             font-size: 1rem;
                             font-weight: 400;
-                            
                             @media (max-width: 800px) {
                                 font-size: 0.9rem;
                                 font-weight: 450;
@@ -434,18 +400,17 @@ mat-divider {
 
                     &__header {
 
-                        &__titulo{
-                            color: #053254;
+                        &__titulo{ color: #053254;
                         }
 
                         &__prev {
 
                             width: 90%;
+                            padding-top: 1%;
                             padding-left: 1%;
                             display: inline-block;
                             text-align: left;
-                            padding-top: 1%;
-
+                            
                             &__btns{
                                 color: #053254;
                                 transition: color 0.2s ease-in-out;
@@ -487,7 +452,7 @@ mat-divider {
                         &__next {
                             width: 10%;
 
-                            padding-right   : 2%;
+                            padding-right : 1%;
                             display: inline-block;
                             text-align: right;
                         }
@@ -499,38 +464,29 @@ mat-divider {
 
             }
             &__next_list {
-                background-color: white;
+                // background-color: white;
+                // border-radius: 10px;
 
-                border-radius: 10px;
-
-                width: 49%;
-
+                width: 50%;
                 display: flex;
                 flex-direction: column;
-
-                margin-left: 1%;
+                margin-left: 0.5%;
             }
             &__next {
 
                 background-color: white;
-
                 border-radius: 10px;
-
                 width: 50%;
-
                 display: flex;
                 flex-direction: column;
 
                 &__list {
-
                     &__header {
-
                         &__titulo{
                             color: #053254;
                         }
 
                         &__prev {
-
                             width: 90%;
                             padding-left: 1%;
                             display: inline-block;
@@ -577,8 +533,7 @@ mat-divider {
                         }
                         &__next {
                             width: 10%;
-
-                            padding-right   : 2%;
+                            padding-right: 2%;
                             display: inline-block;
                             text-align: right;
                         }
@@ -595,11 +550,20 @@ mat-divider {
                 padding: 10px;
             }
         }
+
+        &__table{
+            width: 100%;
+            @media (max-width: 1200px) { overflow-x:auto; }
+        }
+
+
         // ************
         // ** FOOTER **
         &__footer {
 
             border-top: 1px solid rgb(202, 202, 202);
+            margin-top: 1%;
+
             &__prev {
                 width: 50%;
                 padding: 1% 0 0.5% 2%;

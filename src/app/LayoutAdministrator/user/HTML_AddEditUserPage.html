@@ -1,249 +1,243 @@
-<main>
-  <article class="articulo">
-    <div class="articulo__contenedor">
+<article class="articulo">
 
-      <section>
-        <div class="articulo__contenedor__tittle">
-          <p class="articulo__contenedor__tittle__h1">{{businessObservable.nombre}}</p>
-          <p class="articulo__contenedor__tittle__h2">{{ 'CONFIGURATION.ADMIN_PAGE_LIST_USERS.TITLE' | translate }}</p>
-        </div>
-        <hr>
-        <div>
-            <button class=" administracion-contenedor__content__item
-                            administracion-contenedor__content__item__backIco-sm
-                            icon-button-medium"
-                    title="{{ 'CONFIGURATION.BTN_ADMIN_USERS' | translate}}"
-                    mat-icon-button 
-                    (click)="redirectListUsersPage()"> <mat-icon>arrow_back</mat-icon>
-            </button>
-        </div>
-      </section>
+    <section>
+      <div class="articulo__contenedor__tittle">
+        <p class="articulo__contenedor__tittle__h1">{{businessObservable.nombre}}</p>
+        <p class="articulo__contenedor__tittle__h2">{{ 'CONFIGURATION.ADMIN_PAGE_LIST_USERS.TITLE' | translate }}</p>
+      </div>
+      <hr>
+      <div>
+          <button class=" administracion-contenedor__content__item
+                          administracion-contenedor__content__item__backIco-sm
+                          icon-button-medium"
+                  title="{{ 'CONFIGURATION.BTN_ADMIN_USERS' | translate}}"
+                  mat-icon-button 
+                  (click)="redirectListUsersPage()"> <mat-icon>arrow_back</mat-icon>
+          </button>
+      </div>
+    </section>
 
-      <section>
-        <div class="card">
-          <div class="card-body">
+    <section>
+      <div class="card">
+        <div class="card-body">
 
-            <article>
-              <section>
-                  <div class="row">
+          <article>
+            <section>
+                <div class="row">
 
-                      <div class="col-md-12">
-                          <p *ngIf="updateUser" class="articulo__contenedor__tittle__h3">{{ 'CONFIGURATION.ADD_EDIT_USER.PARAMETERS_USER' | translate: { nombreCompleto: usuarioSeleccionado.nombreCompleto } }}</p>
-                          <p *ngIf="addUser" class="articulo__contenedor__tittle__h3">{{ 'CONFIGURATION.ADD_EDIT_USER.REGISTER_USER' | translate }}</p>
+                    <div class="col-md-12">
+                        <p *ngIf="updateUser" class="articulo__contenedor__tittle__h3">{{ 'CONFIGURATION.ADD_EDIT_USER.PARAMETERS_USER' | translate: { nombreCompleto: usuarioSeleccionado.nombreCompleto } }}</p>
+                        <p *ngIf="addUser" class="articulo__contenedor__tittle__h3">{{ 'CONFIGURATION.ADD_EDIT_USER.REGISTER_USER' | translate }}</p>
+                    </div>
+                    
+                </div>
+            </section>
+          </article>
+
+          <hr>
+
+          <!-- *************************** -->
+          <!-- SECCIÓN FORMULARIO USUARIO  -->
+          <!-- *************************** -->
+          <article class="articulo__contenedor__body">
+            <section>
+              <div>
+                <div class="articulo__contenedor__body__prev">
+                  <div class="articulo__contenedor__body__prev__form">
+                    <div class="articulo__contenedor__body__prev__form__header p-2">
+                      <div class="articulo__contenedor__body__prev__form__header__prev">
+                        <p class="tittle_form_h1">{{ 'CONFIGURATION.ADD_EDIT_USER.TITLE' | translate }}</p>
                       </div>
-                      
-                  </div>
-              </section>
-            </article>
-
-            <hr>
-
-            <!-- *************************** -->
-            <!-- SECCIÓN FORMULARIO USUARIO  -->
-            <!-- *************************** -->
-            <article>
-              <section>
-                <div class="articulo__contenedor__body">
-                  <div class="articulo__contenedor__body__prev">
-                    <div class="articulo__contenedor__body__prev__form">
-                      <div class="articulo__contenedor__body__prev__form__header p-2">
-                        <div class="articulo__contenedor__body__prev__form__header__prev">
-                          <p class="articulo__contenedor__body__prev__form__header__titulo">{{ 'CONFIGURATION.ADD_EDIT_USER.TITLE' | translate }}</p>
-                        </div>
-        
-                        <div class="articulo__contenedor__body__prev__form__header__next">
-                          <button *ngIf="updateUser" class="articulo__contenedor__header__prev__btns__warn" mat-flat-button (click)="actualizarUsuario()">{{ 'GENERAL.BTN_UPDATE' | translate }}</button>
-                          <button *ngIf="addUser" class="articulo__contenedor__header__prev__btns__ok" mat-flat-button (click)="registrarUsuario()">{{ 'GENERAL.BTN_REGISTER' | translate }}</button>
-                        </div>
+      
+                      <div class="articulo__contenedor__body__prev__form__header__next">
+                        <button *ngIf="updateUser" class="articulo__contenedor__header__prev__btns__warn" mat-flat-button (click)="actualizarUsuario()">{{ 'GENERAL.BTN_UPDATE' | translate }}</button>
+                        <button *ngIf="addUser" class="articulo__contenedor__header__prev__btns__ok" mat-flat-button (click)="registrarUsuario()">{{ 'GENERAL.BTN_REGISTER' | translate }}</button>
                       </div>
-        
-                      <div class="articulo__contenedor__body__prev__form__content p-2">
-                        <form [formGroup]="usuarioForm" class="row">
+                    </div>
+      
+                    <div class="articulo__contenedor__body__prev__form__content p-2">
+                      <form [formGroup]="usuarioForm" class="row">
 
-                          <div class="form-group col-md-4">
-                            <span for="lblIdentificacionUsuario" class="form-label">{{ 'CONFIGURATION.ADD_EDIT_USER.FORM.TXT_ID' | translate }}</span>
-                            <input formControlName="identificacionUsuario"
-                                    class="form-control"
-                                    type="text"
-                                    id="id_identificacionUsuario"
-                                    [ngClass]="{'is-invalid': submitFormUsuario && f.identificacionUsuario.errors}"
-                                    [pattern]="ussPattern" />
-                            <div *ngIf="submitFormUsuario && f.identificacionUsuario.errors" class="invalid-feedback">
-                              <div *ngIf="f.identificacionUsuario.errors.required">{{ 'GENERAL.VALIDATES.EMPTY' | translate }}</div>
-                            </div>
-
-                            <div *ngIf="f.identificacionUsuario.errors?.pattern" class="invalid-feedback">
-                              <div style="text-align: center">{{ 'GENERAL.VALIDATES.REGEX' | translate }}</div>
-                            </div>
-
+                        <div class="form-group col-md-4">
+                          <span for="lblIdentificacionUsuario" class="form-label">{{ 'CONFIGURATION.ADD_EDIT_USER.FORM.TXT_ID' | translate }}</span>
+                          <input formControlName="identificacionUsuario"
+                                  class="form-control"
+                                  type="text"
+                                  id="id_identificacionUsuario"
+                                  [ngClass]="{'is-invalid': submitFormUsuario && f.identificacionUsuario.errors}"
+                                  [pattern]="ussPattern" />
+                          <div *ngIf="submitFormUsuario && f.identificacionUsuario.errors" class="invalid-feedback">
+                            <div *ngIf="f.identificacionUsuario.errors.required">{{ 'GENERAL.VALIDATES.EMPTY' | translate }}</div>
                           </div>
 
-                          <div class="form-group col-md-8">
-                              <span for="lblNombreCompletoUsuario" class="form-label">{{ 'CONFIGURATION.ADD_EDIT_USER.FORM.TXT_USERNAME' | translate }}</span>
-                              <input
-                                maxlength="300"
-                                formControlName="nombreCompletoUsuario"
-                                class="form-control"
-                                type="text"
-                                id="id_nombreCompletoUsuario"
-                                [ngClass]="{'is-invalid': submitFormUsuario && f.nombreCompletoUsuario.errors}"
-                              />
-                              <div *ngIf="submitFormUsuario && f.nombreCompletoUsuario.errors" class="invalid-feedback">
-                                <div *ngIf="f.nombreCompletoUsuario.errors.required">{{ 'GENERAL.VALIDATES.EMPTY' | translate }}</div>
-                              </div>
+                          <div *ngIf="f.identificacionUsuario.errors?.pattern" class="invalid-feedback">
+                            <div style="text-align: center">{{ 'GENERAL.VALIDATES.REGEX' | translate }}</div>
                           </div>
 
-                          <div class="form-group col-md-4">
-                            <span for="lblNumeroTelefonoUsuario" class="form-label">{{ 'CONFIGURATION.ADD_EDIT_USER.FORM.TXT_PHONE' | translate }}</span>
-                            <input
-                                maxlength="15"
-                                formControlName="numeroTelefonoUsuario"
-                                class="form-control"
-                                type="text"
-                                id="id_numeroTelefonoUsuario"
-                                [ngClass]="{'is-invalid': submitFormUsuario && f.numeroTelefonoUsuario.errors}"
-                            />
-                            <div *ngIf="submitFormUsuario && f.numeroTelefonoUsuario.errors" class="invalid-feedback">
-                                <div *ngIf="f.numeroTelefonoUsuario.errors.required">{{ 'GENERAL.VALIDATES.EMPTY' | translate }}</div>
-                            </div>
                         </div>
 
-                        <!-- [pattern]="emailPattern" -->
                         <div class="form-group col-md-8">
-                            <span for="lblCorreoElectronicoUsuario" class="form-label">{{ 'CONFIGURATION.ADD_EDIT_USER.FORM.TXT_EMAIL' | translate }}</span>
-                            <input  formControlName="correoElectronicoUsuario"
-                                    class="form-control"
-                                    type="text"
-                                    id="id_correoElectronicoUsuario"
-                                    [ngClass]="{'is-invalid': submitFormUsuario && f.correoElectronicoUsuario.errors}" />
-
-                            <div *ngIf="submitFormUsuario && f.correoElectronicoUsuario.errors" class="invalid-feedback">
-                                <div *ngIf="f.correoElectronicoUsuario.errors.required">{{ 'GENERAL.VALIDATES.EMPTY' | translate }}</div>
-                            </div>
-                            <div *ngIf="f.correoElectronicoUsuario.errors?.pattern" class="invalid-feedback">
-                              <div style="text-align: center">{{ 'GENERAL.VALIDATES.REGEX' | translate }}</div>
+                            <span for="lblNombreCompletoUsuario" class="form-label">{{ 'CONFIGURATION.ADD_EDIT_USER.FORM.TXT_USERNAME' | translate }}</span>
+                            <input
+                              maxlength="300"
+                              formControlName="nombreCompletoUsuario"
+                              class="form-control"
+                              type="text"
+                              id="id_nombreCompletoUsuario"
+                              [ngClass]="{'is-invalid': submitFormUsuario && f.nombreCompletoUsuario.errors}"
+                            />
+                            <div *ngIf="submitFormUsuario && f.nombreCompletoUsuario.errors" class="invalid-feedback">
+                              <div *ngIf="f.nombreCompletoUsuario.errors.required">{{ 'GENERAL.VALIDATES.EMPTY' | translate }}</div>
                             </div>
                         </div>
 
                         <div class="form-group col-md-4">
-                          <span for="lblPasswordUsuario" class="form-label">{{ 'CONFIGURATION.ADD_EDIT_USER.FORM.TXT_PASSWORD' | translate }}</span>
-                          <input  formControlName="passwordUsuario"
-                                  class="form-control"
-                                  type="password"
-                                  id="id_passwordUsuario"
-                                  [ngClass]="{'is-invalid': submitFormUsuario && f.passwordUsuario.errors}"
-                                  [pattern]="pwdPattern" />
-
-                          <div *ngIf="submitFormUsuario && f.passwordUsuario.errors" class="invalid-feedback">
-                              <div *ngIf="f.passwordUsuario.errors.required">{{ 'GENERAL.VALIDATES.EMPTY' | translate }}</div>
-                              <div *ngIf="f.passwordUsuario.errors.minlength">{{ 'GENERAL.VALIDATES.PASSWORD_MIN' | translate:{ MIN: 5 } }}</div>
+                          <span for="lblNumeroTelefonoUsuario" class="form-label">{{ 'CONFIGURATION.ADD_EDIT_USER.FORM.TXT_PHONE' | translate }}</span>
+                          <input
+                              maxlength="15"
+                              formControlName="numeroTelefonoUsuario"
+                              class="form-control"
+                              type="text"
+                              id="id_numeroTelefonoUsuario"
+                              [ngClass]="{'is-invalid': submitFormUsuario && f.numeroTelefonoUsuario.errors}"
+                          />
+                          <div *ngIf="submitFormUsuario && f.numeroTelefonoUsuario.errors" class="invalid-feedback">
+                              <div *ngIf="f.numeroTelefonoUsuario.errors.required">{{ 'GENERAL.VALIDATES.EMPTY' | translate }}</div>
                           </div>
-                          <div *ngIf="f.passwordUsuario.errors?.pattern" class="invalid-feedback">
+                      </div>
+
+                      <!-- [pattern]="emailPattern" -->
+                      <div class="form-group col-md-8">
+                          <span for="lblCorreoElectronicoUsuario" class="form-label">{{ 'CONFIGURATION.ADD_EDIT_USER.FORM.TXT_EMAIL' | translate }}</span>
+                          <input  formControlName="correoElectronicoUsuario"
+                                  class="form-control"
+                                  type="text"
+                                  id="id_correoElectronicoUsuario"
+                                  [ngClass]="{'is-invalid': submitFormUsuario && f.correoElectronicoUsuario.errors}" />
+
+                          <div *ngIf="submitFormUsuario && f.correoElectronicoUsuario.errors" class="invalid-feedback">
+                              <div *ngIf="f.correoElectronicoUsuario.errors.required">{{ 'GENERAL.VALIDATES.EMPTY' | translate }}</div>
+                          </div>
+                          <div *ngIf="f.correoElectronicoUsuario.errors?.pattern" class="invalid-feedback">
                             <div style="text-align: center">{{ 'GENERAL.VALIDATES.REGEX' | translate }}</div>
                           </div>
                       </div>
 
-                          <div class="form-group col-md-8">
-                              <span for="lblPuestoUsuario" class="form-label">{{ 'CONFIGURATION.ADD_EDIT_USER.FORM.TXT_POSITION' | translate }}</span>
-                              <input
-                                  maxlength="100"
-                                  formControlName="puestoUsuario"
-                                  class="form-control"
-                                  type="text"
-                                  id="id_puestoUsuario"
-                                  [ngClass]="{'is-invalid': submitFormUsuario && f.puestoUsuario.errors}"
-                              />
-                              <div *ngIf="submitFormUsuario && f.puestoUsuario.errors" class="invalid-feedback">
-                                  <div *ngIf="f.puestoUsuario.errors.required">{{ 'GENERAL.VALIDATES.EMPTY' | translate }}</div>
-                              </div>
-                          </div>
+                      <div class="form-group col-md-4">
+                        <span for="lblPasswordUsuario" class="form-label">{{ 'CONFIGURATION.ADD_EDIT_USER.FORM.TXT_PASSWORD' | translate }}</span>
+                        <input  formControlName="passwordUsuario"
+                                class="form-control"
+                                type="password"
+                                id="id_passwordUsuario"
+                                [ngClass]="{'is-invalid': submitFormUsuario && f.passwordUsuario.errors}"
+                                [pattern]="pwdPattern" />
 
-                          
-                          <div class="form-group col-md-12">
-                              <span for="lblRolUsuario" class="form-label">{{ 'CONFIGURATION.ADD_EDIT_USER.FORM.TXT_ROLE' | translate }}</span>
-                              <input
-                                  maxlength="100"
-                                  formControlName="rolUsuario"
-                                  class="form-control"
-                                  type="text"
-                                  id="id_rolUsuario"
-                                  [ngClass]="{'is-invalid': submitFormUsuario && f.rolUsuario.errors}"
-                              />
-                              <div *ngIf="submitFormUsuario && f.rolUsuario.errors" class="invalid-feedback">
-                                  <div *ngIf="f.rolUsuario.errors.required">{{ 'GENERAL.VALIDATES.EMPTY' | translate }}</div>
-                              </div>
-                          </div>
+                        <div *ngIf="submitFormUsuario && f.passwordUsuario.errors" class="invalid-feedback">
+                            <div *ngIf="f.passwordUsuario.errors.required">{{ 'GENERAL.VALIDATES.EMPTY' | translate }}</div>
+                            <div *ngIf="f.passwordUsuario.errors.minlength">{{ 'GENERAL.VALIDATES.PASSWORD_MIN' | translate:{ MIN: 5 } }}</div>
+                        </div>
+                        <div *ngIf="f.passwordUsuario.errors?.pattern" class="invalid-feedback">
+                          <div style="text-align: center">{{ 'GENERAL.VALIDATES.REGEX' | translate }}</div>
+                        </div>
+                    </div>
 
-                          
+                        <div class="form-group col-md-8">
+                            <span for="lblPuestoUsuario" class="form-label">{{ 'CONFIGURATION.ADD_EDIT_USER.FORM.TXT_POSITION' | translate }}</span>
+                            <input
+                                maxlength="100"
+                                formControlName="puestoUsuario"
+                                class="form-control"
+                                type="text"
+                                id="id_puestoUsuario"
+                                [ngClass]="{'is-invalid': submitFormUsuario && f.puestoUsuario.errors}"
+                            />
+                            <div *ngIf="submitFormUsuario && f.puestoUsuario.errors" class="invalid-feedback">
+                                <div *ngIf="f.puestoUsuario.errors.required">{{ 'GENERAL.VALIDATES.EMPTY' | translate }}</div>
+                            </div>
+                        </div>
 
-                        </form>
-                      </div>
+                        
+                        <div class="form-group col-md-12">
+                            <span for="lblRolUsuario" class="form-label">{{ 'CONFIGURATION.ADD_EDIT_USER.FORM.TXT_ROLE' | translate }}</span>
+                            <input
+                                maxlength="100"
+                                formControlName="rolUsuario"
+                                class="form-control"
+                                type="text"
+                                id="id_rolUsuario"
+                                [ngClass]="{'is-invalid': submitFormUsuario && f.rolUsuario.errors}"
+                            />
+                            <div *ngIf="submitFormUsuario && f.rolUsuario.errors" class="invalid-feedback">
+                                <div *ngIf="f.rolUsuario.errors.required">{{ 'GENERAL.VALIDATES.EMPTY' | translate }}</div>
+                            </div>
+                        </div>
+
+                      </form>
                     </div>
                   </div>
                 </div>
-              </section>
-            </article>
+              </div>
+            </section>
+          </article>
 
-            <!-- ************************ -->
-            <!-- USUARIO SELECCIONADO     -->
-            <!-- ************************ -->
-            <article>
-              <section *ngIf="updateUser">
-                <div class="articulo__contenedor__body__complete">
+          <!-- ************************ -->
+          <!-- USUARIO SELECCIONADO     -->
+          <!-- ************************ -->
+          <article *ngIf="updateUser">
+            <section>
+              <div class="articulo__contenedor__body__complete">
+                <div class="articulo__contenedor__body__next__list">
                   <div class="articulo__contenedor__body__next__list">
-                    <div class="articulo__contenedor__body__next__list">
-                      <div class="articulo__contenedor__body__next__list__header">
-                        <div class="articulo__contenedor__body__prev__list__header__prev">
-                          <p class="articulo__contenedor__tittle__h3">{{ 'CONFIGURATION.ADD_EDIT_USER.SELECT_USER' | translate }}</p>
-                        </div>
-        
-                        <div class="articulo__contenedor__body__prev__list__header__next"></div>
+                    <div class="articulo__contenedor__body__next__list__header">
+                      <div class="articulo__contenedor__body__prev__list__header__prev">
+                        <p class="articulo__contenedor__tittle__h3">{{ 'CONFIGURATION.ADD_EDIT_USER.SELECT_USER' | translate }}</p>
                       </div>
-        
-                      <div class="articulo__contenedor__body__next__list__content">
-                        <div>
-                          <table class="table table-striped">
-                            <thead>
-                              <tr>
-                                  <th style="width: 10%">{{ 'CONFIGURATION.ADD_EDIT_USER.TABLE.ID' | translate }}</th>
-                                  <th style="width: 25%">{{ 'CONFIGURATION.ADD_EDIT_USER.TABLE.USERNAME' | translate }}</th>
-                                  <th style="width: 25%">{{ 'CONFIGURATION.ADD_EDIT_USER.TABLE.EMAIL' | translate }}</th>
-                                  <th style="width: 20%">{{ 'CONFIGURATION.ADD_EDIT_USER.TABLE.POSITION' | translate }}</th>
-                                  <th style="width: 20%">{{ 'CONFIGURATION.ADD_EDIT_USER.TABLE.ROLE' | translate }}</th>
-                              </tr>
-                            </thead>
-                            <tbody>
-                              <tr class="item-list__list" (click)="selectObjetoUsuario()" >
-                                  <td>{{usuarioSeleccionado.identificacion}}</td>
-                                  <td>{{usuarioSeleccionado.nombreCompleto}}</td>
-                                  <td>{{usuarioSeleccionado.email}}</td>
-                                  <td>{{usuarioSeleccionado.puesto}}</td>
-                                  <td>{{nombreRol}}</td>
-                              </tr>
-                            </tbody>
-                          </table>
-                        </div>
+      
+                      <div class="articulo__contenedor__body__prev__list__header__next"></div>
+                    </div>
+      
+                    <div class="articulo__contenedor__body__next__list__content">
+                      <div class="articulo__contenedor__table">
+                        <table class="table table-striped">
+                          <thead>
+                            <tr>
+                                <th style="width: 10%">{{ 'CONFIGURATION.ADD_EDIT_USER.TABLE.ID' | translate }}</th>
+                                <th style="width: 25%">{{ 'CONFIGURATION.ADD_EDIT_USER.TABLE.USERNAME' | translate }}</th>
+                                <th style="width: 25%">{{ 'CONFIGURATION.ADD_EDIT_USER.TABLE.EMAIL' | translate }}</th>
+                                <th style="width: 20%">{{ 'CONFIGURATION.ADD_EDIT_USER.TABLE.POSITION' | translate }}</th>
+                                <th style="width: 20%">{{ 'CONFIGURATION.ADD_EDIT_USER.TABLE.ROLE' | translate }}</th>
+                            </tr>
+                          </thead>
+                          <tbody>
+                            <tr class="item-list__list" (click)="selectObjetoUsuario()" >
+                                <td>{{usuarioSeleccionado.identificacion}}</td>
+                                <td>{{usuarioSeleccionado.nombreCompleto}}</td>
+                                <td>{{usuarioSeleccionado.email}}</td>
+                                <td>{{usuarioSeleccionado.puesto}}</td>
+                                <td>{{nombreRol}}</td>
+                            </tr>
+                          </tbody>
+                        </table>
                       </div>
                     </div>
                   </div>
                 </div>
-              </section>
-            </article>
+              </div>
+            </section>
+          </article>
 
-            <article>
-              <section>
-                <div class="articulo__contenedor__footer">
-                  <div class="articulo__contenedor__footer__prev"></div>
-        
-                  <div class="articulo__contenedor__footer__next"></div>
-                </div>
-              </section>
-            </article>
+          <article>
+            <section>
+              <div class="articulo__contenedor__footer">
+                <div class="articulo__contenedor__footer__prev"></div>
+      
+                <div class="articulo__contenedor__footer__next"></div>
+              </div>
+            </section>
+          </article>
 
-          </div>
         </div>
-      </section>
+      </div>
+    </section>
 
-    </div>
-  </article>
-</main>
+</article>
