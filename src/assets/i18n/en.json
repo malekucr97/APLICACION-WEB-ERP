@@ -9,7 +9,7 @@
       "PASSWORD": "Password is required",
       "FAIL_LOGIN": "Login failed, attempt number: {{intentosFallidosInicioSesion}} of 3"
     },
-    "RIGHTS": "Soluciones INRA - BANKAP - © All rights reserved {{year}}"
+    "RIGHTS": "TecPartner - Secure BI - © All rights reserved {{year}}"
   },
   "INIT": {
     "NAME": "Business Management System",

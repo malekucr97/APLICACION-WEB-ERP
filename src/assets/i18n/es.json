@@ -9,7 +9,7 @@
       "PASSWORD": "La contraseña es requerida",
       "FAIL_LOGIN": "Inicio fallido, intento número: {{intentosFallidosInicioSesion}} de 3"
     },
-    "RIGHTS": "Soluciones INRA - BANKAP - © Derechos reservados {{year}}"
+    "RIGHTS": "TecPartner - Secure BI - © Derechos reservados {{year}}"
   },
   "INIT": {
     "NAME": "Sistema de Gestión Administrativo Financiero",
