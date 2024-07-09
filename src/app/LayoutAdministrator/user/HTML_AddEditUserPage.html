@@ -1,7 +1,246 @@
-<main>
+<article class="articulo">
+
+  <section>
+    <div class="articulo__contenedor__tittle">
+      <p class="articulo__contenedor__tittle__h1">{{businessObservable.nombre}}</p>
+      <p class="articulo__contenedor__tittle__h2">Administración de Usuarios</p>
+    </div>
+    <hr>
+    <div>
+        <button class=" administracion-contenedor__content__item
+                        administracion-contenedor__content__item__backIco-sm
+                        icon-button-medium"
+                title="Atrás"
+                mat-icon-button 
+                (click)="redirectListUsersPage()"> <mat-icon>arrow_back</mat-icon>
+        </button>
+    </div>
+  </section>
+
+  <section>
+    <div class="card">
+      <div class="card-body">
+
+        <article>
+          <section>
+              <div class="row">
+
+                  <div class="col-md-12">
+                      <p *ngIf="updateUser" class="articulo__contenedor__tittle__h3">Actualización Usuario: {{usuarioSeleccionado.nombreCompleto}}</p>
+                      <p *ngIf="addUser" class="articulo__contenedor__tittle__h3">Registro de Usuarios</p>
+                  </div>
+                  
+              </div>
+          </section>
+        </article>
+
+        <hr>
+
+        <!-- *************************** -->
+        <!-- SECCIÓN FORMULARIO USUARIO  -->
+        <!-- *************************** -->
+        <article class="articulo__contenedor__body">
+          <section>
+            <div>
+              <div class="articulo__contenedor__body__prev">
+                <div class="articulo__contenedor__body__prev__form">
+                  <div class="articulo__contenedor__body__prev__form__header p-2">
+                    <div class="articulo__contenedor__body__prev__form__header__prev">
+                      <p class="tittle_form_h1">Mantenimiento de Usuarios</p>
+                    </div>
+    
+                    <div class="articulo__contenedor__body__prev__form__header__next">
+                      <button *ngIf="updateUser" class="articulo__contenedor__header__prev__btns__warn" mat-flat-button (click)="actualizarUsuario()">Actualizar</button>
+                      <button *ngIf="addUser" class="articulo__contenedor__header__prev__btns__ok" mat-flat-button (click)="registrarUsuario()">Registrar</button>
+                    </div>
+                  </div>
+    
+                  <div class="articulo__contenedor__body__prev__form__content p-2">
+                    <form [formGroup]="usuarioForm" class="row">
+
+                      <div class="form-group col-md-4">
+                        <span for="lblIdentificacionUsuario" class="form-label">Identificación</span>
+                        <input formControlName="identificacionUsuario"
+                                class="form-control"
+                                type="text"
+                                id="id_identificacionUsuario"
+                                [ngClass]="{'is-invalid': submitFormUsuario && f.identificacionUsuario.errors}"
+                                [pattern]="ussPattern" />
+                        <div *ngIf="submitFormUsuario && f.identificacionUsuario.errors" class="invalid-feedback">
+                          <div *ngIf="f.identificacionUsuario.errors.required">El campo es requerido</div>
+                        </div>
+
+                        <div *ngIf="f.identificacionUsuario.errors?.pattern" class="invalid-feedback">
+                          <div style="text-align: center">No cumple con la regla regex de seguridad</div>
+                        </div>
+
+                      </div>
+
+                      <div class="form-group col-md-8">
+                          <span for="lblNombreCompletoUsuario" class="form-label">Nombre Completo</span>
+                          <input
+                            maxlength="300"
+                            formControlName="nombreCompletoUsuario"
+                            class="form-control"
+                            type="text"
+                            id="id_nombreCompletoUsuario"
+                            [ngClass]="{'is-invalid': submitFormUsuario && f.nombreCompletoUsuario.errors}"
+                          />
+                          <div *ngIf="submitFormUsuario && f.nombreCompletoUsuario.errors" class="invalid-feedback">
+                            <div *ngIf="f.nombreCompletoUsuario.errors.required">El campo es requerido</div>
+                          </div>
+                      </div>
+
+                      <div class="form-group col-md-4">
+                        <span for="lblNumeroTelefonoUsuario" class="form-label">Número de Teléfono</span>
+                        <input
+                            maxlength="15"
+                            formControlName="numeroTelefonoUsuario"
+                            class="form-control"
+                            type="text"
+                            id="id_numeroTelefonoUsuario"
+                            [ngClass]="{'is-invalid': submitFormUsuario && f.numeroTelefonoUsuario.errors}"
+                        />
+                        <div *ngIf="submitFormUsuario && f.numeroTelefonoUsuario.errors" class="invalid-feedback">
+                            <div *ngIf="f.numeroTelefonoUsuario.errors.required">El campo es requerido</div>
+                        </div>
+                    </div>
+
+                    <div class="form-group col-md-8">
+                        <span for="lblCorreoElectronicoUsuario" class="form-label">Correo Electrónico</span>
+                        <input  formControlName="correoElectronicoUsuario"
+                                class="form-control"
+                                type="text"
+                                id="id_correoElectronicoUsuario"
+                                [ngClass]="{'is-invalid': submitFormUsuario && f.correoElectronicoUsuario.errors}" />
+
+                        <div *ngIf="submitFormUsuario && f.correoElectronicoUsuario.errors" class="invalid-feedback">
+                            <div *ngIf="f.correoElectronicoUsuario.errors.required">El campo es requerido</div>
+                        </div>
+                        <div *ngIf="f.correoElectronicoUsuario.errors?.pattern" class="invalid-feedback">
+                          <div style="text-align: center">No cumple con la regla regex de seguridad</div>
+                        </div>
+                    </div>
+
+                    <div class="form-group col-md-4">
+                      <span for="lblPasswordUsuario" class="form-label">Contraseña</span>
+                      <input  formControlName="passwordUsuario"
+                              class="form-control"
+                              type="password"
+                              id="id_passwordUsuario"
+                              [ngClass]="{'is-invalid': submitFormUsuario && f.passwordUsuario.errors}"
+                              [pattern]="pwdPattern" />
+
+                      <div *ngIf="submitFormUsuario && f.passwordUsuario.errors" class="invalid-feedback">
+                          <div *ngIf="f.passwordUsuario.errors.required">El campo es requerido</div>
+                          <div *ngIf="f.passwordUsuario.errors.minlength">La contraseña debe tener al menos 5 caracteres</div>
+                      </div>
+                      <div *ngIf="f.passwordUsuario.errors?.pattern" class="invalid-feedback">
+                        <div style="text-align: center">No cumple con la regla regex de seguridad</div>
+                      </div>
+                  </div>
+
+                      <div class="form-group col-md-8">
+                          <span for="lblPuestoUsuario" class="form-label">Puesto</span>
+                          <input
+                              maxlength="100"
+                              formControlName="puestoUsuario"
+                              class="form-control"
+                              type="text"
+                              id="id_puestoUsuario"
+                              [ngClass]="{'is-invalid': submitFormUsuario && f.puestoUsuario.errors}" />
+                          <div *ngIf="submitFormUsuario && f.puestoUsuario.errors" class="invalid-feedback">
+                              <div *ngIf="f.puestoUsuario.errors.required">El campo es requerido</div>
+                          </div>
+                      </div>
+
+                      <div class="form-group col-md-12">
+                          <span for="lblRolUsuario" class="form-label">Rol</span>
+                          <input
+                              maxlength="100"
+                              formControlName="rolUsuario"
+                              class="form-control"
+                              type="text"
+                              id="id_rolUsuario"
+                              [ngClass]="{'is-invalid': submitFormUsuario && f.rolUsuario.errors}" />
+                          <div *ngIf="submitFormUsuario && f.rolUsuario.errors" class="invalid-feedback">
+                              <div *ngIf="f.rolUsuario.errors.required">El campo es requerido</div>
+                          </div>
+                      </div>
+
+                    </form>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </section>
+        </article>
+
+        <!-- ************************ -->
+        <!-- USUARIO SELECCIONADO     -->
+        <!-- ************************ -->
+        <article *ngIf="updateUser">
+          <section>
+            <div class="articulo__contenedor__body__complete">
+              <div class="articulo__contenedor__body__next__list">
+                <div class="articulo__contenedor__body__next__list">
+                  <div class="articulo__contenedor__body__next__list__header">
+                    <div class="articulo__contenedor__body__prev__list__header__prev">
+                      <p class="articulo__contenedor__tittle__h3">Usuario Seleccionado</p>
+                    </div>
+    
+                    <div class="articulo__contenedor__body__prev__list__header__next"></div>
+                  </div>
+    
+                  <div class="articulo__contenedor__body__next__list__content">
+                    <div class="articulo__contenedor__table">
+                      <table class="table table-striped">
+                        <thead>
+                          <tr>
+                              <th style="width: 10%">Identificación</th>
+                              <th style="width: 25%">Nombre Completo</th>
+                              <th style="width: 25%">Correo Electrónico</th>
+                              <th style="width: 20%">Puesto</th>
+                              <th style="width: 20%">Rol</th>
+                          </tr>
+                        </thead>
+                        <tbody>
+                          <tr class="item-list__list" (click)="selectObjetoUsuario()" >
+                              <td>{{usuarioSeleccionado.identificacion}}</td>
+                              <td>{{usuarioSeleccionado.nombreCompleto}}</td>
+                              <td>{{usuarioSeleccionado.email}}</td>
+                              <td>{{usuarioSeleccionado.puesto}}</td>
+                              <td>{{nombreRol}}</td>
+                          </tr>
+                        </tbody>
+                      </table>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </section>
+        </article>
+
+        <article>
+          <section>
+            <div class="articulo__contenedor__footer">
+              <div class="articulo__contenedor__footer__prev"></div>
+    
+              <div class="articulo__contenedor__footer__next"></div>
+            </div>
+          </section>
+        </article>
+
+      </div>
+    </div>
+  </section>
+
+</article>
+
+<!-- <main>
     <article class="articulo">
       <div class="articulo__contenedor mat-elevation-z4">
-        <!-- HEADER -->
         <section>
           <div class="articulo__contenedor__header">
             <div class="articulo__contenedor__header__prev">
@@ -9,14 +248,9 @@
               <p *ngIf="addUser">Registro de Usuarios</p>
               <a routerLink="{{ URLRedirectPage }}" class="btn btn-light mb-2 mr-3">Volver</a>
             </div>
-
             <div class="articulo__contenedor__header__next"></div>
           </div>
         </section>
-
-        <!-- *************************** -->
-        <!-- SECCIÓN FORMULARIO USUARIO  -->
-        <!-- *************************** -->
         <section>
           <div class="articulo__contenedor__body">
             <div class="articulo__contenedor__body__prev">
@@ -31,10 +265,8 @@
                     <button *ngIf="addUser" class="articulo__contenedor__header__prev__btns__ok" mat-flat-button (click)="registrarUsuario()">Registrar</button>
                   </div>
                 </div>
-
                 <div class="articulo__contenedor__body__prev__form__content p-2">
                   <form [formGroup]="usuarioForm" class="row">
-
                     <div class="form-group col-md-4">
                       <label for="identificacionUsuario" class="form-label">Identificación</label>
                       <input
@@ -49,7 +281,6 @@
                         <div *ngIf="f.identificacionUsuario.errors.required">El campo es requerido.</div>
                       </div>
                     </div>
-
                     <div class="form-group col-md-8">
                         <label for="nombreCompletoUsuario" class="form-label">Nombre Completo</label>
                         <input
@@ -64,7 +295,6 @@
                           <div *ngIf="f.nombreCompletoUsuario.errors.required">El campo es requerido.</div>
                         </div>
                     </div>
-
                     <div class="form-group col-md-4">
                       <label for="numeroTelefonoUsuario" class="form-label">Teléfono</label>
                       <input
@@ -79,7 +309,6 @@
                           <div *ngIf="f.numeroTelefonoUsuario.errors.required">El campo es requerido.</div>
                       </div>
                   </div>
-
                   <div class="form-group col-md-8">
                       <label for="correoElectronicoUsuario" class="form-label">Correo Electrónico</label>
                       <input
@@ -94,7 +323,6 @@
                           <div *ngIf="f.correoElectronicoUsuario.errors.required">El campo es requerido.</div>
                       </div>
                   </div>
-
                   <div class="form-group col-md-4">
                     <label for="passwordUsuario" class="form-label">Contraseña</label>
                     <input
@@ -111,7 +339,6 @@
                         <div *ngIf="f.passwordUsuario.errors.invalidPassword">La contraseña debe contener al menos una mayúscula, una minúscula, un número y un caracter.</div>
                     </div>
                 </div>
-
                     <div class="form-group col-md-8">
                         <label for="puestoUsuario" class="form-label">Puesto o Cargo</label>
                         <input
@@ -126,9 +353,6 @@
                             <div *ngIf="f.puestoUsuario.errors.required">El campo es requerido.</div>
                         </div>
                     </div>
-
-
-
                     <div class="form-group col-md-12">
                         <label for="rolUsuario" class="form-label">Rol de Usuario</label>
                         <input
@@ -143,19 +367,12 @@
                             <div *ngIf="f.rolUsuario.errors.required">El campo es requerido.</div>
                         </div>
                     </div>
-
-
-
                   </form>
                 </div>
               </div>
             </div>
           </div>
         </section>
-
-        <!-- ************************ -->
-        <!-- USUARIO SELECCIONADO     -->
-        <!-- ************************ -->
         <section *ngIf="updateUser">
           <div class="articulo__contenedor__body__complete">
             <div class="articulo__contenedor__body__next__list">
@@ -164,10 +381,8 @@
                   <div class="articulo__contenedor__body__prev__list__header__prev">
                     <p class="articulo__contenedor__body__prev__list__header__titulo">Usuario Seleccionado</p>
                   </div>
-
                   <div class="articulo__contenedor__body__prev__list__header__next"></div>
                 </div>
-
                 <div class="articulo__contenedor__body__next__list__content">
                   <div>
                     <table class="table table-striped">
@@ -196,15 +411,12 @@
             </div>
           </div>
         </section>
-
-        <!-- FOOTER -->
         <section>
           <div class="articulo__contenedor__footer">
             <div class="articulo__contenedor__footer__prev"></div>
-
             <div class="articulo__contenedor__footer__next"></div>
           </div>
         </section>
       </div>
     </article>
-  </main>
+  </main> -->

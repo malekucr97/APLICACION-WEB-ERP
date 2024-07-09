@@ -13,6 +13,8 @@ export class AddRoleUserComponent extends OnSeguridad implements OnInit {
   userObservable: User;
   businessObservable: Compania;
 
+  public enableRoleUser:boolean;
+
   userToAssign: User = new User();
   role: Role = new Role();
 
@@ -46,10 +48,14 @@ export class AddRoleUserComponent extends OnSeguridad implements OnInit {
     this.businessObservable = this.accountService.businessValue;
     this.listUserSubject = this.accountService.userListValue;
 
+    this.enableRoleUser = false;
+
     this._userIdentificationParam = this.route.snapshot.params.pidentificationUser;
 
     this.userToAssign = this.listUserSubject.find(x => x.identificacion === this._userIdentificationParam);
   }
+
+  public redirectListUsersPage() : void { this.router.navigate([this.HTTPListUserPage]); }
 
   ngOnInit() {
 
@@ -68,6 +74,8 @@ export class AddRoleUserComponent extends OnSeguridad implements OnInit {
                 this.role = this.listAllRoles.find( (x) => x.id === this.userToAssign.idRol );
               
               } else { this.role = null }
+
+              this.enableRoleUser = true;
             }
           },
           (error) => { this.alertService.error(error); }

@@ -4,7 +4,7 @@ import { Router } from '@angular/router';
 import { User } from '@app/_models';
 import { Compania } from '../_models/modules/compania';
 import { AccountService, AlertService } from '@app/_services';
-import { active, httpLandingIndexPage } from '@environments/environment';
+import { active, administrator, httpLandingIndexPage } from '@environments/environment';
 import { OnSeguridad } from '@app/_helpers/abstractSeguridad';
 import { Bitacora } from '@app/_models/bitacora';
 
@@ -103,7 +103,7 @@ export class HomeComponent extends OnSeguridad implements OnInit {
             .pipe(first())
             .subscribe(responseRole => { 
                 
-                if (responseRole.estado===active.state) {
+                if (responseRole.estado===active.state || responseRole.estado===administrator.state) {
 
                     this.userObservable.empresa = businessId;
 

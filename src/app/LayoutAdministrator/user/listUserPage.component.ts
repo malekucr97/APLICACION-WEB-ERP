@@ -14,22 +14,32 @@ import { DialogoConfirmacionComponent } from '@app/_components/dialogo-confirmac
 })
 export class ListUserComponent extends OnSeguridad implements OnInit {
 
-  userObservable: User;
-  businessObservable: Compania;
+  public userObservable: User;  public businessObservable: Compania;
+  public isUserSuperAdmin: boolean; public isUserAdminBusiness: boolean;
+  public technicalUserId: string; public adminBusinessUserId: string;
+
+  public listUsers: User[];
+
+  public enableList:boolean;
 
   response: ResponseMessage;
 
-  listUsers: User[] = [];
-
   isActivatePanelAdmin: boolean = false;
 
-  isUserSuperAdmin: boolean = false;
-  isUserAdminBusiness: boolean = false;
+  // listUsers: User[] = [];
 
-  public URLAddEditUsertPage: string = httpAccessAdminPage.urlPageAddEditUser;
-  public URLAddBusinessUsertPage: string = httpAccessAdminPage.urlPageAddBUser;
-  public URLAddRoleUsertPage: string = httpAccessAdminPage.urlPageAddRUser;
-  public URLAdministratorPage: string = httpAccessAdminPage.urlPageAdministrator;
+  // isUserSuperAdmin: boolean = false;
+  // isUserAdminBusiness: boolean = false;
+
+  // public URLAddEditUsertPage: string = httpAccessAdminPage.urlPageAddEditUser;
+  // public URLAddBusinessUsertPage: string = httpAccessAdminPage.urlPageAddBUser;
+  // public URLAddRoleUsertPage: string = httpAccessAdminPage.urlPageAddRUser;
+  // public URLAdministratorPage: string = httpAccessAdminPage.urlPageAdministrator;
+
+  public URLAddEditUsertPage: string;
+  public URLAddBusinessUsertPage: string;
+  public URLAddRoleUsertPage: string;
+  public URLAdministratorPage: string;
 
   constructor(  private accountService: AccountService,
                 private alertService: AlertService,
@@ -45,7 +55,19 @@ export class ListUserComponent extends OnSeguridad implements OnInit {
 
     this.userObservable = this.accountService.userValue;
     this.businessObservable = this.accountService.businessValue;
+
+    this.URLAddEditUsertPage = httpAccessAdminPage.urlPageAddEditUser;
+    this.URLAddBusinessUsertPage = httpAccessAdminPage.urlPageAddBUser;
+    this.URLAddRoleUsertPage = httpAccessAdminPage.urlPageAddRUser;
+    this.URLAdministratorPage = httpAccessAdminPage.urlPageAdministrator;
+
+    this.isUserSuperAdmin = false; this.isUserAdminBusiness = false; this.enableList = false;
+
+    this.technicalUserId = administrator.identification; 
+    this.adminBusinessUserId = administrator.adminSociedad;
   }
+
+  public redirectAdminUsersPage() : void { this.router.navigate([this.URLAdministratorPage]); }
 
   ngOnInit() {
 
@@ -59,6 +81,7 @@ export class ListUserComponent extends OnSeguridad implements OnInit {
             if (users) {
               this.listUsers = users;
               this.accountService.suscribeListUser(this.listUsers);
+              this.enableList = true;
             }  
           });
 
@@ -72,6 +95,7 @@ export class ListUserComponent extends OnSeguridad implements OnInit {
           if (users && users.length > 0) {
             this.listUsers = users;
             this.accountService.suscribeListUser(this.listUsers);
+            this.enableList = true;
           }
         });
 
@@ -83,6 +107,9 @@ export class ListUserComponent extends OnSeguridad implements OnInit {
   }
   selectEmpresa(puserSelected : User) : void {
     this.router.navigate([this.URLAddBusinessUsertPage + puserSelected.identificacion]);
+  }
+  selectRol(puserSelected : User = null) : void {
+      this.router.navigate([this.URLAddRoleUsertPage + puserSelected.identificacion]);
   }
 
   deleteUser(identificacionUsuario : string, idUser : number) {

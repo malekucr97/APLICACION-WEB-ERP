@@ -1,4 +1,142 @@
-<h1 style="color:#1A5276">Usuarios</h1>
+<article class="articulo">
+    <section>
+
+        <div>
+            <div>
+                <p class="articulo__contenedor__tittle__h1">{{businessObservable.nombre}}</p>
+                <p class="articulo__contenedor__tittle__h2">Administración de Usuarios</p>
+            </div>
+    
+            <hr>
+    
+            <div>
+                <button class=" administracion-contenedor__content__item
+                                administracion-contenedor__content__item__backIco
+                                icon-button-medium"
+                        title="Atrás"
+                        mat-icon-button 
+                        (click)="redirectAdminUsersPage()"> <mat-icon>arrow_back</mat-icon>
+                </button>
+            </div>
+        </div>
+
+        <div class="card">
+            <div class="card-body">
+
+                <article>
+                    <section>
+                        <div class="row">
+                            <div class="col-md-9">
+                                <p class="articulo__contenedor__tittle__h3">Lista de Usuarios</p>    
+                            </div>
+                            
+                            <div class="col-md-3">
+                                <button class=" administracion-contenedor__content__item
+                                                administracion-contenedor__content__item__newUser
+                                                icon-button-medium"
+                                        title="Registro"
+                                        mat-icon-button 
+                                        routerLink="{{URLAddEditUsertPage}}"> <mat-icon>person_add</mat-icon>
+                                </button>
+                            </div>
+                        </div>
+                    </section>
+                </article>
+
+                <article>
+                    <section>
+                        <div class="articulo__contenedor__table">
+                            <table class="table table-striped">
+                                <thead>
+                                    <tr>
+                                        <th style="width: 1%"></th>
+                                        <th style="width: 10%">Identificación</th>
+                                        <th style="width: 25%">Nombre</th>
+                                        <th style="width: 25%">Correo</th>
+                                        <th style="width: 25%">Rol</th>
+                                        <th style="width: 10%">Estado</th>
+                    
+                                        <th style="width: 1%"></th>
+                                        <th style="width: 1%"></th>
+                                        <th style="width: 1%"></th>
+                                        <th style="width: 1%"></th>
+                    
+                                    </tr>
+                                </thead>
+                                <tbody>
+                    
+                                    <tr *ngFor="let us of listUsers" class="item-list__list" >
+                    
+                                        <td style="white-space: nowrap" 
+                                            class="item-list__edit"
+                                            (click)="selectObjetoUsuario(us)">
+                                            <a> <mat-icon>edit</mat-icon> </a>
+                                        </td>
+                    
+                                        <td (click)="selectObjetoUsuario(us)">{{us.identificacion}}</td>
+                                        <td (click)="selectObjetoUsuario(us)">{{us.nombreCompleto}}</td>
+                                        <td (click)="selectObjetoUsuario(us)">{{us.email}}</td>
+                                        <td (click)="selectObjetoUsuario(us)">{{us.puesto}}</td>
+                                        <td (click)="selectObjetoUsuario(us)">{{us.estado}}</td>
+                    
+                                        <td style="white-space: normal">
+                                            <button *ngIf="isUserSuperAdmin" 
+                                                    (click)="selectEmpresa(us)" 
+                                                    class="btn-sm item-list__admin__view">
+                                                Compañía
+                                            </button>
+                                        </td>
+                    
+                                        <td style="white-space: normal">
+                                            <button (click)="selectRol(us)" 
+                                                    class="btn-sm item-list__admin__view"> 
+                                                Rol
+                                            </button>
+                                        </td>
+                    
+                                        <td style="white-space: normal">
+                                            <button *ngIf="us.estado!='Activo'"
+                                                (click)="activateUser(us.identificacion, us.id)"
+                                                class="btn-sm item-list__admin__ok" 
+                                                mat-icon-button > <mat-icon>thumb_down_alt</mat-icon>
+                                            </button>
+                    
+                                            <button *ngIf="us.estado=='Activo'"
+                                                (click)="inActivateUser(us.identificacion, us.id)"
+                                                class="btn-sm item-list__admin__warn" 
+                                                mat-icon-button > <mat-icon>thumb_up_alt</mat-icon>
+                                            </button>
+                                        </td>
+                    
+                                        <td style="white-space: normal">
+                    
+                                            <button (click)="deleteUser(us.identificacion, us.id)"
+                                                class="bbtn-sm item-list__admin__danger" 
+                                                mat-icon-button > <mat-icon>delete</mat-icon>
+                                            </button>
+                                        </td>
+                                    </tr>
+
+                                    <tr *ngIf="!enableList">
+                                        <td colspan="10" class="text-center">
+                                            <span class="spinner-border spinner-border-lg align-center"></span>
+                                        </td>
+                                    </tr>
+
+                                </tbody>
+                    
+                            </table>
+                        </div>
+                    </section>
+                </article>
+
+            </div>
+        </div>
+
+    </section>
+</article>
+
+<!-- <h1 style="color:#1A5276">Usuarios</h1>
 <h4>Lista de de usuarios registrados en el sistema</h4>
 <a routerLink="{{URLAdministratorPage}}" class="btn btn-light mb-2 mr-3">Volver</a><br>
 <div class="card">
@@ -86,4 +224,4 @@
         </table>
 
     </div>
-</div>
+</div> -->

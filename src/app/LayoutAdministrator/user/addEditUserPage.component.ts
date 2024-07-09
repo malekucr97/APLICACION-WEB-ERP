@@ -41,6 +41,9 @@ export class AddEditUserComponent extends OnSeguridad implements OnInit {
 
   usuarioSeleccionado : User = new User();
 
+  ussPattern: string;
+  pwdPattern: string;
+
   constructor(private formBuilder: FormBuilder,
               private route: ActivatedRoute,
               private router: Router,
@@ -59,8 +62,13 @@ export class AddEditUserComponent extends OnSeguridad implements OnInit {
 
     if (super.validarUsuarioAdmin()) this.URLRedirectPage = this.URLListUserPage;
 
+    this.ussPattern = "^[a-zA-Z0-9]{5,15}$";
+    this.pwdPattern = "^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?!.*\s).{5,12}$";
+
     this.inicializaFormulario();
   }
+
+  public redirectListUsersPage() : void { this.router.navigate([this.URLRedirectPage]); }
 
   get f() { return this.usuarioForm.controls; }
 

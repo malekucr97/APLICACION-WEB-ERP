@@ -14,11 +14,18 @@ export class AdminUserComponent extends OnSeguridad implements OnInit {
     userObservable: User;
     businessObservable: Compania;
 
-    URLConfigureUserPage: string = httpAccessAdminPage.urlPageAddEditUser;
-    URLListUserPage: string = httpAccessAdminPage.urlPageListUsers;
-    URLListBusinessPage: string = httpAccessAdminPage.urlPageListBusiness;
-    URLListModulePage: string = httpAccessAdminPage.urlPageListModule;
-    URLListRolePage: string = httpAccessAdminPage.urlPageListRole;
+    // URLConfigureUserPage: string = httpAccessAdminPage.urlPageAddEditUser;
+    // URLListUserPage: string = httpAccessAdminPage.urlPageListUsers;
+    // URLListBusinessPage: string = httpAccessAdminPage.urlPageListBusiness;
+    // URLListModulePage: string = httpAccessAdminPage.urlPageListModule;
+    // URLListRolePage: string = httpAccessAdminPage.urlPageListRole;
+
+    public URLConfigureUserPage: string;
+    public URLListUserPage: string;
+    public URLListBusinessPage: string;
+    // public URLListPlanPage: string;
+    public URLListModulePage: string;
+    public URLListRolePage: string;
 
     constructor(private accountService: AccountService,
                 private alertService: AlertService,
@@ -33,7 +40,20 @@ export class AdminUserComponent extends OnSeguridad implements OnInit {
 
         this.userObservable = this.accountService.userValue;
         this.businessObservable = this.accountService.businessValue;
+
+        this.URLConfigureUserPage = httpAccessAdminPage.urlPageAddEditUser;
+        this.URLListUserPage = httpAccessAdminPage.urlPageListUsers;
+        this.URLListBusinessPage = httpAccessAdminPage.urlPageListBusiness;
+        // this.URLListPlanPage = httpAccessAdminPage.urlPageListPlan;
+        this.URLListModulePage = httpAccessAdminPage.urlPageListModule;
+        this.URLListRolePage = httpAccessAdminPage.urlPageListRole;
     }
 
     ngOnInit() { }
+
+    public redirectListUsersPage() : void { this.router.navigate([this.URLListUserPage]); }
+    public redirectListComapniesPage() : void { this.router.navigate([this.URLListBusinessPage]); }
+    // public redirectListPlanesPage() : void { this.router.navigate([this.URLListPlanPage]); }
+    public redirectListModulesPage() : void { this.router.navigate([this.URLListModulePage]); }
+    public redirectListRolesPage() : void { this.router.navigate([this.URLListRolePage]); }
 }
