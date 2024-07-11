@@ -1,21 +1,159 @@
-<main>
-    <article class="articulo">
+<article class="articulo">
+
+  <section>
+    <div class="articulo__contenedor__tittle">
+      <p class="articulo__contenedor__tittle__h1">{{businessObservable.nombre}}</p>
+      <p class="articulo__contenedor__tittle__h2">Registro de Roles</p>
+    </div>
+    <hr>
+    <button class=" administracion-contenedor__content__item
+                    administracion-contenedor__content__item__backIco-sm
+                    icon-button-medium"
+            title="Atrás"
+            mat-icon-button 
+            (click)="redirectListRolesPage()"> <mat-icon>arrow_back</mat-icon> </button>
+  </section>
+
+  <section>
+    <div class="card">
+      <div class="card-body">
+
+        <p class="articulo__contenedor__tittle__h3">Roles de la Compañía</p>
+        <hr>
+
+        <div class="articulo__contenedor">
+    
+          <!-- *************************** -->
+          <!-- SECCIÓN FORMULARIO USUARIO  -->
+          <!-- *************************** -->
+          <section>
+            <div class="articulo__contenedor__body">
+              <div class="articulo__contenedor__body__prev">
+                <div class="articulo__contenedor__body__prev__form">
+                  <div class="articulo__contenedor__body__prev__form__header p-2">
+                    <div class="articulo__contenedor__body__prev__form__header__prev">
+                      <p class="tittle_form_h1">Formulario - Registro de Roles</p>
+                    </div>
+    
+                    <div class="articulo__contenedor__body__prev__form__header__next">
+                      <button class="articulo__contenedor__header__prev__btns__ok" mat-flat-button (click)="registrarRol()">Registrar</button>
+                    </div>
+                  </div>
+    
+                  <div class="articulo__contenedor__body__prev__form__content p-2">
+                      <form [formGroup]="rolForm" class="row">
+  
+                          <div class="form-group col-md-4">
+                            <span for="identificacionRol" class="form-label">Identificación</span>
+                            <input  maxlength="15"
+                                    formControlName="identificacionRol"
+                                    class="form-control"
+                                    type="text"
+                                    id="id_identificacionRol"
+                                    [ngClass]="{'is-invalid': submitFormRol && f.identificacionRol.errors}"/>
+                            <div *ngIf="submitFormRol && f.identificacionRol.errors" class="invalid-feedback">
+                                <div *ngIf="f.identificacionRol.errors.required">El campo es requerido</div>
+                            </div>
+                          </div>
+  
+                          <div class="form-group col-md-8">
+                              <span for="nombreRol" class="form-label">Nombre o Asignación</span>
+                              <input  maxlength="300"
+                                      formControlName="nombreRol"
+                                      class="form-control"
+                                      type="text"
+                                      id="id_nombreRol"
+                                      [ngClass]="{'is-invalid': submitFormRol && f.nombreRol.errors}" />
+                              <div *ngIf="submitFormRol && f.nombreRol.errors" class="invalid-feedback">
+                                <div *ngIf="f.nombreRol.errors.required">El campo es requerido</div>
+                              </div>
+                          </div>
+  
+                          <div class="form-group col-md-4">
+                          <span for="rolEsAdministrador" class="form-label">Es administrador</span>
+                          <input  maxlength="15"
+                                  formControlName="rolEsAdministrador"
+                                  class="form-control"
+                                  type="text"
+                                  id="id_rolEsAdministrador"
+                                  [ngClass]="{'is-invalid': submitFormRol && f.rolEsAdministrador.errors}"/>
+                          <div *ngIf="submitFormRol && f.rolEsAdministrador.errors" class="invalid-feedback">
+                              <div *ngIf="f.rolEsAdministrador.errors.required">El campo es requerido</div>
+                          </div>
+                      </div>
+  
+                      <div class="form-group col-md-8">
+                          <span for="descripcionRol" class="form-label">Descripción del Rol</span>
+                          <input  maxlength="200"
+                                  formControlName="descripcionRol"
+                                  class="form-control"
+                                  type="text"
+                                  id="id_descripcionRol"
+                                  [ngClass]="{'is-invalid': submitFormRol && f.descripcionRol.errors}"/>
+                          <div *ngIf="submitFormRol && f.descripcionRol.errors" class="invalid-feedback">
+                              <div *ngIf="f.descripcionRol.errors.required">El campo es requerido</div>
+                          </div>
+                      </div>
+  
+                      <div class="form-group col-md-4">
+                          <span for="estadoRol" class="form-label">Estado</span>
+                          <input  maxlength="15"
+                                  formControlName="estadoRol"
+                                  class="form-control"
+                                  type="text"
+                                  id="id_estadoRol"
+                                  [ngClass]="{'is-invalid': submitFormRol && f.estadoRol.errors}"/>
+                          <div *ngIf="submitFormRol && f.estadoRol.errors" class="invalid-feedback">
+                              <div *ngIf="f.estadoRol.errors.required">El campo es requerido</div>
+                          </div>
+                      </div>
+  
+                      <div class="form-group col-md-8">
+                          <span for="tipoRol" class="form-label">Tipo de Rol</span>
+                          <input  maxlength="100"
+                                  formControlName="tipoRol"
+                                  class="form-control"
+                                  type="text"
+                                  id="id_tipoRol"
+                                  [ngClass]="{'is-invalid': submitFormRol && f.tipoRol.errors}"/>
+                          <div *ngIf="submitFormRol && f.tipoRol.errors" class="invalid-feedback">
+                              <div *ngIf="f.tipoRol.errors.required">El campo es requerido</div>
+                          </div>
+                      </div>
+  
+                    </form>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </section>
+    
+          <!-- FOOTER -->
+          <section>
+            <div class="articulo__contenedor__footer">
+              <div class="articulo__contenedor__footer__prev"></div>
+              <div class="articulo__contenedor__footer__next"></div>
+            </div>
+          </section>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+</article>
+
+<!-- <article class="articulo">
       <div class="articulo__contenedor mat-elevation-z4">
-        <!-- HEADER -->
         <section>
           <div class="articulo__contenedor__header">
             <div class="articulo__contenedor__header__prev">
               <p >Registro de Rol</p>
               <a routerLink="{{ URLRedirectPage }}" class="btn btn-light mb-2 mr-3">Volver</a>
             </div>
-  
             <div class="articulo__contenedor__header__next"></div>
           </div>
         </section>
-  
-        <!-- *************************** -->
-        <!-- SECCIÓN FORMULARIO USUARIO  -->
-        <!-- *************************** -->
         <section>
           <div class="articulo__contenedor__body">
             <div class="articulo__contenedor__body__prev">
@@ -24,15 +162,12 @@
                   <div class="articulo__contenedor__body__prev__form__header__prev">
                     <p class="articulo__contenedor__body__prev__form__header__titulo">{{tituloBasePantalla}}</p>
                   </div>
-  
                   <div class="articulo__contenedor__body__prev__form__header__next">
                     <button class="articulo__contenedor__header__prev__btns__ok" mat-flat-button (click)="registrarRol()">Registrar</button>
                   </div>
                 </div>
-  
                 <div class="articulo__contenedor__body__prev__form__content p-2">
                     <form [formGroup]="rolForm" class="row">
-
                         <div class="form-group col-md-4">
                         <label for="identificacionRol" class="form-label">Identificación</label>
                         <input
@@ -47,7 +182,6 @@
                             <div *ngIf="f.identificacionRol.errors.required">El campo es requerido.</div>
                         </div>
                         </div>
-
                         <div class="form-group col-md-8">
                             <label for="nombreRol" class="form-label">Nombre o Asignación</label>
                             <input
@@ -62,7 +196,6 @@
                             <div *ngIf="f.nombreRol.errors.required">El campo es requerido.</div>
                             </div>
                         </div>
-
                         <div class="form-group col-md-4">
                         <label for="rolEsAdministrador" class="form-label">Es administrador</label>
                         <input
@@ -77,7 +210,6 @@
                             <div *ngIf="f.rolEsAdministrador.errors.required">El campo es requerido.</div>
                         </div>
                     </div>
-
                     <div class="form-group col-md-8">
                         <label for="descripcionRol" class="form-label">Descripción del Rol</label>
                         <input
@@ -92,7 +224,6 @@
                             <div *ngIf="f.descripcionRol.errors.required">El campo es requerido.</div>
                         </div>
                     </div>
-
                     <div class="form-group col-md-4">
                         <label for="estadoRol" class="form-label">Estado del Rol</label>
                         <input
@@ -107,7 +238,6 @@
                             <div *ngIf="f.estadoRol.errors.required">El campo es requerido.</div>
                         </div>
                     </div>
-
                     <div class="form-group col-md-8">
                         <label for="tipoRol" class="form-label">Tipo de Permisos</label>
                         <input
@@ -122,22 +252,17 @@
                             <div *ngIf="f.tipoRol.errors.required">El campo es requerido.</div>
                         </div>
                     </div>
-
                   </form>
                 </div>
               </div>
             </div>
           </div>
         </section>
-  
-        <!-- FOOTER -->
         <section>
           <div class="articulo__contenedor__footer">
             <div class="articulo__contenedor__footer__prev"></div>
-  
             <div class="articulo__contenedor__footer__next"></div>
           </div>
         </section>
       </div>
-    </article>
-  </main>
+    </article> -->

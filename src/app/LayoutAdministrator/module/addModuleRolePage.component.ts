@@ -25,6 +25,8 @@ export class AddModuleRoleComponent extends OnSeguridad implements OnInit {
 
   _pRolIdParam : string ; 
 
+  public enableModulesRole:boolean;
+
   constructor(  private route: ActivatedRoute,
                 private accountService: AccountService,
                 private alertService: AlertService,
@@ -45,7 +47,11 @@ export class AddModuleRoleComponent extends OnSeguridad implements OnInit {
 
     this._pRolIdParam = this.route.snapshot.params.pidRole;
     this.role = this.listRolesSubject.find((x) => x.id === this._pRolIdParam);
+
+    this.enableModulesRole = false;
   }
+
+  public redirectListRolesPage() : void { this.router.navigate([this.urladminListRole]); }
 
   ngOnInit() {
 
@@ -77,6 +83,8 @@ export class AddModuleRoleComponent extends OnSeguridad implements OnInit {
 
                       } else { this.listModulesBusiness = null; }
                     } else { this.listModulesRol = null; }
+                    
+                    this.enableModulesRole = true;
                   });
             } else {
               this.alertService.info(

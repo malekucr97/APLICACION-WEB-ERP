@@ -88,6 +88,8 @@ export class AddAccessUserModuleComponent extends OnSeguridad implements OnInit 
 
     get m () {   return this.formPantallasModulo.controls;  }
 
+    public redirectListModulesPage() : void { this.router.navigate([this.URLListIndexModules]); }
+
     ngOnInit() { this.buscarPantallasModulo(this.pidModuleParam); }
 
     nuevoRegistroPantalla() : void { 

@@ -1,207 +1,205 @@
-<main>
-    <article class="articulo">
+<article class="articulo">
 
-        <div class="articulo__contenedor mat-elevation-z4">
+    <div class="articulo__contenedor mat-elevation-z4">
 
-            <!-- // ************
-            // ** HEADER ** -->
-            <section>
-                <div class="articulo__contenedor__header">
+        <!-- // ************
+        // ** HEADER ** -->
+        <section>
+            <div class="articulo__contenedor__header">
 
-                    <div class="articulo__contenedor__header__prev" >
+                <div class="articulo__contenedor__header__prev" >
 
-                        <p>{{nombreModulo}} / Mantenimiento de Tasas</p>
-
-                    </div>
-
-                    <div class="articulo__contenedor__header__next" > </div>
+                    <p>{{nombreModulo}} / Mantenimiento de Tasas</p>
 
                 </div>
-            </section>
 
-            <!-- // **********
-            // ** BODY ** -->
+                <div class="articulo__contenedor__header__next" > </div>
 
-            <!-- *************** -->
-            <!-- SECCIÓN PERSONA -->
-            <!-- *************** -->
+            </div>
+        </section>
 
-            
-            <!-- ********************** -->
-            <!-- SECCIÓN MONTOS MÁXIMOS -->
-            <!-- ********************** -->
+        <!-- // **********
+        // ** BODY ** -->
 
-            <section >
-                <div class="articulo__contenedor__body">
+        <!-- *************** -->
+        <!-- SECCIÓN PERSONA -->
+        <!-- *************** -->
 
-                    <div class="articulo__contenedor__body__prev" >
+        
+        <!-- ********************** -->
+        <!-- SECCIÓN MONTOS MÁXIMOS -->
+        <!-- ********************** -->
 
-                        <article>
-                            <div>
-                                <section>
-                                    <div class="articulo__contenedor__body__prev__form">
+        <section >
+            <div class="articulo__contenedor__body">
 
-                                        <div class="articulo__contenedor__body__prev__form__header"> 
-                                            
-                                            <div class="articulo__contenedor__body__prev__form__header__prev" > 
-                                                <p class="articulo__contenedor__body__prev__form__header__titulo">Tasas</p>
-                                            </div>
+                <div class="articulo__contenedor__body__prev" >
 
-                                            <div class="articulo__contenedor__body__prev__form__header__next" > 
+                    <article>
+                        <div>
+                            <section>
+                                <div class="articulo__contenedor__body__prev__form">
 
-                                                <button *ngIf="habilitaBtnNuevo" class="articulo__contenedor__body__prev__form__header__prev__btns__new" 
-                                                        mat-flat-button
-                                                        (click)="limpiarFormulario()">Nuevo</button>
-
-                                                <button *ngIf="habilitaBtnActualiza" class="articulo__contenedor__header__prev__btns__warn" 
-                                                        mat-flat-button
-                                                        (click)="actualizaObjeto()">Actualizar</button>
-                                                <button *ngIf="habilitaBtnRegistro" class="articulo__contenedor__header__prev__btns__ok" 
-                                                        mat-flat-button
-                                                        (click)="submit()">Registrar</button>
-                                                <button *ngIf="habilitaBtnElimibar" class="articulo__contenedor__header__prev__btns__danger" 
-                                                        mat-flat-button
-                                                        (click)="eliminarObjeto()">Eliminar</button>
-
-                                            </div>
+                                    <div class="articulo__contenedor__body__prev__form__header"> 
                                         
+                                        <div class="articulo__contenedor__body__prev__form__header__prev" > 
+                                            <p class="articulo__contenedor__body__prev__form__header__titulo">Tasas</p>
                                         </div>
 
-                                        <div class="articulo__contenedor__body__prev__form__content">
+                                        <div class="articulo__contenedor__body__prev__form__header__next" > 
 
-                                            <form [formGroup]="formulario" class="row">
-                    
-                                                <div class="form-group col-md-2">
-                                                    <label for="lblIdTasa" class="form-label">Id</label>
-                                                    <input formControlName="idTasa" class="form-control" type="text" id="id_idTasa" readonly />
-                                                </div>
+                                            <button *ngIf="habilitaBtnNuevo" class="articulo__contenedor__body__prev__form__header__prev__btns__new" 
+                                                    mat-flat-button
+                                                    (click)="limpiarFormulario()">Nuevo</button>
 
-                                                <div class="form-group col-md-3">
-                                                    <label for="lblCodigoTasa" class="form-label">Código Interno</label>
-                                                    <input formControlName="codigoTasa" class="form-control" type="text" id="id_codigoTasa"
-                                                        [ngClass]="{ 'is-invalid': submittedForm && m.codigoTasa.errors }" />
-                                                    <div *ngIf="submittedForm && m.codigoTasa.errors" class="invalid-feedback">
-                                                        <div *ngIf="m.codigoTasa.errors.required">El código interno para la tasa es requeridos .</div>
-                                                    </div>
-                                                </div>
-                                                
-                                                <div class="form-group col-md-6">
-                                                    <label for="lblDescripcionTasa" class="form-label">Descripción</label>
-                                                    <input formControlName="descripcionTasa" class="form-control" type="text" id="id_descripcionTasa"
-                                                        [ngClass]="{ 'is-invalid': submittedForm && m.descripcionTasa.errors }" />
-                                                    <div *ngIf="submittedForm && m.descripcionTasa.errors" class="invalid-feedback">
-                                                        <div *ngIf="m.descripcionTasa.errors.required">La descripción de la tasa es requerida .</div>
-                                                    </div>
-                                                </div>
-                    
-                                                <div class="col-sm-1 margin-icos-mat">
-                                                    <a class="item-list__search"> <mat-icon (click)="buscarObjeto()">search</mat-icon> </a>
-                                                </div>
-
-                                                <div class="form-group col-sm-2 margin-icos-mat">
-                                                    <mat-checkbox formControlName="porcentual">Es porcentual ?</mat-checkbox>
-                                                </div>
-
-                                                <div class="form-group col-md-3">
-                                                    <label for="lblTasa" class="form-label">Tasade Interés</label>
-                                                    <input formControlName="tasa" class="form-control" type="text" id="id_tasa"
-                                                        [ngClass]="{ 'is-invalid': submittedForm && m.tasa.errors }" />
-                                                    <div *ngIf="submittedForm && m.tasa.errors" class="invalid-feedback">
-                                                        <div *ngIf="m.tasa.errors.required">La tasa es requerida .</div>
-                                                    </div>
-                                                </div>
-                    
-                                                <div class="form-group col-sm-1 margin-icos-mat">
-                                                    <mat-checkbox formControlName="estadoTasa">Estado</mat-checkbox>
-                                                </div>
-                    
-                                            </form>
+                                            <button *ngIf="habilitaBtnActualiza" class="articulo__contenedor__header__prev__btns__warn" 
+                                                    mat-flat-button
+                                                    (click)="actualizaObjeto()">Actualizar</button>
+                                            <button *ngIf="habilitaBtnRegistro" class="articulo__contenedor__header__prev__btns__ok" 
+                                                    mat-flat-button
+                                                    (click)="submit()">Registrar</button>
+                                            <button *ngIf="habilitaBtnElimibar" class="articulo__contenedor__header__prev__btns__danger" 
+                                                    mat-flat-button
+                                                    (click)="eliminarObjeto()">Eliminar</button>
 
                                         </div>
+                                    
+                                    </div>
+
+                                    <div class="articulo__contenedor__body__prev__form__content">
+
+                                        <form [formGroup]="formulario" class="row">
+                
+                                            <div class="form-group col-md-2">
+                                                <label for="lblIdTasa" class="form-label">Id</label>
+                                                <input formControlName="idTasa" class="form-control" type="text" id="id_idTasa" readonly />
+                                            </div>
+
+                                            <div class="form-group col-md-3">
+                                                <label for="lblCodigoTasa" class="form-label">Código Interno</label>
+                                                <input formControlName="codigoTasa" class="form-control" type="text" id="id_codigoTasa"
+                                                    [ngClass]="{ 'is-invalid': submittedForm && m.codigoTasa.errors }" />
+                                                <div *ngIf="submittedForm && m.codigoTasa.errors" class="invalid-feedback">
+                                                    <div *ngIf="m.codigoTasa.errors.required">El código interno para la tasa es requeridos .</div>
+                                                </div>
+                                            </div>
+                                            
+                                            <div class="form-group col-md-6">
+                                                <label for="lblDescripcionTasa" class="form-label">Descripción</label>
+                                                <input formControlName="descripcionTasa" class="form-control" type="text" id="id_descripcionTasa"
+                                                    [ngClass]="{ 'is-invalid': submittedForm && m.descripcionTasa.errors }" />
+                                                <div *ngIf="submittedForm && m.descripcionTasa.errors" class="invalid-feedback">
+                                                    <div *ngIf="m.descripcionTasa.errors.required">La descripción de la tasa es requerida .</div>
+                                                </div>
+                                            </div>
+                
+                                            <div class="col-sm-1 margin-icos-mat">
+                                                <a class="item-list__search"> <mat-icon (click)="buscarObjeto()">search</mat-icon> </a>
+                                            </div>
+
+                                            <div class="form-group col-sm-2 margin-icos-mat">
+                                                <mat-checkbox formControlName="porcentual">Es porcentual ?</mat-checkbox>
+                                            </div>
+
+                                            <div class="form-group col-md-3">
+                                                <label for="lblTasa" class="form-label">Tasade Interés</label>
+                                                <input formControlName="tasa" class="form-control" type="text" id="id_tasa"
+                                                    [ngClass]="{ 'is-invalid': submittedForm && m.tasa.errors }" />
+                                                <div *ngIf="submittedForm && m.tasa.errors" class="invalid-feedback">
+                                                    <div *ngIf="m.tasa.errors.required">La tasa es requerida .</div>
+                                                </div>
+                                            </div>
+                
+                                            <div class="form-group col-sm-1 margin-icos-mat">
+                                                <mat-checkbox formControlName="estadoTasa">Estado</mat-checkbox>
+                                            </div>
+                
+                                        </form>
 
                                     </div>
-                                </section>
-                            </div>
-                        </article>
 
-                    </div>
-                    
+                                </div>
+                            </section>
+                        </div>
+                    </article>
 
-                    <div class="articulo__contenedor__body__next">
+                </div>
+                
 
-                        <article>
-                            <div>
-                                <section>
-                                    <div class="articulo__contenedor__body__next__list">
+                <div class="articulo__contenedor__body__next">
 
-                                        <div class="articulo__contenedor__body__next__list__header"> 
-                                            
-                                            <div class="articulo__contenedor__body__next__list__header__prev" > 
-                                                <p class="articulo__contenedor__body__next__list__header__titulo">Listado de Clases de Inversión</p>
-                                            </div>
+                    <article>
+                        <div>
+                            <section>
+                                <div class="articulo__contenedor__body__next__list">
 
-                                            <div class="articulo__contenedor__body__next__list__header__next" > </div>
+                                    <div class="articulo__contenedor__body__next__list__header"> 
                                         
+                                        <div class="articulo__contenedor__body__next__list__header__prev" > 
+                                            <p class="articulo__contenedor__body__next__list__header__titulo">Listado de Clases de Inversión</p>
                                         </div>
 
-                                        <div class="articulo__contenedor__body__next__list__content">
-
-                                            <div *ngIf="listObjetos" class="articulo__contenedor__body__next__tabla">
-                                                <table class="table table-striped">
-                                                    <thead>
-                                                        <tr>
-                                                            <th style="width: 5%"></th>
-                                                            
-                                                            <th style="width: 15%">Código Interno</th>
-                                                            <th style="width: 15%">Descripción</th>
-                                                            <th style="width: 10%">Tasa de Interés</th>
-                                                            <th style="width: 10%">Porcentual</th>
-                                                            <th style="width: 10%">Estado</th>
-                                                            <th style="width: 12%">Modificado</th>
-                                                            <th style="width: 15%">Se actualizó</th>
-                                                        </tr>
-                                                    </thead>
-                                                    <tbody>
-                                                        <tr *ngFor="let obj of listObjetos" class="item-list__list" (click)="selectObjeto(obj)" >
-                                                            <td  style="white-space: nowrap" class="item-list__view">
-                                                                <div> <a > <mat-icon>swap_horiz</mat-icon> </a> </div>
-                                                            </td>
-                                                            
-                                                            <td>{{obj.codigoTasa}}</td>
-                                                            <td>{{obj.descripcion}}</td>
-                                                            <td>{{obj.tasa}}</td>
-                                                            <td>{{obj.porcentual}}</td>
-                                                            <td>{{obj.estado}}</td>
-                                                            <td>{{obj.modificadoPor}}</td>
-                                                            <td>{{obj.fechaModificacion}}</td>
-                                                        </tr>
-                                                    </tbody>
-                                                </table>
-                                            </div>
-                        
-                                        </div>
-
+                                        <div class="articulo__contenedor__body__next__list__header__next" > </div>
+                                    
                                     </div>
-                                </section>
-                            </div>
-                        </article>
 
-                    </div>
+                                    <div class="articulo__contenedor__body__next__list__content">
+
+                                        <div *ngIf="listObjetos" class="articulo__contenedor__body__next__tabla">
+                                            <table class="table table-striped">
+                                                <thead>
+                                                    <tr>
+                                                        <th style="width: 5%"></th>
+                                                        
+                                                        <th style="width: 15%">Código Interno</th>
+                                                        <th style="width: 15%">Descripción</th>
+                                                        <th style="width: 10%">Tasa de Interés</th>
+                                                        <th style="width: 10%">Porcentual</th>
+                                                        <th style="width: 10%">Estado</th>
+                                                        <th style="width: 12%">Modificado</th>
+                                                        <th style="width: 15%">Se actualizó</th>
+                                                    </tr>
+                                                </thead>
+                                                <tbody>
+                                                    <tr *ngFor="let obj of listObjetos" class="item-list__list" (click)="selectObjeto(obj)" >
+                                                        <td  style="white-space: nowrap" class="item-list__view">
+                                                            <div> <a > <mat-icon>swap_horiz</mat-icon> </a> </div>
+                                                        </td>
+                                                        
+                                                        <td>{{obj.codigoTasa}}</td>
+                                                        <td>{{obj.descripcion}}</td>
+                                                        <td>{{obj.tasa}}</td>
+                                                        <td>{{obj.porcentual}}</td>
+                                                        <td>{{obj.estado}}</td>
+                                                        <td>{{obj.modificadoPor}}</td>
+                                                        <td>{{obj.fechaModificacion}}</td>
+                                                    </tr>
+                                                </tbody>
+                                            </table>
+                                        </div>
                     
+                                    </div>
+
+                                </div>
+                            </section>
+                        </div>
+                    </article>
+
                 </div>
-            </section>
+                
+            </div>
+        </section>
 
-            <!-- // ************
-            // ** FOOTER ** -->
-            <section>
-                <div class="articulo__contenedor__footer">
-                    <div class="articulo__contenedor__footer__prev" > </div>
+        <!-- // ************
+        // ** FOOTER ** -->
+        <section>
+            <div class="articulo__contenedor__footer">
+                <div class="articulo__contenedor__footer__prev" > </div>
 
-                    <div class="articulo__contenedor__footer__next" > </div>
-                </div>
-            </section>
+                <div class="articulo__contenedor__footer__next" > </div>
+            </div>
+        </section>
 
-        </div>
+    </div>
 
-    </article>
-</main>
+</article>

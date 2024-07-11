@@ -60,6 +60,8 @@ export class AdminmoduleComponent extends OnSeguridad implements OnInit {
     }
   }
 
+  public redirectListModulesPage() : void { this.router.navigate([this.URLIndexAdminPage]); }
+
   ngOnInit(): void {}
 
   //#region METODOS | FUNCIONES

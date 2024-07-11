@@ -15,8 +15,10 @@ export class ListModuleComponent extends OnSeguridad implements OnInit {
     userObservable : User;
     businessObservable : Compania;
 
-    listModules : Module[] = [];
-    listModulesSystem : Module[] = [];
+    // listModules : Module[] = [];
+    // listModulesSystem : Module[] = [];
+    listModules : Module[];
+    listModulesSystem : Module[];
 
     private Home : string = httpLandingIndexPage.homeHTTP;
 
@@ -38,7 +40,13 @@ export class ListModuleComponent extends OnSeguridad implements OnInit {
             this.userObservable     = this.accountService.userValue;
             this.businessObservable = this.accountService.businessValue;
             this.habilitarBtnMantenimientoReportes = this.businessObservable.mantenimientoReportes;
+
+            this.listModules = null;
+            this.listModulesSystem = null;
     }
+
+    public redirectAdminUsersPage() : void { this.router.navigate([this.URLIndexAdminPage]); }
+    public redirectAdminModulePowerBiPage() : void { this.router.navigate([this.URLAdminModulePage + 'mantenimientoReportes']); }
 
     ngOnInit() {
 

@@ -1,400 +1,398 @@
-<main>
-    <article class="articulo">
+<article class="articulo">
 
-        <div class="articulo__contenedor mat-elevation-z4">
+    <div class="articulo__contenedor mat-elevation-z4">
 
-            <!-- // ************
-            // ** HEADER ** -->
-            <section>
-                <div class="articulo__contenedor__header">
+        <!-- // ************
+        // ** HEADER ** -->
+        <section>
+            <div class="articulo__contenedor__header">
 
-                    <div class="articulo__contenedor__header__prev" >
+                <div class="articulo__contenedor__header__prev" >
 
-                        <p>{{nombreModulo}} / Mantenimiento de Monedas</p>
-
-                    </div>
-
-                    <div class="articulo__contenedor__header__next" > </div>
+                    <p>{{nombreModulo}} / Mantenimiento de Monedas</p>
 
                 </div>
-            </section>
 
-            <!-- // **********
-            // ** BODY ** -->
+                <div class="articulo__contenedor__header__next" > </div>
 
-            <!-- *************** -->
-            <!-- SECCIÓN PERSONA -->
-            <!-- *************** -->
+            </div>
+        </section>
 
-            
-            <!-- ********************** -->
-            <!-- SECCIÓN MONTOS MÁXIMOS -->
-            <!-- ********************** -->
+        <!-- // **********
+        // ** BODY ** -->
 
-            <section >
-                <div class="articulo__contenedor__body">
+        <!-- *************** -->
+        <!-- SECCIÓN PERSONA -->
+        <!-- *************** -->
 
-                    <div class="articulo__contenedor__body__prev" >
+        
+        <!-- ********************** -->
+        <!-- SECCIÓN MONTOS MÁXIMOS -->
+        <!-- ********************** -->
 
-                        <article>
-                            <div>
-                                <section>
-                                    <div class="articulo__contenedor__body__prev__form">
+        <section >
+            <div class="articulo__contenedor__body">
 
-                                        <div class="articulo__contenedor__body__prev__form__header"> 
-                                            
-                                            <div class="articulo__contenedor__body__prev__form__header__prev" > 
-                                                <p class="articulo__contenedor__body__prev__form__header__titulo">Tipos de Monedas</p>
-                                            </div>
+                <div class="articulo__contenedor__body__prev" >
 
-                                            <div class="articulo__contenedor__body__prev__form__header__next" > 
+                    <article>
+                        <div>
+                            <section>
+                                <div class="articulo__contenedor__body__prev__form">
 
-                                                <button *ngIf="habilitaBtnNuevo" class="articulo__contenedor__body__prev__form__header__prev__btns__new" 
-                                                        mat-flat-button
-                                                        (click)="limpiarFormularioMoneda()">Nuevo</button>
-
-                                                <button *ngIf="habilitaBtnActualiza" class="articulo__contenedor__header__prev__btns__warn" 
-                                                        mat-flat-button
-                                                        (click)="actualizaMoneda()">Actualizar</button>
-                                                <button *ngIf="habilitaBtnRegistro" class="articulo__contenedor__header__prev__btns__ok" 
-                                                        mat-flat-button
-                                                        (click)="submitMoneda()">Registrar</button>
-                                                <button *ngIf="habilitaBtnElimibar" class="articulo__contenedor__header__prev__btns__danger" 
-                                                        mat-flat-button
-                                                        (click)="eliminarMoneda()">Eliminar</button>
-
-                                            </div>
+                                    <div class="articulo__contenedor__body__prev__form__header"> 
                                         
+                                        <div class="articulo__contenedor__body__prev__form__header__prev" > 
+                                            <p class="articulo__contenedor__body__prev__form__header__titulo">Tipos de Monedas</p>
                                         </div>
 
-                                        <div class="articulo__contenedor__body__prev__form__content">
+                                        <div class="articulo__contenedor__body__prev__form__header__next" > 
 
-                                            <form [formGroup]="formTipoMoneda" class="row">
-                    
-                                                <div class="form-group col-md-2">
-                                                    <label for="id" class="form-label">Id</label>
-                                                    <input formControlName="id" class="form-control" type="text" id="id_id" readonly />
-                                                </div>
-                                                
-                                                <div class="form-group col-md-7">
-                                                    <label for="lblCodigoMoneda" class="form-label">Código Interno</label>
-                                                    <input formControlName="codigo_moneda" class="form-control" type="text" id="id_codigo_moneda"
-                                                        [ngClass]="{ 'is-invalid': submittedTipoMonedaForm && m.codigo_moneda.errors }" />
-                                                    <div *ngIf="submittedTipoMonedaForm && m.codigo_moneda.errors" class="invalid-feedback">
-                                                        <div *ngIf="m.codigo_moneda.errors.required">El código de la moneda es requerido .</div>
-                                                    </div>
-                                                </div>
-                    
-                                                <div class="col-sm-3 margin-icos-mat">
-                                                    <a class="item-list__search"> <mat-icon (click)="buscarMoneda()">search</mat-icon> </a>
-                                                </div>
-                    
-                                                <div class="form-group col-md-2">
-                                                    <label for="simbolo" class="form-label">Caracter</label>
-                                                    <input formControlName="simbolo" class="form-control" type="text" id="id_simbolo"
-                                                        [ngClass]="{ 'is-invalid': submittedTipoMonedaForm && m.simbolo.errors }" />
-                                                    <div *ngIf="submittedTipoMonedaForm && m.simbolo.errors" class="invalid-feedback">
-                                                        <div *ngIf="m.simbolo.errors.required">El símbolo de la moneda es requerido .</div>
-                                                    </div>
-                                                </div>
-                    
-                                                <div class="form-group col-md-3">
-                                                    <label for="descripcion" class="form-label">Descripción</label>
-                                                    <input formControlName="descripcion" class="form-control" type="text" id="id_descripcion"
-                                                        [ngClass]="{ 'is-invalid': submittedTipoMonedaForm && m.descripcion.errors }" />
-                                                    <div *ngIf="submittedTipoMonedaForm && m.descripcion.errors" class="invalid-feedback">
-                                                        <div *ngIf="m.descripcion.errors.required">La descripción de la moneda es requerida .</div>
-                                                    </div>
-                                                </div>
+                                            <button *ngIf="habilitaBtnNuevo" class="articulo__contenedor__body__prev__form__header__prev__btns__new" 
+                                                    mat-flat-button
+                                                    (click)="limpiarFormularioMoneda()">Nuevo</button>
 
-                                                <div class="form-group col-md-2">
-                                                    <label for="lblBccrIndicadorCompra" class="form-label">BCCR ICompra</label>
-                                                    <input formControlName="bccrIndicadorCompra" class="form-control" type="text" id="id_bccrIndicadorCompra"
-                                                        [ngClass]="{ 'is-invalid': submittedTipoMonedaForm && m.bccrIndicadorCompra.errors }" />
-                                                    <div *ngIf="submittedTipoMonedaForm && m.bccrIndicadorCompra.errors" class="invalid-feedback">
-                                                        <div *ngIf="m.bccrIndicadorCompra.errors.required">El indicador de la compra del bccr es requerido .</div>
-                                                    </div>
-                                                </div>
+                                            <button *ngIf="habilitaBtnActualiza" class="articulo__contenedor__header__prev__btns__warn" 
+                                                    mat-flat-button
+                                                    (click)="actualizaMoneda()">Actualizar</button>
+                                            <button *ngIf="habilitaBtnRegistro" class="articulo__contenedor__header__prev__btns__ok" 
+                                                    mat-flat-button
+                                                    (click)="submitMoneda()">Registrar</button>
+                                            <button *ngIf="habilitaBtnElimibar" class="articulo__contenedor__header__prev__btns__danger" 
+                                                    mat-flat-button
+                                                    (click)="eliminarMoneda()">Eliminar</button>
 
-                                                <div class="form-group col-md-2">
-                                                    <label for="lblBccrIndicadorVenta" class="form-label">BCCR IVenta</label>
-                                                    <input formControlName="bccrIndicadorVenta" class="form-control" type="text" id="id_bccrIndicadorVenta"
-                                                        [ngClass]="{ 'is-invalid': submittedTipoMonedaForm && m.bccrIndicadorVenta.errors }" />
-                                                    <div *ngIf="submittedTipoMonedaForm && m.bccrIndicadorVenta.errors" class="invalid-feedback">
-                                                        <div *ngIf="m.bccrIndicadorVenta.errors.required">El indicador de la venta del bccr es requerido .</div>
-                                                    </div>
-                                                </div>
-                    
-                                                <div class="form-group col-sm-1 margin-icos-mat">
-                                                    <mat-checkbox formControlName="estado">Estado</mat-checkbox>
-                                                </div>
-                    
-                                            </form>
+                                        </div>
+                                    
+                                    </div>
 
+                                    <div class="articulo__contenedor__body__prev__form__content">
+
+                                        <form [formGroup]="formTipoMoneda" class="row">
+                
+                                            <div class="form-group col-md-2">
+                                                <label for="id" class="form-label">Id</label>
+                                                <input formControlName="id" class="form-control" type="text" id="id_id" readonly />
+                                            </div>
+                                            
+                                            <div class="form-group col-md-7">
+                                                <label for="lblCodigoMoneda" class="form-label">Código Interno</label>
+                                                <input formControlName="codigo_moneda" class="form-control" type="text" id="id_codigo_moneda"
+                                                    [ngClass]="{ 'is-invalid': submittedTipoMonedaForm && m.codigo_moneda.errors }" />
+                                                <div *ngIf="submittedTipoMonedaForm && m.codigo_moneda.errors" class="invalid-feedback">
+                                                    <div *ngIf="m.codigo_moneda.errors.required">El código de la moneda es requerido .</div>
+                                                </div>
+                                            </div>
+                
+                                            <div class="col-sm-3 margin-icos-mat">
+                                                <a class="item-list__search"> <mat-icon (click)="buscarMoneda()">search</mat-icon> </a>
+                                            </div>
+                
+                                            <div class="form-group col-md-2">
+                                                <label for="simbolo" class="form-label">Caracter</label>
+                                                <input formControlName="simbolo" class="form-control" type="text" id="id_simbolo"
+                                                    [ngClass]="{ 'is-invalid': submittedTipoMonedaForm && m.simbolo.errors }" />
+                                                <div *ngIf="submittedTipoMonedaForm && m.simbolo.errors" class="invalid-feedback">
+                                                    <div *ngIf="m.simbolo.errors.required">El símbolo de la moneda es requerido .</div>
+                                                </div>
+                                            </div>
+                
+                                            <div class="form-group col-md-3">
+                                                <label for="descripcion" class="form-label">Descripción</label>
+                                                <input formControlName="descripcion" class="form-control" type="text" id="id_descripcion"
+                                                    [ngClass]="{ 'is-invalid': submittedTipoMonedaForm && m.descripcion.errors }" />
+                                                <div *ngIf="submittedTipoMonedaForm && m.descripcion.errors" class="invalid-feedback">
+                                                    <div *ngIf="m.descripcion.errors.required">La descripción de la moneda es requerida .</div>
+                                                </div>
+                                            </div>
+
+                                            <div class="form-group col-md-2">
+                                                <label for="lblBccrIndicadorCompra" class="form-label">BCCR ICompra</label>
+                                                <input formControlName="bccrIndicadorCompra" class="form-control" type="text" id="id_bccrIndicadorCompra"
+                                                    [ngClass]="{ 'is-invalid': submittedTipoMonedaForm && m.bccrIndicadorCompra.errors }" />
+                                                <div *ngIf="submittedTipoMonedaForm && m.bccrIndicadorCompra.errors" class="invalid-feedback">
+                                                    <div *ngIf="m.bccrIndicadorCompra.errors.required">El indicador de la compra del bccr es requerido .</div>
+                                                </div>
+                                            </div>
+
+                                            <div class="form-group col-md-2">
+                                                <label for="lblBccrIndicadorVenta" class="form-label">BCCR IVenta</label>
+                                                <input formControlName="bccrIndicadorVenta" class="form-control" type="text" id="id_bccrIndicadorVenta"
+                                                    [ngClass]="{ 'is-invalid': submittedTipoMonedaForm && m.bccrIndicadorVenta.errors }" />
+                                                <div *ngIf="submittedTipoMonedaForm && m.bccrIndicadorVenta.errors" class="invalid-feedback">
+                                                    <div *ngIf="m.bccrIndicadorVenta.errors.required">El indicador de la venta del bccr es requerido .</div>
+                                                </div>
+                                            </div>
+                
+                                            <div class="form-group col-sm-1 margin-icos-mat">
+                                                <mat-checkbox formControlName="estado">Estado</mat-checkbox>
+                                            </div>
+                
+                                        </form>
+
+                                    </div>
+
+                                </div>
+                            </section>
+                        </div>
+                    </article>
+
+                </div>
+                
+
+                <div class="articulo__contenedor__body__next">
+
+                    <article>
+                        <div>
+                            <section>
+                                <div class="articulo__contenedor__body__next__list">
+
+                                    <div class="articulo__contenedor__body__next__list__header"> 
+                                        
+                                        <div class="articulo__contenedor__body__next__list__header__prev" > 
+                                            <p class="articulo__contenedor__body__next__list__header__titulo">Listado de Tipos de Monedas</p>
+                                        </div>
+
+                                        <div class="articulo__contenedor__body__next__list__header__next" > </div>
+                                    
+                                    </div>
+
+                                    <div class="articulo__contenedor__body__next__list__content">
+
+                                        <div *ngIf="listTiposMonedas" class="articulo__contenedor__body__next__tabla">
+                                            <table class="table table-striped">
+                                                <thead>
+                                                    <tr>
+                                                        <th style="width: 5%"></th>
+                                                        
+                                                        <th style="width: 8%">Símbolo</th>
+                                                        <th style="width: 12%">Descripción</th>
+                                                        <th style="width: 13%">BCCR ICompra</th>
+                                                        <th style="width: 13%">BCCR IVenta</th>
+                                                        <th style="width: 10%">Estado</th>
+                                                        <th style="width: 12%">Modificado</th>
+                                                        <th style="width: 15%">Se actualizó</th>
+                                                    </tr>
+                                                </thead>
+                                                <tbody>
+                                                    <tr *ngFor="let obj of listTiposMonedas" class="item-list__list" (click)="selectMoneda(obj)" >
+                                                        <td  style="white-space: nowrap" class="item-list__view">
+                                                            <div> <a > <mat-icon>swap_horiz</mat-icon> </a> </div>
+                                                        </td>
+                                                        
+                                                        <td>{{obj.simbolo}}</td>
+                                                        <td>{{obj.descripcion}}</td>
+                                                        <td>{{obj.bccrIndicadorCompra}}</td>
+                                                        <td>{{obj.bccrIndicadorVenta}}</td>
+                                                        <td>{{obj.estado}}</td>
+                                                        <td>{{obj.modificadoPor}}</td>
+                                                        <td>{{obj.fechaModificacion}}</td>
+                                                    </tr>
+                                                </tbody>
+                                            </table>
+                                        </div>
+                    
+                                    </div>
+
+                                </div>
+                            </section>
+                        </div>
+                    </article>
+
+                </div>
+                
+            </div>
+        </section>
+
+
+        <!-- *********************** -->
+        <!-- SECCIÓN TIPOS DE CAMBIO -->
+        <!-- *********************** -->
+
+        <section *ngIf="habilitaTipoCambioMoneda">
+            <div class="articulo__contenedor__body">
+
+                <div *ngIf="habilitaFormularioTipoCambio" class="articulo__contenedor__body__prev" >
+
+                    <article>
+                        <div>
+                            <section>
+                                <div class="articulo__contenedor__body__prev__form">
+
+                                    <div class="articulo__contenedor__body__prev__form__header"> 
+                                        
+                                        <div class="articulo__contenedor__body__prev__form__header__prev" > 
+                                            <p class="articulo__contenedor__body__prev__form__header__titulo">Tipo de Cambio de Moneda</p>
+                                        </div>
+
+                                        <div class="articulo__contenedor__body__prev__form__header__next" > 
+
+
+                                            <button class="articulo__contenedor__body__prev__form__header__prev__btns__otro" 
+                                                    mat-flat-button
+                                                    (click)="consultarWSBCCRTipoCambio()">Consultar Tipo de Cambio BCCR</button>
+
+                                            <button *ngIf="habilitaBtnNuevoTC" class="articulo__contenedor__body__prev__form__header__prev__btns__new" 
+                                                    mat-flat-button
+                                                    (click)="limpiarFormularioTipoCambio()">Nuevo</button>
+                    
+                                            <button *ngIf="habilitaBtnActualizaTC" class="articulo__contenedor__body__prev__form__header__prev__btns__warn" 
+                                                    mat-flat-button
+                                                    (click)="actualizaObjetoMontoPersona()">Actualizar</button>
+                                            <button *ngIf="habilitaBtnRegistroTC" class="articulo__contenedor__body__prev__form__header__prev__btns__ok" 
+                                                    mat-flat-button
+                                                    (click)="submitFormTipoCambio()">Registrar</button>
+                                            <button *ngIf="habilitaBtnEliminarTC" class="articulo__contenedor__body__prev__form__header__prev__btns__danger" 
+                                                    mat-flat-button
+                                                    (click)="eliminarTipoCambio()">Eliminar</button>
+
+                                        </div>
+                                    
+                                    </div>
+
+                                    <div class="articulo__contenedor__body__prev__form__content">
+
+                                        <form [formGroup]="formTipoCambio" class="row">
+                
+
+                                            <div class="form-group col-md-2">
+                                                <label for="id" class="form-label">Id</label>
+                                                <input formControlName="id" class="form-control" type="text" id="id_id" readonly />
+                                            </div>
+
+                                            <!-- actualiza form -->
+                
+                                            <!-- linea 1 -->
+                
+                
+                                            <div class="form-group col-md-3">
+                                                <label for="lblIdMoneda" class="form-label">Moneda</label>
+                                                <select formControlName="idMoneda" class="form-control" name="selectIdMoneda"
+                                                    [ngClass]="{ 'is-invalid': submittedFormTipoCambio && t.idMoneda.errors }">
+                                                        <option [disabled]="true" [ngValue]="objeto" *ngFor="let objeto of listTiposMonedas" >{{objeto.id}} - {{objeto.descripcion}}</option>
+                                                </select>
+                                                <div *ngIf="submittedFormTipoCambio && t.idMoneda.errors" class="invalid-feedback">
+                                                    <div *ngIf="t.idMoneda.errors.required">El Tipo de Moneda es requerido .</div>
+                                                </div>
+                                            </div>
+
+                                            <div class="form-group col-md-3">
+                                                <label for="lblFechaConsulta" class="form-label">Fecha de Consulta</label>
+                                                <input formControlName="fechaConsulta" class="form-control" matInput [matDatepicker]="picker" >
+                                                <mat-datepicker-toggle class="item-list__calendar" matSuffix [for]="picker"></mat-datepicker-toggle>
+                                                <mat-datepicker #picker ></mat-datepicker>
+                                            </div>
+
+                                            <div class="col-sm-3 margin-icos-mat">
+                                                <a class="item-list__search"> <mat-icon (click)="buscarTipoCambio()">search</mat-icon> </a>
+                                            </div>
+                
+                                            <!-- linea 1 -->
+                
+                                            <!-- linea 2 -->
+
+                                            <div class="form-group col-md-4">
+                                                <label for="lblContoCompra" class="form-label">Compra</label>
+                                                <input formControlName="montoCompra" class="form-control" type="text" id="id_montoCompra"
+                                                        placeholder=".00"
+                                                    [ngClass]="{ 'is-invalid': submittedFormTipoCambio && t.montoCompra.errors }" />
+                                                <div *ngIf="submittedFormTipoCambio && t.montoCompra.errors" class="invalid-feedback">
+                                                    <div *ngIf="t.montoCompra.errors.required">La compra es requerida .</div>
+                                                </div>
+                                            </div>
+                
+                                            <div class="form-group col-md-4">
+                                                <label for="lblMontoVenta" class="form-label">Venta</label>
+                                                <input formControlName="montoVenta" class="form-control" type="text" id="id_montoVenta"
+                                                        placeholder=".00"
+                                                    [ngClass]="{ 'is-invalid': submittedFormTipoCambio && t.montoVenta.errors }" />
+                                                <div *ngIf="submittedFormTipoCambio && t.montoVenta.errors" class="invalid-feedback">
+                                                    <div *ngIf="t.montoVenta.errors.required">El primer alias es requerido .</div>
+                                                </div>
+                                            </div>
+
+                                            <!-- linea 2 -->
+                
+                                        </form>
+
+                                    </div>
+
+                                </div>
+                            </section>
+                        </div>
+                    </article>
+
+                </div>
+                
+
+                <div *ngIf="habilitaListaTipoCambio" class="articulo__contenedor__body__next">
+
+                    <article>
+                        <div>
+                            <section>
+                                <div class="articulo__contenedor__body__next__list">
+
+                                    <div class="articulo__contenedor__body__next__list__header"> 
+                                        
+                                        <div class="articulo__contenedor__body__next__list__header__prev" > 
+                                            <p class="articulo__contenedor__body__next__list__header__titulo">Listado de Tipos de Cambio de la Moneda</p>
+                                        </div>
+
+                                        <div class="articulo__contenedor__body__next__list__header__next" > </div>
+                                    
+                                    </div>
+
+                                    <div class="articulo__contenedor__body__next__list__content">
+
+                                        <div *ngIf="listObjetosTipoCambio">
+                                            <table class="table table-striped">
+                                                <thead>
+                                                    <tr>
+                                                        <th style="width: 5%"></th>
+                                                        <th style="width: 25%">Fecha de Consulta</th>
+                                                        <th style="width: 20%">Monto de Compra</th>
+                                                        <th style="width: 20%">Monto de Venta</th>
+                                                        <th style="width: 10%">Modificado</th>
+                                                        <th style="width: 15%">Se actualizó</th>
+                                                    </tr>
+                                                </thead>
+                                                <tbody>
+                                                    <tr *ngFor="let obj of listObjetosTipoCambio" class="item-list__list" (click)="selectObjectListTipoCambio(obj)" >
+                                                        <td  style="white-space: nowrap" class="item-list__view">
+                                                            <div> <a > <mat-icon>swap_horiz</mat-icon> </a> </div>
+                                                        </td>
+                                                        <td>{{obj.fechaConsulta}}</td>
+                                                        <td>{{obj.montoCompra}}</td>
+                                                        <td>{{obj.montoVenta}}</td>
+                                                        <td>{{obj.modificadoPor}}</td>
+                                                        <td>{{obj.fechaModificacion}}</td>
+                                                    </tr>
+                                                </tbody>
+                                            </table>
                                         </div>
 
                                     </div>
-                                </section>
-                            </div>
-                        </article>
 
-                    </div>
-                    
+                                </div>
+                            </section>
+                        </div>
+                    </article>
 
-                    <div class="articulo__contenedor__body__next">
-
-                        <article>
-                            <div>
-                                <section>
-                                    <div class="articulo__contenedor__body__next__list">
-
-                                        <div class="articulo__contenedor__body__next__list__header"> 
-                                            
-                                            <div class="articulo__contenedor__body__next__list__header__prev" > 
-                                                <p class="articulo__contenedor__body__next__list__header__titulo">Listado de Tipos de Monedas</p>
-                                            </div>
-
-                                            <div class="articulo__contenedor__body__next__list__header__next" > </div>
-                                        
-                                        </div>
-
-                                        <div class="articulo__contenedor__body__next__list__content">
-
-                                            <div *ngIf="listTiposMonedas" class="articulo__contenedor__body__next__tabla">
-                                                <table class="table table-striped">
-                                                    <thead>
-                                                        <tr>
-                                                            <th style="width: 5%"></th>
-                                                            
-                                                            <th style="width: 8%">Símbolo</th>
-                                                            <th style="width: 12%">Descripción</th>
-                                                            <th style="width: 13%">BCCR ICompra</th>
-                                                            <th style="width: 13%">BCCR IVenta</th>
-                                                            <th style="width: 10%">Estado</th>
-                                                            <th style="width: 12%">Modificado</th>
-                                                            <th style="width: 15%">Se actualizó</th>
-                                                        </tr>
-                                                    </thead>
-                                                    <tbody>
-                                                        <tr *ngFor="let obj of listTiposMonedas" class="item-list__list" (click)="selectMoneda(obj)" >
-                                                            <td  style="white-space: nowrap" class="item-list__view">
-                                                                <div> <a > <mat-icon>swap_horiz</mat-icon> </a> </div>
-                                                            </td>
-                                                            
-                                                            <td>{{obj.simbolo}}</td>
-                                                            <td>{{obj.descripcion}}</td>
-                                                            <td>{{obj.bccrIndicadorCompra}}</td>
-                                                            <td>{{obj.bccrIndicadorVenta}}</td>
-                                                            <td>{{obj.estado}}</td>
-                                                            <td>{{obj.modificadoPor}}</td>
-                                                            <td>{{obj.fechaModificacion}}</td>
-                                                        </tr>
-                                                    </tbody>
-                                                </table>
-                                            </div>
-                        
-                                        </div>
-
-                                    </div>
-                                </section>
-                            </div>
-                        </article>
-
-                    </div>
-                    
                 </div>
-            </section>
+                
+            </div>
+        </section>
 
+        <!-- // ************
+        // ** FOOTER ** -->
+        <section>
+            <div class="articulo__contenedor__footer">
+                <div class="articulo__contenedor__footer__prev" > </div>
 
-            <!-- *********************** -->
-            <!-- SECCIÓN TIPOS DE CAMBIO -->
-            <!-- *********************** -->
+                <div class="articulo__contenedor__footer__next" > </div>
+            </div>
+        </section>
 
-            <section *ngIf="habilitaTipoCambioMoneda">
-                <div class="articulo__contenedor__body">
+    </div>
 
-                    <div *ngIf="habilitaFormularioTipoCambio" class="articulo__contenedor__body__prev" >
-
-                        <article>
-                            <div>
-                                <section>
-                                    <div class="articulo__contenedor__body__prev__form">
-
-                                        <div class="articulo__contenedor__body__prev__form__header"> 
-                                            
-                                            <div class="articulo__contenedor__body__prev__form__header__prev" > 
-                                                <p class="articulo__contenedor__body__prev__form__header__titulo">Tipo de Cambio de Moneda</p>
-                                            </div>
-
-                                            <div class="articulo__contenedor__body__prev__form__header__next" > 
-
-
-                                                <button class="articulo__contenedor__body__prev__form__header__prev__btns__otro" 
-                                                        mat-flat-button
-                                                        (click)="consultarWSBCCRTipoCambio()">Consultar Tipo de Cambio BCCR</button>
-
-                                                <button *ngIf="habilitaBtnNuevoTC" class="articulo__contenedor__body__prev__form__header__prev__btns__new" 
-                                                        mat-flat-button
-                                                        (click)="limpiarFormularioTipoCambio()">Nuevo</button>
-                        
-                                                <button *ngIf="habilitaBtnActualizaTC" class="articulo__contenedor__body__prev__form__header__prev__btns__warn" 
-                                                        mat-flat-button
-                                                        (click)="actualizaObjetoMontoPersona()">Actualizar</button>
-                                                <button *ngIf="habilitaBtnRegistroTC" class="articulo__contenedor__body__prev__form__header__prev__btns__ok" 
-                                                        mat-flat-button
-                                                        (click)="submitFormTipoCambio()">Registrar</button>
-                                                <button *ngIf="habilitaBtnEliminarTC" class="articulo__contenedor__body__prev__form__header__prev__btns__danger" 
-                                                        mat-flat-button
-                                                        (click)="eliminarTipoCambio()">Eliminar</button>
-
-                                            </div>
-                                        
-                                        </div>
-
-                                        <div class="articulo__contenedor__body__prev__form__content">
-
-                                            <form [formGroup]="formTipoCambio" class="row">
-                    
-
-                                                <div class="form-group col-md-2">
-                                                    <label for="id" class="form-label">Id</label>
-                                                    <input formControlName="id" class="form-control" type="text" id="id_id" readonly />
-                                                </div>
-
-                                                <!-- actualiza form -->
-                    
-                                                <!-- linea 1 -->
-                    
-                    
-                                                <div class="form-group col-md-3">
-                                                    <label for="lblIdMoneda" class="form-label">Moneda</label>
-                                                    <select formControlName="idMoneda" class="form-control" name="selectIdMoneda"
-                                                        [ngClass]="{ 'is-invalid': submittedFormTipoCambio && t.idMoneda.errors }">
-                                                            <option [disabled]="true" [ngValue]="objeto" *ngFor="let objeto of listTiposMonedas" >{{objeto.id}} - {{objeto.descripcion}}</option>
-                                                    </select>
-                                                    <div *ngIf="submittedFormTipoCambio && t.idMoneda.errors" class="invalid-feedback">
-                                                        <div *ngIf="t.idMoneda.errors.required">El Tipo de Moneda es requerido .</div>
-                                                    </div>
-                                                </div>
-
-                                                <div class="form-group col-md-3">
-                                                    <label for="lblFechaConsulta" class="form-label">Fecha de Consulta</label>
-                                                    <input formControlName="fechaConsulta" class="form-control" matInput [matDatepicker]="picker" >
-                                                    <mat-datepicker-toggle class="item-list__calendar" matSuffix [for]="picker"></mat-datepicker-toggle>
-                                                    <mat-datepicker #picker ></mat-datepicker>
-                                                </div>
-
-                                                <div class="col-sm-3 margin-icos-mat">
-                                                    <a class="item-list__search"> <mat-icon (click)="buscarTipoCambio()">search</mat-icon> </a>
-                                                </div>
-                    
-                                                <!-- linea 1 -->
-                    
-                                                <!-- linea 2 -->
-
-                                                <div class="form-group col-md-4">
-                                                    <label for="lblContoCompra" class="form-label">Compra</label>
-                                                    <input formControlName="montoCompra" class="form-control" type="text" id="id_montoCompra"
-                                                            placeholder=".00"
-                                                        [ngClass]="{ 'is-invalid': submittedFormTipoCambio && t.montoCompra.errors }" />
-                                                    <div *ngIf="submittedFormTipoCambio && t.montoCompra.errors" class="invalid-feedback">
-                                                        <div *ngIf="t.montoCompra.errors.required">La compra es requerida .</div>
-                                                    </div>
-                                                </div>
-                    
-                                                <div class="form-group col-md-4">
-                                                    <label for="lblMontoVenta" class="form-label">Venta</label>
-                                                    <input formControlName="montoVenta" class="form-control" type="text" id="id_montoVenta"
-                                                            placeholder=".00"
-                                                        [ngClass]="{ 'is-invalid': submittedFormTipoCambio && t.montoVenta.errors }" />
-                                                    <div *ngIf="submittedFormTipoCambio && t.montoVenta.errors" class="invalid-feedback">
-                                                        <div *ngIf="t.montoVenta.errors.required">El primer alias es requerido .</div>
-                                                    </div>
-                                                </div>
-
-                                                <!-- linea 2 -->
-                    
-                                            </form>
-
-                                        </div>
-
-                                    </div>
-                                </section>
-                            </div>
-                        </article>
-
-                    </div>
-                    
-
-                    <div *ngIf="habilitaListaTipoCambio" class="articulo__contenedor__body__next">
-
-                        <article>
-                            <div>
-                                <section>
-                                    <div class="articulo__contenedor__body__next__list">
-
-                                        <div class="articulo__contenedor__body__next__list__header"> 
-                                            
-                                            <div class="articulo__contenedor__body__next__list__header__prev" > 
-                                                <p class="articulo__contenedor__body__next__list__header__titulo">Listado de Tipos de Cambio de la Moneda</p>
-                                            </div>
-
-                                            <div class="articulo__contenedor__body__next__list__header__next" > </div>
-                                        
-                                        </div>
-
-                                        <div class="articulo__contenedor__body__next__list__content">
-
-                                            <div *ngIf="listObjetosTipoCambio">
-                                                <table class="table table-striped">
-                                                    <thead>
-                                                        <tr>
-                                                            <th style="width: 5%"></th>
-                                                            <th style="width: 25%">Fecha de Consulta</th>
-                                                            <th style="width: 20%">Monto de Compra</th>
-                                                            <th style="width: 20%">Monto de Venta</th>
-                                                            <th style="width: 10%">Modificado</th>
-                                                            <th style="width: 15%">Se actualizó</th>
-                                                        </tr>
-                                                    </thead>
-                                                    <tbody>
-                                                        <tr *ngFor="let obj of listObjetosTipoCambio" class="item-list__list" (click)="selectObjectListTipoCambio(obj)" >
-                                                            <td  style="white-space: nowrap" class="item-list__view">
-                                                                <div> <a > <mat-icon>swap_horiz</mat-icon> </a> </div>
-                                                            </td>
-                                                            <td>{{obj.fechaConsulta}}</td>
-                                                            <td>{{obj.montoCompra}}</td>
-                                                            <td>{{obj.montoVenta}}</td>
-                                                            <td>{{obj.modificadoPor}}</td>
-                                                            <td>{{obj.fechaModificacion}}</td>
-                                                        </tr>
-                                                    </tbody>
-                                                </table>
-                                            </div>
-
-                                        </div>
-
-                                    </div>
-                                </section>
-                            </div>
-                        </article>
-
-                    </div>
-                    
-                </div>
-            </section>
-
-            <!-- // ************
-            // ** FOOTER ** -->
-            <section>
-                <div class="articulo__contenedor__footer">
-                    <div class="articulo__contenedor__footer__prev" > </div>
-
-                    <div class="articulo__contenedor__footer__next" > </div>
-                </div>
-            </section>
-
-        </div>
-
-    </article>
-</main>
+</article>

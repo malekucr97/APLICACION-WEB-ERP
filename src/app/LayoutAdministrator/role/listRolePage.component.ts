@@ -42,6 +42,8 @@ export class ListRoleComponent extends OnSeguridad implements OnInit {
 
   ngOnInit() { this.obtenerRoles(); }
 
+  public redirectListModulesPage() : void { this.router.navigate([this.URLAdministratorPage]); }
+
   private obtenerRoles() {
     this.accountService.getRolesBusiness(this.businessObservable.id, this._HIdUserSessionRequest, this._HBusinessSessionRequest)
       .pipe(first())

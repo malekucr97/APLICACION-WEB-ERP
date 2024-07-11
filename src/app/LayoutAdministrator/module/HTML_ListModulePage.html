@@ -1,7 +1,91 @@
-<h1 style="color:#1A5276">Módulos </h1>
+<article class="articulo">
+    <section>
 
+        <div class="articulo__contenedor__tittle">
+            <p class="articulo__contenedor__tittle__h1">{{businessObservable.nombre}}</p>
+            <p class="articulo__contenedor__tittle__h2">Administración de Módulos</p>
+        </div>
+        <hr>
+        <div class="row">
+            <div class="col-md-2">
+                <button class=" administracion-contenedor__content__item
+                                administracion-contenedor__content__item__backIco
+                                icon-button-medium"
+                        title="Atrás"
+                        mat-icon-button 
+                        (click)="redirectAdminUsersPage()">
+                        <mat-icon>arrow_back</mat-icon> </button>
+            </div>
+
+            <div class="col-md-3"></div> <div class="col-md-3"></div>
+
+            <div class="col-md-4">
+                <button class="btn btn-light administracion-contenedor__content__item__maintancepowerbi"
+                        (click)="redirectAdminModulePowerBiPage()">
+                        Administración Módulos PowerBI <mat-icon>crop_original</mat-icon> </button>
+            </div>
+        </div>
+
+        <div class="card">
+            <div class="card-body">
+        
+                <p class="articulo__contenedor__tittle__h3">Lista de Módulos</p>
+        
+                <div class="articulo__contenedor__table">
+                    <br>
+                    <table class="table table-striped">
+                        <thead>
+                            <tr>
+                                <th style="width: 25%">Identificador</th>
+                                <th style="width: 25%">Noambre del Módulo</th>
+                                <th style="width: 40%">Descripción</th>
+                                <th style="width: 5%"></th>
+                                <th style="width: 5%"></th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr *ngFor="let module of listModules"
+                                class="item-list__list" >
+        
+                                <td>{{module.identificador}}</td>
+                                <td>{{module.nombre}}</td>
+                                <td>{{module.descripcion}}</td>
+        
+                                <td style="white-space: normal;">
+                                    <button *ngIf="module.estado!='Activo'"
+                                        (click)="activate(module.identificador)"
+                                        class="btn-sm item-list__admin__ok" >
+                                        <mat-icon>thumb_down_alt</mat-icon> Estado Módulo </button>
+                                    <button *ngIf="module.estado=='Activo'"
+                                        (click)="inActivate(module.identificador)"
+                                        class="btn-sm item-list__admin__warn" > 
+                                        <mat-icon>thumb_up_alt</mat-icon> Estado Módulo </button>
+                                </td>
+        
+                                <td style="white-space: normal">
+                                    <button class="btn-sm item-list__admin__view"
+                                            (click)="selectModuleScreenUser(module.id)"> 
+                                            <mat-icon>view_quilt</mat-icon>
+                                            Pantallas Activas</button>
+                                </td>
+                            </tr>
+        
+                            <tr *ngIf="!listModules || !listModulesSystem">
+                                <td colspan="5" class="text-center">
+                                    <span class="spinner-border spinner-border-lg align-center"></span>
+                                </td>
+                            </tr>
+        
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </section>
+</article>
+
+<!-- <h1 style="color:#1A5276">Módulos </h1>
 <a routerLink="{{URLIndexAdminPage}}" class="btn btn-light mb-2 mr-3">Volver</a>
-
 <button *ngIf="habilitarBtnMantenimientoReportes" 
     routerLink="{{URLAdminModulePage}}{{'mantenimientoReportes'}}" 
     class="btn-sm item-list__admin__view"
@@ -10,14 +94,11 @@
     >
     Mantenimiento reportes Power BI
 </button>
-
 <div class="card">
     <div class="card-body">
-
         <h3 style="color:#1A5276"><b>{{businessObservable.nombre}} </b></h3>
         <br>
         <h3 style="color:#1A5276">Actualice el Estado o Revise las Pantallas con Acceso.</h3>
-
         <div>
             <br>
             <table class="table table-striped">
@@ -26,11 +107,8 @@
                         <th style="width: 25%">Identificador</th>
                         <th style="width: 25%">Nombre</th>
                         <th style="width: 48%">Descripción</th>
-                        <!-- <th style="width: 13%">Estado</th> -->
-
                         <th style="width: 1%"></th>
                         <th style="width: 1%"></th>
-
                     </tr>
                 </thead>
                 <tbody>
@@ -40,66 +118,31 @@
                         <td>{{module.identificador}}</td>
                         <td>{{module.nombre}}</td>
                         <td>{{module.descripcion}}</td>
-                        <!-- <td>{{module.estado}}</td> -->
 
                         <td style="white-space: normal;">
-
                             <button *ngIf="module.estado!='Activo'"
                                 (click)="activate(module.identificador)"
                                 class="btn-sm item-list__admin__ok" > 
-                                <!-- <mat-icon>star</mat-icon>  -->
-                                <!-- <mat-icon>star_border</mat-icon>  -->
-                                <!-- Activar  -->
                                 <mat-icon>thumb_down_alt</mat-icon>
                                 Estado Módulo
-                                
                             </button>
-
                             <button *ngIf="module.estado=='Activo'"
                                 (click)="inActivate(module.identificador)"
-                                class="btn-sm item-list__admin__warn" > 
-                                <!-- <mat-icon>star</mat-icon> -->
-                                <!-- <mat-icon>star_border</mat-icon>  llena --> 
-                                <!-- Inactivar  -->
+                                class="btn-sm item-list__admin__warn" >
                                 <mat-icon>thumb_up_alt</mat-icon>
                                 Estado Módulo
-                                
-                                
                             </button>
-
-                            <!-- <button class="btn-sm item-list__admin__view"
-                                    (click)="selectModuleScreenUser(module.id)"> 
-                                    <mat-icon>view_quilt</mat-icon>
-                                    Pantallas Activas
-                            </button> -->
-
                         </td>
-
                         <td style="white-space: normal">
-
-                            <!-- <button *ngIf="module.estado!='Activo'"
-                                (click)="activate(module.identificador)"
-                                class="btn-sm item-list__admin__ok" > Activar 
-                            </button>
-
-                        <button *ngIf="module.estado=='Activo'"
-                                (click)="inActivate(module.identificador)"
-                                class="btn-sm item-list__admin__warn" > Inactivar </button> -->
-
                             <button class="btn-sm item-list__admin__view"
                                     (click)="selectModuleScreenUser(module.id)"> 
                                     <mat-icon>view_quilt</mat-icon>
                                     Pantallas Activas
                             </button>
-
                         </td>
-
-
                     </tr>
-
                 </tbody>
             </table>
         </div>
-
     </div>
-</div>
+</div> -->

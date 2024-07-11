@@ -55,14 +55,14 @@ body, html {
   background-color: var(--degradado_oscuro) !important;
 }
 
-.imagenHeader {
+/* .imagenHeader {
   height: 80px;
   background-image: url('../../assets/images/inra/img_bankap_fondo.png');
   background-repeat: no-repeat;
   background-size: cover;
   background-position: center;
   flex: none;
-}
+} */
 .classBody {
   background-color: var(--color_fondo);
   display: flex;
@@ -255,35 +255,15 @@ iframe {
 
 /*==================================================================
 [ Title form ]*/
-.login100-form-title {
-  width: 100%;
-  position: relative;
-  /* z-index: 1; */
-  display: -webkit-box;
-  display: -webkit-flex;
-  display: -moz-box;
-  display: -ms-flexbox;
-  display: flex;
-  flex-wrap: wrap;
-  flex-direction: column;
-  /* align-items: center; */
 
-  background-repeat: no-repeat;
-  background-size: cover;
-  background-position: center;
-
-  padding: 70px 15px 74px 15px;
-}
-
-.login100-form-title-1 {
+/* .login100-form-title-1 {
   font-family: Poppins-Bold;
   font-size: 30px;
   color: #fff;
   text-transform: uppercase;
   text-align: center;
-}
-
-.login100-form-title::before {
+} */
+/* .login100-form-title::before {
   content: "";
   display: block;
   position: absolute;
@@ -293,13 +273,13 @@ iframe {
   top: 0;
   left: 0;
   background-color: rgba(54,84,99,0.7);
-}
+} */
 
 
 /*==================================================================
 [ Form ]*/
 
-.login100-form {
+/* .login100-form {
   width: 100%;
   display: -webkit-box;
   display: -webkit-flex;
@@ -309,7 +289,7 @@ iframe {
   flex-wrap: wrap;
   justify-content: space-between;
   padding: 15px 40px 40px 60px;
-}
+} */
 
 
 /*------------------------------------------------------------------
@@ -338,7 +318,7 @@ iframe {
   text-align: right;
 }
 
-.label-input100 {
+/* .label-input100 {
   font-family: Poppins-Regular;
   font-size: 15px;
   color: #808080;
@@ -349,7 +329,7 @@ iframe {
   top: 14px;
   left: -105px;
   width: 90px;
-}
+} */
 
 /*---------------------------------------------*/
 .input100 {
@@ -399,12 +379,9 @@ iframe {
 input.input100 {
   height: 45px;
 }
-
-
 .input100:focus + .focus-input100::before {
   width: 100%;
 }
-
 .has-val.input100 + .focus-input100::before {
   width: 100%;
 }
@@ -472,7 +449,7 @@ input.input100 {
   flex-wrap: wrap;
 }
 
-.login100-form-btn {
+/* .login100-form-btn {
   display: -webkit-box;
   display: -webkit-flex;
   display: -moz-box;
@@ -495,7 +472,7 @@ input.input100 {
   -o-transition: all 0.4s;
   -moz-transition: all 0.4s;
   transition: all 0.4s;
-}
+} */
 
 /* 053254 */
 
@@ -509,28 +486,24 @@ input.input100 {
 
 /*------------------------------------------------------------------
 [ Responsive ]*/
-
-@media (max-width: 576px) {
+/* @media (max-width: 576px) {
   .login100-form {
     padding: 43px 15px 57px 117px;
   }
-}
-
-@media (max-width: 480px) {
-  .login100-form {
+} */
+/* @media (max-width: 480px) { */
+  /* .login100-form {
     padding: 43px 15px 57px 15px;
-  }
-
-  .label-input100 {
+  } */
+  /* .label-input100 {
     text-align: left;
     position: unset;
     top: unset;
     left: unset;
     width: 100%;
     padding: 0 5px;
-  }
-}
-
+  } */
+/* } */
 
 /*------------------------------------------------------------------
 [ Alert validate ]*/
@@ -631,7 +604,6 @@ input.input100 {
 }
 
 .texto-error {
-  margin-top: .25rem;
   font-size: .875rem;
   color: #dc3545;
 }
@@ -641,36 +613,112 @@ input.input100 {
 .textalign-center {
   text-align: center;
 }
-.contLogin {
-  position: absolute; 
-  left: 50%; 
-  top: 45%; 
-  transform: translate(-50%, -35%); 
-  background-color: var(--color_gris);
-
-  width: 550px;
-  height: 400px;
-}
-.headerLogin {
-  border-radius: 5px;
+/* .headerLogin {
   padding-top: 20px;
   padding-bottom: 20px;
   background-image: url('../../assets/images/inra/INRA-INITIAL.jpg');
-}
+} */
 .imgLoginHeaderTitle {
   width: 45%;
 }
-.bodyLogin {
+/* .bodyLogin {
   flex: 1 1 auto;
   min-height: 1px;
   padding-left: 8%;
   padding-right: 8%;
   padding-bottom: 10%;
   padding-top: 5%;
+} */
+/* .btn-iniciarsesion {
+  position: fixed;
+  left: 50%; 
+  top: 90%; 
+  transform: translate(-50%, -90%);
+} */
+
+
+/* // actualizaciones 2024 ***************** */
+.imagenHeader {
+  height: 80px;
+  background-image: url('../../assets/images/inra/img_bankap_fondo.png');
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-position: center;
+  flex: none;
+}
+@media (max-width: 700px) { .imagenHeader { height: 50px; }}
+.contLogin {
+  position: absolute; 
+  left: 50%; 
+  top: 45%; 
+  transform: translate(-50%, -35%); 
+  background-color: var(--color_gris);
+  width: 500px;
+  height: 360px;
+  border-radius: 2%;
+}
+@media (max-width: 600px) { .contLogin { width: 85%; }}
+.divLoginTittle {
+  position: relative;
+  display: flex;
+  flex-wrap: wrap;
+  flex-direction: column;
+  background-size: cover;
+  background-position: center;
+  border-radius: 1%;
+}
+.textLoginTittle {
+  font-family: Poppins-Bold;
+  font-size: 30px;
+  color: #fff;
+  text-transform: uppercase;
+  text-align: center;
+  padding-top: 20px;
+  padding-bottom: 20px;
+  background-image: url('../../assets/images/inra/INRA-INITIAL.jpg');
+  border-radius: 1%;
+}
+@media (max-width: 600px) { .textLoginTittle { font-size: 20px; }}
+.bodyLogin {
+  padding-left: 5%;
+  padding-right: 5%;
+  padding-top: 5%;
+}
+.formulario-login {
+  margin-top: 20px;
+  padding-left: 10%;
+  padding-right: 10%;
+}
+.label-input100 {
+  font-size: 18px;
+  position: absolute;
+  top: 14px;
+  color: var(--boton_morado);
+}
+.login100-form-btn {
+  min-width: 150px;
+  height: 40px;
+  background-color: var(--color_accent);
+  border-radius: 25px;
+  font-family: Poppins-Regular;
+  font-size: 1rem;
+  color: #fff;
+  width: 25%;
+}
+.login100-form-btn:hover {
+  background-color: var(--boton_morado);
 }
 .btn-iniciarsesion {
   position: fixed;
   left: 50%; 
   top: 90%; 
   transform: translate(-50%, -90%);
+}
+@media (max-width: 300px) { .btn-iniciarsesion { width: 10%; }}
+input.inputBusqueda {
+  height: 45px;
+  padding-left: 25px;
+}
+.inputBusqueda:focus + .focus-input100::before {
+  width: 100%;
 }

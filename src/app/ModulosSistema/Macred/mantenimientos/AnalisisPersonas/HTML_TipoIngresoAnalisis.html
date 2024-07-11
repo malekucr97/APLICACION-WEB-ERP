@@ -1,86 +1,79 @@
-<main>
+<article class="bloq">
+    <div class="contenedor mat-elevation-z4">
 
-    <article class="bloq">
-        <div class="contenedor mat-elevation-z4">
+        <section>   <!-- header -->
+            <div class="contenedor__header">                    
+                <div class="contenedor__header__prev">
+                    <h2 >Lista de Tipos de Ingreso de Análisis </h2>
+                </div>
+                <div class="contenedor__header__next">  </div>
+            </div>
+        </section>
 
-            <section>   <!-- header -->
-                <div class="contenedor__header">                    
-                    <div class="contenedor__header__prev">
-                        <h2 >Lista de Tipos de Ingreso de Análisis </h2>
+        <section>   <!-- body -->
+            <div class="contenedor__body">
+                <!-- *************** -->
+                <mat-sidenav-container *ngIf="showList">
+                        
+                    <div class="content mat-elevation-z4">
+                            
+                            <article>
+                                <section class="content__menu">
+                        
+                                    <table class="table table-striped">
+                                        <thead>
+                                            <tr>
+                                                <th style="width: 20%">Código</th>
+                                                <th style="width: 60%">Descripción</th>
+                                                <th style="width: 10%">Estado</th>
+                                                <th style="width: 10%">
+                                                    <a style="margin-top: 3%;" class="btn btn-sm btn-outline-success float-left" matTooltip="Nuevo">
+                                                    <i class="fa fa-plus" aria-hidden="true" (click)="addTipoIngresoAnalisis()"></i></a> 
+                                                </th>
+                                            </tr>
+                                        </thead>
+                
+                                        <tbody>
+                                            <tr *ngFor="let tipoIngreso of listTiposIngresoAnalisis">
+                                                <td>{{tipoIngreso.codigoTipoIngresoAnalisis}}</td>
+                                                <td>{{tipoIngreso.descripcion}}</td>
+                                                <td *ngIf="tipoIngreso.estado==true">Activo</td>
+                                                <td *ngIf="tipoIngreso.estado==false">Inactivo</td>
+                                                <td style="white-space: nowrap">
+                
+                                                    <a style="margin-right: 5%;" (click)="editTipoIngresoAnalisis(tipoIngreso)" class="btn btn-sm btn-outline-info" matTooltip="Editar">
+                                                        <i class="fa fa-edit"></i> </a>
+                                                
+                                                    <a style="margin-left: 5%;" (click)="deleteTipoIngresoAnalisis(tipoIngreso.id)" class="btn btn-sm btn-outline-danger" matTooltip="Eliminar">
+                                                        <i class="fa fa-trash"></i> </a>
+                                                </td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                
+                                </section>
+                            </article>
                     </div>
-                    <div class="contenedor__header__next">  </div>
-                </div>
-            </section>
+                </mat-sidenav-container>
+                
+                <!-- *************** -->
+            </div>
+        </section>
 
-            <section>   <!-- body -->
-                <div class="contenedor__body">
-                    <!-- *************** -->
-                    <mat-sidenav-container *ngIf="showList">
-                            
-                        <div class="content mat-elevation-z4">
-                            <main>
-                                
-                                <!--<h1 style="color:#1A5276;margin-top: 2%;">Personas</h1>-->
-                                
-                                <article>
-                                    <section class="content__menu">
-                            
-                                        <table class="table table-striped">
-                                            <thead>
-                                                <tr>
-                                                    <th style="width: 20%">Código</th>
-                                                    <th style="width: 60%">Descripción</th>
-                                                    <th style="width: 10%">Estado</th>
-                                                    <th style="width: 10%">
-                                                        <a style="margin-top: 3%;" class="btn btn-sm btn-outline-success float-left" matTooltip="Nuevo">
-                                                        <i class="fa fa-plus" aria-hidden="true" (click)="addTipoIngresoAnalisis()"></i></a> 
-                                                    </th>
-                                                </tr>
-                                            </thead>
-                    
-                                            <tbody>
-                                                <tr *ngFor="let tipoIngreso of listTiposIngresoAnalisis">
-                                                    <td>{{tipoIngreso.codigoTipoIngresoAnalisis}}</td>
-                                                    <td>{{tipoIngreso.descripcion}}</td>
-                                                    <td *ngIf="tipoIngreso.estado==true">Activo</td>
-                                                    <td *ngIf="tipoIngreso.estado==false">Inactivo</td>
-                                                    <td style="white-space: nowrap">
-                    
-                                                        <a style="margin-right: 5%;" (click)="editTipoIngresoAnalisis(tipoIngreso)" class="btn btn-sm btn-outline-info" matTooltip="Editar">
-                                                            <i class="fa fa-edit"></i> </a>
-                                                    
-                                                        <a style="margin-left: 5%;" (click)="deleteTipoIngresoAnalisis(tipoIngreso.id)" class="btn btn-sm btn-outline-danger" matTooltip="Eliminar">
-                                                            <i class="fa fa-trash"></i> </a>
-                                                    </td>
-                                                </tr>
-                                            </tbody>
-                                        </table>
-                    
-                                    </section>
-                                </article>
-                            </main>
-                        </div>
-                    </mat-sidenav-container>
-                    
-                    <!-- *************** -->
-                </div>
-            </section>
+        <section> <!-- footer -->
+            <div class="contenedor__footer">
+                <section class="sectionmenu">
+                    <div class=" mat-elevation-z4">
+        
+                        
+                    </div>
+                </section>
 
-            <section> <!-- footer -->
-                <div class="contenedor__footer">
-                    <section class="sectionmenu">
-                        <div class=" mat-elevation-z4">
-            
-                            
-                        </div>
-                    </section>
+            </div>
+        </section>
 
-                </div>
-            </section>
-
-        </div>
-    </article>
-</main>
+    </div>
+</article>
 
 
 <article class="modal modal-config" id="tipoIngresoAnalisisModal">
