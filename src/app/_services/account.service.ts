@@ -412,44 +412,64 @@ export class AccountService {
   // **********************************************************************************************
   // -- >> Procedimientos Usuarios
   addUser(user: User) {
-    const headers = this.creaObjetoHttpHeader();
+    const headers = new HttpHeaders({ 
+      'Content-Type':'application/json','_idsession':'pidsession','_business':'pbusiness','_module':'admin'
+    });
     return this.http.post<ResponseMessage>(`${environment.apiUrl}/users/registrarusuario`, user, { headers });
   }
   removeRoleUser(user: User) {
-    const headers = this.creaObjetoHttpHeader();
+    const headers = new HttpHeaders({ 
+      'Content-Type':'application/json','_idsession':'pidsession','_business':'pbusiness','_module':'admin'
+    });
     return this.http.put<ResponseMessage>(`${environment.apiUrl}/users/removerrolusuario`, user, { headers });
   }
   updateUser(user: User) {
-    const headers = this.creaObjetoHttpHeader();
+    const headers = new HttpHeaders({ 
+      'Content-Type':'application/json','_idsession':'pidsession','_business':'pbusiness','_module':'admin'
+    });
     return this.http.put<ResponseMessage>( `${environment.apiUrl}/users/actualizarusuario`, user, { headers });
   }
   activateInactivateUser(user: User) {
-    const headers = this.creaObjetoHttpHeader();
+    const headers = new HttpHeaders({ 
+      'Content-Type':'application/json','_idsession':'pidsession','_business':'pbusiness','_module':'admin'
+    });
     return this.http.put<ResponseMessage>( `${environment.apiUrl}/users/activarinactivarcuenta`, user,  { headers });
   }
   getAllUsers() {
-    const headers = this.creaObjetoHttpHeader();
+    const headers = new HttpHeaders({ 
+      'Content-Type':'application/json','_idsession':'pidsession','_business':'pbusiness','_module':'admin'
+    });
     return this.http.get<User[]>(`${environment.apiUrl}/users/getallusers`, { headers });
   }
   getUserByIdentification(identification: string) {
-    const headers = this.creaObjetoHttpHeader();
+    const headers = new HttpHeaders({ 
+      'Content-Type':'application/json','_idsession':'pidsession','_business':'pbusiness','_module':'admin'
+    });
     return this.http.get<User>(`${environment.apiUrl}/users/usuarioidentification?identUsuario=${identification}`, { headers }); 
   }
   getUserBusiness(idUser:number, idEmpresa: number) {
-    const headers = this.creaObjetoHttpHeader();
+    const headers = new HttpHeaders({ 
+      'Content-Type':'application/json','_idsession':'pidsession','_business':'pbusiness','_module':'admin'
+    });
     return this.http.get<User[]>(`${environment.apiUrl}/users/usuarioempresa?idUser=${idUser}&idEmpresa=${idEmpresa}`, { headers });
   }
   getUsersBusiness(idEmpresa: number) {
-    const headers = this.creaObjetoHttpHeader();
+    const headers = new HttpHeaders({ 
+      'Content-Type':'application/json','_idsession':'pidsession','_business':'pbusiness','_module':'admin'
+    });
     return this.http.get<User[]>( `${environment.apiUrl}/users/usuariosempresa?idEmpresa=${idEmpresa}`, { headers });
   }
   getUsersBusinessScreenModule( idPantalla: number, idEmpresa: number, soloActivos: boolean) {
-    const headers = this.creaObjetoHttpHeader();
+    const headers = new HttpHeaders({ 
+      'Content-Type':'application/json','_idsession':'pidsession','_business':'pbusiness','_module':'admin'
+    });
     return this.http.get<User[]>( 
       `${environment.apiUrl}/users/getusuariosaccesopantalla?idPantalla=${idPantalla}&idEmpresa=${idEmpresa}&soloActivos=${soloActivos}`, { headers });
   }
   deleteUser(idUser: number, idBusiness: number) {
-    const headers = this.creaObjetoHttpHeader();
+    const headers = new HttpHeaders({ 
+      'Content-Type':'application/json','_idsession':'pidsession','_business':'pbusiness','_module':'admin'
+    });
     return this.http.delete<ResponseMessage>(`${environment.apiUrl}/users/deleteuser?idUser=${idUser}&idBusiness=${idBusiness}`, { headers })
       .pipe(map((x) => {
         if (idUser === this.userValue.id) { this.logout(); } return x; 
@@ -506,11 +526,11 @@ export class AccountService {
   }
   // *********************************
 
-  creaObjetoHttpHeader() : HttpHeaders {
-    let idUsuario = this.userValue?.id?.toString() ?? 'no user id';
-    let idBusiness = this.businessValue?.id?.toString() ?? 'no business id';
-    let idModule = this.moduleValue?.id?.toString() ?? 'admin';
-    const headers = new HttpHeaders({'Content-Type':'application/json','_idsession':idUsuario,'_business':idBusiness,'_module':idModule});
-    return headers;
-  }
+  // creaObjetoHttpHeader() : HttpHeaders {
+  //   let idUsuario = this.userValue?.id?.toString() ?? 'no user id';
+  //   let idBusiness = this.businessValue?.id?.toString() ?? 'no business id';
+  //   let idModule = this.moduleValue?.id?.toString() ?? 'admin';
+  //   const headers = new HttpHeaders({'Content-Type':'application/json','_idsession':idUsuario,'_business':idBusiness,'_module':idModule});
+  //   return headers;
+  // }
 }
