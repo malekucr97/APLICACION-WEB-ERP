@@ -2,7 +2,7 @@
 
 export const environment = {
     production: false,
-    apiUrl: 'https://apibiwindows.azurewebsites.net',
+    apiUrl: 'http://localhost:4000',
 
     sessionStorageIdentificationUserKey: '_httpUsernameSessionStorageAppAdminModulesInraSA',
     sessionStorageModuleIdentification : '_httpModuleSelectedSessionStorageAppAdminModulesInraSA'

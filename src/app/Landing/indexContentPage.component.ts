@@ -69,7 +69,7 @@ export class IndexContentPageComponent extends OnSeguridad implements OnInit {
 
       this.accountService.getModulesActiveBusiness( this.businessObservable.id,
                                                     this._HIdUserSessionRequest,
-                                                    this._HBusinessSessionRequest )
+                                                    this._HBusinessSessionRequest)
         .pipe(first())
         .subscribe((responseListModules) => {
 

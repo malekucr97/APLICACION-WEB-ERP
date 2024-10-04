@@ -107,9 +107,7 @@ export class ListPlanComponent extends OnSeguridad implements OnInit {
             let cantMaxAdministradores : number = plan.maximoAdministradores;
             let cantMaxFuncionales : number = plan.maximoFuncionales;
 
-            this.accountService.getUsersBusiness(   this.idBusinessSelected,
-                                                    this._HIdUserSessionRequest,
-                                                    this._HBusinessSessionRequest)
+            this.accountService.getUsersBusiness(this.idBusinessSelected)
                 .pipe(first())
                 .subscribe((response) => {
                 

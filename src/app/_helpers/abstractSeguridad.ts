@@ -9,9 +9,6 @@ export class OnSeguridad {
 
   private _codeSuccessUser : string = '202';
 
-  // public _passwordPattern : string = "^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?!.*\s).{5,12}$";
-  // public _userPattern : string = "^[a-zA-Z0-9]{5,15}$";
-  // public _emailPattern : string = "^[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$";
   public _passwordPattern : string ;
   public _userPattern : string ;
   public _emailPattern : string ;
@@ -78,9 +75,7 @@ export class OnSeguridad {
   // **
   // ** VALIDACIÓN DE USUARIO TÉCNICO O ADMINISTRADOR DE EMPRESAS
   validarUsuarioAdmin(): boolean {
-    if (this._userObservable.esAdmin || 
-      this._userObservable.idRol == administrator.adminSociedad) return true;
-
+    if (this._userObservable.esAdmin || this._userObservable.idRol == administrator.adminSociedad) return true;
     return false;
   }
 

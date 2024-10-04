@@ -51,12 +51,7 @@
           },
           "configurations": {
             "production": {
-              "fileReplacements": [
-                {
-                  "replace": "src/environments/environment.ts",
-                  "with": "src/environments/environment.prod.ts"
-                }
-              ],
+              "fileReplacements": [{"replace":"src/environments/environment.ts","with":"src/environments/environment.prod.ts"}],
               "optimization": true,
               "outputHashing": "all",
               "sourceMap": false,
@@ -64,45 +59,18 @@
               "extractLicenses": true,
               "vendorChunk": false,
               "buildOptimizer": true,
-              "budgets": [
-                {
-                  "type": "initial",
-                  "maximumWarning": "3mb",
-                  "maximumError": "5mb"
-                },
-                {
-                  "type": "anyComponentStyle",
-                  "maximumWarning": "1mb",
-                  "maximumError": "5mb"
-                }
-              ]
+              "budgets": [{"type":"initial","maximumWarning":"3mb","maximumError":"5mb"},{"type":"anyComponentStyle","maximumWarning":"1mb","maximumError":"5mb"}]
             },
-            "desarrollo": {
-              "fileReplacements": [
-                {
-                  "replace": "src/environments/environment.prod.ts",
-                  "with": "src/environments/environment.ts"
-                }
-              ],
+            "development": {
+              "fileReplacements": [{"replace":"src/environments/environment.prod.ts","with":"src/environments/environment.ts"}],
               "optimization": false,
               "outputHashing": "all",
               "sourceMap": true,
-              "namedChunks": false,
-              "extractLicenses": true,
-              "vendorChunk": false,
-              "buildOptimizer": true,
-              "budgets": [
-                {
-                  "type": "initial",
-                  "maximumWarning": "3mb",
-                  "maximumError": "5mb"
-                },
-                {
-                  "type": "anyComponentStyle",
-                  "maximumWarning": "1mb",
-                  "maximumError": "5mb"
-                }
-              ]
+              "namedChunks": true,
+              "extractLicenses": false,
+              "vendorChunk": true,
+              "buildOptimizer": false,
+              "budgets": [{"type":"initial","maximumWarning":"10mb","maximumError":"10mb" },{"type":"anyComponentStyle","maximumWarning":"1mb","maximumError":"5mb" }]
             }
           }
         },
@@ -116,7 +84,7 @@
               "browserTarget": "uil:build:production"
             },
             "development": {
-              "browserTarget": "uil:build:desarrollo"
+              "browserTarget": "uil:build:development"
             }
           }
         },
@@ -164,7 +132,7 @@
               "devServerTarget": "uil:serve:production"
             },
             "development": {
-              "devServerTarget": "uil:serve:desarrollo"
+              "devServerTarget": "uil:serve:development"
             }
           }
         }

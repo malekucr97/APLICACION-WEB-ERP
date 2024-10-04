@@ -29,7 +29,8 @@
     "@angular/router": "~13.3.12",
     "@ngx-translate/core": "^14.0.0",
     "@ngx-translate/http-loader": "^4.0.0",
-    "bootstrap": "^4.5.2",
+    "bootstrap": "^5.3.3",
+    "cors": "^2.8.5",
     "jquery": "^3.6.0",
     "moment": "^2.29.4",
     "powerbi-client": "^2.22.3",
@@ -38,8 +39,8 @@
     "zone.js": "~0.11.8"
   },
   "devDependencies": {
-    "@angular-devkit/build-angular": "~13.3.10",
-    "@angular/cli": "~13.3.10",
+    "@angular-devkit/build-angular": "^18.2.7",
+    "@angular/cli": "^18.2.7",
     "@angular/compiler-cli": "~13.3.12",
     "@angular/language-service": "~13.3.12",
     "@angular/localize": "^13.3.12",
@@ -48,8 +49,8 @@
     "@types/jquery": "^3.5.14",
     "@types/node": "^12.11.1",
     "autoprefixer": "^10.4.14",
-    "codelyzer": "^6.0.2",
-    "i18next-parser": "^8.13.0",
+    "codelyzer": "^0.0.28",
+    "i18next-parser": "^9.0.2",
     "jasmine-core": "~3.8.0",
     "jasmine-spec-reporter": "~5.0.0",
     "karma": "~6.4.1",
@@ -59,7 +60,7 @@
     "karma-jasmine-html-reporter": "^1.6.0",
     "postcss": "^8.4.23",
     "powerbi-report-authoring": "^2.0.0",
-    "protractor": "~7.0.0",
+    "protractor": "^3.3.0",
     "tailwindcss": "^3.3.2",
     "ts-node": "~8.3.0",
     "tslib": "^2.5.0",
@@ -67,5 +68,6 @@
     "typescript": "~4.6.4",
     "webpack": "^5.82.1",
     "webpack-cli": "^5.1.1"
-  }
+  },
+  "packageManager": "yarn@1.22.22+sha512.a6b2f7906b721bba3d67d4aff083df04dad64c399707841b7acf00f6b133b7ac24255f2652fa22ae3534329dc6180534e98d17432037ff6fd140556e2bb3137e"
 }

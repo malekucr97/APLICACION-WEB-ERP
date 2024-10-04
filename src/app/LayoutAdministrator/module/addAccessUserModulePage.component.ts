@@ -179,7 +179,7 @@ export class AddAccessUserModuleComponent extends OnSeguridad implements OnInit 
 
         this.alertService.clear();
 
-        this.accountService.getUsersBusiness(this.userObservable.empresa, this._HIdUserSessionRequest, this._HBusinessSessionRequest)
+        this.accountService.getUsersBusiness(this.userObservable.empresa)
             .pipe(first())
             .subscribe(response => {
 
@@ -198,8 +198,7 @@ export class AddAccessUserModuleComponent extends OnSeguridad implements OnInit 
 
         this.listUsuariosCompaniaPantalla = [];
 
-        this.accountService.getUsersBusinessScreenModule(objetoPantalla.id,this.companiaObservable.id,false,this._HIdUserSessionRequest, 
-                                                                                                            this._HBusinessSessionRequest)
+        this.accountService.getUsersBusinessScreenModule(objetoPantalla.id,this.companiaObservable.id,false)
             .pipe(first())
             .subscribe(response => {
 
@@ -384,9 +383,7 @@ export class AddAccessUserModuleComponent extends OnSeguridad implements OnInit 
 
                 if (confirmado) {
 
-                    this.accountService.deletePantallaModulo(id,this._HIdUserSessionRequest, 
-                                                                // this._HUserSessionRequest, 
-                                                                this._HBusinessSessionRequest)
+                    this.accountService.deletePantallaModulo(id, this._HIdUserSessionRequest, this._HBusinessSessionRequest)
                         .pipe(first())
                         .subscribe(response => {
 

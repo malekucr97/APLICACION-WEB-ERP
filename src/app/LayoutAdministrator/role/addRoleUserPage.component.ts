@@ -70,9 +70,7 @@ export class AddRoleUserComponent extends OnSeguridad implements OnInit {
 
       this.identificationUserSelected = this.route.snapshot.params.pidentificationUser;
 
-      this.accountService.getUserByIdentification(this.identificationUserSelected, 
-                                                  this._HIdUserSessionRequest, 
-                                                  this._HBusinessSessionRequest)
+      this.accountService.getUserByIdentification(this.identificationUserSelected)
         .pipe(first())
         .subscribe((responseUser) => {
 
@@ -80,10 +78,7 @@ export class AddRoleUserComponent extends OnSeguridad implements OnInit {
 
           if (this.userToAssign && this.userToAssign.idRol) {
 
-            this.accountService.getUserBusiness(this.userToAssign.id,
-                                                this.businessObservable.id,
-                                                this._HIdUserSessionRequest,
-                                                this._HBusinessSessionRequest)
+            this.accountService.getUserBusiness(this.userToAssign.id, this.businessObservable.id)
               .pipe(first())
               .subscribe((responseUserBusiness) => { 
 
@@ -156,7 +151,7 @@ export class AddRoleUserComponent extends OnSeguridad implements OnInit {
 
     this.alertService.clear();
 
-    this.accountService.removeRoleUser(this.userToAssign, this._HIdUserSessionRequest, this._HBusinessSessionRequest)
+    this.accountService.removeRoleUser(this.userToAssign)
       .pipe(first())
       .subscribe((response) => {
 
@@ -216,9 +211,7 @@ export class AddRoleUserComponent extends OnSeguridad implements OnInit {
   }
   private obtenerUsuariosCompania() : void {
 
-    this.accountService.getUsersBusiness( this.userObservable.empresa, 
-                                          this._HIdUserSessionRequest, 
-                                          this._HBusinessSessionRequest )
+    this.accountService.getUsersBusiness(this.userObservable.empresa)
       .pipe(first())
       .subscribe((users) => {
         if (users && users.length > 0) { 

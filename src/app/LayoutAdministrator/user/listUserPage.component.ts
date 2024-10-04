@@ -73,7 +73,7 @@ export class ListUserComponent extends OnSeguridad implements OnInit {
       
       this.isUserSuperAdmin = true;
       
-      this.accountService.getAllUsers(this._HIdUserSessionRequest, this._HBusinessSessionRequest)
+      this.accountService.getAllUsers()
           .pipe(first())
           .subscribe((users) => {
             if (users) {
@@ -87,9 +87,7 @@ export class ListUserComponent extends OnSeguridad implements OnInit {
       
       this.isUserAdminBusiness = true;
 
-      this.accountService.getUsersBusiness( this.userObservable.empresa, 
-                                            this._HIdUserSessionRequest, 
-                                            this._HBusinessSessionRequest )
+      this.accountService.getUsersBusiness(this.userObservable.empresa)
         .pipe(first())
         .subscribe((users) => {
           if (users && users.length > 0) {
@@ -120,9 +118,7 @@ export class ListUserComponent extends OnSeguridad implements OnInit {
           
         } else {
 
-          this.accountService.getUsersBusiness( this.userObservable.empresa,
-                                                this._HIdUserSessionRequest,
-                                                this._HBusinessSessionRequest)
+          this.accountService.getUsersBusiness(this.userObservable.empresa)
             .pipe(first())
             .subscribe((response) => {
 
@@ -166,10 +162,7 @@ export class ListUserComponent extends OnSeguridad implements OnInit {
 
           if (confirmado) {
 
-            this.accountService.deleteUser( idUser, 
-                                            this.businessObservable.id,
-                                            this._HIdUserSessionRequest,
-                                            this._HBusinessSessionRequest )
+            this.accountService.deleteUser(idUser, this.businessObservable.id)
               .pipe(first())
               .subscribe((responseDelete) => {
       
@@ -189,7 +182,7 @@ export class ListUserComponent extends OnSeguridad implements OnInit {
   }
 
   updateStateUser(userStateUpdate : User) : void {
-    this.accountService.activateInactivateUser(userStateUpdate, this._HIdUserSessionRequest, this._HBusinessSessionRequest)
+    this.accountService.activateInactivateUser(userStateUpdate)
     .pipe(first())
     .subscribe((responseActivate) => {
 

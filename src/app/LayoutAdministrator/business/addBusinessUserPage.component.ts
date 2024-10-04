@@ -63,7 +63,7 @@ export class AddBusinessUserComponent extends OnSeguridad implements OnInit {
 
     ngOnInit() {
 
-        this.accountService.getAllBusiness( this._HIdUserSessionRequest, this._HBusinessSessionRequest)
+        this.accountService.getAllBusiness(this._HIdUserSessionRequest, this._HBusinessSessionRequest)
             .pipe(first())
             .subscribe(responseListBusiness => {
 
@@ -133,9 +133,7 @@ export class AddBusinessUserComponent extends OnSeguridad implements OnInit {
 
         this.alertService.clear();
 
-        this.accountService.dessAssignAllBusinessUser(idUser,   this._HIdUserSessionRequest,
-                                                                // this.UserSessionRequest,
-                                                                this._HBusinessSessionRequest)
+        this.accountService.dessAssignAllBusinessUser(idUser, this._HIdUserSessionRequest, this._HBusinessSessionRequest)
             .pipe(first())
             .subscribe( response => {
 

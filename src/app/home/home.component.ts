@@ -51,7 +51,7 @@ export class HomeComponent extends OnSeguridad implements OnInit {
 
         if (this.userObservable.esAdmin) {
 
-            this.accountService.getAllBusiness( this._HIdUserSessionRequest )
+            this.accountService.getAllBusiness(this._HIdUserSessionRequest)
                 .pipe(first())
                 .subscribe(listBusinessResponse => {
 

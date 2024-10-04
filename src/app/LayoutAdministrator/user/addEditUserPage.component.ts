@@ -88,9 +88,7 @@ export class AddEditUserComponent extends OnSeguridad implements OnInit {
         this.usuarioForm.controls.puestoUsuario.disable();
       }
 
-      this.accountService.getUserByIdentification(this.pIdentifUserUpdate, 
-                                                  this._HIdUserSessionRequest, 
-                                                  this._HBusinessSessionRequest)
+      this.accountService.getUserByIdentification(this.pIdentifUserUpdate)
         .pipe(first())
         .subscribe((responseUser) => {
 
@@ -131,9 +129,7 @@ export class AddEditUserComponent extends OnSeguridad implements OnInit {
     let userForm: User = this.crateObjectForm();
     userForm.id = this.usuarioSeleccionado.id;
 
-    this.accountService.updateUser( userForm, 
-                                    this._HIdUserSessionRequest,
-                                    this._HBusinessSessionRequest )
+    this.accountService.updateUser(userForm)
         .pipe(first())
         .subscribe((responseUpdate) => {
 
@@ -159,9 +155,7 @@ export class AddEditUserComponent extends OnSeguridad implements OnInit {
 
     let userForm: User = this.crateObjectForm();
 
-    this.accountService.addUser(userForm, 
-                                this._HIdUserSessionRequest,
-                                this._HBusinessSessionRequest)
+    this.accountService.addUser(userForm)
         .pipe(first())
         .subscribe((responseAddUser) => {
 
