@@ -94,10 +94,7 @@ export class AddEditUserComponent extends OnSeguridad implements OnInit {
 
           if (responseUser.idRol) {
 
-            this.accountService.getRolUserBusiness( responseUser.idRol,
-                                                    this.businessObservable.id,
-                                                    this._HIdUserSessionRequest,
-                                                    this._HBusinessSessionRequest )
+            this.accountService.getRolUserBusiness(responseUser.idRol, this.businessObservable.id)
               .pipe(first())
               .subscribe((responseRole) => {
                 this.role = responseRole;
@@ -240,10 +237,7 @@ export class AddEditUserComponent extends OnSeguridad implements OnInit {
 
   private asociarUsuarioEmpresa(inUsuarioCreado: User, responseMessageAddUser : string) {
 
-    this.accountService.assignBusinessUser( inUsuarioCreado.id, 
-                                            this.businessObservable.id,
-                                            this._HIdUserSessionRequest, 
-                                            this._HBusinessSessionRequest )
+    this.accountService.assignBusinessUser(inUsuarioCreado.id, this.businessObservable.id)
       .pipe(first())
       .subscribe((response) => {
 

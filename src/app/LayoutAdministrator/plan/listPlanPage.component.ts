@@ -64,7 +64,7 @@ export class ListPlanComponent extends OnSeguridad implements OnInit {
             this.URLAdministratorPage = httpAccessAdminPage.urlPageListBusiness;
         }
 
-        this.accountService.getAllPlanes(this._HIdUserSessionRequest, this._HBusinessSessionRequest)
+        this.accountService.getAllPlanes()
             .pipe(first())
             .subscribe(response => {
                 
@@ -73,9 +73,7 @@ export class ListPlanComponent extends OnSeguridad implements OnInit {
                 if (this.addPlanBusiness && this.listPlanes) {
 
                     // get plan business
-                    this.accountService.getPlanBusiness(this.idBusinessSelected,
-                                                        this._HIdUserSessionRequest,
-                                                        this._HBusinessSessionRequest)
+                    this.accountService.getPlanBusiness(this.idBusinessSelected)
                         .pipe(first())
                         .subscribe(response => {
 
@@ -130,9 +128,7 @@ export class ListPlanComponent extends OnSeguridad implements OnInit {
                                                                                                 cantFuncionales,
                                                                                                 this._HIdUserSessionRequest,
                                                                                                 fechaRegistro);
-                            this.accountService.addPlanBusiness(objPlanBusiness,
-                                                                this._HIdUserSessionRequest,
-                                                                this._HBusinessSessionRequest)
+                            this.accountService.addPlanBusiness(objPlanBusiness)
                                 .pipe(first())
                                 .subscribe((response) => {
                     
@@ -162,10 +158,7 @@ export class ListPlanComponent extends OnSeguridad implements OnInit {
     
                     if (confirmado) {
     
-                        this.accountService.removePlanBusiness( idPlan, 
-                                                                this.idBusinessSelected,
-                                                                this._HIdUserSessionRequest,
-                                                                this._HBusinessSessionRequest)
+                        this.accountService.removePlanBusiness(idPlan, this.idBusinessSelected)
                             .pipe(first())
                             .subscribe((response) => {
               
@@ -192,9 +185,7 @@ export class ListPlanComponent extends OnSeguridad implements OnInit {
 
                 if (confirmado) {
 
-                    this.accountService.deletePlan( idPlan,
-                                                    this._HIdUserSessionRequest,
-                                                    this._HBusinessSessionRequest)
+                    this.accountService.deletePlan(idPlan)
                         .pipe(first())
                         .subscribe((responseDelete) => {
             

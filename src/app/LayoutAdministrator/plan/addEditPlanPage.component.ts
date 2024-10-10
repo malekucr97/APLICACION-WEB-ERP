@@ -72,9 +72,7 @@ export class AddEditPlanComponent extends OnSeguridad implements OnInit {
             this.updatePlan = true;
             this.pidPlanUpdate = this.route.snapshot.params.pidPlan;
 
-            this.accountService.getPlanById(this.pidPlanUpdate,
-                                            this._HIdUserSessionRequest,
-                                            this._HBusinessSessionRequest)
+            this.accountService.getPlanById(this.pidPlanUpdate)
             .pipe(first())
             .subscribe((responsePlan) => { if (responsePlan) this.inicializaFormularioUpdatePlan(responsePlan); });
         // **
@@ -96,9 +94,7 @@ export class AddEditPlanComponent extends OnSeguridad implements OnInit {
         planForm.modificadoPor = this.userObservable.id.toString(); 
         planForm.fechaModificacion = new Date();
 
-        this.accountService.updatePlan( planForm, 
-                                        this._HIdUserSessionRequest,
-                                        this._HBusinessSessionRequest )
+        this.accountService.updatePlan(planForm)
             .pipe(first())
             .subscribe((responseUpdate) => {
 
@@ -121,9 +117,7 @@ export class AddEditPlanComponent extends OnSeguridad implements OnInit {
 
         let planForm: AdminPlan = this.crateObjectForm();
 
-        this.accountService.addPlan(planForm,
-                                    this._HIdUserSessionRequest,
-                                    this._HBusinessSessionRequest)
+        this.accountService.addPlan(planForm)
             .pipe(first())
             .subscribe((responseAddPlan) => {
 

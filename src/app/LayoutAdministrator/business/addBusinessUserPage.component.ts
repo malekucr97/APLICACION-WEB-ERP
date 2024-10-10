@@ -104,7 +104,7 @@ export class AddBusinessUserComponent extends OnSeguridad implements OnInit {
 
         let business : Compania = this.listAllBusiness.find(m => m.id == idBusiness);
 
-        this.accountService.assignBusinessUser(this.userToAssign.id, idBusiness,this._HIdUserSessionRequest, this._HBusinessSessionRequest)
+        this.accountService.assignBusinessUser(this.userToAssign.id, idBusiness)
             .pipe(first())
             .subscribe( response => {
 
@@ -131,7 +131,7 @@ export class AddBusinessUserComponent extends OnSeguridad implements OnInit {
 
         this.alertService.clear();
 
-        this.accountService.dessAssignAllBusinessUser(idUser, this._HIdUserSessionRequest, this._HBusinessSessionRequest)
+        this.accountService.dessAssignAllBusinessUser(idUser)
             .pipe(first())
             .subscribe( response => {
 
@@ -160,9 +160,7 @@ export class AddBusinessUserComponent extends OnSeguridad implements OnInit {
 
         let business : Compania = this.listBusinessUser.find(m => m.id == idBusiness);
 
-        this.accountService.dessAssignBusinessUser(this.userToAssign.id,idBusiness, this._HIdUserSessionRequest,
-                                                                                    // this.UserSessionRequest,
-                                                                                    this._HBusinessSessionRequest)
+        this.accountService.dessAssignBusinessUser(this.userToAssign.id,idBusiness)
             .pipe(first())
             .subscribe( response => {
 
@@ -190,10 +188,7 @@ export class AddBusinessUserComponent extends OnSeguridad implements OnInit {
 
             this.existeRol = true;
 
-            this.accountService.getRolUserBusiness( this.userToAssign.idRol,
-                                                    this.businessObservable.id,
-                                                    this._HIdUserSessionRequest, 
-                                                    this._HBusinessSessionRequest)
+            this.accountService.getRolUserBusiness(this.userToAssign.idRol,this.businessObservable.id)
                 .pipe(first())
                 .subscribe(responseRole => {
 

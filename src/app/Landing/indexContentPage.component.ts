@@ -67,9 +67,7 @@ export class IndexContentPageComponent extends OnSeguridad implements OnInit {
 
     if ( super.validarUsuarioAdmin() ) {
 
-      this.accountService.getModulesActiveBusiness( this.businessObservable.id,
-                                                    this._HIdUserSessionRequest,
-                                                    this._HBusinessSessionRequest)
+      this.accountService.getModulesActiveBusiness( this.businessObservable.id)
         .pipe(first())
         .subscribe((responseListModules) => {
 
@@ -81,7 +79,7 @@ export class IndexContentPageComponent extends OnSeguridad implements OnInit {
 
     } else {
       // módulos activos de usuario
-      this.accountService.getModulesActiveUser(this.businessObservable.id, this.userObservable.idRol, this._HIdUserSessionRequest, this._HBusinessSessionRequest)
+      this.accountService.getModulesActiveUser(this.businessObservable.id, this.userObservable.idRol)
         .pipe(first())
         .subscribe((responseListModules) => {
 

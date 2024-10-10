@@ -237,9 +237,7 @@ export class ListUserComponent extends OnSeguridad implements OnInit {
   }
   private obtenerPlanCompania() : void {
     
-    this.accountService.getPlanBusiness(Number( this._HBusinessSessionRequest),
-                                                this._HIdUserSessionRequest,
-                                                this._HBusinessSessionRequest)
+    this.accountService.getPlanBusiness(Number( this._HBusinessSessionRequest),)
       .pipe(first())
       .subscribe(response => { this.planBusiness = response; });
   }

@@ -48,11 +48,11 @@ export class ListModuleComponent extends OnSeguridad implements OnInit {
 
     ngOnInit() {
 
-        this.accountService.getModulesSystem(this._HIdUserSessionRequest, this._HBusinessSessionRequest)
+        this.accountService.getModulesSystem()
             .pipe(first())
             .subscribe(response => { this.listModulesSystem = response; });
 
-        this.accountService.getModulesBusiness(this.businessObservable.id, this._HIdUserSessionRequest, this._HBusinessSessionRequest)
+        this.accountService.getModulesBusiness(this.businessObservable.id)
             .pipe(first())
             .subscribe(response => { this.listModules = response; });
     }
@@ -67,7 +67,7 @@ export class ListModuleComponent extends OnSeguridad implements OnInit {
 
         let moduleList = this.listModulesSystem.find(x => x.identificador === identificadorModulo);
 
-        this.accountService.activateModule(moduleList.id, this.businessObservable.id, this._HIdUserSessionRequest, this._HBusinessSessionRequest)
+        this.accountService.activateModule(moduleList.id, this.businessObservable.id)
             .pipe(first())
             .subscribe( responseActivate => {
 
@@ -93,7 +93,7 @@ export class ListModuleComponent extends OnSeguridad implements OnInit {
 
         let moduleList = this.listModulesSystem.find(x => x.identificador === identificadorModulo);
 
-        this.accountService.inActivateModule(moduleList.id, this.businessObservable.id, this._HIdUserSessionRequest, this._HBusinessSessionRequest)
+        this.accountService.inActivateModule(moduleList.id, this.businessObservable.id)
             .pipe(first())
             .subscribe( responseInActivate => {
 

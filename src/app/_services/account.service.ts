@@ -36,19 +36,13 @@ export class AccountService {
   // ************************* CONSTRUCTOR ************************
   // **************************************************************
   constructor(private router: Router, private http: HttpClient) {
-    this.userSubject = new BehaviorSubject<User>(
-      JSON.parse(localStorage.getItem('user'))
-    );
+    this.userSubject = new BehaviorSubject<User>( JSON.parse(localStorage.getItem('user')) );
     this.user = this.userSubject.asObservable();
 
-    this.businessSubject = new BehaviorSubject<Compania>(
-      JSON.parse(localStorage.getItem('Obusiness'))
-    );
+    this.businessSubject = new BehaviorSubject<Compania>( JSON.parse(localStorage.getItem('Obusiness')) );
     this.businessObservable = this.businessSubject.asObservable();
 
-    this.moduleSubject = new BehaviorSubject<Module>(
-      JSON.parse(localStorage.getItem('Omodule'))
-    );
+    this.moduleSubject = new BehaviorSubject<Module>( JSON.parse(localStorage.getItem('Omodule')) );
     this.moduleObservable = this.moduleSubject.asObservable();
   }
 
@@ -174,6 +168,7 @@ export class AccountService {
                                                                         '_module':idModule});
     return headers;
   }
+  // **********************************************************************************************
   // -- >> Procedimientos Empresas
   getAllBusiness() {
     const headers = this.creaObjetoHttpHeader();
@@ -192,226 +187,192 @@ export class AccountService {
   }
   addBusiness(business: Compania) {
     const headers = this.creaObjetoHttpHeader();
-    return this.http.post<ResponseMessage>( `${environment.apiUrl}/users/registrarempresa`, business, { headers });
+    return this.http.post<ResponseMessage>( `${environment.apiUrl}/users/registrarempresa`, business, 
+      { headers });
   }
-  updateBusiness(business: Compania, pidsession : string = '', pbusiness : string = '') {
-    const headers = new HttpHeaders({ 
-      'Content-Type':'application/json','_idsession':pidsession,'_business':pbusiness,'_module':'admin'
-    });
-    return this.http.put<ResponseMessage>( `${environment.apiUrl}/users/actualizarempresa`, business, { headers });
+  updateBusiness(business: Compania) {
+    const headers = this.creaObjetoHttpHeader();
+    return this.http.put<ResponseMessage>( `${environment.apiUrl}/users/actualizarempresa`, business, 
+      { headers });
   }
-  assignBusinessUser(idUser: number, idBusiness: number,pidsession : string = '', pbusiness : string = '') {
+  assignBusinessUser(idUser: number, idBusiness: number) {
     let busonessObject = { IdUsuario : idUser, IdSociedad : idBusiness };
-    const headers = new HttpHeaders({ 
-      'Content-Type':'application/json','_idsession':pidsession,'_business':pbusiness,'_module':'admin'
-    });
-    return this.http.post<ResponseMessage>( `${environment.apiUrl}/users/asignarsociedadusuario`, busonessObject, { headers });
+    const headers = this.creaObjetoHttpHeader();
+    return this.http.post<ResponseMessage>( `${environment.apiUrl}/users/asignarsociedadusuario`, busonessObject, 
+      { headers });
   }
-  dessAssignBusinessUser(idUser:number,idBusiness:number, pidsession : string = '',pbusiness : string = '') {
+  dessAssignBusinessUser(idUser:number,idBusiness:number) {
     let busonessObject = { IdUsuario : idUser, IdSociedad : idBusiness };
-    const headers = new HttpHeaders({ 
-      'Content-Type':'application/json','_idsession':pidsession,'_business':pbusiness,'_module':'admin'
-    });
-    return this.http.post<ResponseMessage>( `${environment.apiUrl}/users/desasignsociedadusuario`, busonessObject, { headers });
+    const headers = this.creaObjetoHttpHeader();
+    return this.http.post<ResponseMessage>( `${environment.apiUrl}/users/desasignsociedadusuario`, busonessObject, 
+      { headers });
   }
-  dessAssignAllBusinessUser(idUser : number,pidsession : string = '', pbusiness : string = '') {
+  dessAssignAllBusinessUser(idUser : number) {
     let userObject = { IdUsuario : idUser };
-    const headers = new HttpHeaders({ 
-      'Content-Type':'application/json', '_idsession':pidsession, '_business':pbusiness, '_module':'admin'
-    });
-    return this.http.post<ResponseMessage>( `${environment.apiUrl}/users/desasignallsociedades`, userObject, { headers });
+    const headers = this.creaObjetoHttpHeader();
+    return this.http.post<ResponseMessage>( `${environment.apiUrl}/users/desasignallsociedades`, userObject, 
+      { headers });
   }
   // **********************************************************************************************
   // -- >> Procedimientos Módulos
-  getModulesActiveBusiness(idEmpresa: number, pidsession : string = '', pbusiness : string = '') {
-    const headers = new HttpHeaders({ 
-      'Content-Type':'application/json','_idsession':pidsession,'_business':pbusiness, '_module':'admin'
-    });
-    return this.http.get<Module[]>( `${environment.apiUrl}/users/modulosactsociedad?idEmpresa=${idEmpresa}`, { headers });
+  getModulesActiveBusiness(idEmpresa: number) {
+    const headers = this.creaObjetoHttpHeader();
+    return this.http.get<Module[]>( `${environment.apiUrl}/users/modulosactsociedad?idEmpresa=${idEmpresa}`, 
+      { headers });
   }
-  getModulesSystem( pidsession : string = '', pbusiness : string = '') {
-    const headers = new HttpHeaders({ 
-      'Content-Type':'application/json','_idsession':pidsession,'_business':pbusiness, '_module':'admin'
-    });
+  getModulesSystem() {
+    const headers = this.creaObjetoHttpHeader();
     return this.http.get<Module[]>(`${environment.apiUrl}/users/modulossistema`, { headers });
   }
-  getModulesBusiness(idEmpresa: number, pidsession : string = '', pbusiness : string = '') {
-    const headers = new HttpHeaders({ 
-      'Content-Type':'application/json','_idsession':pidsession,'_business':pbusiness, '_module':'admin'
-    });
-    return this.http.get<Module[]>(`${environment.apiUrl}/users/modulossociedad?idEmpresa=${idEmpresa}`, { headers });
+  getModulesBusiness(idEmpresa: number) {
+    const headers = this.creaObjetoHttpHeader();
+    return this.http.get<Module[]>(`${environment.apiUrl}/users/modulossociedad?idEmpresa=${idEmpresa}`, 
+      { headers });
   }
-  activateModule(idModule: number, idEmpresa: number, pidsession : string = '', pbusiness : string = '') {
+  activateModule(idModule: number, idEmpresa: number) {
     let activateMod = { IdModulo : idModule, IdBusiness : idEmpresa };
-    const headers = new HttpHeaders({ 
-      'Content-Type':'application/json','_idsession':pidsession,'_business':pbusiness, '_module':'admin'
-    });
-    return this.http.put<ResponseMessage>(`${environment.apiUrl}/users/activarmodulo`, activateMod, { headers });
+    const headers = this.creaObjetoHttpHeader();
+    return this.http.put<ResponseMessage>(`${environment.apiUrl}/users/activarmodulo`, activateMod, 
+      { headers });
   }
-  inActivateModule( idModule: number, idBusiness: number, pidsession : string = '', pbusiness : string = '') {
+  inActivateModule( idModule: number, idBusiness: number) {
     let inActivateMod = { IdModulo : idModule, IdBusiness : idBusiness };
-    const headers = new HttpHeaders({ 
-      'Content-Type':'application/json','_idsession':pidsession,'_business':pbusiness, '_module':'admin'
-    });
-    return this.http.put<ResponseMessage>(`${environment.apiUrl}/users/inactivarmodulo`, inActivateMod, { headers });
+    const headers = this.creaObjetoHttpHeader();
+    return this.http.put<ResponseMessage>(`${environment.apiUrl}/users/inactivarmodulo`, inActivateMod, 
+      { headers });
   }
-  postModule(modulo: Module,pidsession : string = '', pbusiness : string = '') {
-    const headers = new HttpHeaders({ 
-      'Content-Type':'application/json','_idsession':pidsession,'_business':pbusiness, '_module':'admin'
-    });
-    return this.http.post<ResponseMessage>(`${environment.apiUrl}/users/postmodulo`, modulo, { headers });
+  postModule(modulo: Module) {
+    const headers = this.creaObjetoHttpHeader();
+    return this.http.post<ResponseMessage>(`${environment.apiUrl}/users/postmodulo`, modulo, 
+      { headers });
   }
-  assignModuleToBusiness(idModule: number, idBusiness: number,pidsession : string = '', pbusiness : string = '') {
+  assignModuleToBusiness(idModule: number, idBusiness: number) {
     let moduleToBusiness = { IdModulo : idModule, IdBusiness : idBusiness };
-    const headers = new HttpHeaders({ 
-      'Content-Type':'application/json','_idsession':pidsession,'_business':pbusiness, '_module':'admin'
-    });
-    return this.http.post<ResponseMessage>(`${environment.apiUrl}/users/asignarmodulosociedad`, moduleToBusiness, { headers });
+    const headers = this.creaObjetoHttpHeader();
+    return this.http.post<ResponseMessage>(`${environment.apiUrl}/users/asignarmodulosociedad`, moduleToBusiness, 
+      { headers });
   }
-  deleteModule(modulo: Module,pidsession : string = '', pbusiness : string = '') {
-    const headers = new HttpHeaders({ 
-      'Content-Type':'application/json','_idsession':pidsession,'_business':pbusiness, '_module':'admin'
-    });
-    return this.http.delete<ResponseMessage>(`${environment.apiUrl}/users/deletemodulo?idModulo=${modulo.id}`, { headers });
+  deleteModule(modulo: Module) {
+    const headers = this.creaObjetoHttpHeader();
+    return this.http.delete<ResponseMessage>(`${environment.apiUrl}/users/deletemodulo?idModulo=${modulo.id}`, 
+      { headers });
   }
-  updateModule(modulo: Module,pidsession : string = '', pbusiness : string = '') {
-    const headers = new HttpHeaders({ 
-      'Content-Type':'application/json','_idsession':pidsession,'_business':pbusiness, '_module':'admin'
-    });
-    return this.http.put<ResponseMessage>(`${environment.apiUrl}/users/updatemodulo?idModulo=${modulo.id}`, modulo, { headers });
+  updateModule(modulo: Module) {
+    const headers = this.creaObjetoHttpHeader();
+    return this.http.put<ResponseMessage>(`${environment.apiUrl}/users/updatemodulo?idModulo=${modulo.id}`, modulo, 
+      { headers });
   }
-  getModuleId(idModule: number, pidsession : string = '', pbusiness : string = '') {
-    const headers = new HttpHeaders({ 
-      'Content-Type':'application/json','_idsession':pidsession,'_business':pbusiness, '_module':'admin'
-    });
-    return this.http.get<Module>(`${environment.apiUrl}/users/getmoduloid?idModule=${idModule}`, { headers });
+  getModuleId(idModule: number) {
+    const headers = this.creaObjetoHttpHeader();
+    return this.http.get<Module>(`${environment.apiUrl}/users/getmoduloid?idModule=${idModule}`, 
+      { headers });
   }
-  getModulesByRolAndBusiness(idRol: string, idEmpresa: number,pidsession : string = '', pbusiness : string = '') {
-    const headers = new HttpHeaders({ 
-      'Content-Type':'application/json','_idsession':pidsession,'_business':pbusiness, '_module':'admin'
-    });
-    return this.http.get<Module[]>(`${environment.apiUrl}/users/modulosrolempresa?idEmpresa=${idEmpresa}&idRol=${idRol}`, { headers });
+  getModulesByRolAndBusiness(idRol: string, idEmpresa: number) {
+    const headers = this.creaObjetoHttpHeader();
+    return this.http.get<Module[]>(`${environment.apiUrl}/users/modulosrolempresa?idEmpresa=${idEmpresa}&idRol=${idRol}`, 
+      { headers });
   }
-  grantAccessModuleToRol(idRol: string, idModulo: number,idBusiness: number,pidsession : string = '', pbusiness : string = '') {
+  grantAccessModuleToRol(idRol: string, idModulo: number,idBusiness: number) {
     let accessMod = { IdRol : idRol, IdModulo : idModulo, IdBusiness : idBusiness };
-    const headers = new HttpHeaders({ 
-      'Content-Type':'application/json','_idsession':pidsession,'_business':pbusiness, '_module':'admin'
-    });
-    return this.http.post<ResponseMessage>(`${environment.apiUrl}/users/otorgaraccesoamodulo`, accessMod, { headers });
+    const headers = this.creaObjetoHttpHeader();
+    return this.http.post<ResponseMessage>(`${environment.apiUrl}/users/otorgaraccesoamodulo`, accessMod, 
+      { headers });
   }
-  deleteAccessModuleToRol(idRol: string, idModulo:number,idEmpresa: number, pidsession : string = '', pbusiness : string = '') {
-    const headers = new HttpHeaders({ 
-      'Content-Type':'application/json','_idsession':pidsession,'_business':pbusiness, '_module':'admin'
-    });
-    return this.http.delete<ResponseMessage>(`${environment.apiUrl}/users/eliminaraccesomodulo?idRol=${idRol}&idModulo=${idModulo}&idEmpresa=${idEmpresa}`, { headers });
+  deleteAccessModuleToRol(idRol: string, idModulo:number,idEmpresa: number) {
+    const headers = this.creaObjetoHttpHeader();
+    return this.http.delete<ResponseMessage>(`${environment.apiUrl}/users/eliminaraccesomodulo?idRol=${idRol}&idModulo=${idModulo}&idEmpresa=${idEmpresa}`, 
+      { headers });
   }
-  desAssignModuleToBusiness(moduleId: number, idEmpresa: number,pidsession : string = '', pbusiness : string = '') {
-    const headers = new HttpHeaders({ 
-      'Content-Type':'application/json','_idsession':pidsession,'_business':pbusiness, '_module':'admin'
-    });
-    return this.http.delete<ResponseMessage>(`${environment.apiUrl}/users/desasigmodsociedad?idModulo=${moduleId}&idEmpresa=${idEmpresa}`, { headers });
+  desAssignModuleToBusiness(moduleId: number, idEmpresa: number) {
+    const headers = this.creaObjetoHttpHeader();
+    return this.http.delete<ResponseMessage>(`${environment.apiUrl}/users/desasigmodsociedad?idModulo=${moduleId}&idEmpresa=${idEmpresa}`, 
+      { headers });
   }
-  getModulesActiveUser(idEmpresa: number, idRol: string,pidsession : string = '', pbusiness : string = '') {
-    const headers = new HttpHeaders({ 
-      'Content-Type':'application/json','_idsession':pidsession,'_business':pbusiness, '_module':'admin'
-    });
-    return this.http.get<Module[]>(`${environment.apiUrl}/users/modulosactusuario?idEmpresa=${idEmpresa}&idRol=${idRol}`, { headers });
+  getModulesActiveUser(idEmpresa: number, idRol: string) {
+    const headers = this.creaObjetoHttpHeader();
+    return this.http.get<Module[]>(`${environment.apiUrl}/users/modulosactusuario?idEmpresa=${idEmpresa}&idRol=${idRol}`, 
+      { headers });
   }
   // **********************************************************************************************
   // -- >> Procedimientos Roles
-  addRol(role: Role,pidsession : string = '', pbusiness : string = '') {
-    const headers = new HttpHeaders({ 
-      'Content-Type':'application/json','_idsession':pidsession,'_business':pbusiness, '_module':'admin'
-    });
-    return this.http.post<ResponseMessage>( `${environment.apiUrl}/users/registrarrol`, role, { headers });
+  addRol(role: Role) {
+    const headers = this.creaObjetoHttpHeader();
+    return this.http.post<ResponseMessage>( `${environment.apiUrl}/users/registrarrol`, role, 
+      { headers });
   }
-  getRolById(idRol: string, pidsession : string = '', pbusiness : string = '') {
-    const headers = new HttpHeaders({ 
-      'Content-Type':'application/json','_idsession':pidsession,'_business':pbusiness, '_module':'admin'
-    });
-    return this.http.get<Role>(`${environment.apiUrl}/users/getrolid?idRol=${idRol}`, { headers });
+  getRolById(idRol: string) {
+    const headers = this.creaObjetoHttpHeader();
+    return this.http.get<Role>(`${environment.apiUrl}/users/getrolid?idRol=${idRol}`, 
+      { headers });
   }
-  getRolUserBusiness(idRol: string, idBusiness: number, pidsession : string = '', pbusiness : string = '') {
-    const headers = new HttpHeaders({ 
-      'Content-Type':'application/json','_idsession':pidsession,'_business':pbusiness, '_module':'admin'
-    });
-    return this.http.get<Role>( `${environment.apiUrl}/users/getroluserbusiness?idRol=${idRol}&idBusiness=${idBusiness}`, { headers });
+  getRolUserBusiness(idRol: string, idBusiness: number) {
+    const headers = this.creaObjetoHttpHeader();
+    return this.http.get<Role>( `${environment.apiUrl}/users/getroluserbusiness?idRol=${idRol}&idBusiness=${idBusiness}`, 
+      { headers });
   }
-  getRolesBusiness(idBusiness: number, pidsession : string = '', pbusiness : string = '') {
-    const headers = new HttpHeaders({ 
-      'Content-Type':'application/json','_idsession':pidsession,'_business':pbusiness, '_module':'admin'
-    });
-    return this.http.get<Role[]>( `${environment.apiUrl}/users/getrolesbusiness?idBusiness=${idBusiness}`, { headers });
+  getRolesBusiness(idBusiness: number) {
+    const headers = this.creaObjetoHttpHeader();
+    return this.http.get<Role[]>( `${environment.apiUrl}/users/getrolesbusiness?idBusiness=${idBusiness}`, 
+      { headers });
   }
-  assignRolBusiness(roleBusiness:RoleBusiness, pidsession : string = '', pbusiness : string = '') {
-    const headers = new HttpHeaders({ 
-      'Content-Type':'application/json','_idsession':pidsession,'_business':pbusiness, '_module':'admin'
-    });
-    return this.http.post<ResponseMessage>( `${environment.apiUrl}/users/registrarrolcompania`, roleBusiness, { headers });
+  assignRolBusiness(roleBusiness:RoleBusiness) {
+    const headers = this.creaObjetoHttpHeader();
+    return this.http.post<ResponseMessage>( `${environment.apiUrl}/users/registrarrolcompania`, roleBusiness, 
+      { headers });
   }
-  assignRoleUser(idRole: string, idUser: string,pidsession : string = '', pbusiness : string = '') {
+  assignRoleUser(idRole: string, idUser: string) {
     let assignRolObject = { IdRole : idRole, IdUser : idUser };
-    const headers = new HttpHeaders({
-      'Content-Type':'application/json','_idsession':pidsession,'_business':pbusiness, '_module':'admin'
-    });
-    return this.http.post<ResponseMessage>(`${environment.apiUrl}/users/asignarrolusuario`, assignRolObject, { headers });
+    const headers = this.creaObjetoHttpHeader();
+    return this.http.post<ResponseMessage>(`${environment.apiUrl}/users/asignarrolusuario`, assignRolObject, 
+      { headers });
   }
-  updateRol(rol: Role, idBusiness:number, pidsession : string = '', pbusiness : string = '') {
+  updateRol(rol: Role, idBusiness:number) {
     let assignRolObject = { IdRol : rol.id, IdBusiness : idBusiness, Estado : rol.estado, Tipo : rol.tipo };
-    const headers = new HttpHeaders({
-      'Content-Type':'application/json','_idsession':pidsession,'_business':pbusiness, '_module':'admin'
-    });
-    return this.http.put<ResponseMessage>(`${environment.apiUrl}/users/actualizarrol`, assignRolObject, { headers });
+    const headers = this.creaObjetoHttpHeader();
+    return this.http.put<ResponseMessage>(`${environment.apiUrl}/users/actualizarrol`, assignRolObject, 
+      { headers });
   }
   // **********************************************************************************************
   // -- >> Procedimientos Planes
-  addPlan(plan: AdminPlan, pidsession : string = '', pbusiness : string = '') {
-    const headers = new HttpHeaders({ 
-      'Content-Type':'application/json','_idsession':pidsession,'_business':pbusiness,'_module':'admin'
-    });
-    return this.http.post<ResponseMessage>(`${environment.apiUrl}/users/createplan`, plan, { headers });
+  addPlan(plan: AdminPlan) {
+    const headers = this.creaObjetoHttpHeader();
+    return this.http.post<ResponseMessage>(`${environment.apiUrl}/users/createplan`, plan, 
+      { headers });
   }
-  getAllPlanes( pidsession : string = '', pbusiness : string = '') {
-    const headers = new HttpHeaders({ 
-      'Content-Type':'application/json','_idsession':pidsession,'_business':pbusiness,'_module':'admin'
-    });    
-    return this.http.get<AdminPlan[]>(`${environment.apiUrl}/users/listplanes`, { headers });
+  getAllPlanes() {
+    const headers = this.creaObjetoHttpHeader();
+    return this.http.get<AdminPlan[]>(`${environment.apiUrl}/users/listplanes`, 
+      { headers });
   }
-  getPlanById(id: number, pidsession : string = '', pbusiness : string = '') {
-    const headers = new HttpHeaders({ 
-      'Content-Type':'application/json','_idsession':pidsession,'_business':pbusiness,'_module':'admin'
-    });
-    return this.http.get<AdminPlan>(`${environment.apiUrl}/users/getplanid?idPlan=${id}`, { headers });
+  getPlanById(id: number) {
+    const headers = this.creaObjetoHttpHeader();
+    return this.http.get<AdminPlan>(`${environment.apiUrl}/users/getplanid?idPlan=${id}`, 
+      { headers });
   }
-  updatePlan(planUpdate: AdminPlan, pidsession : string = '', pbusiness : string = '') {
-    const headers = new HttpHeaders({ 
-      'Content-Type':'application/json','_idsession':pidsession,'_business':pbusiness,'_module':'admin'
-    });
-    return this.http.put<ResponseMessage>(`${environment.apiUrl}/users/updateplan`, planUpdate, { headers });
+  updatePlan(planUpdate: AdminPlan) {
+    const headers = this.creaObjetoHttpHeader();
+    return this.http.put<ResponseMessage>(`${environment.apiUrl}/users/updateplan`, planUpdate, 
+      { headers });
   }
-  deletePlan(idPlan: number,pidsession : string = '', pbusiness : string = '') {
-    const headers = new HttpHeaders({ 
-      'Content-Type':'application/json','_idsession':pidsession,'_business':pbusiness,'_module':'admin'
-    });
-    return this.http.delete<ResponseMessage>(`${environment.apiUrl}/users/deleteplan?id=${idPlan}`, { headers });
+  deletePlan(idPlan: number) {
+    const headers = this.creaObjetoHttpHeader();
+    return this.http.delete<ResponseMessage>(`${environment.apiUrl}/users/deleteplan?id=${idPlan}`, 
+      { headers });
   }
-  getPlanBusiness(idBusiness: number, pidsession : string = '', pbusiness : string = '') {
-    const headers = new HttpHeaders({ 
-      'Content-Type':'application/json','_idsession':pidsession,'_business':pbusiness,'_module':'admin'
-    });
-    return this.http.get<AdminPlan>(`${environment.apiUrl}/users/getplanbusiness?idBusiness=${idBusiness}`, { headers });
+  getPlanBusiness(idBusiness: number) {
+    const headers = this.creaObjetoHttpHeader();
+    return this.http.get<AdminPlan>(`${environment.apiUrl}/users/getplanbusiness?idBusiness=${idBusiness}`, 
+      { headers });
   }
-  addPlanBusiness(planBusiness: AdminPlanXBusiness, pidsession : string = '', pbusiness : string = '') {
-    const headers = new HttpHeaders({ 
-      'Content-Type':'application/json','_idsession':pidsession,'_business':pbusiness,'_module':'admin'
-    });
-    return this.http.post<ResponseMessage>(`${environment.apiUrl}/users/createplanbusiness`, planBusiness, { headers });
+  addPlanBusiness(planBusiness: AdminPlanXBusiness) {
+    const headers = this.creaObjetoHttpHeader();
+    return this.http.post<ResponseMessage>(`${environment.apiUrl}/users/createplanbusiness`, planBusiness, 
+      { headers });
   }
-  removePlanBusiness(idPlan: number,idBusiness: number,pidsession : string = '', pbusiness : string = '') {
-    const headers = new HttpHeaders({ 
-      'Content-Type':'application/json','_idsession':pidsession,'_business':pbusiness,'_module':'admin'
-    });
-    return this.http.delete<ResponseMessage>(`${environment.apiUrl}/users/removeplanbusiness?idPlan=${idPlan}&idBusiness=${idBusiness}`, { headers });
+  removePlanBusiness(idPlan: number,idBusiness: number) {
+    const headers = this.creaObjetoHttpHeader();
+    return this.http.delete<ResponseMessage>(`${environment.apiUrl}/users/removeplanbusiness?idPlan=${idPlan}&idBusiness=${idBusiness}`, 
+      { headers });
   }
   // **********************************************************************************************
   // -- >> Procedimientos Usuarios
@@ -468,7 +429,6 @@ export class AccountService {
         if (idUser === this.userValue.id) { this.logout(); } return response; 
       }));
   }
-
   // **********************************************************************************************
   // MANTENIMIENTO DE PANTALLAS DE ACCESO POR MÓDULO
   getPantallasModulo( idModulo: number, idEmpresa: number, soloActivos: boolean) {

@@ -60,9 +60,7 @@ export class AddModuleRoleComponent extends OnSeguridad implements OnInit {
 
       if (this.phttp_idrol) {
 
-        this.accountService.getRolById( this.phttp_idrol,
-                                        this._HIdUserSessionRequest, 
-                                        this._HBusinessSessionRequest)
+        this.accountService.getRolById(this.phttp_idrol)
           .pipe(first())
           .subscribe(responseRole => {
 
@@ -70,7 +68,7 @@ export class AddModuleRoleComponent extends OnSeguridad implements OnInit {
 
             if (this.role.id !== administrator.identification && this.role.id !== administrator.adminSociedad) {
 
-              this.accountService.getModulesBusiness(this.businessObservable.id, this._HIdUserSessionRequest, this._HBusinessSessionRequest)
+              this.accountService.getModulesBusiness(this.businessObservable.id)
                 .pipe(first())
                 .subscribe((responseModulesSystem) => {
         
@@ -78,10 +76,7 @@ export class AddModuleRoleComponent extends OnSeguridad implements OnInit {
         
                       this.listModulesBusiness = responseModulesSystem;
         
-                      this.accountService.getModulesByRolAndBusiness( this.phttp_idrol,
-                                                                      this.businessObservable.id,
-                                                                      this._HIdUserSessionRequest,
-                                                                      this._HBusinessSessionRequest)
+                      this.accountService.getModulesByRolAndBusiness(this.phttp_idrol,this.businessObservable.id)
                         .pipe(first())
                         .subscribe((responseModulesRol) => {
         
@@ -130,11 +125,7 @@ export class AddModuleRoleComponent extends OnSeguridad implements OnInit {
 
     let module: Module = this.listModulesBusiness.find((m) => m.id == idModule);
 
-    this.accountService.grantAccessModuleToRol( this.role.id,
-                                                module.id,
-                                                this.businessObservable.id,
-                                                this._HIdUserSessionRequest,
-                                                this._HBusinessSessionRequest)
+    this.accountService.grantAccessModuleToRol(this.role.id,module.id,this.businessObservable.id)
       .pipe(first())
       .subscribe((response) => {
 
@@ -172,7 +163,7 @@ export class AddModuleRoleComponent extends OnSeguridad implements OnInit {
 
     let module: Module = this.listModulesRol.find((m) => m.id == idModule);
 
-    this.accountService.deleteAccessModuleToRol(this.role.id, module.id,this.businessObservable.id,this._HIdUserSessionRequest,this._HBusinessSessionRequest)
+    this.accountService.deleteAccessModuleToRol(this.role.id, module.id,this.businessObservable.id)
       .pipe(first())
       .subscribe((response) => {
 

@@ -165,7 +165,7 @@ export class AddAccessUserModuleComponent extends OnSeguridad implements OnInit 
     }
 
     buscarModuloId(moduleId : number) : void {
-        this.accountService.getModuleId(moduleId, this._HIdUserSessionRequest, this._HBusinessSessionRequest)
+        this.accountService.getModuleId(moduleId)
             .pipe(first())
             .subscribe(response => {
 

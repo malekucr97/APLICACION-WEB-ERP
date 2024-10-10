@@ -84,10 +84,7 @@ export class AddRoleUserComponent extends OnSeguridad implements OnInit {
 
                 if (responseUserBusiness) {
 
-                  this.accountService.getRolUserBusiness( this.userToAssign.idRol,
-                                                          this.businessObservable.id,
-                                                          this._HIdUserSessionRequest,
-                                                          this._HBusinessSessionRequest )
+                  this.accountService.getRolUserBusiness(this.userToAssign.idRol,this.businessObservable.id)
                     .pipe(first())
                     .subscribe((responseRole) => { if (responseRole) { this.roleUser = responseRole; } else { this.isRolAssign = false; } });
                 
@@ -123,10 +120,7 @@ export class AddRoleUserComponent extends OnSeguridad implements OnInit {
 
     if (asignarRol) {
 
-      this.accountService.assignRoleUser( idRole,
-                                          this.userToAssign.identificacion,
-                                          this._HIdUserSessionRequest,
-                                          this._HBusinessSessionRequest )
+      this.accountService.assignRoleUser(idRole, this.userToAssign.identificacion)
         .pipe(first())
         .subscribe((response) => {
 
@@ -171,9 +165,7 @@ export class AddRoleUserComponent extends OnSeguridad implements OnInit {
 
   private obtenerPlanCompania() : void {
     
-    this.accountService.getPlanBusiness(Number( this._HBusinessSessionRequest),
-                                                this._HIdUserSessionRequest,
-                                                this._HBusinessSessionRequest)
+    this.accountService.getPlanBusiness(Number( this._HBusinessSessionRequest),)
       .pipe(first())
       .subscribe(response => { this.planBusiness = response; });
   }
@@ -194,9 +186,7 @@ export class AddRoleUserComponent extends OnSeguridad implements OnInit {
   }
   private obtenerRolesCompania() : void {
 
-    this.accountService.getRolesBusiness( this.userObservable.empresa,
-                                          this._HIdUserSessionRequest,
-                                          this._HBusinessSessionRequest )
+    this.accountService.getRolesBusiness(this.userObservable.empresa)
       .pipe(first())
       .subscribe((responseListRole) => {
 

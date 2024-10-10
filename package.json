@@ -1,5 +1,5 @@
 {
-  "name": "angular-9-registration-login-example",
+  "name": "app-cliente-angular-despliegue-de-modulos-multicompania",
   "version": "0.0.0",
   "resolutions": {
     "webpack": "^5.0.0"

@@ -126,7 +126,7 @@ export class AddEditBusinessComponent extends OnSeguridad implements OnInit {
 
       this.business.id = this.pidBusiness;
 
-      this.accountService.updateBusiness(this.business, this._HIdUserSessionRequest, this._HBusinessSessionRequest)
+      this.accountService.updateBusiness(this.business)
         .pipe(first())
         .subscribe((response) => {
 
