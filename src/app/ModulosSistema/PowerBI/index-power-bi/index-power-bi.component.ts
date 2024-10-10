@@ -10,17 +10,13 @@ import { environment } from '@environments/environment';
 import { IReportEmbedConfiguration, models } from 'powerbi-client';
 import { first } from 'rxjs/operators';
 
-@Component({
-  selector: 'app-index-power-bi',
-  templateUrl: './index-power-bi.component.html',
-  styleUrls: [
-    '../../../../assets/scss/app.scss',
-    '../../../../assets/scss/powerbi/app.scss',
-  ],
-  encapsulation: ViewEncapsulation.None,
+@Component({selector: 'app-index-power-bi',
+            templateUrl: './index-power-bi.component.html',
+            styleUrls: ['../../../../assets/scss/app.scss', '../../../../assets/scss/powerbi/app.scss'],
+            encapsulation: ViewEncapsulation.None,
 })
 export class IndexPowerBiComponent extends OnSeguridad implements OnInit {
-  //#region VARIABLES
+  
   private nombrePantalla: string = 'Index';
 
   userObservable: User;
@@ -28,23 +24,6 @@ export class IndexPowerBiComponent extends OnSeguridad implements OnInit {
   businessObservable: Compania;
 
   mostrarReporte: boolean = false;
-
-  // basicFilter: models.IBasicFilter = {
-  //   $schema: 'http://powerbi.com/product/schema#basic',
-  //   target: {
-  //     table: 'items',
-  //     column: 'id',
-  //   },
-  //   operator: 'In',
-  //   values: [1,2,3],
-  //   filterType: models.FilterType.Basic,
-  //   requireSingleSelection: true,
-  //   displaySettings: {
-  //     /** Hiding filter pane */
-  //     isLockedInViewMode: true,
-  //     isHiddenInViewMode: true,
-  //   },
-  // };
 
   //CONFIGURACION DEL REPORTE
   phasedEmbeddingFlag = false;
@@ -62,12 +41,7 @@ export class IndexPowerBiComponent extends OnSeguridad implements OnInit {
       navContentPaneEnabled: false,
       hideErrors: true
     }
-    // ,
-    // // filtros básicos powerbi embed
-    // filters: [this.basicFilter]
   };
-
-  //#endregion
 
   constructor(private alertService: AlertService,
               private accountService: AccountService,
@@ -109,21 +83,24 @@ export class IndexPowerBiComponent extends OnSeguridad implements OnInit {
       .pipe(first())
       .subscribe((response) => {
         if (response.exito) {
-          this.SetURLPowerBI(screen);
-        } else {
-          this.alertService.error( this.translate.translateKey('ALERTS.URL_ERROR') );
-          this.mostrarReporte = false;
-        }
+
+          // this.SetURLPowerBI(screen);
+
+          this.reportConfig = {
+            ...this.reportConfig,
+            embedUrl: response.objetoDb,
+          };
+          this.mostrarReporte = true;
+        } else { this.alertService.error( this.translate.translateKey('ALERTS.URL_ERROR') ); this.mostrarReporte = false; }
       });
   }
-
-  private SetURLPowerBI(pss: ScreenModule) {
-    this.reportConfig = {
-      ...this.reportConfig,
-      embedUrl: 
-        `${environment.apiUrl}/powerbi/reporte?tk=${this.userObservable.token}&cp=${pss.idCompania}&md=${pss.idModulo}&sc=${pss.nombre}`,
-      
-    };
-    this.mostrarReporte = true;
-  }
+  // private SetURLPowerBI(pss: ScreenModule) {
+  //   this.reportConfig = {
+  //     ...this.reportConfig,
+  //     embedUrl: 
+  //       `${environment.apiUrl}/powerbi/reporte?tk=${this.userObservable.token}&cp=${pss.idCompania}&md=${pss.idModulo}&sc=${pss.nombre}`,
+  //   };
+  //   console.log(this.reportConfig.embedUrl);
+  //   this.mostrarReporte = true;
+  // }
 }

@@ -220,7 +220,7 @@ export class AdminmoduleComponent extends OnSeguridad implements OnInit {
     pantallaForm.adicionadoPor = this.userObservable.identificacion;
     pantallaForm.fechaAdicion = new Date();
 
-    this.accountService.postPantallaModulo(pantallaForm, this._HIdUserSessionRequest, this._HBusinessSessionRequest)
+    this.accountService.postPantallaModulo(pantallaForm)
       .pipe(first())
       .subscribe(
         (response) => {

@@ -50,7 +50,7 @@ export class ListBusinessComponent extends OnSeguridad implements OnInit {
 
     ngOnInit() {
         
-        this.accountService.getAllBusiness(this._HIdUserSessionRequest, this._HBusinessSessionRequest)
+        this.accountService.getAllBusiness()
             .pipe(first())
             .subscribe(response => {
                 this.listBusiness = response;

@@ -224,8 +224,7 @@ export class AddAccessUserModuleComponent extends OnSeguridad implements OnInit 
 
             if (!nombrePantalla) nombrePantalla = "%%" ;
 
-            this.accountService.getPantallasNombre(nombrePantalla,this.companiaObservable.id,false, this._HIdUserSessionRequest,
-                                                                                                    this._HBusinessSessionRequest)
+            this.accountService.getPantallasNombre(nombrePantalla,this.companiaObservable.id,false)
                 .pipe(first())
                 .subscribe(response => {
 
@@ -248,8 +247,7 @@ export class AddAccessUserModuleComponent extends OnSeguridad implements OnInit 
 
         } else {
 
-            this.accountService.getPantallasModulo(idModuleSelected,this.companiaObservable.id,true,this._HIdUserSessionRequest,
-                                                                                                    this._HBusinessSessionRequest)
+            this.accountService.getPantallasModulo(idModuleSelected,this.companiaObservable.id,true)
             .pipe(first())
             .subscribe(response => {
 
@@ -285,8 +283,7 @@ export class AddAccessUserModuleComponent extends OnSeguridad implements OnInit 
         var pantallaId : number = this.formPantallasModulo.controls['idPantalla'].value;
         var screenObject : ScreenAccessUser = this.crearPantallaAccesoUsuarioObject(objeto.id, pantallaId);
 
-        this.accountService.deleteAccesoPantallaUsuario( screenObject.idUsuario,screenObject.idPantalla,screenObject.idCompania,this._HIdUserSessionRequest,
-                                                                                                                                this._HBusinessSessionRequest )
+        this.accountService.deleteAccesoPantallaUsuario(screenObject.idUsuario,screenObject.idPantalla,screenObject.idCompania)
             .pipe(first())
             .subscribe(response => {
 
@@ -321,7 +318,7 @@ export class AddAccessUserModuleComponent extends OnSeguridad implements OnInit 
             screenAccessUserObject.adicionadoPor = this.userObservable.identificacion;
             screenAccessUserObject.fechaAdicion = this.today;
 
-            this.accountService.postPantallaAccesoUsuario(screenAccessUserObject, this._HIdUserSessionRequest, this._HBusinessSessionRequest)
+            this.accountService.postPantallaAccesoUsuario(screenAccessUserObject)
                 .pipe(first())
                 .subscribe(response => {
 
@@ -350,7 +347,7 @@ export class AddAccessUserModuleComponent extends OnSeguridad implements OnInit 
         pantallaModuloForm.adicionadoPor = this.userObservable.identificacion;
         pantallaModuloForm.fechaAdicion = this.today;
 
-        this.accountService.postPantallaModulo(pantallaModuloForm, this._HIdUserSessionRequest, this._HBusinessSessionRequest)
+        this.accountService.postPantallaModulo(pantallaModuloForm)
             .pipe(first())
             .subscribe(response => {
 
@@ -383,7 +380,7 @@ export class AddAccessUserModuleComponent extends OnSeguridad implements OnInit 
 
                 if (confirmado) {
 
-                    this.accountService.deletePantallaModulo(id, this._HIdUserSessionRequest, this._HBusinessSessionRequest)
+                    this.accountService.deletePantallaModulo(id)
                         .pipe(first())
                         .subscribe(response => {
 
@@ -420,7 +417,7 @@ export class AddAccessUserModuleComponent extends OnSeguridad implements OnInit 
         pantallaModuloForm.modificadoPor        = this.userObservable.identificacion;
         pantallaModuloForm.fechaModificacion    = this.today;
 
-        this.accountService.putPantallaModulo(pantallaModuloForm, this._HIdUserSessionRequest, this._HBusinessSessionRequest)
+        this.accountService.putPantallaModulo(pantallaModuloForm)
             .pipe(first())
             .subscribe(response => {
 

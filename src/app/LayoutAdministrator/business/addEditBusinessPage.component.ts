@@ -59,9 +59,7 @@ export class AddEditBusinessComponent extends OnSeguridad implements OnInit {
       this.updateBusiness = true;
       this.pidBusiness = this.route.snapshot.params.pidBusiness;
 
-      this.accountService.getBusinessById(this.pidBusiness,
-                                          this._HIdUserSessionRequest,
-                                          this._HBusinessSessionRequest)
+      this.accountService.getBusinessById(this.pidBusiness)
         .pipe(first())
         .subscribe((responseBusiness) => {
             
@@ -104,9 +102,7 @@ export class AddEditBusinessComponent extends OnSeguridad implements OnInit {
 
       if (this.validaRegistroCompania(this.business.cedulaJuridica)) {
         
-        this.accountService.addBusiness(this.business,
-                                        this._HIdUserSessionRequest,
-                                        this._HBusinessSessionRequest)
+        this.accountService.addBusiness(this.business)
           .pipe(first())
           .subscribe((response) => {
 
