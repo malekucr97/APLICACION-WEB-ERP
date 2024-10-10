@@ -12,6 +12,7 @@ import {
 
 import { Compania } from '../../_models/modules/compania';
 import { ModulesSystem, httpLandingIndexPage } from '@environments/environment';
+import { TranslateMessagesService } from '@app/_services/translate-messages.service';
 
 interface FoodNode {
   name: string;
@@ -33,7 +34,7 @@ const TREE_DATA: FoodNode[] = [
     link: '',
     icon: '',
     children: [
-      { name: 'Carga de datos Crédito', link: ModulesSystem.riesgocreditobasehref + '/Mantenimientos/CargaCredito', icon: '' },
+      { name: 'Carga de datos Crédito', link: /*ModulesSystem.riesgocreditobasehref*/ '' + '/Mantenimientos/CargaCredito', icon: '' },
       { name: 'Carga de datos Z-Altman', link: '/', icon: '' },
     ],
   },
@@ -111,7 +112,11 @@ export class MenuRiesgoCreditoComponent implements OnInit {
 
   URLRedirectIndexContent: string = httpLandingIndexPage.indexHTTP;
 
-  constructor(private accountService: AccountService, private router: Router) {
+  constructor(
+    private accountService: AccountService, 
+    private router: Router,
+    public translate: TranslateMessagesService
+    ) {
     this.userObservable = this.accountService.userValue;
     this.moduleObservable = this.accountService.moduleValue;
     this.businessObservable = this.accountService.businessValue;

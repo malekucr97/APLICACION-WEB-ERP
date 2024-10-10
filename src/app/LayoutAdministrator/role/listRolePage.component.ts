@@ -6,6 +6,7 @@ import { Compania } from '@app/_models/modules/compania';
 import { Router } from '@angular/router';
 import { OnSeguridad } from '@app/_helpers/abstractSeguridad';
 import { administrator, httpAccessAdminPage } from '@environments/environment';
+import { TranslateMessagesService } from '@app/_services/translate-messages.service';
 
 @Component({templateUrl: 'HTML_ListRolePage.html',
             styleUrls: [  '../../../assets/scss/app.scss', '../../../assets/scss/administrator/app.scss']
@@ -14,7 +15,8 @@ export class ListRoleComponent extends OnSeguridad implements OnInit {
   userObservable: User;
   businessObservable: Compania;
 
-  listRoles: Role[] = [];
+  public listRoles: Role[];
+  public existenRoles: boolean;
 
   adminBoss: boolean;
   adminBusiness: boolean;
@@ -27,9 +29,10 @@ export class ListRoleComponent extends OnSeguridad implements OnInit {
 
   constructor(  private accountService: AccountService,
                 private alertService: AlertService,
-                private router: Router ) {
+                private router: Router,
+                private translate: TranslateMessagesService ) {
 
-    super(alertService, accountService, router);
+    super(alertService, accountService, router, translate);
 
     // ***************************************************************
     // VALIDA ACCESO PANTALLA LOGIN ADMINISTRADOR
@@ -38,12 +41,18 @@ export class ListRoleComponent extends OnSeguridad implements OnInit {
 
     this.userObservable = this.accountService.userValue;
     this.businessObservable = this.accountService.businessValue;
+
+    // -- #
+    this.listRoles = null;
+    this.existenRoles = false;
   }
 
   ngOnInit() { this.obtenerRoles(); }
 
+  public redirectListModulesPage() : void { this.router.navigate([this.URLAdministratorPage]); }
+
   private obtenerRoles() {
-    this.accountService.getRolesBusiness(this.businessObservable.id, this._HIdUserSessionRequest, this._HBusinessSessionRequest)
+    this.accountService.getRolesBusiness( this.businessObservable.id)
       .pipe(first())
       .subscribe((responseRoles) => {
 
@@ -52,18 +61,20 @@ export class ListRoleComponent extends OnSeguridad implements OnInit {
           if (this.userObservable.idRol == administrator.adminSociedad) {
             // elimina el rol admin general de la lista si quien inicia sesión es un admin de empresa
             this.listRoles = responseRoles.filter( (x) => x.id !== administrator.identification );
+
+            this.existenRoles = true;
           }
           else { this.listRoles = responseRoles; } 
   
           this.accountService.suscribeListRol(this.listRoles);
 
-        } else { this.alertService.info('La compañía ' + this.businessObservable.nombre + ' no posee roles asignados.'); }
+        } else { this.alertService.info(this.translate.translateKey('ALERTS.companyNotRoleAssignment')); }
       });
   }
 
   private updateRol( rolUpdate: Role): void {
     
-    this.accountService.updateRol(rolUpdate,this.businessObservable.id, this._HIdUserSessionRequest, this._HBusinessSessionRequest)
+    this.accountService.updateRol(rolUpdate,this.businessObservable.id)
       .pipe(first())
       .subscribe((responseUpdate) => {
 
@@ -85,11 +96,11 @@ export class ListRoleComponent extends OnSeguridad implements OnInit {
     if (idRol !== administrator.identification) {
       
       let rolUpdate : Role = this.listRoles.find((x) => x.id === idRol);
-      rolUpdate.estado = 'Activo';
+      rolUpdate.estado = 'Active';
 
       this.updateRol(rolUpdate);
 
-    } else { this.alertService.info('No se puede modificar el estado de la cuenta administradora del sistema'); }
+    } else { this.alertService.info(this.translate.translateKey('ALERTS.adminAccountModificationAlert')); }
   }
 
   inActivateRole(idRol: string) {
@@ -99,11 +110,11 @@ export class ListRoleComponent extends OnSeguridad implements OnInit {
     if (idRol !== administrator.identification) {
 
       let rolUpdate = this.listRoles.find((x) => x.id === idRol);
-      rolUpdate.estado = 'Inactivo';
+      rolUpdate.estado = 'In-Active';
 
       this.updateRol(rolUpdate);
 
-    } else { this.alertService.info('No se puede modificar el estado de la cuenta administradora del sistema'); }
+    } else { this.alertService.info(this.translate.translateKey('ALERTS.adminAccountModificationAlert')); }
   }
 
   escritura(idRol: string) {
@@ -112,11 +123,11 @@ export class ListRoleComponent extends OnSeguridad implements OnInit {
     if (idRol !== administrator.identification) {
 
       let rolUpdate = this.listRoles.find((x) => x.id === idRol);
-      rolUpdate.tipo = 'Escritura';
+      rolUpdate.tipo = 'Writing';
 
       this.updateRol(rolUpdate);
 
-    } else { this.alertService.info('No se puede cambiar el tipo de permisos de la cuenta administradora del sistema'); }
+    } else { this.alertService.info(this.translate.translateKey('ALERTS.adminPermissionChangeAlert')); }
   }
 
   lectura(idRol: string) {
@@ -125,10 +136,10 @@ export class ListRoleComponent extends OnSeguridad implements OnInit {
     if (idRol !== administrator.identification) {
 
       let rolUpdate = this.listRoles.find((x) => x.id === idRol);
-      rolUpdate.tipo = 'Lectura';
+      rolUpdate.tipo = 'Reading';
 
       this.updateRol(rolUpdate);
 
-    } else { this.alertService.info('No se puede cambiar el tipo de permisos de la cuenta administradora del sistema'); }
+    } else { this.alertService.info(this.translate.translateKey('ALERTS.adminPermissionChangeAlert')); }
   }
 }

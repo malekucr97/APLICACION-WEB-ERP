@@ -7,117 +7,85 @@ import { Compania } from '../../_models/modules/compania';
 import { User } from '@app/_models';
 import { httpAccessAdminPage } from '@environments/environment';
 import { OnSeguridad } from '@app/_helpers/abstractSeguridad';
+import { TranslateMessagesService } from '@app/_services/translate-messages.service';
 
-@Component({ templateUrl: 'HTML_AddEditBusinessPage.html' })
+@Component({templateUrl: 'HTML_AddEditBusinessPage.html',
+            styleUrls: [ '../../../assets/scss/app.scss', '../../../assets/scss/administrator/app.scss']
+})
 export class AddEditBusinessComponent extends OnSeguridad implements OnInit {
-  form: FormGroup;
-  userObserver: User;
+  
+  public form: FormGroup;
+  public urladminListBusiness: string;
 
-  business: Compania;
+  public userObserver: User;
+  public listBusinessSubs: Compania[]; public business: Compania;
 
-  pidBusiness: number;
+  public pidBusiness: number;
 
-  loading = false;
-  submitted = false;
+  public loading : boolean; public submitted : boolean;
 
-  updateBusiness: boolean;
-  addBusiness: boolean;
-
-  public urladminListBusiness: string = httpAccessAdminPage.urlPageListBusiness;
-
-  // public IdUserSessionRequest : string ;
-  // public UserSessionRequest : string ;
-  // public BusinessSessionRequest : string ;
-  // public ModuleSessionRequest : string ;
+  public updateBusiness: boolean; public addBusiness: boolean;
 
   constructor(private formBuilder: FormBuilder,
               private route: ActivatedRoute,
               private router: Router,
               private accountService: AccountService,
-              private alertService: AlertService ) {
+              private alertService: AlertService,
+              private translate: TranslateMessagesService ) {
 
-    super(alertService, accountService, router);
+    super(alertService, accountService, router, translate);
 
     // ***************************************************************
     // VALIDA ACCESO PANTALLA LOGIN ADMINISTRADOR
     if (!super.userAuthenticateAdmin()) { this.accountService.logout(); return; }
     // ***************************************************************
 
-    this.userObserver = this.accountService.userValue;
+    this.urladminListBusiness = httpAccessAdminPage.urlPageListBusiness;
 
-    // this.inicializaHeaders();
+    this.loading = false; this.submitted = false;
+
+    this.userObserver = this.accountService.userValue;
+    this.listBusinessSubs = this.accountService.businessListValue;
+
+    this.inicializaFormulario();
   }
 
-  // inicializaHeaders() : void {
-  //   this.IdUserSessionRequest = this.userObserver ? this.userObserver.id.toString() : 'noIdUserValue';
-  //   this.UserSessionRequest = this.userObserver ? this.userObserver.nombreCompleto.toString() : 'noUserNameValue';
-  //   this.BusinessSessionRequest = this.userObserver ? this.userObserver.empresa.toString() : 'noBusinessValue';
-  //   this.ModuleSessionRequest = 'admin';
-
-  //   // this.IdUserSessionRequest = this.userObserver.id.toString();
-  //   // this.UserSessionRequest = this.userObserver.nombreCompleto.toString();
-  //   // this.BusinessSessionRequest = this.userObserver.empresa.toString();
-  //   // this.ModuleSessionRequest = 'admin';
-  // }
+  get f() { return this.form.controls; }
 
   ngOnInit() {
 
-    this.updateBusiness = false;
-    this.addBusiness = false;
-
     if (this.route.snapshot.params.pidBusiness) {
-      this.pidBusiness = this.route.snapshot.params.pidBusiness;
+
       this.updateBusiness = true;
-    } else {
-      this.addBusiness = true;
-    }
+      this.pidBusiness = this.route.snapshot.params.pidBusiness;
 
-    this.form = this.formBuilder.group({
-      nombre: ['', Validators.required],
-      cedulajuridica: ['', Validators.required],
-      mantenimientoReportes: [false, Validators.required],
-      cuentaCorreoDefecto: [false, Validators.required],
-      tamanoModuloDefecto: [false, Validators.required],
-    });
-
-    if (this.updateBusiness) {
-      this.accountService.getBusinessById(this.pidBusiness,this._HIdUserSessionRequest, this._HBusinessSessionRequest)
+      this.accountService.getBusinessById(this.pidBusiness)
         .pipe(first())
-        .subscribe(
-          (responseBusiness) => {
-            this.f.nombre.setValue(responseBusiness.nombre);
-            this.f.cedulajuridica.setValue(responseBusiness.cedulaJuridica);
-            this.f.mantenimientoReportes.setValue(responseBusiness.mantenimientoReportes);
-            this.f.cuentaCorreoDefecto.setValue(responseBusiness.cuentaCorreoDefecto);
-            this.f.tamanoModuloDefecto.setValue(responseBusiness.tamanoModuloDefecto);
-          },
-          (error) => {
-            this.alertService.error(error);
-          }
-        );
-    }
-  }
-
-  get f() {
-    return this.form.controls;
+        .subscribe((responseBusiness) => {
+            
+          this.f.nombreCompania.setValue(responseBusiness.nombre);
+          this.f.cedulajuridica.setValue(responseBusiness.cedulaJuridica);
+          this.f.mantenimientoReportes.setValue(responseBusiness.mantenimientoReportes);
+          this.f.cuentaCorreoDefecto.setValue(responseBusiness.cuentaCorreoDefecto);
+          this.f.tamanoModuloDefecto.setValue(responseBusiness.tamanoModuloDefecto);
+          
+        }, (error) => { this.alertService.error(error); });
+    } 
+    else { this.addBusiness = true; }
   }
 
   onSubmit() {
-    this.submitted = true;
+
+    this.submitted = true; this.loading = true;
 
     let currentDate = new Date();
 
-    if (this.form.invalid) {
-      return;
-    }
-    this.loading = true;
+    if (this.form.invalid) { this.loading = false; return; };
 
     this.business = new Compania();
 
-    this.business.nombre = this.form.get('nombre').value;
+    this.business.nombre = this.form.get('nombreCompania').value;
     this.business.cedulaJuridica = this.form.get('cedulajuridica').value;
-    this.business.adicionadoPor = this.userObserver.identificacion;
-    this.business.fechaAdicion = currentDate;
     this.business.correoElectronico = 'No registrado';
     this.business.tipoIdentificacion = 'NA';
     this.business.detalleDireccion = 'No registrado';
@@ -126,62 +94,74 @@ export class AddEditBusinessComponent extends OnSeguridad implements OnInit {
     this.business.cuentaCorreoDefecto = this.form.get('cuentaCorreoDefecto').value;
     this.business.tamanoModuloDefecto = this.form.get('tamanoModuloDefecto').value;
 
+    this.business.adicionadoPor = this.userObserver.identificacion;
+    this.business.fechaAdicion = currentDate;
+
+    // registro compañía
     if (this.addBusiness) {
-      this.accountService.addBusiness(this.business,this._HIdUserSessionRequest,
-                                                    // this.UserSessionRequest,
-                                                    this._HBusinessSessionRequest)
-        .pipe(first())
-        .subscribe(
-          (response) => {
-            this.router.navigate([this.urladminListBusiness], {
-              relativeTo: this.route,
-            });
+
+      if (this.validaRegistroCompania(this.business.cedulaJuridica)) {
+        
+        this.accountService.addBusiness(this.business)
+          .pipe(first())
+          .subscribe((response) => {
+
+            this.loading = false;
 
             if (response.exito) {
-              this.alertService.success(response.responseMesagge, {
-                keepAfterRouteChange: true,
-              });
+              this.alertService.success(response.responseMesagge, { keepAfterRouteChange: true });
             } else {
-              this.alertService.error(response.responseMesagge, {
-                keepAfterRouteChange: true,
-              });
+              this.alertService.error(response.responseMesagge, { keepAfterRouteChange: true });
             }
-            this.loading = false;
-          },
-          (error) => {
-            this.alertService.error(error);
-            this.loading = false;
-          }
-        );
+
+            this.router.navigate([this.urladminListBusiness], { relativeTo: this.route });
+
+          }, (error) => { this.alertService.error(error); this.loading = false; });
+      
+      } else { this.loading = false; this.alertService.info(this.translate.translateKey('ALERTS.EXISTING_IDENTIFICATION_BUSINESS')); }
     }
 
+    // actualiza compañía
     if (this.updateBusiness) {
+
       this.business.id = this.pidBusiness;
 
-      this.accountService.updateBusiness(this.business, this._HIdUserSessionRequest, this._HBusinessSessionRequest)
+      this.accountService.updateBusiness(this.business)
         .pipe(first())
-        .subscribe(
-          (response) => {
-            this.router.navigate([this.urladminListBusiness], {
-              relativeTo: this.route,
-            });
+        .subscribe((response) => {
 
-            if (response.exito) {
-              this.alertService.success(response.responseMesagge, {
-                keepAfterRouteChange: true,
-              });
-            } else {
-              this.alertService.error(response.responseMesagge, {
-                keepAfterRouteChange: true,
-              });
-            }
-            this.loading = false;
-          },
-          (error) => {
-            this.alertService.error(error);
-            this.loading = false;
+          this.loading = false;
+
+          if (response.exito) {
+            this.alertService.success(response.responseMesagge, { keepAfterRouteChange: true });
+          } else {
+            this.alertService.error(response.responseMesagge, { keepAfterRouteChange: true });
           }
-        );
+
+          this.router.navigate([this.urladminListBusiness], { relativeTo: this.route });
+
+        }, (error) => { this.alertService.error(error); this.loading = false; });
     }
+  }
+
+  // -- // métodos privados
+  private inicializaFormulario() : void {
+
+    this.form = this.formBuilder.group({nombreCompania: ['', Validators.required],
+                                        cedulajuridica: ['', Validators.required],
+                                        mantenimientoReportes: [false, Validators.required],
+                                        cuentaCorreoDefecto: [false, Validators.required],
+                                        tamanoModuloDefecto: [false, Validators.required]});
+  }
+  private validaRegistroCompania(pcedulaJuridica: string) : boolean {
+
+    if (this.listBusinessSubs && this.listBusinessSubs.length > 0) {
+     
+      for (let index = 0; index < this.listBusinessSubs.length; index++) {
+
+        if (this.listBusinessSubs[index].cedulaJuridica === pcedulaJuridica) return false ;
+      }
+    }
+    return true;
   }
 }

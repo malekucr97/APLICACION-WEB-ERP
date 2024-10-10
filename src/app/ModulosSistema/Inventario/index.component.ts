@@ -3,6 +3,7 @@ import { User, Module } from '@app/_models';
 import { AccountService, AlertService } from '@app/_services';
 import { ActivatedRoute, Router } from '@angular/router';
 import { OnSeguridad } from '@app/_helpers/abstractSeguridad';
+import { TranslateMessagesService } from '@app/_services/translate-messages.service';
 
 @Component({templateUrl: 'index.html',
             styleUrls: ['../../../assets/scss/app.scss', '../../../assets/scss/inventario/app.scss'],
@@ -21,9 +22,10 @@ export class IndexInventarioComponent extends OnSeguridad implements OnInit {
     constructor(private alertService: AlertService,
         private accountService: AccountService, 
                 private route: ActivatedRoute,
-                private router: Router) {
+                private router: Router,
+                private translate: TranslateMessagesService) {
 
-        super(alertService, accountService, router);
+        super(alertService, accountService, router, translate);
 
         // ***************************************************************
         // VALIDA ACCESO PANTALLA LOGIN INDEX COMPONENT

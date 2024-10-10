@@ -10,7 +10,7 @@
 
                     <div class="articulo__contenedor__header__prev" >
 
-                        <p>{{nombreModulo}} / Mantenimiento de Personas</p>
+                        <p>{{ 'MODULES.INVERSIONES_TRANSITORIAS.personMaintenance' | translate: {$INTERPOLATION: nombreModulo} }}</p>
 
                     </div>
 
@@ -38,24 +38,24 @@
                                         <div class="articulo__contenedor__body__prev__form__header"> 
                                             
                                             <div class="articulo__contenedor__body__prev__form__header__prev" > 
-                                                <p class="articulo__contenedor__body__prev__form__header__titulo">Formulario de Personas</p>
+                                                <p class="articulo__contenedor__body__prev__form__header__titulo">{{ 'MODULES.INVERSIONES_TRANSITORIAS.personForm' | translate }}</p>
                                             </div>
 
                                             <div class="articulo__contenedor__body__prev__form__header__next" > 
 
                                                 <button *ngIf="habilitaBtnNuevo" class="articulo__contenedor__body__prev__form__header__prev__btns__new" 
                                                         mat-flat-button
-                                                        (click)="limpiarFormularioTipoPersona()">Nuevo</button>
+                                                        (click)="limpiarFormularioTipoPersona()">{{ 'GENERAL.BTN_NEW' | translate }}</button>
                         
                                                 <button *ngIf="habilitaBtnActualiza" class="articulo__contenedor__body__prev__form__header__prev__btns__warn" 
                                                         mat-flat-button
-                                                        (click)="actualizaObjeto()">Actualizar</button>
+                                                        (click)="actualizaObjeto()">{{ 'GENERAL.BTN_UPDATE' | translate }}</button>
                                                 <button *ngIf="habilitaBtnRegistro" class="articulo__contenedor__body__prev__form__header__prev__btns__ok" 
                                                         mat-flat-button
-                                                        (click)="submitForm()">Registrar</button>
+                                                        (click)="submitForm()">{{ 'GENERAL.BTN_REGISTER' | translate }}</button>
                                                 <button *ngIf="habilitaBtnElimibar" class="articulo__contenedor__body__prev__form__header__prev__btns__danger" 
                                                         mat-flat-button
-                                                        (click)="eliminarObjeto()">Eliminar</button>
+                                                        (click)="eliminarObjeto()">{{ 'GENERAL.BTN_DELETE' | translate }}</button>
 
                                             </div>
                                         
@@ -68,18 +68,18 @@
                                                 <!-- id -->
                     
                                                 <div class="form-group col-md-3">
-                                                    <label for="id" class="form-label">Id</label>
+                                                    <label for="id" class="form-label" >{{ 'MODULES.INVERSIONES_TRANSITORIAS.id' | translate }}</label>
                                                     <input formControlName="id" class="form-control" type="text" id="id_id" readonly />
                                                 </div>
                     
                                                 <!-- search campos -->
                                                 
                                                 <div class="form-group col-md-6">
-                                                    <label for="lblIdentificacion" class="form-label">Identificación</label>
+                                                    <label for="lblIdentificacion" class="form-label" >{{ 'MODULES.INVERSIONES_TRANSITORIAS.identification' | translate }}</label>
                                                     <input formControlName="identificacion" class="form-control" type="text" id="id_identificacion"
                                                         [ngClass]="{ 'is-invalid': submittedForm && m.identificacion.errors }" />
                                                     <div *ngIf="submittedForm && m.identificacion.errors" class="invalid-feedback">
-                                                        <div *ngIf="m.identificacion.errors.required">La identificación es requerida .</div>
+                                                        <div *ngIf="m.identificacion.errors.required" >{{ 'MODULES.INVERSIONES_TRANSITORIAS.identificationRequired' | translate }}</div>
                                                     </div>
                                                 </div>
                     
@@ -95,40 +95,40 @@
                     
                     
                                                 <div class="form-group col-md-3">
-                                                    <label for="lblIdTipoPersona" class="form-label">Tipo de Persona</label>
+                                                    <label for="lblIdTipoPersona" class="form-label" >{{ 'MODULES.INVERSIONES_TRANSITORIAS.typePerson' | translate }}</label>
                                                     <select formControlName="idTipoPersona" class="form-control" name="selectIdTipoPersona"
                                                         [ngClass]="{ 'is-invalid': submittedForm && m.idTipoPersona.errors }" >
-                                                            <option [ngValue]="objeto" *ngFor="let objeto of listTiposPersonas">{{objeto.id}} - {{objeto.descripcion}}</option>
+                                                            <option [ngValue]="objeto" *ngFor="let objeto of listTiposPersonas" >{{ 'MODULES.INVERSIONES_TRANSITORIAS.textByText' | translate: {$INTERPOLATION: objeto.id, $INTERPOLATION_1: objeto.descripcion } }}</option>
                                                     </select>
                                                     <div *ngIf="submittedForm && m.idTipoPersona.errors" class="invalid-feedback">
-                                                        <div *ngIf="m.idTipoPersona.errors.required">El Tipo de Persona es requerido</div>
+                                                        <div *ngIf="m.idTipoPersona.errors.required" >{{ 'MODULES.INVERSIONES_TRANSITORIAS.typePersonRequired' | translate }}</div>
                                                     </div>
                                                 </div>
                     
                                                 <div class="form-group col-md-3">
-                                                    <label for="lblNombre" class="form-label">Nombre</label>
+                                                    <label for="lblNombre" class="form-label" >{{ 'MODULES.INVERSIONES_TRANSITORIAS.name' | translate }}</label>
                                                     <input formControlName="nombre" class="form-control" type="text" id="id_nombre"
                                                         [ngClass]="{ 'is-invalid': submittedForm && m.nombre.errors }" />
                                                     <div *ngIf="submittedForm && m.nombre.errors" class="invalid-feedback">
-                                                        <div *ngIf="m.nombre.errors.required">El nombre es requerido .</div>
+                                                        <div *ngIf="m.nombre.errors.required" >{{ 'MODULES.INVERSIONES_TRANSITORIAS.nameRequired' | translate }}</div>
                                                     </div>
                                                 </div>
                     
                                                 <div class="form-group col-md-3">
-                                                    <label for="lblAlias1" class="form-label">Alias 1</label>
+                                                    <label for="lblAlias1" class="form-label" >{{ 'MODULES.INVERSIONES_TRANSITORIAS.alias1' | translate }}</label>
                                                     <input formControlName="alias1" class="form-control" type="text" id="id_alias1"
                                                         [ngClass]="{ 'is-invalid': submittedForm && m.alias1.errors }" />
                                                     <div *ngIf="submittedForm && m.alias1.errors" class="invalid-feedback">
-                                                        <div *ngIf="m.alias1.errors.required">El primer alias es requerido .</div>
+                                                        <div *ngIf="m.alias1.errors.required" >{{ 'MODULES.INVERSIONES_TRANSITORIAS.firstAliasRequired' | translate }}</div>
                                                     </div>
                                                 </div>
                     
                                                 <div class="form-group col-md-3">
-                                                    <label for="lblAlias2" class="form-label">Alias 2</label>
+                                                    <label for="lblAlias2" class="form-label" >{{ 'MODULES.INVERSIONES_TRANSITORIAS.alias2' | translate }}</label>
                                                     <input formControlName="alias2" class="form-control" type="text" id="id_alias2"
                                                         [ngClass]="{ 'is-invalid': submittedForm && m.alias2.errors }" />
                                                     <div *ngIf="submittedForm && m.alias2.errors" class="invalid-feedback">
-                                                        <div *ngIf="m.alias2.errors.required">El segundo alias es requerido .</div>
+                                                        <div *ngIf="m.alias2.errors.required" >{{ 'MODULES.INVERSIONES_TRANSITORIAS.secondAliasRequired' | translate }}</div>
                                                     </div>
                                                 </div>
                     
@@ -137,25 +137,25 @@
                                                 <!-- linea 2 -->
                     
                                                 <div class="form-group col-md-6">
-                                                    <label for="lblCorreo" class="form-label">Correo Electrónico</label>
+                                                    <label for="lblCorreo" class="form-label" >{{ 'MODULES.INVERSIONES_TRANSITORIAS.email' | translate }}</label>
                                                     <input formControlName="correo" class="form-control" type="text" id="id_correo"
                                                         [ngClass]="{ 'is-invalid': submittedForm && m.correo.errors }" />
                                                     <div *ngIf="submittedForm && m.correo.errors" class="invalid-feedback">
-                                                        <div *ngIf="m.correo.errors.required">El correo es requerido .</div>
+                                                        <div *ngIf="m.correo.errors.required" >{{ 'MODULES.INVERSIONES_TRANSITORIAS.emailRequired' | translate }}</div>
                                                     </div>
                                                 </div>
                     
                                                 <div class="form-group col-md-3">
-                                                    <label for="lblTelefono" class="form-label">Número de Teléfono</label>
+                                                    <label for="lblTelefono" class="form-label" >{{ 'MODULES.INVERSIONES_TRANSITORIAS.phoneNumber' | translate }}</label>
                                                     <input formControlName="telefono" class="form-control" type="text" id="id_telefono"
                                                         [ngClass]="{ 'is-invalid': submittedForm && m.telefono.errors }" />
                                                     <div *ngIf="submittedForm && m.telefono.errors" class="invalid-feedback">
-                                                        <div *ngIf="m.telefono.errors.required">El teléfono es requerido .</div>
+                                                        <div *ngIf="m.telefono.errors.required" >{{ 'MODULES.INVERSIONES_TRANSITORIAS.phoneRequired' | translate }}</div>
                                                     </div>
                                                 </div>
                     
                                                 <div class="form-group col-sm-1 margin-icos-mat">
-                                                    <mat-checkbox formControlName="estado">Estado</mat-checkbox>
+                                                    <mat-checkbox formControlName="estado" >{{ 'MODULES.INVERSIONES_TRANSITORIAS.status' | translate }}</mat-checkbox>
                                                 </div>
                     
                                                 <!-- linea 2 -->
@@ -182,7 +182,7 @@
                                         <div class="articulo__contenedor__body__next__list__header"> 
                                             
                                             <div class="articulo__contenedor__body__next__list__header__prev" > 
-                                                <p class="articulo__contenedor__body__next__list__header__titulo">Listado de Personas</p>
+                                                <p class="articulo__contenedor__body__next__list__header__titulo">{{ 'MODULES.INVERSIONES_TRANSITORIAS.personList' | translate }}</p>
                                             </div>
 
                                             <div class="articulo__contenedor__body__next__list__header__next" > </div>
@@ -195,13 +195,13 @@
                                                 <table class="table table-striped">
                                                     <thead>
                                                         <tr>
-                                                            <th style="width: 10%">Identificación</th>
-                                                            <th style="width: 11%">Nombre</th>
-                                                            <th style="width: 11%">Alias</th>
-                                                            <th style="width: 15%">Correo Electrónico</th>
-                                                            <th style="width: 5%">Estado</th>
-                                                            <th style="width: 10%">Modificado</th>
-                                                            <th style="width: 15%">Se actualizó</th>
+                                                            <th style="width: 10%" >{{ 'MODULES.INVERSIONES_TRANSITORIAS.identification' | translate }}</th>
+                                                            <th style="width: 11%" >{{ 'MODULES.INVERSIONES_TRANSITORIAS.name' | translate }}</th>
+                                                            <th style="width: 11%" >{{ 'MODULES.INVERSIONES_TRANSITORIAS.alias' | translate }}</th>
+                                                            <th style="width: 15%" >{{ 'MODULES.INVERSIONES_TRANSITORIAS.email' | translate }}</th>
+                                                            <th style="width: 5%"  >{{ 'MODULES.INVERSIONES_TRANSITORIAS.status' | translate }}</th>
+                                                            <th style="width: 10%" >{{ 'MODULES.INVERSIONES_TRANSITORIAS.modified' | translate }}</th>
+                                                            <th style="width: 15%" >{{ 'MODULES.INVERSIONES_TRANSITORIAS.updated' | translate }}</th>
                                                         </tr>
                                                     </thead>
                                                     <tbody>
@@ -247,24 +247,24 @@
                                         <div class="articulo__contenedor__body__prev__form__header"> 
                                             
                                             <div class="articulo__contenedor__body__prev__form__header__prev" > 
-                                                <p class="articulo__contenedor__body__prev__form__header__titulo">Montos de la Persona</p>
+                                                <p class="articulo__contenedor__body__prev__form__header__titulo">{{ 'MODULES.INVERSIONES_TRANSITORIAS.personAmounts' | translate }}</p>
                                             </div>
 
                                             <div class="articulo__contenedor__body__prev__form__header__next" > 
 
                                                 <button *ngIf="habilitaBtnNuevoMonto" class="articulo__contenedor__body__prev__form__header__prev__btns__new" 
                                                         mat-flat-button
-                                                        (click)="limpiarFormularioMontosPersona()">Nuevo</button>
+                                                        (click)="limpiarFormularioMontosPersona()">{{ 'GENERAL.BTN_NEW' | translate }}</button>
                         
                                                 <button *ngIf="habilitaBtnActualizaMonto" class="articulo__contenedor__body__prev__form__header__prev__btns__warn" 
                                                         mat-flat-button
-                                                        (click)="actualizaObjetoMontoPersona()">Actualizar</button>
+                                                        (click)="actualizaObjetoMontoPersona()">{{ 'GENERAL.BTN_UPDATE' | translate }}</button>
                                                 <button *ngIf="habilitaBtnRegistroMonto" class="articulo__contenedor__body__prev__form__header__prev__btns__ok" 
                                                         mat-flat-button
-                                                        (click)="submitFormMontosPersona()">Registrar</button>
+                                                        (click)="submitFormMontosPersona()">{{ 'GENERAL.BTN_REGISTER' | translate }}</button>
                                                 <button *ngIf="habilitaBtnEliminarMonto" class="articulo__contenedor__body__prev__form__header__prev__btns__danger" 
                                                         mat-flat-button
-                                                        (click)="eliminarObjetoMontoPersona()">Eliminar</button>
+                                                        (click)="eliminarObjetoMontoPersona()">{{ 'GENERAL.BTN_DELETE' | translate }}</button>
 
                                             </div>
                                         
@@ -276,7 +276,7 @@
                     
 
                                                 <div class="form-group col-md-2">
-                                                    <label for="id" class="form-label">Id</label>
+                                                    <label for="id" class="form-label">{{ 'MODULES.INVERSIONES_TRANSITORIAS.id' | translate }}</label>
                                                     <input formControlName="id" class="form-control" type="text" id="id_id" readonly />
                                                 </div>
 
@@ -286,33 +286,33 @@
                     
                     
                                                 <div class="form-group col-md-4">
-                                                    <label for="lblIdMoneda" class="form-label">Seleccione la Moneda</label>
+                                                    <label for="lblIdMoneda" class="form-label" >{{ 'MODULES.INVERSIONES_TRANSITORIAS.selectCurrency' | translate }}</label>
                                                     <select formControlName="idMoneda" class="form-control" name="selectIdMoneda"
                                                         [ngClass]="{ 'is-invalid': submittedFormMontosPersona && p.idMoneda.errors }" >
-                                                            <option [ngValue]="objeto" *ngFor="let objeto of listTiposMonedas">{{objeto.id}} - {{objeto.descripcion}}</option>
+                                                            <option [ngValue]="objeto" *ngFor="let objeto of listTiposMonedas" >{{ 'MODULES.INVERSIONES_TRANSITORIAS.textByText' | translate: {$INTERPOLATION: objeto.id, $INTERPOLATION_1: objeto.descripcion } }}</option>
                                                     </select>
                                                     <div *ngIf="submittedFormMontosPersona && p.idMoneda.errors" class="invalid-feedback">
-                                                        <div *ngIf="p.idMoneda.errors.required">El Tipo de Moneda es requerido .</div>
+                                                        <div *ngIf="p.idMoneda.errors.required" >{{ 'MODULES.INVERSIONES_TRANSITORIAS.currencyTypeRequired' | translate }}</div>
                                                     </div>
                                                 </div>
                     
                                                 <div class="form-group col-md-3">
-                                                    <label for="lblMontoMaximoInversiones" class="form-label">+ Inversiones</label>
+                                                    <label for="lblMontoMaximoInversiones" class="form-label" >{{ 'MODULES.INVERSIONES_TRANSITORIAS.addInvestments' | translate }}</label>
                                                     <input formControlName="montoMaximoInversiones" class="form-control" type="text" id="id_montoMaximoInversiones"
                                                             placeholder=".00"
                                                         [ngClass]="{ 'is-invalid': submittedFormMontosPersona && p.montoMaximoInversiones.errors }" />
                                                     <div *ngIf="submittedFormMontosPersona && p.montoMaximoInversiones.errors" class="invalid-feedback">
-                                                        <div *ngIf="p.montoMaximoInversiones.errors.required">El Monto Máximo de Inversión es requerido .</div>
+                                                        <div *ngIf="p.montoMaximoInversiones.errors.required" >{{ 'MODULES.INVERSIONES_TRANSITORIAS.maxInvestmentAmountRequired' | translate }}</div>
                                                     </div>
                                                 </div>
                     
                                                 <div class="form-group col-md-3">
-                                                    <label for="lblMontoMaximoFondos" class="form-label">+ Fondos</label>
+                                                    <label for="lblMontoMaximoFondos" class="form-label" >{{ 'MODULES.INVERSIONES_TRANSITORIAS.addFunds' | translate }}</label>
                                                     <input formControlName="montoMaximoFondos" class="form-control" type="text" id="id_montoMaximoFondos"
                                                             placeholder=".00"
                                                         [ngClass]="{ 'is-invalid': submittedFormMontosPersona && p.montoMaximoFondos.errors }" />
                                                     <div *ngIf="submittedFormMontosPersona && p.montoMaximoFondos.errors" class="invalid-feedback">
-                                                        <div *ngIf="p.montoMaximoFondos.errors.required">El primer alias es requerido .</div>
+                                                        <div *ngIf="p.montoMaximoFondos.errors.required" >{{ 'MODULES.INVERSIONES_TRANSITORIAS.firstAliasRequired' | translate }}</div>
                                                     </div>
                                                 </div>
                     
@@ -344,7 +344,7 @@
                                         <div class="articulo__contenedor__body__next__list__header"> 
                                             
                                             <div class="articulo__contenedor__body__next__list__header__prev" > 
-                                                <p class="articulo__contenedor__body__next__list__header__titulo">Listado Asignación de Montos por Persona</p>
+                                                <p class="articulo__contenedor__body__next__list__header__titulo" >{{ 'MODULES.INVERSIONES_TRANSITORIAS.amountAssignmentList' | translate }}</p>
                                             </div>
 
                                             <div class="articulo__contenedor__body__next__list__header__next" > </div>
@@ -357,12 +357,11 @@
                                                 <table class="table table-striped">
                                                     <thead>
                                                         <tr>
-                                                            <th style="width: 10%">Id Moneda</th>
-                                                            <th style="width: 15%">Máximo para Inversiones</th>
-                                                            <th style="width: 15%">Máximo para Fondos</th>
-                
-                                                            <th style="width: 10%">Modificado</th>
-                                                            <th style="width: 15%">Se actualizó</th>
+                                                            <th style="width: 10%" >{{ 'MODULES.INVERSIONES_TRANSITORIAS.currencyId' | translate }}</th>
+                                                            <th style="width: 15%" >{{ 'MODULES.INVERSIONES_TRANSITORIAS.maxForInvestments' | translate }}</th>
+                                                            <th style="width: 15%" >{{ 'MODULES.INVERSIONES_TRANSITORIAS.maxForFunds' | translate }}</th>
+                                                            <th style="width: 10%" >{{ 'MODULES.INVERSIONES_TRANSITORIAS.modified' | translate }}</th>
+                                                            <th style="width: 15%" >{{ 'MODULES.INVERSIONES_TRANSITORIAS.updated' | translate }}</th>
                                                         </tr>
                                                     </thead>
                                                     <tbody>

@@ -1,61 +1,88 @@
-<article class="var-menu">
-  <section>
-    <!-- menú -->
-    <div class="var-menu__prev"> </div>
-
-    <!-- título -->
-    <div class="var-menu__center">
-      <div class="var-menu__center__left">
-        <img class="var-menu__center__left__img" src="./assets/images/inra/img_bankap_left.png " />
-      </div>
-      <div class="var-menu__center__center">
-        <p class="var-menu__center__center__titulo">{{businessObservable.nombre}}</p>
-      </div>
-      <div class="var-menu__center__rigth">
-        <img class="var-menu__center__rigth__img" src="./assets/images/inra/img_bankap_rigth.png " />
-      </div>
-    </div>
-
-    <!-- cerrar sesión -->
-    <div class="var-menu__next">
-      <button class="btn-sm var-menu__next__config" mat-icon-button (click)="redirectPageConfigUser()">
-        <mat-icon>settings</mat-icon>
-      </button>
-
-      <button class="btn-sm var-menu__next__home" mat-icon-button routerLink="/">
-        <mat-icon>home</mat-icon>
-      </button>
-
-      <button class="btn-sm var-menu__next__logout" mat-icon-button (click)="logout()">
-        <mat-icon>input</mat-icon>
-      </button>
-    </div>
-  </section>
-</article>
-
 <main>
-  <article class="bloq">
+  <article class="var-menu">
+    <section>
+
+      <div class="var-menu__prev-index-icons"> </div>
+
+      <!-- menú -->
+      <div class="var-menu__prev-index">
+        <div class="var-menu__prev-index__div">
+          <img class="var-menu__prev-index__div__img" src="./assets/images/inra/img_bankap_left.png " />
+        </div>
+      </div>
+
+      <!-- título -->
+      <div class="var-menu__center-index">
+        <p class="var-menu__center-index__titulo">{{businessObservable.nombre}}</p>
+      </div>
+
+      <!-- cerrar sesión -->
+      <div class="var-menu__next-index">
+        <div class="var-menu__next-index__div">
+          <img class="var-menu__next-index__div__img" src="./assets/images/inra/img_bankap_rigth.png " />
+        </div>
+      </div>
+
+      <div class="var-menu__next-index-icons">
+        <button class="var-menu__next__config" 
+                mat-icon-button 
+                (click)="redirectPageConfigUser()"> <mat-icon>settings</mat-icon> </button>
+
+        <button class="var-menu__next__home" 
+                mat-icon-button routerLink="/"> <mat-icon>home</mat-icon> </button>
+
+        <button class="var-menu__next__logout" 
+                mat-icon-button 
+                (click)="logout()"> <mat-icon>input</mat-icon> </button>
+      </div>
+
+    </section>
+  </article>
+
+  <article>
+    
     <div class="contenedor mat-elevation-z4">
       <section>
         <div class="contenedor__body">
+          <hr>
+          <!-- elemento buscar -->
           <div class="buscador-module-section">
             <div></div>
             <div>
-              <div class="wrap-input100 m-b-19 form-group">
-                <span class="lnr lnr-magnifier label-input100"></span>
-                <input type="search"  class="input100" placeholder="Busqueda" [(ngModel)]="valorBuscado" (input)="filtrarModulos()" />
-                <span class="focus-input100"></span>
+              <div class="wrap-input100-index">
+                <span class="lnr lnr-magnifier label-input100-index"></span>
+                <input  type="search"
+                        [placeholder]="'INIT.SEARCH' | translate" 
+                        class="input100 input100-index" 
+                        [(ngModel)]="valorBuscado" 
+                        (input)="filtrarModulos()" /> <span class="focus-input100"></span>
               </div>
             </div>
           </div>
-          <section class="menu-module-item-section">
-            <div [ngClass]="['menu-module-item-section__item', businessObservable.tamanoModuloDefecto || module.identificador.includes('ID-BANKAP-BI') ? 'max' : '']" *ngFor="let module of ListModulesFilter">
+
+          <section *ngIf="existenModulos" class="menu-module-item-section">
+            <div  [ngClass]="['menu-module-item-section__item', businessObservable.tamanoModuloDefecto || module.identificador.includes('ID-BANKAP-BI') ? 'max' : '']" 
+                  *ngFor="let module of ListModulesFilter">
               <section (click)="selectModule(module)">
-                <a> <img class="menu-module-item-section__item__logo" src="{{module.pathLogo}}" title="{{module.descripcion}}" /> </a>
+                <a> 
+                  <img  class="menu-module-item-section__item__logo" 
+                        src="{{module.pathLogo}}" 
+                        title="{{module.descripcion}}"/>
+                </a>
                 <p class="menu-module-item-section__item__titulo">{{module.nombre}}</p>
               </section>
             </div>
           </section>
+
+          <!-- {{ 'ALERTS.NO_MODULES_ROL_USER' | translate }} -->
+
+          <section *ngIf="!existenModulos" class="content__menu">
+            <p class="content__menu__item content__menu__item__titulo col-md-12">{{ 'ALERTS.NO_MODULES_ROL_USER' | translate }}</p>
+            <p class="content__menu__item  content__menu__item__subtitulo col-md-12">{{ 'ALERTS.CONTACT_ADMIN' | translate }}</p>
+          </section>
+
+          <br><hr><br>
+
         </div>
       </section>
     </div>

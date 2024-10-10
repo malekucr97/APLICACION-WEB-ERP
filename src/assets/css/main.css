@@ -34,6 +34,190 @@
 /*//////////////////////////////////////////////////////////////////
 [ RESTYLE TAG ]*/
 
+
+/* act */
+.imgLoginHeaderTitle {
+  width: 45%;
+}
+.headerLogin {
+  padding-top: 3%;
+  padding-bottom: 3%;
+  background-image: url('../../assets/images/inra/BANKAP_Header_2023-02.jpg');
+}
+.texto-error {
+  font-size: .875rem;
+  color: #dc3545;
+}
+
+.contLogin {
+  position: absolute; 
+  left: 50%;
+  top: 45%;
+  transform: translate(-50%, -35%);
+  background-color: var(--color_gris);
+
+  width: 550px;
+  height: 400px;
+}
+.bodyLogin {
+  margin: auto;
+  width: 75%;
+  padding-top: 10%;
+}
+.label-input100 {
+  font-size: 20px;
+  color: #808080;
+  position: absolute;
+  top: 14px;
+}
+@media (max-width: 600px) {
+  .contLogin {  
+    width: 90%;
+    height: 395px;
+  }
+  /* .label-input100 {
+    font-size: 15px;
+    color: #808080;
+    position: absolute;
+    top: 14px;
+  } */
+}
+@media (max-width: 576px) {
+  .contLogin {  
+    width: 90%;
+    height: 365px;
+    border-radius: 2%;
+  }
+  /* .label-input100 {
+    font-size: 15px;
+    color: #808080;
+    position: absolute;
+    top: 14px;
+  } */
+}
+@media (max-width: 400px) {
+  .contLogin {  
+    width: 90%;
+    height: 335px;
+    border-radius: 2%;
+  }
+  /* .label-input100 {
+    font-size: 15px;
+    color: #808080;
+    position: absolute;
+    top: 14px;
+  } */
+}
+@media (max-width: 300px) {
+  .contLogin {  
+    width: 90%;
+    height: 290px;
+    border-radius: 2%;
+  }
+  /* .label-input100 {
+    font-size: 15px;
+    color: #808080;
+    position: absolute;
+    top: 14px;
+  } */
+}
+
+.login100-form-title {
+  display: flex;
+  justify-content: center;
+  background-size: cover;
+  background-position: center;
+}
+@media (max-width: 300px){
+  .bodyLogin {
+    margin: auto;
+    width: 90%;
+    padding-top: 0%;
+  }
+}
+
+.textalign-center {
+  text-align: center;
+}
+
+
+.btn-iniciarsesion {
+  position: fixed;
+  left: 50%; 
+  top: 90%; 
+  transform: translate(-50%, -90%);
+}
+
+.wrap-input100 {
+  width: 100%;
+  position: relative;
+  border-bottom: 1px solid #b2b2b2;
+}
+.wrap-input100-index {
+  width: 100%;
+  position: relative;
+  border-bottom: 1px solid #b2b2b2;
+}
+
+.label-input100-index {
+  font-size: 20px;
+  color: #808080;
+  position: absolute;
+  top: 14px;
+}
+.login100-form-btn {
+  min-width: 150px;
+  height: 40px;
+  background-color: var(--color_accent);
+  border-radius: 25px;
+  font-family: Poppins-Regular;
+  font-size: 1rem;
+  color: #fff;
+  width: 25%;
+}
+.login100-form-btn:hover {
+  background-color: #333333;
+}
+
+@media (max-width: 500px) {
+  .formulario-login{
+    margin-top: 4%;
+  }
+}
+/* @media (max-width: 450px) {
+  .formulario-login{
+    margin-top: 8%;
+  }
+}
+@media (max-width: 400px) {
+  .formulario-login{
+    margin-top: 12%;
+  }
+} */
+@media (max-width: 350px) {
+  .formulario-login{
+    margin-top: 5%;
+  }
+}
+@media (max-width: 300px) {
+  .formulario-login{
+    margin-top: 10%;
+  }
+}
+@media (max-width: 250px) {
+  .formulario-login{
+    margin-top: 15%;
+  }
+}
+/* @media (max-width: 200px) {
+  .formulario-login{
+    margin-top: 50%;
+  }
+} */
+
+/* act */
+
+
 * {
 	margin: 0px;
 	padding: 0px;
@@ -51,6 +235,7 @@ body, html {
   background-repeat: no-repeat;
   background-size: cover;
   background-position: center;
+  position: relative;
 }
 .logoHeader {
   margin: 1% 1% 1% 1%;
@@ -88,14 +273,14 @@ body, html {
   font-weight: bold;
 }
 
-
 .datosEmpresa {
   display: flex;
   flex-direction: row;
   align-items: center;
   justify-content: center;
   background: var(--color_degradado_footer);
-  height: 50px;
+  text-align: center;
+  /* height: 30px; */
 }
 
 .textos {
@@ -255,24 +440,7 @@ iframe {
 
 /*==================================================================
 [ Title form ]*/
-.login100-form-title {
-  width: 100%;
-  position: relative;
-  /* z-index: 1; */
-  display: -webkit-box;
-  display: -webkit-flex;
-  display: -moz-box;
-  display: -ms-flexbox;
-  display: flex;
-  flex-wrap: wrap;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
 
-  background-repeat: no-repeat;
-  background-size: cover;
-  background-position: center;
-}
 
 .login100-form-title-1 {
   font-family: Poppins-Bold;
@@ -300,18 +468,6 @@ iframe {
 /*==================================================================
 [ Form ]*/
 
-.login100-form {
-  width: 100%;
-  display: -webkit-box;
-  display: -webkit-flex;
-  display: -moz-box;
-  display: -ms-flexbox;
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: space-between;
-  padding: 15px 40px 40px 60px;
-}
-
 
 /*------------------------------------------------------------------
 [ Input ]*/
@@ -326,30 +482,13 @@ iframe {
   color: #626262;
 }
 
-.wrap-input100 {
-  width: 100%;
-  position: relative;
-  border-bottom: 1px solid #b2b2b2;
-}
+
 .label-btn-dark {
   font-family: Arial;
   /* font-size: 15px; */
   color: #ffffff;
   /* line-height: 1.2; */
   text-align: right;
-}
-
-.label-input100 {
-  font-family: Poppins-Regular;
-  font-size: 15px;
-  color: #808080;
-  line-height: 1.2;
-  text-align: right;
-
-  position: absolute;
-  top: 14px;
-  left: -105px;
-  width: 90px;
 }
 
 /*---------------------------------------------*/
@@ -391,16 +530,44 @@ iframe {
 
   background: var(--color_accent);
 }
-/* #28a745 */
-
-/* 57b846 */
 
 
 /*---------------------------------------------*/
+
 input.input100 {
   height: 45px;
 }
+input.input100-index {
+  height: 45px;
 
+  margin-left: 10%;
+
+  font-family: Poppins-Regular;
+  font-size: 15px;
+  color: #555555;
+  line-height: 1.2;
+
+  display: block;
+  width: 100%;
+  background: transparent;
+  padding: 0 5px;
+}
+@media (max-width: 800px) {
+  .label-input100-index {
+    font-size: 15px;
+    color: #808080;
+    position: absolute;
+    /* top: 8px; */
+  }
+}
+@media (max-width: 300px) {
+  .label-input100-index {
+    font-size: 15px;
+    color: #808080;
+    position: absolute;
+    left: -10px;
+  }
+}
 
 .input100:focus + .focus-input100::before {
   width: 100%;
@@ -473,64 +640,11 @@ input.input100 {
   flex-wrap: wrap;
 }
 
-.login100-form-btn {
-  display: -webkit-box;
-  display: -webkit-flex;
-  display: -moz-box;
-  display: -ms-flexbox;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  padding: 0 20px;
-  min-width: 150px;
-  height: 40px;
-  background-color: var(--color_accent);
-  border-radius: 25px;
-
-  font-family: Poppins-Regular;
-  font-size: 16px;
-  color: #fff;
-  line-height: 1.2;
-
-  -webkit-transition: all 0.4s;
-  -o-transition: all 0.4s;
-  -moz-transition: all 0.4s;
-  transition: all 0.4s;
-}
-
-/* 053254 */
-
-/* 57b846 */
-
-
-.login100-form-btn:hover {
-  background-color: #333333;
-}
-
 
 /*------------------------------------------------------------------
 [ Responsive ]*/
 
-@media (max-width: 576px) {
-  .login100-form {
-    padding: 43px 15px 57px 117px;
-  }
-}
 
-@media (max-width: 480px) {
-  .login100-form {
-    padding: 43px 15px 57px 15px;
-  }
-
-  .label-input100 {
-    text-align: left;
-    position: unset;
-    top: unset;
-    left: unset;
-    width: 100%;
-    padding: 0 5px;
-  }
-}
 
 
 /*------------------------------------------------------------------
@@ -629,52 +743,4 @@ input.input100 {
 
 .btn-selected-business:hover {
   background-color: #524e4e;
-}
-
-.texto-error {
-  margin-top: .25rem;
-  font-size: .875rem;
-  color: #dc3545;
-}
-
-
-/* //login */
-.textalign-center {
-  text-align: center;
-}
-
-.contLogin {
-  position: absolute; 
-  left: 50%; 
-  top: 45%; 
-  transform: translate(-50%, -35%); 
-  background-color: var(--color_gris);
-
-  width: 550px;
-  height: 400px;
-}
-.headerLogin {
-  border-radius: 5px;
-  padding-top: 20px;
-  padding-bottom: 20px;
-  background-image: url('../../assets/images/inra/BANKAP_Header_2023-02.jpg');
-}
-.imgLoginHeaderTitle {
-  width: 45%;
-}
-.bodyLogin {
-  flex: 1 1 auto;
-  min-height: 1px;
-  padding-left: 8%;
-  padding-right: 8%;
-  padding-bottom: 10%;
-  padding-top: 5%;
-}
-
-
-.btn-iniciarsesion {
-  position: fixed;
-  left: 50%; 
-  top: 90%; 
-  transform: translate(-50%, -90%);
 }

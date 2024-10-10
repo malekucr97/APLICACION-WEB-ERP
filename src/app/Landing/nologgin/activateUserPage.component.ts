@@ -4,9 +4,8 @@ import { User } from '@app/_models';
 import { Router, UrlTree } from '@angular/router';
 import { first } from 'rxjs/operators';
 
-@Component({
-  templateUrl: 'HTML_ActivateUserPage.html',
-  styleUrls: ['../../../assets/scss/landing/app.scss'],
+@Component({templateUrl: 'HTML_ActivateUserPage.html',
+            styleUrls: ['../../../assets/scss/landing/app.scss'],
 })
 export class ActivateUserPageComponent {
   user = new User();
@@ -35,6 +34,8 @@ export class ActivateUserPageComponent {
     this.tokenUser = this.urlTree.queryParams['tk'];
     this.identificacionUser = this.urlTree.queryParams['ui'];
 
+    this.cargandoActivacion = true;
+
     this.activarUsuarioPorEmail();
   }
 
@@ -45,13 +46,8 @@ export class ActivateUserPageComponent {
         this.cargandoActivacion = false;
     }
 
-    this.cargandoActivacion = true;
-
     // SE CARGA LA INFORMACIÓN DEL USUARIO.
-    let objUser: User = {
-      identificacion: this.identificacionUser,
-      token: this.tokenUser,
-    } as User;
+    let objUser: User = { identificacion: this.identificacionUser, token: this.tokenUser } as User;
 
     // SE REALIZA LA CONSULTA AL API.
     this.accountService.activateByEmail(objUser)

@@ -1,83 +1,101 @@
-<h1>Roles </h1>
+<article class="articulo">
 
-<a routerLink="{{URLAdministratorPage}}" class="btn btn-light mb-2">Volver</a><br>
-
-<div class="card">
-    
-    <div class="card-body">
-
-        <button routerLink="{{URLAddEditRolPage}}"
-                class="item-list__confirm float-right" 
-                mat-icon-button > <mat-icon>portrait</mat-icon>
-        </button>
-        
-        <h3 style="color:#1A5276"><b>{{businessObservable.nombre}} </b></h3>
-        <br>
-        <h3 style="color:#1A5276">Actualice el Estado o Revise los Módulos con Acceso.</h3>
-
-        <table class="table table-striped">
-            <thead>
-                <tr>
-                    <th style="width: 52%">Descripción</th>
-                    <th style="width: 10%">Estado</th>
-                    <th style="width: 35%">Tipo</th>
+    <section>
+        <div>
+            <div class="articulo__contenedor__tittle">
+                <p class="articulo__contenedor__tittle__h1">{{businessObservable.nombre}}</p>
+                <p class="articulo__contenedor__tittle__h2">{{ 'CONFIGURATION.ADMIN_PAGE_LIST_ROLES.TITLE' | translate }}</p>
+            </div>
+            <hr>
+            <div>
+                <button class=" administracion-contenedor__content__item
+                                administracion-contenedor__content__item__backIco
+                                icon-button-medium"
+                        title="{{ 'CONFIGURATION.BTN_ADMIN_USERS' | translate}}"
+                        mat-icon-button
+                        (click)="redirectListModulesPage()"> <mat-icon>arrow_back</mat-icon>
+                </button>
+            </div>
+        </div>
+    </section>
 
 
-                    <th style="width: 1%"></th>
-                    <th style="width: 1%"></th>
-                    <th style="width: 1%"></th>
+    <section>
+        <div class="card">
+            <div class="card-body">
 
-                </tr>
-            </thead>
-            <tbody >
-                <tr *ngFor="let rol of listRoles"
-                    class="item-list__list">
+                <section>
+                    <button routerLink="{{URLAddEditRolPage}}"
+                            class="item-list__confirm float-right"
+                            mat-icon-button > <mat-icon>portrait</mat-icon>
+                    </button>
 
-                    <td >{{rol.descripcion}}</td>
-                    <td >{{rol.estado}}</td>
-                    <td >{{rol.tipo}}</td>
+                    <p class="articulo__contenedor__tittle__h3">{{ 'CONFIGURATION.ADMIN_PAGE_LIST_ROLES.SUBTITLE' | translate }}</p>
+                    <div class="articulo__contenedor__table">
+                        <table class="table table-striped">
+                            <thead>
+                                <tr>
+                                    <th style="width: 50%">{{ 'CONFIGURATION.ADMIN_PAGE_LIST_ROLES.TBL_DESCRIPTION' | translate }}</th>
+                                    <th style="width: 12%">{{ 'CONFIGURATION.ADMIN_PAGE_LIST_ROLES.TBL_STATUS' | translate }}</th>
+                                    <th style="width: 35%">{{ 'CONFIGURATION.ADMIN_PAGE_LIST_ROLES.TBL_KIND' | translate }}</th>
+                                    <th style="width: 1%"></th>
+                                    <th style="width: 1%"></th>
+                                    <th style="width: 1%"></th>
+                                </tr>
+                            </thead>
+                            <tbody >
+                                <tr *ngFor="let rol of listRoles"
+                                    class="item-list__list">
 
-                    <td style="white-space: normal" >
-                        <button *ngIf="rol.estado!='Activo'"  
-                                (click)="activateRole(rol.id)" 
-                                class="btn-sm item-list__admin__ok" >
+                                    <td >{{rol.descripcion}}</td>
+                                    <td >{{rol.estado}}</td>
+                                    <td >{{rol.tipo}}</td>
 
-                                <mat-icon>thumb_down_alt</mat-icon>
-                                Estado Rol
-                        </button>
-                        <button *ngIf="rol.estado=='Activo'"  
-                                (click)="inActivateRole(rol.id)" 
-                                class="btn-sm item-list__admin__warn" >
+                                    <td style="white-space: normal" >
+                                        <button *ngIf="rol.estado!='Active'"
+                                                (click)="activateRole(rol.id)"
+                                                class="btn-sm item-list__admin__ok" >
 
-                                <mat-icon>thumb_up_alt</mat-icon>
-                                Estado Rol
-                        </button>
-                    </td>
+                                                <mat-icon>thumb_down_alt</mat-icon>
+                                                {{ 'CONFIGURATION.ADMIN_PAGE_LIST_ROLES.TBL_BTN_STATUS_MODULE' | translate }}
+                                        </button>
+                                        <button *ngIf="rol.estado=='Active'"
+                                                (click)="inActivateRole(rol.id)"
+                                                class="btn-sm item-list__admin__warn" >
 
-                    <td>
-                        <button *ngIf="rol.tipo!='Lectura'" 
-                                (click)="lectura(rol.id)" > <mat-icon>mood</mat-icon>       +
-                        </button>
-                        <button *ngIf="rol.tipo=='Lectura'"  
-                                (click)="escritura(rol.id)" > <mat-icon>mood_bad</mat-icon> -
-                        </button>
-                    </td>
+                                                <mat-icon>thumb_up_alt</mat-icon>
+                                                {{ 'CONFIGURATION.ADMIN_PAGE_LIST_ROLES.TBL_BTN_STATUS_MODULE' | translate }}
+                                        </button>
+                                    </td>
 
-                    <td>
-                        <button routerLink="{{URLAddModuleRolPage}}{{rol.id}}" 
-                            class="btn-sm item-list__admin__view"> 
-                            <mat-icon>apps</mat-icon> Módulos Activos
-                        </button>
-                    </td>
+                                    <td>
+                                        <button *ngIf="rol.tipo!='Reading'"
+                                                (click)="lectura(rol.id)" > <mat-icon>mood</mat-icon>       +
+                                        </button>
+                                        <button *ngIf="rol.tipo=='Reading'"
+                                                (click)="escritura(rol.id)" > <mat-icon>mood_bad</mat-icon> -
+                                        </button>
+                                    </td>
 
-                </tr>
-                <tr *ngIf="!listRoles">
-                    <td colspan="4" class="text-center">
-                        <span class="spinner-border spinner-border-lg align-center"></span>
-                    </td>
-                </tr>
-            </tbody>
-        </table>
+                                    <td>
+                                        <button routerLink="{{URLAddModuleRolPage}}{{rol.id}}"
+                                            class="btn-sm item-list__admin__view">
+                                            <mat-icon>apps</mat-icon> {{ 'CONFIGURATION.ADMIN_PAGE_LIST_ROLES.TBL_BTN_MODULE' | translate }}
+                                        </button>
+                                    </td>
 
-    </div>
-</div>
+                                </tr>
+                                <tr *ngIf="!listRoles">
+                                    <td colspan="6" class="text-center">
+                                        <span class="spinner-border spinner-border-lg align-center"></span>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </section>
+
+            </div>
+        </div>
+    </section>
+</article>

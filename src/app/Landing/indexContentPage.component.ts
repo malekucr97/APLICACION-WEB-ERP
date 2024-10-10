@@ -8,6 +8,7 @@ import { MatSidenav } from '@angular/material/sidenav';
 import { Compania } from '@app/_models/modules/compania';
 import { OnSeguridad } from '@app/_helpers/abstractSeguridad';
 import { Bitacora } from '@app/_models/bitacora';
+import { TranslateMessagesService } from '@app/_services/translate-messages.service';
 
 @Component({
   templateUrl: 'IndexContentPage.html',
@@ -35,12 +36,16 @@ export class IndexContentPageComponent extends OnSeguridad implements OnInit {
 
   public today : Date ;
 
+  // --
+  public existenModulos : boolean;
+
   constructor(  private accountService: AccountService,
                 private router: Router,
                 private route: ActivatedRoute,
-                private alertService: AlertService ) {
+                private alertService: AlertService,
+                private translate: TranslateMessagesService ) {
 
-    super(alertService, accountService, router);
+    super(alertService, accountService, router, translate);
 
     // ***************************************************************
     // VALIDA ACCESO PANTALLA LOGIN ADMINISTRADOR
@@ -53,23 +58,28 @@ export class IndexContentPageComponent extends OnSeguridad implements OnInit {
     this.accountService.clearObjectModuleObservable();
 
     this.today = new Date();
+
+    // --
+    this.existenModulos = true;
   }
 
   ngOnInit() {
 
     if ( super.validarUsuarioAdmin() ) {
 
-      this.accountService.getModulesActiveBusiness(this.businessObservable.id, this._HIdUserSessionRequest, this._HBusinessSessionRequest)
+      this.accountService.getModulesActiveBusiness( this.businessObservable.id)
         .pipe(first())
         .subscribe((responseListModules) => {
 
-            if (responseListModules && responseListModules.length > 0) this.setListModules(responseListModules);
+            if (responseListModules && responseListModules.length > 0) { 
+              this.setListModules(responseListModules); 
+            } else { this.existenModulos = false; }
 
           }, error => { this.logout(); });
 
     } else {
       // módulos activos de usuario
-      this.accountService.getModulesActiveUser(this.businessObservable.id, this.userObservable.idRol, this._HIdUserSessionRequest, this._HBusinessSessionRequest)
+      this.accountService.getModulesActiveUser(this.businessObservable.id, this.userObservable.idRol)
         .pipe(first())
         .subscribe((responseListModules) => {
 
@@ -78,6 +88,8 @@ export class IndexContentPageComponent extends OnSeguridad implements OnInit {
             this.setListModules(responseListModules);
 
           } else {
+
+            this.existenModulos = false;
              // #region "registro en bitácora no módulos activos"
              let bit : Bitacora = new Bitacora( 'NO-LOG12', /** codigoInterno */
                                                 true, /** sesion */
@@ -156,44 +168,10 @@ export class IndexContentPageComponent extends OnSeguridad implements OnInit {
       case ModulesSystem.Identif_Generales:
         indexHTTPModule = ModulesSystem.generalesbasehref + 'index.html'; // ## generales ## //
         break;
-      case ModulesSystem.Identif_ActivosFijos:
-        indexHTTPModule = ModulesSystem.activosfijosbasehref + 'index.html'; // ## activos fijos ## //
-        break;
-      case ModulesSystem.Identif_Bancos:
-        indexHTTPModule = ModulesSystem.bancosbasehref + 'index.html'; // ## bancos ## //
-        break;
-      case ModulesSystem.Identif_Contabilidad:
-        indexHTTPModule = ModulesSystem.contabilidadbasehref + 'index.html'; // ## contabilidad ## //
-        break;
-      case ModulesSystem.Identif_CuentasCobrar:
-        indexHTTPModule = ModulesSystem.cuentascobrarbasehref + 'index.html'; // ## cuentas cobrar ## //
-        break;
-      case ModulesSystem.Identif_CuentasPagar:
-        indexHTTPModule = ModulesSystem.cuentaspagarbasehref + 'index.html'; // ## cuentas pagar ## //
-        break;
-      case ModulesSystem.Identif_Facturacion:
-        indexHTTPModule = ModulesSystem.facturacionbasehref + 'index.html'; // ## facturación ## //
-        break;
-      case ModulesSystem.Identif_Inventario:
-        indexHTTPModule = ModulesSystem.inventariobasehref + 'index.html'; // ## inventario ## //
-        break;
-      case ModulesSystem.Identif_Cumplimiento:
-        indexHTTPModule = ModulesSystem.cumplimientobasehref + 'index.html'; // ## cumplimiento ## //
-        break;
-      case ModulesSystem.Identif_Macred:
-        indexHTTPModule = ModulesSystem.macredbasehref + 'index.html'; // ## macred ## //
-        break;
-      case ModulesSystem.Identif_RiesgoCredito:
-        indexHTTPModule = ModulesSystem.riesgocreditobasehref + 'index.html'; // ## riesgo crédito ## //
-        break;
-      case ModulesSystem.Identif_Inversiones:
-        indexHTTPModule = ModulesSystem.inversionesbasehref + 'index.html'; // ## inversiones transitorias ## //
-        break;
       case procesoBusquedaPowerBi(ModulesSystem.Identif_PowerBI):
         indexHTTPModule = ModulesSystem.powerbibasehref + 'index.html'; // ## Power BI ## //
         break;
-      default:
-        indexHTTPModule = this.UrlHome;
+      default: indexHTTPModule = this.UrlHome;
     }
     return indexHTTPModule;
   }

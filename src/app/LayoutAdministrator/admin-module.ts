@@ -37,6 +37,9 @@ import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatListModule } from '@angular/material/list';
 import { AdminmoduleComponent } from './module/adminmodule/adminmodule.component';
 import { AddEditRolComponent } from './role/addEditRolPage.component';
+import { TranslateModule } from '@ngx-translate/core';
+import { ListPlanComponent } from './plan/listPlanPage.component';
+import { AddEditPlanComponent } from './plan/addEditPlanPage.component';
 
 @NgModule({
     imports: [
@@ -59,7 +62,8 @@ import { AddEditRolComponent } from './role/addEditRolPage.component';
 
         MatDialogModule,
         MatFormFieldModule,
-        MatListModule
+        MatListModule,
+        TranslateModule.forChild()
     ],
     declarations: [
         LayoutAdministratorComponent,
@@ -67,6 +71,8 @@ import { AddEditRolComponent } from './role/addEditRolPage.component';
         AddEditUserComponent,
         ListUserComponent,
         ListBusinessComponent,
+        AddEditPlanComponent,
+        ListPlanComponent,
         AddBusinessUserComponent,
         AddRoleUserComponent,
         AddEditBusinessComponent,

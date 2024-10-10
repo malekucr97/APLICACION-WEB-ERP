@@ -6,6 +6,7 @@ import { User, Role, Module } from '@app/_models';
 import { Compania } from '../../_models/modules/compania';
 import { OnSeguridad } from '@app/_helpers/abstractSeguridad';
 import { administrator, httpAccessAdminPage } from '@environments/environment';
+import { TranslateMessagesService } from '@app/_services/translate-messages.service';
 
 @Component({templateUrl: 'HTML_AddModuleRolePage.html',
             styleUrls: [ '../../../assets/scss/app.scss', '../../../assets/scss/administrator/app.scss']
@@ -16,88 +17,105 @@ export class AddModuleRoleComponent extends OnSeguridad implements OnInit {
 
   role: Role;
 
-  listModulesRol: Module[] = [];
-  listModulesBusiness: Module[] = [];
-
   public urladminListRole: string = httpAccessAdminPage.urlPageListRole;
 
   listRolesSubject: Role[];
 
-  _pRolIdParam : string ;
+  // -- #
+  public listModulesRol: Module[];
+  public listModulesBusiness: Module[];
 
-  constructor(  private route: ActivatedRoute,
-                private accountService: AccountService,
+  public phttp_idrol : string;
+  public enableModulesRole:boolean;
+
+  constructor(  private accountService: AccountService,
+                private router: Router,
+                private route: ActivatedRoute,
                 private alertService: AlertService,
-                private router: Router ) {
+                private translate: TranslateMessagesService ) {
 
-    super(alertService, accountService, router);
+    super(alertService, accountService, router, translate);
 
     // ***************************************************************
     // VALIDA ACCESO PANTALLA LOGIN ADMINISTRADOR
-    if (!super.userAuthenticateAdmin()      ||
-        !this.route.snapshot.params.pidRole ||
-        !this.accountService.rolListValue) { this.accountService.logout(); return; }
+    if (!super.userAuthenticateAdmin()) { this.accountService.logout(); return; }
     // ***************************************************************
 
     this.userObservable = this.accountService.userValue;
     this.businessObservable = this.accountService.businessValue;
     this.listRolesSubject = this.accountService.rolListValue;
 
-    this._pRolIdParam = this.route.snapshot.params.pidRole;
-    this.role = this.listRolesSubject.find((x) => x.id === this._pRolIdParam);
+    this.enableModulesRole = false;
+
+    this.role = new Role;
   }
+
+  public redirectListRolesPage() : void { this.router.navigate([this.urladminListRole]); }
 
   ngOnInit() {
 
-    if (this.role.id !== administrator.identification && this.role.id !== administrator.adminSociedad) {
+    if (this.route.snapshot.params.pidRole) {
 
-      this.accountService.getModulesBusiness(this.businessObservable.id, this._HIdUserSessionRequest, this._HBusinessSessionRequest)
-        .pipe(first())
-        .subscribe((responseModulesSystem) => {
+      this.phttp_idrol = this.route.snapshot.params.pidRole;
 
-            if (responseModulesSystem && responseModulesSystem.length > 0) {
+      if (this.phttp_idrol) {
 
-              this.listModulesBusiness = responseModulesSystem;
+        this.accountService.getRolById(this.phttp_idrol)
+          .pipe(first())
+          .subscribe(responseRole => {
 
-              this.accountService.getModulesByRolAndBusiness(this._pRolIdParam,this.businessObservable.id,this._HIdUserSessionRequest,
-                                                                                                          this._HBusinessSessionRequest)
+            this.role = responseRole;
+
+            if (this.role.id !== administrator.identification && this.role.id !== administrator.adminSociedad) {
+
+              this.accountService.getModulesBusiness(this.businessObservable.id)
                 .pipe(first())
-                .subscribe((responseModulesRol) => {
+                .subscribe((responseModulesSystem) => {
+        
+                    if (responseModulesSystem && responseModulesSystem.length > 0) {
+        
+                      this.listModulesBusiness = responseModulesSystem;
+        
+                      this.accountService.getModulesByRolAndBusiness(this.phttp_idrol,this.businessObservable.id)
+                        .pipe(first())
+                        .subscribe((responseModulesRol) => {
+        
+                            if (responseModulesRol && responseModulesRol.length > 0) {
+        
+                              this.listModulesRol = responseModulesRol;
+        
+                              // valida si se han asignado todos los módulos a un rol
+                              if ( this.listModulesBusiness.length !== this.listModulesRol.length ) {
+        
+                                this.listModulesRol.forEach((modRol) => {
+                                  // elimina los módulos que han sido asignados , en la lista de asignación
+                                  this.listModulesBusiness.splice( this.listModulesBusiness.findIndex( (m) => m.id == modRol.id ), 1);
+                                });
+        
+                              } else { this.listModulesBusiness = null; }
+                            } else { this.listModulesRol = null; }
 
-                    if (responseModulesRol && responseModulesRol.length > 0) {
+                            this.enableModulesRole = true;
 
-                      this.listModulesRol = responseModulesRol;
-
-                      // valida si se han asignado todos los módulos a un rol
-                      if ( this.listModulesBusiness.length !== this.listModulesRol.length ) {
-
-                        this.listModulesRol.forEach((modRol) => {
-                          // elimina los módulos que han sido asignados , en la lista de asignación
-                          this.listModulesBusiness.splice( this.listModulesBusiness.findIndex( (m) => m.id == modRol.id ), 1);
                         });
 
-                      } else { this.listModulesBusiness = null; }
-                    } else { this.listModulesRol = null; }
+                    } else {
+                      this.alertService.info( this.translate.translateKey('ALERTS.noModulesAssigned') + 
+                                              this.businessObservable.nombre, { keepAfterRouteChange: true });
+                      this.router.navigate([this.urladminListRole]); 
+                    }
+                  },
+                  (error) => {
+                    this.alertService.error(this.translate.translateKey('ALERTS.systemModuleQueryError') + error, { keepAfterRouteChange: true });
+                    this.router.navigate([this.urladminListRole]); 
                   });
             } else {
-              this.alertService.info(
-                'Aún no hay Módulos asignados a la compañía: ' + this.businessObservable.nombre, 
-                { keepAfterRouteChange: true }
-              );
-              this.router.navigate([this.urladminListRole]); 
+              this.alertService.success(this.translate.translateKey('ALERTS.adminAccessAllModules') + 
+                                        this.businessObservable.nombre, { keepAfterRouteChange: true });
+              this.router.navigate([this.urladminListRole]);
             }
-          },
-          (error) => {
-            this.alertService.error('Problemas al consultar los módulos del sistema.' + error, { keepAfterRouteChange: true });
-            this.router.navigate([this.urladminListRole]); 
-          }
-        );
-    } else {
-      this.alertService.success(
-        'El Usuario Administrador tiene acceso a todos los módulos activos en la compañía: ' + this.businessObservable.nombre, 
-        { keepAfterRouteChange: true }
-      );
-      this.router.navigate([this.urladminListRole]);
+          });
+      }
     }
   }
 
@@ -107,7 +125,7 @@ export class AddModuleRoleComponent extends OnSeguridad implements OnInit {
 
     let module: Module = this.listModulesBusiness.find((m) => m.id == idModule);
 
-    this.accountService.grantAccessModuleToRol(this.role.id, module.id,this.businessObservable.id,this._HIdUserSessionRequest,this._HBusinessSessionRequest)
+    this.accountService.grantAccessModuleToRol(this.role.id,module.id,this.businessObservable.id)
       .pipe(first())
       .subscribe((response) => {
 
@@ -131,7 +149,7 @@ export class AddModuleRoleComponent extends OnSeguridad implements OnInit {
         },
         (error) => {
           this.alertService.error(
-            'Problemas al otorgar acceso de rol al módulo de la compañía.' + error, 
+            this.translate.translateKey('ALERTS.grantAccessError') + error, 
             { keepAfterRouteChange: true }
           );
           this.router.navigate([this.urladminListRole]);
@@ -145,7 +163,7 @@ export class AddModuleRoleComponent extends OnSeguridad implements OnInit {
 
     let module: Module = this.listModulesRol.find((m) => m.id == idModule);
 
-    this.accountService.deleteAccessModuleToRol(this.role.id, module.id,this.businessObservable.id,this._HIdUserSessionRequest,this._HBusinessSessionRequest)
+    this.accountService.deleteAccessModuleToRol(this.role.id, module.id,this.businessObservable.id)
       .pipe(first())
       .subscribe((response) => {
 
@@ -169,7 +187,7 @@ export class AddModuleRoleComponent extends OnSeguridad implements OnInit {
         },
         (error) => {
           this.alertService.error(
-            'Problemas al eliminar acceso de rol al módulo de la compañía.' + error, 
+            this.translate.translateKey('ALERTS.deleteAccessError') + error, 
             { keepAfterRouteChange: true }
           );
           this.router.navigate([this.urladminListRole]);

@@ -69,7 +69,7 @@ export class Articulo15Component implements OnInit {
                 }
             },
             error => {
-                let message : string = 'Problemas al consultar el artículo 15. ' + error;
+                let message : string = `Problemas al consultar el artículo 15. ' + ${error}`;
                 this.alertService.error(message); 
             });
     }
@@ -107,7 +107,7 @@ export class Articulo15Component implements OnInit {
 
         this.delete = true;
 
-        if(confirm("Está seguro que desea eliminar el riesgo de artículo 15 " + article15.descripcion)) {
+        if(confirm(`Está seguro que desea eliminar el riesgo de artículo 15  ${article15.descripcion}`)) {
             console.log("pos si");
         } else {console.log("pos no");}
     }

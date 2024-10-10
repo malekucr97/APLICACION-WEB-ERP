@@ -10,7 +10,7 @@
 
                     <div class="articulo__contenedor__header__prev" >
 
-                        <p>{{nombreModulo}} / Mantenimiento de Mercados & Sectores</p>
+                        <p >{{ 'MODULES.INVERSIONES_TRANSITORIAS.marketSectorMaintenance' | translate: {$INTERPOLATION: nombreModulo} }}</p>
 
                     </div>
 
@@ -39,24 +39,24 @@
                                         <div class="articulo__contenedor__body__prev__form__header"> 
                                             
                                             <div class="articulo__contenedor__body__prev__form__header__prev" > 
-                                                <p class="articulo__contenedor__body__prev__form__header__titulo">Tipos de Mercados</p>
+                                                <p class="articulo__contenedor__body__prev__form__header__titulo" >{{ 'MODULES.INVERSIONES_TRANSITORIAS.marketTypes' | translate }}</p>
                                             </div>
 
                                             <div class="articulo__contenedor__body__prev__form__header__next" > 
 
                                                 <button *ngIf="habilitaBtnNuevoMercado" class="articulo__contenedor__body__prev__form__header__prev__btns__new" 
                                                         mat-flat-button
-                                                        (click)="limpiarFormularioMercado()">Nuevo</button>
+                                                        (click)="limpiarFormularioMercado()">{{ 'GENERAL.BTN_NEW' | translate }}</button>
 
                                                 <button *ngIf="habilitaBtnActualizaMercado" class="articulo__contenedor__header__prev__btns__warn" 
                                                         mat-flat-button
-                                                        (click)="actualizaObjetoMercado()">Actualizar</button>
+                                                        (click)="actualizaObjetoMercado()">{{ 'GENERAL.BTN_UPDATE' | translate }}</button>
                                                 <button *ngIf="habilitaBtnRegistroMercado" class="articulo__contenedor__header__prev__btns__ok" 
                                                         mat-flat-button
-                                                        (click)="submitMercado()">Registrar</button>
+                                                        (click)="submitMercado()">{{ 'GENERAL.BTN_REGISTER' | translate }}</button>
                                                 <button *ngIf="habilitaBtnElimibarMercado" class="articulo__contenedor__header__prev__btns__danger" 
                                                         mat-flat-button
-                                                        (click)="eliminarObjetoMercado()">Eliminar</button>
+                                                        (click)="eliminarObjetoMercado()">{{ 'GENERAL.BTN_DELETE' | translate }}</button>
 
                                             </div>
                                         
@@ -67,16 +67,16 @@
                                             <form [formGroup]="formularioMercado" class="row">
                     
                                                 <div class="form-group col-md-2">
-                                                    <label for="lblIdMercado" class="form-label">Id</label>
+                                                    <label for="lblIdMercado" class="form-label" >{{ 'MODULES.INVERSIONES_TRANSITORIAS.id' | translate }}</label>
                                                     <input formControlName="idMercado" class="form-control" type="text" id="id_idMercado" readonly />
                                                 </div>
                                                 
                                                 <div class="form-group col-md-6">
-                                                    <label for="lblCodigoMercado" class="form-label">Código Interno</label>
+                                                    <label for="lblCodigoMercado" class="form-label">{{ 'MODULES.INVERSIONES_TRANSITORIAS.internalCode' | translate }}</label>
                                                     <input formControlName="codigoMercado" class="form-control" type="text" id="id_codigoMercado"
                                                         [ngClass]="{ 'is-invalid': submittedFormMercado && m.codigoMercado.errors }" />
                                                     <div *ngIf="submittedFormMercado && m.codigoMercado.errors" class="invalid-feedback">
-                                                        <div *ngIf="m.codigoMercado.errors.required">El código de la periocidad es requerido .</div>
+                                                        <div *ngIf="m.codigoMercado.errors.required" >{{ 'MODULES.INVERSIONES_TRANSITORIAS.periodicityCodeRequired' | translate }}</div>
                                                     </div>
                                                 </div>
                     
@@ -85,16 +85,16 @@
                                                 </div>
                     
                                                 <div class="form-group col-md-6">
-                                                    <label for="lblDescripcionMercado" class="form-label">Descripción</label>
+                                                    <label for="lblDescripcionMercado" class="form-label" >{{ 'MODULES.INVERSIONES_TRANSITORIAS.description' | translate }}</label>
                                                     <input formControlName="descripcionMercado" class="form-control" type="text" id="id_descripcionMercado"
                                                         [ngClass]="{ 'is-invalid': submittedFormMercado && m.descripcionMercado.errors }" />
                                                     <div *ngIf="submittedFormMercado && m.descripcionMercado.errors" class="invalid-feedback">
-                                                        <div *ngIf="m.descripcionMercado.errors.required">La descripción del mercado es requerida .</div>
+                                                        <div *ngIf="m.descripcionMercado.errors.required" >{{ 'MODULES.INVERSIONES_TRANSITORIAS.marketDescriptionRequired' | translate }}</div>
                                                     </div>
                                                 </div>
                     
                                                 <div class="form-group col-sm-1 margin-icos-mat">
-                                                    <mat-checkbox formControlName="estadoMercado">Estado</mat-checkbox>
+                                                    <mat-checkbox formControlName="estadoMercado" >{{ 'MODULES.INVERSIONES_TRANSITORIAS.status' | translate }}</mat-checkbox>
                                                 </div>
                     
                                             </form>
@@ -119,7 +119,7 @@
                                         <div class="articulo__contenedor__body__next__list__header"> 
                                             
                                             <div class="articulo__contenedor__body__next__list__header__prev" > 
-                                                <p class="articulo__contenedor__body__next__list__header__titulo">Listado de Mercados</p>
+                                                <p class="articulo__contenedor__body__next__list__header__titulo" >{{ 'MODULES.INVERSIONES_TRANSITORIAS.marketTypes' | translate }}</p>
                                             </div>
 
                                             <div class="articulo__contenedor__body__next__list__header__next" > </div>
@@ -134,11 +134,11 @@
                                                         <tr>
                                                             <th style="width: 5%"></th>
                                                             
-                                                            <th style="width: 8%">Código interno</th>
-                                                            <th style="width: 12%">Descripción</th>
-                                                            <th style="width: 10%">Estado</th>
-                                                            <th style="width: 12%">Modificado</th>
-                                                            <th style="width: 15%">Se actualizó</th>
+                                                            <th style="width: 8%" >{{ 'MODULES.INVERSIONES_TRANSITORIAS.internalCode' | translate }}</th>
+                                                            <th style="width: 12%" >{{ 'MODULES.INVERSIONES_TRANSITORIAS.description' | translate }}</th>
+                                                            <th style="width: 10%" >{{ 'MODULES.INVERSIONES_TRANSITORIAS.status' | translate }}</th>
+                                                            <th style="width: 12%" >{{ 'MODULES.INVERSIONES_TRANSITORIAS.modified' | translate }}</th>
+                                                            <th style="width: 15%" >{{ 'MODULES.INVERSIONES_TRANSITORIAS.updated' | translate }}</th>
                                                         </tr>
                                                     </thead>
                                                     <tbody>
@@ -186,24 +186,24 @@
                                         <div class="articulo__contenedor__body__prev__form__header"> 
                                             
                                             <div class="articulo__contenedor__body__prev__form__header__prev" > 
-                                                <p class="articulo__contenedor__body__prev__form__header__titulo">Tipos de Sectores</p>
+                                                <p class="articulo__contenedor__body__prev__form__header__titulo" >{{ 'MODULES.INVERSIONES_TRANSITORIAS.marketTypes' | translate }}</p>
                                             </div>
 
                                             <div class="articulo__contenedor__body__prev__form__header__next" > 
 
                                                 <button *ngIf="habilitaBtnNuevoSector" class="articulo__contenedor__body__prev__form__header__prev__btns__new" 
                                                         mat-flat-button
-                                                        (click)="limpiarFormularioSector()">Nuevo</button>
+                                                        (click)="limpiarFormularioSector()">{{ 'GENERAL.BTN_NEW' | translate }}</button>
 
                                                 <button *ngIf="habilitaBtnActualizaSector" class="articulo__contenedor__header__prev__btns__warn" 
                                                         mat-flat-button
-                                                        (click)="actualizaObjetoSector()">Actualizar</button>
+                                                        (click)="actualizaObjetoSector()">{{ 'GENERAL.BTN_UPDATE' | translate }}</button>
                                                 <button *ngIf="habilitaBtnRegistroSector" class="articulo__contenedor__header__prev__btns__ok" 
                                                         mat-flat-button
-                                                        (click)="submitSector()">Registrar</button>
+                                                        (click)="submitSector()">{{ 'GENERAL.BTN_REGISTER' | translate }}</button>
                                                 <button *ngIf="habilitaBtnElimibarSector" class="articulo__contenedor__header__prev__btns__danger" 
                                                         mat-flat-button
-                                                        (click)="eliminarObjetoSector()">Eliminar</button>
+                                                        (click)="eliminarObjetoSector()">{{ 'GENERAL.BTN_DELETE' | translate }}</button>
 
                                             </div>
                                         
@@ -214,16 +214,16 @@
                                             <form [formGroup]="formularioSector" class="row">
                     
                                                 <div class="form-group col-md-2">
-                                                    <label for="lblIdSector" class="form-label">Id</label>
+                                                    <label for="lblIdSector" class="form-label">{{ 'MODULES.INVERSIONES_TRANSITORIAS.id' | translate }}</label>
                                                     <input formControlName="idSector" class="form-control" type="text" id="id_idSector" readonly />
                                                 </div>
                                                 
                                                 <div class="form-group col-md-6">
-                                                    <label for="lblCodigoSector" class="form-label">Código Interno</label>
+                                                    <label for="lblCodigoSector" class="form-label">{{ 'MODULES.INVERSIONES_TRANSITORIAS.internalCode' | translate }}</label>
                                                     <input formControlName="codigoSector" class="form-control" type="text" id="id_codigoSector"
                                                         [ngClass]="{ 'is-invalid': submittedFormSector && s.codigoSector.errors }" />
                                                     <div *ngIf="submittedFormSector && s.codigoSector.errors" class="invalid-feedback">
-                                                        <div *ngIf="s.codigoSector.errors.required">El código del sector es requerido .</div>
+                                                        <div *ngIf="s.codigoSector.errors.required" >{{ 'MODULES.INVERSIONES_TRANSITORIAS.sectorCodeRequired' | translate }}</div>
                                                     </div>
                                                 </div>
                     
@@ -232,16 +232,16 @@
                                                 </div>
                     
                                                 <div class="form-group col-md-6">
-                                                    <label for="lblDescripcionSector" class="form-label">Descripción</label>
+                                                    <label for="lblDescripcionSector" class="form-label" >{{ 'MODULES.INVERSIONES_TRANSITORIAS.description' | translate }}</label>
                                                     <input formControlName="descripcionSector" class="form-control" type="text" id="id_descripcionSector"
                                                         [ngClass]="{ 'is-invalid': submittedFormSector && s.descripcionSector.errors }" />
                                                     <div *ngIf="submittedFormSector && s.descripcionSector.errors" class="invalid-feedback">
-                                                        <div *ngIf="s.descripcionSector.errors.required">La descripción del sector es requerida .</div>
+                                                        <div *ngIf="s.descripcionSector.errors.required" >{{ 'MODULES.INVERSIONES_TRANSITORIAS.sectorDescriptionRequired' | translate }}</div>
                                                     </div>
                                                 </div>
                     
                                                 <div class="form-group col-sm-1 margin-icos-mat">
-                                                    <mat-checkbox formControlName="estadoSector">Estado</mat-checkbox>
+                                                    <mat-checkbox formControlName="estadoSector" >{{ 'MODULES.INVERSIONES_TRANSITORIAS.status' | translate }}</mat-checkbox>
                                                 </div>
                     
                                             </form>
@@ -266,7 +266,7 @@
                                         <div class="articulo__contenedor__body__next__list__header"> 
                                             
                                             <div class="articulo__contenedor__body__next__list__header__prev" > 
-                                                <p class="articulo__contenedor__body__next__list__header__titulo">Listado de Sectores</p>
+                                                <p class="articulo__contenedor__body__next__list__header__titulo" >{{ 'MODULES.INVERSIONES_TRANSITORIAS.sectorList' | translate }}</p>
                                             </div>
 
                                             <div class="articulo__contenedor__body__next__list__header__next" > </div>
@@ -281,11 +281,11 @@
                                                         <tr>
                                                             <th style="width: 5%"></th>
                                                             
-                                                            <th style="width: 8%">Código interno</th>
-                                                            <th style="width: 12%">Descripción</th>
-                                                            <th style="width: 10%">Estado</th>
-                                                            <th style="width: 12%">Modificado</th>
-                                                            <th style="width: 15%">Se actualizó</th>
+                                                            <th style="width: 8%" >{{ 'MODULES.INVERSIONES_TRANSITORIAS.internalCode' | translate }}</th>
+                                                            <th style="width: 12%" >{{ 'MODULES.INVERSIONES_TRANSITORIAS.description' | translate }}</th>
+                                                            <th style="width: 10%" >{{ 'MODULES.INVERSIONES_TRANSITORIAS.status' | translate }}</th>
+                                                            <th style="width: 12%" >{{ 'MODULES.INVERSIONES_TRANSITORIAS.modified' | translate }}</th>
+                                                            <th style="width: 15%" >{{ 'MODULES.INVERSIONES_TRANSITORIAS.updated' | translate }}</th>
                                                         </tr>
                                                     </thead>
                                                     <tbody>

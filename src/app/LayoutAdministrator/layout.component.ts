@@ -1,5 +1,7 @@
 import { Component } from '@angular/core';
+import { Router } from '@angular/router';
 import { AccountService } from '@app/_services';
+import { httpLandingIndexPage } from '@environments/environment';
 
 @Component({ 
     templateUrl: 'layout.component.html',
@@ -7,7 +9,11 @@ import { AccountService } from '@app/_services';
 })
 export class LayoutAdministratorComponent  {
 
-    constructor(private accountService: AccountService) { }
+    public urlIndex: string = httpLandingIndexPage.indexHTTP;
+
+    constructor(private accountService: AccountService, private router: Router) { }
 
     logout() { this.accountService.logout(); }
+
+    redirectIndex() : void { this.router.navigate([this.urlIndex]); }
 }

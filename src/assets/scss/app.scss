@@ -31,21 +31,82 @@ td {
     width: 100%;
     display: flex;
     flex-direction: column;
-  }
-  .tipoCambio {
+}
+.tipoCambio {
     display: flex;
     flex-direction: row;
     align-items: center;
     justify-content: center;
     height: 40px;
-  }
+}
+
+.table_responsive{
+    width: 100%;
+    @media (max-width: 1200px) { overflow-x:auto; }
+}
+
+// TÍTULOS
+.tittle_h1{
+    color: #053254;
+    font-size: 1.5rem;
+    font-weight: 700;
+    @media (max-width: 800px) { font-size: 1rem; }
+}
+.tittle_h2{
+    color: #B3B3B3;
+    font-size: 1.2rem;
+    font-weight: 500;
+    @media (max-width: 800px) { font-size: 1rem; }
+}
+.tittle_h3{
+    color: #005188;
+    font-size: 1.2rem;
+    font-weight: 500;
+    @media (max-width: 800px) { font-size: 1rem; }
+}
+.tittle_form_h1{
+    color: white;
+    font-size: 1rem;
+    font-weight: 500;
+    @media (max-width: 800px) { font-size: 0.9rem; }
+}
+
+// BOTONES
+.button_form_new{
+    margin-right: 1%;
+    margin-bottom: 1%;
+    &:hover { color: #005188; cursor: pointer; }
+}
+.button_form_update{
+    margin-bottom: 1%;
+    &:hover { color: #F9A01B; cursor: pointer; }
+}
+.button_form_delete{
+    margin-left: 1%;
+    margin-bottom: 1%;
+    &:hover { color: #b82424; cursor: pointer; }
+}
+.button_form_create{
+    margin-bottom: 1%;
+    &:hover { color: #129523; cursor: pointer; }
+}
+.button_form_others{
+    margin-right: 1%;
+    margin-bottom: 1%;
+    &:hover { color: #00AEEF; cursor: pointer; }
+}
+
 
 // ********************************
 // ## -- >> mensaje de alerta
 .alerta {
-    width: 100%;
     position: absolute;
-    top: 1%;
+    left: 0;
+    right: 0;
+    top: 0;
+    margin-left: auto;
+    margin-right: auto;
+    width: 70%;
     &__messaje{
         margin-top: 35px;
         text-align: center;
@@ -54,8 +115,85 @@ td {
 
 .var-menu {
     @include bg-color-darkest-blue;
-
     border-top: 1px solid rgb(202, 202, 202);
+
+    &__prev-home {
+        width: 30%;
+        display: inline-block;
+        text-align: right;
+        &__div{ &__img { width: 35%; } }
+    }
+    &__next-home{
+        width: 30%;
+        display: inline-block;
+        text-align: left;
+        &__div{ &__img { width: 35%; } }
+    }
+    &__center-home{
+        justify-content: center;
+        text-align: center;
+        width: 40%;
+        display: inline-block;
+        &__titulo{
+            color: white;
+            padding-top: 2%;
+            font-size: 1.8rem;
+            font-weight: 500;
+            text-align: center;
+            @media (max-width: 800px) { font-size: 1.3rem; }
+        }
+    }
+    &__prev-index{
+        width: 20%;
+        display: inline-block;
+        text-align: right;
+        padding-right: 1%;
+        &__div{ 
+            &__img { 
+                width: 45%;
+                @media (max-width: 1300px) { width: 70%; }
+                @media (max-width: 800px) { width: 100%; }
+            } 
+        }
+    }
+    &__center-index{
+        justify-content: center;
+        text-align: center;
+        width: 40%;
+        display: inline-block;
+        &__titulo{
+            color: white;
+            padding-top: 2%;
+            font-size: 1.8rem;
+            font-weight: 700;
+            text-align: center;
+            @media (max-width: 800px) { font-size: 1.3rem; }
+            @media (max-width: 500px) { font-size: 0.7rem; }
+        }
+    }
+    &__next-index{
+        width: 20%;
+        display: inline-block;
+        text-align: left;
+        padding-left: 1%;
+        &__div{ 
+            &__img { 
+                width: 45%;
+                @media (max-width: 1300px) { width: 70%; }
+                @media (max-width: 800px) { width: 100%; }
+            } 
+        }
+    }
+    &__prev-index-icons{
+        width: 11%;
+        display: inline-block;
+        padding-left: 2%;
+    }
+    &__next-index-icons{
+        display: inline-block;
+        text-align: center;
+    }
+    // fin hme - index update
 
     &__prev {
         width: 15%;
@@ -81,8 +219,13 @@ td {
             padding-right: 1%;
             &__titulo {
                 color: white;
-                padding-top: 3%;
-                @include font-aero;
+                padding-top: 2%;
+                font-size: 1.8rem;
+                font-weight: 700;
+                text-align: center;
+                @media (max-width: 800px) {
+                    font-size: 1.3rem;
+                }
             }
         }
         &__rigth {
@@ -158,6 +301,16 @@ td {
                     font-size: 1.5rem;
                 }
             }
+            &__subtitulo {
+                color: #F9A01B;
+                font-size: 1rem;
+                font-weight: 700;
+                transition: color 0.2s ease-in-out;
+
+                @media (min-width: 1500px) {
+                    font-size: 1rem;
+                }
+            }
             &__logo{
                 margin-top: 5%;
                 border-radius: 50%;
@@ -184,13 +337,193 @@ td {
     }
 }
 // ## -- >> contenedor titulo contenido
-.titulo-administracion-contenedor {
-    background: linear-gradient(#00AEEF 1%, #005188, #053254 40%);
-    color: white;
+.administracion-contenedor {
+    
+    height: calc(40vh - 1px);
+
+    background-color: var(--color_gris);
+    border-radius: 10px;
+
+    &__content{
+
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        height: 100%;
+
+        // margin-right: 50px;
+        // margin-left: 20px;
+
+        text-align: center;
+
+        &__item{
+
+            $sm-size-button: 50px;
+            $sm-size-icon: 28px;
+
+            $medium-size-button: 60px;
+            $medium-size-icon: 28px;
+            
+            $large-size-button: 80px;
+            $large-size-icon: 48px;
+
+            &.icon-button-sm {
+                width: $sm-size-button;
+                height: $sm-size-button;
+                line-height: $sm-size-button;
+                .mat-icon {
+                    font-size: $sm-size-icon;
+                    width: $sm-size-icon;
+                    height: $sm-size-icon;
+                    line-height: $sm-size-icon;
+                }
+            }
+
+            &.icon-button-medium {
+                width: $medium-size-button;
+                height: $medium-size-button;
+                line-height: $medium-size-button;
+                .mat-icon {
+                    font-size: $medium-size-icon;
+                    width: $medium-size-icon;
+                    height: $medium-size-icon;
+                    line-height: $medium-size-icon;
+                }
+            }
+            &.icon-button-large {
+                width: $large-size-button;
+                height: $large-size-button;
+                line-height: $large-size-button;
+                .mat-icon {
+                    font-size: $large-size-icon;
+                    width: $large-size-icon;
+                    height: $large-size-icon;
+                    line-height: $large-size-icon;
+                }
+            }
+
+            &__maintancepowerbi{
+
+                float:right;
+
+                margin-top: 2%;
+
+                color: white;
+                background-color: #005188;
+
+                &:hover {
+                    background-color: #B3B3B3;
+                    color: white;
+                    cursor: pointer;
+                }
+            }
+            &__backIco-sm {
+                margin-bottom: 7px;
+                &:hover {
+                    color: white;
+                    background-color: #B3B3B3;
+                    cursor: pointer;
+                }
+            }
+            &__backIco {
+                margin-bottom: 10px;
+                &:hover {
+                    color: white;
+                    background-color: #F9A01B;
+                    cursor: pointer;
+                }
+            }
+
+            &__newUser {
+
+                margin-bottom: 10px;
+                float: right;
+
+                &:hover {
+
+                    color: white;
+                    background-color: green;
+
+                    cursor: pointer;
+                }
+            }
+
+            &__listUsers {
+
+                margin-left: 20px;
+                margin-right: 20px;
+
+                &:hover {
+                    color: white;
+                    background-color: #053254;
+                    cursor: pointer;
+                }
+            }
+            &__listCompanies {
+
+                margin-left: 20px;
+                margin-right: 20px;
+
+                &:hover {
+                    color: white;
+                    background-color: #F9A01B;
+                    cursor: pointer;
+                }
+            }
+            &__listPlanes {
+
+                margin-left: 20px;
+                margin-right: 20px;
+
+                &:hover {
+                    color: white;
+                    background-color: #F9A01B;
+                    cursor: pointer;
+                }
+            }
+            &__listModules {
+
+                margin-left: 20px;
+                margin-right: 20px;
+
+                &:hover {
+                    color: white;
+                    background-color: #F9A01B;
+                    cursor: pointer;
+                }
+            }
+            &__listRoles {
+
+                margin-left: 20px;
+                margin-right: 20px;
+
+                &:hover {
+                    color: white;
+                    background-color: #B3B3B3;
+                    cursor: pointer;
+                }
+            }
+            
+            &__title{
+                color: #005188;
+                font-size: 1.5rem;
+                font-weight: 700;
+                transition: color 0.2s ease-in-out;
+
+                margin-bottom: 2%;
+            }
+        }
+    }
+    
     &__seccion {
         display: flex;
         align-items: center;
         justify-content: space-evenly;
+        
+        &__titulo{
+            color: #053254;
+        }
+
         &__left {
             &__img {
                 @media (max-width: 800px) {
@@ -217,14 +550,18 @@ td {
 }
 // ## -- >> contenedor selección compañía
 .select-company-contenedor {
+
     display:         flex;
     flex-direction:  row;
     justify-content: center;
     align-items:     center;
     flex-wrap:       wrap;
-    padding: 5% 0 5% 0;
     background-color: var(--color_fondo);
+
     &__card {
+
+        padding-top: 5%;
+
         &__header {
             @include font-aero;
             &__titulo {
@@ -234,17 +571,35 @@ td {
             }
         }
         &__body {
+
             &__item {
+
                 color: #005188;
                 transition: color 0.2s ease-in-out;
                 &:hover {
                     color: #F9A01B;
                     cursor: pointer;
                 }
+
                 &__titulo {
                     width: 90%;
                     display: inline-block;
                     text-align: left;
+
+                    &__p{
+                        color: #B3B3B3;
+
+                        font-size: 1.2rem;
+                        font-weight: 500;
+                        &:hover {
+                            color: #053254;
+                            cursor: pointer;
+                            font-weight: bold;
+                        }
+                        @media (max-width: 800px) {
+                            font-size: 1rem;
+                        }
+                    }
                 }
                 &__ico {
                     width: 10%;
@@ -363,7 +718,6 @@ td {
             }
         }
     }
-
     &__edit {
 
         display: inline-block;
@@ -376,26 +730,15 @@ td {
         }
     }
     &__view {
-
         color: #053254;
         transition: color 0.2s ease-in-out;
-
         text-align: center;
-
-        &:hover {
-            color: #053254;
-            cursor: pointer;
-        }
+        &:hover { color: #129523; cursor: pointer; }
     }
     &__list {
-
         color: #053254;
         transition: color 0.2s ease-in-out;
-
-        &:hover {
-            color: #F9A01B;
-            cursor: pointer;
-        }
+        &:hover { color: #F9A01B; cursor: pointer; }
     }
     &__delete {
         display: inline-block;
@@ -417,13 +760,9 @@ td {
         }
     }
     &__search {
-
         color: #053254;
         transition: color 0.2s ease-in-out;
-        &:hover {
-            color: #129523;
-            cursor: pointer;
-        }
+        &:hover { color: #129523; cursor: pointer; }
     }
     &__calendar {
 

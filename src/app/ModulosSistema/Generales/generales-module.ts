@@ -23,6 +23,7 @@ import { MatDialogModule } from '@angular/material/dialog';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatListModule } from '@angular/material/list';
 import { TipoCambioComponent } from './parametros/TipoCambio-component';
+import { TranslateModule } from '@ngx-translate/core';
 
 
 
@@ -48,7 +49,8 @@ import { TipoCambioComponent } from './parametros/TipoCambio-component';
 
         MatDialogModule,
         MatFormFieldModule,
-        MatListModule
+        MatListModule,
+        TranslateModule.forChild()
     ],
     declarations: [
         IndexGeneralesComponent,

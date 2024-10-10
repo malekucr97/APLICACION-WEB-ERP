@@ -14,6 +14,7 @@ import { first }                from 'rxjs/operators';
 
 import { InvPlazoInversion }    from '@app/_models/Inversiones/PlazoInversion';
 import { InvClaseInversion } from '@app/_models/Inversiones/ClaseInversion';
+import { TranslateMessagesService } from '@app/_services/translate-messages.service';
 
 declare var $: any;
 
@@ -60,7 +61,8 @@ export class InvClasesPlazosInversionesComponent implements OnInit {
                     private inversionesService:     InversionesService,
                     private formBuilder:       FormBuilder,
                     private accountService:     AccountService,
-                    private dialogo:           MatDialog ) {
+                    private dialogo:           MatDialog,
+                    private translate: TranslateMessagesService ) {
 
         this.userObservable = this.accountService.userValue;
         this.moduleObservable = this.accountService.moduleValue;
@@ -120,11 +122,11 @@ export class InvClasesPlazosInversionesComponent implements OnInit {
                 } else { 
                 
                     this.inicializaFormularioPlazoInversion();
-                    this.alertService.info('No se encontraron registros .');
+                    this.alertService.info(this.translate.translateKey('ALERTS.NO_RECORDS_FOUND'));
                 }
             },
             error => {
-                let message : string = 'Problemas de conexión: ' + error;
+                let message : string = this.translate.translateKeyP('ALERTS.CONNECTION_PROBLEMS',{$PH:error});
                 this.alertService.error(message);
             });
     }
@@ -210,12 +212,12 @@ export class InvClasesPlazosInversionesComponent implements OnInit {
 
                     this.inicializaFormularioPlazoInversion();
 
-                    this.alertService.success( `Registro exitoso .` );
+                    this.alertService.success( this.translate.translateKey('ALERTS.SUCCESSFUL_REGISTRATION') );
 
-                } else { this.alertService.error(`No fue posible aplicar el registro .`); }
+                } else { this.alertService.error(this.translate.translateKey('ALERTS.FAILED_REGISTRATION_APPLICATION')); }
 
             }, error => {
-                this.alertService.error( `Problemas al establecer la conexión con el servidor. Detalle: ${ error }` );
+                this.alertService.error(this.translate.translateKeyP('ALERTS.errorConnectionServer',{$PH:error}) );
             });
     }
 
@@ -229,7 +231,7 @@ export class InvClasesPlazosInversionesComponent implements OnInit {
         var id : number = this.formularioPlazoInversion.controls['idPlazoInversion'].value;
 
         this.dialogo.open(DialogoConfirmacionComponent, {
-            data: `Segur@ que desea eliminar el registro para siempre ?`
+            data: this.translate.translateKey('ALERTS.dialogConfirmDelete')
         })
         .afterClosed()
         .subscribe((confirmado: Boolean) => {
@@ -286,12 +288,12 @@ export class InvClasesPlazosInversionesComponent implements OnInit {
 
                     this.inicializaFormularioPlazoInversion();
 
-                    this.alertService.success( `Registro actualizado con éxito.` );
+                    this.alertService.success( this.translate.translateKey('ALERTS.SUCCESSFUL_UPDATE') );
 
-                } else { this.alertService.error(`No fue posible actualizar el registro .`); }
+                } else { this.alertService.error(this.translate.translateKey('ALERTS.FAILED_UPDATE')); }
 
             }, error => {
-                this.alertService.error( `Problemas al establecer la conexión con el servidor. Detalle: ${ error }` );
+                this.alertService.error( this.translate.translateKeyP('ALERTS.errorConnectionServer',{$PH:error}) );
             });
     }
 
@@ -318,11 +320,11 @@ export class InvClasesPlazosInversionesComponent implements OnInit {
                 } else { 
                 
                     this.inicializaFormulario();
-                    this.alertService.info('No se encontraron registros .');
+                    this.alertService.info(this.translate.translateKey('ALERTS.NO_RECORDS_FOUND'));
                 }
             },
             error => {
-                let message : string = 'Problemas de conexión: ' + error;
+                let message : string = this.translate.translateKeyP('ALERTS.CONNECTION_PROBLEMS',{$PH:error});
                 this.alertService.error(message);
             });
     }
@@ -395,12 +397,12 @@ export class InvClasesPlazosInversionesComponent implements OnInit {
 
                     this.inicializaFormulario();
 
-                    this.alertService.success( `Registro exitoso .` );
+                    this.alertService.success( this.translate.translateKey('ALERTS.SUCCESSFUL_REGISTRATION') );
 
-                } else { this.alertService.error(`No fue posible registrar la moneda .`); }
+                } else { this.alertService.error(this.translate.translateKey('ALERTS.FAILED_CURRENCY_REGISTRATION')); }
 
             }, error => {
-                this.alertService.error( `Problemas al establecer la conexión con el servidor. Detalle: ${ error }` );
+                this.alertService.error(this.translate.translateKeyP('ALERTS.errorConnectionServer',{$PH:error}) );
             });
     }
 
@@ -414,7 +416,7 @@ export class InvClasesPlazosInversionesComponent implements OnInit {
         var id : number = this.formulario.controls['idClase'].value;
 
         this.dialogo.open(DialogoConfirmacionComponent, {
-            data: `Segur@ que desea eliminar el registro para siempre ?`
+            data: this.translate.translateKey('ALERTS.dialogConfirmDelete')
         })
         .afterClosed()
         .subscribe((confirmado: Boolean) => {
@@ -471,12 +473,12 @@ export class InvClasesPlazosInversionesComponent implements OnInit {
 
                     this.inicializaFormulario();
 
-                    this.alertService.success( `Registro actualizado con éxito con éxito.` );
+                    this.alertService.success( this.translate.translateKey('ALERTS.SUCCESSFUL_UPDATE') );
 
-                } else { this.alertService.error(`No fue posible actualizar el registro .`); }
+                } else { this.alertService.error(this.translate.translateKey('ALERTS.FAILED_UPDATE')); }
 
             }, error => {
-                this.alertService.error( `Problemas al establecer la conexión con el servidor. Detalle: ${ error }` );
+                this.alertService.error( this.translate.translateKeyP('ALERTS.errorConnectionServer',{$PH:error}) );
             });
     }
 }

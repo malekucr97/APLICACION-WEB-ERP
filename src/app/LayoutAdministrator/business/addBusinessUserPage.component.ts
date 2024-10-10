@@ -6,6 +6,7 @@ import { User, Role } from '@app/_models';
 import { Compania } from '../../_models/modules/compania';
 import { OnSeguridad } from '@app/_helpers/abstractSeguridad';
 import { httpAccessAdminPage } from '@environments/environment';
+import { TranslateMessagesService } from '@app/_services/translate-messages.service';
 
 @Component({templateUrl: 'HTML_AddBusinessUserPage.html',
             styleUrls: ['../../../assets/scss/app.scss', '../../../assets/scss/administrator/app.scss']
@@ -30,14 +31,15 @@ export class AddBusinessUserComponent extends OnSeguridad implements OnInit {
 
     public HTTPListUserPage: string = httpAccessAdminPage.urlPageListUsers;
 
-    listUserSubject : User[];
+    public listUserSubject : User[];
 
     constructor(private route: ActivatedRoute,
                 private accountService: AccountService,
                 private alertService: AlertService,
-                private router: Router) {
+                private router: Router,
+                private translate: TranslateMessagesService ) {
 
-        super(alertService, accountService, router);
+        super(alertService, accountService, router, translate);
 
         // ***************************************************************
         // VALIDA ACCESO PANTALLA LOGIN ADMINISTRADOR
@@ -57,23 +59,11 @@ export class AddBusinessUserComponent extends OnSeguridad implements OnInit {
         this.consultarRolUsuarioCompania(this.userToAssign.idRol);
     }
 
-    consultarRolUsuarioCompania(idRolUser : string) : void {
-
-        if (idRolUser) {
-
-            this.existeRol = true;
-
-            this.accountService.getRolUserBusiness(this.userToAssign.idRol, this.businessObservable.id, this._HIdUserSessionRequest, 
-                                                                                                        this._HBusinessSessionRequest)
-                .pipe(first())
-                .subscribe(responseRole => { this.role = responseRole; });
-
-        } else { this.role = null; }
-    }
+    public redirectAdminUsersPage() : void { this.router.navigate([this.HTTPListUserPage]); }
 
     ngOnInit() {
 
-        this.accountService.getAllBusiness( this._HIdUserSessionRequest, this._HBusinessSessionRequest)
+        this.accountService.getAllBusiness()
             .pipe(first())
             .subscribe(responseListBusiness => {
 
@@ -81,9 +71,7 @@ export class AddBusinessUserComponent extends OnSeguridad implements OnInit {
 
                     this.listAllBusiness = responseListBusiness;
 
-                    this.accountService.getBusinessActiveUser(this.userToAssign.id, this._HIdUserSessionRequest,
-                                                                                    // this.UserSessionRequest,
-                                                                                    this._HBusinessSessionRequest)
+                    this.accountService.getBusinessActiveUser(this.userToAssign.id)
                         .pipe(first())
                         .subscribe(responseListBusinessUser => {
 
@@ -103,10 +91,10 @@ export class AddBusinessUserComponent extends OnSeguridad implements OnInit {
                 } else {
                     this.listAllBusiness = null; 
                     this.listBusinessUser = null;
-                    this.alertService.info('No se encontraron registro de empresas por el momento.');
+                    this.alertService.info(this.translate.translateKey('ALERTS.NO_COMPANY_RECORDS'));
                 }
             },
-            error => { this.alertService.error('Problemas al consultar la lista de compañías para la asignación del usuario seleccionado.' + error); });
+            error => { this.alertService.error(this.translate.translateKeyP('ALERTS.ERROR_LIST_COMPANIES', {ERROR: error})); });
     }
 
     assignBusinessUser(idBusiness: number) {
@@ -116,7 +104,7 @@ export class AddBusinessUserComponent extends OnSeguridad implements OnInit {
 
         let business : Compania = this.listAllBusiness.find(m => m.id == idBusiness);
 
-        this.accountService.assignBusinessUser(this.userToAssign.id, idBusiness,this._HIdUserSessionRequest, this._HBusinessSessionRequest)
+        this.accountService.assignBusinessUser(this.userToAssign.id, idBusiness)
             .pipe(first())
             .subscribe( response => {
 
@@ -143,9 +131,7 @@ export class AddBusinessUserComponent extends OnSeguridad implements OnInit {
 
         this.alertService.clear();
 
-        this.accountService.dessAssignAllBusinessUser(idUser,   this._HIdUserSessionRequest,
-                                                                // this.UserSessionRequest,
-                                                                this._HBusinessSessionRequest)
+        this.accountService.dessAssignAllBusinessUser(idUser)
             .pipe(first())
             .subscribe( response => {
 
@@ -174,9 +160,7 @@ export class AddBusinessUserComponent extends OnSeguridad implements OnInit {
 
         let business : Compania = this.listBusinessUser.find(m => m.id == idBusiness);
 
-        this.accountService.dessAssignBusinessUser(this.userToAssign.id,idBusiness, this._HIdUserSessionRequest,
-                                                                                    // this.UserSessionRequest,
-                                                                                    this._HBusinessSessionRequest)
+        this.accountService.dessAssignBusinessUser(this.userToAssign.id,idBusiness)
             .pipe(first())
             .subscribe( response => {
 
@@ -195,5 +179,24 @@ export class AddBusinessUserComponent extends OnSeguridad implements OnInit {
                 } else { this.alertService.error(response.responseMesagge); }
             },
             error => { this.alertService.error(error); });
+    }
+
+    // métodos privados
+    private consultarRolUsuarioCompania(idRolUser : string) : void {
+
+        if (idRolUser) {
+
+            this.existeRol = true;
+
+            this.accountService.getRolUserBusiness(this.userToAssign.idRol,this.businessObservable.id)
+                .pipe(first())
+                .subscribe(responseRole => {
+
+                    if (responseRole) {
+                        this.role = responseRole;   
+                    }
+                });
+
+        } else { this.role = null; }
     }
 }

@@ -21,6 +21,7 @@ import { InvTipoSector } from '@app/_models/Inversiones/TipoSector';
 import { InvPlazoInversion } from '@app/_models/Inversiones/PlazoInversion';
 import { InvTipoAnio } from '@app/_models/Inversiones/TipoAnio';
 import { InvEmisor } from '@app/_models/Inversiones/Emisor';
+import { TranslateMessagesService } from '@app/_services/translate-messages.service';
 
 declare var $: any;
 
@@ -76,7 +77,8 @@ export class InvInclusionInversionOperacionesComponent implements OnInit {
                     private inversionesService:     InversionesService,
                     private formBuilder:       FormBuilder,
                     private accountService:     AccountService,
-                    private dialogo:           MatDialog ) {
+                    private dialogo:           MatDialog,
+                    private translate: TranslateMessagesService ) {
 
         this.userObservable = this.accountService.userValue;
         this.moduleObservable = this.accountService.moduleValue;
@@ -212,10 +214,10 @@ export class InvInclusionInversionOperacionesComponent implements OnInit {
                 } else { 
                 
                     this.inicializaFormularioEncabezado();
-                    this.alertService.info('No se encontraron registros .');
+                    this.alertService.info(this.translate.translateKey('ALERTS.NO_RECORDS_FOUND'));
                 }
             },
-            error => { this.alertService.error('Problemas de conexión: ' + error); });
+            error => { this.alertService.error(this.translate.translateKeyP('ALERTS.CONNECTION_PROBLEMS',{$PH:error})); });
     }
     buscarObjetoDetalleXEncabezado(idEncabezado : number) : void {
 
@@ -235,10 +237,10 @@ export class InvInclusionInversionOperacionesComponent implements OnInit {
                 } else { 
                 
                     this.inicializaFormularioDetalle();
-                    this.alertService.info('No se encontraron registros .');
+                    this.alertService.info(this.translate.translateKey('ALERTS.NO_RECORDS_FOUND'));
                 }
             },
-            error => { this.alertService.error('Problemas de conexión: ' + error); });
+            error => { this.alertService.error(this.translate.translateKeyP('ALERTS.CONNECTION_PROBLEMS',{$PH:error})); });
     }
     inicializaFormularioEncabezado(objeto : InvInversionEncabezado = null) : void {
 
@@ -449,11 +451,11 @@ export class InvInclusionInversionOperacionesComponent implements OnInit {
 
                     this.inicializaFormularioEncabezado();
 
-                    this.alertService.success( `Registro exitoso .` );
+                    this.alertService.success( this.translate.translateKey('ALERTS.SUCCESSFUL_REGISTRATION') );
 
-                } else { this.alertService.error(`No fue posible registrar la moneda .`); }
+                } else { this.alertService.error(this.translate.translateKey('ALERTS.FAILED_CURRENCY_REGISTRATION')); }
 
-            }, error => { this.alertService.error( `Problemas al establecer la conexión con el servidor. Detalle: ${ error }` ); });
+            }, error => { this.alertService.error( this.translate.translateKeyP('ALERTS.errorConnectionServer',{$PH:error}) ); });
     }
     submitDetalle() : void {
 
@@ -477,11 +479,11 @@ export class InvInclusionInversionOperacionesComponent implements OnInit {
 
                     this.inicializaFormularioDetalle();
 
-                    this.alertService.success( `Registro exitoso .` );
+                    this.alertService.success( this.translate.translateKey('ALERTS.SUCCESSFUL_REGISTRATION') );
 
-                } else { this.alertService.error(`No fue posible registrar la moneda .`); }
+                } else { this.alertService.error(this.translate.translateKey('ALERTS.FAILED_CURRENCY_REGISTRATION')); }
 
-            }, error => { this.alertService.error( `Problemas al establecer la conexión con el servidor. Detalle: ${ error }` ); });
+            }, error => { this.alertService.error( this.translate.translateKeyP('ALERTS.errorConnectionServer',{$PH:error}) ); });
     }
 
     eliminarObjetoEncabezado() : void {
@@ -494,7 +496,7 @@ export class InvInclusionInversionOperacionesComponent implements OnInit {
         var id : number = this.formularioEncabezado.controls['idEncabezado'].value;
 
         this.dialogo.open(DialogoConfirmacionComponent, {
-            data: `Segur@ que desea eliminar el registro para siempre ?`
+            data: this.translate.translateKey('ALERTS.dialogConfirmDelete')
         })
         .afterClosed()
         .subscribe((confirmado: Boolean) => {
@@ -528,7 +530,7 @@ export class InvInclusionInversionOperacionesComponent implements OnInit {
         var id : number = this.formularioDetalle.controls['idDetalle'].value;
 
         this.dialogo.open(DialogoConfirmacionComponent, {
-            data: `Segur@ que desea eliminar el registro para siempre ?`
+            data: this.translate.translateKey('ALERTS.dialogConfirmDelete')
         })
         .afterClosed()
         .subscribe((confirmado: Boolean) => {
@@ -583,12 +585,12 @@ export class InvInclusionInversionOperacionesComponent implements OnInit {
 
                     this.inicializaFormularioEncabezado();
 
-                    this.alertService.success( `Registro actualizado con éxito.` );
+                    this.alertService.success( this.translate.translateKey('ALERTS.SUCCESSFUL_UPDATE') );
 
-                } else { this.alertService.error(`No fue posible actualizar el registro .`); }
+                } else { this.alertService.error(this.translate.translateKey('ALERTS.FAILED_UPDATE')); }
 
             }, error => {
-                this.alertService.error( `Problemas al establecer la conexión con el servidor. Detalle: ${ error }` );
+                this.alertService.error( this.translate.translateKeyP('ALERTS.errorConnectionServer',{$PH:error}) );
             });
     }
 
@@ -619,12 +621,12 @@ export class InvInclusionInversionOperacionesComponent implements OnInit {
 
                     this.inicializaFormularioDetalle();
 
-                    this.alertService.success( `Registro actualizado con éxito.` );
+                    this.alertService.success( this.translate.translateKey('ALERTS.SUCCESSFUL_UPDATE') );
 
-                } else { this.alertService.error(`No fue posible actualizar el registro .`); }
+                } else { this.alertService.error(this.translate.translateKey('ALERTS.FAILED_UPDATE')); }
 
             }, error => {
-                this.alertService.error( `Problemas al establecer la conexión con el servidor. Detalle: ${ error }` );
+                this.alertService.error( this.translate.translateKeyP('ALERTS.errorConnectionServer',{$PH:error}) );
             });
     }
 }

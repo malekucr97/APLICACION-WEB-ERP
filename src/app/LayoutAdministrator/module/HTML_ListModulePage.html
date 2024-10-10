@@ -1,105 +1,97 @@
-<h1 style="color:#1A5276">Módulos </h1>
+<article class="articulo">
+    <section>
 
-<a routerLink="{{URLIndexAdminPage}}" class="btn btn-light mb-2 mr-3">Volver</a>
+        <div class="articulo__contenedor__tittle">
+            <p class="articulo__contenedor__tittle__h1">{{businessObservable.nombre}}</p>
+            <p class="articulo__contenedor__tittle__h2">{{ 'CONFIGURATION.ADMIN_PAGE_LIST_MODULES.TITLE' | translate }}</p>
+        </div>
+        <hr>
+        <div class="row">
+            <div class="col-md-2">
+                <button class=" administracion-contenedor__content__item
+                                administracion-contenedor__content__item__backIco
+                                icon-button-medium"
+                        title="{{ 'CONFIGURATION.BTN_ADMIN_USERS' | translate}}"
+                        mat-icon-button 
+                        (click)="redirectAdminUsersPage()">
+                        <mat-icon>arrow_back</mat-icon> </button>
+            </div>
 
-<button *ngIf="habilitarBtnMantenimientoReportes" 
-    routerLink="{{URLAdminModulePage}}{{'mantenimientoReportes'}}" 
-    class="btn-sm item-list__admin__view"
-    style="float:right; text-align:right;"
-    mat-stroked-button 
-    >
-    Mantenimiento reportes Power BI
-</button>
+            <div class="col-md-3"></div> <div class="col-md-3"></div>
 
-<div class="card">
-    <div class="card-body">
-
-        <h3 style="color:#1A5276"><b>{{businessObservable.nombre}} </b></h3>
-        <br>
-        <h3 style="color:#1A5276">Actualice el Estado o Revise las Pantallas con Acceso.</h3>
-
-        <div>
-            <br>
-            <table class="table table-striped">
-                <thead>
-                    <tr>
-                        <th style="width: 25%">Identificador</th>
-                        <th style="width: 25%">Nombre</th>
-                        <th style="width: 48%">Descripción</th>
-                        <!-- <th style="width: 13%">Estado</th> -->
-
-                        <th style="width: 1%"></th>
-                        <th style="width: 1%"></th>
-
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr *ngFor="let module of listModules"
-                        class="item-list__list" >
-
-                        <td>{{module.identificador}}</td>
-                        <td>{{module.nombre}}</td>
-                        <td>{{module.descripcion}}</td>
-                        <!-- <td>{{module.estado}}</td> -->
-
-                        <td style="white-space: normal;">
-
-                            <button *ngIf="module.estado!='Activo'"
-                                (click)="activate(module.identificador)"
-                                class="btn-sm item-list__admin__ok" > 
-                                <!-- <mat-icon>star</mat-icon>  -->
-                                <!-- <mat-icon>star_border</mat-icon>  -->
-                                <!-- Activar  -->
-                                <mat-icon>thumb_down_alt</mat-icon>
-                                Estado Módulo
-                                
-                            </button>
-
-                            <button *ngIf="module.estado=='Activo'"
-                                (click)="inActivate(module.identificador)"
-                                class="btn-sm item-list__admin__warn" > 
-                                <!-- <mat-icon>star</mat-icon> -->
-                                <!-- <mat-icon>star_border</mat-icon>  llena --> 
-                                <!-- Inactivar  -->
-                                <mat-icon>thumb_up_alt</mat-icon>
-                                Estado Módulo
-                                
-                                
-                            </button>
-
-                            <!-- <button class="btn-sm item-list__admin__view"
-                                    (click)="selectModuleScreenUser(module.id)"> 
-                                    <mat-icon>view_quilt</mat-icon>
-                                    Pantallas Activas
-                            </button> -->
-
-                        </td>
-
-                        <td style="white-space: normal">
-
-                            <!-- <button *ngIf="module.estado!='Activo'"
-                                (click)="activate(module.identificador)"
-                                class="btn-sm item-list__admin__ok" > Activar 
-                            </button>
-
-                        <button *ngIf="module.estado=='Activo'"
-                                (click)="inActivate(module.identificador)"
-                                class="btn-sm item-list__admin__warn" > Inactivar </button> -->
-
-                            <button class="btn-sm item-list__admin__view"
-                                    (click)="selectModuleScreenUser(module.id)"> 
-                                    <mat-icon>view_quilt</mat-icon>
-                                    Pantallas Activas
-                            </button>
-
-                        </td>
-
-
-                    </tr>
-
-                </tbody>
-            </table>
+            <div class="col-md-4">
+                <button class="btn btn-light administracion-contenedor__content__item__maintancepowerbi"
+                        title="{{ 'CONFIGURATION.BTN_ADMIN_USERS' | translate}}"
+                        (click)="redirectAdminModulePowerBiPage()">
+                        {{ 'CONFIGURATION.ADMIN_PAGE_LIST_MODULES.BTN_MANTEINANCE_POWER_BI' | translate }}
+                        <mat-icon>crop_original</mat-icon> </button>
+            </div>
         </div>
 
-    </div>
-</div>
+        <div class="card">
+            <div class="card-body">
+        
+                <p class="articulo__contenedor__tittle__h3">{{ 'CONFIGURATION.ADMIN_PAGE_LIST_MODULES.SUBTITLE' | translate }}</p>
+        
+                <div class="articulo__contenedor__table">
+                    <br>
+                    <table class="table table-striped">
+                        <thead>
+                            <tr>
+                                <th style="width: 25%">{{ 'CONFIGURATION.ADMIN_PAGE_LIST_MODULES.TBL_ID' | translate }}</th>
+                                <th style="width: 25%">{{ 'CONFIGURATION.ADMIN_PAGE_LIST_MODULES.TBL_NAME' | translate }}</th>
+                                <th style="width: 40%">{{ 'CONFIGURATION.ADMIN_PAGE_LIST_MODULES.TBL_DESCRIPTION' | translate }}</th>
+                                <th style="width: 5%"></th>
+                                <th style="width: 5%"></th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr *ngFor="let module of listModules"
+                                class="item-list__list" >
+        
+                                <td>{{module.identificador}}</td>
+                                <td>{{module.nombre}}</td>
+                                <td>{{module.descripcion}}</td>
+        
+                                <td style="white-space: normal;">
+        
+                                    <button *ngIf="module.estado!='Active'"
+                                        (click)="activate(module.identificador)"
+                                        class="btn-sm item-list__admin__ok" >
+                                        <mat-icon>thumb_down_alt</mat-icon>
+                                        {{ 'CONFIGURATION.ADMIN_PAGE_LIST_MODULES.TBL_STATUS' | translate }}
+                                    </button>
+        
+                                    <button *ngIf="module.estado=='Active'"
+                                        (click)="inActivate(module.identificador)"
+                                        class="btn-sm item-list__admin__warn" >
+                                        <mat-icon>thumb_up_alt</mat-icon>
+                                        {{ 'CONFIGURATION.ADMIN_PAGE_LIST_MODULES.TBL_STATUS' | translate }}
+                                    </button>
+        
+                                </td>
+        
+                                <td style="white-space: normal">
+                                    <button class="btn-sm item-list__admin__view"
+                                            (click)="selectModuleScreenUser(module.id)"> 
+                                            <mat-icon>view_quilt</mat-icon>
+                                            {{ 'CONFIGURATION.ADMIN_PAGE_LIST_MODULES.TBL_SCREENS' | translate }}
+                                    </button>
+                                </td>
+                            </tr>
+        
+                            <tr *ngIf="!listModules || !listModulesSystem">
+                                <td colspan="5" class="text-center">
+                                    <span class="spinner-border spinner-border-lg align-center"></span>
+                                </td>
+                            </tr>
+        
+                        </tbody>
+                    </table>
+                </div>
+        
+            </div>
+        </div>
+
+    </section>
+</article>

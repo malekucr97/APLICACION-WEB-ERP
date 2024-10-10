@@ -13,6 +13,7 @@ import { InversionesService }                       from '@app/_services/inversi
 import { InvTipoMoneda } from '@app/_models/Inversiones/TipoMoneda';
 import { first } from 'rxjs/operators';
 import { InvTipoCambio } from '@app/_models/Inversiones/TipoCambio';
+import { TranslateMessagesService } from '@app/_services/translate-messages.service';
 
 declare var $: any;
 
@@ -64,7 +65,8 @@ export class InvTiposMonedasComponent implements OnInit {
                     private inversionesService:     InversionesService,
                     private formBuilder:       FormBuilder,
                     private accountService:     AccountService,
-                    private dialogo:           MatDialog ) {
+                    private dialogo:           MatDialog,
+                    private translate: TranslateMessagesService ) {
 
         this.userObservable = this.accountService.userValue;
         this.moduleObservable = this.accountService.moduleValue;
@@ -144,7 +146,7 @@ export class InvTiposMonedasComponent implements OnInit {
         if (isNaN(+bccrIndicadorVenta) == false && bccrIndicadorVenta > 0 && poseeIndicadoresBCCR) poseeIndicadoresBCCR = true ;
 
         if(!poseeIndicadoresBCCR){
-            this.alertService.error( `Debe de registrar los Indicadores del tipo de cambio de Compra y Venta asignados por el BCCR a la moneda que corresponde.` );
+            this.alertService.error(this.translate.translateKey('ALERTS.BCCR_ExchangeRate_Indicators_Required'));
             return ;
         }
 
@@ -199,12 +201,12 @@ export class InvTiposMonedasComponent implements OnInit {
                 } else { 
                 
                     this.inicializaFormTipoMoneda();
-                    this.alertService.info('No se encontraron registros .'); 
+                    this.alertService.info(this.translate.translateKey('ALERTS.NO_RECORDS_FOUND')); 
                 
                 }
             },
             error => {
-                let message : string = 'Problemas de conexión: ' + error;
+                let message : string = this.translate.translateKeyP('ALERTS.CONNECTION_PROBLEMS',{$PH:error});
                 this.alertService.error(message);
             });
     }
@@ -238,11 +240,11 @@ export class InvTiposMonedasComponent implements OnInit {
                     this.habilitaListaTipoCambio = false ;
                 
                     this.inicializaFormularioTipoCambio();
-                    this.alertService.info('No se encontraron registros para el ' + fechaConsultaCompleta);
+                    this.alertService.info(this.translate.translateKey('ALERTS.NO_RECORDS_FOUND'));
                 }
             },
             error => {
-                let message : string = 'Problemas de conexión: ' + error;
+                let message : string = this.translate.translateKeyP('ALERTS.CONNECTION_PROBLEMS',{$PH:error});
                 this.alertService.error(message);
             });
     }
@@ -405,12 +407,12 @@ export class InvTiposMonedasComponent implements OnInit {
 
                     this.inicializaFormTipoMoneda();
 
-                    this.alertService.success( `Moneda ${response.codigoMoneda} registrada con éxito.` );
+                    this.alertService.success( this.translate.translateKeyP('ALERTS.SUCCESSFUL_CURRENCY_REGISTRATION',{$PH:response.codigoMoneda}) );
 
-                } else { this.alertService.error(`No fue posible registrar la moneda .`); }
+                } else { this.alertService.error(this.translate.translateKey('ALERTS.FAILED_CURRENCY_REGISTRATION')); }
 
             }, error => {
-                this.alertService.error( `Problemas al establecer la conexión con el servidor. Detalle: ${ error }` );
+                this.alertService.error( this.translate.translateKeyP('ALERTS.errorConnectionServer',{$PH:error}) );
             });
     }
     submitFormTipoCambio() : void {
@@ -439,12 +441,12 @@ export class InvTiposMonedasComponent implements OnInit {
 
                     this.habilitaListaTipoCambio = true ;
 
-                    this.alertService.success( `Registro exitoso .` );
+                    this.alertService.success( this.translate.translateKey('ALERTS.SUCCESSFUL_REGISTRATION') );
 
-                } else { this.alertService.error(`No fue posible realizar el registro .`); }
+                } else { this.alertService.error(this.translate.translateKey('ALERTS.FAILED_REGISTRATION')); }
 
             }, error => {
-                this.alertService.error( `Problemas al establecer la conexión con el servidor. Detalle: ${ error }` );
+                this.alertService.error( this.translate.translateKeyP('ALERTS.errorConnectionServer',{$PH:error}) );
             });
     }
 
@@ -458,7 +460,7 @@ export class InvTiposMonedasComponent implements OnInit {
         var id : number = this.formTipoMoneda.controls['id'].value;
 
         this.dialogo.open(DialogoConfirmacionComponent, {
-            data: `Segur@ que desea eliminar el registro para siempre ?`
+            data: this.translate.translateKey('ALERTS.dialogConfirmDelete')
         })
         .afterClosed()
         .subscribe((confirmado: Boolean) => {
@@ -494,7 +496,7 @@ export class InvTiposMonedasComponent implements OnInit {
         var id : number = this.formTipoCambio.controls['id'].value;
 
         this.dialogo.open(DialogoConfirmacionComponent, {
-            data: `Segur@ que desea eliminar el registro para siempre ?`
+            data: this.translate.translateKey('ALERTS.dialogConfirmDelete')
         })
         .afterClosed()
         .subscribe((confirmado: Boolean) => {
@@ -557,12 +559,12 @@ export class InvTiposMonedasComponent implements OnInit {
 
                     this.inicializaFormTipoMoneda();
 
-                    this.alertService.success( `Moneda ${response.codigoMoneda} actualizada con éxito.` );
+                    this.alertService.success( this.translate.translateKeyP('ALERTS.SUCCESSFUL_CURRENCY_UPDATE',{$PH:response.codigoMoneda}) );
 
-                } else { this.alertService.error(`No fue posible actualizar el registro .`); }
+                } else { this.alertService.error(this.translate.translateKey('ALERTS.FAILED_UPDATE')); }
 
             }, error => {
-                this.alertService.error( `Problemas al establecer la conexión con el servidor. Detalle: ${ error }` );
+                this.alertService.error( this.translate.translateKeyP('ALERTS.errorConnectionServer',{$PH:error}) );
             });
     }
     actualizaObjetoMontoPersona() : void {
@@ -592,12 +594,12 @@ export class InvTiposMonedasComponent implements OnInit {
 
                     this.inicializaFormularioTipoCambio();
 
-                    this.alertService.success( `Registro actulizado con éxito .` );
+                    this.alertService.success( this.translate.translateKey('ALERTS.SUCCESSFUL_UPDATE') );
 
-                } else { this.alertService.error(`No fue posible actualizar el registro .`); }
+                } else { this.alertService.error(this.translate.translateKey('ALERTS.FAILED_UPDATE')); }
 
             }, error => {
-                this.alertService.error( `Problemas al establecer la conexión con el servidor. Detalle: ${ error }` );
+                this.alertService.error( this.translate.translateKeyP('ALERTS.errorConnectionServer',{$PH:error}) );
             });
     }
 }

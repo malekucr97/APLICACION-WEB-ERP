@@ -8,6 +8,7 @@ import {MatTreeFlatDataSource, MatTreeFlattener} from '@angular/material/tree';
 
 import { Compania } from '../../_models/modules/compania';
 import { httpLandingIndexPage } from '@environments/environment';
+import { TranslateMessagesService } from '@app/_services/translate-messages.service';
 
 /** menu - tree
  * Interfaz o estructura del arbol 
@@ -104,7 +105,8 @@ export class MenuInventarioComponent {
         { menuLink: '/',        menuIcon: 'home',    menuName: 'submenu 2'}
     ];
 
-    constructor(private accountService: AccountService) {
+    constructor(private accountService: AccountService,
+      public translate: TranslateMessagesService) {
         this.userObservable = this.accountService.userValue;
         this.moduleObservable = this.accountService.moduleValue;
         this.businessObservable = this.accountService.businessValue;

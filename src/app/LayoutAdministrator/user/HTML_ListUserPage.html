@@ -1,89 +1,137 @@
-<h1 style="color:#1A5276">Usuarios</h1>
-<h4>Lista de de usuarios registrados en el sistema</h4>
-<a routerLink="{{URLAdministratorPage}}" class="btn btn-light mb-2 mr-3">Volver</a><br>
-<div class="card">
+<article class="articulo">
+    <section>
 
-    <div class="card-body">
+        <div>
+            <div>
+                <p class="articulo__contenedor__tittle__h1">{{businessObservable.nombre}}</p>
+                <p class="articulo__contenedor__tittle__h2">{{ 'CONFIGURATION.ADMIN_PAGE_LIST_USERS.TITLE' | translate }}</p>
+            </div>
+    
+            <hr>
+    
+            <div>
+                <button class=" administracion-contenedor__content__item
+                                administracion-contenedor__content__item__backIco
+                                icon-button-medium"
+                        title="{{ 'CONFIGURATION.BTN_ADMIN_USERS' | translate}}"
+                        mat-icon-button 
+                        (click)="redirectAdminUsersPage()"> <mat-icon>arrow_back</mat-icon>
+                </button>
+            </div>
+        </div>
 
-        <button routerLink="{{URLAddEditUsertPage}}"
-                class="item-list__confirm float-right" 
-                mat-icon-button > <mat-icon>person_add</mat-icon>
-        </button>
+        <div class="card">
+            <div class="card-body">
 
-        <table class="table table-striped">
-            <thead>
-                <tr>
-                    <th style="width: 1%"></th>
-                    <th style="width: 9%">Identificación</th>
-                    <th style="width: 20%">Nombre</th>
-                    <th style="width: 20%">Email</th>
-                    <th style="width: 25%">Puesto</th>
-                    <th style="width: 10%">Estado</th>
+                <article>
+                    <section>
+                        <div class="row">
+                            <div class="col-md-9">
+                                <p class="articulo__contenedor__tittle__h3">{{ 'CONFIGURATION.ADMIN_PAGE_LIST_USERS.SUBTITLE' | translate }}</p>    
+                            </div>
+                            
+                            <div class="col-md-3">
+                                <button class=" administracion-contenedor__content__item
+                                                administracion-contenedor__content__item__newUser
+                                                icon-button-medium"
+                                        title="{{ 'CONFIGURATION.BTN_ADMIN_USERS' | translate}}"
+                                        mat-icon-button 
+                                        (click)="selectObjetoUsuario()"> <mat-icon>person_add</mat-icon>
+                                </button>
+                            </div>
+                        </div>
+                    </section>
+                </article>
 
-                    <th style="width: 1%"></th>
-                    <th style="width: 1%"></th>
-                    <th style="width: 1%"></th>
-                    <th style="width: 1%"></th>
+                <article>
+                    <section>
+                        <div class="articulo__contenedor__table">
+                            <table class="table table-striped">
+                                <thead>
+                                    <tr>
+                                        <th style="width: 1%"></th>
+                                        <th style="width: 10%">{{ 'CONFIGURATION.ADMIN_PAGE_LIST_USERS.TBL_ID' | translate }}</th>
+                                        <th style="width: 25%">{{ 'CONFIGURATION.ADMIN_PAGE_LIST_USERS.TBL_USERNAME' | translate }}</th>
+                                        <th style="width: 25%">{{ 'CONFIGURATION.ADMIN_PAGE_LIST_USERS.TBL_EMAIL' | translate }}</th>
+                                        <th style="width: 25%">{{ 'CONFIGURATION.ADMIN_PAGE_LIST_USERS.TBL_ROL' | translate }}</th>
+                                        <th style="width: 10%">{{ 'CONFIGURATION.ADMIN_PAGE_LIST_USERS.TBL_STATUS' | translate }}</th>
+                    
+                                        <th style="width: 1%"></th>
+                                        <th style="width: 1%"></th>
+                                        <th style="width: 1%"></th>
+                                        <th style="width: 1%"></th>
+                    
+                                    </tr>
+                                </thead>
+                                <tbody>
+                    
+                                    <tr *ngFor="let us of listUsers" class="item-list__list" >
+                    
+                                        <td style="white-space: nowrap" 
+                                            class="item-list__edit"
+                                            (click)="selectObjetoUsuario(us)">
+                                            <a> <mat-icon>edit</mat-icon> </a>
+                                        </td>
+                    
+                                        <td (click)="selectObjetoUsuario(us)">{{us.identificacion}}</td>
+                                        <td (click)="selectObjetoUsuario(us)">{{us.nombreCompleto}}</td>
+                                        <td (click)="selectObjetoUsuario(us)">{{us.email}}</td>
+                                        <td (click)="selectObjetoUsuario(us)">{{us.puesto}}</td>
+                                        <td (click)="selectObjetoUsuario(us)">{{us.estado}}</td>
+                    
+                                        <td style="white-space: normal">
+                                            <button *ngIf="isUserSuperAdmin" 
+                                                    (click)="optionBusiness(us)" 
+                                                    class="btn-sm item-list__admin__view">
+                                                {{ 'CONFIGURATION.ADMIN_PAGE_LIST_USERS.TBL_BTN_COMPANY' | translate }} 
+                                            </button>
+                                        </td>
+                    
+                                        <td style="white-space: normal">
+                                            <button (click)="optionRole(us)" 
+                                                    class="btn-sm item-list__admin__view"> 
+                                                {{ 'CONFIGURATION.ADMIN_PAGE_LIST_USERS.TBL_BTN_ROLE' | translate }} 
+                                            </button>
+                                        </td>
+                    
+                                        <td style="white-space: normal">
+                                            <button *ngIf="us.estado!='Active'"
+                                                (click)="activateUser(us.identificacion, us.id)"
+                                                class="btn-sm item-list__admin__ok" 
+                                                mat-icon-button > <mat-icon>thumb_down_alt</mat-icon>
+                                            </button>
+                    
+                                            <button *ngIf="us.estado=='Active'"
+                                                (click)="inActivateUser(us.identificacion, us.id)"
+                                                class="btn-sm item-list__admin__warn" 
+                                                mat-icon-button > <mat-icon>thumb_up_alt</mat-icon>
+                                            </button>
+                                        </td>
+                    
+                                        <td style="white-space: normal">
+                    
+                                            <button (click)="deleteUser(us.id)"
+                                                class="bbtn-sm item-list__admin__danger" 
+                                                mat-icon-button > <mat-icon>delete</mat-icon>
+                                            </button>
+                                        </td>
+                                    </tr>
 
-                </tr>
-            </thead>
-            <tbody>
+                                    <tr *ngIf="!enableList">
+                                        <td colspan="10" class="text-center">
+                                            <span class="spinner-border spinner-border-lg align-center"></span>
+                                        </td>
+                                    </tr>
 
-                <tr *ngFor="let us of listUsers"
-                    class="item-list__list" >
+                                </tbody>
+                    
+                            </table>
+                        </div>
+                    </section>
+                </article>
 
-                    <td style="white-space: nowrap" 
-                        class="item-list__edit"
-                        (click)="selectObjetoUsuario(us)">
-                        <a> <mat-icon>edit</mat-icon> </a>
-                    </td>
+            </div>
+        </div>
 
-                    <td (click)="selectObjetoUsuario(us)">{{us.identificacion}}</td>
-                    <td (click)="selectObjetoUsuario(us)">{{us.nombreCompleto}}</td>
-                    <td (click)="selectObjetoUsuario(us)">{{us.email}}</td>
-                    <td (click)="selectObjetoUsuario(us)">{{us.puesto}}</td>
-                    <td (click)="selectObjetoUsuario(us)">{{us.estado}}</td>
-
-                    <td style="white-space: normal">
-                        <button *ngIf="isUserSuperAdmin" (click)="selectEmpresa(us)" 
-                                                            class="btn-sm item-list__admin__view"> 
-                            Empresa 
-                        </button>
-                    </td>
-
-                    <td style="white-space: normal">
-                        <button routerLink="{{URLAddRoleUsertPage}}{{us.identificacion}}" 
-                                class="btn-sm item-list__admin__view"> 
-                            Rol 
-                        </button>
-                    </td>
-
-                    <td style="white-space: normal">
-                        <button *ngIf="us.estado!='Activo'"
-                            (click)="activateUser(us.identificacion, us.id)"
-                            class="btn-sm item-list__admin__ok" 
-                            mat-icon-button > <mat-icon>thumb_down_alt</mat-icon>
-                        </button>
-
-                        <button *ngIf="us.estado=='Activo'"
-                            (click)="inActivateUser(us.identificacion, us.id)"
-                            class="btn-sm item-list__admin__warn" 
-                            mat-icon-button > <mat-icon>thumb_up_alt</mat-icon>
-                        </button>
-                    </td>
-
-                    <td style="white-space: normal">
-
-                        <button (click)="deleteUser(us.identificacion, us.id)"
-                            class="bbtn-sm item-list__admin__danger" 
-                            mat-icon-button > <mat-icon>delete</mat-icon>
-                        </button>
-                    </td>
-
-                </tr>
-            </tbody>
-
-        </table>
-
-    </div>
-</div>
+    </section>
+</article>

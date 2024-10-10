@@ -1,176 +1,172 @@
-<main>
-  <article class="articulo">
-    <div class="articulo__contenedor mat-elevation-z4">
-      <!-- HEADER -->
-      <section>
-        <div class="articulo__contenedor__header">
-          <div class="articulo__contenedor__header__prev">
-            <p>Manteniemiento para {{ businessObservable.nombre }}</p>
-            <a routerLink="{{ URLIndexAdminPage }}" class="btn btn-light mb-2 mr-3">Volver</a>
-          </div>
+<article class="articulo">
+  <section>
 
-          <div class="articulo__contenedor__header__next"></div>
-        </div>
-      </section>
+      <div class="articulo__contenedor__tittle">
+        <p class="articulo__contenedor__tittle__h1">{{businessObservable.nombre}}</p>
+        <p class="articulo__contenedor__tittle__h2">{{ 'CONFIGURATION.ADMIN_PAGE_LIST_MODULES.TITLE_MANTEINANCE_FOR' | translate }}</p>
+      </div>
 
-      <!-- ************************** -->
-      <!-- SECCIÓN FORMULARIO MODULOS -->
-      <!-- ************************** -->
-      <section>
-        <div class="articulo__contenedor__body">
-          <div class="articulo__contenedor__body__prev">
-            <div class="articulo__contenedor__body__prev__form">
-              <div class="articulo__contenedor__body__prev__form__header p-2">
-                <div class="articulo__contenedor__body__prev__form__header__prev">
-                  <p class="articulo__contenedor__body__prev__form__header__titulo">Mantenimiento de {{tituloBasePantalla}}</p>
-                </div>
+      <hr>
 
-                <div class="articulo__contenedor__body__prev__form__header__next">
-                  <button *ngIf="habilitaBtnNuevo" class="articulo__contenedor__body__prev__form__header__prev__btns__new" mat-flat-button (click)="limpiarFormulario()">Nuevo</button>
-                  <button *ngIf="habilitaBtnActualiza" class="articulo__contenedor__header__prev__btns__warn" mat-flat-button (click)="actualizarModulo()">Actualizar</button>
-                  <button *ngIf="habilitaBtnRegistro" class="articulo__contenedor__header__prev__btns__ok" mat-flat-button (click)="registrarModulo()">Registrar</button>
-                  <button *ngIf="habilitaBtnEliminar" class="articulo__contenedor__header__prev__btns__danger" mat-flat-button (click)="eliminarModulo()">Eliminar</button>
-                </div>
+      <button class=" administracion-contenedor__content__item
+                      administracion-contenedor__content__item__backIco-sm
+                      icon-button-medium"
+              title="{{ 'CONFIGURATION.BTN_ADMIN_USERS' | translate}}"
+              mat-icon-button 
+              (click)="redirectListModulesPage()"> <mat-icon>arrow_back</mat-icon> </button>
+
+    <div class="card">
+    <div class="card-body">
+
+      <p class="articulo__contenedor__tittle__h3">{{ 'CONFIGURATION.ADMIN_PAGE_LIST_MODULES.SUBTITLE_POWERBI_FORM' | translate }}</p>
+
+      <hr>
+
+      <div class="articulo__contenedor__body">
+        <div class="articulo__contenedor__body__prev">
+          <div class="articulo__contenedor__body__prev__form">
+            <div class="articulo__contenedor__body__prev__form__header p-2">
+              <div class="articulo__contenedor__body__prev__form__header__prev">
+                <p class="tittle_form_h1">{{ 'CONFIGURATION.ADMIN_PAGE_LIST_MODULES.TITLE_MANTEINANCE_TO' | translate: {namepg: tituloBasePantalla} }}</p>
               </div>
 
-              <div class="articulo__contenedor__body__prev__form__content p-2">
-                <form [formGroup]="formAdminModule" class="row">
-
-                  <div class="form-group col-md-6">
-                    <label for="lblIdentificador" class="form-label">Identificador</label>
-                    <input
-                      maxlength="50"
-                      formControlName="Identificador"
-                      class="form-control"
-                      type="text"
-                      id="id_Identificador"
-                      [ngClass]="{
-                        'is-invalid': submitFormAdminModule && m.Identificador.errors
-                      }"
-                      [readOnly]="readOnlyInputIdentficador"
-                    />
-                    <div *ngIf="submitFormAdminModule && m.Identificador.errors" class="invalid-feedback">
-                      <div *ngIf="m.Identificador.errors.required">El campo es requerido.</div>
-                    </div>
-                  </div>
-
-                  <div class="form-group col-md-6">
-                    <label for="lblNombre" class="form-label">Nombre</label>
-                    <input
-                      maxlength="150"
-                      formControlName="Nombre"
-                      class="form-control"
-                      type="text"
-                      id="id_Nombre"
-                      [ngClass]="{
-                        'is-invalid': submitFormAdminModule && m.Nombre.errors
-                      }"
-                    />
-                    <div *ngIf="submitFormAdminModule && m.Nombre.errors" class="invalid-feedback">
-                      <div *ngIf="m.Nombre.errors.required">El campo es requerido.</div>
-                    </div>
-                  </div>
-
-                  <div class="form-group col-md-12">
-                    <label for="lblDescripcion" class="form-label">Descripción</label>
-                    <input
-                      maxlength="200"
-                      formControlName="Descripcion"
-                      class="form-control"
-                      type="text"
-                      id="id_Descripcion"
-                      [ngClass]="{
-                        'is-invalid': submitFormAdminModule && m.Descripcion.errors
-                      }"
-                    />
-                    <div *ngIf="submitFormAdminModule && m.Descripcion.errors" class="invalid-feedback">
-                      <div *ngIf="m.Descripcion.errors.required">El campo es requerido.</div>
-                    </div>
-                  </div>
-
-                  <div class="form-group col-md-12">
-                    <label for="lblDireccionLogo" class="form-label">Dirección de Imágen</label>
-                    <input
-                      formControlName="DireccionLogo"
-                      class="form-control"
-                      type="text"
-                      id="id_DireccionLogo"
-                      [ngClass]="{
-                        'is-invalid': submitFormAdminModule && m.DireccionLogo.errors
-                      }"
-                    />
-                    <div *ngIf="submitFormAdminModule && m.DireccionLogo.errors" class="invalid-feedback">
-                      <div *ngIf="m.DireccionLogo.errors.required">El campo es requerido.</div>
-                    </div>
-                  </div>
-
-                </form>
+              <div class="articulo__contenedor__body__prev__form__header__next">
+                <button *ngIf="habilitaBtnNuevo" class="articulo__contenedor__body__prev__form__header__prev__btns__new" mat-flat-button (click)="limpiarFormulario()">{{ 'GENERAL.BTN_NEW' | translate }}</button>
+                <button *ngIf="habilitaBtnActualiza" class="articulo__contenedor__header__prev__btns__warn" mat-flat-button (click)="actualizarModulo()">{{ 'GENERAL.BTN_UPDATE' | translate }}</button>
+                <button *ngIf="habilitaBtnRegistro" class="articulo__contenedor__header__prev__btns__ok" mat-flat-button (click)="registrarModulo()">{{ 'GENERAL.BTN_REGISTER' | translate }}</button>
+                <button *ngIf="habilitaBtnEliminar" class="articulo__contenedor__header__prev__btns__danger" mat-flat-button (click)="eliminarModulo()">{{ 'GENERAL.BTN_DELETE' | translate }}</button>
               </div>
+            </div>
+
+            <div class="articulo__contenedor__body__prev__form__content p-2">
+              <form [formGroup]="formAdminModule" class="row form-group">
+
+                <div class="col-md-6">
+                  <span for="lblIdentificador" class="articulo__contenedor__body__prev__form__content__span">{{ 'CONFIGURATION.ADMIN_PAGE_LIST_MODULES.FORM.TXT_ID' | translate }}</span>
+                  <input  formControlName="Identificador" 
+                          class="form-control"
+                          type="text"
+                          id="id_Identificador"
+                          [ngClass]="{'is-invalid': submitFormAdminModule && m.Identificador.errors}"
+                          [readOnly]="readOnlyInputIdentficador"/>
+                  <div *ngIf="submitFormAdminModule && m.Identificador.errors" class="invalid-feedback">
+                    <div *ngIf="m.Identificador.errors.required">{{ 'GENERAL.VALIDATES.EMPTY' | translate }}</div>
+                  </div>
+                </div>
+
+                <div class="col-md-6">
+                  <span for="lblNombre" class="articulo__contenedor__body__prev__form__content__span">{{ 'CONFIGURATION.ADMIN_PAGE_LIST_MODULES.FORM.TXT_NAME' | translate }}</span>
+                  <input  maxlength="150"
+                          formControlName="Nombre"
+                          class="form-control"
+                          type="text"
+                          id="id_Nombre"
+                          [ngClass]="{'is-invalid': submitFormAdminModule && m.Nombre.errors}"/>
+                  <div *ngIf="submitFormAdminModule && m.Nombre.errors" class="invalid-feedback">
+                    <div *ngIf="m.Nombre.errors.required">{{ 'GENERAL.VALIDATES.EMPTY' | translate }}</div>
+                  </div>
+                </div>
+
+                <div class="col-md-12">
+                  <span for="lblDescripcion" class="articulo__contenedor__body__prev__form__content__span">{{ 'CONFIGURATION.ADMIN_PAGE_LIST_MODULES.FORM.TXT_DESCRIPTION' | translate }}</span>
+                  <input  maxlength="200"
+                          formControlName="Descripcion"
+                          class="form-control"
+                          type="text"
+                          id="id_Descripcion"
+                          [ngClass]="{'is-invalid': submitFormAdminModule && m.Descripcion.errors}"/>
+                  <div *ngIf="submitFormAdminModule && m.Descripcion.errors" class="invalid-feedback">
+                    <div *ngIf="m.Descripcion.errors.required">{{ 'GENERAL.VALIDATES.EMPTY' | translate }}</div>
+                  </div>
+                </div>
+
+                <div class="col-md-12">
+                  <span for="lblDireccionLogo" class="articulo__contenedor__body__prev__form__content__span">{{ 'CONFIGURATION.ADMIN_PAGE_LIST_MODULES.FORM.TXT_IMAGE' | translate }}</span>
+                  <input  maxlength="200"
+                          formControlName="DireccionLogo"
+                          class="form-control"
+                          type="text"
+                          id="id_DireccionLogo"
+                          [ngClass]="{'is-invalid': submitFormAdminModule && m.DireccionLogo.errors}"/>
+                  <div *ngIf="submitFormAdminModule && m.DireccionLogo.errors" class="invalid-feedback">
+                    <div *ngIf="m.DireccionLogo.errors.required">{{ 'GENERAL.VALIDATES.EMPTY' | translate }}</div>
+                  </div>
+                </div>
+
+              </form>
             </div>
           </div>
         </div>
-      </section>
-
-      <!-- ************************ -->
-      <!-- SECCIÓN LISTA DE MODULOS -->
-      <!-- ************************ -->
-      <section>
-        <div class="articulo__contenedor__body__complete">
-          <div class="articulo__contenedor__body__next__list">
-            <div class="articulo__contenedor__body__next__list">
-              <div class="articulo__contenedor__body__next__list__header">
-                <div class="articulo__contenedor__body__prev__list__header__prev">
-                  <p class="articulo__contenedor__body__prev__list__header__titulo">Lista de {{tituloBasePantalla}} de la compañía</p>
-                  <div class="form-group col-md-4">
-                    <label for="lblbusquedaModulo" class="form-label">Buscar</label>
-                    <input class="form-control" type="text" id="id_busquedaModulo" [(ngModel)]="buscarModulo" (keyup)="filtrarLista()" />
-                  </div>
-                </div>
-
-                <div class="articulo__contenedor__body__prev__list__header__next"></div>
-              </div>
-
-              <div class="articulo__contenedor__body__next__list__content">
-                <div>
-                  <table class="table table-striped">
-                    <thead>
-                      <tr>
-                        <th></th>
-                        <th style="width: 25%">Identificación</th>
-                        <th style="width: 20%">Nombre</th>
-                        <th style="width: 30%">Descripción</th>
-                        <th style="width: 25%">Imágen</th>
-                      </tr>
-                    </thead>
-                    <tbody>
-                      <tr *ngFor="let obj of lstModulosComponente" class="item-list__list" (click)="seleccionarModulo(obj)">
-                        <td style="white-space: nowrap" class="item-list__view">
-                          <div>
-                            <a> <mat-icon>swap_horiz</mat-icon> </a>
-                          </div>
-                        </td>
-                        <td>{{ obj.identificador }}</td>
-                        <td>{{ obj.nombre }}</td>
-                        <td>{{ obj.descripcion }}</td>
-                        <td>{{ obj.pathLogo }}</td>
-                      </tr>
-                    </tbody>
-                  </table>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      <!-- FOOTER -->
-      <section>
-        <div class="articulo__contenedor__footer">
-          <div class="articulo__contenedor__footer__prev"></div>
-
-          <div class="articulo__contenedor__footer__next"></div>
-        </div>
-      </section>
+      </div>
     </div>
-  </article>
-</main>
+    
+    <hr>
+
+    <!-- ************************ -->
+    <!-- SECCIÓN LISTA DE MODULOS -->
+    <!-- ************************ -->
+    <section>
+      <div class="articulo__contenedor__body__complete">
+        <div class="articulo__contenedor__body__next__list">
+          <div class="articulo__contenedor__body__next__list">
+            <div class="articulo__contenedor__body__next__list__header">
+              <div class="articulo__contenedor__body__prev__list__header__prev">
+                <p class="articulo__contenedor__tittle__h3">{{ 'CONFIGURATION.ADMIN_PAGE_LIST_MODULES.TITLE_LIST_MANTEINANCE_TO' | translate: {namepg: tituloBasePantalla} }}</p>
+                
+                <div class="form-group col-md-4">
+                  <span for="lblbusquedaModulo" class="form-label">{{ 'INIT.SEARCH' | translate }}</span>
+                  <input  class="form-control" 
+                          type="text" 
+                          id="id_busquedaModulo" 
+                          [(ngModel)]="buscarModulo" 
+                          (keyup)="filtrarLista()" />
+                </div>
+
+              </div>
+
+              <div class="articulo__contenedor__body__prev__list__header__next"></div>
+            </div>
+
+            <div class="articulo__contenedor__table">
+
+                <table class="table table-striped">
+                  <thead>
+                    <tr>
+                      <th></th>
+                      <th style="width: 25%">{{ 'CONFIGURATION.ADMIN_PAGE_LIST_MODULES.TBL_ID' | translate }}</th>
+                      <th style="width: 20%">{{ 'CONFIGURATION.ADMIN_PAGE_LIST_MODULES.TBL_NAME' | translate }}</th>
+                      <th style="width: 30%">{{ 'CONFIGURATION.ADMIN_PAGE_LIST_MODULES.TBL_DESCRIPTION' | translate }}</th>
+                      <th style="width: 25%">{{ 'CONFIGURATION.ADMIN_PAGE_LIST_MODULES.TBL_IMAGE' | translate }}</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr *ngFor="let obj of lstModulosComponente" class="item-list__list" (click)="seleccionarModulo(obj)">
+                      <td style="white-space: nowrap" class="item-list__view">
+                        <div>
+                          <a> <mat-icon>swap_vert</mat-icon> </a>
+                        </div>
+                      </td>
+                      <td>{{ obj.identificador }}</td>
+                      <td>{{ obj.nombre }}</td>
+                      <td>{{ obj.descripcion }}</td>
+                      <td>{{ obj.pathLogo }}</td>
+                    </tr>
+                  </tbody>
+                </table>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- FOOTER -->
+    <section>
+      <div class="articulo__contenedor__footer">
+        <div class="articulo__contenedor__footer__prev"></div>
+
+        <div class="articulo__contenedor__footer__next"></div>
+      </div>
+    </section>
+  </div>
+</section>
+</article>

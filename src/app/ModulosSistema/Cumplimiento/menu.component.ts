@@ -10,6 +10,7 @@ import {MatTreeFlatDataSource, MatTreeFlattener} from '@angular/material/tree';
 import { Compania } from '../../_models/modules/compania';
 
 import { ModulesSystem, httpLandingIndexPage } from '@environments/environment';
+import { TranslateMessagesService } from '@app/_services/translate-messages.service';
 
  interface FoodNode { name: string; link: string; icon: string; children?: FoodNode[]; }
  interface ExampleFlatNode { expandable: boolean; name: string; link?: string; icon?: string; level: number; }
@@ -22,27 +23,27 @@ import { ModulesSystem, httpLandingIndexPage } from '@environments/environment';
                {name: 'Calificación Riesgo',
                link: '', 
                icon: '',
-               children: [{name: 'Grupos',      link: ModulesSystem.cumplimientobasehref + 'Mantenimientos/CalificacionRiesgo/Grupos/', icon: ''}, 
+               children: [{name: 'Grupos',      link: /*ModulesSystem.cumplimientobasehref*/ '' + 'Mantenimientos/CalificacionRiesgo/Grupos/', icon: ''}, 
                           {name: 'Criterios',   link: '/', icon: ''},
-                          {name: 'Paises',      link: ModulesSystem.cumplimientobasehref + 'Mantenimientos/CalificacionRiesgo/Paises/', icon: ''},
-                          {name: 'Profesiones', link: ModulesSystem.cumplimientobasehref + 'Mantenimientos/CalificacionRiesgo/Profesiones/', icon: ''},
-                          {name: 'Actividades Económicas',link: ModulesSystem.cumplimientobasehref + 'Mantenimientos/CalificacionRiesgo/ActividadesEconomicas/', icon: ''},
-                          {name: 'Rango Montos al Debe',  link: ModulesSystem.cumplimientobasehref + 'Mantenimientos/CalificacionRiesgo/MovimientosDebe/', icon: ''},
-                          {name: 'Rango Montos al Haber', link: ModulesSystem.cumplimientobasehref + 'Mantenimientos/CalificacionRiesgo/MovimientosHaber/', icon: ''},
-                          {name: 'Artículo 15',           link: ModulesSystem.cumplimientobasehref + 'Mantenimientos/CalificacionRiesgo/Articulo15/', icon: ''},
-                          {name: 'Productos Financieros', link: ModulesSystem.cumplimientobasehref + 'Mantenimientos/CalificacionRiesgo/ProductosFinancieros/', icon: ''},
+                          {name: 'Paises',      link: /*ModulesSystem.cumplimientobasehref*/ '' + 'Mantenimientos/CalificacionRiesgo/Paises/', icon: ''},
+                          {name: 'Profesiones', link: /*ModulesSystem.cumplimientobasehref*/ '' + 'Mantenimientos/CalificacionRiesgo/Profesiones/', icon: ''},
+                          {name: 'Actividades Económicas',link: /*ModulesSystem.cumplimientobasehref*/ '' + 'Mantenimientos/CalificacionRiesgo/ActividadesEconomicas/', icon: ''},
+                          {name: 'Rango Montos al Debe',  link: /*ModulesSystem.cumplimientobasehref*/ '' + 'Mantenimientos/CalificacionRiesgo/MovimientosDebe/', icon: ''},
+                          {name: 'Rango Montos al Haber', link: /*ModulesSystem.cumplimientobasehref*/ '' + 'Mantenimientos/CalificacionRiesgo/MovimientosHaber/', icon: ''},
+                          {name: 'Artículo 15',           link: /*ModulesSystem.cumplimientobasehref*/ '' + 'Mantenimientos/CalificacionRiesgo/Articulo15/', icon: ''},
+                          {name: 'Productos Financieros', link: /*ModulesSystem.cumplimientobasehref*/ '' + 'Mantenimientos/CalificacionRiesgo/ProductosFinancieros/', icon: ''},
                           {name: 'Nivel Transaccional',   link: '/', icon: ''},
                           {name: 'Fondos de Origen',      link: '/', icon: ''},
                           {name: 'Ubicación Geográfica',  link: '/', icon: ''},
-                          {name: 'Canales de Distribucción',link: ModulesSystem.cumplimientobasehref + 'Mantenimientos/CalificacionRiesgo/CanalesDistribucion/', icon: ''},
+                          {name: 'Canales de Distribucción',link: /*ModulesSystem.cumplimientobasehref*/ '' + 'Mantenimientos/CalificacionRiesgo/CanalesDistribucion/', icon: ''},
                           {name: 'Medios de Pago',            link: '/', icon: ''},
                           {name: 'Tipos de Personas',         link: '/', icon: ''},
-                          {name: 'Rango Cantidades al Debe',  link: ModulesSystem.cumplimientobasehref + 'Mantenimientos/CalificacionRiesgo/CantidadesDebe/', icon: ''},
-                          {name: 'Rango Cantidades al Haber', link: ModulesSystem.cumplimientobasehref + 'Mantenimientos/CalificacionRiesgo/CantidadesHaber/', icon: ''},
-                          {name: 'Especialidades',            link: ModulesSystem.cumplimientobasehref + 'Mantenimientos/CalificacionRiesgo/Especialidades/', icon: ''},
+                          {name: 'Rango Cantidades al Debe',  link: /*ModulesSystem.cumplimientobasehref*/ '' + 'Mantenimientos/CalificacionRiesgo/CantidadesDebe/', icon: ''},
+                          {name: 'Rango Cantidades al Haber', link: /*ModulesSystem.cumplimientobasehref*/ '' + 'Mantenimientos/CalificacionRiesgo/CantidadesHaber/', icon: ''},
+                          {name: 'Especialidades',            link: /*ModulesSystem.cumplimientobasehref*/ '' + 'Mantenimientos/CalificacionRiesgo/Especialidades/', icon: ''},
                           {name: 'Matrices',                  link: '/', icon: ''},
                           {name: 'Criterios por Matrices',    link: '/', icon: ''},
-                          {name: 'Niveles de Riesgo',         link: ModulesSystem.cumplimientobasehref + 'Mantenimientos/CalificacionRiesgo/NivelesRiesgos/', icon: ''},
+                          {name: 'Niveles de Riesgo',         link: /*ModulesSystem.cumplimientobasehref*/ '' + 'Mantenimientos/CalificacionRiesgo/NivelesRiesgos/', icon: ''},
                           {name: 'Calificación SUGEF',        link: '/', icon: ''}
                         ]}],
   },
@@ -116,7 +117,8 @@ export class MenuCumplimientoComponent implements OnInit {
 
     URLRedirectIndexContent: string = httpLandingIndexPage.indexHTTP;
 
-    constructor(private accountService: AccountService, private router: Router) {
+    constructor(private accountService: AccountService, private router: Router,
+      public translate: TranslateMessagesService) {
 
         this.userObservable = this.accountService.userValue;
         this.moduleObservable = this.accountService.moduleValue;

@@ -5,15 +5,15 @@
 
             <section>
                 <div class="articulo__contenedor__body">
-                    <h1>Hola !</h1>
-                    <h4>Usuario Bloqueado :(</h4>
+                    <h1>{{ 'GENERAL.HI' | translate }}</h1>
+                    <h4>{{ 'ALERTS.BLOCKED_USER' | translate }}</h4>
                     <br>
-                    <p>El usuario fue Bloqueado al intentar ingresar de forma incorrecta la contraseña la cantidad de veces permitidas en el sistema.</p>
+                    <p>{{ 'ALERTS.BLOCKED_USER_BY_PASSWORD' | translate }}</p>
                     <br>
-                    <p>Por favor contacte al administrador y solicite la activación de la cuenta y la actualización de la contraseña para su usuario: {{user.identificacion}}</p>
+                    <p>{{ 'ALERTS.BLOCKED_TUTORIAL' | translate: {identificacion:user.identificacion} }}</p>
                     
                     <button (click)="redirect()" class="btn-redirect-login" >
-                        Volver a Inicio de Sesión
+                        {{ 'GENERAL.BTN_BACK_LOGIN' | translate }}
                     </button>
                     <hr>
                 </div>

@@ -2,7 +2,7 @@
 
 export const environment = {
     production: true,
-    apiUrl: 'http://10.100.242.70:81',
+    apiUrl: 'http://localhost:4000',
 
     sessionStorageIdentificationUserKey: '_httpUsernameSessionStorageAppAdminModulesInraSA',
     sessionStorageModuleIdentification : '_httpModuleSelectedSessionStorageAppAdminModulesInraSA'
@@ -52,44 +52,11 @@ export const httpLandingIndexPage = {
 
 export const ModulesSystem = {
 
-    Identif_ActivosFijos:   'ID-BANKAP-ACT-FIJ',
-    activosfijosbasehref:   '/inra-sa/modulo-activos-fijos/',
+    Identif_Generales: 'ID-BANKAP-GENERAL',
+    generalesbasehref: '/inra-sa/general-module/',
 
-    Identif_Bancos:         'ID-BANKAP-BANCOS',
-    bancosbasehref:         '/inra-sa/modulo-bancos/',
-
-    Identif_Contabilidad:   'ID-BANKAP-CONTA',
-    contabilidadbasehref:   '/inra-sa/modulo-contabilidad/',
-
-    Identif_CuentasCobrar:  'ID-BANKAP-CXC',
-    cuentascobrarbasehref:  '/inra-sa/modulo-cuentas-cobrar/',
-
-    Identif_CuentasPagar:   'ID-BANKAP-CXP',
-    cuentaspagarbasehref:   '/inra-sa/modulo-cuentas-pagar/',
-
-    Identif_Facturacion:    'ID-BANKAP-FACTURA-E',
-    facturacionbasehref:    '/inra-sa/modulo-facturacion/',
-
-    Identif_Generales:      'ID-BANKAP-GENERAL',
-    generalesbasehref:      '/inra-sa/modulo-generales/',
-
-    Identif_Inventario:     'ID-BANKAP-INVENTARIO',
-    inventariobasehref:     '/inra-sa/modulo-inventario/',
-
-    Identif_Cumplimiento:   'ID-BANKAP-CUMPLIMIENTO',
-    cumplimientobasehref:   '/inra-sa/modulo-cumplimiento/',
-
-    Identif_Macred:         'ID-BANKAP-MACRED',
-    macredbasehref:         '/inra-sa/modulo-macred/',
-
-    Identif_RiesgoCredito:  'ID-BANKAP-RIESGO-CREDITO',
-    riesgocreditobasehref:  '/inra-sa/modulo-riesgo-credito/',
-
-    Identif_Inversiones:  'ID-BANKAP-INVERSIONES',
-    inversionesbasehref:  '/inra-sa/modulo-inversiones/',
-
-    Identif_PowerBI:  'ID-BANKAP-BI',
-    powerbibasehref:  '/inra-sa/modulo-powerbi/'
+    Identif_PowerBI: 'ID-BANKAP-BI',
+    powerbibasehref: '/inra-sa/powerbi-module/'
 };
 
 export const httpAccessAdminPage = {
@@ -111,6 +78,8 @@ export const httpAccessAdminPage = {
     urlPageAddEditRol:          '/admin-module/adminpage-addeditrol.html/',
     urlPageListUsers:           '/admin-module/adminpage-listusers.html',
     urlPageAddEditUser:         '/admin-module/adminpage-addedituser.html/',
+    urlPageListPlan:            '/admin-module/adminpage-listplan.html/',
+    urlPageAddEditPlan:         '/admin-module/adminpage-addeditplan.html/',
     urlPageAddBUser:            '/admin-module/adminpage-addbusinessuser.html/',
     urlPageAddRUser:            '/admin-module/adminpage-addroleuser.html/',
     urlPageAddModuleRol:        '/admin-module/adminpage-addmodulerol.html/',

@@ -18,6 +18,9 @@ import { ListRoleComponent } from './role/listRolePage.component';
 import { ListModuleComponent } from './module/listModulePage.component';
 import { AddModuleRoleComponent } from './module/addModuleRolePage.component';
 import { ListModuleBusinessComponent } from './module/listModuleBusinessPage.component';
+// -- planes
+import { ListPlanComponent } from './plan/listPlanPage.component';
+import { AddEditPlanComponent } from './plan/addEditPlanPage.component';
 
 // **********************************************
 // ## ********** RUTAS MÓDULOS SISTEMA **********
@@ -47,7 +50,11 @@ const routes: Routes = [
             { path: 'adminpage-addeditbusiness.html/:pidBusiness', component: AddEditBusinessComponent },
             { path: 'adminpage-listbusiness.html', component: ListBusinessComponent },
             { path: 'adminpage-addeditrol.html', component: AddEditRolComponent },
-
+            // -- plan
+            { path: 'adminpage-listplan.html/:pidBusiness', component: ListPlanComponent },
+            { path: 'adminpage-listplan.html', component: ListPlanComponent },
+            { path: 'adminpage-addeditplan.html', component: AddEditPlanComponent },
+            { path: 'adminpage-addeditplan.html/:pidPlan', component: AddEditPlanComponent },
             // -- roles
             { path: 'adminpage-addroleuser.html/:pidentificationUser', component: AddRoleUserComponent },
             { path: 'adminpage-listroles.html', component: ListRoleComponent },
@@ -60,7 +67,7 @@ const routes: Routes = [
             { path: 'adminpage-adminmodule.html/:tipoMantenimiento', component: AdminmoduleComponent },
 
             // ## ********* GENERALES -> PARÁMETROS********* ## //
-            { path: 'ConfiguracionCompania.html', component: ConfigurationCompaniaComponent },
+            { path: 'CompanySettings.html', component: ConfigurationCompaniaComponent },
         ]
     }
 ];

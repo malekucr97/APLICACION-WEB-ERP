@@ -1,5 +1,5 @@
 {
-  "name": "angular-9-registration-login-example",
+  "name": "app-cliente-angular-despliegue-de-modulos-multicompania",
   "version": "0.0.0",
   "resolutions": {
     "webpack": "^5.0.0"
@@ -12,7 +12,8 @@
     "build": "ng build",
     "test": "ng test",
     "lint": "ng lint",
-    "e2e": "ng e2e"
+    "e2e": "ng e2e",
+    "lcl": "ng extract-i18n --format=json --output-path=src/assets/i18n --out-file=localize.json"
   },
   "private": true,
   "dependencies": {
@@ -26,7 +27,10 @@
     "@angular/platform-browser": "~13.3.12",
     "@angular/platform-browser-dynamic": "~13.3.12",
     "@angular/router": "~13.3.12",
+    "@ngx-translate/core": "^14.0.0",
+    "@ngx-translate/http-loader": "^4.0.0",
     "bootstrap": "^4.5.2",
+    "cors": "^2.8.5",
     "jquery": "^3.6.0",
     "moment": "^2.29.4",
     "powerbi-client": "^2.22.3",
@@ -39,12 +43,14 @@
     "@angular/cli": "~13.3.10",
     "@angular/compiler-cli": "~13.3.12",
     "@angular/language-service": "~13.3.12",
+    "@angular/localize": "^13.3.12",
     "@types/jasmine": "~3.5.0",
     "@types/jasminewd2": "~2.0.3",
     "@types/jquery": "^3.5.14",
     "@types/node": "^12.11.1",
     "autoprefixer": "^10.4.14",
     "codelyzer": "^6.0.2",
+    "i18next-parser": "^8.13.0",
     "jasmine-core": "~3.8.0",
     "jasmine-spec-reporter": "~5.0.0",
     "karma": "~6.4.1",

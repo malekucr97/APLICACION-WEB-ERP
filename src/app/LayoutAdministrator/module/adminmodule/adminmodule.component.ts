@@ -5,6 +5,7 @@ import { OnSeguridad } from '@app/_helpers/abstractSeguridad';
 import { Compania, Module, User } from '@app/_models';
 import { ScreenModule } from '@app/_models/admin/screenModule';
 import { AccountService, AlertService } from '@app/_services';
+import { TranslateMessagesService } from '@app/_services/translate-messages.service';
 import { httpAccessAdminPage } from '@environments/environment';
 import { first } from 'rxjs/operators';
 
@@ -17,7 +18,7 @@ import { first } from 'rxjs/operators';
   ],
 })
 export class AdminmoduleComponent extends OnSeguridad implements OnInit {
-  URLIndexAdminPage: string = httpAccessAdminPage.urlPageListModule;
+  URLListModulesPage: string = httpAccessAdminPage.urlPageListModule;
   parametroTipoMantenimiento: string = undefined;
 
   userObservable: User;
@@ -29,7 +30,7 @@ export class AdminmoduleComponent extends OnSeguridad implements OnInit {
     return this.formAdminModule.controls;
   }
 
-  tituloBasePantalla: string = 'Módulos';
+  public tituloBasePantalla: string = 'Modules Power BI';
   private baseIdentificadorReportesPowerBI: string = 'ID-BANKAP-BI-';
   readOnlyInputIdentficador: boolean = false;
   habilitaBtnNuevo: boolean = true;
@@ -51,9 +52,10 @@ export class AdminmoduleComponent extends OnSeguridad implements OnInit {
               private alertService: AlertService,
               private formBuilder: FormBuilder,
               private route: ActivatedRoute,
-              private router: Router ) {
+              private router: Router,
+              private translate: TranslateMessagesService ) {
 
-    super(alertService, accountService, router);
+    super(alertService, accountService, router, translate);
 
     if (this.route.snapshot.params.tipoMantenimiento) {
       this.parametroTipoMantenimiento = this.route.snapshot.params.tipoMantenimiento;
@@ -84,10 +86,12 @@ export class AdminmoduleComponent extends OnSeguridad implements OnInit {
 
   //#region METODOS | FUNCIONES
 
+  public redirectListModulesPage() : void { this.router.navigate([this.URLListModulesPage]); }
+
   private ValidarTipoMantenimiento() {
-    this.tituloBasePantalla = 'Módulos';
+    // this.tituloBasePantalla = 'Módulos';
     if (this.parametroTipoMantenimiento == 'mantenimientoReportes') {
-      this.tituloBasePantalla = 'Reportes Power BI';
+      // this.tituloBasePantalla = 'Reportes Power BI';
       this.readOnlyInputIdentficador = true;
     } else {
       this.readOnlyInputIdentficador = false;
@@ -120,7 +124,7 @@ export class AdminmoduleComponent extends OnSeguridad implements OnInit {
 
   private obtenerListaModulos() {
     // SE OBTIENE LA LISTA DE MODULOS ASOCIADOS AL NEGOCIO
-    this.accountService.getModulesBusiness(this.businessObservable.id,this._HIdUserSessionRequest, this._HBusinessSessionRequest)
+    this.accountService.getModulesBusiness(this.businessObservable.id)
       .pipe(first())
       .subscribe((response) => {
         if (response && response.length > 0) {
@@ -144,7 +148,7 @@ export class AdminmoduleComponent extends OnSeguridad implements OnInit {
     this.submitFormAdminModule = true;
 
     if (this.formAdminModule.invalid) {
-      this.alertService.error('La información indicada no es válida.');
+      this.alertService.error(this.translate.translateKey('ALERTS.informationNotValid'));
       return undefined;
     }
 
@@ -192,7 +196,7 @@ export class AdminmoduleComponent extends OnSeguridad implements OnInit {
 
   private AsignarRolEmpresa(inModulo: Module, idNegocio: number) {
 
-    this.accountService.assignModuleToBusiness(inModulo.id, idNegocio, this._HIdUserSessionRequest, this._HBusinessSessionRequest)
+    this.accountService.assignModuleToBusiness(inModulo.id, idNegocio)
       .pipe(first())
       .subscribe((response) => {
         if (response.exito) {
@@ -216,23 +220,23 @@ export class AdminmoduleComponent extends OnSeguridad implements OnInit {
     pantallaForm.adicionadoPor = this.userObservable.identificacion;
     pantallaForm.fechaAdicion = new Date();
 
-    this.accountService.postPantallaModulo(pantallaForm, this._HIdUserSessionRequest, this._HBusinessSessionRequest)
+    this.accountService.postPantallaModulo(pantallaForm)
       .pipe(first())
       .subscribe(
         (response) => {
           if (response) {
             this.alertService.success(
-              `Pantalla ${pantallaForm.nombre} registrada con éxito.`
+              this.translate.translateKeyP('ALERTS.screenRegisterSuccess',{$PH:pantallaForm.nombre})
             );
             this.obtenerListaModulos();
             this.iniciarFormulario();
           } else {
-            this.alertService.error(`No fue posible registrar la pantalla .`);
+            this.alertService.error(this.translate.translateKey('ALERTS.screenRegisterError'));
           }
         },
         (error) => {
           this.alertService.error(
-            `Problemas al establecer la conexión con el servidor. Detalle: ${error}`
+            this.translate.translateKeyP('ALERTS.errorConnectionServer',{$PH:error})
           );
         }
       );
@@ -269,7 +273,7 @@ export class AdminmoduleComponent extends OnSeguridad implements OnInit {
     let oModuloIngresadoUsuario = this.obtenerDatosFormulario();
     if (!oModuloIngresadoUsuario) return;
 
-    this.accountService.postModule(oModuloIngresadoUsuario, this._HIdUserSessionRequest, this._HBusinessSessionRequest)
+    this.accountService.postModule(oModuloIngresadoUsuario)
       .pipe(first())
       .subscribe((response) => {
         if (response.exito) {
@@ -282,14 +286,14 @@ export class AdminmoduleComponent extends OnSeguridad implements OnInit {
 
   actualizarModulo() {
     if (!this.moduloSeleccionado) {
-      this.alertService.error('No se ha seleccionado una opción correcta.');
+      this.alertService.error(this.translate.translateKey('ALERTS.notCorrectOption'));
       return;
     }
 
     let oModuloIngresadoUsuario = this.obtenerDatosFormulario();
     if (!oModuloIngresadoUsuario) return;
     
-    this.accountService.updateModule(oModuloIngresadoUsuario, this._HIdUserSessionRequest, this._HBusinessSessionRequest)
+    this.accountService.updateModule(oModuloIngresadoUsuario)
       .pipe(first())
       .subscribe((response) => {
         if (response.exito) {
@@ -306,7 +310,7 @@ export class AdminmoduleComponent extends OnSeguridad implements OnInit {
 
     if (!this.moduloSeleccionado) return;
     
-    this.accountService.deleteModule(this.moduloSeleccionado, this._HIdUserSessionRequest, this._HBusinessSessionRequest)
+    this.accountService.deleteModule(this.moduloSeleccionado)
       .pipe(first())
       .subscribe((response) => {
         if (response.exito) {

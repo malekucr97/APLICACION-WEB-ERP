@@ -3,6 +3,7 @@ import { Router } from '@angular/router';
 import { OnSeguridad } from '@app/_helpers/abstractSeguridad';
 import { User, Module } from '@app/_models';
 import { AccountService, AlertService } from '@app/_services';
+import { TranslateMessagesService } from '@app/_services/translate-messages.service';
 
 @Component({
   templateUrl: 'index.html',
@@ -23,11 +24,12 @@ export class IndexInversionesComponent extends OnSeguridad implements OnInit {
   constructor(
     private alertService: AlertService,
     private accountService: AccountService,
-    private router: Router
+    private router: Router,
+    private translate: TranslateMessagesService
   ) {
 
     //#region VALIDACIÓN DE ACCESO Y AUTENTICACIÓN A LAS PANTALLAS
-    super(alertService, accountService, router);
+    super(alertService, accountService, router, translate);
 
     // ***************************************************************
     // VALIDA ACCESO PANTALLA LOGIN INDEX COMPONENT

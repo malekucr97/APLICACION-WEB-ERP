@@ -10,6 +10,7 @@ import { ScreenModule } from '@app/_models/admin/screenModule';
 import { ActivatedRoute, Router } from '@angular/router';
 import { administrator, httpAccessAdminPage } from '@environments/environment';
 import { OnSeguridad } from '@app/_helpers/abstractSeguridad';
+import { TranslateMessagesService } from '@app/_services/translate-messages.service';
 
 declare var $: any;
 
@@ -21,8 +22,6 @@ export class AddAccessUserModuleComponent extends OnSeguridad implements OnInit 
     @ViewChild(MatSidenav) sidenav !: MatSidenav;
 
     private nombrePantalla  : string = 'HTML_AddAccessUserModulePage.html';
-    public nombreModulo     : string = 
-    'Módulo de Administración / Administración de Pantallas por Módulo y Accesos de Pantallas por Usuario';
 
     URLListIndexModules: string = httpAccessAdminPage.urlPageListModule;
 
@@ -65,9 +64,10 @@ export class AddAccessUserModuleComponent extends OnSeguridad implements OnInit 
                     private formBuilder:    FormBuilder,
                     private accountService: AccountService,
                     private dialogo:        MatDialog,
-                    private router:         Router ) {
+                    private router:         Router,
+                    private translate: TranslateMessagesService ) {
 
-        super(alertService, accountService, router);
+        super(alertService, accountService, router, translate);
 
         // ***************************************************************
         // VALIDA ACCESO PANTALLA LOGIN ADMINISTRADOR
@@ -89,6 +89,8 @@ export class AddAccessUserModuleComponent extends OnSeguridad implements OnInit 
     get m () {   return this.formPantallasModulo.controls;  }
 
     ngOnInit() { this.buscarPantallasModulo(this.pidModuleParam); }
+
+    public redirectListModulesPage() : void { this.router.navigate([this.URLListIndexModules]); }
 
     nuevoRegistroPantalla() : void { 
 
@@ -163,7 +165,7 @@ export class AddAccessUserModuleComponent extends OnSeguridad implements OnInit 
     }
 
     buscarModuloId(moduleId : number) : void {
-        this.accountService.getModuleId(moduleId, this._HIdUserSessionRequest, this._HBusinessSessionRequest)
+        this.accountService.getModuleId(moduleId)
             .pipe(first())
             .subscribe(response => {
 
@@ -177,7 +179,7 @@ export class AddAccessUserModuleComponent extends OnSeguridad implements OnInit 
 
         this.alertService.clear();
 
-        this.accountService.getUsersBusiness(this.userObservable.empresa, this._HIdUserSessionRequest, this._HBusinessSessionRequest)
+        this.accountService.getUsersBusiness(this.userObservable.empresa)
             .pipe(first())
             .subscribe(response => {
 
@@ -190,14 +192,13 @@ export class AddAccessUserModuleComponent extends OnSeguridad implements OnInit 
 
                 } else { this.habilitaListasUsuarioCompania = false; }
 
-            }, error => { this.alertService.error('Problemas de conexión . ' + error); });
+            }, error => { this.alertService.error(this.translate.translateKeyP('ALERTS.CONNECTION_ERROR', {ERROR: error})); });
     }
     private consultaUsuariosAccesoPantalla(objetoPantalla: ScreenModule) : void {
 
         this.listUsuariosCompaniaPantalla = [];
 
-        this.accountService.getUsersBusinessScreenModule(objetoPantalla.id,this.companiaObservable.id,false,this._HIdUserSessionRequest, 
-                                                                                                            this._HBusinessSessionRequest)
+        this.accountService.getUsersBusinessScreenModule(objetoPantalla.id,this.companiaObservable.id,false)
             .pipe(first())
             .subscribe(response => {
 
@@ -223,8 +224,7 @@ export class AddAccessUserModuleComponent extends OnSeguridad implements OnInit 
 
             if (!nombrePantalla) nombrePantalla = "%%" ;
 
-            this.accountService.getPantallasNombre(nombrePantalla,this.companiaObservable.id,false, this._HIdUserSessionRequest,
-                                                                                                    this._HBusinessSessionRequest)
+            this.accountService.getPantallasNombre(nombrePantalla,this.companiaObservable.id,false)
                 .pipe(first())
                 .subscribe(response => {
 
@@ -243,12 +243,11 @@ export class AddAccessUserModuleComponent extends OnSeguridad implements OnInit 
 
                         this.inicializaFormPantallaModulo();
                     }
-                }, error => { this.alertService.error('Problemas de conexión: ' + error); });
+                }, error => { this.alertService.error(this.translate.translateKeyP('ALERTS.CONNECTION_ERROR', {ERROR: error})); });
 
         } else {
 
-            this.accountService.getPantallasModulo(idModuleSelected,this.companiaObservable.id,true,this._HIdUserSessionRequest,
-                                                                                                    this._HBusinessSessionRequest)
+            this.accountService.getPantallasModulo(idModuleSelected,this.companiaObservable.id,true)
             .pipe(first())
             .subscribe(response => {
 
@@ -265,7 +264,7 @@ export class AddAccessUserModuleComponent extends OnSeguridad implements OnInit 
 
                     this.inicializaFormPantallaModulo();
                 }
-            }, error => { this.alertService.error('Problemas de conexión: ' + error); });
+            }, error => { this.alertService.error(this.translate.translateKeyP('ALERTS.CONNECTION_ERROR', {ERROR: error})); });
         }
     }
 
@@ -284,8 +283,7 @@ export class AddAccessUserModuleComponent extends OnSeguridad implements OnInit 
         var pantallaId : number = this.formPantallasModulo.controls['idPantalla'].value;
         var screenObject : ScreenAccessUser = this.crearPantallaAccesoUsuarioObject(objeto.id, pantallaId);
 
-        this.accountService.deleteAccesoPantallaUsuario( screenObject.idUsuario,screenObject.idPantalla,screenObject.idCompania,this._HIdUserSessionRequest,
-                                                                                                                                this._HBusinessSessionRequest )
+        this.accountService.deleteAccesoPantallaUsuario(screenObject.idUsuario,screenObject.idPantalla,screenObject.idCompania)
             .pipe(first())
             .subscribe(response => {
 
@@ -320,7 +318,7 @@ export class AddAccessUserModuleComponent extends OnSeguridad implements OnInit 
             screenAccessUserObject.adicionadoPor = this.userObservable.identificacion;
             screenAccessUserObject.fechaAdicion = this.today;
 
-            this.accountService.postPantallaAccesoUsuario(screenAccessUserObject, this._HIdUserSessionRequest, this._HBusinessSessionRequest)
+            this.accountService.postPantallaAccesoUsuario(screenAccessUserObject)
                 .pipe(first())
                 .subscribe(response => {
 
@@ -334,7 +332,7 @@ export class AddAccessUserModuleComponent extends OnSeguridad implements OnInit 
 
                     } else { this.alertService.error(response.responseMesagge); }
                 });
-        } else {  this.alertService.info( `Parece que este usuario ya ha sido asignado .` ); }
+        } else {  this.alertService.info( this.translate.translateKey('ALERTS.USER_ASSIGNED') ); }
     }
 
     submitPantallaModulo() : void {
@@ -349,7 +347,7 @@ export class AddAccessUserModuleComponent extends OnSeguridad implements OnInit 
         pantallaModuloForm.adicionadoPor = this.userObservable.identificacion;
         pantallaModuloForm.fechaAdicion = this.today;
 
-        this.accountService.postPantallaModulo(pantallaModuloForm, this._HIdUserSessionRequest, this._HBusinessSessionRequest)
+        this.accountService.postPantallaModulo(pantallaModuloForm)
             .pipe(first())
             .subscribe(response => {
 
@@ -364,7 +362,7 @@ export class AddAccessUserModuleComponent extends OnSeguridad implements OnInit 
 
                 } else { this.alertService.error(response.responseMesagge); }
 
-            }, error => { this.alertService.error( `Problemas al establecer la conexión con el servidor. Detalle: ${ error }` ); });
+            }, error => { this.alertService.error(this.translate.translateKeyP('ALERTS.CONNECTION_ERROR', {ERROR: error})); });
     }
 
     eliminarPantallaModulo() : void {
@@ -376,15 +374,13 @@ export class AddAccessUserModuleComponent extends OnSeguridad implements OnInit 
 
         var id : number = this.formPantallasModulo.controls['idPantalla'].value;
 
-        this.dialogo.open(DialogoConfirmacionComponent, { data: `Segur@ que desea eliminar el registro para siempre ?` })
+        this.dialogo.open(DialogoConfirmacionComponent, { data: this.translate.translateKey('DIALOGS.DELETE_MODULE_TO_SCREEN') })
             .afterClosed()
             .subscribe((confirmado: Boolean) => {
 
                 if (confirmado) {
 
-                    this.accountService.deletePantallaModulo(id,this._HIdUserSessionRequest, 
-                                                                // this._HUserSessionRequest, 
-                                                                this._HBusinessSessionRequest)
+                    this.accountService.deletePantallaModulo(id)
                         .pipe(first())
                         .subscribe(response => {
 
@@ -421,7 +417,7 @@ export class AddAccessUserModuleComponent extends OnSeguridad implements OnInit 
         pantallaModuloForm.modificadoPor        = this.userObservable.identificacion;
         pantallaModuloForm.fechaModificacion    = this.today;
 
-        this.accountService.putPantallaModulo(pantallaModuloForm, this._HIdUserSessionRequest, this._HBusinessSessionRequest)
+        this.accountService.putPantallaModulo(pantallaModuloForm)
             .pipe(first())
             .subscribe(response => {
 
@@ -439,6 +435,6 @@ export class AddAccessUserModuleComponent extends OnSeguridad implements OnInit 
 
                 } else { this.alertService.error(response.responseMesagge); }
 
-            }, error => { this.alertService.error( `Problemas al establecer la conexión con el servidor. Detalle: ${ error }` ); });
+            }, error => { this.alertService.error(this.translate.translateKeyP('ALERTS.CONNECTION_ERROR', {ERROR: error})); });
     }
 }

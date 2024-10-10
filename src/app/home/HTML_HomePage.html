@@ -1,38 +1,46 @@
 <article class="var-menu">
   <section>
     <!-- menú -->
-    <div class="var-menu__prev">
+    <div class="var-menu__prev-home">
+      <div class="var-menu__prev-home__div">
+        <img class="var-menu__prev-home__div__img" src="./assets/images/inra/img_bankap_left.png " />
+      </div>
     </div>
 
     <!-- título -->
-    <div class="var-menu__center">
-      <div class="var-menu__center__left">
-        <img class="var-menu__center__left__img" src="./assets/images/inra/img_bankap_left.png " />
-      </div>
-      <div class="var-menu__center__center">
-        <p class="var-menu__center__center__titulo">SISTEMA DE GESTIÓN ADMINISTRATIVO FINANCIERO</p>
-      </div>
-      <div class="var-menu__center__rigth">
-        <img class="var-menu__center__rigth__img" src="./assets/images/inra/img_bankap_rigth.png " />
+    <div class="var-menu__center-home">
+      <div>
+        <p class="var-menu__center-home__titulo">{{ 'INIT.NAME' | translate }}</p>
       </div>
     </div>
 
     <!-- cerrar sesión -->
-    <div class="var-menu__next"> </div>
+    <div class="var-menu__next-home">
+      <div class="var-menu__next-home__div">
+        <img class="var-menu__next-home__div__img" src="./assets/images/inra/img_bankap_rigth.png " />
+      </div>
+    </div>
 
   </section>
 </article>
 
 <article class="select-company-contenedor">
-  <section>
-    <div class="card select-company-contenedor__card">
+  <section class="select-company-contenedor__card">
 
-      <div *ngIf="conexion" class="card-body select-company-contenedor__card__body"> <!-- body -->
-        <div class="list-group list-group-flush" *ngFor="let business of listBusiness">
-          <div class="list-group-item select-company-contenedor__card__body__item" (click)="selectBusiness(business)">
-            <div class="select-company-contenedor__card__body__item__titulo"> <p>{{business.nombre}}</p> </div>
-            <div class="select-company-contenedor__card__body__item__ico"> <mat-icon>open_in_new</mat-icon> </div>
+    <div class="card">
+
+      <div class="card-body">
+        <div *ngIf="conexion"> <!-- body -->
+
+          <div class="list-group list-group-flush" *ngFor="let business of listBusiness">
+            <div class="list-group-item select-company-contenedor__card__body__item" (click)="selectBusiness(business)">
+              <div class="select-company-contenedor__card__body__item__titulo"> 
+                <p class="select-company-contenedor__card__body__item__titulo__p">{{business.nombre}}</p>
+              </div>
+              <div class="select-company-contenedor__card__body__item__ico"> <mat-icon>open_in_new</mat-icon> </div>
+            </div>
           </div>
+
         </div>
       </div>
 

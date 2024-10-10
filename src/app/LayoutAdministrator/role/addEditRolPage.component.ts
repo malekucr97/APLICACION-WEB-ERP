@@ -7,9 +7,11 @@ import { User, Role, ResponseMessage, RoleBusiness } from '@app/_models';
 import { Compania } from '../../_models/modules/compania';
 import { httpAccessAdminPage } from '@environments/environment';
 import { OnSeguridad } from '@app/_helpers/abstractSeguridad';
+import { TranslateMessagesService } from '@app/_services/translate-messages.service';
 
-@Component({templateUrl: 'HTML_AddEditRolPage.html',
-            styleUrls: [ '../../../assets/scss/app.scss', '../../../assets/scss/administrator/app.scss']
+@Component({
+    templateUrl: 'HTML_AddEditRolPage.html',
+    styleUrls: [ '../../../assets/scss/app.scss', '../../../assets/scss/administrator/app.scss']
 })
 export class AddEditRolComponent extends OnSeguridad implements OnInit {
   rolForm: FormGroup;
@@ -33,9 +35,10 @@ export class AddEditRolComponent extends OnSeguridad implements OnInit {
               private route: ActivatedRoute,
               private router: Router,
               private accountService: AccountService,
-              private alertService: AlertService ) {
+              private alertService: AlertService,
+              private translate: TranslateMessagesService ) {
 
-        super(alertService, accountService, router);
+        super(alertService, accountService, router, translate);
 
         // ***************************************************************
         // VALIDA ACCESO PANTALLA LOGIN ADMINISTRADOR
@@ -50,6 +53,8 @@ export class AddEditRolComponent extends OnSeguridad implements OnInit {
 
     get f() { return this.rolForm.controls; }
 
+    public redirectListRolesPage() : void { this.router.navigate([this.URLRedirectPage]); }
+
     ngOnInit() { }
 
     inicializaFormulario() : void {
@@ -58,8 +63,8 @@ export class AddEditRolComponent extends OnSeguridad implements OnInit {
             nombreRol:          ['', Validators.required],
             rolEsAdministrador: [{value: 'No', disabled: true}, Validators.required],
             descripcionRol:     ['', Validators.required],
-            estadoRol:          [{value: 'Activo', disabled: true}, Validators.required],
-            tipoRol:            [{value: 'Escritura', disabled: true}, Validators.required]
+            estadoRol:          [{value: 'Active', disabled: true}, Validators.required],
+            tipoRol:            [{value: 'Writing', disabled: true}, Validators.required]
         });
     }
     
@@ -102,7 +107,7 @@ export class AddEditRolComponent extends OnSeguridad implements OnInit {
         let rolForm: Role = this.crateObjectForm();
         let rolFormBusiness: RoleBusiness = this.crateObjectFormBusiness(rolForm);
 
-        this.accountService.addRol(rolForm, this._HIdUserSessionRequest, this._HBusinessSessionRequest)
+        this.accountService.addRol(rolForm)
             .pipe(first())
             .subscribe((responseAddRol) => {
 
@@ -126,18 +131,17 @@ export class AddEditRolComponent extends OnSeguridad implements OnInit {
     // MÉTODOS PRIVADOS
     private asociarRolEmpresa(rolCreado: RoleBusiness, responseMessageAddRol : string) {
 
-    this.accountService.assignRolBusiness(rolCreado, this._HIdUserSessionRequest, this._HBusinessSessionRequest)
-        .pipe(first())
-        .subscribe((response) => {
+        this.accountService.assignRolBusiness(rolCreado)
+            .pipe(first())
+            .subscribe((response) => {
 
-            if (response.exito) {
-                this.alertService.success(responseMessageAddRol + ' ' + response.responseMesagge, { keepAfterRouteChange: true });
-                this.router.navigate([this.URLRedirectPage], { relativeTo: this.route });
-            
-            } else { this.alertService.error(response.responseMesagge); }
-        },
-        (error) => { this.alertService.error(error); }
-        );
+                if (response.exito) {
+                    this.alertService.success(responseMessageAddRol + ' ' + response.responseMesagge, { keepAfterRouteChange: true });
+                    this.router.navigate([this.URLRedirectPage], { relativeTo: this.route });
+                
+                } else { this.alertService.error(response.responseMesagge); }
+            },
+            (error) => { this.alertService.error(error); });
     }
   // ****************************************************
 }

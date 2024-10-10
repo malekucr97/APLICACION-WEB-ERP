@@ -1,9 +1,11 @@
 ﻿<div class="contLogin">
   <div class="login100-form-title headerLogin"> 
-    <img src="./assets/images/inra/securebi.png" class="imgLoginHeaderTitle" /> </div>
+    <img src="./assets/images/inra/securebi.png" class="imgLoginHeaderTitle" />
+  </div>
 
   <div class="bodyLogin">
-    <form [formGroup]="form" (ngSubmit)="onSubmit()" class="login100-form validate-form">
+
+    <form [formGroup]="form" (ngSubmit)="onSubmit()" class="formulario-login">
       <div class="wrap-input100 m-b-26 form-group">
         <span class="lnr lnr-user label-input100"></span>
         <input  type="text"
@@ -11,16 +13,16 @@
                 formControlName="username" 
                 class="input100" 
                 name="username" 
-                placeholder="Nombre de usuario" 
+                [placeholder]="'HOME.USERNAME' | translate" 
                 [ngClass]="{ 'is-invalid': submitted && f.username.errors }"
                 [pattern]="ussPattern" />
 
         <span class="focus-input100"></span>
         <div *ngIf="submitted && f.username.errors" class="invalid-feedback">
-          <div *ngIf="f.username.errors.required" class="textalign-center">El nombre de usuario es requerido</div>
+          <div *ngIf="f.username.errors.required" class="textalign-center">{{ 'HOME.VALIDATES.USERNAME' | translate }}</div>
         </div>
         <div *ngIf="username.errors?.pattern" class="invalid-feedback">
-          <div class="textalign-center">no cumple con la regla regex de seguridad</div>
+          <div class="textalign-center">{{ 'GENERAL.VALIDATES.REGEX' | translate }}</div>
         </div> 
         
       </div>
@@ -33,16 +35,16 @@
                   formControlName="password" 
                   class="input100" 
                   name="pass" 
-                  placeholder="Contraseña" 
+                  [placeholder]="'HOME.PASSWORD' | translate" 
                   [ngClass]="{ 'is-invalid': submitted && f.password.errors }"
                   [pattern]="pwdPattern" />
 
           <span class="focus-input100"></span>
           <div *ngIf="submitted && f.password.errors" class="invalid-feedback">
-            <div *ngIf="f.password.errors.required" class="textalign-center">La contraseña es requerida</div>
+            <div *ngIf="f.password.errors.required" class="textalign-center">{{ 'HOME.VALIDATES.PASSWORD' | translate }}</div>
           </div>
           <div *ngIf="password.errors?.pattern" class="invalid-feedback">
-            <div class="textalign-center">no cumple con la regla regex de seguridad</div> </div>
+            <div class="textalign-center">{{ 'GENERAL.VALIDATES.REGEX' | translate }}</div> </div>
 
         </div>
         <div class="iconoVisibilidad" (click)="visualizarContrasena()"> <mat-icon>visibility</mat-icon> </div>
@@ -51,18 +53,18 @@
 
       <div class="w-full p-b-2">
           <input class="" type="checkbox" formControlName="rememberme" name="rememberme" id="rememberme_id" />
-          <span class="" for="lbl_rememberme"> recordarme </span>
+          <span class="" for="lbl_rememberme"> {{ 'HOME.REMEMBER' | translate }} </span>
         <!-- <div> <a href="#" class="txt1"> Recuperar Contraseña </a> </div> -->
       </div>
 
       <div *ngIf="intentosFallidosInicioSesion > 0">
-          <div class="texto-error textalign-center">Inicio fallido (Intento número {{ intentosFallidosInicioSesion }})</div>
+          <div class="texto-error textalign-center">{{ 'HOME.VALIDATES.FAIL_LOGIN' | translate:{ intentosFallidosInicioSesion } }}</div>
       </div>
 
       <div>
         <button class="login100-form-btn btn-iniciarsesion">
           <span *ngIf="loading" class="spinner-border spinner-border-sm mr-1"></span>
-            Iniciar Sesión </button>
+           {{'HOME.LOGIN' | translate}} </button>
       </div>
     </form>
 

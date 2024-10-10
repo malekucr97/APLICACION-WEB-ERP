@@ -5,13 +5,13 @@
 
             <section>
                 <div class="articulo__contenedor__body">
-                    <h1>Hola !</h1>
-                    <h4>Pendiente de Activación de Módulos</h4>
+                    <h1>{{ 'GENERAL.HI' | translate }}</h1>
+                    <h4>{{ 'ALERTS.PENDING_ACTIVATION' | translate }}</h4>
                     <br>
-                    <p>Por favor contacte al administrador para solicitar la activación de los módulos correspondientes a la compañía.</p>
+                    <p>{{ 'ALERTS.ACTIVATION_TUTORIAL' | translate }}</p>
                     
                     <button (click)="redirect()" class="btn-redirect-login" >
-                        Volver a Inicio de Sesión
+                        {{ 'GENERAL.BTN_BACK_LOGIN' | translate }}
                     </button>
                 </div>
             </section>

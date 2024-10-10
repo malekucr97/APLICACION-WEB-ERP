@@ -5,6 +5,7 @@ import { first } from 'rxjs/operators';
 import { AccountService, AlertService } from '@app/_services';
 import { administrator, environment, httpLandingIndexPage } from '@environments/environment';
 import { User } from '@app/_models';
+import { TranslateService } from '@ngx-translate/core';
 
 @Component({ templateUrl: 'login.component.html' })
 export class LoginComponent implements OnInit {
@@ -39,7 +40,8 @@ export class LoginComponent implements OnInit {
                 private route: ActivatedRoute,
                 private router: Router,
                 private accountService: AccountService,
-                private alertService: AlertService ) {
+                private alertService: AlertService,
+                private translate: TranslateService ) {
 
                     this.userLog.codeNoLogin = '404';
 
@@ -105,28 +107,32 @@ export class LoginComponent implements OnInit {
                             break;
                         }
 
-                        case "NO-LOG01": { this.alertService.info('El usuario no está registrado en el sistema.'); break; } // usuario no registrado 
+                        case "NO-LOG01": { this.alertService.info(this.translate.instant('ALERTS.USER_NOT_REGISTERED')); break; } // usuario no registrado 
                         case "NO-LOG02": { this.router.navigate([this._httpBlockedUserPage]);   break; } // usuario bloqueado
                         case "NO-LOG03": { this.router.navigate([this._httpInactiveUserPage]);  break; } // usuario inactivo
                         case "NO-LOG04": { this.router.navigate([this._httpPendingUserPage]);   break; } // usuario pendiente
                         case "NO-LOG05": { this.router.navigate([this._httpNotRoleUserPage]);   break; } // usuario sin rol
                         case "NO-LOG06": {
-                          this.intentosFallidosInicioSesion++;
-                          this.alertService.info('La contraseña ingresada no es correcta.');
-                          break;
+                            this.intentosFallidosInicioSesion++;
+                            this.alertService.info(this.translate.instant('ALERTS.PASSWORD_ERROR'));
+                            break;
+                        } // contraseña incorrecta
+                        case "NO-LOG07": {
+                            this.alertService.info(this.translate.instant('ALERTS.ACTIVATE_EMAIL_NOT_SEND'));
+                            break;
                         } // contraseña incorrecta
 
-                        default: { this.alertService.info('Excepción no controlada.'); break; }
+                        default: { this.alertService.info(this.translate.instant('ALERTS.EXCEPTION_NOT_CONTROLLED')); break; }
                     }
 
                 // ************************
                 // http null response *****
-                } else { this.alertService.error('sin resultados'); }
+                } else { this.alertService.error(this.translate.instant('ALERTS.WITHOUT_RESULTS')); }
 
                 this.loading    = false;
                 this.submitted  = false;
                 
-            }, (error) => { this.alertService.error('Problemas al obtener respuesta del Servidor. Por favor contacte al administrador.' + error); });
+            }, (error) => { this.alertService.error(this.translate.instant('ALERTS.ERROR_CATCH', {ERROR: error})); });
     }
 
     visualizarContrasena() { this.mostrarContrasena = !this.mostrarContrasena; }
