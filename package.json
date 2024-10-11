@@ -29,13 +29,15 @@
     "@angular/router": "~13.3.12",
     "@ngx-translate/core": "^14.0.0",
     "@ngx-translate/http-loader": "^4.0.0",
-    "bootstrap": "^4.5.2",
+    "bootstrap": "^5.3.3",
     "cors": "^2.8.5",
+    "ip": "^2.0.1",
     "jquery": "^3.6.0",
     "moment": "^2.29.4",
     "powerbi-client": "^2.22.3",
     "powerbi-client-angular": "^3.0.5",
     "rxjs": "~6.5.4",
+    "semver": "^7.6.3",
     "zone.js": "~0.11.8"
   },
   "devDependencies": {
@@ -67,6 +69,7 @@
     "tslint": "~6.1.0",
     "typescript": "~4.6.4",
     "webpack": "^5.82.1",
-    "webpack-cli": "^5.1.1"
+    "webpack-cli": "^5.1.1",
+    "webpack-dev-middleware": "^7.4.2"
   }
 }

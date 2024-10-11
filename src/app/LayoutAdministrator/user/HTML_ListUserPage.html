@@ -31,9 +31,7 @@
                             </div>
                             
                             <div class="col-md-3">
-                                <button class=" administracion-contenedor__content__item
-                                                administracion-contenedor__content__item__newUser
-                                                icon-button-medium"
+                                <button class="item-list__add"
                                         title="{{ 'CONFIGURATION.BTN_ADMIN_USERS' | translate}}"
                                         mat-icon-button 
                                         (click)="selectObjetoUsuario()"> <mat-icon>person_add</mat-icon>
@@ -50,6 +48,7 @@
                                 <thead>
                                     <tr>
                                         <th style="width: 1%"></th>
+                                    
                                         <th style="width: 10%">{{ 'CONFIGURATION.ADMIN_PAGE_LIST_USERS.TBL_ID' | translate }}</th>
                                         <th style="width: 25%">{{ 'CONFIGURATION.ADMIN_PAGE_LIST_USERS.TBL_USERNAME' | translate }}</th>
                                         <th style="width: 25%">{{ 'CONFIGURATION.ADMIN_PAGE_LIST_USERS.TBL_EMAIL' | translate }}</th>
@@ -60,47 +59,39 @@
                                         <th style="width: 1%"></th>
                                         <th style="width: 1%"></th>
                                         <th style="width: 1%"></th>
-                    
                                     </tr>
                                 </thead>
+
                                 <tbody>
                     
                                     <tr *ngFor="let us of listUsers" class="item-list__list" >
                     
-                                        <td style="white-space: nowrap" 
-                                            class="item-list__edit"
-                                            (click)="selectObjetoUsuario(us)">
-                                            <a> <mat-icon>edit</mat-icon> </a>
-                                        </td>
+                                        <td (click)="selectObjetoUsuario(us)" class="item-list__edit">
+                                            <a> <mat-icon>edit</mat-icon> </a></td>
                     
-                                        <td (click)="selectObjetoUsuario(us)">{{us.identificacion}}</td>
-                                        <td (click)="selectObjetoUsuario(us)">{{us.nombreCompleto}}</td>
-                                        <td (click)="selectObjetoUsuario(us)">{{us.email}}</td>
-                                        <td (click)="selectObjetoUsuario(us)">{{us.puesto}}</td>
-                                        <td (click)="selectObjetoUsuario(us)">{{us.estado}}</td>
+                                        <td class="item-list__edit" (click)="selectObjetoUsuario(us)">{{us.identificacion}}</td>
+                                        <td class="item-list__edit" (click)="selectObjetoUsuario(us)">{{us.nombreCompleto}}</td>
+                                        <td class="item-list__edit" (click)="selectObjetoUsuario(us)">{{us.email}}</td>
+                                        <td class="item-list__edit" (click)="selectObjetoUsuario(us)">{{us.puesto}}</td>
+                                        <td class="item-list__edit" (click)="selectObjetoUsuario(us)">{{us.estado}}</td>
                     
-                                        <td style="white-space: normal">
-                                            <button *ngIf="isUserSuperAdmin" 
+                                        <td><button *ngIf="isUserSuperAdmin" 
                                                     (click)="optionBusiness(us)" 
-                                                    class="btn-sm item-list__admin__view">
+                                                    class="item-list__admin__view">
                                                 {{ 'CONFIGURATION.ADMIN_PAGE_LIST_USERS.TBL_BTN_COMPANY' | translate }} 
-                                            </button>
-                                        </td>
-                    
-                                        <td style="white-space: normal">
-                                            <button (click)="optionRole(us)" 
-                                                    class="btn-sm item-list__admin__view"> 
+                                            </button></td>
+                                        
+                                        <td><button (click)="optionRole(us)" 
+                                                    class="item-list__admin__view"> 
                                                 {{ 'CONFIGURATION.ADMIN_PAGE_LIST_USERS.TBL_BTN_ROLE' | translate }} 
-                                            </button>
-                                        </td>
+                                            </button></td>
                     
-                                        <td style="white-space: normal">
+                                        <td>
                                             <button *ngIf="us.estado!='Active'"
                                                 (click)="activateUser(us.identificacion, us.id)"
                                                 class="btn-sm item-list__admin__ok" 
                                                 mat-icon-button > <mat-icon>thumb_down_alt</mat-icon>
                                             </button>
-                    
                                             <button *ngIf="us.estado=='Active'"
                                                 (click)="inActivateUser(us.identificacion, us.id)"
                                                 class="btn-sm item-list__admin__warn" 
@@ -108,14 +99,13 @@
                                             </button>
                                         </td>
                     
-                                        <td style="white-space: normal">
-                    
-                                            <button (click)="deleteUser(us.id)"
+                                        <td><button (click)="deleteUser(us.id)"
                                                 class="bbtn-sm item-list__admin__danger" 
                                                 mat-icon-button > <mat-icon>delete</mat-icon>
-                                            </button>
-                                        </td>
+                                            </button></td>
                                     </tr>
+
+                                
 
                                     <tr *ngIf="!enableList">
                                         <td colspan="10" class="text-center">

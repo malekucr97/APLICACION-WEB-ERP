@@ -57,14 +57,14 @@
         
                                     <button *ngIf="module.estado!='Active'"
                                         (click)="activate(module.identificador)"
-                                        class="btn-sm item-list__admin__ok" >
+                                        class="item-list__admin__ok" >
                                         <mat-icon>thumb_down_alt</mat-icon>
                                         {{ 'CONFIGURATION.ADMIN_PAGE_LIST_MODULES.TBL_STATUS' | translate }}
                                     </button>
         
                                     <button *ngIf="module.estado=='Active'"
                                         (click)="inActivate(module.identificador)"
-                                        class="btn-sm item-list__admin__warn" >
+                                        class="item-list__admin__warn" >
                                         <mat-icon>thumb_up_alt</mat-icon>
                                         {{ 'CONFIGURATION.ADMIN_PAGE_LIST_MODULES.TBL_STATUS' | translate }}
                                     </button>

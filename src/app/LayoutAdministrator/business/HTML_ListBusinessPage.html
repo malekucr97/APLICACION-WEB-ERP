@@ -21,10 +21,24 @@
 
     <div class="card">
       <div class="card-body">
-    
-        <button routerLink="{{urlPageAddEditBusiness}}"
-                    class="item-list__confirm float-right" 
-                    mat-icon-button > <mat-icon>group_add</mat-icon> </button>
+
+        <article>
+          <section>
+              <div class="row">
+                  <div class="col-md-9">
+                      <p class="articulo__contenedor__tittle__h3">{{ 'CONFIGURATION.ADMIN_PAGE_LIST_COMPANIES.SUBTITLE' | translate }}</p>    
+                  </div>
+                  
+                  <div class="col-md-3">
+                      <button class="item-list__add"
+                              title="{{ 'CONFIGURATION.BTN_ADD_COMPANY' | translate}}"
+                              mat-icon-button 
+                              routerLink="{{urlPageAddEditBusiness}}"> <mat-icon>group_add</mat-icon>
+                      </button>
+                  </div>
+              </div>
+          </section>
+      </article>
     
         <div class="articulo__contenedor__table">
         <table class="table table-striped">
@@ -89,8 +103,5 @@
       </div>
     </div>
 
-
   </section>
 </article>
-
-

@@ -403,14 +403,10 @@ td {
             }
 
             &__maintancepowerbi{
-
                 float:right;
-
-                margin-top: 2%;
-
+                margin-top: 1%;
                 color: white;
                 background-color: #005188;
-
                 &:hover {
                     background-color: #B3B3B3;
                     color: white;
@@ -679,6 +675,8 @@ td {
 
         &__view {
             text-align: center;
+            border-radius: 5px;
+            padding: 2px 4px 2px 4px;
             &:hover {
                 color: white;
                 background-color: #053254;
@@ -687,6 +685,8 @@ td {
         }
         &__ok {
             text-align: center;
+            border-radius: 5px;
+            padding: 2px 4px 2px 4px;
             &:hover {
                 color: white;
                 background-color: #129523;
@@ -703,6 +703,8 @@ td {
         }
         &__warn {
             text-align: center;
+            border-radius: 5px;
+            padding: 2px 4px 2px 4px;
             &:hover {
                 color: white;
                 background-color: #F9A01B;
@@ -711,6 +713,8 @@ td {
         }
         &__danger {
             text-align: center;
+            border-radius: 5px;
+            padding: 2px 4px 2px 4px;
             &:hover {
                 color: white;
                 background-color: #f91b1b;
@@ -718,12 +722,18 @@ td {
             }
         }
     }
-    &__edit {
-
-        display: inline-block;
-
-        color: #053254;
+    &__add {
+        color: #129523;
         transition: color 0.2s ease-in-out;
+        float: inline-end;
+        &:hover {
+            color: #053254;
+            cursor: pointer;
+        }
+    }
+    &__edit {
+        color: #053254;
+        transition: color 0.1s ease-in-out;
         &:hover {
             color: #F9A01B;
             cursor: pointer;
@@ -738,7 +748,10 @@ td {
     &__list {
         color: #053254;
         transition: color 0.2s ease-in-out;
-        &:hover { color: #F9A01B; cursor: pointer; }
+        &:hover { 
+            color: #F9A01B; 
+            cursor: pointer; 
+        }
     }
     &__delete {
         display: inline-block;

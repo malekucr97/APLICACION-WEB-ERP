@@ -24,13 +24,26 @@
         <div class="card">
             <div class="card-body">
 
-                <section>
-                    <button routerLink="{{URLAddEditRolPage}}"
-                            class="item-list__confirm float-right"
-                            mat-icon-button > <mat-icon>portrait</mat-icon>
-                    </button>
+                <article>
+                    <section>
+                        <div class="row">
+                            <div class="col-md-9">
+                                <p class="articulo__contenedor__tittle__h3">{{ 'CONFIGURATION.ADMIN_PAGE_LIST_ROLES.SUBTITLE' | translate }}</p>    
+                            </div>
+                            
+                            <div class="col-md-3">
+                                <button class="item-list__add"
+                                        title="{{ 'CONFIGURATION.BTN_ADD_ROLES' | translate}}"
+                                        routerLink="{{URLAddEditRolPage}}"> <mat-icon>portrait</mat-icon>
+                                </button>
+                            </div>
+                        </div>
+                    </section>
+                </article>
 
-                    <p class="articulo__contenedor__tittle__h3">{{ 'CONFIGURATION.ADMIN_PAGE_LIST_ROLES.SUBTITLE' | translate }}</p>
+
+                <article>
+                <section>
                     <div class="articulo__contenedor__table">
                         <table class="table table-striped">
                             <thead>
@@ -94,6 +107,7 @@
                         </table>
                     </div>
                 </section>
+            </article>
 
             </div>
         </div>

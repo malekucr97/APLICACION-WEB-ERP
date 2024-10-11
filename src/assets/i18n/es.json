@@ -26,6 +26,9 @@
     "BTN_ADMIN_PLANES": "Administración de Planes",
     "BTN_ADMIN_MODULES": "Administración de Módulos",
     "BTN_ADMIN_ROLES": "Administración de Roles",
+    "BTN_ADD_ROLES": "Registrar Rol",
+    "BTN_ADD_COMPANY": "Registrar Empresa",
+    "BTN_ADD_PLAN": "Registrar Plan",
     "ADMIN_PAGE_LIST_USERS": {
       "TITLE": "Administración de usuarios",
       "SUBTITLE": "Lista de de usuarios registrados en el sistema",
@@ -48,7 +51,7 @@
     },
     "ADMIN_PAGE_LIST_PLANES": {
       "TITLE": "Administración de Planes",
-      "SUBTITLE": "Lista de planes registradas en el sistema",
+      "SUBTITLE": "Lista de planes registrados en el sistema",
       "SUBTITLE_PLAN_BUSINESS": "Plan de la Compañía",
       "SUBTITLE_PLAN_SYSTEM": "Planes del Sistema",
       "TBL_NAME": "Nombre",

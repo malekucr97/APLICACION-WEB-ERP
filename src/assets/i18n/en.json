@@ -26,6 +26,9 @@
     "BTN_ADMIN_PLANES": "Planes Administration",
     "BTN_ADMIN_MODULES": "Module Administration",
     "BTN_ADMIN_ROLES": "Role Administration",
+    "BTN_ADD_ROLES": "Add Role",
+    "BTN_ADD_COMPANY": "Add Company",
+    "BTN_ADD_PLAN": "Add Plan",
     "ADMIN_PAGE_LIST_USERS": {
       "TITLE": "User Administration",
       "SUBTITLE": "List of users registered in the system",
