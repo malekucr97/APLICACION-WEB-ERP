@@ -8,6 +8,8 @@
 
 * azure: az webapp deployment source config-zip --resource-group SecureBI --name apiBIWindows --src 'C:\publicadosAppService\azure.zip'
 
+master
+
 * Angular CLI: 13.3.11
 * Node: 14.21.3
 * Package Manager: npm 6.14.8
