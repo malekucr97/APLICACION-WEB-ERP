@@ -64,15 +64,16 @@
                 class="item-list__list" 
                 style="white-space: normal">
     
-              <td class="item-list__edit" routerLink="{{urlPageAddEditBusiness}}{{business.id}}">
+              <td class="item-list__edit" 
+                  routerLink="{{urlPageAddEditBusiness}}{{business.id}}">
                   <mat-icon>edit</mat-icon>
               </td>
     
-              <td routerLink="{{urlPageAddEditBusiness}}{{business.id}}">{{business.cedulaJuridica}}</td>
-              <td routerLink="{{urlPageAddEditBusiness}}{{business.id}}">{{business.nombre}}</td>
-              <td routerLink="{{urlPageAddEditBusiness}}{{business.id}}">{{business.correoElectronico}}</td>
-              <td routerLink="{{urlPageAddEditBusiness}}{{business.id}}">{{business.telefono}}</td>
-              <td routerLink="{{urlPageAddEditBusiness}}{{business.id}}">{{business.mantenimientoReportes ? 'Active': 'In-Active'}}</td>
+              <td class="item-list__edit" routerLink="{{urlPageAddEditBusiness}}{{business.id}}">{{business.cedulaJuridica}}</td>
+              <td class="item-list__edit" routerLink="{{urlPageAddEditBusiness}}{{business.id}}">{{business.nombre}}</td>
+              <td class="item-list__edit" routerLink="{{urlPageAddEditBusiness}}{{business.id}}">{{business.correoElectronico}}</td>
+              <td class="item-list__edit" routerLink="{{urlPageAddEditBusiness}}{{business.id}}">{{business.telefono}}</td>
+              <td class="item-list__edit" routerLink="{{urlPageAddEditBusiness}}{{business.id}}">{{business.mantenimientoReportes ? 'Active': 'In-Active'}}</td>
     
               <td>
                 <button title="Planes {{business.nombre}}" class="items__btns__list__otro"

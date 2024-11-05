@@ -145,15 +145,15 @@
                                                     class="item-list__list" 
                                                     (click)="selectPantallaModulo(obj)" >
                                                     
-                                                    <td  style="white-space: nowrap" class="item-list__view">
+                                                    <td class="item-list__edit">
                                                         <div> <a> <mat-icon>swap_horiz</mat-icon> </a> </div>
                                                     </td>
 
-                                                    <td>{{obj.codigo}}</td>
-                                                    <td>{{obj.nombre}}</td>
-                                                    <td>{{obj.estado}}</td>
-                                                    <td>{{obj.modificadoPor}}</td>
-                                                    <td>{{obj.fechaModificacion}}</td>
+                                                    <td class="item-list__edit">{{obj.codigo}}</td>
+                                                    <td class="item-list__edit">{{obj.nombre}}</td>
+                                                    <td class="item-list__edit">{{obj.estado}}</td>
+                                                    <td class="item-list__edit">{{obj.modificadoPor}}</td>
+                                                    <td class="item-list__edit">{{obj.fechaModificacion}}</td>
 
                                                 </tr>
                                             </tbody>
@@ -195,19 +195,16 @@
                                                                 </tr>
                                                             </thead>
                                                             <tbody>
-                                                                <tr *ngFor="let obj of listUsuariosCompania" 
-                                                                    class="item-list__list" 
-                                                                    (click)="addUserAccessScreen(obj)" >
+                                                                <tr *ngFor="let obj of listUsuariosCompania" >
         
                                                                     <td>{{obj.identificacion}}</td>
                                                                     <td>{{obj.nombreCompleto}}</td>
                                                                     <td>{{obj.email}}</td>
                                                                     <td>{{obj.estado}}</td>
         
-                                                                    <td  style="white-space: nowrap" class="item-list__confirm">
+                                                                    <td class="item-list__confirm" (click)="addUserAccessScreen(obj)">
                                                                         <div> <a > <mat-icon>add</mat-icon> </a> </div>
                                                                     </td>
-        
                                                                 </tr>
                                                             </tbody>
                                                         </table>
@@ -243,11 +240,9 @@
                                                             </tr>
                                                         </thead>
                                                         <tbody>
-                                                            <tr *ngFor="let obj of listUsuariosCompaniaPantalla" 
-                                                                class="item-list__list" 
-                                                                (click)="removeUserAccessScreen(obj)" >
+                                                            <tr *ngFor="let obj of listUsuariosCompaniaPantalla" >
     
-                                                                <td  style="white-space: nowrap" class="item-list__delete">
+                                                                <td class="item-list__delete" (click)="removeUserAccessScreen(obj)">
                                                                     <div> <a > <mat-icon>remove</mat-icon> </a> </div>
                                                                 </td>
     

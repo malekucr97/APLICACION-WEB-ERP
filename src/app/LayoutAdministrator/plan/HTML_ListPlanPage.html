@@ -64,7 +64,7 @@
   
         <tbody>
   
-          <tr class="item-list__list">
+          <tr>
   
             <td>{{planBusiness.nombre}}</td>
             <td>{{planBusiness.tipo}}</td>
@@ -76,7 +76,7 @@
             <td>{{planBusiness.porcentajeSoporteXUsuario}}</td>
   
             <td style="white-space: normal">
-              <button class="btn-sm item-list__admin__danger" (click)="removerPlan(planBusiness.id)">
+              <button class="item-list__admin__danger" (click)="removerPlan(planBusiness.id)">
                 <mat-icon>bookmark_border</mat-icon> 
                       {{ 'CONFIGURATION.ADMIN_PAGE_LIST_PLANES.TBL_ICO_REMOVE_PLAN' | translate }}
               </button>
@@ -115,9 +115,9 @@
   
         <tbody>
   
-          <tr *ngFor="let plan of listPlanes" class="item-list__list"  style="white-space: normal" >
+          <tr *ngFor="let plan of listPlanes" style="white-space: normal" >
   
-            <td *ngIf="!addPlanBusiness" class="item-list__edit" routerLink="{{urlPageAddEditPlan}}{{plan.id}}"> 
+            <td *ngIf="!addPlanBusiness" routerLink="{{urlPageAddEditPlan}}{{plan.id}}"> 
               <mat-icon>edit</mat-icon> </td>
   
             <td *ngIf="addPlanBusiness">{{plan.nombre}}</td>
@@ -130,24 +130,24 @@
             <td *ngIf="addPlanBusiness">{{plan.porcentajeSoporteXUsuario}}</td>
   
             <td *ngIf="addPlanBusiness" style="white-space: normal">
-              <button class="btn-sm item-list__admin__ok" (click)="asignarPlan(plan.id)">
+              <button class="item-list__admin__ok" (click)="asignarPlan(plan.id)">
                 <mat-icon>bookmark_border</mat-icon> 
                       {{ 'CONFIGURATION.ADMIN_PAGE_LIST_PLANES.TBL_ICO_GRANT_PLAN' | translate }}
               </button>
             </td>
   
-            <td *ngIf="!addPlanBusiness" routerLink="{{urlPageAddEditPlan}}{{plan.id}}">{{plan.nombre}}</td>
-            <td *ngIf="!addPlanBusiness" routerLink="{{urlPageAddEditPlan}}{{plan.id}}">{{plan.tipo}}</td>
-            <td *ngIf="!addPlanBusiness" routerLink="{{urlPageAddEditPlan}}{{plan.id}}">{{plan.maximoAdministradores}}</td>
-            <td *ngIf="!addPlanBusiness" routerLink="{{urlPageAddEditPlan}}{{plan.id}}">{{plan.maximoFuncionales}}</td>
-            <td *ngIf="!addPlanBusiness" routerLink="{{urlPageAddEditPlan}}{{plan.id}}">{{plan.precioMensual}}</td>
-            <td *ngIf="!addPlanBusiness" routerLink="{{urlPageAddEditPlan}}{{plan.id}}">{{plan.precioAnual}}</td>
-            <td *ngIf="!addPlanBusiness" routerLink="{{urlPageAddEditPlan}}{{plan.id}}">{{plan.soporte}}</td>
-            <td *ngIf="!addPlanBusiness" routerLink="{{urlPageAddEditPlan}}{{plan.id}}">{{plan.porcentajeSoporteXUsuario}}</td>
+            <td class="item-list__edit" *ngIf="!addPlanBusiness" routerLink="{{urlPageAddEditPlan}}{{plan.id}}">{{plan.nombre}}</td>
+            <td class="item-list__edit" *ngIf="!addPlanBusiness" routerLink="{{urlPageAddEditPlan}}{{plan.id}}">{{plan.tipo}}</td>
+            <td class="item-list__edit" *ngIf="!addPlanBusiness" routerLink="{{urlPageAddEditPlan}}{{plan.id}}">{{plan.maximoAdministradores}}</td>
+            <td class="item-list__edit" *ngIf="!addPlanBusiness" routerLink="{{urlPageAddEditPlan}}{{plan.id}}">{{plan.maximoFuncionales}}</td>
+            <td class="item-list__edit" *ngIf="!addPlanBusiness" routerLink="{{urlPageAddEditPlan}}{{plan.id}}">{{plan.precioMensual}}</td>
+            <td class="item-list__edit" *ngIf="!addPlanBusiness" routerLink="{{urlPageAddEditPlan}}{{plan.id}}">{{plan.precioAnual}}</td>
+            <td class="item-list__edit" *ngIf="!addPlanBusiness" routerLink="{{urlPageAddEditPlan}}{{plan.id}}">{{plan.soporte}}</td>
+            <td class="item-list__edit" *ngIf="!addPlanBusiness" routerLink="{{urlPageAddEditPlan}}{{plan.id}}">{{plan.porcentajeSoporteXUsuario}}</td>
   
             <td *ngIf="!addPlanBusiness" style="white-space: normal">
               <button (click)="deletePlan(plan.id)" 
-                      class="bbtn-sm item-list__admin__danger" 
+                      class="item-list__admin__danger" 
                       mat-icon-button> <mat-icon>delete</mat-icon> </button> 
             </td>
   
