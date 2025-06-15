@@ -8,6 +8,7 @@ import { Module, User }   from '@app/_models';
 import { Compania }       from '../../_models/modules/compania';
 import { ModulesSystem, httpLandingIndexPage }  from '@environments/environment';
 import { TranslateMessagesService } from '@app/_services/translate-messages.service';
+import { Router } from '@angular/router';
 
 /** menu - tree Interfaz o estructura del arbol  */
 interface FoodNode        { name: string; link: string; icon: string; children?: FoodNode[]; }
@@ -127,10 +128,8 @@ const TREE_DATA: FoodNode[] = [
   },
 ];
 
-@Component({
-    templateUrl: '../menu.html',
-    styleUrls: ['../../../assets/scss/app.scss',
-                '../../../assets/scss/menus.scss'],
+@Component({  templateUrl: '../menu.html',
+              styleUrls: ['../../../assets/scss/app.scss', '../../../assets/scss/menus.scss'],
 })
 export class MenuMacredComponent {
     @ViewChild(MatSidenav)
@@ -148,13 +147,17 @@ export class MenuMacredComponent {
     ];
 
     constructor(private accountService: AccountService,
-      public translate: TranslateMessagesService) {
+                public translate: TranslateMessagesService,
+                private router: Router) {
+                  
         this.userObservable = this.accountService.userValue;
         this.moduleObservable = this.accountService.moduleValue;
         this.businessObservable = this.accountService.businessValue;
 
         this.dataSource.data = TREE_DATA;
     }
+
+    redirectIndex() : void { this.router.navigate([this.URLRedirectIndexContent]); }
 
     logout() { this.accountService.logout(); }
 

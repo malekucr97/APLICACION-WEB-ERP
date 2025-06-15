@@ -36,24 +36,27 @@ export const httpLandingIndexPage = {
     // -- >> Home Page Index Application
     homeHTTP: '/',
     // -- >> Langing Pages Index Application
-    indexHTTP: '/inra-sa/index.html',
+    indexHTTP: '/maleku-ti/index.html',
     // -- >> Langing No Loggin Application
-    indexHTTPPendingUser:       '/inra-sa/PendingPage/index.html',
-    indexHTTPNotRolUser:        '/inra-sa/NotRolPage/index.html',
-    indexHTTPInactiveUser:      '/inra-sa/InactiveUserPage/index.html',
-    indexHTTPInactiveRolUser:   '/inra-sa/InactiveRolPage/index.html',
-    indexHTTPBlockedUser:       '/inra-sa/BlockedUserPage/index.html',
-    indexHTTPNoBussinesUser:    '/inra-sa/NotBusinessPage/index.html',
-    indexHTTPNoModulesUser:     '/inra-sa/NotModulesPage/index.html'
+    indexHTTPPendingUser:       '/maleku-ti/PendingPage/index.html',
+    indexHTTPNotRolUser:        '/maleku-ti/NotRolPage/index.html',
+    indexHTTPInactiveUser:      '/maleku-ti/InactiveUserPage/index.html',
+    indexHTTPInactiveRolUser:   '/maleku-ti/InactiveRolPage/index.html',
+    indexHTTPBlockedUser:       '/maleku-ti/BlockedUserPage/index.html',
+    indexHTTPNoBussinesUser:    '/maleku-ti/NotBusinessPage/index.html',
+    indexHTTPNoModulesUser:     '/maleku-ti/NotModulesPage/index.html'
 };
 
 export const ModulesSystem = {
 
     Identif_Generales: 'ID-BANKAP-GENERAL',
-    generalesbasehref: '/inra-sa/general-module/',
+    generalesbasehref: '/maleku-ti/general-module/',
 
     Identif_PowerBI: 'ID-BANKAP-BI',
-    powerbibasehref: '/inra-sa/powerbi-module/'
+    powerbibasehref: '/maleku-ti/powerbi-module/',
+
+    Identif_Macred: 'ID-BANKAP-MACRED',
+    macredbasehref: '/maleku-ti/macred-module/'
 };
 
 export const httpAccessAdminPage = {

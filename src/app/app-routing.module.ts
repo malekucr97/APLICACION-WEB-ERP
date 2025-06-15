@@ -10,15 +10,17 @@ const LandingModule         = () => import('./Landing/landing-module').then(    
 
 const GeneralesModule = () => import(
     './ModulosSistema/Generales/generales-module').then( x => x.GeneralesModule ); // ## GENERALES ## //
-    const PowerBiModule = () => import(
+const PowerBiModule = () => import(
     './ModulosSistema/PowerBI/power-bi.module').then( x => x.PowerBiModule ); // ## POWER BI ## //
+const MacredModule = () => import(
+    './ModulosSistema/Macred/macred-module').then( x => x.MacredModule ); // ## MACRED ## //
 
 const routes: Routes = [
 
     { path: '', component: HomeComponent, canActivate: [AuthGuard] },
 
     // -- index - landings pages
-    { path: 'inra-sa',  loadChildren: LandingModule,  canActivate: [AuthGuard] },
+    { path: 'maleku-ti',  loadChildren: LandingModule,  canActivate: [AuthGuard] },
     // ## **************** ## //
 
     // -- Acicacion de usuario
@@ -27,8 +29,9 @@ const routes: Routes = [
     // -- inicio se sesión & pantallas de administración
     { path: 'account', loadChildren: accountModule },
     { path: 'admin-module', loadChildren: AdminModule, canActivate: [AuthGuard] },
-    { path: 'inra-sa/general-module', loadChildren: GeneralesModule, canActivate: [AuthGuard] },
-    { path: 'inra-sa/powerbi-module', loadChildren: PowerBiModule, canActivate: [AuthGuard] },
+    { path: 'maleku-ti/general-module', loadChildren: GeneralesModule, canActivate: [AuthGuard] },
+    { path: 'maleku-ti/powerbi-module', loadChildren: PowerBiModule, canActivate: [AuthGuard] },
+    { path: 'maleku-ti/macred-module', loadChildren: MacredModule, canActivate: [AuthGuard] },
     { path: '**', redirectTo: '' } // default
 ];
 

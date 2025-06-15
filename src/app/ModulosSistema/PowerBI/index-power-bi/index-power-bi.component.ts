@@ -59,7 +59,7 @@ export class IndexPowerBiComponent extends OnSeguridad implements OnInit {
     // ***************************************************************
 
     super._nombrePantalla = this.nombrePantalla;
-    super._redireccionURL = '/inra-sa'; // [OPCIONAL] SI NO SE INDICA SE REDIRECCIONA AL LA PÁGINA DEL MODULO.INDEXHTML
+    super._redireccionURL = '/maleku-ti'; // [OPCIONAL] SI NO SE INDICA SE REDIRECCIONA AL LA PÁGINA DEL MODULO.INDEXHTML
     super.validarAccesoPantalla();
     //#endregion
 
@@ -91,9 +91,11 @@ export class IndexPowerBiComponent extends OnSeguridad implements OnInit {
             embedUrl: response.objetoDb,
           };
           this.mostrarReporte = true;
+
         } else { this.alertService.error( this.translate.translateKey('ALERTS.URL_ERROR') ); this.mostrarReporte = false; }
       });
   }
+
   // private SetURLPowerBI(pss: ScreenModule) {
   //   this.reportConfig = {
   //     ...this.reportConfig,

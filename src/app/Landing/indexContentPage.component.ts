@@ -168,6 +168,11 @@ export class IndexContentPageComponent extends OnSeguridad implements OnInit {
       case ModulesSystem.Identif_Generales:
         indexHTTPModule = ModulesSystem.generalesbasehref + 'index.html'; // ## generales ## //
         break;
+
+        case ModulesSystem.Identif_Macred:
+        indexHTTPModule = ModulesSystem.macredbasehref + 'index.html'; // ## MACRED ## //
+        break;
+
       case procesoBusquedaPowerBi(ModulesSystem.Identif_PowerBI):
         indexHTTPModule = ModulesSystem.powerbibasehref + 'index.html'; // ## Power BI ## //
         break;

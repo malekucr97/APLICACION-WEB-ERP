@@ -43,6 +43,8 @@ export class IndexMacredComponent extends OnSeguridad implements OnInit {
     }
 
     ngOnInit() {
+
+        console.log('entra');
     }
 
     logout() { this.accountService.logout(); }

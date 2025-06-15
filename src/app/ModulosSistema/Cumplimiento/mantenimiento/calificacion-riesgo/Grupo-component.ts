@@ -34,7 +34,7 @@ export class GrupoComponent implements OnInit {
     listGroups: Grupo[];
     listGroupsSubject : Grupo[];
 
-    public URLAddEditGroupPage: string = 'inra-sa/modulo-cumplimiento/Mantenimientos/CalificacionRiesgo/Grupos/';
+    public URLAddEditGroupPage: string = 'maleku-ti/modulo-cumplimiento/Mantenimientos/CalificacionRiesgo/Grupos/';
 
     constructor (private formBuilder: FormBuilder,
                  private cumplimientoService: CumplimientoService, 

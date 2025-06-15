@@ -40,7 +40,7 @@ export class IndexInversionesComponent extends OnSeguridad implements OnInit {
     // ***************************************************************
 
     super._nombrePantalla = this.nombrePantalla;
-    super._redireccionURL = '/inra-sa'; // [OPCIONAL] SI NO SE INDICA SE REDIRECCIONA AL LA PÁGINA DEL MODULO.INDEXHTML
+    super._redireccionURL = '/maleku-ti'; // [OPCIONAL] SI NO SE INDICA SE REDIRECCIONA AL LA PÁGINA DEL MODULO.INDEXHTML
     super.validarAccesoPantalla();
     //#endregion
 
