@@ -63,13 +63,14 @@
           <section *ngIf="existenModulos" class="menu-module-item-section">
             <div  [ngClass]="['menu-module-item-section__item', businessObservable.tamanoModuloDefecto || module.identificador.includes('ID-BANKAP-BI') ? 'max' : '']" 
                   *ngFor="let module of ListModulesFilter">
-              <section (click)="selectModule(module)">
+              <section>
                 <a> 
-                  <img  class="menu-module-item-section__item__logo" 
+                  <img  class="menu-module-item-section__item__logo" (click)="selectModule(module)"
                         src="{{module.pathLogo}}" 
                         title="{{module.descripcion}}"/>
+                  <p class="menu-module-item-section__item__titulo">{{module.nombre}}</p>
                 </a>
-                <p class="menu-module-item-section__item__titulo">{{module.nombre}}</p>
+                <!-- <p class="menu-module-item-section__item__titulo">{{module.nombre}}</p> -->
               </section>
             </div>
           </section>

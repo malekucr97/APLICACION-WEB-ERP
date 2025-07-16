@@ -20,10 +20,9 @@ const TREE_DATA: FoodNode[] = [
 
 ];
 
-@Component({
+@Component({ 
     templateUrl: '../menu.html',
-    styleUrls: ['../../../assets/scss/app.scss',
-                '../../../assets/scss/menus.scss'],
+    styleUrls: ['../../../assets/scss/app.scss', '../../../assets/scss/menus.scss']
 })
 export class MenuPowerBIComponent {
     @ViewChild(MatSidenav)

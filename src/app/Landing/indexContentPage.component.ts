@@ -97,7 +97,7 @@ export class IndexContentPageComponent extends OnSeguridad implements OnInit {
                                                 0, /** idCompania */
                                                 0, /** idModulo */
                                                 this.userObservable.id, /** idUsuario */
-                                                'No se han devuelto registros de módulos activos para el rol del usuario en esta compañía.', /** descripcion */
+                                                'No se han devuelto módulos activos para el rol del usuario en la compañía.', /** descripcion */
                                                 0, /** contadorSesion */
                                                 this.today, /** fechaSesion */
                                                 '', /** lugarSesion */
@@ -166,15 +166,15 @@ export class IndexContentPageComponent extends OnSeguridad implements OnInit {
 
     switch (identificador) {
       case ModulesSystem.Identif_Generales:
-        indexHTTPModule = ModulesSystem.generalesbasehref + 'index.html'; // ## generales ## //
+        indexHTTPModule = ModulesSystem.generalesbasehref + 'index.html'; // ## GENERALES ## //
         break;
 
         case ModulesSystem.Identif_Macred:
-        indexHTTPModule = ModulesSystem.macredbasehref + 'index.html'; // ## MACRED ## //
+        indexHTTPModule = ModulesSystem.macredbasehref + 'index.html';    // ## MACRED ## //
         break;
 
       case procesoBusquedaPowerBi(ModulesSystem.Identif_PowerBI):
-        indexHTTPModule = ModulesSystem.powerbibasehref + 'index.html'; // ## Power BI ## //
+        indexHTTPModule = ModulesSystem.powerbibasehref + 'index.html';   // ## POWERBI ## //
         break;
       default: indexHTTPModule = this.UrlHome;
     }

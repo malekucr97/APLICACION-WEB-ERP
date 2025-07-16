@@ -9,7 +9,7 @@
       "PASSWORD": "Password is required",
       "FAIL_LOGIN": "Login failed, attempt number: {{intentosFallidosInicioSesion}} of 3"
     },
-    "RIGHTS": "Maleku Ti - Secure BI - © All rights reserved {{year}}"
+    "RIGHTS": "Application Web - Administration Modules - © All rights reserved {{year}} malekuti"
   },
   "INIT": {
     "NAME": "Business Management System",
@@ -71,8 +71,8 @@
       "SUBTITLE_POWERBI_FORM": "Form - PowerBI Module Administration",
       "TITLE_MANTEINANCE_TO": "Maintenance to {{namepg}}",
       "TITLE_LIST_MANTEINANCE_TO": "List of {{namepg}} of the company",
-      "TITLE_MANTEINANCE_FOR": "PowerBI Modules",
-      "BTN_MANTEINANCE_POWER_BI": "Maintenance of PowerBI Modules",
+      "TITLE_MANTEINANCE_FOR": "Power-Bi Modules",
+      "BTN_MANTEINANCE_POWER_BI": "Power-Bi Modules",
       "TBL_ID": "Identification",
       "TBL_NAME": "Name",
       "TBL_DESCRIPTION": "Description",

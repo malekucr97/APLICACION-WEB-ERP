@@ -47,18 +47,18 @@
                             <table class="table table-striped">
                                 <thead>
                                     <tr>
-                                        <th style="width: 1%"></th>
+                                        <th style="width: 4%"></th>
                                     
                                         <th style="width: 10%">{{ 'CONFIGURATION.ADMIN_PAGE_LIST_USERS.TBL_ID' | translate }}</th>
                                         <th style="width: 25%">{{ 'CONFIGURATION.ADMIN_PAGE_LIST_USERS.TBL_USERNAME' | translate }}</th>
                                         <th style="width: 25%">{{ 'CONFIGURATION.ADMIN_PAGE_LIST_USERS.TBL_EMAIL' | translate }}</th>
-                                        <th style="width: 25%">{{ 'CONFIGURATION.ADMIN_PAGE_LIST_USERS.TBL_ROL' | translate }}</th>
+                                        <th style="width: 20%">{{ 'CONFIGURATION.ADMIN_PAGE_LIST_USERS.TBL_ROL' | translate }}</th>
                                         <th style="width: 10%">{{ 'CONFIGURATION.ADMIN_PAGE_LIST_USERS.TBL_STATUS' | translate }}</th>
                     
-                                        <th style="width: 1%"></th>
-                                        <th style="width: 1%"></th>
-                                        <th style="width: 1%"></th>
-                                        <th style="width: 1%"></th>
+                                        <th style="width: 3%"></th>
+                                        <th style="width: 3%"></th>
+                                        <th></th>
+                                        <th></th>
                                     </tr>
                                 </thead>
 
@@ -77,30 +77,30 @@
                     
                                         <td><button *ngIf="isUserSuperAdmin" 
                                                     (click)="optionBusiness(us)" 
-                                                    class="item-list__admin__view">
+                                                    class="textListButtonOne">
                                                 {{ 'CONFIGURATION.ADMIN_PAGE_LIST_USERS.TBL_BTN_COMPANY' | translate }} 
                                             </button></td>
                                         
                                         <td><button (click)="optionRole(us)" 
-                                                    class="item-list__admin__view"> 
+                                                    class="textListButtonTwo"> 
                                                 {{ 'CONFIGURATION.ADMIN_PAGE_LIST_USERS.TBL_BTN_ROLE' | translate }} 
                                             </button></td>
                     
                                         <td>
                                             <button *ngIf="us.estado!='Active'"
                                                 (click)="activateUser(us.identificacion, us.id)"
-                                                class="btn-sm item-list__admin__ok" 
+                                                class="btn-sm item-list__admin__user__ok" 
                                                 mat-icon-button > <mat-icon>thumb_down_alt</mat-icon>
                                             </button>
                                             <button *ngIf="us.estado=='Active'"
                                                 (click)="inActivateUser(us.identificacion, us.id)"
-                                                class="btn-sm item-list__admin__warn" 
+                                                class="btn-sm item-list__admin__user__warn" 
                                                 mat-icon-button > <mat-icon>thumb_up_alt</mat-icon>
                                             </button>
                                         </td>
                     
                                         <td><button (click)="deleteUser(us.id)"
-                                                class="bbtn-sm item-list__admin__danger" 
+                                                class="bbtn-sm item-list__admin__user__danger" 
                                                 mat-icon-button > <mat-icon>delete</mat-icon>
                                             </button></td>
                                     </tr>

@@ -1,21 +1,9 @@
-@mixin bg-color-orange {
-  background-color: #f9a01b;
-}
-@mixin bg-color-dark-blue {
-  background-color: #0f426a;
-}
-@mixin bg-color-darkest-blue {
-  background-color: #053254;
-}
-@mixin bg-color-blue {
-  background-color: #005188;
-}
-@mixin bg-color-skyblue {
-  background-color: #00aeef;
-}
-@mixin bg-color-light-gray {
-  background-color: #b3b3b3;
-}
+@mixin bg-color-orange { background-color: #f9a01b; }
+@mixin bg-color-dark-blue { background-color: #0f426a; }
+@mixin bg-color-darkest-blue { background-color: #053254; }
+@mixin bg-color-blue { background-color: #005188; }
+@mixin bg-color-skyblue { background-color: #00aeef; }
+@mixin bg-color-light-gray { background-color: #b3b3b3; }
 
 @mixin font-aero {
   font-family: "../../assets/fonts/Aero.ttf";
@@ -174,26 +162,26 @@
     &__logo {
       transition: opacity 0.5s ease-in-out;
       cursor: pointer;
-      @media (max-width: 800px) {
-        width: 50%;
-        height: 50%;
-      }
+      // @media (max-width: 800px) {
+        width: 40%;
+        // height: 50%;
+      // }
+      border-radius: 100%;
     }
     &__titulo {
-      color: #005188;
+      color: #09440e;
       font-size: 1rem;
       font-weight: 700;
       transition: color 0.2s ease-in-out;
-
       overflow-wrap: break-word;
 
-      @media (max-width: 800px) {
-        font-size: 90%;
-      }
+      // @media (max-width: 800px) {
+        // font-size: 75%;
+      // }
 
       &:hover {
-        color: #00aeef;
-        cursor: pointer;
+        color: #053254;
+        // cursor: pointer;
       }
     }
   }

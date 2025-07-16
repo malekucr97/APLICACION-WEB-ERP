@@ -15,7 +15,7 @@ export class PowerBIService {
     const httpHeaders = { headers: new HttpHeaders(session) }
     // **
     return this.http.get<ResponseMessage>(
-      `${environment.apiUrl}/powerbi/geturlexterna?idModulo=${imod.idModulo}&idCompania=${imod.idCompania}&nombrePantalla=${imod.nombre}`,
+      `${environment.apiUrl}/powerbi/reporte?idModulo=${imod.idModulo}&idCompania=${imod.idCompania}&nombrePantalla=${imod.nombre}`,
         httpHeaders
     );
   }

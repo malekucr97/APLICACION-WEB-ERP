@@ -6,7 +6,6 @@ import { Compania, Module, User } from '@app/_models';
 import { ScreenModule } from '@app/_models/admin/screenModule';
 import { AccountService, AlertService, PowerBIService } from '@app/_services';
 import { TranslateMessagesService } from '@app/_services/translate-messages.service';
-import { environment } from '@environments/environment';
 import { IReportEmbedConfiguration, models } from 'powerbi-client';
 import { first } from 'rxjs/operators';
 
@@ -84,13 +83,13 @@ export class IndexPowerBiComponent extends OnSeguridad implements OnInit {
       .subscribe((response) => {
         if (response.exito) {
 
-          // this.SetURLPowerBI(screen);
-
           this.reportConfig = {
             ...this.reportConfig,
             embedUrl: response.objetoDb,
           };
           this.mostrarReporte = true;
+
+          // this.SetURLPowerBI(screen);
 
         } else { this.alertService.error( this.translate.translateKey('ALERTS.URL_ERROR') ); this.mostrarReporte = false; }
       });
@@ -100,7 +99,7 @@ export class IndexPowerBiComponent extends OnSeguridad implements OnInit {
   //   this.reportConfig = {
   //     ...this.reportConfig,
   //     embedUrl: 
-  //       `${environment.apiUrl}/powerbi/reporte?tk=${this.userObservable.token}&cp=${pss.idCompania}&md=${pss.idModulo}&sc=${pss.nombre}`,
+  //       `${environment.apiUrl}/powerbi/geturlexterna?tk=${this.userObservable.token}&cp=${pss.idCompania}&md=${pss.idModulo}&sc=${pss.nombre}`,
   //   };
   //   console.log(this.reportConfig.embedUrl);
   //   this.mostrarReporte = true;

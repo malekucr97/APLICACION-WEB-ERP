@@ -176,31 +176,25 @@ mat-divider {
 
     &__contenedor {
 
-        &__tittle{
+        &__tittle {
 
             &__h1{
                 color: #053254;
                 font-size: 1.5rem;
                 font-weight: 700;
-                @media (max-width: 800px) {
-                    font-size: 1rem;
-                }
+                @media (max-width: 800px) { font-size: 1rem; }
             }
             &__h2{
                 color: #B3B3B3;
                 font-size: 1.2rem;
                 font-weight: 500;
-                @media (max-width: 800px) {
-                    font-size: 1rem;
-                }
+                @media (max-width: 800px) { font-size: 1rem; }
             }
             &__h3{
                 color: #005188;
                 font-size: 1.2rem;
                 font-weight: 500;
-                @media (max-width: 800px) {
-                    font-size: 1rem;
-                }
+                @media (max-width: 800px) { font-size: 1rem; }
             }
         }
         // ************
@@ -299,6 +293,11 @@ mat-divider {
                 margin-right: 0.5%;
             }
 
+            &__prev_tittle{
+                margin-top: 5%;
+                color: white;
+            }
+
             &__prev_form{
                 background-color: #254156;
                 color: white;
@@ -319,6 +318,7 @@ mat-divider {
                 border-radius: 10px;
                 @media (max-width: 1200px) { width: 100%; }
 
+                // ** formularios ** //
                 &__form {
                     &__header {
 
@@ -370,7 +370,7 @@ mat-divider {
                         &__next {
                             width: 50%;
                             padding-right : 2%;
-                            padding-top: 0.5%;
+                            // padding-top: 0.5%;
                             display: inline-block;
                             text-align: right;
                         }

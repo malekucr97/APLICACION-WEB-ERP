@@ -6,46 +6,34 @@
   --color_gris: #f2f2f2;
   --color_accent: #033d65;
   --color_degradado_footer: linear-gradient(179deg, #005085, #053154);
+
+  --color_malek: #09440e;
 }
 
 /*//////////////////////////////////////////////////////////////////
 [ FONT ]*/
 
-@font-face {
-  font-family: Poppins-Regular;
-  src: url('../fonts/poppins/Poppins-Regular.ttf');
-}
-
-@font-face {
-  font-family: Poppins-Medium;
-  src: url('../fonts/poppins/Poppins-Medium.ttf');
-}
-
-@font-face {
-  font-family: Poppins-Bold;
-  src: url('../fonts/poppins/Poppins-Bold.ttf');
-}
-
-@font-face {
-  font-family: Poppins-SemiBold;
-  src: url('../fonts/poppins/Poppins-SemiBold.ttf');
-}
+@font-face { font-family: Poppins-Regular; src: url('../fonts/poppins/Poppins-Regular.ttf'); }
+@font-face { font-family: Poppins-Medium; src: url('../fonts/poppins/Poppins-Medium.ttf'); }
+@font-face { font-family: Poppins-Bold; src: url('../fonts/poppins/Poppins-Bold.ttf'); }
+@font-face { font-family: Poppins-SemiBold; src: url('../fonts/poppins/Poppins-SemiBold.ttf'); }
 
 /*//////////////////////////////////////////////////////////////////
 [ RESTYLE TAG ]*/
 
-
 /* act */
 .imgLoginHeaderTitle {
-  width: 45%;
+  width: 90%;
 }
 .headerLogin {
-  padding-top: 3%;
-  padding-bottom: 3%;
-  background-image: url('../../assets/images/inra/BANKAP_Header_2023-02.jpg');
+  /* padding-top: 5%; */
+  width: 100%;
+  height: 30%;
+  /* padding-bottom: 3%; */
+  background-image: url('../../assets/images/application/IMGLOGIN.png');
 }
 .texto-error {
-  font-size: .875rem;
+  font-size: 12px;
   color: #dc3545;
 }
 
@@ -62,7 +50,7 @@
 .bodyLogin {
   margin: auto;
   width: 75%;
-  padding-top: 10%;
+  padding-top: 5%;
 }
 .label-input100 {
   font-size: 20px;
@@ -136,15 +124,12 @@
   }
 }
 
-.textalign-center {
-  text-align: center;
-}
-
+.textalign-center { text-align: center; }
 
 .btn-iniciarsesion {
   position: fixed;
   left: 50%; 
-  top: 90%; 
+  top: 92%;
   transform: translate(-50%, -90%);
 }
 
@@ -168,7 +153,7 @@
 .login100-form-btn {
   min-width: 150px;
   height: 40px;
-  background-color: var(--color_accent);
+  background-color: var(--color_malek);
   border-radius: 25px;
   font-family: Poppins-Regular;
   font-size: 1rem;
@@ -231,7 +216,7 @@ body, html {
 
 .imagenHeader {
   width: 100%;
-  background-image: url('../../assets/images/inra/BANKAP_Header_2023-01.jpg');
+  background-image: url('../../assets/images/application/BACKGROUNDIMG3.png');
   background-repeat: no-repeat;
   background-size: cover;
   background-position: center;
@@ -239,8 +224,11 @@ body, html {
 }
 .logoHeader {
   margin: 1% 1% 1% 1%;
-  width: 10%;
-  height: 50%;
+  width: 5%;
+  /* border-radius: 60%; */
+  /* object-fit: cover; */
+  border: 2px solid #072212;
+  box-shadow: 0 0 5px rgba(255, 255, 255, 0.2);
 }
 
 .classBody {
@@ -271,16 +259,6 @@ body, html {
   padding: 0 30px;
   color: var(--color_accent) !important;
   font-weight: bold;
-}
-
-.datosEmpresa {
-  display: flex;
-  flex-direction: row;
-  align-items: center;
-  justify-content: center;
-  background: var(--color_degradado_footer);
-  text-align: center;
-  /* height: 30px; */
 }
 
 .textos {

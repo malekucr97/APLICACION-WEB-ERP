@@ -9,7 +9,7 @@
       "PASSWORD": "La contraseña es requerida",
       "FAIL_LOGIN": "Inicio fallido, intento número: {{intentosFallidosInicioSesion}} de 3"
     },
-    "RIGHTS": "Maleku Ti - Secure BI - © Derechos reservados {{year}}"
+    "RIGHTS": "Aplicación Web - Administración de Módulos - © Derechos reservados {{year}} malekuti"
   },
   "INIT": {
     "NAME": "Sistema de Gestión Administrativo Financiero",
@@ -71,8 +71,8 @@
       "SUBTITLE_POWERBI_FORM": "Formulario - Administración de Módulos PowerBI",
       "TITLE_MANTEINANCE_TO": "Mantenimiento a {{namepg}}",
       "TITLE_LIST_MANTEINANCE_TO": "Lista de {{namepg}} de la compañía",
-      "TITLE_MANTEINANCE_FOR": "Módulos PowerBI",
-      "BTN_MANTEINANCE_POWER_BI": "Mantenimiento de Módulos PowerBI",
+      "TITLE_MANTEINANCE_FOR": "Módulos Power-Bi",
+      "BTN_MANTEINANCE_POWER_BI": "Módulos Power-Bi",
       "TBL_ID": "Identificación",
       "TBL_NAME": "Nombre",
       "TBL_DESCRIPTION": "Descripción",
