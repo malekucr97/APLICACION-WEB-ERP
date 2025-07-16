@@ -1,6 +1,6 @@
 ﻿import { Component, OnInit } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { UntypedFormBuilder, UntypedFormGroup, Validators } from '@angular/forms';
 import { first } from 'rxjs/operators';
 import { AccountService, AlertService } from '@app/_services';
 import { administrator, environment, httpLandingIndexPage } from '@environments/environment';
@@ -10,7 +10,7 @@ import { TranslateService } from '@ngx-translate/core';
 @Component({ templateUrl: 'login.component.html' })
 export class LoginComponent implements OnInit {
 
-    form : FormGroup ;
+    form : UntypedFormGroup ;
 
     userLog : User = new User ;
 
@@ -36,7 +36,7 @@ export class LoginComponent implements OnInit {
 
     private KeySessionStorageUserName : string = environment.sessionStorageIdentificationUserKey;
 
-    constructor(private formBuilder: FormBuilder,
+    constructor(private formBuilder: UntypedFormBuilder,
                 private route: ActivatedRoute,
                 private router: Router,
                 private accountService: AccountService,

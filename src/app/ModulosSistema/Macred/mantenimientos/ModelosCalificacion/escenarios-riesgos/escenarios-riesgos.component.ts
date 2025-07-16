@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { UntypedFormBuilder, UntypedFormGroup, Validators } from '@angular/forms';
 import { Compania, Module, User } from '@app/_models';
 import { MacEscenariosRiesgos, MacModeloAnalisis } from '@app/_models/Macred';
 import { AccountService, AlertService } from '@app/_services';
@@ -26,14 +26,14 @@ export class EscenariosRiesgosComponent implements OnInit {
   lstEscenariosRiesgos: MacEscenariosRiesgos[] = [];
   escenarioRiesgoSeleccionado: MacEscenariosRiesgos = undefined;
 
-  frmEscenariosRiesgo: FormGroup;
+  frmEscenariosRiesgo: UntypedFormGroup;
   sbmFrmEscenariosRiesgo: boolean = false;
   get f() {
     return this.frmEscenariosRiesgo.controls;
   }
 
   constructor(
-    private formBuilder: FormBuilder,
+    private formBuilder: UntypedFormBuilder,
     private accountService: AccountService,
     private macredService: MacredService,
     private alertService: AlertService

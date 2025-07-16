@@ -1,5 +1,5 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { UntypedFormBuilder, UntypedFormGroup, Validators } from '@angular/forms';
 import { MatDialog } from '@angular/material/dialog';
 import { DialogoConfirmacionComponent } from '@app/_components/dialogo-confirmacion/dialogo-confirmacion.component';
 import { Compania, Module, User } from '@app/_models';
@@ -65,9 +65,9 @@ export class IngresosComponent implements OnInit {
   habilitarBtnEliminarExtras: boolean = false;
   habilitarBtnFinalizarDeducciones: boolean = false;
 
-  formIngresos: FormGroup;
-  formExtras: FormGroup;
-  formDeducciones: FormGroup;
+  formIngresos: UntypedFormGroup;
+  formExtras: UntypedFormGroup;
+  formDeducciones: UntypedFormGroup;
   submittedIngresosForm: boolean = false;
   submittedExtrasForm: boolean = false;
   submittedDeduccionesForm: boolean = false;
@@ -82,7 +82,7 @@ export class IngresosComponent implements OnInit {
   }
 
   constructor(
-    private formBuilder: FormBuilder,
+    private formBuilder: UntypedFormBuilder,
     private macredService: MacredService,
     private accountService: AccountService,
     private alertService: AlertService,

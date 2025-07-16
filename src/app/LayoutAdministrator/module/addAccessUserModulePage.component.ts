@@ -1,4 +1,4 @@
-import { FormBuilder, FormGroup, Validators  }      from '@angular/forms';
+import { UntypedFormBuilder, UntypedFormGroup, Validators  }      from '@angular/forms';
 import { Component, OnInit, ViewChild }             from '@angular/core';
 import { AccountService, AlertService }             from '@app/_services';
 import { MatSidenav }                               from '@angular/material/sidenav';
@@ -30,7 +30,7 @@ export class AddAccessUserModuleComponent extends OnSeguridad implements OnInit 
     private companiaObservable  : Compania;
 
     // ## -- formularios -- ## //
-    formPantallasModulo : FormGroup;
+    formPantallasModulo : UntypedFormGroup;
 
     // ## -- submit formularios -- ## //
     submittedPantallasModuloForm : boolean = false;
@@ -61,7 +61,7 @@ export class AddAccessUserModuleComponent extends OnSeguridad implements OnInit 
 
     constructor (   private route:          ActivatedRoute,
                     private alertService:   AlertService,
-                    private formBuilder:    FormBuilder,
+                    private formBuilder:    UntypedFormBuilder,
                     private accountService: AccountService,
                     private dialogo:        MatDialog,
                     private router:         Router,

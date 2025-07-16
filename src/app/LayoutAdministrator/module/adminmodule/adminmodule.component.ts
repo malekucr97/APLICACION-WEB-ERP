@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { UntypedFormBuilder, UntypedFormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { OnSeguridad } from '@app/_helpers/abstractSeguridad';
 import { Compania, Module, User } from '@app/_models';
@@ -24,7 +24,7 @@ export class AdminmoduleComponent extends OnSeguridad implements OnInit {
   userObservable: User;
   businessObservable: Compania;
 
-  formAdminModule: FormGroup;
+  formAdminModule: UntypedFormGroup;
   submitFormAdminModule: boolean = false;
   get m() {
     return this.formAdminModule.controls;
@@ -50,7 +50,7 @@ export class AdminmoduleComponent extends OnSeguridad implements OnInit {
 
   constructor(private accountService: AccountService,
               private alertService: AlertService,
-              private formBuilder: FormBuilder,
+              private formBuilder: UntypedFormBuilder,
               private route: ActivatedRoute,
               private router: Router,
               private translate: TranslateMessagesService ) {

@@ -1,4 +1,4 @@
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { UntypedFormBuilder, UntypedFormGroup, Validators } from '@angular/forms';
 import { Component, OnInit } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
 import { first } from 'rxjs/operators';
@@ -15,7 +15,7 @@ import { TranslateMessagesService } from '@app/_services/translate-messages.serv
 })
 export class AddEditUserComponent extends OnSeguridad implements OnInit {
   
-  usuarioForm: FormGroup;
+  usuarioForm: UntypedFormGroup;
   response: ResponseMessage;
   pIdentifUserUpdate: string;
   usuarioSeleccionado: User;
@@ -26,7 +26,7 @@ export class AddEditUserComponent extends OnSeguridad implements OnInit {
   role: Role; nombreRol: string;
   URLRedirectPage: string; URLListUserPage: string;
   
-  constructor(private formBuilder: FormBuilder,
+  constructor(private formBuilder: UntypedFormBuilder,
               private route: ActivatedRoute,
               private router: Router,
               private accountService: AccountService,

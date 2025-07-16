@@ -1,5 +1,5 @@
 import { Component, Input, OnInit } from '@angular/core';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { UntypedFormBuilder, UntypedFormGroup, Validators } from '@angular/forms';
 import { Compania, Module, User } from '@app/_models';
 import {
   MacAnalisisCapacidadPago,
@@ -34,7 +34,7 @@ export class FclComponent implements OnInit {
   private companiaObservable: Compania;
 
   // ## -- formularios -- ## //
-  formularioFCL: FormGroup;
+  formularioFCL: UntypedFormGroup;
   submittedFCLForm: boolean = false;
   get j() {
     return this.formularioFCL.controls;
@@ -47,7 +47,7 @@ export class FclComponent implements OnInit {
   habilitarFinalizacion: boolean = false;
 
   constructor(
-    private formBuilder: FormBuilder,
+    private formBuilder: UntypedFormBuilder,
     private macredService: MacredService,
     private accountService: AccountService,
     private alertService: AlertService

@@ -139,7 +139,6 @@
       }
     }
   },
-  "defaultProject": "uil",
   "cli": {
     "analytics": false
   }

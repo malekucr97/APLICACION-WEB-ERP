@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { UntypedFormBuilder, UntypedFormGroup, Validators } from '@angular/forms';
 import { Compania, Module, User } from '@app/_models';
 import { MacNivelCapacidadPago } from '@app/_models/Macred';
 import { AccountService, AlertService } from '@app/_services';
@@ -28,14 +28,14 @@ export class NivelesCapacidadPagoComponent implements OnInit {
   nivelCapacidadPagoSeleccionado: MacNivelCapacidadPago = undefined;
 
   // FORMULARIO
-  frmNivelCapacidadPago: FormGroup;
+  frmNivelCapacidadPago: UntypedFormGroup;
   submittedForm: boolean = false;
   get f() {
     return this.frmNivelCapacidadPago.controls;
   }
 
   constructor(
-    private formBuilder: FormBuilder,
+    private formBuilder: UntypedFormBuilder,
     private accountService: AccountService,
     private macredService: MacredService,
     private alertService: AlertService

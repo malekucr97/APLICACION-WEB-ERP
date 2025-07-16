@@ -1,4 +1,4 @@
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { UntypedFormBuilder, UntypedFormGroup, Validators } from '@angular/forms';
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { AccountService, AlertService, GeneralesService } from '@app/_services';
 import { User, Module } from '@app/_models';
@@ -32,11 +32,11 @@ export class ConfigurationCompaniaComponent extends OnSeguridad implements OnIni
 
     submitFormCompania = false;
 
-    companiaForm: FormGroup;
+    companiaForm: UntypedFormGroup;
 
     public today : Date ;
 
-    constructor (   private formBuilder: FormBuilder,
+    constructor (   private formBuilder: UntypedFormBuilder,
                     private accountService: AccountService,
                     private generalesSerice: GeneralesService,
                     private alertService: AlertService,

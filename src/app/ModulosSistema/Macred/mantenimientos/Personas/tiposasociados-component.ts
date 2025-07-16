@@ -1,4 +1,4 @@
-import { FormBuilder, FormGroup, Validators  } from '@angular/forms';
+import { UntypedFormBuilder, UntypedFormGroup, Validators  } from '@angular/forms';
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { AccountService, AlertService } from '@app/_services';
 import { User, Module } from '@app/_models';
@@ -46,8 +46,8 @@ export class TiposAsociadosComponent implements OnInit {
     submittedTipoAsociadoForm : boolean = false;
 
     // Tipo Asociado
-    formTipoAsociado: FormGroup;
-    formTipoAsociadoList: FormGroup;
+    formTipoAsociado: UntypedFormGroup;
+    formTipoAsociadoList: UntypedFormGroup;
     listTiposAsociados: MacTipoAsociado[];
     showList : boolean = false;
 
@@ -62,7 +62,7 @@ export class TiposAsociadosComponent implements OnInit {
 
     public today = new Date();
 
-    constructor (private formBuilder: FormBuilder,
+    constructor (private formBuilder: UntypedFormBuilder,
                  private macredService: MacredService,
                  private accountService: AccountService,
                  private alertService: AlertService,

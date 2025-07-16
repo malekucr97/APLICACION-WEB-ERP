@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { UntypedFormBuilder, UntypedFormGroup, Validators } from '@angular/forms';
 import { Compania, Module, User } from '@app/_models';
 import { VariablesPD } from '@app/_models/Macred';
 import { AccountService, AlertService } from '@app/_services';
@@ -23,7 +23,7 @@ export class ConfiguracionParametrosPdComponent implements OnInit {
   private companiaObservable: Compania;
 
   // FORMULARIO PD
-  formVariablesPD: FormGroup;
+  formVariablesPD: UntypedFormGroup;
   submittedModeloPDForm: boolean = false;
   get f() {
     return this.formVariablesPD.controls;
@@ -33,7 +33,7 @@ export class ConfiguracionParametrosPdComponent implements OnInit {
   lstVariables: VariablesPD[] = [];
 
   constructor(
-    private formBuilder: FormBuilder,
+    private formBuilder: UntypedFormBuilder,
     private accountService: AccountService,
     private macredService: MacredService,
     private alertService: AlertService

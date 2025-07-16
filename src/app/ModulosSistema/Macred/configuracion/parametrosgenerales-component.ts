@@ -1,4 +1,4 @@
-import { FormBuilder, FormGroup, Validators  } from '@angular/forms';
+import { UntypedFormBuilder, UntypedFormGroup, Validators  } from '@angular/forms';
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { AccountService, AlertService } from '@app/_services';
 import { User, Module } from '@app/_models';
@@ -48,8 +48,8 @@ export class ParametrosGeneralesComponent implements OnInit {
     submittedParametroGeneralForm : boolean = false;
 
     // Parametros Generales
-    formParametroGeneral: FormGroup;
-    formParametroGeneralList: FormGroup;
+    formParametroGeneral: UntypedFormGroup;
+    formParametroGeneralList: UntypedFormGroup;
     listParametrosGenerales: MacParametrosGenerales[];
     showList : boolean = false;
 
@@ -64,7 +64,7 @@ export class ParametrosGeneralesComponent implements OnInit {
 
     public today = new Date();
 
-    constructor (private formBuilder: FormBuilder,
+    constructor (private formBuilder: UntypedFormBuilder,
                  private macredService: MacredService,
                  private accountService: AccountService,
                  private alertService: AlertService,

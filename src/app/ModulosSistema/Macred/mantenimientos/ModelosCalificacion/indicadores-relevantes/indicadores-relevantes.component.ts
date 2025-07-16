@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { UntypedFormBuilder, UntypedFormGroup, Validators } from '@angular/forms';
 import { Compania, Module, User } from '@app/_models';
 import {
   MacIndicadoresRelevantes,
@@ -28,7 +28,7 @@ export class IndicadoresRelevantesComponent implements OnInit {
   private companiaObservable: Compania;
 
   constructor(
-    private formBuilder: FormBuilder,
+    private formBuilder: UntypedFormBuilder,
     private accountService: AccountService,
     private macredService: MacredService,
     private alertService: AlertService
@@ -48,7 +48,7 @@ export class IndicadoresRelevantesComponent implements OnInit {
   indicadorRelevanteSeleccionado: MacIndicadoresRelevantes = undefined;
 
   // FORMULARIO INDICADORES RELEVANTES
-  formIndicadoresRelevantes: FormGroup;
+  formIndicadoresRelevantes: UntypedFormGroup;
   submittedIndicadoresRelevantes: boolean = false;
   get f() {
     return this.formIndicadoresRelevantes.controls;
@@ -196,7 +196,7 @@ export class IndicadoresRelevantesComponent implements OnInit {
   lstNivelesxIndicador: MacNivelesXIndicador[] = [];
   lstNivelesCapacidadPago: MacNivelCapacidadPago[] = [];
 
-  formNivelesPorIndicador: FormGroup;
+  formNivelesPorIndicador: UntypedFormGroup;
   submittedNivelPorIndicador: boolean = false;
   get n() {
     return this.formNivelesPorIndicador.controls;

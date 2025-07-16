@@ -1,4 +1,4 @@
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { UntypedFormBuilder, UntypedFormGroup, Validators } from '@angular/forms';
 import { Component, OnInit } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
 import { first } from 'rxjs/operators';
@@ -14,7 +14,7 @@ import { TranslateMessagesService } from '@app/_services/translate-messages.serv
     styleUrls: [ '../../../assets/scss/app.scss', '../../../assets/scss/administrator/app.scss']
 })
 export class AddEditRolComponent extends OnSeguridad implements OnInit {
-  rolForm: FormGroup;
+  rolForm: UntypedFormGroup;
 
   userObservable: User;
   businessObservable: Compania;
@@ -31,7 +31,7 @@ export class AddEditRolComponent extends OnSeguridad implements OnInit {
 
   tituloBasePantalla: string = 'Formulario de Registro de Roles del Sistema';
 
-  constructor(private formBuilder: FormBuilder,
+  constructor(private formBuilder: UntypedFormBuilder,
               private route: ActivatedRoute,
               private router: Router,
               private accountService: AccountService,

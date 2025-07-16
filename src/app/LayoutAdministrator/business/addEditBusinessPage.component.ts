@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { UntypedFormBuilder, UntypedFormGroup, Validators } from '@angular/forms';
 import { first } from 'rxjs/operators';
 import { AccountService, AlertService } from '@app/_services';
 import { Compania } from '../../_models/modules/compania';
@@ -14,7 +14,7 @@ import { TranslateMessagesService } from '@app/_services/translate-messages.serv
 })
 export class AddEditBusinessComponent extends OnSeguridad implements OnInit {
   
-  public form: FormGroup;
+  public form: UntypedFormGroup;
   public urladminListBusiness: string;
 
   public userObserver: User;
@@ -26,7 +26,7 @@ export class AddEditBusinessComponent extends OnSeguridad implements OnInit {
 
   public updateBusiness: boolean; public addBusiness: boolean;
 
-  constructor(private formBuilder: FormBuilder,
+  constructor(private formBuilder: UntypedFormBuilder,
               private route: ActivatedRoute,
               private router: Router,
               private accountService: AccountService,

@@ -69,7 +69,6 @@ import { EscenariosRiesgosComponent } from './mantenimientos/ModelosCalificacion
         MatFormFieldModule,
         MatListModule,
         MatSelectModule
-
     ],
     declarations: [
         IndexMacredComponent,
@@ -97,9 +96,6 @@ import { EscenariosRiesgosComponent } from './mantenimientos/ModelosCalificacion
         PdComponent,
         VariablesCriticasComponent,
         EscenariosRiesgosComponent
-    ],
-    entryComponents: [
-        AsociadosComponent
     ]
 })
 export class MacredModule { }

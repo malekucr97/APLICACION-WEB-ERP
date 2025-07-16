@@ -1,4 +1,4 @@
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { UntypedFormBuilder, UntypedFormGroup, Validators } from '@angular/forms';
 import { Component, OnInit } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
 import { first } from 'rxjs/operators';
@@ -16,7 +16,7 @@ import { AdminPlan, AdminPlanSupport, AdminTipoPlan } from '@app/_models/admin/p
 })
 export class AddEditPlanComponent extends OnSeguridad implements OnInit {
   
-    planForm: FormGroup;
+    planForm: UntypedFormGroup;
     response: ResponseMessage;
     pidPlanUpdate: number;
     planSeleccionado: AdminPlan;
@@ -27,7 +27,7 @@ export class AddEditPlanComponent extends OnSeguridad implements OnInit {
     public listTiposPlanes : AdminTipoPlan[];
     public listPlanesSupport : AdminPlanSupport[];
   
-    constructor(private formBuilder: FormBuilder,
+    constructor(private formBuilder: UntypedFormBuilder,
                 private route: ActivatedRoute,
                 private router: Router,
                 private accountService: AccountService,

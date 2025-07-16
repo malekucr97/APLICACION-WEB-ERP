@@ -1,6 +1,6 @@
 import { PercentPipe } from '@angular/common';
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
-import { FormBuilder, FormGroup } from '@angular/forms';
+import { UntypedFormBuilder, UntypedFormGroup } from '@angular/forms';
 import { Compania, Module, User } from '@app/_models';
 import { AnalisisHistoricoPD, GruposPD, MacPersona, MacTipoIngresoAnalisis, ModelosPD } from '@app/_models/Macred';
 import { AccountService, AlertService } from '@app/_services';
@@ -45,7 +45,7 @@ export class PdComponent implements OnInit {
   disabledDatosPD: boolean = true;
 
 
-  formPD: FormGroup;
+  formPD: UntypedFormGroup;
   submittedPDForm: boolean = false;
   get j() {
     return this.formPD.controls;
@@ -53,7 +53,7 @@ export class PdComponent implements OnInit {
 
 
   constructor(
-    private formBuilder: FormBuilder,
+    private formBuilder: UntypedFormBuilder,
     private macredService: MacredService,
     private accountService: AccountService,
     private alertService: AlertService,

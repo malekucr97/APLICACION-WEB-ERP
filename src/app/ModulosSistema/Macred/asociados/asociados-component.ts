@@ -1,4 +1,4 @@
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { UntypedFormBuilder, UntypedFormGroup, Validators } from '@angular/forms';
 import { Component, OnDestroy, OnInit, ViewChild } from '@angular/core';
 import { AccountService, AlertService } from '@app/_services';
 import { MatSidenav } from '@angular/material/sidenav';
@@ -107,14 +107,14 @@ export class AsociadosComponent implements OnInit, OnDestroy {
   // ## -- *************** -- ## //
 
   // ## -- formularios -- ## //
-  formPersona: FormGroup;
-  formAnalisis: FormGroup;
+  formPersona: UntypedFormGroup;
+  formAnalisis: UntypedFormGroup;
   // ## -- *********** -- ## //
 
   public today: Date;
 
   constructor(
-    private formBuilder: FormBuilder,
+    private formBuilder: UntypedFormBuilder,
     private macredService: MacredService,
     private accountService: AccountService,
     private alertService: AlertService,

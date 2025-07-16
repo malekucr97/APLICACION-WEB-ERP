@@ -1,5 +1,5 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { UntypedFormBuilder, UntypedFormGroup, Validators } from '@angular/forms';
 import { Compania, Module, User } from '@app/_models';
 import {
   MacAnalisisCapacidadPago,
@@ -53,7 +53,7 @@ export class DatosAnalisisComponent implements OnInit {
   habilitaBtnIngreso: boolean = false;
   habilitaBtnPD_analisisIndependiente = false;
 
-  formAnalisis: FormGroup;
+  formAnalisis: UntypedFormGroup;
   submittedAnalisisForm: boolean = false;
   get g() {
     return this.formAnalisis.controls;
@@ -61,14 +61,14 @@ export class DatosAnalisisComponent implements OnInit {
 
   listHistorialAnalisis: MacAnalisisCapacidadPago[] = [];
 
-  formHistorialAnalisis: FormGroup;
+  formHistorialAnalisis: UntypedFormGroup;
   submittedHistorialAnalisisForm: boolean = false;
   get h() {
     return this.formHistorialAnalisis.controls;
   }
 
   constructor(
-    private formBuilder: FormBuilder,
+    private formBuilder: UntypedFormBuilder,
     private macredService: MacredService,
     private accountService: AccountService,
     private alertService: AlertService,

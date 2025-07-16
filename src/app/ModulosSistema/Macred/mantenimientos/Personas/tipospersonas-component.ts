@@ -1,4 +1,4 @@
-import { FormBuilder, FormGroup, Validators  } from '@angular/forms';
+import { UntypedFormBuilder, UntypedFormGroup, Validators  } from '@angular/forms';
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { AccountService, AlertService } from '@app/_services';
 import { User, Module } from '@app/_models';
@@ -46,8 +46,8 @@ export class TiposPersonasComponent implements OnInit {
     submittedTipoPersonaForm : boolean = false;
 
     // Tipo Persona
-    formTipoPersona: FormGroup;
-    formTipoPersonaList: FormGroup;
+    formTipoPersona: UntypedFormGroup;
+    formTipoPersonaList: UntypedFormGroup;
     listTiposPersonas: MacTipoPersona[];
     showList : boolean = false;
 
@@ -62,7 +62,7 @@ export class TiposPersonasComponent implements OnInit {
 
     public today = new Date();
 
-    constructor (private formBuilder: FormBuilder,
+    constructor (private formBuilder: UntypedFormBuilder,
                  private macredService: MacredService,
                  private accountService: AccountService,
                  private alertService: AlertService,

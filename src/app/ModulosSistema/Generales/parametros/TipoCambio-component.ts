@@ -1,4 +1,4 @@
-import { FormBuilder, FormGroup, Validators  }      from '@angular/forms';
+import { UntypedFormBuilder, UntypedFormGroup, Validators  }      from '@angular/forms';
 import { Component, OnInit, ViewChild }             from '@angular/core';
 import { AccountService, AlertService, GeneralesService } from '@app/_services';
 import { MatSidenav }                               from '@angular/material/sidenav';
@@ -35,8 +35,8 @@ export class TipoCambioComponent  extends OnSeguridad implements OnInit {
     private companiaObservable  : Compania;
 
     // ## -- formularios -- ## //
-    formTipoMoneda              : FormGroup;
-    formTipoCambio              : FormGroup;
+    formTipoMoneda              : UntypedFormGroup;
+    formTipoCambio              : UntypedFormGroup;
 
     // ## -- submit formularios -- ## //
     submittedTipoMonedaForm     : boolean = false;
@@ -66,7 +66,7 @@ export class TipoCambioComponent  extends OnSeguridad implements OnInit {
     constructor (   private alertService:      AlertService,
                     // private inversionesService:     InversionesService,
                     private generalesService:     GeneralesService,
-                    private formBuilder:       FormBuilder,
+                    private formBuilder:       UntypedFormBuilder,
                     private accountService:     AccountService,
                     private dialogo:           MatDialog,
                     private router: Router,

@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { UntypedFormBuilder, UntypedFormGroup, Validators } from '@angular/forms';
 import { AccountService, AlertService } from '@app/_services';
 import { MacredService } from '@app/_services/macred.service';
 import { Compania, Module, User } from '@app/_models';
@@ -25,14 +25,14 @@ export class VariablesCriticasComponent implements OnInit {
   lstVariablesCriticas: MacVariablesCriticas[] = [];
   variableCritidaSeleccionada: MacVariablesCriticas = undefined;
 
-  formVariableCritica: FormGroup;
+  formVariableCritica: UntypedFormGroup;
   submittedIndicadoresRelevantes: boolean = false;
   get f() {
     return this.formVariableCritica.controls;
   }
 
   constructor(
-    private formBuilder: FormBuilder,
+    private formBuilder: UntypedFormBuilder,
     private accountService: AccountService,
     private macredService: MacredService,
     private alertService: AlertService

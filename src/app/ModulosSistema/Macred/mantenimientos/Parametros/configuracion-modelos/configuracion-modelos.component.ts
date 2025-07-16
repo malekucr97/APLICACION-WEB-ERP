@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { UntypedFormBuilder, UntypedFormGroup, Validators } from '@angular/forms';
 import { Compania, User, Module } from '@app/_models';
 import {
   GruposPD,
@@ -29,7 +29,7 @@ export class ConfiguracionModelosComponent implements OnInit {
   private companiaObservable: Compania;
 
   // FORMULARIO MODELOS PD
-  formModeloPD: FormGroup;
+  formModeloPD: UntypedFormGroup;
   submittedModeloPDForm: boolean = false;
   get f() {
     return this.formModeloPD.controls;
@@ -39,7 +39,7 @@ export class ConfiguracionModelosComponent implements OnInit {
   lstModelos: ModelosPD[] = [];
 
   constructor(
-    private formBuilder: FormBuilder,
+    private formBuilder: UntypedFormBuilder,
     private accountService: AccountService,
     private macredService: MacredService,
     private alertService: AlertService
@@ -159,7 +159,7 @@ export class ConfiguracionModelosComponent implements OnInit {
   lstGruposDelModelo: GruposPD[] = [];
 
   //FORMULARIO GRUPOS PD
-  formGrupoPD: FormGroup;
+  formGrupoPD: UntypedFormGroup;
   submittedGrupoPDForm: boolean = false;
   get g() {
     return this.formGrupoPD.controls;
@@ -279,7 +279,7 @@ export class ConfiguracionModelosComponent implements OnInit {
   lstIndicadoresPorGrupo: IndicadoresPorGrupoPD[] = [];
 
   //FORMULARIO VARIABLES POR GRUPOS PD
-  formIndicadorGrupoPD: FormGroup;
+  formIndicadorGrupoPD: UntypedFormGroup;
   submittedIndicadorGrupoPDForm: boolean = false;
   get ig() {
     return this.formIndicadorGrupoPD.controls;
