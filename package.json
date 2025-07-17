@@ -1,5 +1,5 @@
 {
-  "name": "app-cliente-angular-despliegue-de-modulos-multicompania",
+  "name": "Sistema-Administración-Módulos-MultiCompañía",
   "version": "0.0.0",
   "resolutions": {
     "webpack": "^5.0.0"
