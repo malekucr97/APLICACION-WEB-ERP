@@ -12,6 +12,6 @@ update angular: https://angular.dev/update-guide?v=13.0-14.0&l=2
 
 master
 
-* Angular CLI: 15.2.11
-* Node: 14.21.3
-* Package Manager: npm 6.14.8
+* Angular CLI: 16.2.16
+* Node: 16.20.2
+* Package Manager: npm 8.19.4
