@@ -8,7 +8,7 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <meta name="referrer" content="no-referrer-when-downgrade">
-    <meta http-equiv="Content-Security-Policy" content="default-src 'self';
+    <!-- <meta http-equiv="Content-Security-Policy" content="default-src 'self';
                                                         script-src 'self' 'unsafe-inline' 'unsafe-eval' https://app.powerbi.com; 
                                                           script-src-attr 'self' 'unsafe-inline' 'unsafe-eval' https://app.powerbi.com;
                                                         style-src 'self' 'unsafe-inline' https://app.powerbi.com; 
@@ -18,8 +18,20 @@
                                                         connect-src 'self' http://localhost:4000 https://app.powerbi.com;
                                                         form-action 'self';
                                                         frame-src 'self' https://app.powerbi.com;
-                                                        font-src 'self' https://fonts.gstatic.com https://cdn.linearicons.com https://fonts.googleapis.com;" />
+                                                        font-src 'self' https://fonts.gstatic.com https://cdn.linearicons.com https://fonts.googleapis.com;" /> -->
                                                         
+    <meta http-equiv="Content-Security-Policy" content="default-src 'self';
+                                                        script-src 'self';
+                                                        style-src 'self' 'unsafe-inline' https://fonts.googleapis.com;
+                                                        img-src 'self';
+                                                        connect-src 'self' http://localhost:4000;
+                                                        form-action 'self';
+                                                        frame-src https://app.powerbi.com;
+                                                        font-src 'self' https://fonts.gstatic.com https://cdn.linearicons.com https://fonts.googleapis.com;
+                                                        object-src 'none';
+                                                        base-uri 'self';
+                                                        upgrade-insecure-requests; ">
+
     <link rel="icon" type="image/png" href="./assets/images/icons/favicon.ico" />
   </head>
 
