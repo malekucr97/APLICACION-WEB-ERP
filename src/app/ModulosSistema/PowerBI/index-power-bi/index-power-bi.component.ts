@@ -57,8 +57,8 @@ export class IndexPowerBiComponent extends OnSeguridad implements OnInit {
     if (!super.userAuthenticateIndexComponent()) { this.accountService.logout(); return; }
     // ***************************************************************
 
-    super._nombrePantalla = this.nombrePantalla;
-    super._redireccionURL = '/maleku-ti'; // [OPCIONAL] SI NO SE INDICA SE REDIRECCIONA AL LA PÁGINA DEL MODULO.INDEXHTML
+    this._nombrePantalla = this.nombrePantalla;
+    this._redireccionURL = '/maleku-ti'; // [OPCIONAL] SI NO SE INDICA SE REDIRECCIONA AL LA PÁGINA DEL MODULO.INDEXHTML
     super.validarAccesoPantalla();
     //#endregion
 

@@ -74,8 +74,8 @@ export class TipoCambioComponent  extends OnSeguridad implements OnInit {
 
         //#region VALIDACIÓN DE ACCESO A LAS PANTALLAS
         super(alertService, accountService, router, translate);
-        super._nombrePantalla = this.nombrePantalla;
-        super._redireccionURL = '/maleku-ti/index.html'; // [OPCIONAL] SI NO SE INDICA SE REDIRECCIONA AL LA PÁGINA DEL MODULO.INDEXHTML
+        this._nombrePantalla = this.nombrePantalla;
+        this._redireccionURL = '/maleku-ti/index.html'; // [OPCIONAL] SI NO SE INDICA SE REDIRECCIONA AL LA PÁGINA DEL MODULO.INDEXHTML
         super.validarAccesoPantalla();
         //#endregion
 
