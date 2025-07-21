@@ -30,7 +30,8 @@ declare var $: any;
 @Component({
     templateUrl: 'HTML_TiposGeneros.html',
     styleUrls: ['../../../../../assets/scss/app.scss',
-                '../../../../../assets/scss/macred/app.scss'],
+        '../../../../../assets/scss/macred/app.scss'],
+    standalone: false
 })
 export class TiposGenerosComponent implements OnInit {
     @ViewChild(MatSidenav) sidenav !: MatSidenav;

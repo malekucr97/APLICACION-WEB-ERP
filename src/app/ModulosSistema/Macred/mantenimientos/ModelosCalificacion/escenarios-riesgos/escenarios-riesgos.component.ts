@@ -7,13 +7,14 @@ import { MacredService } from '@app/_services/macred.service';
 import { first } from 'rxjs/operators';
 
 @Component({
-  selector: 'app-escenarios-riesgos',
-  templateUrl: './escenarios-riesgos.component.html',
-  styleUrls: [
-    '../../../../../../assets/scss/app.scss',
-    '../../../../../../assets/scss/macred/app.scss',
-    '../../../../../../assets/scss/tailwind.scss',
-  ],
+    selector: 'app-escenarios-riesgos',
+    templateUrl: './escenarios-riesgos.component.html',
+    styleUrls: [
+        '../../../../../../assets/scss/app.scss',
+        '../../../../../../assets/scss/macred/app.scss',
+        '../../../../../../assets/scss/tailwind.scss',
+    ],
+    standalone: false
 })
 export class EscenariosRiesgosComponent implements OnInit {
   private nombrePantalla: string = 'escenarios-riesgos';

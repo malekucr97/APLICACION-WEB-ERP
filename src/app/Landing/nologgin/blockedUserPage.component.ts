@@ -2,8 +2,10 @@ import { Component } from '@angular/core';
 import { AccountService } from '@app/_services';
 import { User } from '@app/_models';
 
-@Component({ templateUrl: 'HTML_BlockedUserPage.html',
-             styleUrls: ['../../../assets/scss/landing/app.scss'] 
+@Component({
+    templateUrl: 'HTML_BlockedUserPage.html',
+    styleUrls: ['../../../assets/scss/landing/app.scss'],
+    standalone: false
 })
 export class BlockedUserPageComponent {
     user = new User();

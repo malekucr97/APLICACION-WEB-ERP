@@ -11,8 +11,9 @@ import { TranslateMessagesService } from '@app/_services/translate-messages.serv
 import { AdminPlan, AdminPlanSupport, AdminTipoPlan } from '@app/_models/admin/planes/plan';
 
 @Component({
-  templateUrl: 'HTML_AddEditPlanPage.html',
-  styleUrls: [ '../../../assets/scss/app.scss', '../../../assets/scss/administrator/app.scss']
+    templateUrl: 'HTML_AddEditPlanPage.html',
+    styleUrls: ['../../../assets/scss/app.scss', '../../../assets/scss/administrator/app.scss'],
+    standalone: false
 })
 export class AddEditPlanComponent extends OnSeguridad implements OnInit {
   

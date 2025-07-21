@@ -7,8 +7,10 @@ import { ScreenAccessUser } from '@app/_models/admin/screenAccessUser';
 import { OnSeguridad } from '@app/_helpers/abstractSeguridad';
 import { TranslateMessagesService } from '@app/_services/translate-messages.service';
 
-@Component({templateUrl: 'index.html',
-            styleUrls: ['../../../assets/scss/app.scss'],
+@Component({
+    templateUrl: 'index.html',
+    styleUrls: ['../../../assets/scss/app.scss'],
+    standalone: false
 })
 export class IndexMacredComponent extends OnSeguridad implements OnInit {
     pPathIcoModule: string;

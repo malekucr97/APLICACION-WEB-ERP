@@ -29,8 +29,10 @@ interface ExampleFlatNode {
   level: number;
 }
 
-@Component({templateUrl: '../menu.html',
-            styleUrls: [ '../../../assets/scss/app.scss', '../../../assets/scss/menus.scss']
+@Component({
+    templateUrl: '../menu.html',
+    styleUrls: ['../../../assets/scss/app.scss', '../../../assets/scss/menus.scss'],
+    standalone: false
 })
 export class MenuGeneralesComponent implements OnInit {
   @ViewChild(MatSidenav)

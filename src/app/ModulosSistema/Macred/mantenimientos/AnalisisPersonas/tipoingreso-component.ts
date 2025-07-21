@@ -16,7 +16,8 @@ declare var $: any;
 @Component({
     templateUrl: 'HTML_TipoIngreso.html',
     styleUrls: ['../../../../../assets/scss/app.scss',
-                '../../../../../assets/scss/macred/app.scss'],
+        '../../../../../assets/scss/macred/app.scss'],
+    standalone: false
 })
 export class TipoIngresoComponent implements OnInit {
     @ViewChild(MatSidenav) sidenav !: MatSidenav;

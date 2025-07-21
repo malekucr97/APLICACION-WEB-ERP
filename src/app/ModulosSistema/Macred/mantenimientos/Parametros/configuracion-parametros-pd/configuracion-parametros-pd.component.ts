@@ -7,12 +7,13 @@ import { MacredService } from '@app/_services/macred.service';
 import { first } from 'rxjs/operators';
 
 @Component({
-  templateUrl: './configuracion-parametros-pd.component.html',
-  styleUrls: [
-    '../../../../../../assets/scss/app.scss',
-    '../../../../../../assets/scss/macred/app.scss',
-    '../../../../../../assets/scss/tailwind.scss',
-  ],
+    templateUrl: './configuracion-parametros-pd.component.html',
+    styleUrls: [
+        '../../../../../../assets/scss/app.scss',
+        '../../../../../../assets/scss/macred/app.scss',
+        '../../../../../../assets/scss/tailwind.scss',
+    ],
+    standalone: false
 })
 export class ConfiguracionParametrosPdComponent implements OnInit {
   private nombrePantalla: string = 'configuracion-parametros-pd.html';

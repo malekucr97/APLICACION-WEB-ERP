@@ -5,11 +5,13 @@ import { MacredService } from '@app/_services/macred.service';
 import { SrvDatosAnalisisService } from '../servicios/srv-datos-analisis.service';
 
 @Component({
-  selector: 'app-escenariofcl',
-  templateUrl: './escenariofcl.component.html',
-  styleUrls: [
-    '../../../../../assets/scss/app.scss',
-    '../../../../../assets/scss/macred/app.scss',]
+    selector: 'app-escenariofcl',
+    templateUrl: './escenariofcl.component.html',
+    styleUrls: [
+        '../../../../../assets/scss/app.scss',
+        '../../../../../assets/scss/macred/app.scss',
+    ],
+    standalone: false
 })
 export class EscenariofclComponent implements OnInit {
 

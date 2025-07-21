@@ -7,13 +7,14 @@ import { MacredService } from '@app/_services/macred.service';
 import { first } from 'rxjs/operators';
 
 @Component({
-  selector: 'app-niveles-capacidad-pago',
-  templateUrl: './niveles-capacidad-pago.component.html',
-  styleUrls: [
-    '../../../../../../assets/scss/app.scss',
-    '../../../../../../assets/scss/macred/app.scss',
-    '../../../../../../assets/scss/tailwind.scss',
-  ],
+    selector: 'app-niveles-capacidad-pago',
+    templateUrl: './niveles-capacidad-pago.component.html',
+    styleUrls: [
+        '../../../../../../assets/scss/app.scss',
+        '../../../../../../assets/scss/macred/app.scss',
+        '../../../../../../assets/scss/tailwind.scss',
+    ],
+    standalone: false
 })
 export class NivelesCapacidadPagoComponent implements OnInit {
   private nombrePantalla: string = 'niveles-capacidad-pago.html';

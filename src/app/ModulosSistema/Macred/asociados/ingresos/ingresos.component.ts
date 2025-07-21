@@ -21,12 +21,13 @@ import { SrvDatosAnalisisService } from '../servicios/srv-datos-analisis.service
 declare var $: any;
 
 @Component({
-  selector: 'app-ingresos',
-  templateUrl: './ingresos.component.html',
-  styleUrls: [
-    '../../../../../assets/scss/app.scss',
-    '../../../../../assets/scss/macred/app.scss',
-  ],
+    selector: 'app-ingresos',
+    templateUrl: './ingresos.component.html',
+    styleUrls: [
+        '../../../../../assets/scss/app.scss',
+        '../../../../../assets/scss/macred/app.scss',
+    ],
+    standalone: false
 })
 export class IngresosComponent implements OnInit {
   @Input() _personaAnalisis: MacPersona;

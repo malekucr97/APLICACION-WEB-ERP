@@ -34,11 +34,12 @@ import { SrvDatosAnalisisService } from './servicios/srv-datos-analisis.service'
 declare var $: any;
 
 @Component({
-  templateUrl: 'HTML_Asociados.html',
-  styleUrls: [
-    '../../../../assets/scss/app.scss',
-    '../../../../assets/scss/macred/app.scss',
-  ],
+    templateUrl: 'HTML_Asociados.html',
+    styleUrls: [
+        '../../../../assets/scss/app.scss',
+        '../../../../assets/scss/macred/app.scss',
+    ],
+    standalone: false
 })
 export class AsociadosComponent implements OnInit, OnDestroy {
   @ViewChild(MatSidenav) sidenav!: MatSidenav;

@@ -3,9 +3,10 @@ import { LocalStorageService, TranslateMessagesService } from '@app/_services';
 
 
 @Component({
-  selector: 'app-translate',
-  templateUrl: './translate.component.html',
-  styleUrls: ['./translate.component.css']
+    selector: 'app-translate',
+    templateUrl: './translate.component.html',
+    styleUrls: ['./translate.component.css'],
+    standalone: false
 })
 export class TranslateComponent implements OnInit {
   selected = 'es';	

@@ -11,8 +11,9 @@ import { Bitacora } from '@app/_models/bitacora';
 import { TranslateMessagesService } from '@app/_services/translate-messages.service';
 
 @Component({
-  templateUrl: 'IndexContentPage.html',
-  styleUrls: [  '../../assets/scss/app.scss', '../../assets/scss/landing/app.scss' ]
+    templateUrl: 'IndexContentPage.html',
+    styleUrls: ['../../assets/scss/app.scss', '../../assets/scss/landing/app.scss'],
+    standalone: false
 })
 export class IndexContentPageComponent extends OnSeguridad implements OnInit {
   @ViewChild(MatSidenav)

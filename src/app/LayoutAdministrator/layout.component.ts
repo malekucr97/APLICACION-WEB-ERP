@@ -3,9 +3,10 @@ import { Router } from '@angular/router';
 import { AccountService } from '@app/_services';
 import { httpLandingIndexPage } from '@environments/environment';
 
-@Component({ 
+@Component({
     templateUrl: 'layout.component.html',
-    styleUrls: ['../../assets/scss/app.scss', '../../assets/scss/administrator/app.scss']
+    styleUrls: ['../../assets/scss/app.scss', '../../assets/scss/administrator/app.scss'],
+    standalone: false
 })
 export class LayoutAdministratorComponent  {
 

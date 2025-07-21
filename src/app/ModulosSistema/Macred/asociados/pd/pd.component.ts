@@ -11,12 +11,13 @@ import { SrvDatosAnalisisService } from '../servicios/srv-datos-analisis.service
 declare var $: any;
 
 @Component({
-  selector: 'app-pd',
-  templateUrl: './pd.component.html',
-  styleUrls: [
-    '../../../../../assets/scss/app.scss',
-    '../../../../../assets/scss/macred/app.scss',
-  ],
+    selector: 'app-pd',
+    templateUrl: './pd.component.html',
+    styleUrls: [
+        '../../../../../assets/scss/app.scss',
+        '../../../../../assets/scss/macred/app.scss',
+    ],
+    standalone: false
 })
 export class PdComponent implements OnInit {
   @Input() _personaAnalisis: MacPersona;

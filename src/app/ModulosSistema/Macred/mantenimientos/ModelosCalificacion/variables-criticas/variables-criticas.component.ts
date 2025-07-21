@@ -7,13 +7,14 @@ import { MacVariablesCriticas } from '@app/_models/Macred';
 import { first } from 'rxjs/operators';
 
 @Component({
-  selector: 'app-variables-criticas',
-  templateUrl: './variables-criticas.component.html',
-  styleUrls: [
-    '../../../../../../assets/scss/app.scss',
-    '../../../../../../assets/scss/macred/app.scss',
-    '../../../../../../assets/scss/tailwind.scss',
-  ],
+    selector: 'app-variables-criticas',
+    templateUrl: './variables-criticas.component.html',
+    styleUrls: [
+        '../../../../../../assets/scss/app.scss',
+        '../../../../../../assets/scss/macred/app.scss',
+        '../../../../../../assets/scss/tailwind.scss',
+    ],
+    standalone: false
 })
 export class VariablesCriticasComponent implements OnInit {
   private nombrePantalla: string = 'variables-criticas';

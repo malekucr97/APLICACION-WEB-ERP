@@ -13,12 +13,13 @@ import { from } from 'rxjs';
 import { filter, first } from 'rxjs/operators';
 
 @Component({
-  templateUrl: './configuracion-modelos.component.html',
-  styleUrls: [
-    '../../../../../../assets/scss/app.scss',
-    '../../../../../../assets/scss/macred/app.scss',
-    '../../../../../../assets/scss/tailwind.scss',
-  ],
+    templateUrl: './configuracion-modelos.component.html',
+    styleUrls: [
+        '../../../../../../assets/scss/app.scss',
+        '../../../../../../assets/scss/macred/app.scss',
+        '../../../../../../assets/scss/tailwind.scss',
+    ],
+    standalone: false
 })
 export class ConfiguracionModelosComponent implements OnInit {
   private nombrePantalla: string = 'configuracion-modelos.html';

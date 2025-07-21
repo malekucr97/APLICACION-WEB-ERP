@@ -11,7 +11,8 @@ import { TranslateMessagesService } from '@app/_services/translate-messages.serv
 
 @Component({
     templateUrl: 'HTML_AddEditRolPage.html',
-    styleUrls: [ '../../../assets/scss/app.scss', '../../../assets/scss/administrator/app.scss']
+    styleUrls: ['../../../assets/scss/app.scss', '../../../assets/scss/administrator/app.scss'],
+    standalone: false
 })
 export class AddEditRolComponent extends OnSeguridad implements OnInit {
   rolForm: UntypedFormGroup;

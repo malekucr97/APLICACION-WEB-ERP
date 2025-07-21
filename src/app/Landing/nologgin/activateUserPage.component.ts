@@ -4,8 +4,10 @@ import { User } from '@app/_models';
 import { Router, UrlTree } from '@angular/router';
 import { first } from 'rxjs/operators';
 
-@Component({templateUrl: 'HTML_ActivateUserPage.html',
-            styleUrls: ['../../../assets/scss/landing/app.scss'],
+@Component({
+    templateUrl: 'HTML_ActivateUserPage.html',
+    styleUrls: ['../../../assets/scss/landing/app.scss'],
+    standalone: false
 })
 export class ActivateUserPageComponent {
   user = new User();

@@ -128,8 +128,10 @@ const TREE_DATA: FoodNode[] = [
   },
 ];
 
-@Component({  templateUrl: '../menu.html',
-              styleUrls: ['../../../assets/scss/app.scss', '../../../assets/scss/menus.scss'],
+@Component({
+    templateUrl: '../menu.html',
+    styleUrls: ['../../../assets/scss/app.scss', '../../../assets/scss/menus.scss'],
+    standalone: false
 })
 export class MenuMacredComponent {
     @ViewChild(MatSidenav)

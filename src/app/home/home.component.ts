@@ -10,8 +10,10 @@ import { Bitacora } from '@app/_models/bitacora';
 import { administrator } from '@environments/environment.prod';
 import { TranslateMessagesService } from '@app/_services/translate-messages.service';
 
-@Component({templateUrl: 'HTML_HomePage.html',
-            styleUrls: ['../../assets/scss/app.scss']
+@Component({
+    templateUrl: 'HTML_HomePage.html',
+    styleUrls: ['../../assets/scss/app.scss'],
+    standalone: false
 })
 export class HomeComponent extends OnSeguridad implements OnInit {
 

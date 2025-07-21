@@ -10,12 +10,13 @@ import { httpAccessAdminPage } from '@environments/environment';
 import { first } from 'rxjs/operators';
 
 @Component({
-  selector: 'app-adminmodule',
-  templateUrl: './adminmodule.component.html',
-  styleUrls: [
-    '../../../../assets/scss/app.scss',
-    '../../../../assets/scss/administrator/app.scss',
-  ],
+    selector: 'app-adminmodule',
+    templateUrl: './adminmodule.component.html',
+    styleUrls: [
+        '../../../../assets/scss/app.scss',
+        '../../../../assets/scss/administrator/app.scss',
+    ],
+    standalone: false
 })
 export class AdminmoduleComponent extends OnSeguridad implements OnInit {
   URLListModulesPage: string = httpAccessAdminPage.urlPageListModule;

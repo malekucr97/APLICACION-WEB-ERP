@@ -6,8 +6,10 @@ import { Compania } from '@app/_models/modules/compania';
 import { AccountService, AlertService } from '@app/_services';
 import { TranslateMessagesService } from '@app/_services/translate-messages.service';
 
-@Component({templateUrl: 'index.html',
-            styleUrls: ['../../../assets/scss/app.scss', '../../../assets/scss/generales/app.scss'],
+@Component({
+    templateUrl: 'index.html',
+    styleUrls: ['../../../assets/scss/app.scss', '../../../assets/scss/generales/app.scss'],
+    standalone: false
 })
 export class IndexGeneralesComponent extends OnSeguridad implements OnInit {
     pPathIcoModule: string;

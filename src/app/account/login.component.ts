@@ -7,7 +7,10 @@ import { administrator, environment, httpLandingIndexPage } from '@environments/
 import { User } from '@app/_models';
 import { TranslateService } from '@ngx-translate/core';
 
-@Component({ templateUrl: 'login.component.html' })
+@Component({
+    templateUrl: 'login.component.html',
+    standalone: false
+})
 export class LoginComponent implements OnInit {
 
     form : UntypedFormGroup ;

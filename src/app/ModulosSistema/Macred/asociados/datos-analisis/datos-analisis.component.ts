@@ -19,12 +19,13 @@ import { SrvDatosAnalisisService } from '../servicios/srv-datos-analisis.service
 declare var $: any;
 
 @Component({
-  selector: 'app-datos-analisis',
-  templateUrl: './datos-analisis.component.html',
-  styleUrls: [
-    '../../../../../assets/scss/app.scss',
-    '../../../../../assets/scss/macred/app.scss',
-  ],
+    selector: 'app-datos-analisis',
+    templateUrl: './datos-analisis.component.html',
+    styleUrls: [
+        '../../../../../assets/scss/app.scss',
+        '../../../../../assets/scss/macred/app.scss',
+    ],
+    standalone: false
 })
 export class DatosAnalisisComponent implements OnInit {
   //VARIABLES INPUT DEL COMPONENTE PADRE

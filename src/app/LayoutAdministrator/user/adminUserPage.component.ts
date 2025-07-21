@@ -8,8 +8,9 @@ import { OnSeguridad } from '@app/_helpers/abstractSeguridad';
 import { TranslateMessagesService } from '@app/_services/translate-messages.service';
 
 @Component({
-    templateUrl: 'HTML_AdminUserPage.html', 
-    styleUrls: [  '../../../assets/scss/app.scss' ]
+    templateUrl: 'HTML_AdminUserPage.html',
+    styleUrls: ['../../../assets/scss/app.scss'],
+    standalone: false
 })
 export class AdminUserComponent extends OnSeguridad implements OnInit {
 

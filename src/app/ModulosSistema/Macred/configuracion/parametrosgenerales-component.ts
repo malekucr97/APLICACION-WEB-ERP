@@ -32,7 +32,8 @@ declare var $: any;
 @Component({
     templateUrl: 'HTML_ParametrosGenerales.html',
     styleUrls: ['../../../../assets/scss/app.scss',
-                '../../../../assets/scss/macred/app.scss'],
+        '../../../../assets/scss/macred/app.scss'],
+    standalone: false
 })
 export class ParametrosGeneralesComponent implements OnInit {
     @ViewChild(MatSidenav) sidenav !: MatSidenav;

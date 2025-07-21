@@ -13,12 +13,13 @@ import { first } from 'rxjs/operators';
 import { Output, EventEmitter } from '@angular/core';
 
 @Component({
-  selector: 'app-fcl',
-  templateUrl: './fcl.component.html',
-  styleUrls: [
-    '../../../../../assets/scss/app.scss',
-    '../../../../../assets/scss/macred/app.scss',
-  ],
+    selector: 'app-fcl',
+    templateUrl: './fcl.component.html',
+    styleUrls: [
+        '../../../../../assets/scss/app.scss',
+        '../../../../../assets/scss/macred/app.scss',
+    ],
+    standalone: false
 })
 export class FclComponent implements OnInit {
   //VARIABLES INPUT DEL COMPONENTE PADRE

@@ -16,7 +16,8 @@ declare var $: any;
 
 @Component({
     templateUrl: 'HTML_AddAccessUserModulePage.html',
-    styleUrls: ['../../../assets/scss/app.scss', '../../../assets/scss/administrator/app.scss']
+    styleUrls: ['../../../assets/scss/app.scss', '../../../assets/scss/administrator/app.scss'],
+    standalone: false
 })
 export class AddAccessUserModuleComponent extends OnSeguridad implements OnInit {
     @ViewChild(MatSidenav) sidenav !: MatSidenav;

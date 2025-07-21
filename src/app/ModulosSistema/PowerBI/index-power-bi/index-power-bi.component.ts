@@ -9,10 +9,12 @@ import { TranslateMessagesService } from '@app/_services/translate-messages.serv
 import { IReportEmbedConfiguration, models } from 'powerbi-client';
 import { first } from 'rxjs/operators';
 
-@Component({selector: 'app-index-power-bi',
-            templateUrl: './index-power-bi.component.html',
-            styleUrls: ['../../../../assets/scss/app.scss', '../../../../assets/scss/powerbi/app.scss'],
-            encapsulation: ViewEncapsulation.None,
+@Component({
+    selector: 'app-index-power-bi',
+    templateUrl: './index-power-bi.component.html',
+    styleUrls: ['../../../../assets/scss/app.scss', '../../../../assets/scss/powerbi/app.scss'],
+    encapsulation: ViewEncapsulation.None,
+    standalone: false
 })
 export class IndexPowerBiComponent extends OnSeguridad implements OnInit {
   

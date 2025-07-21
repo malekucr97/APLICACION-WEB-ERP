@@ -3,8 +3,10 @@ import { AccountService } from '@app/_services';
 import { User } from '@app/_models';
 import { first } from 'rxjs/operators';
 
-@Component({templateUrl: 'HTML_PendingPage.html',
-            styleUrls: ['../../../assets/scss/landing/app.scss'],
+@Component({
+    templateUrl: 'HTML_PendingPage.html',
+    styleUrls: ['../../../assets/scss/landing/app.scss'],
+    standalone: false
 })
 export class PendingUserPageComponent {
   user = new User();

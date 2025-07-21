@@ -12,9 +12,11 @@ import { TranslateMessagesService } from '@app/_services/translate-messages.serv
 
 declare var $: any;
 
-@Component({templateUrl: 'HTML_ConfigurationCompania.html',
-            styleUrls: [ '../../../../assets/scss/app.scss',    '../../../../assets/scss/generales/app.scss',
-                                                                '../../../../assets/scss/administrator/app.scss'],
+@Component({
+    templateUrl: 'HTML_ConfigurationCompania.html',
+    styleUrls: ['../../../../assets/scss/app.scss', '../../../../assets/scss/generales/app.scss',
+        '../../../../assets/scss/administrator/app.scss'],
+    standalone: false
 })
 export class ConfigurationCompaniaComponent extends OnSeguridad implements OnInit {
     @ViewChild(MatSidenav) sidenav !: MatSidenav;
