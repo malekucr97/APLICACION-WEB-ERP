@@ -1,6 +1,6 @@
 ﻿import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
-import { HttpClientModule, HTTP_INTERCEPTORS, HttpBackend } from '@angular/common/http';
+import { HTTP_INTERCEPTORS, HttpBackend, provideHttpClient, withInterceptorsFromDi } from '@angular/common/http';
 import { AppRoutingModule } from './app-routing.module';
 import { JwtInterceptor, ErrorInterceptor, TranslateMessageInterceptor } from './_helpers';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
@@ -29,47 +29,39 @@ export function HttpLoaderFactory(httpHandler: HttpBackend) {
     return new TranslateHttpLoader(new HttpClient(httpHandler));
 }
 
-@NgModule({
-    imports: [
-        BrowserModule,
-        HttpClientModule,
-        AppRoutingModule,
-        MatIconModule,
-
-        BrowserAnimationsModule,
-        MatTreeModule,
-        MatTooltipModule,
-        MatToolbarModule,
-        MatSelectModule,
-        
-        TranslateModule.forRoot({
-            defaultLanguage: 'es',
-            extend: true,
-            loader: {
-              provide: TranslateLoader,
-              useFactory: HttpLoaderFactory,
-              deps: [HttpBackend]
-            },
-          })
-    ],
-    declarations: [
+@NgModule({ declarations: [
         AppComponent,
         AlertComponent,
         HomeComponent,
         TranslateComponent,
         FooterComponent
     ],
-    providers: [
-        { provide: HTTP_INTERCEPTORS, useClass: JwtInterceptor, multi: true },
-        { provide: HTTP_INTERCEPTORS, useClass: ErrorInterceptor, multi: true },
-        { provide: HTTP_INTERCEPTORS, useClass: TranslateMessageInterceptor, multi: true},        
-        // ## rewrrite /# ## //
-        { provide: LocationStrategy,  useClass: HashLocationStrategy }
-    ],
     bootstrap: [
-        AppComponent, 
+        AppComponent,
         TranslateComponent,
         FooterComponent
-    ]
-})
+    ], imports: [BrowserModule,
+        AppRoutingModule,
+        MatIconModule,
+        BrowserAnimationsModule,
+        MatTreeModule,
+        MatTooltipModule,
+        MatToolbarModule,
+        MatSelectModule,
+        TranslateModule.forRoot({
+            defaultLanguage: 'es',
+            extend: true,
+            loader: {
+                provide: TranslateLoader,
+                useFactory: HttpLoaderFactory,
+                deps: [HttpBackend]
+            },
+        })], providers: [
+        { provide: HTTP_INTERCEPTORS, useClass: JwtInterceptor, multi: true },
+        { provide: HTTP_INTERCEPTORS, useClass: ErrorInterceptor, multi: true },
+        { provide: HTTP_INTERCEPTORS, useClass: TranslateMessageInterceptor, multi: true },
+        // ## rewrrite /# ## //
+        { provide: LocationStrategy, useClass: HashLocationStrategy },
+        provideHttpClient(withInterceptorsFromDi())
+    ] })
 export class AppModule { }
