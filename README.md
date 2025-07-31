@@ -3,12 +3,12 @@
 * ng build -- --configuration=production
 * ng serve -- --configuration=production
 
-* ng build -- --configuration=development
-* ng serve -- --configuration=development
+* ng build uil --configuration development
+* ng serve uil --configuration development
 
 * azure: az webapp deployment source config-zip --resource-group SecureBI --name apiBIWindows --src 'C:\publicadosAppService\azure.zip'
 
-update angular: https://angular.dev/update-guide?v=13.0-14.0&l=2
+update angular: https://angular.dev/update-guide?v=20.0-20.0&l=2
 
 master
 

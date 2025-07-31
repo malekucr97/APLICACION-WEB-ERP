@@ -10,5 +10,11 @@ last 2 versions
 Firefox ESR
 not dead
 not op_mini all
-not kaios 2.5
-not IE 9-11 # For IE 9-11 support, remove 'not'.
+not and_qq > 0
+not and_uc > 0
+not kaios > 0
+not samsung <= 28
+not android >= 130
+not opera >= 116
+not op_mob >= 80
+not IE 9-11

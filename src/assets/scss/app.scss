@@ -1,3 +1,5 @@
+@use "sass:color";
+
 @mixin bg-color-orange { background-color: #F9A01B; }
 @mixin bg-color-dark-blue { background-color: #0F426A; }
 @mixin bg-color-darkest-blue { background-color: #053254; }
@@ -847,7 +849,8 @@ td { vertical-align: middle; }
   transition: background-color 0.3s ease;
 
   &:hover {
-    background-color: darken(#09440e, 10%);
+    // background-color: darken(#09440e, 10%);
+    background-color: color.adjust(#09440e, $lightness: -10%);
   }
   &:active {
     transform: scale(0.97);
@@ -867,7 +870,8 @@ td { vertical-align: middle; }
   transition: background-color 0.3s ease;
 
   &:hover {
-    background-color: darken(#053254, 10%);
+    // background-color: darken(#053254, 10%);
+    background-color: color.adjust(#053254, $lightness: -10%);
   }
   &:active {
     transform: scale(0.97);
