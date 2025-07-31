@@ -6,7 +6,7 @@
             <p class="articulo__contenedor__tittle__h3">{{ 'CONFIGURATION.ADD_EDIT_ACCES_USER_PAGE_MODULE.SUBTITLE' | translate }}</p>
 
             <button class=" administracion-contenedor__content__item
-                            administracion-contenedor__content__item__backIco-sm
+                            administracion-contenedor__content__item__second-back-ico
                             icon-button-medium"
                     title="{{ 'CONFIGURATION.BTN_ADMIN_USERS' | translate}}"
                     mat-icon-button 
@@ -55,8 +55,12 @@
                                             </div>
                                         </div>
 
-                                        <div class="articulo__contenedor__body__prev__form__content">
+                                        <div class="articulo__contenedor__body__prev__form__content p-2">
+
                                             <form [formGroup]="formPantallasModulo" class="row">
+
+                                                <!-- <div class="col-sm-1"> </div> -->
+
                                                 <div class="form-group col-md-2">
                                                     <span for="id_idPantalla" class="form-label">{{ 'CONFIGURATION.ADD_EDIT_ACCES_USER_PAGE_MODULE.FORM.TXT_ID' | translate }}</span>
                                                     <input  formControlName="idPantalla" 
@@ -91,11 +95,11 @@
                                                     </div>
                                                 </div>
 
-                                                <div class="col-sm-1 articulo__contenedor__body__prev__form__content__div_icon_search">
+                                                <div class="col-sm-2 articulo__contenedor__body__prev__form__content__div_icon_search">
                                                     <a class="item-list__search"> <mat-icon (click)="buscarPantallasModulo()">search</mat-icon> </a>
                                                 </div>
 
-                                                <div class="col-sm-1"> </div>
+                                                <!-- <div class="col-sm-1"> </div> -->
 
                                                 <div class="form-group col-md-10">
                                                     <span for="id_urlExterna" class="form-label">{{ 'CONFIGURATION.ADD_EDIT_ACCES_USER_PAGE_MODULE.FORM.TXT_PATH_URL' | translate }}</span>
@@ -105,8 +109,9 @@
                                                             id="id_urlExterna"/>
                                                 </div>
 
-                                                <div class="form-group col-sm-1 margin-icos-mat">
-                                                    <mat-checkbox formControlName="estadoPantalla">{{ 'CONFIGURATION.ADD_EDIT_ACCES_USER_PAGE_MODULE.FORM.CHK_STATUS' | translate }}</mat-checkbox>
+                                                <div class="form-group col-sm-2 margin-icos-mat">
+                                                    <mat-checkbox formControlName="estadoPantalla"></mat-checkbox>
+                                                    <!-- <mat-checkbox formControlName="estadoPantalla">{{ 'CONFIGURATION.ADD_EDIT_ACCES_USER_PAGE_MODULE.FORM.CHK_STATUS' | translate }}</mat-checkbox> -->
                                                 </div>
                                             </form>
                                         </div>
@@ -129,6 +134,7 @@
                                     </div>
 
                                     <div *ngIf="listPantallasModulos" class="articulo__contenedor__table">
+                                        <div class="scroll-table-admin">
                                         <table class="table table-striped">
                                             <thead>
                                                 <tr>
@@ -159,6 +165,7 @@
                                             </tbody>
                                         </table>
                                     </div>
+                                    </div>
                                 </div>
                             </section>
                         </article>
@@ -184,6 +191,7 @@
                                                     </div>
             
                                                     <div class="articulo__contenedor__table">
+                                                        <div class="scroll-table-admin">
                                                         <table class="table table-striped">
                                                             <thead>
                                                                 <tr>
@@ -208,6 +216,7 @@
                                                                 </tr>
                                                             </tbody>
                                                         </table>
+                                                        </div>
                                                     </div>
                                                 </div>
                                             </section>
@@ -229,6 +238,7 @@
                                                 </div>
         
                                                 <div class="articulo__contenedor__table">
+                                                    <div class="scroll-table-admin">
                                                     <table class="table table-striped">
                                                         <thead>
                                                             <tr>
@@ -253,6 +263,7 @@
                                                             </tr>
                                                         </tbody>
                                                     </table>
+                                                    </div>
                                                 </div>
         
                                             </div>

@@ -150,8 +150,8 @@
       "FORM": {
         "TXT_PLAN_NAME": "Nombre del Plan",
         "TXT_TIPO_PLAN": "Tipo de Plan",
-        "TXT_MAX_ADMIN": "Cant. Máxima de Administradores",
-        "TXT_MAX_FUNCTIONAL": "Cant. Máxima de Us. Funcionales",
+        "TXT_MAX_ADMIN": "Us. Administradores",
+        "TXT_MAX_FUNCTIONAL": "Us. Funcionales",
         "TXT_MONTHLY_PRICE": "Precio Mensual",
         "TXT_ANNUAL_PRICE": "Precio Anual",
         "TXT_PLAN_SUPPORT": "Posee Soporte",
@@ -163,7 +163,8 @@
     },
     "ADD_EDIT_COMPANY": {
       "TITLE": "Mantenimiento de Compañía",
-      "PARAMETERS_COMPANY": "Parámetros de la Empresa: {{nombreEmpresa}}",
+      "SUBTITLE": "Compañías del sistema",
+      "PARAMETERS_COMPANY": "{{companyName}}",
       "REGISTER_COMPANY": "Registro de Empresas",
       "SELECT_COMPANY": "Empresa seleccionada",
       "FORM": {
@@ -182,8 +183,8 @@
       "SUBTITLE": "Pantallas por Módulo - Habilita y Deshabilita Acceso a Usuarios Funcionales",
       "SELECT_SCREEN": "Mantenimiento de pantallas por módulo",
       "TITLE_SCREENS_MAINTENANCE": "Mantenimiento de Pantallas",
-      "TITLE_GRANT_ACCES": "Seleccione el usuario para dar acceso a la pantalla",
-      "TITLE_GRANT_ACCES_SCREEN": "Seleccione el usuario para quitar  el acceso a la pantalla",
+      "TITLE_GRANT_ACCES": "Otorgar Acceso a Pantalla",
+      "TITLE_GRANT_ACCES_SCREEN": "Quitar Acceso a Pantalla",
       "TITLE_SCREENS": "Lista de Pantallas",
       "TABLE": {
         "ID": "Identificación",

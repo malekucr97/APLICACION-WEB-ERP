@@ -28,6 +28,8 @@ export class AddEditBusinessComponent extends OnSeguridad implements OnInit {
 
   public updateBusiness: boolean; public addBusiness: boolean;
 
+  public companyName : string;
+
   constructor(private formBuilder: UntypedFormBuilder,
               private route: ActivatedRoute,
               private router: Router,
@@ -46,6 +48,8 @@ export class AddEditBusinessComponent extends OnSeguridad implements OnInit {
 
     this.loading = false; this.submitted = false;
 
+    this.updateBusiness = false; this.addBusiness = false;
+
     this.userObserver = this.accountService.userValue;
     this.listBusinessSubs = this.accountService.businessListValue;
 
@@ -53,6 +57,8 @@ export class AddEditBusinessComponent extends OnSeguridad implements OnInit {
   }
 
   get f() { return this.form.controls; }
+
+  public redirectListUsersPage() : void { this.router.navigate([this.urladminListBusiness]); }
 
   ngOnInit() {
 
@@ -64,6 +70,8 @@ export class AddEditBusinessComponent extends OnSeguridad implements OnInit {
       this.accountService.getBusinessById(this.pidBusiness)
         .pipe(first())
         .subscribe((responseBusiness) => {
+
+          this.companyName = responseBusiness.nombre;
             
           this.f.nombreCompania.setValue(responseBusiness.nombre);
           this.f.cedulajuridica.setValue(responseBusiness.cedulaJuridica);

@@ -150,8 +150,8 @@
       "FORM": {
         "TXT_PLAN_NAME": "Plan Name",
         "TXT_TIPO_PLAN": "Plan Type",
-        "TXT_MAX_ADMIN": "Max. Us. Administrators",
-        "TXT_MAX_FUNCTIONAL": "Max. Us. Functionals",
+        "TXT_MAX_ADMIN": "Us. Administrators",
+        "TXT_MAX_FUNCTIONAL": "Us. Functionals",
         "TXT_MONTHLY_PRICE": "Monthly Price",
         "TXT_ANNUAL_PRICE": "Annual Price",
         "TXT_PLAN_SUPPORT": "Has Support",
@@ -163,7 +163,8 @@
     },
     "ADD_EDIT_COMPANY": {
       "TITLE": "Company Maintenance",
-      "PARAMETERS_COMPANY": "Company Parameters: {{companyName}}",
+      "SUBTITLE": "System companies",
+      "PARAMETERS_COMPANY": "{{companyName}}",
       "REGISTER_COMPANY": "Company Registration",
       "SELECT_COMPANY": "Selected Company",
       "FORM": {
@@ -182,8 +183,8 @@
       "SUBTITLE": "Screens per Module - Enables and Disables Access to Functional Users",
       "SELECT_SCREEN": "Screen maintenance per module",
       "TITLE_SCREENS_MAINTENANCE": "Screens Maintenance",
-      "TITLE_GRANT_ACCES": "Select the user to give access to the screen",
-      "TITLE_GRANT_ACCES_SCREEN": "Select the user to remove access to the screen",
+      "TITLE_GRANT_ACCES": "Grant Screen Access",
+      "TITLE_GRANT_ACCES_SCREEN": "Remove Screen Access",
       "TITLE_SCREENS": "List of Screens",
       "TABLE": {
         "ID": "Identification",

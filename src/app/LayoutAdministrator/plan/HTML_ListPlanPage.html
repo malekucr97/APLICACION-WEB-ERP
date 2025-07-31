@@ -10,7 +10,7 @@
 
       <div>
           <button class=" administracion-contenedor__content__item
-                          administracion-contenedor__content__item__backIco
+                          administracion-contenedor__content__item__firts-back-ico
                           icon-button-medium"
                   title="{{ 'CONFIGURATION.BTN_ADMIN_USERS' | translate}}"
                   mat-icon-button 
@@ -40,15 +40,9 @@
         </section>
     </article>
   
-      <!-- <button *ngIf="!addPlanBusiness" routerLink="{{urlPageAddEditPlan}}"
-                  class="item-list__confirm float-right" 
-                  mat-icon-button > <mat-icon>add</mat-icon> </button> -->
-  
       <div class="articulo__contenedor__table">
       <table *ngIf="planBusiness" class="table table-striped">
         <thead>
-          <!-- <h3 style="color: #1a5276; font-weight: bold;"></h3> -->
-          <!-- <p class="articulo__contenedor__tittle__h3">{{'CONFIGURATION.ADMIN_PAGE_LIST_PLANES.SUBTITLE_PLAN_BUSINESS' | translate}}</p> -->
           <tr>
             <th style="width: 20%">{{ 'CONFIGURATION.ADMIN_PAGE_LIST_PLANES.TBL_NAME' | translate }}</th>
             <th style="width: 19%">{{ 'CONFIGURATION.ADMIN_PAGE_LIST_PLANES.TBL_TYPE' | translate }}</th>
@@ -76,7 +70,7 @@
             <td>{{planBusiness.porcentajeSoporteXUsuario}}</td>
   
             <td style="white-space: normal">
-              <button class="item-list__admin__danger" (click)="removerPlan(planBusiness.id)">
+              <button class="btn-sm item-list__admin__danger" (click)="removerPlan(planBusiness.id)">
                 <mat-icon>bookmark_border</mat-icon> 
                       {{ 'CONFIGURATION.ADMIN_PAGE_LIST_PLANES.TBL_ICO_REMOVE_PLAN' | translate }}
               </button>
@@ -92,10 +86,6 @@
       </table>
       </div>
       
-  
-      <!-- <h3 style="color: #1a5276; font-weight: bold;"></h3> -->
-  
-      <!-- <p class="articulo__contenedor__tittle__h3">{{'CONFIGURATION.ADMIN_PAGE_LIST_PLANES.SUBTITLE_PLAN_SYSTEM' | translate}}</p> -->
       <div class="articulo__contenedor__table">
       <table *ngIf="listPlanes" class="table table-striped">
         <thead>
@@ -147,7 +137,7 @@
   
             <td *ngIf="!addPlanBusiness" style="white-space: normal">
               <button (click)="deletePlan(plan.id)" 
-                      class="item-list__admin__danger" 
+                      class="item-list__admin__plan__danger" 
                       mat-icon-button> <mat-icon>delete</mat-icon> </button> 
             </td>
   

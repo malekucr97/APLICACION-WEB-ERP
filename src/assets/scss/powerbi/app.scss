@@ -1,13 +1,5 @@
-.centrar {
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  padding: 10px 0px;
-}
-
 .contenedorReporte {
   flex: 1;
-
   .mensajeError{
     text-align: center;
     p {
@@ -21,7 +13,4 @@
 .reporteCSS {
   height: 800px;
   width: 100%;
-  // clip-path: inset(0 0 37px 0);
 }
-
-

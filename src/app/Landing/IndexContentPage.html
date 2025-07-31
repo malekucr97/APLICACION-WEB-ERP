@@ -1,48 +1,41 @@
 <main>
-  <article class="var-menu">
-    <section>
+  <div class="var-menu">
+    <div class="var-menu__prev-index-icons"> </div>
 
-      <div class="var-menu__prev-index-icons"> </div>
-
-      <!-- menú -->
-      <div class="var-menu__prev-index">
-        <div class="var-menu__prev-index__div">
-          <img class="var-menu__prev-index__div__img" src="./assets/images/inra/img_bankap_left.png " />
-        </div>
+    <!-- menú -->
+    <div class="var-menu__prev-index">
+      <div class="var-menu__prev-index__div">
+        <img class="var-menu__prev-index__div__img" src="./assets/images/inra/img_bankap_left.png " />
       </div>
+    </div>
 
-      <!-- título -->
-      <div class="var-menu__center-index">
-        <p class="var-menu__center-index__titulo">{{businessObservable.nombre}}</p>
+    <!-- título -->
+    <div class="var-menu__center-index">
+      <p class="var-menu__center-index__titulo">{{businessObservable.nombre}}</p>
+    </div>
+
+    <!-- cerrar sesión -->
+    <div class="var-menu__next-index">
+      <div class="var-menu__next-index__div">
+        <img class="var-menu__next-index__div__img" src="./assets/images/inra/img_bankap_rigth.png " />
       </div>
+    </div>
 
-      <!-- cerrar sesión -->
-      <div class="var-menu__next-index">
-        <div class="var-menu__next-index__div">
-          <img class="var-menu__next-index__div__img" src="./assets/images/inra/img_bankap_rigth.png " />
-        </div>
-      </div>
+    <div class="var-menu__next-index-icons">
+      <button class="var-menu__next__config" 
+              mat-icon-button 
+              (click)="redirectPageConfigUser()"> <mat-icon>settings</mat-icon> </button>
 
-      <div class="var-menu__next-index-icons">
-        <button class="var-menu__next__config" 
-                mat-icon-button 
-                (click)="redirectPageConfigUser()"> <mat-icon>settings</mat-icon> </button>
+      <button class="var-menu__next__home" 
+              mat-icon-button routerLink="/"> <mat-icon>home</mat-icon> </button>
 
-        <button class="var-menu__next__home" 
-                mat-icon-button routerLink="/"> <mat-icon>home</mat-icon> </button>
+      <button class="var-menu__next__logout" 
+              mat-icon-button 
+              (click)="logout()"> <mat-icon>input</mat-icon> </button>
+    </div>
+  </div>
 
-        <button class="var-menu__next__logout" 
-                mat-icon-button 
-                (click)="logout()"> <mat-icon>input</mat-icon> </button>
-      </div>
-
-    </section>
-  </article>
-
-  <article>
-    
     <div class="contenedor mat-elevation-z4">
-      <section>
         <div class="contenedor__body">
           <hr>
           <!-- elemento buscar -->
@@ -70,24 +63,20 @@
                         title="{{module.descripcion}}"/>
                   <p class="menu-module-item-section__item__titulo">{{module.nombre}}</p>
                 </a>
-                <!-- <p class="menu-module-item-section__item__titulo">{{module.nombre}}</p> -->
               </section>
             </div>
           </section>
-
-          <!-- {{ 'ALERTS.NO_MODULES_ROL_USER' | translate }} -->
 
           <section *ngIf="!existenModulos" class="content__menu">
             <p class="content__menu__item content__menu__item__titulo col-md-12">{{ 'ALERTS.NO_MODULES_ROL_USER' | translate }}</p>
             <p class="content__menu__item  content__menu__item__subtitulo col-md-12">{{ 'ALERTS.CONTACT_ADMIN' | translate }}</p>
           </section>
 
-          <br><hr><br>
+          <hr>
+          <br>
 
         </div>
-      </section>
     </div>
-  </article>
 </main>
 
 <div>

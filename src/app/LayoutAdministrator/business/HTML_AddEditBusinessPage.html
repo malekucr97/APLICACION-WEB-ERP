@@ -1,20 +1,40 @@
 <article class="articulo">
+  
   <section>
+    <div>
+      <div>
+        <p class="articulo__contenedor__tittle__h1">{{ 'CONFIGURATION.ADD_EDIT_COMPANY.TITLE' | translate }}</p>
+        <p class="articulo__contenedor__tittle__h2">{{ 'CONFIGURATION.ADD_EDIT_COMPANY.SUBTITLE' | translate }}</p>
+      </div>
 
-    <div class="articulo__contenedor__tittle">
-      <p class="articulo__contenedor__tittle__h1">{{ 'CONFIGURATION.ADD_EDIT_COMPANY.TITLE' | translate }}</p>
-      <!-- <p class="articulo__contenedor__tittle__h2">{{ 'CONFIGURATION.ADMIN_PAGE_LIST_USERS.TITLE' | translate }}</p> -->
+      <hr>
+
+      <div>
+        <button class="administracion-contenedor__content__item__second-back-ico"
+              title="{{ 'CONFIGURATION.BTN_ADMIN_USERS' | translate}}"
+              mat-icon-button 
+              (click)="redirectListUsersPage()"> <mat-icon>arrow_back</mat-icon>
+        </button>
+      </div>
     </div>
+  </section>
 
-    <hr>
-
+  <section>
     <div class="card">
-      <!-- <p class="articulo__contenedor__tittle__h1">{{ 'CONFIGURATION.ADD_EDIT_COMPANY.TITLE' | translate }}</p> -->
       <div class="card-body">
     
-        <a routerLink="{{urladminListBusiness}}" class="btn btn-outline-secondary mb-2"> {{ 'GENERAL.BTN_BACK' | translate }}</a>
-    
-        <hr><br>
+        <section>
+            <div class="row">
+
+                <div class="col-md-12">
+                    <p *ngIf="updateBusiness" class="articulo__contenedor__tittle__h3">{{ 'CONFIGURATION.ADD_EDIT_COMPANY.PARAMETERS_COMPANY' | translate: { companyName: companyName } }}</p>
+                    <p *ngIf="addBusiness" class="articulo__contenedor__tittle__h3">{{ 'CONFIGURATION.ADD_EDIT_COMPANY.REGISTER_COMPANY' | translate }}</p>
+                </div>
+                
+            </div>
+        </section>
+
+        <br>
     
         <form [formGroup]="form" class="row" (ngSubmit)="onSubmit()">
     
@@ -57,7 +77,7 @@
           </div>
     
           <div class="form-group col-md-1"></div>
-          <div class="form-group col-md-1">
+          <div class="form-group col-md-11">
             <mat-checkbox formControlName="cuentaCorreoDefecto">{{ 'CONFIGURATION.ADD_EDIT_COMPANY.FORM.CHK_DEFAULT_EMAIL' | translate }}</mat-checkbox>
           </div>
     

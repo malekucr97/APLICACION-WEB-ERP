@@ -1,6 +1,5 @@
 <article class="articulo">
     <section>
-
         <div>
             <div>
                 <p class="articulo__contenedor__tittle__h1">{{businessObservable.nombre}}</p>
@@ -10,36 +9,36 @@
             <hr>
     
             <div>
-                <button class=" administracion-contenedor__content__item
-                                administracion-contenedor__content__item__backIco
-                                icon-button-medium"
+                <button class="administracion-contenedor__content__item__firts-back-ico"
                         title="{{ 'CONFIGURATION.BTN_ADMIN_USERS' | translate}}"
                         mat-icon-button 
                         (click)="redirectAdminUsersPage()"> <mat-icon>arrow_back</mat-icon>
                 </button>
             </div>
         </div>
+    </section>
 
+    <section>
         <div class="card">
             <div class="card-body">
 
-                <article>
-                    <section>
-                        <div class="row">
-                            <div class="col-md-9">
-                                <p class="articulo__contenedor__tittle__h3">{{ 'CONFIGURATION.ADMIN_PAGE_LIST_USERS.SUBTITLE' | translate }}</p>    
-                            </div>
-                            
-                            <div class="col-md-3">
-                                <button class="item-list__add"
-                                        title="{{ 'CONFIGURATION.BTN_ADMIN_USERS' | translate}}"
-                                        mat-icon-button 
-                                        (click)="selectObjetoUsuario()"> <mat-icon>person_add</mat-icon>
-                                </button>
-                            </div>
+                <section>
+                    <div class="row">
+
+                        <div class="col-md-9">
+                            <p class="articulo__contenedor__tittle__h3">{{ 'CONFIGURATION.ADMIN_PAGE_LIST_USERS.SUBTITLE' | translate }}</p>    
                         </div>
-                    </section>
-                </article>
+                        
+                        <div class="col-md-3">
+                            <button class="item-list__add"
+                                    title="{{ 'CONFIGURATION.BTN_ADMIN_USERS' | translate}}"
+                                    mat-icon-button 
+                                    (click)="selectObjetoUsuario()"> <mat-icon>person_add</mat-icon>
+                            </button>
+                        </div>
+
+                    </div>
+                </section>
 
                 <article>
                     <section>
@@ -100,7 +99,7 @@
                                         </td>
                     
                                         <td><button (click)="deleteUser(us.id)"
-                                                class="bbtn-sm item-list__admin__user__danger" 
+                                                class="btn-sm item-list__admin__user__danger"
                                                 mat-icon-button > <mat-icon>delete</mat-icon>
                                             </button></td>
                                     </tr>

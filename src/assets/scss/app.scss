@@ -35,13 +35,7 @@ td { vertical-align: middle; }
     justify-content: center;
     text-align: center;
 }
-// .copyRigth {
-//   display: flex;
-//   flex-direction: row;
-//   align-items: center;
-//   justify-content: center;
-//   text-align: center;
-// }
+
 .tipoCambio {
     display: flex;
     flex-direction: row;
@@ -195,7 +189,7 @@ td { vertical-align: middle; }
         }
     }
     &__prev-index-icons{
-        width: 11%;
+        width: 10%;
         display: inline-block;
         padding-left: 2%;
     }
@@ -368,53 +362,55 @@ td { vertical-align: middle; }
 
         &__item{
 
-            $sm-size-button: 50px;
-            $sm-size-icon: 28px;
+            // $sm-size-button: 50px;
+            // $sm-size-icon: 30px;
 
-            $medium-size-button: 60px;
-            $medium-size-icon: 28px;
+            // $medium-size-button: 60px;
+            // $medium-size-icon: 30px;
             
             $large-size-button: 80px;
             $large-size-icon: 48px;
 
-            &.icon-button-sm {
-                width: $sm-size-button;
-                height: $sm-size-button;
-                line-height: $sm-size-button;
-                .mat-icon {
-                    font-size: $sm-size-icon;
-                    width: $sm-size-icon;
-                    height: $sm-size-icon;
-                    line-height: $sm-size-icon;
-                }
-            }
+            // &.icon-button-sm {
+            //     width: $sm-size-button;
+            //     height: $sm-size-button;
+            //     // line-height: $sm-size-button;
+            //     .mat-icon {
+            //         font-size: $sm-size-icon;
+            //         width: $sm-size-icon;
+            //         height: $sm-size-icon;
+            //         // line-height: $sm-size-icon;
+            //     }
+            // }
 
-            &.icon-button-medium {
-                width: $medium-size-button;
-                height: $medium-size-button;
-                line-height: $medium-size-button;
-                .mat-icon {
-                    font-size: $medium-size-icon;
-                    width: $medium-size-icon;
-                    height: $medium-size-icon;
-                    line-height: $medium-size-icon;
-                }
-            }
+            // ** 1er btn atrás
+            // &.icon-button-medium {
+                // width: $medium-size-button;
+                // height: $medium-size-button;
+                // line-height: $medium-size-button;
+                // .mat-icon {
+                    // font-size: $medium-size-icon;
+
+                    // margin-right: 5px;
+                    // margin-bottom: 3px;
+
+                    // width: $medium-size-icon;
+                    // height: $medium-size-icon;
+                    // line-height: $medium-size-icon;
+                // }
+            // }
             &.icon-button-large {
                 width: $large-size-button;
                 height: $large-size-button;
-                line-height: $large-size-button;
                 .mat-icon {
                     font-size: $large-size-icon;
                     width: $large-size-icon;
                     height: $large-size-icon;
-                    line-height: $large-size-icon;
                 }
             }
 
             &__maintancepowerbi{
                 float:right;
-                // margin-top: 1%;
                 color: white;
                 background-color: #07360b;
                 &:hover {
@@ -423,15 +419,8 @@ td { vertical-align: middle; }
                     cursor: pointer;
                 }
             }
-            &__backIco-sm {
-                margin-bottom: 7px;
-                &:hover {
-                    color: white;
-                    background-color: #B3B3B3;
-                    cursor: pointer;
-                }
-            }
-            &__backIco {
+
+            &__firts-back-ico {
                 margin-bottom: 10px;
                 &:hover {
                     color: white;
@@ -439,7 +428,14 @@ td { vertical-align: middle; }
                     cursor: pointer;
                 }
             }
-
+            &__second-back-ico {
+                margin-bottom: 10px;
+                &:hover {
+                    color: white;
+                    background-color: #B3B3B3;
+                    cursor: pointer;
+                }
+            }
             &__newUser {
 
                 margin-bottom: 10px;
@@ -692,7 +688,6 @@ td { vertical-align: middle; }
                 cursor: pointer;
             }
         }
-
         &__user {
             &__ok {
                 &:hover {
@@ -708,6 +703,15 @@ td { vertical-align: middle; }
                     cursor: pointer;
                 }
             }
+            &__danger {
+                &:hover {
+                    color: white;
+                    background-color: #f91b1b;
+                    cursor: pointer;
+                }
+            }
+        }
+        &__plan {
             &__danger {
                 &:hover {
                     color: white;
@@ -986,6 +990,6 @@ mat-sidenav-container{
   background-color: var(--color_fondo);
 }
 
-.contenedorFondoModulo{
-  background-color: var(--color_fondo);
-}
+// .contenedorFondoModulo{
+//   background-color: var(--color_fondo);
+// }

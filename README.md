@@ -14,4 +14,4 @@ master
 
 * Angular CLI: 20.1.1
 * Node: 22.17.1
-* Package Manager: npm 10.9.2
+* Package Manager: npm 11.5.2

@@ -60,7 +60,7 @@ export class IndexPowerBiComponent extends OnSeguridad implements OnInit {
     // ***************************************************************
 
     this._nombrePantalla = this.nombrePantalla;
-    this._redireccionURL = '/maleku-ti'; // [OPCIONAL] SI NO SE INDICA SE REDIRECCIONA AL LA PÁGINA DEL MODULO.INDEXHTML
+    this._redireccionURL = 'maleku-ti/powerbi-module';
     super.validarAccesoPantalla();
     //#endregion
 

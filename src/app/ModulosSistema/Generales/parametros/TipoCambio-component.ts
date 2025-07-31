@@ -64,21 +64,19 @@ export class TipoCambioComponent  extends OnSeguridad implements OnInit {
 
     public today : Date ;
 
-    constructor (   private alertService:      AlertService,
-                    // private inversionesService:     InversionesService,
-                    private generalesService:     GeneralesService,
-                    private formBuilder:       UntypedFormBuilder,
+    constructor (   private alertService:       AlertService,
+                    private generalesService:   GeneralesService,
+                    private formBuilder:        UntypedFormBuilder,
                     private accountService:     AccountService,
-                    private dialogo:           MatDialog,
-                    private router: Router,
-                    private translate: TranslateMessagesService ) {
+                    private dialogo:            MatDialog,
+                    private router:             Router,
+                    private translate:          TranslateMessagesService ) {
 
-        //#region VALIDACIÓN DE ACCESO A LAS PANTALLAS
         super(alertService, accountService, router, translate);
+        
         this._nombrePantalla = this.nombrePantalla;
-        this._redireccionURL = '/maleku-ti/index.html'; // [OPCIONAL] SI NO SE INDICA SE REDIRECCIONA AL LA PÁGINA DEL MODULO.INDEXHTML
+        this._redireccionURL = 'maleku-ti/general-module';
         super.validarAccesoPantalla();
-        //#endregion
 
         this.userObservable = this.accountService.userValue;
         this.moduleObservable = this.accountService.moduleValue;

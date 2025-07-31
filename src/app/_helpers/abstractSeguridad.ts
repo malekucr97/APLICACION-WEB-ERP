@@ -13,9 +13,9 @@ export class OnSeguridad {
   public _userPattern : string ;
   public _emailPattern : string ;
 
+  private _router: Router;
   private _alertService: AlertService;
   private _accountService: AccountService;
-  private _router: Router;
   private _userObservable: User;
   private _moduleObservable: Module;
   private _businessObservable: Compania;
@@ -54,23 +54,16 @@ export class OnSeguridad {
     this._emailPattern = "^[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$";
   }
 
-  validarAccesoPantalla(): void {
+  validarAccesoPantalla() {
+
     this._accountService.validateAccessUser(  this._userObservable.id, this._moduleObservable.id, this._nombrePantalla, this._businessObservable.id,
                                               this._HIdUserSessionRequest,
                                               this._HBusinessSessionRequest,
-                                              this._HModuleSessionRequest, )
+                                              this._HModuleSessionRequest )
       .pipe(first())
-      .subscribe((response) => {
-
-        if (!response.exito) {
-          console.log(response);
-          this._router.navigate([this._redireccionURL]);
-          this._alertService.error(this._mensajeError);
-          this._accountService.clearObjectModuleObservable();
-          return;
-        }
-      });
+      .subscribe((response) => {  if (!response.exito) this.redirectHomeModule(); });
   }
+  private redirectHomeModule() { this._router.navigate([this._redireccionURL]); this._alertService.error(this._mensajeError); }
 
   // **
   // ** VALIDACIÓN DE USUARIO TÉCNICO O ADMINISTRADOR DE EMPRESAS
@@ -82,23 +75,32 @@ export class OnSeguridad {
   // **
   // ** VALIDACIÓN DE USUARIO HTTP CODE
   userAuthenticateAdmin() : boolean {
-    if (this._userObservable && this._userObservable.codeNoLogin === this._codeSuccessUser && this.validarUsuarioAdmin() && this._businessObservable) return true;
+    if (this._userObservable 
+          && this._userObservable.codeNoLogin === this._codeSuccessUser 
+          && this.validarUsuarioAdmin() 
+          && this._businessObservable) return true;
     return false;
   }
   userAuthenticateHome() : boolean {
-    if (this._userObservable && this._userObservable.codeNoLogin === this._codeSuccessUser && this._userObservable.idRol) return true;
+    if (this._userObservable 
+          && this._userObservable.codeNoLogin === this._codeSuccessUser 
+          && this._userObservable.idRol) return true;
     return false;
   }
   userAuthenticateIndexHttp() : boolean {
-    if (this._userObservable && 
-        this._userObservable.codeNoLogin === this._codeSuccessUser && 
-        this._userObservable.idRol && 
-        this._businessObservable) return true;
+    if (this._userObservable 
+          && this._userObservable.codeNoLogin === this._codeSuccessUser 
+          && this._userObservable.idRol 
+          && this._businessObservable) return true;
 
     return false;
   }
   userAuthenticateIndexComponent() : boolean {
-    if (this._userObservable && this._userObservable.codeNoLogin === this._codeSuccessUser && this._userObservable.idRol && this._moduleObservable && this._businessObservable) return true;
+    if (this._userObservable 
+          && this._userObservable.codeNoLogin === this._codeSuccessUser 
+          && this._userObservable.idRol 
+          && this._moduleObservable 
+          && this._businessObservable) return true;
     return false;
   }
   // **

@@ -26,10 +26,8 @@
   width: 90%;
 }
 .headerLogin {
-  /* padding-top: 5%; */
   width: 100%;
   height: 30%;
-  /* padding-bottom: 3%; */
   background-image: url('../../assets/images/application/IMGLOGIN.png');
 }
 .texto-error {
@@ -63,12 +61,6 @@
     width: 90%;
     height: 395px;
   }
-  /* .label-input100 {
-    font-size: 15px;
-    color: #808080;
-    position: absolute;
-    top: 14px;
-  } */
 }
 @media (max-width: 576px) {
   .contLogin {  
@@ -76,12 +68,6 @@
     height: 365px;
     border-radius: 2%;
   }
-  /* .label-input100 {
-    font-size: 15px;
-    color: #808080;
-    position: absolute;
-    top: 14px;
-  } */
 }
 @media (max-width: 400px) {
   .contLogin {  
@@ -89,12 +75,6 @@
     height: 335px;
     border-radius: 2%;
   }
-  /* .label-input100 {
-    font-size: 15px;
-    color: #808080;
-    position: absolute;
-    top: 14px;
-  } */
 }
 @media (max-width: 300px) {
   .contLogin {  
@@ -102,12 +82,6 @@
     height: 290px;
     border-radius: 2%;
   }
-  /* .label-input100 {
-    font-size: 15px;
-    color: #808080;
-    position: absolute;
-    top: 14px;
-  } */
 }
 
 .login100-form-title {
@@ -160,48 +134,14 @@
   color: #fff;
   width: 25%;
 }
-.login100-form-btn:hover {
-  background-color: #333333;
-}
+.login100-form-btn:hover { background-color: #333333; }
 
-@media (max-width: 500px) {
-  .formulario-login{
-    margin-top: 4%;
-  }
-}
-/* @media (max-width: 450px) {
-  .formulario-login{
-    margin-top: 8%;
-  }
-}
-@media (max-width: 400px) {
-  .formulario-login{
-    margin-top: 12%;
-  }
-} */
-@media (max-width: 350px) {
-  .formulario-login{
-    margin-top: 5%;
-  }
-}
-@media (max-width: 300px) {
-  .formulario-login{
-    margin-top: 10%;
-  }
-}
-@media (max-width: 250px) {
-  .formulario-login{
-    margin-top: 15%;
-  }
-}
-/* @media (max-width: 200px) {
-  .formulario-login{
-    margin-top: 50%;
-  }
-} */
+@media (max-width: 500px) { .formulario-login{ margin-top: 4%; } }
+@media (max-width: 350px) { .formulario-login{ margin-top: 5%; } }
+@media (max-width: 300px) { .formulario-login{ margin-top: 10%; } }
+@media (max-width: 250px) { .formulario-login{ margin-top: 15%; } }
 
 /* act */
-
 
 * {
 	margin: 0px;
@@ -225,21 +165,16 @@ body, html {
 .logoHeader {
   margin: 1% 1% 1% 1%;
   width: 5%;
-  /* border-radius: 60%; */
-  /* object-fit: cover; */
   border: 2px solid #072212;
   box-shadow: 0 0 5px rgba(255, 255, 255, 0.2);
 }
+
+.app-sitio { flex-grow: 1; }
 
 .classBody {
   background-color: var(--color_fondo);
   display: flex;
   flex-direction: column;
-}
-
-.contenidoSitio {
-  background-color: var(--color_fondo);
-  flex-grow: 1;
 }
 
 .contenidoTipoCambio {
@@ -289,9 +224,7 @@ a:hover {
 }
 
 /*---------------------------------------------*/
-h1,h2,h3,h4,h5,h6 {
-	margin: 0px;
-}
+h1,h2,h3,h4,h5,h6 { margin: 0px; }
 
 p {
 	font-family: Poppins-Regular;
@@ -305,7 +238,6 @@ ul, li {
 	margin: 0px;
 	list-style-type: none;
 }
-
 
 /*---------------------------------------------*/
 input {
@@ -365,14 +297,8 @@ button {
 	background: transparent;
 }
 
-button:hover {
-	cursor: pointer;
-}
-
-iframe {
-	border: none !important;
-}
-
+button:hover { cursor: pointer; }
+iframe { border: none !important; }
 
 /*//////////////////////////////////////////////////////////////////
 [ Utility ]*/
@@ -406,7 +332,6 @@ iframe {
   background: #ebeeef;
 }
 
-
 .wrap-login100 {
   width: 500px;
   background: #fff;
@@ -419,15 +344,12 @@ iframe {
 /*==================================================================
 [ Title form ]*/
 
-
 .login100-form-title-1 {
   font-family: Poppins-Bold;
   font-size: 30px;
   color: #fff;
   text-transform: uppercase;
   text-align: center;
-  /* line-height: 1.2;
-  text-align: left; */
 }
 
 .login100-form-title::before {
@@ -439,7 +361,6 @@ iframe {
   height: 100%;
   top: 0;
   left: 0;
-  /* background-color: rgba(54,84,99,0.7); */
 }
 
 
@@ -463,9 +384,7 @@ iframe {
 
 .label-btn-dark {
   font-family: Arial;
-  /* font-size: 15px; */
   color: #ffffff;
-  /* line-height: 1.2; */
   text-align: right;
 }
 
@@ -535,7 +454,6 @@ input.input100-index {
     font-size: 15px;
     color: #808080;
     position: absolute;
-    /* top: 8px; */
   }
 }
 @media (max-width: 300px) {
@@ -547,20 +465,13 @@ input.input100-index {
   }
 }
 
-.input100:focus + .focus-input100::before {
-  width: 100%;
-}
-
-.has-val.input100 + .focus-input100::before {
-  width: 100%;
-}
+.input100:focus + .focus-input100::before { width: 100%; }
+.has-val.input100 + .focus-input100::before { width: 100%; }
 
 /*==================================================================
 [ Restyle Checkbox ]*/
 
-.input-checkbox100 {
-  display: none;
-}
+.input-checkbox100 { display: none; }
 
 .label-checkbox100 {
   font-family: Poppins-Regular;
@@ -618,19 +529,10 @@ input.input100-index {
   flex-wrap: wrap;
 }
 
-
-/*------------------------------------------------------------------
-[ Responsive ]*/
-
-
-
-
 /*------------------------------------------------------------------
 [ Alert validate ]*/
 
-.validate-input {
-  position: relative;
-}
+.validate-input { position: relative; }
 
 .alert-validate::before {
   content: attr(data-validate);
