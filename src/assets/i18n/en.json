@@ -106,7 +106,7 @@
     },
     "ADD_EDIT_USER": {
       "TITLE": "User Parameterization",
-      "PARAMETERS_USER": "User Maintenance: {{nombreCompleto}}",
+      "PARAMETERS_USER": "User: {{nombreCompleto}}",
       "REGISTER_USER": "Form - User Registration",
       "SELECT_USER": "Selected User",
       "TABLE": {
@@ -248,9 +248,9 @@
     },
     "ADD_EDIT_BUSINESS_USER": {
       "TITLE": "Entry Permits for System Companies",
-      "LIST_COMPANIES_ACCES": "List of Companies with Access",
-      "LIST_COMPANIES_NOT_ACCES": "List of Companies without Access",
-      "BTN_DELETE_ROLE": "Remove Access from ALL Companies",
+      "LIST_COMPANIES_ACCES": "Companies with Access",
+      "LIST_COMPANIES_NOT_ACCES": "Companies without Access",
+      "BTN_DELETE_ROLE": "Remove Access from ALL Businesses",
       "ROLE_USER":"Selected User Role",
       "TABLE": {
         "ID": "Identification",

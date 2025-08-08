@@ -34,7 +34,7 @@ const TREE_DATA: FoodNode[] = [
     link: '',
     icon: '',
     children: [
-      { name: 'Carga de datos Crédito', link: /*ModulesSystem.riesgocreditobasehref*/ '' + '/Mantenimientos/CargaCredito', icon: '' },
+      { name: 'Carga de datos Crédito', link: ModulesSystem.riesgocreditobasehref + '/Mantenimientos/CargaCredito', icon: '' },
       { name: 'Carga de datos Z-Altman', link: '/', icon: '' },
     ],
   },
@@ -95,12 +95,9 @@ const TREE_DATA: FoodNode[] = [
   // },
 ];
 
-@Component({
-  templateUrl: '../menu.html',
-  styleUrls: [
-    '../../../assets/scss/app.scss',
-    '../../../assets/scss/menus.scss',
-  ],
+@Component({templateUrl: '../menu.html',
+            styleUrls: ['../../../assets/scss/app.scss', '../../../assets/scss/menus.scss'],
+            standalone: false
 })
 export class MenuRiesgoCreditoComponent implements OnInit {
   @ViewChild(MatSidenav)
@@ -161,4 +158,6 @@ export class MenuRiesgoCreditoComponent implements OnInit {
   logout() {
     this.accountService.logout();
   }
+
+  redirectIndex() : void { this.router.navigate([this.URLRedirectIndexContent]); }
 }

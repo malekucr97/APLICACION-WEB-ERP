@@ -1,37 +1,35 @@
-<article class="var-menu">
-  <section>
+<div class="var-admin">
     
     <!-- menú -->
-    <div class="var-menu__prev-index-icons"> </div>
+    <div class="var-admin__prev-icons"> </div>
 
-    <div class="var-menu__prev-index">
-      <div class="var-menu__prev-index__div">
-        <img class="var-menu__prev-index__div__img" src="./assets/images/inra/img_bankap_left.png " />
+    <div class="var-admin__prev">
+      <div class="var-admin__prev__div">
+        <img class="var-admin__prev__div__img" src="./assets/images/inra/img_bankap_left.png " />
       </div>
     </div>
 
     <!-- título -->
-    <div class="var-menu__center-index">
-      <p class="var-menu__center-index__titulo">{{ 'CONFIGURATION.TITLE' | translate }}</p>
+    <div class="var-admin__center">
+      <p class="var-admin__center__titulo">{{ 'CONFIGURATION.TITLE' | translate }}</p>
     </div>
 
-    <div class="var-menu__next-index">
-      <div class="var-menu__next-index__div">
-        <img class="var-menu__next-index__div__img" src="./assets/images/inra/img_bankap_rigth.png " />
+    <div class="var-admin__next">
+      <div class="var-admin__next__div">
+        <img class="var-admin__next__div__img" src="./assets/images/inra/img_bankap_rigth.png " />
       </div>
     </div>
 
-    <div class="var-menu__next-index-icons">
-      <button class="var-menu__next__home" 
+    <div class="var-admin__next-icons">
+      <button class="var-admin__next__home" 
               mat-icon-button
               (click)="redirectIndex()"> <mat-icon>home</mat-icon> </button>
 
-      <button class="var-menu__next__logout" 
+      <button class="var-admin__next__logout" 
               mat-icon-button 
               (click)="logout()"> <mat-icon>input</mat-icon> </button>
     </div>
 
-  </section>
-</article>
+</div>
 
-<div class="div-contenido-admin"> <router-outlet></router-outlet> </div>
+<main class="main-admin"> <router-outlet></router-outlet> </main>

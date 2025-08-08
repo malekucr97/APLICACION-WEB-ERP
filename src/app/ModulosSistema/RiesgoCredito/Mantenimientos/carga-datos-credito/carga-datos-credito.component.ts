@@ -2,16 +2,16 @@ import { Component, OnInit } from '@angular/core';
 import { ArchivoCarga, HojasExcel } from '@app/_models';
 import { AccountService, AlertService, GeneralesService } from '@app/_services';
 import { first } from 'rxjs/operators';
-import * as moment from 'moment';
+import moment from 'moment';
 import 'moment/locale/es';
 import { DateAdapter } from '@angular/material/core';
 import { RiesgoCreditoProcesamientoCarga } from '@app/_models/RiesgoCredito/RiesgoCreditoProcesamientoCarga';
 import { RiesgoCreditoService } from '@app/_services/riesgoCredito.service';
 
-@Component({
-  selector: 'app-carga-datos-credito',
-  templateUrl: './carga-datos-credito.component.html',
-  styleUrls: ['../../../../../assets/scss/tailwind.scss'],
+@Component({selector: 'app-carga-datos-credito',
+            templateUrl: './carga-datos-credito.component.html',
+            styleUrls: ['../../../../../assets/scss/tailwind.scss'],
+            standalone: false
 })
 export class CargaDatosCreditoComponent implements OnInit {
   _rutaArchivo: string = '';

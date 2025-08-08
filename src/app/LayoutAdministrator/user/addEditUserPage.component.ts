@@ -9,10 +9,9 @@ import { administrator, httpAccessAdminPage, httpLandingIndexPage } from '@envir
 import { OnSeguridad } from '@app/_helpers/abstractSeguridad';
 import { TranslateMessagesService } from '@app/_services/translate-messages.service';
 
-@Component({
-    templateUrl: 'HTML_AddEditUserPage.html',
-    styleUrls: ['../../../assets/scss/app.scss', '../../../assets/scss/administrator/app.scss'],
-    standalone: false
+@Component({templateUrl: 'HTML_AddEditUserPage.html',
+            styleUrls: ['../../../assets/scss/administrator/app.scss'],
+            standalone: false
 })
 export class AddEditUserComponent extends OnSeguridad implements OnInit {
   
@@ -115,7 +114,7 @@ export class AddEditUserComponent extends OnSeguridad implements OnInit {
 
   // **
   // ** PROCEDIMIENTOS HTML
-  selectObjetoUsuario() : void { this.inicializaFormularioUpdateUser(this.usuarioSeleccionado, this.nombreRol); }
+  // selectObjetoUsuario() : void { this.inicializaFormularioUpdateUser(this.usuarioSeleccionado, this.nombreRol); }
 
   public actualizarUsuario() : void {
 

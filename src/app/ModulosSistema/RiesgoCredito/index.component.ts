@@ -6,7 +6,8 @@ import { AccountService, AlertService } from '@app/_services';
 import { TranslateMessagesService } from '@app/_services/translate-messages.service';
 
 @Component({templateUrl: 'index.html',
-            styleUrls: ['../../../assets/scss/inventario/app.scss'],
+            styleUrls: ['../../../assets/scss/app.scss'],
+            standalone: false
 })
 export class IndexRiesgoCreditoComponent extends OnSeguridad  implements OnInit {
 

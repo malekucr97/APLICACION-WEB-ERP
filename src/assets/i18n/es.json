@@ -106,7 +106,7 @@
     },
     "ADD_EDIT_USER": {
       "TITLE": "Parametrización de Usuarios",
-      "PARAMETERS_USER": "Mantenimiento para el Usuario: {{nombreCompleto}}",
+      "PARAMETERS_USER": "Usuario: {{nombreCompleto}}",
       "REGISTER_USER": "Formulario - Registro de Usuarios",
       "SELECT_USER": "Usuario seleccionado",
       "TABLE": {
@@ -248,9 +248,9 @@
     },
     "ADD_EDIT_BUSINESS_USER": {
       "TITLE": "Permisos de Ingreso Sobre Compañías del Sistema",
-      "LIST_COMPANIES_ACCES": "Lista de Compañías Con Acceso",
-      "LIST_COMPANIES_NOT_ACCES": "Lista de Compañías Sin Acceso",
-      "BTN_DELETE_ROLE": "Eliminar Acceso de TODAS las Empresas",
+      "LIST_COMPANIES_ACCES": "Compañías Con Acceso",
+      "LIST_COMPANIES_NOT_ACCES": "Compañías Sin Acceso",
+      "BTN_DELETE_ROLE": "Eliminar Acceso de TODAS las Companías",
       "ROLE_USER":"Rol de Usuario Seleccionado",
       "TABLE": {
         "ID": "Identificación",

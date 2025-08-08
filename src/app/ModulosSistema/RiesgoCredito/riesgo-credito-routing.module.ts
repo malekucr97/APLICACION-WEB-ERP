@@ -11,10 +11,7 @@ const routes: Routes = [
     children: [
       { path: '', component: IndexRiesgoCreditoComponent },
       { path: 'index.html', component: IndexRiesgoCreditoComponent },
-      {
-        path: 'Mantenimientos/CargaCredito',
-        component: CargaDatosCreditoComponent,
-      },
+      { path: 'Mantenimientos/CargaCredito', component: CargaDatosCreditoComponent },
       // { path: 'Mantenimientos/CalificacionRiesgo/NivelesRiesgos',         component: NivelRiesgoComponent }
     ],
   },

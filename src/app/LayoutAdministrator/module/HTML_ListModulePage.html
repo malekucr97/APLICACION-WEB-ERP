@@ -8,20 +8,16 @@
         <hr>
         <div class="row">
             <div class="col-md-2">
-                <button class=" administracion-contenedor__content__item
-                                administracion-contenedor__content__item__firts-back-ico
-                                icon-button-medium"
+                <button class=" back-ico-one"
                         title="{{ 'CONFIGURATION.BTN_ADMIN_USERS' | translate}}"
                         mat-icon-button 
-                        (click)="redirectAdminUsersPage()">
-                        <mat-icon>arrow_back</mat-icon> </button>
+                        (click)="redirectAdminUsersPage()"> <mat-icon>arrow_back</mat-icon> </button>
             </div>
 
             <div class="col-md-3"></div> <div class="col-md-3"></div>
 
             <div class="col-md-4">
-                <button class="btn btn-light administracion-contenedor__content__item__maintancepowerbi"
-                        title="{{ 'CONFIGURATION.BTN_ADMIN_USERS' | translate}}"
+                <button class="btn btn-power-bi"
                         (click)="redirectAdminModulePowerBiPage()">
                         {{ 'CONFIGURATION.ADMIN_PAGE_LIST_MODULES.BTN_MANTEINANCE_POWER_BI' | translate }}
                         <mat-icon>crop_original</mat-icon> </button>

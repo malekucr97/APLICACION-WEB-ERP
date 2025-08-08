@@ -1,108 +1,97 @@
-<article  class="articulo">
-    <section>
+<div class="contenido-main">
+    
+    <div>
         <div>
-            <div>
-                <p class="articulo__contenedor__tittle__h1">{{ 'CONFIGURATION.ADD_EDIT_BUSINESS_USER.TITLE' | translate }}</p>
-                <p style="display: inline;" class="articulo__contenedor__tittle__h2">{{userToAssign.nombreCompleto}}</p>
-            </div>
+            <p class="contenido-main__h1">{{ 'CONFIGURATION.ADD_EDIT_BUSINESS_USER.TITLE' | translate }}</p>
+            <p class="contenido-main__h2">{{userToAssign.nombreCompleto}}</p>
+        </div>
 
+        <hr>
+
+        <button class="back-ico-two"
+                title="{{ 'CONFIGURATION.BTN_ADMIN_USERS' | translate}}"
+                mat-icon-button
+                (click)="redirectAdminUsersPage()"> <mat-icon>arrow_back</mat-icon> </button>
+    </div>
+    
+    <div class="card">
+        <div class="card-body">
+
+            <h3 class="contenido-main__h3-inline-black">{{ 'CONFIGURATION.ADD_EDIT_BUSINESS_USER.ROLE_USER' | translate }} : </h3>
+            <h3 *ngIf="existeRol" class="contenido-main__h3-inline-blue"><b>{{role.nombre}} </b></h3>
+            <h3 *ngIf="!existeRol" class="contenido-main__h3-inline-red">&emsp;<b>{{ 'CONFIGURATION.ADD_EDIT_BUSINESS_USER.VALIDATION.ROLE_NOT_ASSIGNED' | translate }}</b></h3>
+        
+            <div *ngIf="listBusinessUser"  class="d-flex justify-content-end">
+                <button (click)="desAsignAllBusinessUser(userToAssign.id)"  class="btn-sm item-list-delete">
+                    <span><b>{{ 'CONFIGURATION.ADD_EDIT_BUSINESS_USER.BTN_DELETE_ROLE' | translate }}</b></span> </button>
+            </div>
+    
             <hr>
-
-            <div>
-                <button class="administracion-contenedor__content__item__second-back-ico"
-                        title="{{ 'CONFIGURATION.BTN_ADMIN_USERS' | translate}}"
-                        mat-icon-button
-                        (click)="redirectAdminUsersPage()"> <mat-icon>arrow_back</mat-icon>
-                </button>
-            </div>
-        </div>
-    </section>
-
-    <section>
-        <div class="card">
-            <div class="card-body">
-        
-                <h3 style="display: inline;"><b>{{ 'CONFIGURATION.ADD_EDIT_BUSINESS_USER.ROLE_USER' | translate }}: </b></h3>
-                <h3 *ngIf="existeRol" style="display: inline; color:#1A5276"><b>{{role.nombre}} </b></h3>
-                <h3 *ngIf="!existeRol" style="display: inline;">&emsp;<b>{{ 'CONFIGURATION.ADD_EDIT_BUSINESS_USER.VALIDATION.ROLE_NOT_ASSIGNED' | translate }}</b></h3>
-        
-                <button *ngIf="listBusinessUser" 
-                        (click)="desAsignAllBusinessUser(userToAssign.id)" 
-                        class="btn-sm items__btns__danger float-right">
-                    <span><b>{{ 'CONFIGURATION.ADD_EDIT_BUSINESS_USER.BTN_DELETE_ROLE' | translate }}</b></span>
-                </button>
-        
+            
+            <div *ngIf="listBusinessUser" class="contenido-main__table">
                 <br>
+                <p class="contenido-main__h3-on">{{ 'CONFIGURATION.ADD_EDIT_BUSINESS_USER.LIST_COMPANIES_ACCES' | translate }}</p>
+                <table class="table table-striped">
                 
-                <div *ngIf="listBusinessUser" class="articulo__contenedor__table">
-                    <br>
-                    <p class="articulo__contenedor__tittle__h3">{{ 'CONFIGURATION.ADD_EDIT_BUSINESS_USER.LIST_COMPANIES_ACCES' | translate }}</p>
-                    <table class="table table-striped">
-                    
-                        <thead>
-                            <tr>
-                                <th style="width: 15%">{{ 'CONFIGURATION.ADD_EDIT_BUSINESS_USER.TABLE.ID' | translate }}</th>
-                                <th style="width: 30%">{{ 'CONFIGURATION.ADD_EDIT_BUSINESS_USER.TABLE.NAME' | translate }}</th>
-                                <th style="width: 25%">{{ 'CONFIGURATION.ADD_EDIT_BUSINESS_USER.TABLE.EMAIL' | translate }}</th>
-                                <th style="width: 20%">{{ 'CONFIGURATION.ADD_EDIT_BUSINESS_USER.TABLE.PHONE' | translate }}</th>
-                                <th style="width: 1%"></th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <tr *ngFor="let bussiDess of listBusinessUser"
-                                class="item-list__list">
-        
-                                <td>{{bussiDess.cedulaJuridica}}</td>
-                                <td>{{bussiDess.nombre}}</td>
-                                <td>{{bussiDess.correoElectronico}}</td>
-                                <td>{{bussiDess.telefono}}</td>
-                                
-                                <td style="white-space: normal; text-align: center;" 
-                                    class="item-list__delete"
-                                    (click)="dessAssignBusinessUser(bussiDess.id)">
-                                    <mat-icon>remove_from_queue</mat-icon>
-                                    access
-                                </td>
-                            </tr>
-                        </tbody>
-                    </table>
-                </div>
-                
-                <div *ngIf="listAllBusiness" class="articulo__contenedor__table">
-                    <br>
-                    <p class="articulo__contenedor__tittle__h3">{{ 'CONFIGURATION.ADD_EDIT_BUSINESS_USER.LIST_COMPANIES_NOT_ACCES' | translate }}</p>
-                    <table class="table table-striped">
-                        <thead>
-                            <tr>
-                                <th style="width: 15%">{{ 'CONFIGURATION.ADD_EDIT_BUSINESS_USER.TABLE.ID' | translate }}</th>
-                                <th style="width: 30%">{{ 'CONFIGURATION.ADD_EDIT_BUSINESS_USER.TABLE.NAME' | translate }}</th>
-                                <th style="width: 25%">{{ 'CONFIGURATION.ADD_EDIT_BUSINESS_USER.TABLE.EMAIL' | translate }}</th>
-                                <th style="width: 20%">{{ 'CONFIGURATION.ADD_EDIT_BUSINESS_USER.TABLE.PHONE' | translate }}</th>
-                                <th style="width: 1%"></th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <tr *ngFor="let businessAss of listAllBusiness"
-                                class="item-list__list">
-        
-                                <td>{{businessAss.cedulaJuridica}}</td>
-                                <td>{{businessAss.nombre}}</td>
-                                <td>{{businessAss.correoElectronico}}</td>
-                                <td>{{businessAss.telefono}}</td>
-        
-                                <td style="white-space: normal; text-align: center;" 
-                                    class="item-list__confirm"
-                                    (click)="assignBusinessUser(businessAss.id)">
-                                    <mat-icon>add_to_queue</mat-icon>
-                                    access
-                                </td>
-        
-                            </tr>
-                        </tbody>
-                    </table>
-                </div>
-        
+                    <thead>
+                        <tr>
+                            <th class="contenido-main__table__abup-id">{{ 'CONFIGURATION.ADD_EDIT_BUSINESS_USER.TABLE.ID' | translate }}</th>
+                            <th class="contenido-main__table__abup-name">{{ 'CONFIGURATION.ADD_EDIT_BUSINESS_USER.TABLE.NAME' | translate }}</th>
+                            <th class="contenido-main__table__abup-email">{{ 'CONFIGURATION.ADD_EDIT_BUSINESS_USER.TABLE.EMAIL' | translate }}</th>
+                            <th class="contenido-main__table__abup-phone">{{ 'CONFIGURATION.ADD_EDIT_BUSINESS_USER.TABLE.PHONE' | translate }}</th>
+                            <th class="contenido-main__table__abup-ico"></th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr *ngFor="let bussiDess of listBusinessUser">
+    
+                            <td>{{bussiDess.cedulaJuridica}}</td>
+                            <td>{{bussiDess.nombre}}</td>
+                            <td>{{bussiDess.correoElectronico}}</td>
+                            <td>{{bussiDess.telefono}}</td>
+                            
+                            <td class="item-delete"
+                                (click)="dessAssignBusinessUser(bussiDess.id)">
+                                <mat-icon>remove_from_queue</mat-icon> access </td>
+                        </tr>
+                    </tbody>
+                </table>
+            
+            <br> <hr>
             </div>
+
+            <div *ngIf="listAllBusiness" class="contenido-main__table">
+                <br>
+                <p class="contenido-main__h3-off">{{ 'CONFIGURATION.ADD_EDIT_BUSINESS_USER.LIST_COMPANIES_NOT_ACCES' | translate }}</p>
+                <table class="table table-striped">
+                    <thead>
+                        <tr>
+                            <th class="contenido-main__table__abup-id">{{ 'CONFIGURATION.ADD_EDIT_BUSINESS_USER.TABLE.ID' | translate }}</th>
+                            <th class="contenido-main__table__abup-name">{{ 'CONFIGURATION.ADD_EDIT_BUSINESS_USER.TABLE.NAME' | translate }}</th>
+                            <th class="contenido-main__table__abup-email">{{ 'CONFIGURATION.ADD_EDIT_BUSINESS_USER.TABLE.EMAIL' | translate }}</th>
+                            <th class="contenido-main__table__abup-phone">{{ 'CONFIGURATION.ADD_EDIT_BUSINESS_USER.TABLE.PHONE' | translate }}</th>
+                            <th class="contenido-main__table__abup-ico"></th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr *ngFor="let businessAss of listAllBusiness" >
+    
+                            <td>{{businessAss.cedulaJuridica}}</td>
+                            <td>{{businessAss.nombre}}</td>
+                            <td>{{businessAss.correoElectronico}}</td>
+                            <td>{{businessAss.telefono}}</td>
+    
+                            <td class="item-on"
+                                (click)="assignBusinessUser(businessAss.id)">
+                                <mat-icon>add_to_queue</mat-icon> access </td>
+                        </tr>
+                    </tbody>
+                </table>
+            
+            <br> <hr>
+            </div>
+    
         </div>
-    </section>
-</article>
+    </div>
+    
+</div>

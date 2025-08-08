@@ -56,7 +56,10 @@ export const ModulesSystem = {
     powerbibasehref: '/maleku-ti/powerbi-module/',
 
     Identif_Macred: 'ID-BANKAP-MACRED',
-    macredbasehref: '/maleku-ti/macred-module/'
+    macredbasehref: '/maleku-ti/macred-module/',
+
+    Identif_RiesgoCredito: 'ID-BANKAP-RIESGO-CREDITO',
+    riesgocreditobasehref: '/maleku-ti/riesgo-credito-module/'
 };
 
 export const httpAccessAdminPage = {

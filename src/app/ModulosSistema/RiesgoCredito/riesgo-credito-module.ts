@@ -16,6 +16,7 @@ import { MenuRiesgoCreditoComponent } from './menu.component';
 import { CargaDatosCreditoComponent } from './Mantenimientos/carga-datos-credito/carga-datos-credito.component';
 import { MatDatepickerModule } from '@angular/material/datepicker';
 import {MAT_DATE_LOCALE} from '@angular/material/core';
+import { MatNativeDateModule } from '@angular/material/core';
 
 @NgModule({
   imports: [
@@ -32,6 +33,7 @@ import {MAT_DATE_LOCALE} from '@angular/material/core';
     MatDividerModule,
     MatTreeModule,
     MatTooltipModule,
+    MatNativeDateModule
   ],
   declarations: [
     IndexRiesgoCreditoComponent,

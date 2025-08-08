@@ -9,7 +9,7 @@ import { TranslateMessagesService } from '@app/_services/translate-messages.serv
 
 @Component({
     templateUrl: 'HTML_AdminUserPage.html',
-    styleUrls: ['../../../assets/scss/app.scss'],
+    styleUrls: ['../../../assets/scss/administrator/app.scss'],
     standalone: false
 })
 export class AdminUserComponent extends OnSeguridad implements OnInit {

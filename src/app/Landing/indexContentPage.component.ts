@@ -177,6 +177,11 @@ export class IndexContentPageComponent extends OnSeguridad implements OnInit {
       case procesoBusquedaPowerBi(ModulesSystem.Identif_PowerBI):
         indexHTTPModule = ModulesSystem.powerbibasehref + 'index.html';   // ## POWERBI ## //
         break;
+
+      case ModulesSystem.Identif_RiesgoCredito:
+        indexHTTPModule = ModulesSystem.riesgocreditobasehref + 'index.html';   // ## R.C ## //
+        break;
+
       default: indexHTTPModule = this.UrlHome;
     }
     return indexHTTPModule;
