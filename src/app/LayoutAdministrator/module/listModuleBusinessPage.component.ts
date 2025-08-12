@@ -8,10 +8,9 @@ import { httpAccessAdminPage } from '@environments/environment';
 import { OnSeguridad } from '@app/_helpers/abstractSeguridad';
 import { TranslateMessagesService } from '@app/_services/translate-messages.service';
 
-@Component({
-    templateUrl: 'HTML_ListModuleBusinessPage.html',
-    styleUrls: ['../../../assets/scss/app.scss', '../../../assets/scss/administrator/app.scss'],
-    standalone: false
+@Component({templateUrl: 'HTML_ListModuleBusinessPage.html',
+            styleUrls: ['../../../assets/scss/administrator/app.scss'],
+            standalone: false
 })
 export class ListModuleBusinessComponent extends OnSeguridad implements OnInit {
 

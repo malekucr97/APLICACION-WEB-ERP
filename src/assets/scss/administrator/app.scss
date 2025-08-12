@@ -26,18 +26,29 @@ td { vertical-align: middle; }
 
 .main-admin { margin-left: 1%; margin-right: 1%; }
 
-.btn-add {
-    color: #129523;
-    float: inline-end;
-    &:hover { cursor: pointer; }
-}
-
 .item-list-on { color: #129523; &:hover { cursor: pointer; } }
 .item-list-warn { color: #F9A01B; &:hover { cursor: pointer; } }
 .item-list-delete { color: #b82424; &:hover { cursor: pointer; } }
 
 .item-delete { color: #b82424; cursor: pointer; text-align: center; }
 .item-on { color: #129523; cursor: pointer; text-align: center; }
+
+.item-list-admin-delete { 
+    color: #f91b1b;
+    &:hover {
+        border-radius: 5px;
+        color: white;
+        background-color: #f91b1b;
+    }
+}
+.item-list-admin-add { 
+    color: #129523;
+    &:hover {
+        border-radius: 5px;
+        color: white;
+        background-color: #129523;
+    }
+}
 
 .div-admin {
     
@@ -378,7 +389,6 @@ td { vertical-align: middle; }
     }
 
     &__table {
-
         width: 100%;
         @media (max-width: 1200px) { overflow-x:auto; }
         
@@ -415,6 +425,36 @@ td { vertical-align: middle; }
         &__aeup-email { width: 25%; }
         &__aeup-position { width: 20%; }
         &__aeup-role { width: 20%; }
+        /* #endregion */
+
+        /* #region ListBusinessPage */
+        &__lbp-ico-edit { width: 5%; }
+        &__lbp-id { width: 15%; }
+        &__lbp-name { width: 29%; }
+        &__lbp-email { width: 20%; }
+        &__lbp-phone { width: 13%; }
+        &__lbp-powerbi { width: 8%; }
+        &__lbp-ico-plan { width: 5%; }
+        &__lbp-ico-mod { width: 5%; }
+        /* #endregion */
+
+        /* #region ListPlanPage */
+        &__lpp-name { width: 18%; }
+        &__lpp-type { width: 17%; }
+        &__lpp-admin { width: 12%; text-align: center; &__td { text-align: center; } }
+        &__lpp-funct { width: 12%; text-align: center; &__td { text-align: center; } }
+        &__lpp-price-m { width: 9%; text-align: center; &__td { text-align: center; } }
+        &__lpp-price-a { width: 9%; text-align: center; &__td { text-align: center; } }
+        &__lpp-support { width: 7%; text-align: center; &__td { text-align: center; } }
+        &__lpp-t-support { width: 11%; text-align: center; &__td { text-align: center; } }
+        &__lpp-ico { width: 1%; }
+        /* #endregion */
+
+        /* #region ListModuleBusinessPage */
+        &__lmbp-id { width: 25%; }
+        &__lmbp-name { width: 30%; }
+        &__lmbp-description { width: 44%; }
+        &__lmbp-ico { width: 1%; }
         /* #endregion */
     }
 }
@@ -939,6 +979,13 @@ td { vertical-align: middle; }
     transition: color 0.1s ease-in-out;
     &:hover {  color: #F9A01B;  cursor: pointer;  }
 }
+.item-list-otro {
+    color: #053254;
+    transition: color 0.1s ease-in-out;
+    &:hover { color: #00AEEF; cursor: pointer; }
+}
+
+.btn-add { color: #129523; float: inline-end; &:hover { cursor: pointer; } }
 
 .btn-power-bi {
     float: right;

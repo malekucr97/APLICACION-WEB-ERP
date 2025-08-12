@@ -6,12 +6,10 @@
             <p class="contenido-main__h2">{{ 'CONFIGURATION.ADMIN_PAGE_LIST_USERS.TITLE' | translate }}</p>
         </div>
         <hr>
-        <div>
-            <button class="back-ico-one"
-                    title="{{ 'CONFIGURATION.BTN_ADMIN_USERS' | translate}}"
-                    mat-icon-button 
-                    (click)="redirectAdminUsersPage()"> <mat-icon>arrow_back</mat-icon> </button>
-        </div>
+        <button class="back-ico-one"
+                title="{{ 'CONFIGURATION.BTN_ADMIN_USERS' | translate}}"
+                mat-icon-button 
+                (click)="redirectAdminUsersPage()"> <mat-icon>arrow_back</mat-icon> </button>
     </div>
     
     <div class="card">
@@ -29,7 +27,7 @@
                             (click)="selectObjetoUsuario()"> <mat-icon>person_add</mat-icon> </button>
                 </div>
             </div>
-
+            <hr>
             <div class="contenido-main__table">
                 <table class="table table-striped">
                     <thead>
@@ -65,8 +63,7 @@
                                         class="btn-business-user"> {{ 'CONFIGURATION.ADMIN_PAGE_LIST_USERS.TBL_BTN_COMPANY' | translate }}  </button></td>
                             
                             <td><button (click)="optionRole(us)" 
-                                        class="btn-rol-user"> 
-                                    {{ 'CONFIGURATION.ADMIN_PAGE_LIST_USERS.TBL_BTN_ROLE' | translate }}  </button></td>
+                                        class="btn-rol-user">  {{ 'CONFIGURATION.ADMIN_PAGE_LIST_USERS.TBL_BTN_ROLE' | translate }}  </button></td>
         
                             <td><button *ngIf="us.estado!='Active'"
                                         (click)="activateUser(us.identificacion, us.id)"

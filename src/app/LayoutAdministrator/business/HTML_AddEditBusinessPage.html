@@ -1,45 +1,33 @@
-<article class="articulo">
+<div class="contenido-main">
   
-  <section>
+  <div>
     <div>
-      <div>
-        <p class="articulo__contenedor__tittle__h1">{{ 'CONFIGURATION.ADD_EDIT_COMPANY.TITLE' | translate }}</p>
-        <p class="articulo__contenedor__tittle__h2">{{ 'CONFIGURATION.ADD_EDIT_COMPANY.SUBTITLE' | translate }}</p>
-      </div>
-
-      <hr>
-
-      <div>
-        <button class="administracion-contenedor__content__item__second-back-ico"
-              title="{{ 'CONFIGURATION.BTN_ADMIN_USERS' | translate}}"
-              mat-icon-button 
-              (click)="redirectListUsersPage()"> <mat-icon>arrow_back</mat-icon>
-        </button>
-      </div>
+      <p class="contenido-main__h1">{{ 'CONFIGURATION.ADD_EDIT_COMPANY.TITLE' | translate }}</p>
+      <p class="contenido-main__h2">{{ 'CONFIGURATION.ADD_EDIT_COMPANY.SUBTITLE' | translate }}</p>
     </div>
-  </section>
+    <hr>
+    <button class="back-ico-two"
+          title="{{ 'CONFIGURATION.BTN_ADMIN_USERS' | translate}}"
+          mat-icon-button 
+          (click)="redirectListUsersPage()"> <mat-icon>arrow_back</mat-icon> </button>
+  </div>
 
-  <section>
     <div class="card">
       <div class="card-body">
-    
-        <section>
-            <div class="row">
-
-                <div class="col-md-12">
-                    <p *ngIf="updateBusiness" class="articulo__contenedor__tittle__h3">{{ 'CONFIGURATION.ADD_EDIT_COMPANY.PARAMETERS_COMPANY' | translate: { companyName: companyName } }}</p>
-                    <p *ngIf="addBusiness" class="articulo__contenedor__tittle__h3">{{ 'CONFIGURATION.ADD_EDIT_COMPANY.REGISTER_COMPANY' | translate }}</p>
-                </div>
-                
-            </div>
-        </section>
-
+        <div class="row">
+          <div class="col-md-12">
+              <p *ngIf="updateBusiness" class="contenido-main__h3">{{ 'CONFIGURATION.ADD_EDIT_COMPANY.PARAMETERS_COMPANY' | translate: { companyName: companyName } }}</p>
+              <p *ngIf="addBusiness" class="contenido-main__h3">{{ 'CONFIGURATION.ADD_EDIT_COMPANY.REGISTER_COMPANY' | translate }}</p>
+          </div>
+        </div>
+        <!-- <br> -->
+        <hr>
         <br>
-    
         <form [formGroup]="form" class="row" (ngSubmit)="onSubmit()">
     
-          <div class="form-group col-md-1"></div>
-          <div class="form-group col-md-5">
+          <div class="form-group col-md-2"></div>
+
+          <div class="form-group col-md-4">
             <span for="lblnombre" class="col-form-label-lg">{{ 'CONFIGURATION.ADD_EDIT_COMPANY.FORM.TXT_NAME' | translate }}</span>
             <input  type="text"
                     maxlength="300"
@@ -66,38 +54,29 @@
           </div>
           <div class="form-group col-md-2"></div>
     
-          <div class="form-group col-md-1"></div>
-          <div class="form-group col-md-11">
+          <div class="form-group col-md-2"></div>
+          <div class="form-group col-md-10">
             <mat-checkbox formControlName="mantenimientoReportes">{{ 'CONFIGURATION.ADD_EDIT_COMPANY.FORM.CHK_POWER_BI' | translate }}</mat-checkbox>
           </div>
     
-          <div class="form-group col-md-1"></div>
-          <div class="form-group col-md-11">
+          <div class="form-group col-md-2"></div>
+          <div class="form-group col-md-10">
             <mat-checkbox formControlName="tamanoModuloDefecto">{{ 'CONFIGURATION.ADD_EDIT_COMPANY.FORM.CHK_DEFAULT_SIZE' | translate }}</mat-checkbox>
           </div>
     
-          <div class="form-group col-md-1"></div>
-          <div class="form-group col-md-11">
+          <div class="form-group col-md-2"></div>
+          <div class="form-group col-md-10">
             <mat-checkbox formControlName="cuentaCorreoDefecto">{{ 'CONFIGURATION.ADD_EDIT_COMPANY.FORM.CHK_DEFAULT_EMAIL' | translate }}</mat-checkbox>
           </div>
+          
+          <div class="form-group d-flex justify-content-end">
+            <button *ngIf="updateBusiness" class="btn btn-outline-warning mb-2">
+              <span *ngIf="loading" class="spinner-border spinner-border-sm mr-1"></span> {{ 'GENERAL.BTN_UPDATE' | translate }} </button>
     
-          <div class="form-group col-md-8"></div>
-          <div class="form-group">
-    
-            <button *ngIf="updateBusiness" class="btn btn-outline-warning mb-2 float-right">
-              <span *ngIf="loading" class="spinner-border spinner-border-sm mr-1"></span>
-              {{ 'GENERAL.BTN_UPDATE' | translate }}
-            </button>
-    
-            <button *ngIf="addBusiness" class="btn btn-outline-success mb-2 float-right">
-              <span *ngIf="loading" class="spinner-border spinner-border-sm mr-1"></span>
-              {{ 'GENERAL.BTN_REGISTER' | translate }}
-            </button>
-    
+            <button *ngIf="addBusiness" class="btn btn-outline-success mb-2">
+              <span *ngIf="loading" class="spinner-border spinner-border-sm mr-1"></span> {{ 'GENERAL.BTN_REGISTER' | translate }} </button>
           </div>
-    
-        </form>
+        </form>        
       </div>
     </div>
-  </section>
-</article>
+</div>

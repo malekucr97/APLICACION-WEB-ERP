@@ -23,7 +23,7 @@ import { TranslateModule, TranslateLoader } from '@ngx-translate/core';
 import { TranslateHttpLoader } from '@ngx-translate/http-loader';
 import { HttpClient } from '@angular/common/http';;
 import { FooterComponent } from './_components/footer/footer.component'
-import { TranslateMessagesService } from './_services/translate-messages.service';
+// import { TranslateMessagesService } from './_services/translate-messages.service';
 
 export function HttpLoaderFactory(httpHandler: HttpBackend) {
     return new TranslateHttpLoader(new HttpClient(httpHandler));

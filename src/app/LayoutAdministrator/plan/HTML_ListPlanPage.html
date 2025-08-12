@@ -1,157 +1,127 @@
-<article class="articulo">
-  <section>
+<div class="contenido-main">
+  <!-- <section> -->
     <div>
       <div>
-          <p class="articulo__contenedor__tittle__h1">{{ 'CONFIGURATION.ADMIN_PAGE_LIST_PLANES.TITLE' | translate }}</p>
-          <p class="articulo__contenedor__tittle__h2">{{ 'CONFIGURATION.ADMIN_PAGE_LIST_PLANES.SUBTITLE' | translate }}</p>
+          <p class="contenido-main__h1">{{ 'CONFIGURATION.ADMIN_PAGE_LIST_PLANES.TITLE' | translate }}</p>
+          <p class="contenido-main__h2">{{ 'CONFIGURATION.ADMIN_PAGE_LIST_PLANES.SUBTITLE' | translate }}</p>
       </div>
-
       <hr>
-
-      <div>
-          <button class=" administracion-contenedor__content__item
-                          administracion-contenedor__content__item__firts-back-ico
-                          icon-button-medium"
-                  title="{{ 'CONFIGURATION.BTN_ADMIN_USERS' | translate}}"
-                  mat-icon-button 
-                  (click)="redirectAdminUsersPage()"> <mat-icon>arrow_back</mat-icon>
-          </button>
-      </div>
+      <button class="back-ico-one"
+              title="{{ 'CONFIGURATION.BTN_ADMIN_USERS' | translate}}"
+              mat-icon-button 
+              (click)="redirectAdminUsersPage()"> <mat-icon>arrow_back</mat-icon> </button>
   </div>
 
   <div class="card">
     <div class="card-body">
+      <div class="row">
 
-      <article>
-        <section>
-            <div class="row">
-                <div class="col-md-9">
-                    <p class="articulo__contenedor__tittle__h3">{{ 'CONFIGURATION.ADMIN_PAGE_LIST_PLANES.SUBTITLE' | translate }}</p>    
-                </div>
-                
-                <div class="col-md-3">
-                    <button *ngIf="!addPlanBusiness" class="item-list__add"
-                            title="{{ 'CONFIGURATION.BTN_ADD_PLAN' | translate}}"
-                            mat-icon-button 
-                            routerLink="{{urlPageAddEditPlan}}"> <mat-icon>add</mat-icon>
-                    </button>
-                </div>
-            </div>
-        </section>
-    </article>
+          <div class="col-md-9">
+              <p class="contenido-main__h3">{{ 'CONFIGURATION.ADMIN_PAGE_LIST_PLANES.SUBTITLE' | translate }}</p>    
+          </div>
+          
+          <div *ngIf="!addPlanBusiness" class="col-md-3">
+              <button class="btn-add"
+                      title="{{ 'CONFIGURATION.BTN_ADD_PLAN' | translate}}"
+                      mat-icon-button 
+                      routerLink="{{urlPageAddEditPlan}}"> <mat-icon>add</mat-icon> </button>
+          </div>
+          <hr>
+      </div>
   
-      <div class="articulo__contenedor__table">
-      <table *ngIf="planBusiness" class="table table-striped">
-        <thead>
-          <tr>
-            <th style="width: 20%">{{ 'CONFIGURATION.ADMIN_PAGE_LIST_PLANES.TBL_NAME' | translate }}</th>
-            <th style="width: 19%">{{ 'CONFIGURATION.ADMIN_PAGE_LIST_PLANES.TBL_TYPE' | translate }}</th>
-            <th style="width: 15%">{{ 'CONFIGURATION.ADMIN_PAGE_LIST_PLANES.TBL_US_CANT_ADMIN' | translate }}</th>
-            <th style="width: 13%">{{ 'CONFIGURATION.ADMIN_PAGE_LIST_PLANES.TBL_US_CANT_FUNCTIONAL' | translate }}</th>
-            <th style="width: 6%">{{ 'CONFIGURATION.ADMIN_PAGE_LIST_PLANES.TBL_MONTHLY_PRICE_SUPPORT' | translate }}</th>
-            <th style="width: 6%">{{ 'CONFIGURATION.ADMIN_PAGE_LIST_PLANES.TBL_ANNUAL_PRICE_SUPPORT' | translate }}</th>
-            <th style="width: 6%">{{ 'CONFIGURATION.ADMIN_PAGE_LIST_PLANES.TBL_TECHNICAL_SUPPORT' | translate }}</th>
-            <th style="width: 10%">{{ 'CONFIGURATION.ADMIN_PAGE_LIST_PLANES.TBL_APPLICABLE_PERCENTAGE_SUPPORT' | translate }}</th>
-            <th style="width: 1%"></th>
-          </tr>
-        </thead>
-  
-        <tbody>
-  
-          <tr>
-  
-            <td>{{planBusiness.nombre}}</td>
-            <td>{{planBusiness.tipo}}</td>
-            <td>{{planBusiness.maximoAdministradores}}</td>
-            <td>{{planBusiness.maximoFuncionales}}</td>
-            <td>{{planBusiness.precioMensual}}</td>
-            <td>{{planBusiness.precioAnual}}</td>
-            <td>{{planBusiness.soporte}}</td>
-            <td>{{planBusiness.porcentajeSoporteXUsuario}}</td>
-  
-            <td style="white-space: normal">
-              <button class="btn-sm item-list__admin__danger" (click)="removerPlan(planBusiness.id)">
-                <mat-icon>bookmark_border</mat-icon> 
-                      {{ 'CONFIGURATION.ADMIN_PAGE_LIST_PLANES.TBL_ICO_REMOVE_PLAN' | translate }}
-              </button>
-            </td>
-  
-          </tr>
-  
-        </tbody>
-  
-        <hr>
-        <br>
-  
-      </table>
+      <div class="contenido-main__table">
+        <table *ngIf="planBusiness" class="table table-striped">
+          <thead>
+            <tr>
+              <th class="contenido-main__table__lpp-name">{{ 'CONFIGURATION.ADMIN_PAGE_LIST_PLANES.TBL_NAME' | translate }}</th>
+              <th class="contenido-main__table__lpp-type">{{ 'CONFIGURATION.ADMIN_PAGE_LIST_PLANES.TBL_TYPE' | translate }}</th>
+              <th class="contenido-main__table__lpp-admin">{{ 'CONFIGURATION.ADMIN_PAGE_LIST_PLANES.TBL_US_CANT_ADMIN' | translate }}</th>
+              <th class="contenido-main__table__lpp-funct">{{ 'CONFIGURATION.ADMIN_PAGE_LIST_PLANES.TBL_US_CANT_FUNCTIONAL' | translate }}</th>
+              <th class="contenido-main__table__lpp-price-m">{{ 'CONFIGURATION.ADMIN_PAGE_LIST_PLANES.TBL_MONTHLY_PRICE_SUPPORT' | translate }}</th>
+              <th class="contenido-main__table__lpp-price-a">{{ 'CONFIGURATION.ADMIN_PAGE_LIST_PLANES.TBL_ANNUAL_PRICE_SUPPORT' | translate }}</th>
+              <th class="contenido-main__table__lpp-support">{{ 'CONFIGURATION.ADMIN_PAGE_LIST_PLANES.TBL_TECHNICAL_SUPPORT' | translate }}</th>
+              <th class="contenido-main__table__lpp-t-support">{{ 'CONFIGURATION.ADMIN_PAGE_LIST_PLANES.TBL_APPLICABLE_PERCENTAGE_SUPPORT' | translate }}</th>
+              <th class="contenido-main__table__lpp-ico"></th>
+            </tr>
+          </thead>
+    
+          <tbody>
+            <tr>
+              <td>{{planBusiness.nombre}}</td>
+              <td>{{planBusiness.tipo}}</td>
+              <td class="contenido-main__table__lpp-admin__td">{{planBusiness.maximoAdministradores}}</td>
+              <td class="contenido-main__table__lpp-funct__td">{{planBusiness.maximoFuncionales}}</td>
+              <td class="contenido-main__table__lpp-price-m__td">{{planBusiness.precioMensual}}</td>
+              <td class="contenido-main__table__lpp-price-a__td">{{planBusiness.precioAnual}}</td>
+              <td class="contenido-main__table__lpp-support__td">{{planBusiness.soporte}}</td>
+              <td class="contenido-main__table__lpp-t-support__td">{{planBusiness.porcentajeSoporteXUsuario}}</td>
+    
+              <td>
+                <button class="item-list-admin-delete p-1" (click)="removerPlan(planBusiness.id)">
+                  <mat-icon>bookmark_border</mat-icon>  {{ 'CONFIGURATION.ADMIN_PAGE_LIST_PLANES.TBL_ICO_REMOVE_PLAN' | translate }} </button>
+              </td>
+
+            </tr>
+          </tbody>
+
+          <hr><br>
+        </table>
       </div>
       
-      <div class="articulo__contenedor__table">
-      <table *ngIf="listPlanes" class="table table-striped">
-        <thead>
-          <tr>
-            <th *ngIf="!addPlanBusiness" style="width: 5%"></th>
-            <th style="width: 20%">{{ 'CONFIGURATION.ADMIN_PAGE_LIST_PLANES.TBL_NAME' | translate }}</th>
-            <th style="width: 19%">{{ 'CONFIGURATION.ADMIN_PAGE_LIST_PLANES.TBL_TYPE' | translate }}</th>
-            <th style="width: 15%">{{ 'CONFIGURATION.ADMIN_PAGE_LIST_PLANES.TBL_US_CANT_ADMIN' | translate }}</th>
-            <th style="width: 13%">{{ 'CONFIGURATION.ADMIN_PAGE_LIST_PLANES.TBL_US_CANT_FUNCTIONAL' | translate }}</th>
-            <th style="width: 6%">{{ 'CONFIGURATION.ADMIN_PAGE_LIST_PLANES.TBL_MONTHLY_PRICE_SUPPORT' | translate }}</th>
-            <th style="width: 6%">{{ 'CONFIGURATION.ADMIN_PAGE_LIST_PLANES.TBL_ANNUAL_PRICE_SUPPORT' | translate }}</th>
-            <th style="width: 6%">{{ 'CONFIGURATION.ADMIN_PAGE_LIST_PLANES.TBL_TECHNICAL_SUPPORT' | translate }}</th>
-            <th style="width: 10%">{{ 'CONFIGURATION.ADMIN_PAGE_LIST_PLANES.TBL_APPLICABLE_PERCENTAGE_SUPPORT' | translate }}</th>
-            <th style="width: 1%"></th>
-          </tr>
-        </thead>
-  
-        <tbody>
-  
-          <tr *ngFor="let plan of listPlanes" style="white-space: normal" >
-  
-            <td *ngIf="!addPlanBusiness" routerLink="{{urlPageAddEditPlan}}{{plan.id}}"> 
-              <mat-icon>edit</mat-icon> </td>
-  
-            <td *ngIf="addPlanBusiness">{{plan.nombre}}</td>
-            <td *ngIf="addPlanBusiness">{{plan.tipo}}</td>
-            <td *ngIf="addPlanBusiness">{{plan.maximoAdministradores}}</td>
-            <td *ngIf="addPlanBusiness">{{plan.maximoFuncionales}}</td>
-            <td *ngIf="addPlanBusiness">{{plan.precioMensual}}</td>
-            <td *ngIf="addPlanBusiness">{{plan.precioAnual}}</td>
-            <td *ngIf="addPlanBusiness">{{plan.soporte}}</td>
-            <td *ngIf="addPlanBusiness">{{plan.porcentajeSoporteXUsuario}}</td>
-  
-            <td *ngIf="addPlanBusiness" style="white-space: normal">
-              <button class="item-list__admin__ok" (click)="asignarPlan(plan.id)">
-                <mat-icon>bookmark_border</mat-icon> 
-                      {{ 'CONFIGURATION.ADMIN_PAGE_LIST_PLANES.TBL_ICO_GRANT_PLAN' | translate }}
-              </button>
-            </td>
-  
-            <td class="item-list__edit" *ngIf="!addPlanBusiness" routerLink="{{urlPageAddEditPlan}}{{plan.id}}">{{plan.nombre}}</td>
-            <td class="item-list__edit" *ngIf="!addPlanBusiness" routerLink="{{urlPageAddEditPlan}}{{plan.id}}">{{plan.tipo}}</td>
-            <td class="item-list__edit" *ngIf="!addPlanBusiness" routerLink="{{urlPageAddEditPlan}}{{plan.id}}">{{plan.maximoAdministradores}}</td>
-            <td class="item-list__edit" *ngIf="!addPlanBusiness" routerLink="{{urlPageAddEditPlan}}{{plan.id}}">{{plan.maximoFuncionales}}</td>
-            <td class="item-list__edit" *ngIf="!addPlanBusiness" routerLink="{{urlPageAddEditPlan}}{{plan.id}}">{{plan.precioMensual}}</td>
-            <td class="item-list__edit" *ngIf="!addPlanBusiness" routerLink="{{urlPageAddEditPlan}}{{plan.id}}">{{plan.precioAnual}}</td>
-            <td class="item-list__edit" *ngIf="!addPlanBusiness" routerLink="{{urlPageAddEditPlan}}{{plan.id}}">{{plan.soporte}}</td>
-            <td class="item-list__edit" *ngIf="!addPlanBusiness" routerLink="{{urlPageAddEditPlan}}{{plan.id}}">{{plan.porcentajeSoporteXUsuario}}</td>
-  
-            <td *ngIf="!addPlanBusiness" style="white-space: normal">
-              <button (click)="deletePlan(plan.id)" 
-                      class="item-list__admin__plan__danger" 
-                      mat-icon-button> <mat-icon>delete</mat-icon> </button> 
-            </td>
-  
-          </tr>
-  
-        </tbody>
-  
-        <hr>
-  
-      </table>
+      <div class="contenido-main__table">
+        <table *ngIf="listPlanes" class="table table-striped">
+          <thead>
+            <tr>
+              <th *ngIf="!addPlanBusiness"></th> <!-- ico-edit -->
+              <th class="contenido-main__table__lpp-name">{{ 'CONFIGURATION.ADMIN_PAGE_LIST_PLANES.TBL_NAME' | translate }}</th>
+              <th class="contenido-main__table__lpp-type">{{ 'CONFIGURATION.ADMIN_PAGE_LIST_PLANES.TBL_TYPE' | translate }}</th>
+              <th class="contenido-main__table__lpp-admin">{{ 'CONFIGURATION.ADMIN_PAGE_LIST_PLANES.TBL_US_CANT_ADMIN' | translate }}</th>
+              <th class="contenido-main__table__lpp-funct">{{ 'CONFIGURATION.ADMIN_PAGE_LIST_PLANES.TBL_US_CANT_FUNCTIONAL' | translate }}</th>
+              <th class="contenido-main__table__lpp-price-m">{{ 'CONFIGURATION.ADMIN_PAGE_LIST_PLANES.TBL_MONTHLY_PRICE_SUPPORT' | translate }}</th>
+              <th class="contenido-main__table__lpp-price-a">{{ 'CONFIGURATION.ADMIN_PAGE_LIST_PLANES.TBL_ANNUAL_PRICE_SUPPORT' | translate }}</th>
+              <th class="contenido-main__table__lpp-support">{{ 'CONFIGURATION.ADMIN_PAGE_LIST_PLANES.TBL_TECHNICAL_SUPPORT' | translate }}</th>
+              <th class="contenido-main__table__lpp-t-support">{{ 'CONFIGURATION.ADMIN_PAGE_LIST_PLANES.TBL_APPLICABLE_PERCENTAGE_SUPPORT' | translate }}</th>
+              <th class="contenido-main__table__lpp-ico"></th>
+            </tr>
+          </thead>
+
+          <tbody>
+            <tr *ngFor="let plan of listPlanes">
+    
+              <!-- asign-plan -->
+              <td *ngIf="addPlanBusiness">{{plan.nombre}}</td>
+              <td *ngIf="addPlanBusiness">{{plan.tipo}}</td>
+              <td *ngIf="addPlanBusiness" class="contenido-main__table__lpp-admin__td">{{plan.maximoAdministradores}}</td>
+              <td *ngIf="addPlanBusiness" class="contenido-main__table__lpp-funct__td">{{plan.maximoFuncionales}}</td>
+              <td *ngIf="addPlanBusiness" class="contenido-main__table__lpp-price-m__td">{{plan.precioMensual}}</td>
+              <td *ngIf="addPlanBusiness" class="contenido-main__table__lpp-price-a__td">{{plan.precioAnual}}</td>
+              <td *ngIf="addPlanBusiness" class="contenido-main__table__lpp-support__td">{{plan.soporte}}</td>
+              <td *ngIf="addPlanBusiness" class="contenido-main__table__lpp-t-support__td">{{plan.porcentajeSoporteXUsuario}}</td>
+    
+              <td *ngIf="addPlanBusiness">
+                <button class="item-list-admin-add p-1" (click)="asignarPlan(plan.id)">
+                  <mat-icon>bookmark_border</mat-icon> {{ 'CONFIGURATION.ADMIN_PAGE_LIST_PLANES.TBL_ICO_GRANT_PLAN' | translate }} </button>
+              </td>
+
+              <!-- edit-plan -->
+              <td class="item-list-edit" *ngIf="!addPlanBusiness" routerLink="{{urlPageAddEditPlan}}{{plan.id}}"> <mat-icon>edit</mat-icon> </td>  <!-- ico-edit -->
+              <td class="item-list-edit" *ngIf="!addPlanBusiness" routerLink="{{urlPageAddEditPlan}}{{plan.id}}">{{plan.nombre}}</td>
+              <td class="item-list-edit" *ngIf="!addPlanBusiness" routerLink="{{urlPageAddEditPlan}}{{plan.id}}">{{plan.tipo}}</td>
+              <td class="item-list-edit contenido-main__table__lpp-admin__td" *ngIf="!addPlanBusiness" routerLink="{{urlPageAddEditPlan}}{{plan.id}}">{{plan.maximoAdministradores}}</td>
+              <td class="item-list-edit contenido-main__table__lpp-funct__td" *ngIf="!addPlanBusiness" routerLink="{{urlPageAddEditPlan}}{{plan.id}}">{{plan.maximoFuncionales}}</td>
+              <td class="item-list-edit contenido-main__table__lpp-price-m__td" *ngIf="!addPlanBusiness" routerLink="{{urlPageAddEditPlan}}{{plan.id}}">{{plan.precioMensual}}</td>
+              <td class="item-list-edit contenido-main__table__lpp-price-a__td" *ngIf="!addPlanBusiness" routerLink="{{urlPageAddEditPlan}}{{plan.id}}">{{plan.precioAnual}}</td>
+              <td class="item-list-edit contenido-main__table__lpp-support__td" *ngIf="!addPlanBusiness" routerLink="{{urlPageAddEditPlan}}{{plan.id}}">{{plan.soporte}}</td>
+              <td class="item-list-edit contenido-main__table__lpp-t-support__td" *ngIf="!addPlanBusiness" routerLink="{{urlPageAddEditPlan}}{{plan.id}}">{{plan.porcentajeSoporteXUsuario}}</td>
+    
+              <td *ngIf="!addPlanBusiness">
+                <button (click)="deletePlan(plan.id)" class="item-list-delete" mat-icon-button> <mat-icon>delete</mat-icon> </button> 
+              </td>
+    
+            </tr>
+          </tbody>
+        </table>
       </div>
-  
     </div>
   </div>
-
-  </section>
-</article>
+</div>
