@@ -11,7 +11,8 @@ import { DialogoConfirmacionComponent } from '@app/_components/dialogo-confirmac
 import { TranslateMessagesService } from '@app/_services/translate-messages.service';
 import { AdminPlan } from '@app/_models/admin/planes/plan';
 
-@Component({templateUrl: 'HTML_ListUserPage.html',
+@Component({selector: 'app-list-user-admin',
+            templateUrl: 'HTML_ListUserPage.html',
             styleUrls: ['../../../assets/scss/administrator/app.scss'],
             standalone: false
 })

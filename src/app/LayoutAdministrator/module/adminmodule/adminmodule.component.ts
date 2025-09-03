@@ -9,7 +9,7 @@ import { TranslateMessagesService } from '@app/_services/translate-messages.serv
 import { httpAccessAdminPage } from '@environments/environment';
 import { first } from 'rxjs/operators';
 
-@Component({selector: 'app-adminmodule',
+@Component({selector: 'app-admin-module-admin',
             templateUrl: './adminmodule.component.html',
             styleUrls: ['../../../../assets/scss/administrator/app.scss'],
             standalone: false

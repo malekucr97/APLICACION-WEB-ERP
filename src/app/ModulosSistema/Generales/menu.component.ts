@@ -34,6 +34,7 @@ interface ExampleFlatNode {
 }
 
 @Component({
+    selector: 'app-menu-generales',
     templateUrl: '../menu.html',
     styleUrls: ['../../../assets/scss/app.scss', '../../../assets/scss/menus.scss'],
     standalone: false

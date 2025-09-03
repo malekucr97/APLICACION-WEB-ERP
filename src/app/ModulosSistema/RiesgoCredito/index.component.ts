@@ -5,7 +5,8 @@ import { User, Module } from '@app/_models';
 import { AccountService, AlertService } from '@app/_services';
 import { TranslateMessagesService } from '@app/_services/translate-messages.service';
 
-@Component({templateUrl: 'index.html',
+@Component({selector: 'app-index-riesgo-credito',
+            templateUrl: 'index.html',
             styleUrls: ['../../../assets/scss/app.scss'],
             standalone: false
 })

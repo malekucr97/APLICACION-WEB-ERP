@@ -23,6 +23,7 @@ import { TranslateModule, TranslateLoader } from '@ngx-translate/core';
 import { TranslateHttpLoader } from '@ngx-translate/http-loader';
 import { HttpClient } from '@angular/common/http';;
 import { FooterComponent } from './_components/footer/footer.component'
+import { SharedModule } from './_shared/shared.module';
 
 export function HttpLoaderFactory(httpHandler: HttpBackend) {
     return new TranslateHttpLoader(new HttpClient(httpHandler));
@@ -39,14 +40,16 @@ export function HttpLoaderFactory(httpHandler: HttpBackend) {
         AppComponent,
         TranslateComponent,
         FooterComponent
-    ], imports: [BrowserModule,
+    ], imports: [
+        BrowserModule,
         AppRoutingModule,
-        MatIconModule,
         BrowserAnimationsModule,
-        MatTreeModule,
-        MatTooltipModule,
-        MatToolbarModule,
-        MatSelectModule,
+        SharedModule,
+        // MatIconModule,
+        // MatTreeModule,
+        // MatTooltipModule,
+        // MatToolbarModule,
+        // MatSelectModule,
         TranslateModule.forRoot({
             defaultLanguage: 'es',
             extend: true,

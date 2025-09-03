@@ -8,7 +8,8 @@ import { OnSeguridad } from '@app/_helpers/abstractSeguridad';
 import { httpAccessAdminPage } from '@environments/environment';
 import { TranslateMessagesService } from '@app/_services/translate-messages.service';
 
-@Component({templateUrl: 'HTML_AddBusinessUserPage.html',
+@Component({selector:'app-add-business-user-admin',
+            templateUrl: 'HTML_AddBusinessUserPage.html',
             styleUrls: ['../../../assets/scss/administrator/app.scss'],
             standalone: false
 })

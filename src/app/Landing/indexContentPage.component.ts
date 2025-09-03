@@ -11,6 +11,7 @@ import { Bitacora } from '@app/_models/bitacora';
 import { TranslateMessagesService } from '@app/_services/translate-messages.service';
 
 @Component({
+    selector: 'app-index-content-landing',
     templateUrl: 'IndexContentPage.html',
     styleUrls: ['../../assets/scss/app.scss', '../../assets/scss/landing/app.scss'],
     standalone: false

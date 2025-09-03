@@ -8,6 +8,7 @@ import { User } from '@app/_models';
 import { TranslateService } from '@ngx-translate/core';
 
 @Component({
+    selector: 'login',
     templateUrl: 'login.component.html',
     standalone: false
 })

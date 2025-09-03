@@ -11,7 +11,7 @@ import { TranslateMessagesService } from '@app/_services/translate-messages.serv
 import { RiesgoCreditoService } from '@app/_services/riesgoCredito.service';
 import { Identificador, Rango } from '@app/_models/RiesgoCredito/rango';
 
-@Component({selector: 'app-porcentajes-estimacion-dias',
+@Component({selector: 'app-porcentajes-estimacion-dias-riesgo-credito',
             templateUrl: './porcentajes-estimacion-dias.component.html',
             styleUrls: ['../../../../../assets/scss/app.scss'],
             standalone: false
@@ -151,13 +151,6 @@ export class PorcentajesEstimacionDiasComponent extends OnSeguridad implements O
 
       this.listIdentificadores.push( { identificador: obj.identificador } );
 
-      // this.listIdentificadores.push( { identificador: obj.identificador } );
-      // this.getIdentificadores();
-      // this.inicializaFormulario();
-
-      // this.habilitaIdentificador = true;
-      // this.habilitaRegistroIdentificador = false;
-
     } else { this.alertService.error('Ingrese el valor del identificador'); }
   }
 
@@ -233,32 +226,6 @@ export class PorcentajesEstimacionDiasComponent extends OnSeguridad implements O
 
           this.getIdentificadores();
           this.inicializaFormulario();
-
-          // this.alertService.success(response.responseMesagge);
-
-          // this.listIdentificadores = this.listIdentificadores.filter( x => x !== this.objSeleccionado );
-
-          // if(this.listIdentificadores && this.listIdentificadores.length > 0){
-
-          //   this.getIdentificadores();
-
-          //   let ident : string = this.listIdentificadores[0].identificador;
-          //   this.actualizaLista(ident); 
-          //   this.inicializaFormulario();
-          //   this.alertService.success(response.responseMesagge);
-          // } else {
-          //   window.location.reload();
-          // }
-
-          // this.getIdentificadores();
-          // this.inicializaFormulario();
-
-          // this.mostrarLista = false;
-
-
-          // this.actualizaLista();
-          // this.listIdentificadores = this.listIdentificadores.filter( x => x !== this.objSeleccionado );
-          // this.getIdentificadores();
 
         } else { this.alertService.error(response.responseMesagge); }
 
@@ -399,8 +366,6 @@ export class PorcentajesEstimacionDiasComponent extends OnSeguridad implements O
     this.habilitaRegistroIdentificador = true;
     this.existeIdentificadores = false;
     this.habilitaIdentificador = false;
-    // this.mostrarLista = false;
-
   }
 
   public seleccionarObjeto(obj: Rango) : void {

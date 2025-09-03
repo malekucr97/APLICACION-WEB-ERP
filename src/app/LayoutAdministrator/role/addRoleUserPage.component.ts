@@ -8,7 +8,8 @@ import { administrator, httpAccessAdminPage } from '@environments/environment';
 import { TranslateMessagesService } from '@app/_services/translate-messages.service';
 import { AdminPlan } from '@app/_models/admin/planes/plan';
 
-@Component({templateUrl: 'HTML_AddRoleUserPage.html',
+@Component({selector: 'app-add-role-admin',
+            templateUrl: 'HTML_AddRoleUserPage.html',
             styleUrls: ['../../../assets/scss/administrator/app.scss'],
             standalone: false
 })

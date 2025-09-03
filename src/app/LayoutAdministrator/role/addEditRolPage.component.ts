@@ -10,6 +10,7 @@ import { OnSeguridad } from '@app/_helpers/abstractSeguridad';
 import { TranslateMessagesService } from '@app/_services/translate-messages.service';
 
 @Component({
+    selector: 'app-add-edit-role-admin',
     templateUrl: 'HTML_AddEditRolPage.html',
     styleUrls: ['../../../assets/scss/app.scss', '../../../assets/scss/administrator/app.scss'],
     standalone: false

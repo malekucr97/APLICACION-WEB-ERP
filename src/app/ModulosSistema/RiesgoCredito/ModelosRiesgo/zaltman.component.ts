@@ -11,7 +11,7 @@ import { Router } from '@angular/router';
 
 import { User, Module, Compania } from '@app/_models';
 
-@Component({selector: 'app-z-altman',
+@Component({selector: 'app-z-altman-riesgo-credito',
             templateUrl: './zaltman.component.html',
             styleUrls: ['../../../../assets/scss/tailwind.scss'],
             standalone: false

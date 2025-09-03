@@ -56,7 +56,8 @@ const TREE_DATA: FoodNode[] = [
   }
 ];
 
-@Component({templateUrl: '../menu.html',
+@Component({selector: 'app-menu-riesgo-credito',
+            templateUrl: '../menu.html',
             styleUrls: ['../../../assets/scss/menus.scss'],
             standalone: false
 })

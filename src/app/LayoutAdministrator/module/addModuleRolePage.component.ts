@@ -9,6 +9,7 @@ import { administrator, httpAccessAdminPage } from '@environments/environment';
 import { TranslateMessagesService } from '@app/_services/translate-messages.service';
 
 @Component({
+    selector: 'app-add-module-role-admin',
     templateUrl: 'HTML_AddModuleRolePage.html',
     styleUrls: ['../../../assets/scss/app.scss', '../../../assets/scss/administrator/app.scss'],
     standalone: false

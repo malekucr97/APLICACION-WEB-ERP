@@ -21,6 +21,7 @@ const TREE_DATA: FoodNode[] = [
 ];
 
 @Component({
+    selector: 'app-menu-powerbi',
     templateUrl: '../menu.html',
     styleUrls: ['../../../assets/scss/app.scss', '../../../assets/scss/menus.scss'],
     standalone: false

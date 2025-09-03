@@ -2,6 +2,7 @@ import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { RiesgoCreditoRoutingModule } from './riesgo-credito-routing.module';
 import { IndexRiesgoCreditoComponent } from './index.component';
+import { SharedModule } from '../../_shared/shared.module';
 
 import { MatToolbarModule } from '@angular/material/toolbar';
 import { MatSidenavModule } from '@angular/material/sidenav';
@@ -37,17 +38,21 @@ import { PorcentajesEstimacionDiasComponent } from './Mantenimientos/estimacionI
     FormsModule,
     ReactiveFormsModule,
     RiesgoCreditoRoutingModule,
-    MatToolbarModule,
-    MatSidenavModule,
-    MatSelectModule,
-    MatDatepickerModule,
-    MatButtonModule,
-    MatIconModule,
-    MatDividerModule,
-    MatTreeModule,
-    MatTooltipModule,
-    MatNativeDateModule,
-    MatCheckboxModule,
+    SharedModule,
+    // MatToolbarModule,
+    // MatSidenavModule,
+    // MatSelectModule,
+    // MatDatepickerModule,
+    // MatButtonModule,
+    // MatIconModule,
+    // MatDividerModule,
+    // MatTreeModule,
+    // MatTooltipModule,
+    // MatNativeDateModule,
+    // MatCheckboxModule,
+    // MatDialogModule,
+    // MatFormFieldModule,
+    // MatListModule
     TranslateModule.forChild()
   ],
   declarations: [

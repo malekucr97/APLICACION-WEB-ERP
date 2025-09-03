@@ -5,6 +5,7 @@ import { Router, UrlTree } from '@angular/router';
 import { first } from 'rxjs/operators';
 
 @Component({
+    selector: 'app-activate-user-page',
     templateUrl: 'HTML_ActivateUserPage.html',
     styleUrls: ['../../../assets/scss/landing/app.scss'],
     standalone: false

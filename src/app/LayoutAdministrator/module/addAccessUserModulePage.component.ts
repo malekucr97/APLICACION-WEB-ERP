@@ -15,6 +15,7 @@ import { TranslateMessagesService } from '@app/_services/translate-messages.serv
 declare var $: any;
 
 @Component({
+    selector: 'app-add-access-user-module-admin',
     templateUrl: 'HTML_AddAccessUserModulePage.html',
     styleUrls: ['../../../assets/scss/app.scss', '../../../assets/scss/administrator/app.scss'],
     standalone: false

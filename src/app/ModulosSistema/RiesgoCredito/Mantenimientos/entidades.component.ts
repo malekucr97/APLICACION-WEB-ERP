@@ -15,8 +15,9 @@ import { TranslateMessagesService } from '@app/_services/translate-messages.serv
 import { Entidad } from '@app/_models/RiesgoCredito/entidad';
 import { RiesgoCreditoService } from '@app/_services/riesgoCredito.service';
 
-@Component({selector: 'app-entidades',
-            templateUrl: './entidades.component.html', styleUrls: ['../../../../assets/scss/app.scss'],
+@Component({selector: 'app-entidades-riesgo-credito',
+            templateUrl: './entidades.component.html', 
+            styleUrls: ['../../../../assets/scss/app.scss'],
             standalone: false
 })
 export class EntidadesComponent extends OnSeguridad implements OnInit {

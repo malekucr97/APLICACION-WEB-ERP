@@ -11,7 +11,7 @@ import { Router } from '@angular/router';
 
 import { User, Module, Compania } from '@app/_models';
 
-@Component({selector: 'app-ihh-crediticio',
+@Component({selector: 'app-ihh-crediticio-riesgo-credito',
             templateUrl: './ihh-crediticio.component.html',
             styleUrls: ['../../../../assets/scss/tailwind.scss'],
             standalone: false

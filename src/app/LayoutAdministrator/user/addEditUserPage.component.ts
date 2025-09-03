@@ -9,7 +9,8 @@ import { administrator, httpAccessAdminPage, httpLandingIndexPage } from '@envir
 import { OnSeguridad } from '@app/_helpers/abstractSeguridad';
 import { TranslateMessagesService } from '@app/_services/translate-messages.service';
 
-@Component({templateUrl: 'HTML_AddEditUserPage.html',
+@Component({selector: 'app-add-edit-user-admin',
+            templateUrl: 'HTML_AddEditUserPage.html',
             styleUrls: ['../../../assets/scss/administrator/app.scss'],
             standalone: false
 })

@@ -11,7 +11,7 @@ import { Router } from '@angular/router';
 
 import { User, Module, Compania } from '@app/_models';
 
-@Component({selector: 'app-historico-alfa-beta',
+@Component({selector: 'app-historico-alfa-beta-riesgo-credito',
             templateUrl: './historico-alfa-beta.component.html',
             styleUrls: ['../../../../assets/scss/tailwind.scss'],
             standalone: false

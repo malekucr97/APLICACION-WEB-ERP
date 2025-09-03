@@ -7,6 +7,7 @@ import { AccountService, AlertService } from '@app/_services';
 import { TranslateMessagesService } from '@app/_services/translate-messages.service';
 
 @Component({
+    selector: 'app-index-generales',
     templateUrl: 'index.html',
     styleUrls: ['../../../assets/scss/app.scss', '../../../assets/scss/generales/app.scss'],
     standalone: false

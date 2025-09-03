@@ -8,6 +8,7 @@ import { OnSeguridad } from '@app/_helpers/abstractSeguridad';
 import { TranslateMessagesService } from '@app/_services/translate-messages.service';
 
 @Component({
+    selector: 'app-index-macred',
     templateUrl: 'index.html',
     styleUrls: ['../../../assets/scss/app.scss'],
     standalone: false

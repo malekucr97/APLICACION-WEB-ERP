@@ -24,7 +24,6 @@ const routes: Routes = [
       { path: 'index.html', component: IndexRiesgoCreditoComponent },
       // ## -- Mantenimientos -- ## //
       { path: 'mantenimientos/entidades.html', component: EntidadesComponent },
-      // { path: 'mantenimientos/porcentajes-estimacion.html', component: PorcentajesEstimacionComponent },
 
       { path: 'mantenimientos/estimacionihh/porcentajes-estimacion-categoria.html', component: PorcentajesEstimacionCatComponent },
       { path: 'mantenimientos/estimacionihh/porcentajes-estimacion-dias.html', component: PorcentajesEstimacionDiasComponent },

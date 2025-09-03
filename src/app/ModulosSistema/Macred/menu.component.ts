@@ -129,6 +129,7 @@ const TREE_DATA: FoodNode[] = [
 ];
 
 @Component({
+    selector: 'app-menu-macred',
     templateUrl: '../menu.html',
     styleUrls: ['../../../assets/scss/app.scss', '../../../assets/scss/menus.scss'],
     standalone: false

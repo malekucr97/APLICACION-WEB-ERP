@@ -19,6 +19,7 @@ import { TranslateMessagesService } from '@app/_services/translate-messages.serv
 declare var $: any;
 
 @Component({
+    selector: 'app-generales-tipo-cambio',
     templateUrl: 'HTML_TipoCambio.html',
     styleUrls: ['../../../../assets/scss/app.scss', '../../../../assets/scss/generales/app.scss',
         '../../../../assets/scss/administrator/app.scss'],

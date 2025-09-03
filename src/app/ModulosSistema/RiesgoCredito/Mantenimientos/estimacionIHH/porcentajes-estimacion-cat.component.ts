@@ -11,7 +11,7 @@ import { TranslateMessagesService } from '@app/_services/translate-messages.serv
 import { RiesgoCreditoService } from '@app/_services/riesgoCredito.service';
 import { Categoria } from '@app/_models/RiesgoCredito/categoria';
 
-@Component({selector: 'app-porcentajes-estimacion-cat',
+@Component({selector: 'app-porcentajes-estimacion-cat-riesgo-credito',
             templateUrl: './porcentajes-estimacion-cat.component.html', 
             styleUrls: ['../../../../../assets/scss/app.scss'],
             standalone: false

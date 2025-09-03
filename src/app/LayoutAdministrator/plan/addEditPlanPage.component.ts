@@ -11,6 +11,7 @@ import { TranslateMessagesService } from '@app/_services/translate-messages.serv
 import { AdminPlan, AdminPlanSupport, AdminTipoPlan } from '@app/_models/admin/planes/plan';
 
 @Component({
+    selector: 'app-add-edit-plan-admin',
     templateUrl: 'HTML_AddEditPlanPage.html',
     styleUrls: ['../../../assets/scss/app.scss', '../../../assets/scss/administrator/app.scss'],
     standalone: false

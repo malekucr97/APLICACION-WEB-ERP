@@ -3,6 +3,7 @@ import { Router } from '@angular/router';
 import { AccountService } from '@app/_services';
 
 @Component({
+    selector: 'layout-account',
     templateUrl: 'layout.component.html',
     standalone: false
 })

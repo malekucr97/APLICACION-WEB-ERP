@@ -13,15 +13,10 @@ import { NotBusinessUserPageComponent } from './nologgin/notBusinessUserPage.com
 import { InactiveRolPageComponent }     from './nologgin/inactiveRolPage.component';
 import { BlockedUserPageComponent }     from './nologgin/blockedUserPage.component';
 
-// -- importaciones menú
-import { MatToolbarModule } from '@angular/material/toolbar';
-import { MatSidenavModule } from '@angular/material/sidenav';
-import { MatButtonModule } from '@angular/material/button';
-import { MatIconModule } from '@angular/material/icon';
-import { MatDividerModule } from '@angular/material/divider';
 import { ActivateUserPageComponent } from './nologgin/activateUserPage.component';
 import { TranslateModule } from '@ngx-translate/core';
 import { NotModulePageComponent } from './nologgin/notModulePage.component';
+import { SharedModule } from '@app/_shared/shared.module';
 
 
 @NgModule({
@@ -31,16 +26,8 @@ import { NotModulePageComponent } from './nologgin/notModulePage.component';
         ReactiveFormsModule,
         LandingRoutingModule,
         CommonModule,
-        TranslateModule.forChild(),
-        // ******************
-        // -- Utilidades menú
-        MatToolbarModule,
-        MatSidenavModule,
-        MatButtonModule,
-        MatIconModule,
-        MatDividerModule
-        // -- Utilidades menú
-        // ******************
+        SharedModule,
+        TranslateModule.forChild()
     ],
     declarations: [
         LayoutComponent,

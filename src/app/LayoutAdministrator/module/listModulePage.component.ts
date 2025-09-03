@@ -8,7 +8,8 @@ import { httpAccessAdminPage } from '@environments/environment';
 import { OnSeguridad } from '@app/_helpers/abstractSeguridad';
 import { TranslateMessagesService } from '@app/_services/translate-messages.service';
 
-@Component({templateUrl: 'HTML_ListModulePage.html',
+@Component({selector: 'app-list-module-admin',
+            templateUrl: 'HTML_ListModulePage.html',
             styleUrls: ['../../../assets/scss/administrator/app.scss'],
             standalone: false
 })

@@ -11,7 +11,8 @@ import { DialogoConfirmacionComponent } from '@app/_components/dialogo-confirmac
 import { User } from '@app/_models/user';
 import { AdminPlanXBusiness } from '@app/_models/admin/planes/planxBusiness';
 
-@Component({templateUrl: 'HTML_ListPlanPage.html',
+@Component({selector: 'app-list-plan-admin',
+            templateUrl: 'HTML_ListPlanPage.html',
             styleUrls: ['../../../assets/scss/administrator/app.scss'],
             standalone: false
 })

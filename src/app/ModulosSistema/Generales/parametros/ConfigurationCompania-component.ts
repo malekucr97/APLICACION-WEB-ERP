@@ -13,6 +13,7 @@ import { TranslateMessagesService } from '@app/_services/translate-messages.serv
 declare var $: any;
 
 @Component({
+    selector: 'app-configuracion-compania-generales',
     templateUrl: 'HTML_ConfigurationCompania.html',
     styleUrls: ['../../../../assets/scss/app.scss', '../../../../assets/scss/generales/app.scss',
         '../../../../assets/scss/administrator/app.scss'],

@@ -4,6 +4,7 @@ import { User } from '@app/_models';
 import { first } from 'rxjs/operators';
 
 @Component({
+    selector: 'app-pending-page',
     templateUrl: 'HTML_PendingPage.html',
     styleUrls: ['../../../assets/scss/landing/app.scss'],
     standalone: false

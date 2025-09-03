@@ -9,7 +9,8 @@ import { httpAccessAdminPage } from '@environments/environment';
 import { OnSeguridad } from '@app/_helpers/abstractSeguridad';
 import { TranslateMessagesService } from '@app/_services/translate-messages.service';
 
-@Component({templateUrl: 'HTML_AddEditBusinessPage.html',
+@Component({selector:'app-add-edit-business-admin',
+            templateUrl: 'HTML_AddEditBusinessPage.html',
             styleUrls: ['../../../assets/scss/administrator/app.scss'],
             standalone: false
 })

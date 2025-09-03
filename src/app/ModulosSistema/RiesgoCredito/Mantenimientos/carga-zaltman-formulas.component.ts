@@ -11,7 +11,7 @@ import { Router } from '@angular/router';
 
 import { User, Module, Compania } from '@app/_models';
 
-@Component({selector: 'app-carga-zaltman-formulas',
+@Component({selector: 'app-carga-zaltman-formulas-riesgo-credito',
             templateUrl: './carga-zaltman-formulas.component.html',
             styleUrls: ['../../../../assets/scss/tailwind.scss'],
             standalone: false
