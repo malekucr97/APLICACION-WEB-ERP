@@ -1,15 +1,10 @@
 import { Component, ViewChild, OnInit } from '@angular/core';
-import { AccountService, GeneralesService } from '@app/_services';
+import { AccountService } from '@app/_services';
 import { MatSidenav } from '@angular/material/sidenav';
 import { Module, User } from '@app/_models';
 import { Router } from '@angular/router';
-
 import { FlatTreeControl } from '@angular/cdk/tree';
-import {
-  MatTreeFlatDataSource,
-  MatTreeFlattener,
-} from '@angular/material/tree';
-
+import { MatTreeFlatDataSource, MatTreeFlattener } from '@angular/material/tree';
 import { Compania } from '../../_models/modules/compania';
 import { ModulesSystem, httpLandingIndexPage } from '@environments/environment';
 import { TranslateMessagesService } from '@app/_services/translate-messages.service';
@@ -34,8 +29,16 @@ const TREE_DATA: FoodNode[] = [
     link: '',
     icon: '',
     children: [
-      { name: 'Carga de datos Crédito', link: ModulesSystem.riesgocreditobasehref + '/Mantenimientos/CargaCredito', icon: '' },
-      { name: 'Carga de datos Z-Altman', link: '/', icon: '' },
+      { name: 'Entidades', link: ModulesSystem.riesgocreditobasehref + '/mantenimientos/entidades.html', icon: '' },
+      { name: 'Porcentaje Estimación IHH', link: ModulesSystem.riesgocreditobasehref + '/mantenimientos/porcentajes-estimacion.html', icon: '', 
+        children: [
+          { name: 'Categorías', link: ModulesSystem.riesgocreditobasehref + '/mantenimientos/estimacionihh/porcentajes-estimacion-categoria.html', icon: '' },
+          { name: 'Días de Atraso', link: ModulesSystem.riesgocreditobasehref + '/mantenimientos/estimacionihh/porcentajes-estimacion-dias.html', icon: '' }
+        ]
+       },
+      { name: 'Carga de Datos Crédito', link: ModulesSystem.riesgocreditobasehref + '/mantenimientos/carga-datos-credito.html', icon: '' },
+      { name: 'Carga de Datos Z-Altman Fórmulas', link: ModulesSystem.riesgocreditobasehref + '/mantenimientos/carga-zaltman-formulas.html', icon: '' },
+      { name: 'Carga de Datos Z-Altman Datos', link: ModulesSystem.riesgocreditobasehref + '/mantenimientos/carga-zaltman-datos.html', icon: '' }
     ],
   },
   {
@@ -43,60 +46,18 @@ const TREE_DATA: FoodNode[] = [
     link: '',
     icon: '',
     children: [
-      { name: 'Alfa Beta', link: '/', icon: '' },
-      { name: 'IHH Crediticio', link: '/', icon: '' },
-      { name: 'Transición', link: '/', icon: '' },
-      { name: 'Z-Altman', link: '/', icon: '' }
-    ],
-  },
-  // {
-  //   name: 'Reportes',
-  //   link: '',
-  //   icon: '',
-  //   children: [
-  //     {
-  //       name: 'Calificación Riesgo',
-  //       link: '',
-  //       icon: '',
-  //       children: [
-  //         { name: 'Calificación Horizontal', link: '/', icon: '' },
-  //         { name: 'Calificación General por Cliente', link: '/', icon: '' },
-  //         { name: 'Cambios de Categoría', link: '/', icon: '' },
-  //       ],
-  //     },
-  //     { name: 'Certificados Cancelados Anticipadamente', link: '/', icon: '' },
-  //     { name: 'Mayores Inversionistas', link: '/', icon: '' },
-  //     { name: 'Mantenimiento ROES', link: '/', icon: '' },
-  //     { name: 'Créditos por Analista', link: '/', icon: '' },
-  //     { name: 'Nuevos Certificados', link: '/', icon: '' },
-  //     { name: 'Consultas Transacciones', link: '/', icon: '' },
-  //     { name: 'Histórico Transacciones', link: '/', icon: '' },
-  //     { name: 'Alertas', link: '/', icon: '' },
-  //     { name: 'Información Riesgo', link: '/', icon: '' },
-  //     { name: 'Bitácoras de Listas de Personas', link: '/', icon: '' },
-  //     { name: 'Bitácoras de Consultas de Listas', link: '/', icon: '' },
-  //     { name: 'Estadísticas Ingreso Listas', link: '/', icon: '' },
-  //     { name: 'Clientes CRS', link: '/', icon: '' },
-  //     { name: 'Reporte PEPs', link: '/', icon: '' },
-  //     { name: 'Riesgo Fiscalizado', link: '/', icon: '' },
-  //     {
-  //       name: 'Revisión XML',
-  //       link: '',
-  //       icon: '',
-  //       children: [
-  //         { name: 'Alertas', link: '/', icon: '' },
-  //         { name: 'Riesgos Clientes', link: '/', icon: '' },
-  //         { name: 'Productos y Servicios', link: '/', icon: '' },
-  //         { name: 'Zona Geográfica', link: '/', icon: '' },
-  //         { name: 'Canales Distribución', link: '/', icon: '' },
-  //       ],
-  //     },
-  //   ],
-  // },
+      { name: 'Alfa Beta', link: ModulesSystem.riesgocreditobasehref + '/modelosriesgo/alfa-beta.html', icon: '' },
+      { name: 'Histórico Alfa-Beta', link: ModulesSystem.riesgocreditobasehref + '/modelosriesgo/historico-alfa-beta.html', icon: '' },
+      { name: 'IHH Crediticio', link: ModulesSystem.riesgocreditobasehref + '/modelosriesgo/ihh-crediticio.html', icon: '' },
+      { name: 'Histórico IHH Crediticio', link: ModulesSystem.riesgocreditobasehref + '/modelosriesgo/historico-ihh-crediticio.html', icon: '' },
+      { name: 'Transición', link: ModulesSystem.riesgocreditobasehref + '/modelosriesgo/transicion.html', icon: '' },
+      { name: 'Z-Altman', link: ModulesSystem.riesgocreditobasehref + '/modelosriesgo/zaltman.html', icon: '' }
+    ]
+  }
 ];
 
 @Component({templateUrl: '../menu.html',
-            styleUrls: ['../../../assets/scss/app.scss', '../../../assets/scss/menus.scss'],
+            styleUrls: ['../../../assets/scss/menus.scss'],
             standalone: false
 })
 export class MenuRiesgoCreditoComponent implements OnInit {
@@ -109,20 +70,17 @@ export class MenuRiesgoCreditoComponent implements OnInit {
 
   URLRedirectIndexContent: string = httpLandingIndexPage.indexHTTP;
 
-  constructor(
-    private accountService: AccountService, 
-    private router: Router,
-    public translate: TranslateMessagesService
-    ) {
+  constructor(private accountService: AccountService, 
+              private router: Router,
+              public translate: TranslateMessagesService) {
+
     this.userObservable = this.accountService.userValue;
     this.moduleObservable = this.accountService.moduleValue;
     this.businessObservable = this.accountService.businessValue;
     this.dataSource.data = TREE_DATA;
   }
 
-  ngOnInit() {
-    let treeMenu: string;
-  }
+  ngOnInit() { }
 
   private _transformer = (node: FoodNode, level: number) => {
     return {
@@ -150,14 +108,7 @@ export class MenuRiesgoCreditoComponent implements OnInit {
 
   hasChild = (_: number, node: ExampleFlatNode) => node.expandable;
 
-  // -- >> Redireccionamiento a página dentro de menú de Generales
-  redireccionamientoMenu(linkRedireccionMenu: string) {
-    this.router.navigate([linkRedireccionMenu]);
-  }
-
-  logout() {
-    this.accountService.logout();
-  }
+  logout() { this.accountService.logout(); }
 
   redirectIndex() : void { this.router.navigate([this.URLRedirectIndexContent]); }
 }

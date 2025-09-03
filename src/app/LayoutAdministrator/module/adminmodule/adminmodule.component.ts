@@ -9,14 +9,10 @@ import { TranslateMessagesService } from '@app/_services/translate-messages.serv
 import { httpAccessAdminPage } from '@environments/environment';
 import { first } from 'rxjs/operators';
 
-@Component({
-    selector: 'app-adminmodule',
-    templateUrl: './adminmodule.component.html',
-    styleUrls: [
-        '../../../../assets/scss/app.scss',
-        '../../../../assets/scss/administrator/app.scss',
-    ],
-    standalone: false
+@Component({selector: 'app-adminmodule',
+            templateUrl: './adminmodule.component.html',
+            styleUrls: ['../../../../assets/scss/administrator/app.scss'],
+            standalone: false
 })
 export class AdminmoduleComponent extends OnSeguridad implements OnInit {
   URLListModulesPage: string = httpAccessAdminPage.urlPageListModule;
@@ -27,9 +23,8 @@ export class AdminmoduleComponent extends OnSeguridad implements OnInit {
 
   formAdminModule: UntypedFormGroup;
   submitFormAdminModule: boolean = false;
-  get m() {
-    return this.formAdminModule.controls;
-  }
+
+  get m() { return this.formAdminModule.controls; }
 
   public tituloBasePantalla: string = 'Modules Power BI';
   private baseIdentificadorReportesPowerBI: string = 'ID-BANKAP-BI-';
@@ -44,11 +39,6 @@ export class AdminmoduleComponent extends OnSeguridad implements OnInit {
   lstModulosComponente: Module[] = [];
   moduloSeleccionado: Module = undefined;
 
-  // public IdUserSessionRequest : string ;
-  // public UserSessionRequest : string ;
-  // public BusinessSessionRequest : string ;
-  // public ModuleSessionRequest : string ;
-
   constructor(private accountService: AccountService,
               private alertService: AlertService,
               private formBuilder: UntypedFormBuilder,
@@ -62,26 +52,12 @@ export class AdminmoduleComponent extends OnSeguridad implements OnInit {
       this.parametroTipoMantenimiento = this.route.snapshot.params.tipoMantenimiento;
       this.userObservable = this.accountService.userValue;
       this.businessObservable = this.accountService.businessValue;
+      
       this.iniciarFormulario();
       this.obtenerListaModulos();
-
-      // this.inicializaHeaders();
     }
 
   }
-
-  // inicializaHeaders() : void {
-
-  //   this.IdUserSessionRequest = this.userObservable ? this.userObservable.id.toString() : 'noIdUserValue';
-  //   this.UserSessionRequest = this.userObservable ? this.userObservable.nombreCompleto.toString() : 'noUserNameValue';
-  //   this.BusinessSessionRequest = this.businessObservable ? this.businessObservable.id.toString() : 'noBusinessValue';
-  //   this.ModuleSessionRequest = 'admin';
-
-  //   // this.IdUserSessionRequest = this.userObservable.id.toString();
-  //   // this.UserSessionRequest = this.userObservable.nombreCompleto.toString();
-  //   // this.BusinessSessionRequest = this.businessObservable.id.toString();
-  //   // this.ModuleSessionRequest = 'admin';
-  // }
 
   ngOnInit(): void {}
 
@@ -90,9 +66,8 @@ export class AdminmoduleComponent extends OnSeguridad implements OnInit {
   public redirectListModulesPage() : void { this.router.navigate([this.URLListModulesPage]); }
 
   private ValidarTipoMantenimiento() {
-    // this.tituloBasePantalla = 'Módulos';
+    
     if (this.parametroTipoMantenimiento == 'mantenimientoReportes') {
-      // this.tituloBasePantalla = 'Reportes Power BI';
       this.readOnlyInputIdentficador = true;
     } else {
       this.readOnlyInputIdentficador = false;

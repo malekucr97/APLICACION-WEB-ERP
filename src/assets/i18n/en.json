@@ -67,9 +67,9 @@
     },
     "ADMIN_PAGE_LIST_MODULES": {
       "TITLE": "Module Administration",
-      "SUBTITLE": "Enable or Disable Access to Modules - Screens per Module",
+      "SUBTITLE": "Business Modules",
       "SUBTITLE_POWERBI_FORM": "Form - PowerBI Module Administration",
-      "TITLE_MANTEINANCE_TO": "Maintenance to {{namepg}}",
+      "TITLE_MANTEINANCE_TO": "{{namepg}}",
       "TITLE_LIST_MANTEINANCE_TO": "List of {{namepg}} of the company",
       "TITLE_MANTEINANCE_FOR": "Power-Bi Modules",
       "BTN_MANTEINANCE_POWER_BI": "Power-Bi Modules",

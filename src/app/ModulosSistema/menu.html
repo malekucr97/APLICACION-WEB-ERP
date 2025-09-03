@@ -1,41 +1,23 @@
-<article class="var-menu">
-    <section>
-
-        <div class="var-menu__prev-index-icons">
-            <button class="item-list__admin__menu"
+<div class="var-menu-mod">
+    
+        <div class="var-menu-mod__prev-icons">
+            <button class="item-menu"
                     mat-icon-button
-                    (click)="sidenav.toggle()" > <mat-icon>menu</mat-icon> </button>
-        </div>
+                    (click)="sidenav.toggle()" > <mat-icon>menu</mat-icon> </button> </div>
 
-        <div class="var-menu__prev-index">
-            <div class="var-menu__prev-index__div">
-              <img class="var-menu__prev-index__div__img" src="./assets/images/inra/img_bankap_left.png " />
-            </div>
-        </div>
+        <div class="var-menu-mod__prev"> <div> <img class="var-menu-mod__prev__div__img" src="./assets/images/inra/img_bankap_left.png " /> </div> </div>
+        <div class="var-menu-mod__center"> <p class="var-menu-mod__center__titulo">{{businessObservable.nombre}}</p> </div>
+        <div class="var-menu-mod__next"> <div> <img class="var-menu-mod__next__div__img" src="./assets/images/inra/img_bankap_rigth.png " /> </div> </div>
 
-        <div class="var-menu__center-index">
-            <p class="var-menu__center-index__titulo">{{businessObservable.nombre}}</p>
-        </div>
-
-        <div class="var-menu__next-index">
-            <div class="var-menu__next-index__div">
-              <img class="var-menu__next-index__div__img" src="./assets/images/inra/img_bankap_rigth.png " />
-            </div>
-        </div>
-
-        <div class="var-menu__next-index-icons">
-
-            <button class="var-menu__next__home" 
+        <div class="var-menu-mod__next-icons">
+            <button class="var-menu-mod__next__home" 
                     mat-icon-button
                     (click)="redirectIndex()"> <mat-icon>home</mat-icon> </button>
       
-            <button class="var-menu__next__logout" 
+            <button class="var-menu-mod__next__logout" 
                     mat-icon-button 
-                    (click)="logout()"> <mat-icon>input</mat-icon> </button>
-        </div>
-
-    </section>
-</article>
+                    (click)="logout()"> <mat-icon>input</mat-icon> </button> </div>
+</div>
 
 <mat-sidenav mode="over">
     <mat-sidenav-container>
@@ -44,53 +26,43 @@
 
             <button class="menu-button-submodulo"
                     [matTooltip]="this.translate.translateKey('MENU.TLT_CLOSE_MENU')"
-                    aria-label="Button that displays a tooltip when focused or hovered over" mat-button (click)="sidenav.toggle()">
-                <mat-icon>menu</mat-icon>
-            </button>
+                    aria-label="Button that displays a tooltip when focused or hovered over" 
+                    mat-button 
+                    (click)="sidenav.toggle()"> <mat-icon>menu</mat-icon> </button>
 
             <button class="menu-button-submodulo"
                     [matTooltip]="this.translate.translateKey('MENU.TLT_SELECT_MODULE')"
-                    aria-label="Button that displays a tooltip when focused or hovered over" mat-button class="menu-button-back" routerLink="{{URLRedirectIndexContent}}">
-                <mat-icon>reply</mat-icon>
-            </button>
+                    aria-label="Button that displays a tooltip when focused or hovered over" 
+                    mat-button class="menu-button-back" 
+                    routerLink="{{URLRedirectIndexContent}}"> <mat-icon>reply</mat-icon> </button>
 
             <img class="avatar mat-elevation-z8" src="{{moduleObservable.pathLogo}}">
 
-            <hr>
+            <mat-divider></mat-divider>
             <h4 class="name">{{moduleObservable.nombre}}</h4>
             <h4 class="name">{{businessObservable.nombre}}</h4>
             <h4 class="name">{{businessObservable.correoElectronico}}</h4>
-
             <mat-divider></mat-divider>
 
                 <mat-tree [dataSource]="dataSource" [treeControl]="treeControl">
                     <!-- This is the tree node template for leaf nodes -->
                     <!-- opciones hijas -->
-                    <mat-tree-node *matTreeNodeDef="let node" matTreeNodePadding>
-
+                    <mat-tree-node *matTreeNodeDef="let node" matTreeNodePadding >
                         <button mat-button >
                             <mat-icon>{{node.icon}}</mat-icon>
-                            <span routerLink="{{node.link}}" (click)="sidenav.toggle()">{{node.name}}</span>
-                        </button>
-
+                            <span routerLink="{{node.link}}" (click)="sidenav.toggle()">{{node.name}}</span> </button>
                     </mat-tree-node>
                     <!-- This is the tree node template for expandable nodes -->
                     <!-- opciones principales -->
-                    <mat-tree-node *matTreeNodeDef="let node;when: hasChild" matTreeNodePadding>
-
-                        <button mat-button matTreeNodeToggle
-                                [attr.aria-label]="'Toggle ' + node.name">
-                            <mat-icon class="mat-icon-rtl-mirror">
-                            {{treeControl.isExpanded(node) ? 'expand_more' : 'chevron_right'}}
-                            </mat-icon>
-                            <span>{{node.name}}</span>
-                        </button>
-
+                    <mat-tree-node *matTreeNodeDef="let node;when: hasChild" matTreeNodePadding >
+                        <button mat-button matTreeNodeToggle [attr.aria-label]="'Toggle ' + node.name" >
+                            <mat-icon class="mat-icon-rtl-mirror"> {{treeControl.isExpanded(node) ? 'expand_more' : 'chevron_right'}} </mat-icon>
+                            <span>{{node.name}}</span> </button>
                     </mat-tree-node>
-                </mat-tree>
 
+                </mat-tree>
         </div>
     </mat-sidenav-container>
 </mat-sidenav>
 
-<article><router-outlet></router-outlet></article>
+<router-outlet></router-outlet>

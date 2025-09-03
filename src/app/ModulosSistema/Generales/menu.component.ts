@@ -4,11 +4,15 @@ import { MatSidenav } from '@angular/material/sidenav';
 import { Module, User } from '@app/_models';
 import { Router } from '@angular/router';
 
+
 import { FlatTreeControl } from '@angular/cdk/tree';
-import {
-  MatTreeFlatDataSource,
-  MatTreeFlattener,
-} from '@angular/material/tree';
+import { MatTreeFlatDataSource, MatTreeFlattener } from '@angular/material/tree';
+
+// import { FlatTreeControl } from '@angular/cdk/tree';
+// import {
+//   MatTreeFlatDataSource,
+//   MatTreeFlattener,
+// } from '@angular/material/tree';
 
 import { ModulesSystem, httpLandingIndexPage } from '@environments/environment';
 
@@ -126,11 +130,6 @@ export class MenuGeneralesComponent implements OnInit {
   dataSource = new MatTreeFlatDataSource(this.treeControl, this.treeFlattener);
 
   hasChild = (_: number, node: ExampleFlatNode) => node.expandable;
-
-  // -- >> Redireccionamiento a página dentro de menú de Generales
-  redireccionamientoMenu(linkRedireccionMenu: string) {
-    this.router.navigate([linkRedireccionMenu]);
-  }
 
   redirectIndex() : void { this.router.navigate([this.URLRedirectIndexContent]); }
 

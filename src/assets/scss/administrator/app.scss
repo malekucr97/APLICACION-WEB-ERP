@@ -49,6 +49,22 @@ td { vertical-align: middle; }
         background-color: #129523;
     }
 }
+.item-list-admin-warn {
+    color: #F9A01B;
+    &:hover {
+        border-radius: 5px;
+        color: white;
+        background-color: #F9A01B;
+    }
+}
+.item-list-admin-view {
+    color: #053254;
+    &:hover {
+        border-radius: 5px;
+        color: white;
+        background-color: #053254;
+    }
+}
 
 .div-admin {
     
@@ -456,6 +472,14 @@ td { vertical-align: middle; }
         &__lmbp-description { width: 44%; }
         &__lmbp-ico { width: 1%; }
         /* #endregion */
+
+        /* #region AdminModule.component */
+        &__am-ico { width: 3%; }
+        &__am-id { width: 24%; }
+        &__am-name { width: 22%; }
+        &__am-desc { width: 22%; }
+        &__am-image { width: 29%; }
+        /* #endregion */
     }
 }
 
@@ -486,12 +510,20 @@ td { vertical-align: middle; }
             display: inline-block;
             text-align: right;
             &__btn-warn {
-                margin-left: 0.1%; margin-right: 0.1%;
+                margin-left: 0.3%; margin-right: 0.3%;
                 &:hover { color: #F9A01B; }
             }
             &__btn-ok {
-                margin-left: 0.1%; margin-right: 0.1%;
+                margin-left: 0.3%; margin-right: 0.3%;
                 &:hover { color: #129523; cursor: pointer; }
+            }
+            &__btn-view {
+                margin-left: 0.3%; margin-right: 0.3%;
+                &:hover { color: #053254; cursor: pointer; }
+            }
+            &__btn-delete {
+                margin-left: 0.3%; margin-right: 0.3%;
+                &:hover { color: #f91b1b; cursor: pointer; }
             }
         }
     }
@@ -906,6 +938,11 @@ td { vertical-align: middle; }
 
 .margin-icos-mat { padding-top: 20px; }
 
+.btn-add { color: #129523; float: inline-end; &:hover { cursor: pointer; } }
+
+.btn-search { &__ico { color: #053254 !important; } }
+
+.contenedor-form-list { display: flex; }
 
 /* #region contenido estático */
 
@@ -919,7 +956,7 @@ td { vertical-align: middle; }
         width: 20%;
         display: inline-block;
         text-align: right;
-        &__div { &__img { width: 50%; } }
+        &__div { &__img { width: 50%; padding-bottom: 3%; } }
     }
     &__center {
         justify-content: center;
@@ -940,7 +977,7 @@ td { vertical-align: middle; }
         width: 20%;
         display: inline-block;
         text-align: left;
-        &__div { &__img { width: 50%; } }
+        &__div { &__img { width: 50%; padding-bottom: 3%; } }
 
         &__logout {
             color: white;
@@ -984,8 +1021,6 @@ td { vertical-align: middle; }
     transition: color 0.1s ease-in-out;
     &:hover { color: #00AEEF; cursor: pointer; }
 }
-
-.btn-add { color: #129523; float: inline-end; &:hover { cursor: pointer; } }
 
 .btn-power-bi {
     float: right;

@@ -182,6 +182,10 @@ export class IndexContentPageComponent extends OnSeguridad implements OnInit {
         indexHTTPModule = ModulesSystem.riesgocreditobasehref + 'index.html';   // ## R.C ## //
         break;
 
+      case ModulesSystem.Identif_TipoCambio:
+        indexHTTPModule = ModulesSystem.tipocambiobasehref + 'index.html';   // ## T.C ## //
+        break;
+
       default: indexHTTPModule = this.UrlHome;
     }
     return indexHTTPModule;

@@ -40,5 +40,4 @@ export class IndexRiesgoCreditoComponent extends OnSeguridad  implements OnInit 
   ngOnInit() { }
 
   logout() { this.accountService.logout(); }
-
 }

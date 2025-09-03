@@ -1,59 +1,53 @@
-<article class="articulo">
-    <section>
+<div class="contenido-main">
+    <!-- <section> -->
 
-        <div class="articulo__contenedor__tittle">
-            <p class="articulo__contenedor__tittle__h2">{{moduleScreen.descripcion}}</p>
-            <p class="articulo__contenedor__tittle__h3">{{ 'CONFIGURATION.ADD_EDIT_ACCES_USER_PAGE_MODULE.SUBTITLE' | translate }}</p>
-
-            <button class=" administracion-contenedor__content__item
-                            administracion-contenedor__content__item__second-back-ico
-                            icon-button-medium"
+        <div>
+            <div>
+                <p class="contenido-main__h1">{{moduleScreen.descripcion}}</p>
+                <p class="contenido-main__h2">{{ 'CONFIGURATION.ADD_EDIT_ACCES_USER_PAGE_MODULE.SUBTITLE' | translate }}</p>
+            </div>
+            <hr>
+            <button class="back-ico-two"
                     title="{{ 'CONFIGURATION.BTN_ADMIN_USERS' | translate}}"
                     mat-icon-button 
-                    (click)="redirectListModulesPage()"> <mat-icon>arrow_back</mat-icon>
-            </button>
+                    (click)="redirectListModulesPage()"> <mat-icon>arrow_back</mat-icon> </button>
         </div>
 
         <div class="card">
             <div class="card-body">
 
-                <!-- header -->
-                <section class="articulo__contenedor__header">
-                    <div class="articulo__contenedor__header__prev" >
-                        <p class="articulo__contenedor__tittle__h3">{{ 'CONFIGURATION.ADD_EDIT_ACCES_USER_PAGE_MODULE.SELECT_SCREEN' | translate }}</p>
-                        <b *ngIf="moduleItemList">{{moduleItemList.nombre}}</b>
-                    </div>
-                    <div class="articulo__contenedor__header__next" > </div>
-                </section>
+                <p class="contenido-main__h3">{{ 'CONFIGURATION.ADD_EDIT_ACCES_USER_PAGE_MODULE.SELECT_SCREEN' | translate }}</p>
+                <b *ngIf="moduleItemList">{{moduleItemList.nombre}}</b>
+
+                <hr>
 
                 <!-- body -->
-                <section class="articulo__contenedor__body">
-                    <div class="articulo__contenedor__body__prev_form">
-                        <article>
-                                <section>
-                                    <div>
-                                        <div class="articulo__contenedor__body__prev__form__header">
-                                            <div class="articulo__contenedor__body__prev__form__header__prev" >
-                                                <p class="articulo__contenedor__body__prev_tittle">{{ 'CONFIGURATION.ADD_EDIT_ACCES_USER_PAGE_MODULE.TITLE_SCREENS_MAINTENANCE' | translate }}</p>
-                                            </div>
+                <section class="contenedor-form-list">
 
-                                            <div class="articulo__contenedor__body__prev__form__header__next" >
-                                                <button *ngIf="habilitaBtnNuevo" 
-                                                        class="articulo__contenedor__body__prev__form__header__prev__btns__new"
-                                                        mat-flat-button
-                                                        (click)="nuevoRegistroPantalla()">{{ 'GENERAL.BTN_NEW' | translate }}</button>
+                    <div class="formulario-izquierdo">
+                        <!-- <article>
+                                <section> -->
+                                    <!-- <div> -->
+                        <div class="formulario-izquierdo__nav">
+                            <div class="formulario-izquierdo__nav__prev" >
+                                <p class="formulario-izquierdo__nav__prev__tittle">{{ 'CONFIGURATION.ADD_EDIT_ACCES_USER_PAGE_MODULE.TITLE_SCREENS_MAINTENANCE' | translate }}</p>
+                            </div>
 
-                                                <button *ngIf="habilitaBtnActualiza" class="articulo__contenedor__header__prev__btns__warn"
-                                                        mat-flat-button
-                                                        (click)="actualizaPantallaModulo()">{{ 'GENERAL.BTN_UPDATE' | translate }}</button>
-                                                <button *ngIf="habilitaBtnRegistro" class="articulo__contenedor__header__prev__btns__ok"
-                                                        mat-flat-button
-                                                        (click)="submitPantallaModulo()">{{ 'GENERAL.BTN_REGISTER' | translate }}</button>
-                                                <button *ngIf="habilitaBtnElimibar" class="articulo__contenedor__header__prev__btns__danger"
-                                                        mat-flat-button
-                                                        (click)="eliminarPantallaModulo()">{{ 'GENERAL.BTN_DELETE' | translate }}</button>
-                                            </div>
-                                        </div>
+                            <div class="formulario-izquierdo__nav__next" >
+                                <button *ngIf="habilitaBtnNuevo" class="formulario-izquierdo__nav__next__btn-view"
+                                        mat-flat-button
+                                        (click)="nuevoRegistroPantalla()">{{ 'GENERAL.BTN_NEW' | translate }}</button>
+                                <button *ngIf="habilitaBtnActualiza" class="formulario-izquierdo__nav__next__btn-warn"
+                                        mat-flat-button
+                                        (click)="actualizaPantallaModulo()">{{ 'GENERAL.BTN_UPDATE' | translate }}</button>
+                                <button *ngIf="habilitaBtnRegistro" class="formulario-izquierdo__nav__next__btn-ok"
+                                        mat-flat-button
+                                        (click)="submitPantallaModulo()">{{ 'GENERAL.BTN_REGISTER' | translate }}</button>
+                                <button *ngIf="habilitaBtnElimibar" class="formulario-izquierdo__nav__next__btn-delete"
+                                        mat-flat-button
+                                        (click)="eliminarPantallaModulo()">{{ 'GENERAL.BTN_DELETE' | translate }}</button>
+                            </div>
+                        </div>
 
                                         <div class="articulo__contenedor__body__prev__form__content p-2">
 
@@ -116,9 +110,9 @@
                                             </form>
                                         </div>
 
-                                    </div>
-                                </section>
-                        </article>
+                                    <!-- </div> -->
+                                <!-- </section>
+                        </article> -->
                     </div>
 
                     <div *ngIf="habilitaListasPantallas" class="articulo__contenedor__body__next">
@@ -290,5 +284,5 @@
             </div>
         </section>
 
-    </section>
-</article>
+    <!-- </section> -->
+</div>

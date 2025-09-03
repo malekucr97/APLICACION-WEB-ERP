@@ -59,7 +59,10 @@ export const ModulesSystem = {
     macredbasehref: '/maleku-ti/macred-module/',
 
     Identif_RiesgoCredito: 'ID-BANKAP-RIESGO-CREDITO',
-    riesgocreditobasehref: '/maleku-ti/riesgo-credito-module/'
+    riesgocreditobasehref: '/maleku-ti/riesgo-credito-module/',
+
+    Identif_TipoCambio: 'ID-TIPO-CAMBIO',
+    tipocambiobasehref: '/maleku-ti/tipo-cambio-module/'
 };
 
 export const httpAccessAdminPage = {

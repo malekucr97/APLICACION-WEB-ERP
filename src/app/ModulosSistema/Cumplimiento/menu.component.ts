@@ -127,11 +127,7 @@ export class MenuCumplimientoComponent implements OnInit {
         this.dataSource.data = TREE_DATA;
     }
 
-    ngOnInit() {
-
-      let treeMenu:string;
-      
-    }
+    ngOnInit() { }
 
   private _transformer = (node: FoodNode, level: number) => {
     return {
@@ -158,11 +154,6 @@ export class MenuCumplimientoComponent implements OnInit {
   dataSource = new MatTreeFlatDataSource(this.treeControl, this.treeFlattener);
 
   hasChild = (_: number, node: ExampleFlatNode) => node.expandable;
-
-  // -- >> Redireccionamiento a página dentro de menú de Generales
-  redireccionamientoMenu(linkRedireccionMenu: string) { 
-    this.router.navigate([linkRedireccionMenu]); 
-  }
 
   logout() { this.accountService.logout(); }
 }

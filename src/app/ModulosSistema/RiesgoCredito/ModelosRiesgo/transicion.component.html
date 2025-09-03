@@ -1,0 +1,117 @@
+<mat-sidenav-container>
+  <div
+    class="container tw-flex tw-flex-col tw-w-screen tw-px-3 tw-py-4 tw-my-4 tw-rounded"
+  >
+    <section
+      class="tw-flex tw-flex-1 tw-justify-center tw-items-center tw-pb-2"
+    >
+      <h1 class="tw-text-xl tw-font-medium">TRANSICIÓN</h1>
+    </section>
+
+    <div class="tw-flex tw-flex-1 tw-justify-center">
+      <section
+        class="tw-flex tw-flex-col tw-p-4 tw-m-1 tw-justify-center tw-items-center tw-bg-white tw-rounded-lg tw-shadow-sm"
+      >
+        <p class="tw-text-base tw-font-semibold tw-mb-6">
+          Agregar un archivo a la aplicación
+        </p>
+        <input
+          #file
+          matInput
+          class="tw-mb-4"
+          type="file"
+          accept=".xlsx, .xls"
+          (change)="handleCambioCargaArchivo($event, file.files)"
+        />
+        <button
+          class="tw-p-2 tw-px-4 tw-my-2 tw-rounded tw-text-white tw-bg-gradient-to-b tw-from-orange-400 tw-to-orange-500"
+          (click)="handleSubmitCargaArchivo()"
+        >
+          Cargar el archivo
+        </button>
+      </section>
+
+      <section
+        class="tw-flex tw-flex-1 tw-flex-col tw-p-4 tw-m-1 tw-bg-white tw-rounded tw-shadow-sm"
+      >
+        <p class="tw-text-base tw-font-semibold tw-mb-6">
+          Cargar información a la aplicación
+        </p>
+
+        <section class="tw-flex tw-flex-1">
+          <section class="tw-flex-1 tw-flex tw-flex-col tw-px-2">
+            <p class="tw-mb-2">Archivos cargados</p>
+            <mat-select
+              class="tw-border-solid tw-border tw-border-black tw-p-2 tw-mb-2"
+              required
+              (selectionChange)="handleSelectArchivo($event.value)"
+            >
+              <mat-option
+                *ngFor="let archivo of _lstArchivosCargados"
+                [value]="archivo.id"
+              >
+                {{ archivo.nombreArchivo }}
+              </mat-option>
+            </mat-select>
+          </section>
+          <section class="tw-flex-1 tw-flex tw-flex-col tw-px-2">
+            <p class="tw-mb-2">Hojas del archivo</p>
+            <mat-select
+              class="tw-border-solid tw-border tw-border-black tw-p-2 tw-mb-2"
+              [disabled]="_selectHojasExcelEstado"
+              [(ngModel)]="_hojaExcelSeleccionada"
+              required
+            >
+              <mat-option
+                *ngFor="let hoja of _lstHojasExcelDeArchivoSeleccionado"
+                [value]="hoja.nombreMostrar"
+              >
+                {{ hoja.nombreMostrar }}
+              </mat-option>
+            </mat-select>
+          </section>
+        </section>
+
+        <section class="tw-flex-1 tw-flex tw-flex-col tw-p-2">
+          <p class="tw-mb-2">Periodo de carga</p>
+
+          <section class="tw-flex-1 tw-flex">
+            <input
+              class="tw-flex-1 tw-border tw-border-black tw-p-2 tw-mb-2 active:tw-border active:tw-border-black"
+              matInput
+              [matDatepicker]="picker"
+              [max]="_fechaMaximaDatePicker"
+              placeholder="MM/YYYY"
+              (click)="handleAbrirPicker(picker)"
+              [(ngModel)]="_fechaSeleccionada.value"
+              readonly
+            />
+            <mat-datepicker-toggle matIconSuffix [for]="picker">
+            </mat-datepicker-toggle>
+            <mat-datepicker
+              startView="multi-year"
+              #picker
+              (monthSelected)="handleCerrarPicker($event, picker)"
+            ></mat-datepicker>
+          </section>
+          <p>
+            Mes: {{ _fechaSeleccionada.mes ?? "" }} | Año:
+            {{ _fechaSeleccionada.anno ?? "" }}
+          </p>
+        </section>
+
+        <section class="tw-flex tw-flex-1 tw-justify-end">
+          <button
+            class="tw-p-2 tw-px-4 tw-rounded tw-text-white tw-mx-1 tw-bg-gradient-to-b tw-from-orange-400 tw-to-orange-500"
+            (click)="handleProcesarCarga()"
+          >
+            Procesar carga
+          </button>
+          <button class="tw-p-2 tw-px-4 tw-rounded tw-text-sky-500 tw-mx-1">
+            Volver
+          </button>
+        </section>
+      </section>
+    </div>
+  </div>
+</mat-sidenav-container>

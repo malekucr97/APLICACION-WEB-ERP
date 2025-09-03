@@ -4,26 +4,25 @@ import { HTTP_INTERCEPTORS, HttpBackend, provideHttpClient, withInterceptorsFrom
 import { AppRoutingModule } from './app-routing.module';
 import { JwtInterceptor, ErrorInterceptor, TranslateMessageInterceptor } from './_helpers';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+
 import { MatTreeModule } from '@angular/material/tree';
 import { MatTooltipModule } from '@angular/material/tooltip';
+import {MatIconModule} from '@angular/material/icon';
+import {MatToolbarModule} from '@angular/material/toolbar';
+import { MatSelectModule } from '@angular/material/select';
 
 // -- >> ** componentes iniciales sistema ** << --
 import { AppComponent } from './app.component';
 import { AlertComponent } from './_components';
 import { HomeComponent } from './home';
 
-import {MatIconModule} from '@angular/material/icon';
-import {MatToolbarModule} from '@angular/material/toolbar';
-
 import {LocationStrategy, HashLocationStrategy} from '@angular/common';
 import { TranslateComponent } from './_components/translate/translate.component';
-import { MatSelectModule } from '@angular/material/select';
 
 import { TranslateModule, TranslateLoader } from '@ngx-translate/core';
 import { TranslateHttpLoader } from '@ngx-translate/http-loader';
 import { HttpClient } from '@angular/common/http';;
 import { FooterComponent } from './_components/footer/footer.component'
-// import { TranslateMessagesService } from './_services/translate-messages.service';
 
 export function HttpLoaderFactory(httpHandler: HttpBackend) {
     return new TranslateHttpLoader(new HttpClient(httpHandler));

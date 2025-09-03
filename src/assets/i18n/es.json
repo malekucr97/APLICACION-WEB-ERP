@@ -67,9 +67,9 @@
     },
     "ADMIN_PAGE_LIST_MODULES": {
       "TITLE": "Administración de Módulos",
-      "SUBTITLE": "Habilite o Deshabilite el Acceso a los Módulos - Pantallas por Módulo",
+      "SUBTITLE": "Módulos de la Compañía",
       "SUBTITLE_POWERBI_FORM": "Formulario - Administración de Módulos PowerBI",
-      "TITLE_MANTEINANCE_TO": "Mantenimiento a {{namepg}}",
+      "TITLE_MANTEINANCE_TO": "{{namepg}}",
       "TITLE_LIST_MANTEINANCE_TO": "Lista de {{namepg}} de la compañía",
       "TITLE_MANTEINANCE_FOR": "Módulos Power-Bi",
       "BTN_MANTEINANCE_POWER_BI": "Módulos Power-Bi",

@@ -5,6 +5,8 @@
 @mixin bg-color-skyblue { background-color: #00AEEF; }
 @mixin bg-color-light-gray { background-color: #B3B3B3; }
 
+@mixin bg-color-maleku { background-color: #07360b; }
+
 @mixin font-aero {
     font-family: "../../assets/fonts/Aero.ttf";
     font-size: 1.8rem;
@@ -14,6 +16,57 @@
         font-size: 1.5rem;
     }
 }
+
+// // 
+
+.item-menu { color: white; &:hover { background-color: #053254; } }
+
+.var-menu-mod {
+    @include bg-color-maleku;
+    border-top: 1px solid rgb(202, 202, 202);
+
+    &__prev-icons { width: 10%; display: inline-block; padding-left: 1%; }
+
+    &__prev {
+        width: 20%;
+        display: inline-block;
+        text-align: right;
+        &__div { &__img { width: 50%; padding-bottom: 3%; } }
+    }
+    &__center {
+        justify-content: center;
+        text-align: center;
+        width: 40%;
+        display: inline-block;
+        &__titulo{
+            color: white;
+            padding-top: 2%;
+            font-size: 1.8rem;
+            font-weight: 600;
+            text-align: center;
+            @media (max-width: 800px) { font-size: 1.5rem; }
+            @media (max-width: 500px) { font-size: 1.3rem; }
+        }
+    }
+    &__next {
+        width: 20%;
+        display: inline-block;
+        text-align: left;
+        &__div { &__img { width: 50%; padding-bottom: 3%; } }
+
+        &__logout {
+            color: white;
+            &:hover { color: white; background-color: #f91b1b; cursor: pointer; }
+        }
+        &__home {
+            color: white;
+            &:hover { color: white; background-color: #F9A01B; cursor: pointer; }
+        }
+    }
+    &__next-icons { width: 10%; display: inline-block; text-align: center; }
+}
+
+// //
 
 .btn-hamburguesa {
     position: absolute;
@@ -50,19 +103,19 @@ mat-sidenav {
         width: 36%;
     }
     @media (max-width: 1100px) {
-        width: 40%;
+        width: 39%;
     }
     @media (max-width: 1000px) {
-        width: 45%;
+        width: 40%;
     }
     @media (max-width: 900px) {
-        width: 50%;
+        width: 45%;
     }
     @media (max-width: 800px) {
-        width: 53%;
+        width: 50%;
     }
     @media (max-width: 700px) {
-        width: 56%;
+        width: 55%;
     }
     @media (max-width: 600px) {
         width: 60%;

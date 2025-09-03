@@ -8,18 +8,14 @@ import { httpAccessAdminPage } from '@environments/environment';
 import { OnSeguridad } from '@app/_helpers/abstractSeguridad';
 import { TranslateMessagesService } from '@app/_services/translate-messages.service';
 
-@Component({
-    templateUrl: 'HTML_ListModulePage.html',
-    styleUrls: ['../../../assets/scss/app.scss', '../../../assets/scss/administrator/app.scss'],
-    standalone: false
+@Component({templateUrl: 'HTML_ListModulePage.html',
+            styleUrls: ['../../../assets/scss/administrator/app.scss'],
+            standalone: false
 })
 export class ListModuleComponent extends OnSeguridad implements OnInit {
 
     userObservable : User;
     businessObservable : Compania;
-
-    // listModules : Module[] = [];
-    // listModulesSystem : Module[] = [];
 
     listModules : Module[];
     listModulesSystem : Module[];

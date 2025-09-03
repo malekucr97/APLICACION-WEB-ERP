@@ -7,13 +7,16 @@ import 'moment/locale/es';
 import { DateAdapter } from '@angular/material/core';
 import { RiesgoCreditoProcesamientoCarga } from '@app/_models/RiesgoCredito/RiesgoCreditoProcesamientoCarga';
 import { RiesgoCreditoService } from '@app/_services/riesgoCredito.service';
+import { Router } from '@angular/router';
 
-@Component({selector: 'app-carga-datos-credito',
-            templateUrl: './carga-datos-credito.component.html',
-            styleUrls: ['../../../../../assets/scss/tailwind.scss'],
+import { User, Module, Compania } from '@app/_models';
+
+@Component({selector: 'app-ihh-crediticio',
+            templateUrl: './ihh-crediticio.component.html',
+            styleUrls: ['../../../../assets/scss/tailwind.scss'],
             standalone: false
 })
-export class CargaDatosCreditoComponent implements OnInit {
+export class IhhCrediticioComponent implements OnInit {
   _rutaArchivo: string = '';
   _archivo: any;
   _selectHojasExcelEstado: boolean = false;
@@ -22,28 +25,47 @@ export class CargaDatosCreditoComponent implements OnInit {
   _lstHojasExcelDeArchivoSeleccionado: HojasExcel[] = [];
   _hojaExcelSeleccionada: string = '';
   _fechaMaximaDatePicker: Date = new Date();
-  _fechaSeleccionada: {
-    value: string;
-    mes?: number;
-    anno?: number;
-  } = {
-    value: '',
-    mes: undefined,
-    anno: undefined,
-  };
+  
+  _fechaSeleccionada: { value: string;
+                        mes?: number;
+                        anno?: number;
+                      } = {
+                        value: '',
+                        mes: undefined,
+                        anno: undefined };
 
-  constructor(
-    private dateAdapter: DateAdapter<any>,
-    private alertService: AlertService,
-    private accountService: AccountService,
-    private generalesService: GeneralesService,
-    private riesgoCreditoService: RiesgoCreditoService
-  ) {
+  // ## -- objetos suscritos -- ## //
+  private userObservable: User;
+  private moduleObservable: Module;
+  private companiaObservable: Compania;
+  // ## -- ----------------- -- ## //
+
+  private nombrePantalla:string = 'ihh-crediticio.html';
+
+  constructor(private dateAdapter: DateAdapter<any>,
+              private alertService: AlertService,
+              private accountService: AccountService,
+              private generalesService: GeneralesService,
+              private riesgoCreditoService: RiesgoCreditoService,
+              private router: Router) {
+    
+    this.userObservable = this.accountService.userValue;
+    this.moduleObservable = this.accountService.moduleValue;
+    this.companiaObservable = this.accountService.businessValue;
+    
     this.dateAdapter.setLocale('es-CR');
     this.ObtenerListaDeArchivos();
   }
 
-  ngOnInit(): void {}
+  ngOnInit(): void {
+
+    this.accountService.validateAccessUser( this.userObservable.id,
+                                            this.moduleObservable.id,
+                                            this.nombrePantalla,
+                                            this.companiaObservable.id)
+      .pipe(first())
+      .subscribe((response) => { if (!response.exito) this.router.navigate([this.moduleObservable.indexHTTP]); });
+  }
 
   //#region METODOS - FUNCIONES
 
@@ -80,18 +102,16 @@ export class CargaDatosCreditoComponent implements OnInit {
 
   //#region EVENTOS DE CONTROLES
 
-  handleAbrirPicker(dp) {
-    dp.open();
-  }
+  handleAbrirPicker(dp) { dp.open(); }
 
   handleCerrarPicker(eventData: any, dp?: any) {
-    if (!eventData) {
-      return;
-    }
+    if (!eventData) return;
+    
     let momentFecha = moment(eventData);
     this._fechaSeleccionada.value = eventData;
     this._fechaSeleccionada.mes = momentFecha.month() + 1;
     this._fechaSeleccionada.anno = momentFecha.year();
+    
     dp.close();
   }
 
@@ -104,15 +124,11 @@ export class CargaDatosCreditoComponent implements OnInit {
     this.ObtenerListaDeHojasExcel(idArchivoSeleccionado);
   }
 
-  handleCambioCargaArchivo($event, file) {
-    this._archivo = file;
-  }
+  handleCambioCargaArchivo($event, file) { this._archivo = file; }
 
   handleSubmitCargaArchivo() {
-    if (this._archivo.length === 0) {
-      return;
-    }
-
+    if (this._archivo.length === 0) return;
+    
     const formData = new FormData();
 
     for (let file of this._archivo) formData.append(file.name, file);
@@ -146,23 +162,16 @@ export class CargaDatosCreditoComponent implements OnInit {
               keepAfterRouteChange: false,
             });
           }
-        },
-        (error) => {
-          this.alertService.error(error);
-        }
+        }, (error) => { this.alertService.error(error); }
       );
   }
 
   handleProcesarCarga() {
-    if (
-      !this._archivoCargaSeleccionado ||
-      !this._hojaExcelSeleccionada ||
-      !this._fechaSeleccionada.mes ||
-      !this._fechaSeleccionada.anno
-    ) {
-      this.alertService.error(
-        'Se debe seleccionar todos los elementos para el proceso.'
-      );
+    if (!this._archivoCargaSeleccionado 
+        || !this._hojaExcelSeleccionada 
+        || !this._fechaSeleccionada.mes 
+        || !this._fechaSeleccionada.anno ) {
+      this.alertService.error( 'Se debe seleccionar todos los elementos para el proceso.' );
       return;
     }
 

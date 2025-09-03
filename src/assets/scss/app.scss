@@ -10,7 +10,7 @@
 @mixin bg-color-maleku { background-color: #07360b; }
 
 @mixin font-aero {
-    // font-family: "../../assets/fonts/Aero.ttf";
+    font-family: "../../assets/fonts/Aero.ttf";
     font-size: 1.6rem;
     font-weight: 750;
     text-align: center;
@@ -274,6 +274,7 @@ td { vertical-align: middle; }
         }
     }
 }
+
  // ## -- >> Contenido INDEX Módulos
 .content {
     height: calc(52vh - 1px);
@@ -779,3 +780,254 @@ td { vertical-align: middle; }
 .pointerCursor { cursor: pointer; }
 
 mat-sidenav-container{ background-color: var(--color_fondo); }
+
+// ## -- >> ****************************
+// ## -- >> 2025-26-08
+// ## -- >> malekuti
+.back-ico-one {
+    margin-bottom: 12px;
+    &:hover { color: white; background-color: #F9A01B; cursor: pointer; }
+}
+.back-ico-two {
+    margin-bottom: 12px;
+    &:hover { color: white; background-color: #B3B3B3; cursor: pointer; }
+}
+
+.item-list-edit {
+    color: #053254;
+    transition: color 0.1s ease-in-out;
+    &:hover {  color: #F9A01B;  cursor: pointer;  }
+}
+
+.formulario-izquierdo {
+    width: 50%;
+    background-color: #254156;
+    color: white;
+    display: flex;
+    flex-direction: column;
+    border-radius: 10px;
+    @media (max-width: 1000px) { width: 100%; }
+    &__nav {
+        border-bottom: 1px solid white;
+        &__prev {
+            width: 50%;
+            padding-left: 1%;
+            display: inline-block;
+            &__tittle {
+                color: white;
+                margin-top: 10px;
+                font-size: 1.3rem;
+                font-weight: 300;
+            }
+        }
+        &__next {
+            width: 50%;
+            padding-right : 1%;
+            display: inline-block;
+            text-align: right;
+            &__btn-warn {
+                margin-left: 0.3%; margin-right: 0.3%;
+                &:hover { color: #F9A01B; }
+            }
+            &__btn-ok {
+                margin-left: 0.3%; margin-right: 0.3%;
+                &:hover { color: #129523; cursor: pointer; }
+            }
+            &__btn-view {
+                margin-left: 0.3%; margin-right: 0.3%;
+                &:hover { color: #053254; cursor: pointer; }
+            }
+            &__btn-delete {
+                margin-left: 0.3%; margin-right: 0.3%;
+                &:hover { color: #f91b1b; cursor: pointer; }
+            }
+        }
+    }
+}
+
+.margin-icos-mat { 
+    padding-top: 20px;
+    // @media (max-width: 1140px) { 
+    //     display: flex !important;
+    //     justify-content: center !important;
+    // }
+ }
+
+// ## -- >> main
+.main-modules { margin-left: 1%; margin-right: 1%; }
+// ## -- >> contenido index módulos
+.index-modules {
+    height: calc(52vh - 1px);
+    margin: 20px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: var(--color_gris);
+    border-radius: 10px;
+    &__tittle { color: #005188; font-size: 1.5rem; font-weight: 700; }
+}
+// ## -- >> main módulos
+.contenido-main {
+    margin-top: 1%;
+    margin-bottom: 1%;
+    
+    &__h1 {
+        color: #053254;
+        font-size: 1.5rem;
+        font-weight: 700;
+        @media (max-width: 800px) { font-size: 1rem; }
+    }
+    &__h2 {
+        color: #B3B3B3;
+        font-size: 1.2rem;
+        font-weight: 500;
+        @media (max-width: 800px) { font-size: 1rem; }
+    }
+    &__h3 {
+        color: #005188;
+        font-size: 1.2rem;
+        font-weight: 500;
+        @media (max-width: 800px) { font-size: 1rem; }
+    }
+    &__h3-on {
+        color: #129523;
+        font-size: 1.2rem;
+        font-weight: 500;
+        @media (max-width: 800px) { font-size: 1rem; }
+    }
+    &__h3-off {
+        color: #b82424;
+        font-size: 1.2rem;
+        font-weight: 500;
+        @media (max-width: 800px) { font-size: 1rem; }
+    }
+    &__h3-inline-black {
+        color: black;
+        font-size: 1.2rem;
+        font-weight: 500;
+        display: inline;
+        @media (max-width: 800px) { font-size: 1rem; }
+    }
+    &__h3-inline-blue {
+        color: #1A5276;
+        font-size: 1.2rem;
+        font-weight: 500;
+        display: inline;
+        @media (max-width: 800px) { font-size: 1rem; }
+    }
+    &__h3-inline-red {
+        color: #b82424;
+        font-size: 1.2rem;
+        font-weight: 500;
+        display: inline;
+        @media (max-width: 800px) { font-size: 1rem; }
+    }
+
+    &__table {
+        width: 100%;
+        @media (max-width: 1200px) { overflow-x:auto; }
+
+        /* #region RiesgoCredito-Entidades-Page */
+        &__rcep-ico-edit { width: 5%; }
+        &__rcep-name { width: 25%; }
+        &__rcep-status { width: 10%; text-align: center; &__td { text-align: center; } }
+        &__rcep-registra { width: 15%; text-align: center; &__td { text-align: center; } }
+        &__rcep-fecha-r { width: 15%; text-align: center; &__td { text-align: center; } }
+        &__rcep-modifica { width: 15%; text-align: center; &__td { text-align: center; } }
+        &__rcep-fecha-m { width: 15%; text-align: center; &__td { text-align: center; } }
+        /* #endregion */
+
+        /* #region RiesgoCredito-Categoría-Page */
+        &__rpec-ico-edit { width: 5%; }
+        &__rpec-desc { width: 20%; text-align: center; &__td { text-align: center; } }
+        &__rpec-nivel { width: 5%; text-align: center; &__td { text-align: center; } }
+        &__rpec-est-cub { width: 15%; text-align: center; &__td { text-align: center; } }
+        &__rpec-est-des { width: 15%; text-align: center; &__td { text-align: center; } }
+        
+        &__rpec-registra { width: 10%; text-align: center; &__td { text-align: center; } }
+        &__rpec-fecha-r { width: 10%; text-align: center; &__td { text-align: center; } }
+        &__rpec-modifica { width: 10%; text-align: center; &__td { text-align: center; } }
+        &__rpec-fecha-m { width: 10%; text-align: center; &__td { text-align: center; } }
+        /* #endregion */
+
+        /* #region RiesgoCredito-Rangos-Page */
+        &__rped-ico-edit { width: 5%; }
+        &__rped-desc { width: 15%; text-align: center; &__td { text-align: center; } }
+        &__rped-inicio { width: 9%; text-align: center; &__td { text-align: center; } }
+        &__rped-fin { width: 9%; text-align: center; &__td { text-align: center; } }
+        &__rped-pest { width: 9%; text-align: center; &__td { text-align: center; } }
+        &__rped-nivel { width: 5%; text-align: center; &__td { text-align: center; } }
+        &__rped-ident { width: 14%; text-align: center; &__td { text-align: center; } }
+        
+        &__rped-registra { width: 8%; text-align: center; &__td { text-align: center; } }
+        &__rped-fecha-r { width: 8%; text-align: center; &__td { text-align: center; } }
+        &__rped-modifica { width: 7%; text-align: center; &__td { text-align: center; } }
+        &__rped-fecha-m { width: 7%; text-align: center; &__td { text-align: center; } }
+        /* #endregion */
+
+        /* #region ListUserPage */
+        &__lup-ico-edit { width: 4%; }
+        &__lup-id { width: 12%; }
+        &__lup-name { width: 25%; }
+        &__lup-email { width: 25%; }
+        &__lup-rol { width: 15%; }
+        &__lup-status { width: 8%; }
+        &__lup-btn-emp { width: 5%; }
+        &__lup-btn-rol { width: 5%; }
+        /* #endregion */
+
+        /* #region AddBusinessUserPage */
+        &__abup-id { width: 15%; }
+        &__abup-name { width: 30%; }
+        &__abup-email { width: 25%; }
+        &__abup-phone { width: 20%; }
+        &__abup-ico { width: 1%; }
+        /* #endregion */
+
+        /* #region AddRoleUserPage */
+        &__arup-name { width: 35%; }
+        &__arup-description { width: 40%; }
+        &__arup-status { width: 10%; }
+        &__arup-kind { width: 10%; }
+        &__arup-ico { width: 5%; }
+        /* #endregion */
+
+        /* #region ListBusinessPage */
+        &__lbp-ico-edit { width: 5%; }
+        &__lbp-id { width: 15%; }
+        &__lbp-name { width: 29%; }
+        &__lbp-email { width: 20%; }
+        &__lbp-phone { width: 13%; }
+        &__lbp-powerbi { width: 8%; }
+        &__lbp-ico-plan { width: 5%; }
+        &__lbp-ico-mod { width: 5%; }
+        /* #endregion */
+
+        /* #region ListPlanPage */
+        &__lpp-name { width: 18%; }
+        &__lpp-type { width: 17%; }
+        &__lpp-admin { width: 12%; text-align: center; &__td { text-align: center; } }
+        &__lpp-funct { width: 12%; text-align: center; &__td { text-align: center; } }
+        &__lpp-price-m { width: 9%; text-align: center; &__td { text-align: center; } }
+        &__lpp-price-a { width: 9%; text-align: center; &__td { text-align: center; } }
+        &__lpp-support { width: 7%; text-align: center; &__td { text-align: center; } }
+        &__lpp-t-support { width: 11%; text-align: center; &__td { text-align: center; } }
+        &__lpp-ico { width: 1%; }
+        /* #endregion */
+
+        /* #region ListModuleBusinessPage */
+        &__lmbp-id { width: 25%; }
+        &__lmbp-name { width: 30%; }
+        &__lmbp-description { width: 44%; }
+        &__lmbp-ico { width: 1%; }
+        /* #endregion */
+
+        /* #region AdminModule.component */
+        &__am-ico { width: 3%; }
+        &__am-id { width: 24%; }
+        &__am-name { width: 22%; }
+        &__am-desc { width: 22%; }
+        &__am-image { width: 29%; }
+        /* #endregion */
+    }
+}

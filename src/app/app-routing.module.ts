@@ -9,13 +9,15 @@ const AdminModule           = () => import('./LayoutAdministrator/admin-module')
 const LandingModule         = () => import('./Landing/landing-module').then(            x => x.LandingModule);
 
 const GeneralesModule = () => import(
-    './ModulosSistema/Generales/generales-module').then( x => x.GeneralesModule ); // ## GENERALES ## //
+    './ModulosSistema/Generales/generales-module').then( x => x.GeneralesModule );              // ## GENERALES ## //
 const PowerBiModule = () => import(
-    './ModulosSistema/PowerBI/power-bi.module').then( x => x.PowerBiModule ); // ## POWER BI ## //
+    './ModulosSistema/PowerBI/power-bi.module').then( x => x.PowerBiModule );                   // ## POWER BI ## //
 const MacredModule = () => import(
-    './ModulosSistema/Macred/macred-module').then( x => x.MacredModule ); // ## MACRED ## //
+    './ModulosSistema/Macred/macred-module').then( x => x.MacredModule );                       // ## MACRED ## //
 const RiesgoCreditoModule = () => import(
     './ModulosSistema/RiesgoCredito/riesgo-credito-module').then( x => x.RiesgoCreditoModule ); // ## R.C ## //
+const TipoCambioModule = () => import(
+    './ModulosSistema/TipoCambio/tc-module').then( x => x.TipoCambioModule );                   // ## T.C ## //
 
 const routes: Routes = [
 
@@ -35,6 +37,7 @@ const routes: Routes = [
     { path: 'maleku-ti/powerbi-module', loadChildren: PowerBiModule, canActivate: [AuthGuard] },
     { path: 'maleku-ti/macred-module', loadChildren: MacredModule, canActivate: [AuthGuard] },
     { path: 'maleku-ti/riesgo-credito-module', loadChildren: RiesgoCreditoModule, canActivate: [AuthGuard] },
+    { path: 'maleku-ti/tipo-cambio-module', loadChildren: TipoCambioModule, canActivate: [AuthGuard] },
     { path: '**', redirectTo: '' } // default
 ];
 
