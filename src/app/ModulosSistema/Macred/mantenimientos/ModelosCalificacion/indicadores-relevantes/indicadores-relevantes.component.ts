@@ -1,334 +1,567 @@
-import { Component, OnInit } from '@angular/core';
-import { UntypedFormBuilder, UntypedFormGroup, Validators } from '@angular/forms';
-import { Compania, Module, User } from '@app/_models';
-import {
-  MacIndicadoresRelevantes,
-  MacNivelCapacidadPago,
-  MacNivelesXIndicador,
-} from '@app/_models/Macred';
+import { UntypedFormBuilder, UntypedFormGroup, Validators  } from '@angular/forms';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { AccountService, AlertService } from '@app/_services';
-import { MacredService } from '@app/_services/macred.service';
+import { MatSidenav } from '@angular/material/sidenav';
+import { User, Module, Compania, ModuleScreen } from '@app/_models';
+import { MatDialog } from '@angular/material/dialog';
+import { DialogoConfirmacionComponent } from '@app/_components/dialogo-confirmacion/dialogo-confirmacion.component';
 import { first } from 'rxjs/operators';
+import { ActivatedRoute, Router } from '@angular/router';
+import { OnSeguridad } from '@app/_helpers/abstractSeguridad';
+import { TranslateMessagesService } from '@app/_services/translate-messages.service';
+import { ModulesSystem } from '@environments/environment';
+import { MacredService } from '@app/_services/macred.service';
+import { MacIndicadoresRelevantes, MacNivelCapacidadPago, MacNivelesXIndicador } from '@app/_models/Macred';
 
-@Component({
-    selector: 'app-indicadores-relevantes',
-    templateUrl: './indicadores-relevantes.component.html',
-    styleUrls: [
-        '../../../../../../assets/scss/app.scss',
-        '../../../../../../assets/scss/macred/app.scss',
-        '../../../../../../assets/scss/tailwind.scss',
-    ],
-    standalone: false
+declare var $: any;
+
+@Component({selector: 'app-indicadores-relevantes-macred',
+            templateUrl: './indicadores-relevantes.component.html',
+            styleUrls: ['../../../../../../assets/scss/macred/app.scss'],
+            standalone: false
 })
-export class IndicadoresRelevantesComponent implements OnInit {
-  private nombrePantalla: string = 'indicadores-relevantes';
+export class IndicadoresRelevantesComponent extends OnSeguridad implements OnInit {
+    @ViewChild(MatSidenav) sidenav !: MatSidenav;
 
-  // ## -- objetos suscritos -- ## //
-  private userObservable: User;
-  private moduleObservable: Module;
-  private companiaObservable: Compania;
+    private nombrePantalla  : string = 'indicadores-relevantes.html';
 
-  constructor(
-    private formBuilder: UntypedFormBuilder,
-    private accountService: AccountService,
-    private macredService: MacredService,
-    private alertService: AlertService
-  ) {
-    this.userObservable = this.accountService.userValue;
-    this.moduleObservable = this.accountService.moduleValue;
-    this.companiaObservable = this.accountService.businessValue;
-  }
+    // ## -- objetos suscritos -- ## //
+    private userObservable      : User;
+    private companiaObservable  : Compania;
+    private moduleObservable    : Module;
 
-  ngOnInit(): void {
-    this.consultarIndicadoresRelevantes();
-  }
+    // ## -- formularios -- ## //
+    formIndicadorRelevante : UntypedFormGroup;
+    formNivel : UntypedFormGroup;
 
-  //#region INDICADORES RELEVANTES
+    // ## -- submit formularios -- ## //
+    submitFormIndicador : boolean = false;
+    submitFormNiveles : boolean = false;
 
-  lstIndicadoresRelevantes: MacIndicadoresRelevantes[] = [];
-  indicadorRelevanteSeleccionado: MacIndicadoresRelevantes = undefined;
+    // ## -- habilita botones -- ## //
+    habilitaBtnRegistro     : boolean = true;
+    habilitaBtnActualiza    : boolean = false;
+    habilitaBtnNuevo        : boolean = false;
+    habilitaBtnEliminar     : boolean = false;
 
-  // FORMULARIO INDICADORES RELEVANTES
-  formIndicadoresRelevantes: UntypedFormGroup;
-  submittedIndicadoresRelevantes: boolean = false;
-  get f() {
-    return this.formIndicadoresRelevantes.controls;
-  }
+    habilitaBtnRegistroNivel     : boolean = true;
+    habilitaBtnActualizaNivel    : boolean = false;
+    habilitaBtnNuevoNivel        : boolean = false;
+    habilitaBtnEliminarNivel     : boolean = false;
 
-  private IniciarVariablesIndicadoresRelevantes() {
-    this.submittedIndicadoresRelevantes = false;
-    this.indicadorRelevanteSeleccionado = undefined;
-  }
+    // ## -- habilita grids -- ## //
+    habilitaListaIndicadores : boolean = false;
+    habilitaListaNiveles : boolean = false;
+    habilitaFormularioNiveles : boolean = false;
 
-  private consultarIndicadoresRelevantes() {
-    this.IniciarVariablesIndicadoresRelevantes();
-    this.formIndicadoresRelevantes = this.formBuilder.group({
-      codigoIndicador: [null],
-      descripcion: [null, [Validators.required, Validators.maxLength(100)]],
-      estado: [true],
-    });
-    this.obtenerListaIndicadoresRelevantes();
-  }
+    public moduleScreen : ModuleScreen = new ModuleScreen;
 
-  private obtenerListaIndicadoresRelevantes() {
-    this.lstIndicadoresRelevantes = [];
-    this.macredService
-      .getIndicadoresRelevantes(this.companiaObservable.id)
-      .pipe(first())
-      .subscribe((response) => {
-        this.lstIndicadoresRelevantes = response;
-      });
-  }
+    URLIndexModulePage: string;
 
-  private cargarIndicadorRelevante(
-    inIndicadorRelevante: MacIndicadoresRelevantes
-  ) {
-    this.IniciarVariablesIndicadoresRelevantes();
-    if (!inIndicadorRelevante) {
-      return;
+    // ## -- listas -- ## //
+    listIndicadores: MacIndicadoresRelevantes[] = [];
+    listNiveles: MacNivelCapacidadPago[] = [];
+    listNivelesIndicador: MacNivelCapacidadPago[] = [];
+
+    objSeleccionadoIndicador: MacIndicadoresRelevantes = undefined;
+    objSeleccionadoNivel: MacNivelCapacidadPago = undefined;
+
+    public today : Date = new Date();
+
+    oNivelIndicador : MacNivelCapacidadPago = undefined;
+
+    constructor (   private route:          ActivatedRoute,
+                    private alertService:   AlertService,
+                    private formBuilder:    UntypedFormBuilder,
+                    private accountService: AccountService,
+                    private dialogo:        MatDialog,
+                    private router:         Router,
+                    private translate:      TranslateMessagesService,
+                    private macredService:  MacredService, ) {
+
+        super(alertService, accountService, router, translate);
+
+        this.userObservable = this.accountService.userValue;
+        this.moduleObservable = this.accountService.moduleValue;
+        this.companiaObservable = this.accountService.businessValue;
+
+        // **
+        // ** INICIALIZACIÓN DE VARIABLES
+        this.URLIndexModulePage = ModulesSystem.macredbasehref + 'index.html';
+
+        this.buscarModuloId(this.moduleObservable.id);
+
+        this.inicializaFormularioIndRelevante();
+        this.inicializaFormularioNivelRiesgo();
     }
+    
+    get f () { return this.formIndicadorRelevante.controls; }
+    get i () { return this.formNivel.controls; }
 
-    this.indicadorRelevanteSeleccionado = inIndicadorRelevante;
-    this.formIndicadoresRelevantes = this.formBuilder.group({
-      codigoIndicador: [this.indicadorRelevanteSeleccionado.codIndicador],
-      descripcion: [
-        this.indicadorRelevanteSeleccionado.descripcion,
-        [Validators.required, Validators.maxLength(100)],
-      ],
-      estado: [this.indicadorRelevanteSeleccionado.estado],
-    });
-  }
+    ngOnInit() {
 
-  //EVENTOS
-  handleCrearIndicadorRelevante() {
-    this.alertService.clear();
-    this.submittedIndicadoresRelevantes = true;
-    if (this.formIndicadoresRelevantes.invalid) {
-      return;
-    }
+        this.accountService.validateAccessUser( this.userObservable.id,
+                                                this.moduleObservable.id,
+                                                this.nombrePantalla,
+                                                this.companiaObservable.id )
+            .pipe(first())
+            .subscribe(response => {
 
-    const { codigoIndicador, descripcion, estado } =
-      this.formIndicadoresRelevantes.controls;
+                // ## -->> redirecciona NO ACCESO
+                if(!response.exito) this.router.navigate([this.URLIndexModulePage]);
 
-    let oIndicadoresRelevantes: MacIndicadoresRelevantes = {
-      codIndicador: codigoIndicador.value ? codigoIndicador.value : 0,
-      codigoCompania: this.companiaObservable.id,
-      descripcion: descripcion.value,
-      estado: estado.value,
-      fechaCreacion: new Date(),
-      usuarioCreacion: this.userObservable.nombreCompleto,
-      fechaModificacion: new Date(),
-      usuarioModificacion: this.userObservable.nombreCompleto,
-    };
-
-    if (!this.indicadorRelevanteSeleccionado?.codIndicador) {
-      this.macredService
-        .postIndicadoresRelevantes(oIndicadoresRelevantes)
-        .pipe(first())
-        .subscribe((response) => {
-          if (response.exito) {
-            this.alertService.success(response.responseMesagge);
-            this.consultarIndicadoresRelevantes();
-          } else {
-            this.alertService.error(response.responseMesagge);
-          }
-        });
-    } else {
-      this.macredService
-        .putIndicadoresRelevantes(
-          this.indicadorRelevanteSeleccionado.codIndicador,
-          oIndicadoresRelevantes
-        )
-        .pipe(first())
-        .subscribe((response) => {
-          if (response.exito) {
-            this.alertService.success(response.responseMesagge);
-            this.consultarIndicadoresRelevantes();
-          } else {
-            this.alertService.error(response.responseMesagge);
-          }
+                this.getIndicadoresRelevantes();
+                this.getNivelesCapacidadPago();
         });
     }
-  }
 
-  handleEditarIndicadorRelevante(
-    inIndicadorRelevante: MacIndicadoresRelevantes
-  ) {
-    this.cargarIndicadorRelevante(inIndicadorRelevante);
-  }
+    redirectIndexModule() : void { this.router.navigate([this.URLIndexModulePage]); }
 
-  handleEliminarIndicadorRelevante(
-    inIndicadorRelevante: MacIndicadoresRelevantes
-  ) {
-    if (!inIndicadorRelevante) {
-      return;
+    onChangeEvent() {
+
+        this.oNivelIndicador = this.formNivel.get('descripcionNivel')?.value;
+        this.objSeleccionadoNivel = this.oNivelIndicador;
+
+        let nivel : MacNivelCapacidadPago = this.listNiveles.find(e => e.id == this.objSeleccionadoNivel.id);
+
+        this.formNivel.get('rangoInicial')?.setValue(nivel.rangoInicial);;
+        this.formNivel.get('rangoFinal')?.setValue(nivel.rangoFinal);;
     }
 
-    this.macredService
-      .deleteIndicadoresRelevantes(inIndicadorRelevante.codIndicador)
-      .pipe(first())
-      .subscribe((response) => {
-        if (response.exito) {
-          this.alertService.success(response.responseMesagge);
-          this.consultarIndicadoresRelevantes();
-        } else {
-          this.alertService.error(response.responseMesagge);
+    consultaRangosNiveles() : void {
+        this.getNivelesCapacidadPago();
+        this.inicializaFormularioNivelRiesgo();
+    }
+
+    nuevoIndicadorRelevante() : void { 
+
+        this.submitFormIndicador = false;
+        this.inicializaFormularioIndRelevante();
+
+        this.habilitaFormularioNiveles = false;
+    }
+    nuevoNivelXIndicador() : void { 
+
+        this.submitFormNiveles = false;
+        this.inicializaFormularioNivelRiesgo();
+    }
+
+    selectIndicadorRelevante(objeto : MacIndicadoresRelevantes = null) : void {
+
+        this.habilitaFormularioNiveles = true;
+
+        this.inicializaFormularioIndRelevante(objeto);
+        this.inicializaFormularioNivelRiesgo();
+
+        // consultar niveles por indicador
+        this.getNivelesPorIndicador(objeto.codIndicador);
+    }
+    selectNivel(objeto : MacNivelCapacidadPago = null) : void {
+
+        this.inicializaFormularioNivelRiesgo(objeto);
+        this.formNivel.get('descripcionNivel')?.disable();
+    }
+
+    private getNivelesPorIndicador(pidIndicador : number) {
+
+        let listNivelesTemp : MacNivelCapacidadPago[] = null;
+
+        this.macredService.getNivelesXIndicador(pidIndicador)
+            .pipe(first())
+            .subscribe((response) => {
+
+                if (response && response.length > 0) {
+
+                    listNivelesTemp = [];
+                    this.habilitaListaNiveles = true;
+
+                    response.forEach(element => {
+
+                        let nivel : MacNivelCapacidadPago = this.listNiveles.find(e => e.id == element.codNivel);
+
+                        nivel.id
+                        nivel.rangoInicial = element.rangoInicial;
+                        nivel.rangoFinal = element.rangoFinal;
+
+                        listNivelesTemp.push(nivel);
+                    });
+                    this.listNivelesIndicador = listNivelesTemp;
+
+                } else {
+                    this.habilitaListaNiveles = false;
+                    this.listNivelesIndicador = [];
+                }
+            });
+    }
+
+    private inicializaFormularioIndRelevante(objeto : MacIndicadoresRelevantes = null) : void {
+
+        if (objeto) {
+
+            this.formIndicadorRelevante = this.formBuilder.group({
+                descripcionIndRelevante : [objeto.descripcion, Validators.required],
+                estadoIndRelevante : [objeto.estado]
+            });
+            this.objSeleccionadoIndicador = objeto;
+            this.iniciarBotonesModelo(false);
+        } 
+        else {
+
+            this.formIndicadorRelevante = this.formBuilder.group({
+                descripcionIndRelevante : ['', Validators.required],
+                estadoIndRelevante : [false]
+            });
+            this.objSeleccionadoIndicador = undefined;
+            this.iniciarBotonesModelo(true);
         }
-      });
-  }
-
-  handleSeleccionarIndicadorRelevante(
-    inIndicadorRelevante: MacIndicadoresRelevantes
-  ) {
-    if (!inIndicadorRelevante) {
-      return;
     }
-    this.indicadorRelevanteSeleccionado = inIndicadorRelevante;
-    this.inicializarNivelesPorIndicador();
-  }
+    private inicializaFormularioNivelRiesgo(objeto : MacNivelCapacidadPago = null) : void {
 
-  //#endregion
+        if (objeto) {
 
-  //#region NIVELES POR INDICADORES RELEVANTES
+            this.formNivel = this.formBuilder.group({
+                descripcionNivel : [this.listNiveles.find(v => v.id === objeto.id), Validators.required],
+                rangoInicial : [objeto.rangoInicial, Validators.required],
+                rangoFinal : [objeto.rangoFinal, Validators.required]
+            });
+            this.objSeleccionadoNivel = objeto;
+            this.iniciarBotonesNivel(false);
+        } 
+        else {
 
-  //VARIABLES
-  mostrarSectionNivel: boolean = false;
-  habilitarComboNiveles: boolean = false;
-  lstNivelesxIndicador: MacNivelesXIndicador[] = [];
-  lstNivelesCapacidadPago: MacNivelCapacidadPago[] = [];
-
-  formNivelesPorIndicador: UntypedFormGroup;
-  submittedNivelPorIndicador: boolean = false;
-  get n() {
-    return this.formNivelesPorIndicador.controls;
-  }
-
-  //METODOS Y FUNCIONES
-  private inicializarVariablesNivelesPorIndicador() {
-    this.submittedNivelPorIndicador = false;
-    this.habilitarComboNiveles = true;
-    this.mostrarSectionNivel = true;
-    this.lstNivelesxIndicador = [];
-    this.lstNivelesCapacidadPago = [];
-  }
-
-  private inicializarFormulario(inNivelIndicador?: MacNivelesXIndicador) {
-    this.formNivelesPorIndicador = this.formBuilder.group({
-      codigoIndicador: [this.indicadorRelevanteSeleccionado.codIndicador],
-      CodNivel: [ inNivelIndicador?.codNivel || null, [Validators.required]],
-      RangoInicial: [inNivelIndicador?.rangoInicial || null, [Validators.required, Validators.maxLength(100)]],
-      RangoFinal: [inNivelIndicador?.rangoFinal || null, [Validators.required, Validators.maxLength(100)]],
-    });
-
-    if (inNivelIndicador) {
-      this.habilitarComboNiveles = false;
-    }
-  }
-
-  /**
-   * METODO GENERAL PARA INICIALIZAR LO RELACIONADO A LOS NIVELES POR INDICADORES
-   * @param inNivelIndicador PARAMETRO OPCIONAL CUANDO SE DEBE ACTUALIZAR LA INFORMACIÓN DE UN NIVEL AL INDICADOR
-   */
-  private inicializarNivelesPorIndicador(inNivelIndicador?: MacNivelesXIndicador) {
-    this.inicializarVariablesNivelesPorIndicador();
-    this.inicializarFormulario(inNivelIndicador);
-    this.consultarNivelesCapacidadPago();
-  }
-
-  private consultarNivelesCapacidadPago() {
-    let idCompania = this.companiaObservable.id;
-    this.macredService
-      .getNivelesCapacidadPago(idCompania, false)
-      .pipe(first())
-      .subscribe((response) => {
-        this.lstNivelesCapacidadPago = response;
-        this.consultarNivelesPorIndicador();
-      });
-  }
-
-  private consultarNivelesPorIndicador() {
-    let idCompania = this.companiaObservable.id;
-    let idIndicador = this.indicadorRelevanteSeleccionado.codIndicador;
-    this.macredService
-      .getNivelesXIndicadoresRelevantes(idCompania, idIndicador)
-      .pipe(first())
-      .subscribe((response) => {
-        this.lstNivelesxIndicador = response;
-      });
-  }
-
-  obtenerNombreNivel(idCodNivel: number): string {
-    return (
-      this.lstNivelesCapacidadPago.find((x) => x.id == idCodNivel)
-        ?.descripcion || ''
-    );
-  }
-
-  //EVENTOS
-  handleAsociarNivelPorIndicador() {
-    this.alertService.clear();
-    this.submittedNivelPorIndicador = true;
-    if (this.formNivelesPorIndicador.invalid) {
-      return;
-    }
-
-    const { codigoIndicador, CodNivel, RangoInicial, RangoFinal } =
-      this.formNivelesPorIndicador.controls;
-
-    let oNivelPorIndicador: MacNivelesXIndicador = {
-      codigoCompania: this.companiaObservable.id,
-      codIndicador: codigoIndicador.value,
-      codNivel: CodNivel.value,
-      rangoInicial: RangoInicial.value,
-      rangoFinal: RangoFinal.value,
-      usuarioCreacion: this.userObservable.nombreCompleto,
-      fechaCreacion: new Date(),
-      usuarioModificacion: this.userObservable.nombreCompleto,
-      fechaModificacion: new Date(),
-    };
-
-    this.macredService
-      .postNivelesXIndicadoresRelevantes(oNivelPorIndicador)
-      .pipe(first())
-      .subscribe((response) => {
-        if (response.exito) {
-          this.alertService.success(response.responseMesagge);
-          this.inicializarNivelesPorIndicador();
-        } else {
-          this.alertService.error(response.responseMesagge);
+            this.formNivel = this.formBuilder.group({
+                descripcionNivel : [null, Validators.required],
+                rangoInicial : [null, Validators.required],
+                rangoFinal : [null, Validators.required]
+            });
+            this.objSeleccionadoNivel = undefined;
+            this.iniciarBotonesNivel(true);
         }
-      });
-
-  }
-
-  handleActualizarNivelPorIndicador(inNivelIndicador: MacNivelesXIndicador) {
-    if (!inNivelIndicador) {
-      return;
-    }
-    this.inicializarNivelesPorIndicador(inNivelIndicador);
-  }
-
-  handleEliminarNivelPorIndicador(inNivelIndicador: MacNivelesXIndicador) {
-    if (!inNivelIndicador) {
-      return;
     }
 
-    this.macredService
-      .deleteNivelesXIndicadoresRelevantes(
-        this.companiaObservable.id,
-        inNivelIndicador.codIndicador,
-        inNivelIndicador.codNivel
-      )
-      .pipe(first())
-      .subscribe((response) => {
-        if (response.exito) {
-          this.alertService.success(response.responseMesagge);
-          this.inicializarNivelesPorIndicador();
+    private createIndRelevanteForm(registra : boolean = false) : MacIndicadoresRelevantes {
+
+        const { descripcionIndRelevante,
+                estadoIndRelevante
+             } = this.formIndicadorRelevante.controls;
+
+        var objeto = new MacIndicadoresRelevantes();
+
+        objeto.descripcion = descripcionIndRelevante.value;
+        objeto.estado = estadoIndRelevante.value;
+
+        if (registra) {
+
+            objeto.codigoCompania = this.companiaObservable.id;
+            objeto.usuarioCreacion = this.userObservable.identificacion;
+            objeto.fechaCreacion = this.today;
+
         } else {
-          this.alertService.error(response.responseMesagge);
+            objeto.codIndicador = this.objSeleccionadoIndicador.codIndicador;
+            objeto.usuarioModificacion = this.userObservable.identificacion;
+            objeto.fechaModificacion = this.today;
         }
-      });
-  }
+        return objeto;
+    }
+    private createNivelesForm(registra : boolean = false) : MacNivelesXIndicador {
 
-  //#endregion
+        this.submitFormNiveles = false;
+
+        const { rangoInicial, 
+                rangoFinal,
+            } = this.formNivel.controls;
+
+        var objeto = new MacNivelesXIndicador();
+
+        objeto.codigoCompania = this.companiaObservable.id;
+        objeto.codIndicador = this.objSeleccionadoIndicador.codIndicador;
+        objeto.codNivel = this.objSeleccionadoNivel.id;
+
+        objeto.rangoInicial = rangoInicial.value;
+        objeto.rangoFinal = rangoFinal.value;
+
+        if (registra) {
+
+            objeto.usuarioCreacion = this.userObservable.identificacion;
+            objeto.fechaCreacion = this.today;
+
+        } else {
+
+            objeto.usuarioModificacion = this.userObservable.identificacion; 
+            objeto.fechaModificacion = this.today;
+        }
+        return objeto;
+    }
+
+    postIndicadorRelevante() : void {
+
+        this.alertService.clear();
+        this.submitFormIndicador = true;
+
+        if ( this.formIndicadorRelevante.invalid ) return;
+
+        let objeto : MacIndicadoresRelevantes = this.createIndRelevanteForm(true);
+
+        this.macredService.postIndicadorRelevante(objeto)
+            .pipe(first())
+            .subscribe(response => {
+
+                if (response.exito) {
+
+                    this.submitFormIndicador = false;
+
+                    this.listIndicadores.push(response.objetoDb);
+                    // this.inicializaFormularioIndRelevante();
+
+                    this.selectIndicadorRelevante(response.objetoDb);
+
+                    if (!this.habilitaListaIndicadores) this.habilitaListaIndicadores = true;
+                    
+                    this.alertService.success( response.responseMesagge );
+
+                } else { this.alertService.error(response.responseMesagge); }
+            }, error => { this.alertService.error(this.translate.translateKeyP('ALERTS.CONNECTION_ERROR', { ERROR: error })); 
+        });
+    }
+    postNivelXIndicador() : void {
+
+        this.alertService.clear();
+        this.submitFormNiveles = true;
+
+        let registrar : boolean = true;
+
+        if ( this.formNivel.invalid ) return;
+
+        let objeto : MacNivelesXIndicador = this.createNivelesForm(true);
+
+        if (objeto.rangoInicial <= objeto.rangoFinal) {
+
+            if (this.listNivelesIndicador.find(e => e.id == this.oNivelIndicador.id)) registrar = false;
+
+            if (registrar) {
+
+                this.macredService.postNivelXIndicador(objeto)
+                    .pipe(first())
+                    .subscribe(response => {
+
+                        if (response.exito) {
+
+                            this.submitFormNiveles = false;
+
+                            let objPost : MacNivelCapacidadPago = 
+                                this.listNiveles.find(e => e.id == response.objetoDb.codNivel);
+                                
+                            objPost.rangoInicial = response.objetoDb.rangoInicial;
+                            objPost.rangoFinal = response.objetoDb.rangoFinal;
+
+                            this.listNivelesIndicador.push(objPost);
+
+                            this.inicializaFormularioNivelRiesgo();
+
+                            if (!this.habilitaListaNiveles) this.habilitaListaNiveles = true;
+                            
+                            this.alertService.success( response.responseMesagge );
+
+                        } else { this.alertService.error(response.responseMesagge); }
+                    }, error => { this.alertService.error(this.translate.translateKeyP('ALERTS.CONNECTION_ERROR', { ERROR: error })); 
+                });
+
+            } else { this.alertService.error('El nivel ya se encuentra registrado.'); }
+        } else { this.alertService.error('El rango Inicial no puede ser menor al rango Final.'); } 
+    }
+
+    deleteIndicadorRelevante() {
+
+        this.alertService.clear();
+
+        if (this.listNivelesIndicador && this.listNivelesIndicador.length > 0) {
+            this.alertService.error('Deben eliminar los niveles de riesgo asociados al indicador.');
+            return;
+        }
+
+        this.dialogo.open(DialogoConfirmacionComponent, { 
+            data: 'Seguro que desea eliminar : ' + this.objSeleccionadoIndicador.descripcion + ' ?' 
+        })
+        .afterClosed()
+        .subscribe((confirmado: Boolean) => {
+
+            if (confirmado) {
+
+                let idIndRelevante : number = this.objSeleccionadoIndicador.codIndicador;
+
+                this.macredService.deleteIndicadorRelevante(idIndRelevante)
+                    .pipe(first())
+                    .subscribe(response => {
+
+                        if (response.exito) {
+
+                            this.submitFormIndicador = false;
+
+                            this.listIndicadores.splice(
+                                this.listIndicadores.findIndex( m => m.codIndicador == idIndRelevante ), 1
+                            );
+                            this.inicializaFormularioIndRelevante();
+
+                            if (this.listIndicadores.length === 0) this.habilitaListaIndicadores = false;
+
+                            this.habilitaFormularioNiveles = false;
+
+                            this.alertService.success( response.responseMesagge );
+
+                        } else { this.alertService.error(response.responseMesagge); }
+                    }, error => { this.alertService.error('Problemas de conexión. Detalle: ' + error);
+                });
+            } else { return; }
+        });
+    }
+    deleteNivelXIndicador() {
+
+        this.alertService.clear();
+
+        this.dialogo.open(DialogoConfirmacionComponent, { 
+            data: 'Seguro que desea eliminar el nivel ' + this.objSeleccionadoNivel.descripcion + '?' 
+        })
+        .afterClosed()
+        .subscribe((confirmado: Boolean) => {
+
+            if (confirmado) {
+
+                let idIndicador : number = this.objSeleccionadoIndicador.codIndicador;
+                let idNivel : number = this.objSeleccionadoNivel.id;
+                
+                this.macredService.deleteNivelXIndicador(idIndicador, idNivel)
+                    .pipe(first())
+                    .subscribe(response => {
+
+                        if (response.exito) {
+
+                            this.listNivelesIndicador.splice(
+                                this.listNivelesIndicador.findIndex( m => m.id == idNivel ), 1
+                            );
+                            this.inicializaFormularioNivelRiesgo();
+
+                            if (this.listNivelesIndicador.length === 0) this.habilitaListaNiveles = false;
+
+                            this.alertService.success( response.responseMesagge );
+
+                        } else { this.alertService.error(response.responseMesagge); }
+                    }, error => { this.alertService.error('Problemas de conexión. Detalle: ' + error);
+                });
+            } else { return; }
+        });
+    }
+
+    putIndicadorRelevante() : void {
+
+        this.alertService.clear();
+        this.submitFormIndicador = true;
+
+        if ( this.formIndicadorRelevante.invalid ) return;
+
+        let obj : MacIndicadoresRelevantes = this.createIndRelevanteForm(false);
+
+        this.macredService.putIndicadorRelevante(obj)
+            .pipe(first())
+            .subscribe(response => {
+
+                if (response.exito) {
+
+                    this.submitFormIndicador = false;
+                    this.listIndicadores.splice(
+                        this.listIndicadores.findIndex( m => m.codIndicador == response.objetoDb.codIndicador ), 1
+                    );
+                    this.listIndicadores.push(response.objetoDb);
+
+                    this.selectIndicadorRelevante(response.objetoDb);
+
+                    this.alertService.success( response.responseMesagge );
+
+                } else { this.alertService.error(response.responseMesagge); }
+            }, error => { this.alertService.error(this.translate.translateKeyP('ALERTS.CONNECTION_ERROR', { ERROR: error })); 
+        });
+    }
+    putNivelXIndicador() : void {
+
+        this.alertService.clear();
+        this.submitFormNiveles = true;
+
+        if ( this.formNivel.invalid ) return;
+
+        let objeto : MacNivelesXIndicador = this.createNivelesForm(false);
+
+        if (objeto.rangoInicial <= objeto.rangoFinal) {
+
+            this.macredService.putNivelXIndicador(objeto)
+                .pipe(first())
+                .subscribe(response => {
+
+                    if (response.exito) {
+
+                        this.submitFormNiveles = false;
+
+                        let objPut : MacNivelCapacidadPago = 
+                            this.listNiveles.find(e => e.id == response.objetoDb.codNivel);
+
+                        objPut.rangoInicial = response.objetoDb.rangoInicial;
+                        objPut.rangoFinal = response.objetoDb.rangoFinal;
+
+                        this.listNivelesIndicador.splice(
+                            this.listNivelesIndicador.findIndex( m => m.id == objPut.id ), 1
+                        );
+                        this.listNivelesIndicador.push(objPut);
+
+                        this.inicializaFormularioNivelRiesgo();
+
+                        this.alertService.success( response.responseMesagge );
+
+                    } else { this.alertService.error(response.responseMesagge); }
+                }, error => { this.alertService.error(this.translate.translateKeyP('ALERTS.CONNECTION_ERROR', { ERROR: error })); 
+            });
+        } else { this.alertService.error('El rango Inicial no puede ser menor al rango final.'); } 
+    }
+    
+    private getIndicadoresRelevantes() : void {
+        this.macredService.getIndicadoresRelevantes()
+            .pipe(first())
+            .subscribe(response => {
+                if (response && response.length > 0) {
+                    this.habilitaListaIndicadores = true;
+                    this.listIndicadores = response;
+                }
+            }, error => { this.alertService.error(error); });
+    }
+    private getNivelesCapacidadPago() : void {
+
+        this.macredService.getNivelesCapacidadPago(false)
+            .pipe(first())
+            .subscribe(response => {
+
+                if (response && response.length > 0) {
+
+                    this.listNiveles = response;
+
+                } else { this.listNiveles = []; }
+
+            }, error => { this.alertService.error(error); });
+    }
+
+    private iniciarBotonesModelo(esParaAgregar: boolean) {
+        this.habilitaBtnNuevo = !esParaAgregar;
+        this.habilitaBtnRegistro = esParaAgregar;
+        this.habilitaBtnActualiza = !esParaAgregar;
+        this.habilitaBtnEliminar = !esParaAgregar;
+    }
+    private iniciarBotonesNivel(esParaAgregar: boolean) {
+        this.habilitaBtnNuevoNivel = !esParaAgregar;
+        this.habilitaBtnRegistroNivel = esParaAgregar;
+        this.habilitaBtnActualizaNivel = !esParaAgregar;
+        this.habilitaBtnEliminarNivel = !esParaAgregar;
+    }
+
+    private buscarModuloId(moduleId : number) : void {
+        this.accountService.getModuleId(moduleId)
+            .pipe(first())
+            .subscribe(response => { 
+                if (response) this.moduleScreen = response ; });
+    }
 }

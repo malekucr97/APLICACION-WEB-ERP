@@ -5,33 +5,17 @@ import { User, Module } from '@app/_models';
 import { MatSidenav } from '@angular/material/sidenav';
 import { Compania } from '../../../../_models/modules/compania';
 import { MacredService } from '@app/_services/macred.service';
-import { ScreenAccessUser } from '@app/_models/admin/screenAccessUser';
 import { Router } from '@angular/router';
 import { first } from 'rxjs/operators';
-import { MacPersona } from '@app/_models/Macred/Persona';
-import { MacTipoIngresoAnalisis } from '@app/_models/Macred/TipoIngresoAnalisis';
-import { MacTipoFormaPagoAnalisis } from '@app/_models/Macred/TipoFormaPagoAnalisis';
-import { MacTiposMoneda } from '@app/_models/Macred/TiposMoneda';
-import { MacModeloAnalisis } from '@app/_models/Macred/ModeloAnalisis';
-import { MacNivelCapacidadPago } from '@app/_models/Macred/NivelCapacidadPago';
-import { MacTipoGenerador } from '@app/_models/Macred/TipoGenerador';
 import { MatDialog } from '@angular/material/dialog';
-import { DialogoConfirmacionComponent } from '@app/_components/dialogo-confirmacion/dialogo-confirmacion.component';
-import { MacTipoPersona } from '@app/_models/Macred/TipoPersona';
 import { MacTipoGenero } from '@app/_models/Macred/TipoGenero';
-import { MacCondicionLaboral } from '@app/_models/Macred/CondicionLaboral';
-import { MacCategoriaCredito } from '@app/_models/Macred/CategoriaCredito';
-import { MacTipoAsociado } from '@app/_models/Macred/TipoAsociado';
-import { MacTipoHabitacion } from '@app/_models/Macred/TipoHabitacion';
-import { valHooks } from 'jquery';
 
 declare var $: any;
 
-@Component({
-    templateUrl: 'HTML_TiposGeneros.html',
-    styleUrls: ['../../../../../assets/scss/app.scss',
-        '../../../../../assets/scss/macred/app.scss'],
-    standalone: false
+@Component({selector: 'app-tipos-genero-macred',
+            templateUrl: 'HTML_TiposGeneros.html',
+            styleUrls: ['../../../../../assets/scss/app.scss', '../../../../../assets/scss/macred/app.scss'],
+            standalone: false
 })
 export class TiposGenerosComponent implements OnInit {
     @ViewChild(MatSidenav) sidenav !: MatSidenav;
@@ -48,7 +32,6 @@ export class TiposGenerosComponent implements OnInit {
 
     // Tipo Genero
     formTipoGenero: UntypedFormGroup;
-    formTipoGeneroList: UntypedFormGroup;
     listTiposGeneros: MacTipoGenero[];
     showList : boolean = false;
 
@@ -78,11 +61,11 @@ export class TiposGenerosComponent implements OnInit {
     ngOnInit() {
 
         this.formTipoGenero = this.formBuilder.group({
-            id                  : [null],
-            codigoGenero    : [null],
-            codigoCompania      : [null],
-            descripcion         : [null],
-            estado              : [null]
+            id : [null],
+            codigoGenero : [null],
+            codigoCompania : [null],
+            descripcion : [null],
+            estado : [false]
 
         });
 
@@ -94,25 +77,16 @@ export class TiposGenerosComponent implements OnInit {
             .subscribe(response => {
 
                 // ## -->> redirecciona NO ACCESO
-                if(!response.exito)
-                    this.router.navigate([this.moduleObservable.indexHTTP]);
+                if(!response.exito) this.router.navigate([this.moduleObservable.indexHTTP]);
 
+                this.consultaTiposGenerosCompania();
             });
-
-            this.consultaTiposGenerosCompania();
     }
 
     get f() { return this.formTipoGenero.controls; }
 
 
     consultaTiposGenerosCompania() : void {
-        this.formTipoGeneroList = this.formBuilder.group({
-            id                  : [''],
-            codigoGenero    : [''],
-            codigoCompania      : [''],
-            descripcion         : [''],
-            estado              : ['']
-        });
 
         this.macredService.getTiposGenerosCompania(this.userObservable.empresa)
         .pipe(first())
@@ -122,11 +96,7 @@ export class TiposGenerosComponent implements OnInit {
                 this.showList = true;
                 this.listTiposGeneros = tipoGeneroResponse;
             }
-        },
-        error => {
-            let message : string = 'Problemas al consultar los tipos de generos. ' + error;
-            this.alertService.error(message);
-        });
+        }, error => { this.alertService.error('Problemas al consultar los tipos de generos. ' + error); });
     }
 
     addTipoGenero() : void {
@@ -162,9 +132,7 @@ export class TiposGenerosComponent implements OnInit {
         this.alertService.clear();
         this.submittedTipoGeneroForm = true;
 
-        if ( this.formTipoGenero.invalid ){
-            return;
-        }
+        if ( this.formTipoGenero.invalid ) return;
 
         var tipoGenero : MacTipoGenero;
         tipoGenero = this.createTipoGeneroModal();
@@ -188,15 +156,8 @@ export class TiposGenerosComponent implements OnInit {
                     $('#tipoGeneroModal').modal('hide');
                     this.ngOnInit();
 
-                } else {
-                    let message : string = 'Problemas al registrar el tipo de genero.';
-                    this.alertService.error(message);
-                }
-            },
-            error => {
-                let message : string = 'Problemas de conexión. Detalle: ' + error;
-                this.alertService.error(message);
-            });
+                } else { this.alertService.error('Problemas al registrar el tipo de genero.'); }
+            }, error => { this.alertService.error('Problemas de conexión. Detalle: ' + error); });
 
         }
         else if (this.tipoMovimiento == 'E') {
@@ -217,24 +178,16 @@ export class TiposGenerosComponent implements OnInit {
                     $('#tipoGeneroModal').modal('hide');
                     this.ngOnInit();
 
-                } else {
-                    let message : string = 'Problemas al actualizar el tipo de genero.';
-                    this.alertService.error(message);
-                }
-            },
-            error => {
-                let message : string = 'Problemas de conexión. Detalle: ' + error;
-                this.alertService.error(message);
-            });
+                } else { this.alertService.error('Problemas al actualizar el tipo de genero.'); }
+            }, error => { this.alertService.error('Problemas de conexión. Detalle: ' + error); });
         }
     }
 
     createTipoGeneroModal() : MacTipoGenero {
 
-        var codigoGenero    = this.formTipoGenero.controls['codigoGenero'].value;
-        var descripcion         = this.formTipoGenero.controls['descripcion'].value;
-        var estado              = this.formTipoGenero.controls['estado'].value
-
+        var codigoGenero = this.formTipoGenero.controls['codigoGenero'].value;
+        var descripcion = this.formTipoGenero.controls['descripcion'].value;
+        var estado = this.formTipoGenero.controls['estado'].value
 
         var tipoGenero = this._tipoGeneroMacred;
 
@@ -247,25 +200,17 @@ export class TiposGenerosComponent implements OnInit {
 
     deleteTipoGenero(idTipoGenero:number){
 
+        this.alertService.clear();
+
         this.macredService.deleteTipoGenero(idTipoGenero)
             .pipe(first())
             .subscribe(response => {
 
                 if (response) {
-                    this.alertService.success(
-                        `Tipo genero eliminado correctamente!`
-                    );
+                    this.alertService.success( `Tipo genero eliminado correctamente!` );
                     this.ngOnInit();
 
-                } else {
-                    let message : string = 'Problemas al eliminar el tipo de genero.';
-                    this.alertService.error(message);
-                }
-            },
-            error => {
-                let message : string = 'Problemas de conexión. Detalle: ' + error;
-                this.alertService.error(message);
-            });
+                } else { this.alertService.error('Problemas al eliminar el tipo de genero.'); }
+            }, error => { this.alertService.error('Problemas de conexión. Detalle: ' + error); });
     }
-
 }

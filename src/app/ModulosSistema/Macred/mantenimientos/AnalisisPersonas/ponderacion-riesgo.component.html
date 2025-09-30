@@ -1,0 +1,173 @@
+<main class="main-modules">
+  <div class="contenido-main">
+
+    <div>
+      <div>
+        <p class="contenido-main__h1">{{ moduleName }}</p>
+        <p class="contenido-main__h2">Administración de Ponderación de Riesgos LTV</p>
+      </div>
+      <hr>
+      <button class="back-ico-one"
+              title="{{ 'CONFIGURATION.BTN_ADMIN_USERS' | translate}}"
+              mat-icon-button 
+              (click)="redirectIndexModule()"> <mat-icon>arrow_back</mat-icon> </button>
+    </div>
+
+    <div class="card">  
+      <div class="card-body">
+
+        <div>
+            <p *ngIf="add" class="contenido-main__h3">Actualización de Ponderación de Riesgos</p>
+            <p *ngIf="update" class="contenido-main__h3">Registro de Ponderación de Riesgos</p>
+        </div>
+
+        <hr>
+
+        <div class="formulario-izquierdo">
+
+          <div class="formulario-izquierdo__nav">
+            <div class="formulario-izquierdo__nav__prev">
+              <p class="formulario-izquierdo__nav__prev__tittle">Parametrización de Ponderación de Riesgos</p>
+            </div>
+
+            <div class="formulario-izquierdo__nav__next">
+              <button *ngIf="habilitaBtnNuevo" 
+                      class="formulario-izquierdo__nav__next__btn-view" 
+                      mat-flat-button 
+                      (click)="limpiarFormulario()">{{ 'GENERAL.BTN_NEW' | translate }}</button>
+              <button *ngIf="habilitaBtnActualiza" 
+                      class="formulario-izquierdo__nav__next__btn-warn" 
+                      mat-flat-button 
+                      (click)="actualizar()">{{ 'GENERAL.BTN_UPDATE' | translate }}</button>
+              <button *ngIf="habilitaBtnRegistro" 
+                      class="formulario-izquierdo__nav__next__btn-ok" 
+                      mat-flat-button 
+                      (click)="registrar()">{{ 'GENERAL.BTN_REGISTER' | translate }}</button>
+              <button *ngIf="habilitaBtnEliminar" 
+                      class="formulario-izquierdo__nav__next__btn-delete" 
+                      mat-flat-button 
+                      (click)="eliminar()">{{ 'GENERAL.BTN_DELETE' | translate }}</button>
+            </div>
+          </div>
+
+          <div class="p-2">
+            <form [formGroup]="formObject" class="row tw-py-4">
+
+              <div class="form-group col-sm-9">
+                <label for="id_descripcionPonderacion" class="form-label" >Descripción de Ponderación</label>
+                <input
+                  maxlength="100"  
+                  formControlName="descripcion"
+                  class="form-control"
+                  type="text"
+                  id="id_descripcionPonderacion"
+                  [ngClass]="{ 'is-invalid': submitForm && f.descripcion.errors }" />
+                <div *ngIf="submitForm && f.descripcion.errors" class="invalid-feedback" >
+                  <div *ngIf="f.descripcion.errors.required">{{ 'GENERAL.VALIDATES.EMPTY' | translate }}</div>
+                </div>
+              </div>
+
+              <div class="form-group col-sm-3 margin-top-status d-flex justify-content-center">
+                  <mat-checkbox formControlName="estado"></mat-checkbox>
+              </div>
+
+              <!-- <div class="col-sm-3"></div> -->
+
+              <div class="col-sm-3">
+                <label for="id_generador" class="form-label">P. Generador</label>
+                <input  formControlName="generador"
+                        class="form-control"
+                        type="number"
+                        id="id_generador"
+                        [ngClass]="{'is-invalid': submitForm && f.generador.errors}" />
+                <div *ngIf="submitForm && f.generador.errors" class="invalid-feedback">
+                  <div *ngIf="f.generador.errors.required">{{ 'GENERAL.VALIDATES.EMPTY' | translate }}</div>
+                </div>
+              </div>
+
+              <div class="col-sm-3">
+                <label for="id_noGenerador" class="form-label">P. No Generador</label>
+                <input  formControlName="noGenerador"
+                        class="form-control"
+                        type="number"
+                        id="id_noGenerador"
+                        [ngClass]="{'is-invalid': submitForm && f.noGenerador.errors}" />
+                <div *ngIf="submitForm && f.noGenerador.errors" class="invalid-feedback">
+                  <div *ngIf="f.noGenerador.errors.required">{{ 'GENERAL.VALIDATES.EMPTY' | translate }}</div>
+                </div>
+              </div>
+
+              <div class="col-sm-3">
+                <label for="id_ltvDesde" class="form-label">LTV Desde</label>
+                <input  formControlName="ltvDesde"
+                        class="form-control"
+                        type="number"
+                        id="id_ltvDesde"
+                        [ngClass]="{'is-invalid': submitForm && f.ltvDesde.errors}" />
+                <div *ngIf="submitForm && f.ltvDesde.errors" class="invalid-feedback">
+                  <div *ngIf="f.ltvDesde.errors.required">{{ 'GENERAL.VALIDATES.EMPTY' | translate }}</div>
+                </div>
+              </div>
+
+              <div class="col-sm-3">
+                <label for="id_ltvHasta" class="form-label">LVT Hasta</label>
+                <input  formControlName="ltvHasta"
+                        class="form-control"
+                        type="number"
+                        id="id_ltvHasta"
+                        [ngClass]="{'is-invalid': submitForm && f.ltvHasta.errors}" />
+                <div *ngIf="submitForm && f.ltvHasta.errors" class="invalid-feedback">
+                  <div *ngIf="f.ltvHasta.errors.required">{{ 'GENERAL.VALIDATES.EMPTY' | translate }}</div>
+                </div>
+              </div>
+
+              
+            </form>
+          </div>
+        </div>
+
+        <div *ngIf="mostrarLista" class="contenido-main__table">
+          <br>
+          <table class="table table-striped">
+            <thead>
+              <tr>
+                <th class="table__ponderacion-riesgos__ico"></th>
+
+                <th class="table__ponderacion-riesgos__desc">Descripción Ponderación</th>
+                <th class="table__ponderacion-riesgos__gen">P. Generador</th>
+                <th class="table__ponderacion-riesgos__nogen">P. No Generador</th>
+                <th class="table__ponderacion-riesgos__desde">LTV Desde</th>
+                <th class="table__ponderacion-riesgos__hasta">LTV Hasta</th>
+                <th class="table__ponderacion-riesgos__estado">Estado</th>
+
+                <th class="table__ponderacion-riesgos__add">Registra</th>
+                <th class="table__ponderacion-riesgos__add">Fecha</th>
+                <th class="table__ponderacion-riesgos__edit">Modifica</th>
+                <th class="table__ponderacion-riesgos__edit">Fecha</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr *ngFor="let modelo of listObjetos" (click)="seleccionarObjeto(modelo)">
+                <td class="item-list-edit"> <a> <mat-icon>edit</mat-icon> </a> </td>
+                <td class="item-list-edit">{{ modelo.descripcion }}</td>
+                <td class="item-list-edit table__ponderacion-riesgos__gen__td">{{ modelo.generador }}</td>
+                <td class="item-list-edit table__ponderacion-riesgos__nogen__td">{{ modelo.noGenerador }}</td>
+                <td class="item-list-edit table__ponderacion-riesgos__desde__td">{{ modelo.ltvDesde }}</td>
+                <td class="item-list-edit table__ponderacion-riesgos__hasta__td">{{ modelo.ltvHasta }}</td>
+                <td class="item-list-edit table__ponderacion-riesgos__estado__td" *ngIf="modelo.estado == true">Activo</td>
+                <td class="item-list-edit table__ponderacion-riesgos__estado__td" *ngIf="modelo.estado == false">Inactivo</td>
+
+                <td class="item-list-edit table__ponderacion-riesgos__add__td">{{ modelo.usuarioCreacion }}</td>
+                <td class="item-list-edit table__ponderacion-riesgos__add__td">{{modelo.fechaCreacion | date:'dd/MM/yyyy'}}</td>
+                <td class="item-list-edit table__ponderacion-riesgos__edit__td">{{ modelo.usuarioModificacion }}</td>
+                <td class="item-list-edit table__ponderacion-riesgos__edit__td">{{modelo.fechaModificacion | date:'dd/MM/yyyy'}}</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+
+      </div>
+    </div>
+    
+  </div>
+</main>

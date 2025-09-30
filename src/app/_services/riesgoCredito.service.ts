@@ -23,8 +23,7 @@ export class RiesgoCreditoService {
   public get headersValue(): HttpHeaders { return this._headers; }
 
   constructor(private http: HttpClient,
-              private userService: AccountService
-  ) {
+              private userService: AccountService) {
 
     this._user = this.userService.userValue;
     this._business = this.userService.businessValue;

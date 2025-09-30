@@ -192,8 +192,8 @@
         "NAME": "Nombre",
         "EMAIL": "Correo",
         "STATUS": "Estado",
-        "MODIFIED": "Modiciado",
-        "DATE_UPDATE": "Se actualizó"
+        "MODIFIED": "Actualiza",
+        "DATE_UPDATE": "Fecha"
       },
       "FORM": {
         "TXT_ID": "Id",

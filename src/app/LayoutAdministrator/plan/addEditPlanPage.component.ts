@@ -10,11 +10,10 @@ import { OnSeguridad } from '@app/_helpers/abstractSeguridad';
 import { TranslateMessagesService } from '@app/_services/translate-messages.service';
 import { AdminPlan, AdminPlanSupport, AdminTipoPlan } from '@app/_models/admin/planes/plan';
 
-@Component({
-    selector: 'app-add-edit-plan-admin',
-    templateUrl: 'HTML_AddEditPlanPage.html',
-    styleUrls: ['../../../assets/scss/app.scss', '../../../assets/scss/administrator/app.scss'],
-    standalone: false
+@Component({selector: 'app-add-edit-plan-admin',
+            templateUrl: 'HTML_AddEditPlanPage.html',
+            styleUrls: ['../../../assets/scss/administrator/app.scss'],
+            standalone: false
 })
 export class AddEditPlanComponent extends OnSeguridad implements OnInit {
   
@@ -133,7 +132,7 @@ export class AddEditPlanComponent extends OnSeguridad implements OnInit {
             }, (error) => { this.alertService.error(error); this.submitFormPlan=false; });
     }
 
-    public selectObjetoPlan() : void { this.inicializaFormularioUpdatePlan(this.planSeleccionado); }
+    // public selectObjetoPlan() : void { this.inicializaFormularioUpdatePlan(this.planSeleccionado); }
     // **
 
     // ****************************************************

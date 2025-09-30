@@ -1,12 +1,10 @@
-import { UntypedFormBuilder, UntypedFormGroup, Validators  }      from '@angular/forms';
-import { Component, OnInit, ViewChild }             from '@angular/core';
+import { UntypedFormBuilder, UntypedFormGroup, Validators  } from '@angular/forms';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { AccountService, AlertService, GeneralesService } from '@app/_services';
-import { MatSidenav }                               from '@angular/material/sidenav';
-
-import { User, Module, Compania }                   from '@app/_models';
-
-import { MatDialog }                                from '@angular/material/dialog';
-import { DialogoConfirmacionComponent }             from '@app/_components/dialogo-confirmacion/dialogo-confirmacion.component';
+import { MatSidenav } from '@angular/material/sidenav';
+import { User, Module, Compania } from '@app/_models';
+import { MatDialog } from '@angular/material/dialog';
+import { DialogoConfirmacionComponent } from '@app/_components/dialogo-confirmacion/dialogo-confirmacion.component';
 
 // ## -- servicio macred http -- ## //
 import { first } from 'rxjs/operators';
@@ -18,17 +16,17 @@ import { TranslateMessagesService } from '@app/_services/translate-messages.serv
 
 declare var $: any;
 
-@Component({
-    selector: 'app-generales-tipo-cambio',
-    templateUrl: 'HTML_TipoCambio.html',
-    styleUrls: ['../../../../assets/scss/app.scss', '../../../../assets/scss/generales/app.scss',
-        '../../../../assets/scss/administrator/app.scss'],
-    standalone: false
+@Component({selector: 'app-generales-tipo-cambio',
+            templateUrl: 'HTML_TipoCambio.html',
+            styleUrls: ['../../../../assets/scss/app.scss',
+                        '../../../../assets/scss/generales/app.scss',
+                        '../../../../assets/scss/administrator/app.scss'],
+            standalone: false
 })
 export class TipoCambioComponent  extends OnSeguridad implements OnInit {
     @ViewChild(MatSidenav) sidenav !: MatSidenav;
 
-    private nombrePantalla  : string = 'TipoCambio.html';
+    private nombrePantalla  : string = 'tipo-cambio.html';
     public nombreModulo     : string ;
 
     // ## -- objetos suscritos -- ## //

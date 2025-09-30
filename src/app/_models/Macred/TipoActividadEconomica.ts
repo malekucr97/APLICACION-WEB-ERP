@@ -7,5 +7,4 @@ export interface TipoActividadEconomica {
   fechaCreacion: Date,
   usuarioModificacion?: string,
   fechaModificacion?: Date
-
 }

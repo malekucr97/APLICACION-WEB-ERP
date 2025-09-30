@@ -1,146 +1,244 @@
-<div class="tw-flex-col">
-  <!-- VARIABLES CRITICAS -->
-  <section class="tw-flex">
-    <article class="tw-m-2 tw-my-6 tw-w-1/4">
-      <div class="tw-border tw-shadow tw-rounded-lg tw-shadow">
-        <section>
-          <!-- header -->
-          <div class="contenedor__header">
-            <div class="contenedor__header__prev">
-              <h2>Datos escenarios de riesgo</h2>
+<div class="contenido-main-macred">
+
+    <div>
+        <div>
+            <p class="contenido-main-macred__h1">{{moduleScreen.descripcion}}</p>
+            <p class="contenido-main-macred__h2">Administración de Escenarios de Riesgo</p>
+        </div>
+        <hr>
+        <button class="back-ico-two"
+                title="{{ 'CONFIGURATION.BTN_ADMIN_USERS' | translate}}"
+                mat-icon-button 
+                (click)="redirectIndexModule()"> <mat-icon>arrow_back</mat-icon> </button>
+    </div>
+
+    <div class="card">
+        <div class="card-body">
+
+            <p class="contenido-main-macred__h3">Escenarios de Riesgo</p>
+
+            <hr>
+
+            <!-- body -->
+            <div class="form-list-inline">
+                <div class="formulario-izquierdo">
+
+                    <div class="formulario-izquierdo__nav">
+                        <div class="formulario-izquierdo__nav__prev" >
+                            <p class="formulario-izquierdo__nav__prev__tittle">Mantenimiento de Escenarios de Riesgo</p>
+                        </div>
+
+                        <div class="formulario-izquierdo__nav__next" >
+                            <button *ngIf="habilitaBtnNuevo" class="formulario-izquierdo__nav__next__btn-view" 
+                                    mat-flat-button
+                                    (click)="nuevoIndicadorRelevante()">{{ 'GENERAL.BTN_NEW' | translate }}</button>
+                            <button *ngIf="habilitaBtnActualiza" class="formulario-izquierdo__nav__next__btn-warn" 
+                                    mat-flat-button
+                                    (click)="putEscenario()">{{ 'GENERAL.BTN_UPDATE' | translate }}</button>
+                            <button *ngIf="habilitaBtnRegistro" class="formulario-izquierdo__nav__next__btn-ok" 
+                                    mat-flat-button
+                                    (click)="postEscenario()">{{ 'GENERAL.BTN_REGISTER' | translate }}</button>
+                            <button *ngIf="habilitaBtnEliminar" class="formulario-izquierdo__nav__next__btn-delete" 
+                                    mat-flat-button
+                                    (click)="deleteIndicadorRelevante()">{{ 'GENERAL.BTN_DELETE' | translate }}</button>
+                        </div>
+                    </div>
+
+                    <div class="p-2">
+
+                        <form [formGroup]="formEscenario" class="row">
+
+                            <div class="form-group col-sm-5">
+                                <label for="id_descripcionEscenario" class="form-label">Descripción</label>
+                                <input  maxlength="200" 
+                                        formControlName="descripcionEscenario" 
+                                        class="form-control" 
+                                        type="text" 
+                                        id="id_descripcionEscenario"
+                                        [ngClass]="{ 'is-invalid': submitFormEscenario && f.descripcionEscenario.errors }" />
+                                <div *ngIf="submitFormEscenario && f.descripcionEscenario.errors" class="invalid-feedback">
+                                    <div *ngIf="f.descripcionEscenario.errors.required">{{ 'GENERAL.VALIDATES.EMPTY' | translate }}</div>
+                                </div>
+                            </div>
+
+                            <div class="form-group col-sm-5">
+                                <label for="id_modelo" class="form-label">Modelo</label>
+                                <select formControlName="modelo" 
+                                        class="form-control" 
+                                        name="selectVariables"
+                                        id="id_modelo"
+                                        [ngClass]="{ 'is-invalid': submitFormVariable && f.modelo.errors }" 
+                                        (change)="onChangeEventModelo()">
+                                    <option [ngValue]="objeto"
+                                            *ngFor="let objeto of listModelosCalificacion">{{objeto.id}} - 
+                                                                                {{objeto.descripcion}}</option>
+                                </select>
+                                <div *ngIf="submitFormVariable && f.modelo.errors" class="invalid-feedback">
+                                    <div *ngIf="f.modelo.errors.required">{{ 'GENERAL.VALIDATES.EMPTY' | translate }}</div>
+                                </div>
+                            </div>
+
+                            <div class="form-group col-sm-2 margin-status d-flex justify-content-center">
+                                <mat-checkbox formControlName="estadoEscenario"></mat-checkbox>
+                            </div>
+                            
+                        </form>
+                    </div>
+                </div>
+
+                <div *ngIf="habilitaListaEscenario" class="lista-inline">
+
+                    <div class="lista-inline__nav" >
+                        <p class="lista-inline__nav__tittle">Lista de Escenarios de Riesgo</p>
+                    </div>
+
+                    <div *ngIf="listEscenarios" class="scroll-table-macred__personas">
+                        <table class="table table-striped">
+                            <thead>
+                                <tr>
+                                    <th class="table__indicadores-relevantes__ico"></th>
+                                    <th class="table__indicadores-relevantes__desc">Descripción</th>
+                                    <th class="table__indicadores-relevantes__estado">Estado</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr *ngFor="let obj of listEscenarios" (click)="selectEscenario(obj)" >
+                                    
+                                    <td class="item-edit">
+                                        <div> <a> <mat-icon>swap_horiz</mat-icon> </a> </div> </td>
+
+                                    <td class="item-edit">{{obj.descripcion}}</td>
+                                    <td *ngIf="obj.estado==true" class="item-edit table__indicadores-relevantes__estado__td">Activo</td>
+                                    <td *ngIf="obj.estado==false" class="item-edit table__indicadores-relevantes__estado__td">Inactivo</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
             </div>
-            <div class="contenedor__header__next"></div>
-          </div>
-        </section>
 
-        <section>
-          <!-- body -->
-          <div class="contenedor__body">
-            <form [formGroup]="frmEscenariosRiesgo" class="row">
-              <div class="form-group col-md-12">
-                <label for="id_codEscenario" class="form-label">Código</label>
-                <input formControlName="codEscenario" class="form-control tw-border tw-shadow" type="text" id="id_codEscenario" readonly />
-              </div>
+            <br>
 
-              <div class="form-group col-md-12">
-                <label for="lbldescripcion" class="form-label">Descripción</label>
-                <input
-                  formControlName="descripcion"
-                  class="form-control tw-border tw-shadow"
-                  type="text"
-                  id="id_descripcion"
-                  [ngClass]="{
-                    'is-invalid': sbmFrmEscenariosRiesgo && f.descripcion.errors
-                  }"
-                />
-                <div *ngIf="sbmFrmEscenariosRiesgo && f.descripcion.errors" class="invalid-feedback">
-                  <div *ngIf="f.descripcion.errors.required">La descripción es requerida</div>
+            <div *ngIf="habilitaFormularioVariable" class="card">
+                <div class="card-body">
+
+                    <p class="contenido-main-macred__h3">Estrés de Variables Críticas por Escenarios de Riesgo</p>
+                    
+                    <hr>
+
+                    <div class="form-list-inline">
+                        <div class="formulario-izquierdo__segundo">
+
+                            <div class="formulario-izquierdo__nav">
+                                <div class="formulario-izquierdo__nav__prev" >
+                                    <p class="formulario-izquierdo__nav__prev__tittle">Mantenimiento de Variables por Escenarios de Riesgo</p>
+                                </div>
+
+                                <div class="formulario-izquierdo__nav__next" >
+                                    <button *ngIf="habilitaBtnRegistroVariable" class="formulario-izquierdo__nav__next__btn-ott" 
+                                            mat-flat-button
+                                            (click)="consultaRangosNiveles()">Consulta Rangos Niveles</button>
+                                    <button *ngIf="habilitaBtnNuevoVariable" class="formulario-izquierdo__nav__next__btn-view" 
+                                            mat-flat-button
+                                            (click)="nuevoNivelXIndicador()">{{ 'GENERAL.BTN_NEW' | translate }}</button>
+                                    <button *ngIf="habilitaBtnActualizaVariable" class="formulario-izquierdo__nav__next__btn-warn" 
+                                            mat-flat-button
+                                            (click)="putNivelXIndicador()">{{ 'GENERAL.BTN_UPDATE' | translate }}</button>
+                                    <button *ngIf="habilitaBtnRegistroVariable" class="formulario-izquierdo__nav__next__btn-ok" 
+                                            mat-flat-button
+                                            (click)="postNivelXIndicador()">{{ 'GENERAL.BTN_REGISTER' | translate }}</button>
+                                    <button *ngIf="habilitaBtnEliminarVariable" class="formulario-izquierdo__nav__next__btn-delete" 
+                                            mat-flat-button
+                                            (click)="deleteNivelXIndicador()">{{ 'GENERAL.BTN_DELETE' | translate }}</button>
+                                </div>
+                            </div>
+
+                            <div class="p-2">
+
+                                <form [formGroup]="formVariable" class="row">
+
+                                    <div class="form-group col-sm-6">
+                                        <label for="id_descripcionNivel" class="form-label">Descripción</label>
+                                        <select formControlName="descripcionNivel" 
+                                                class="form-control" 
+                                                name="selectVariables"
+                                                id="id_descripcionNivel"
+                                                [ngClass]="{ 'is-invalid': submitFormVariable && i.descripcionNivel.errors }" 
+                                                (change)="onChangeEvent()">
+                                            <option [ngValue]="objeto"
+                                                    *ngFor="let objeto of listVariables">{{objeto.id}} - 
+                                                                                                    {{objeto.descripcion}}</option>
+                                        </select>
+                                        <div *ngIf="submitFormVariable && i.descripcionNivel.errors" class="invalid-feedback">
+                                            <div *ngIf="i.descripcionNivel.errors.required">{{ 'GENERAL.VALIDATES.EMPTY' | translate }}</div>
+                                        </div>
+                                    </div>
+
+
+                                    <div class="form-group col-sm-3">
+                                        <label for="id_rangoInicial" class="form-label">Rango Inicial</label>
+                                        <input formControlName="rangoInicial" 
+                                                class="form-control" 
+                                                type="number" 
+                                                id="id_rangoInicial"  
+                                            [ngClass]="{ 'is-invalid': submitFormVariable && i.rangoInicial.errors }" />
+                                        <div *ngIf="submitFormVariable && i.rangoInicial.errors" class="invalid-feedback">
+                                            <div *ngIf="i.rangoInicial.errors.required">{{ 'GENERAL.VALIDATES.EMPTY' | translate }}</div>
+                                        </div>
+                                    </div>
+
+                                    <div class="form-group col-sm-3">
+                                        <label for="id_rangoFinal" class="form-label">Rango Final</label>
+                                        <input formControlName="rangoFinal" 
+                                                class="form-control" 
+                                                type="number" 
+                                                id="id_rangoFinal"  
+                                            [ngClass]="{ 'is-invalid': submitFormVariable && i.rangoFinal.errors }" />
+                                        <div *ngIf="submitFormVariable && i.rangoFinal.errors" class="invalid-feedback">
+                                            <div *ngIf="i.rangoFinal.errors.required">{{ 'GENERAL.VALIDATES.EMPTY' | translate }}</div>
+                                        </div>
+                                    </div>
+
+                                </form>
+                            </div>
+                        </div>
+
+                        <div *ngIf="habilitaListaVariable" class="lista-inline">
+
+                            <div class="lista-inline__nav" >
+                                <p class="lista-inline__nav__tittle">Lista de Variables por Escenario de Riesgo: {{objSeleccionadoEscenario.descripcion}}</p>
+                            </div>
+
+                            <div class="scroll-table-macred__personas">
+                                
+                                <table class="table table-striped">
+                                    <thead>
+                                        <tr>
+                                            <th class="table__indicadores-relevantes__ico"></th>
+                                            <th class="table__indicadores-relevantes__niveles__desc">Descripción</th>
+                                            <th class="table__indicadores-relevantes__niveles__rangoi">Rango Inicial</th>
+                                            <th class="table__indicadores-relevantes__niveles__rangof">Rango Final</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr *ngFor="let obj of listVariablesEscenario" (click)="selectNivel(obj)" >
+                                            
+                                            <td class="item-edit">
+                                                <div> <a> <mat-icon>swap_horiz</mat-icon> </a> </div> </td>
+
+                                            <td class="item-edit">{{obj.descripcion}}</td>
+                                            <td class="item-edit table__indicadores-relevantes__niveles__rangoi__td">{{obj.rangoInicial}}</td>
+                                            <td class="item-edit table__indicadores-relevantes__niveles__rangof__td">{{obj.rangoFinal}}</td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+
+                            </div>
+                        </div>
+                    </div>
+
                 </div>
-              </div>
-
-              <div class="form-group col-md-12">
-                <label for="codModelo" class="form-label">Modelo</label>
-                <mat-select
-                  formControlName="codModelo"
-                  id="id_codModelo"
-                  class="tw-border-solid tw-border tw-border-black tw-p-2 tw-mb-2"
-                  [ngClass]="{
-                    'is-invalid': sbmFrmEscenariosRiesgo && f.codModelo.errors
-                  }"
-                  required
-                >
-                  <mat-option *ngFor="let variable of lstModelosAnalisis" [value]="variable.id">
-                    {{ variable.descripcion }}
-                  </mat-option>
-                </mat-select>
-
-                <div *ngIf="sbmFrmEscenariosRiesgo && f.codModelo.errors" class="invalid-feedback">
-                  <div *ngIf="f.indicador.errors.required">El indicador es requerido</div>
-                </div>
-              </div>
-
-              <div class="form-group col-md-12 tw-flex tw-items-center">
-                <label for="estado" class="form-label">Estado</label>
-                <input type="checkbox" class="tw-w-6 tw-h-6 tw-mx-2" formControlName="estado" />
-                <div *ngIf="sbmFrmEscenariosRiesgo && f.estado.errors" class="invalid-feedback">
-                  <div *ngIf="f.estado.errors.required">El estado debe estar definido</div>
-                </div>
-              </div>
-
-              <div class="col-md-3 tw-my-2">
-                <a class="btn btn-sm tw-border-2 tw-border-green-600" matTooltip="Añadir" (click)="handleSubmitEscenariosRiesgo()">
-                  <i class="fa fa-plus tw-text-green-600"></i>
-                </a>
-              </div>
-            </form>
-          </div>
-        </section>
-      </div>
-    </article>
-
-    <article class="tw-m-2 tw-my-6 tw-flex-1">
-      <div class="tw-border tw-shadow tw-rounded-lg tw-shadow">
-        <section>
-          <!-- header -->
-          <div class="contenedor__header">
-            <div class="contenedor__header__prev">
-              <h2>Lista de escenarios de riesgo</h2>
             </div>
-            <div class="contenedor__header__next"></div>
-          </div>
-        </section>
-
-        <section>
-          <!-- body -->
-          <div class="contenedor__body">
-            <!-- *************** -->
-            <mat-sidenav-container>
-              <div class="content mat-elevation-z4 tblContenido">
-                <main>
-                  <article>
-                    <section class="content__menu">
-                      <table class="table table-striped">
-                        <thead>
-                          <tr>
-                            <th style="width: 20%">Descripción</th>
-                            <th style="width: 20%">Modelo</th>
-                            <th style="width: 15%">Usuario Crea</th>
-                            <th style="width: 15%">Usuario Modifica</th>
-                            <th style="width: 15%">Estado</th>
-                            <th style="width: 15%"></th>
-                          </tr>
-                        </thead>
-                        <tbody>
-                          <tr *ngFor="let modelo of lstEscenariosRiesgos">
-                            <td>{{ modelo.descripcion }}</td>
-                            <td>{{ obtenerModeloParaListaEscenariosRiesgo(modelo) }}</td>
-                            <td>{{ modelo.usuarioCreacion }}</td>
-                            <td>{{ modelo.usuarioModificacion }}</td>
-                            <td *ngIf="modelo.estado == true">Activo</td>
-                            <td *ngIf="modelo.estado == false">Inactivo</td>
-                            <td style="white-space: nowrap">
-                              <a (click)="handleSeleccionarEscenarioRiesgo(modelo)" style="margin-left: 5%" class="btn btn-sm tw-border-2 tw-border-blue-600" matTooltip="Editar el modelo">
-                                <i class="fa fa-check tw-text-blue-600"></i>
-                              </a>
-                              <a (click)="handleEditarEscenarioRiesgo(modelo)" style="margin-left: 5%" class="btn btn-sm tw-border-2 tw-border-blue-600" matTooltip="Editar el modelo">
-                                <i class="fa fa-edit tw-text-blue-600"></i>
-                              </a>
-                              <a (click)="handleEliminarEscenarioRiesgo(modelo)" style="margin-left: 5%" class="btn btn-sm tw-border-2 tw-border-red-600" matTooltip="Eliminar">
-                                <i class="fa fa-trash tw-text-red-600"></i>
-                              </a>
-                            </td>
-                          </tr>
-                        </tbody>
-                      </table>
-                    </section>
-                  </article>
-                </main>
-              </div>
-            </mat-sidenav-container>
-            <!-- *************** -->
-          </div>
-        </section>
-      </div>
-    </article>
-  </section>
+        </div>
+    </div>
 </div>

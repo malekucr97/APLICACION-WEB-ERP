@@ -1,9 +1,9 @@
-<div class="contenido-main">
+<div class="contenido-main-admin">
   <!-- <section> -->
     <div>
       <div>
-          <p class="contenido-main__h1">{{ 'CONFIGURATION.ADMIN_PAGE_LIST_PLANES.TITLE' | translate }}</p>
-          <p class="contenido-main__h2">{{ 'CONFIGURATION.ADMIN_PAGE_LIST_PLANES.SUBTITLE' | translate }}</p>
+          <p class="contenido-main-admin__h1">{{ 'CONFIGURATION.ADMIN_PAGE_LIST_PLANES.TITLE' | translate }}</p>
+          <p class="contenido-main-admin__h2">{{ 'CONFIGURATION.ADMIN_PAGE_LIST_PLANES.SUBTITLE' | translate }}</p>
       </div>
       <hr>
       <button class="back-ico-one"
@@ -17,7 +17,7 @@
       <div class="row">
 
           <div class="col-md-9">
-              <p class="contenido-main__h3">{{ 'CONFIGURATION.ADMIN_PAGE_LIST_PLANES.SUBTITLE' | translate }}</p>    
+              <p class="contenido-main-admin__h3">{{ 'CONFIGURATION.ADMIN_PAGE_LIST_PLANES.SUBTITLE' | translate }}</p>    
           </div>
           
           <div *ngIf="!addPlanBusiness" class="col-md-3">
@@ -29,19 +29,19 @@
           <hr>
       </div>
   
-      <div class="contenido-main__table">
+      <div class="contenido-main-admin__table">
         <table *ngIf="planBusiness" class="table table-striped">
           <thead>
             <tr>
-              <th class="contenido-main__table__lpp-name">{{ 'CONFIGURATION.ADMIN_PAGE_LIST_PLANES.TBL_NAME' | translate }}</th>
-              <th class="contenido-main__table__lpp-type">{{ 'CONFIGURATION.ADMIN_PAGE_LIST_PLANES.TBL_TYPE' | translate }}</th>
-              <th class="contenido-main__table__lpp-admin">{{ 'CONFIGURATION.ADMIN_PAGE_LIST_PLANES.TBL_US_CANT_ADMIN' | translate }}</th>
-              <th class="contenido-main__table__lpp-funct">{{ 'CONFIGURATION.ADMIN_PAGE_LIST_PLANES.TBL_US_CANT_FUNCTIONAL' | translate }}</th>
-              <th class="contenido-main__table__lpp-price-m">{{ 'CONFIGURATION.ADMIN_PAGE_LIST_PLANES.TBL_MONTHLY_PRICE_SUPPORT' | translate }}</th>
-              <th class="contenido-main__table__lpp-price-a">{{ 'CONFIGURATION.ADMIN_PAGE_LIST_PLANES.TBL_ANNUAL_PRICE_SUPPORT' | translate }}</th>
-              <th class="contenido-main__table__lpp-support">{{ 'CONFIGURATION.ADMIN_PAGE_LIST_PLANES.TBL_TECHNICAL_SUPPORT' | translate }}</th>
-              <th class="contenido-main__table__lpp-t-support">{{ 'CONFIGURATION.ADMIN_PAGE_LIST_PLANES.TBL_APPLICABLE_PERCENTAGE_SUPPORT' | translate }}</th>
-              <th class="contenido-main__table__lpp-ico"></th>
+              <th class="table__list-plan__name">{{ 'CONFIGURATION.ADMIN_PAGE_LIST_PLANES.TBL_NAME' | translate }}</th>
+              <th class="table__list-plan__type">{{ 'CONFIGURATION.ADMIN_PAGE_LIST_PLANES.TBL_TYPE' | translate }}</th>
+              <th class="table__list-plan__admin">{{ 'CONFIGURATION.ADMIN_PAGE_LIST_PLANES.TBL_US_CANT_ADMIN' | translate }}</th>
+              <th class="table__list-plan__funct">{{ 'CONFIGURATION.ADMIN_PAGE_LIST_PLANES.TBL_US_CANT_FUNCTIONAL' | translate }}</th>
+              <th class="table__list-plan__price-m">{{ 'CONFIGURATION.ADMIN_PAGE_LIST_PLANES.TBL_MONTHLY_PRICE_SUPPORT' | translate }}</th>
+              <th class="table__list-plan__price-a">{{ 'CONFIGURATION.ADMIN_PAGE_LIST_PLANES.TBL_ANNUAL_PRICE_SUPPORT' | translate }}</th>
+              <th class="table__list-plan__support">{{ 'CONFIGURATION.ADMIN_PAGE_LIST_PLANES.TBL_TECHNICAL_SUPPORT' | translate }}</th>
+              <th class="table__list-plan__t-support">{{ 'CONFIGURATION.ADMIN_PAGE_LIST_PLANES.TBL_APPLICABLE_PERCENTAGE_SUPPORT' | translate }}</th>
+              <th class="table__list-plan__ico"></th>
             </tr>
           </thead>
     
@@ -49,12 +49,12 @@
             <tr>
               <td>{{planBusiness.nombre}}</td>
               <td>{{planBusiness.tipo}}</td>
-              <td class="contenido-main__table__lpp-admin__td">{{planBusiness.maximoAdministradores}}</td>
-              <td class="contenido-main__table__lpp-funct__td">{{planBusiness.maximoFuncionales}}</td>
-              <td class="contenido-main__table__lpp-price-m__td">{{planBusiness.precioMensual}}</td>
-              <td class="contenido-main__table__lpp-price-a__td">{{planBusiness.precioAnual}}</td>
-              <td class="contenido-main__table__lpp-support__td">{{planBusiness.soporte}}</td>
-              <td class="contenido-main__table__lpp-t-support__td">{{planBusiness.porcentajeSoporteXUsuario}}</td>
+              <td class="table__list-plan__admin__td">{{planBusiness.maximoAdministradores}}</td>
+              <td class="table__list-plan__funct__td">{{planBusiness.maximoFuncionales}}</td>
+              <td class="table__list-plan__price-m__td">{{planBusiness.precioMensual}}</td>
+              <td class="table__list-plan__price-a__td">{{planBusiness.precioAnual}}</td>
+              <td class="table__list-plan__support__td">{{planBusiness.soporte}}</td>
+              <td class="table__list-plan__t-support__td">{{planBusiness.porcentajeSoporteXUsuario}}</td>
     
               <td>
                 <button class="item-list-admin-delete p-1" (click)="removerPlan(planBusiness.id)">
@@ -68,35 +68,35 @@
         </table>
       </div>
       
-      <div class="contenido-main__table">
+      <div class="contenido-main-admin__table">
         <table *ngIf="listPlanes" class="table table-striped">
           <thead>
             <tr>
               <th *ngIf="!addPlanBusiness"></th> <!-- ico-edit -->
-              <th class="contenido-main__table__lpp-name">{{ 'CONFIGURATION.ADMIN_PAGE_LIST_PLANES.TBL_NAME' | translate }}</th>
-              <th class="contenido-main__table__lpp-type">{{ 'CONFIGURATION.ADMIN_PAGE_LIST_PLANES.TBL_TYPE' | translate }}</th>
-              <th class="contenido-main__table__lpp-admin">{{ 'CONFIGURATION.ADMIN_PAGE_LIST_PLANES.TBL_US_CANT_ADMIN' | translate }}</th>
-              <th class="contenido-main__table__lpp-funct">{{ 'CONFIGURATION.ADMIN_PAGE_LIST_PLANES.TBL_US_CANT_FUNCTIONAL' | translate }}</th>
-              <th class="contenido-main__table__lpp-price-m">{{ 'CONFIGURATION.ADMIN_PAGE_LIST_PLANES.TBL_MONTHLY_PRICE_SUPPORT' | translate }}</th>
-              <th class="contenido-main__table__lpp-price-a">{{ 'CONFIGURATION.ADMIN_PAGE_LIST_PLANES.TBL_ANNUAL_PRICE_SUPPORT' | translate }}</th>
-              <th class="contenido-main__table__lpp-support">{{ 'CONFIGURATION.ADMIN_PAGE_LIST_PLANES.TBL_TECHNICAL_SUPPORT' | translate }}</th>
-              <th class="contenido-main__table__lpp-t-support">{{ 'CONFIGURATION.ADMIN_PAGE_LIST_PLANES.TBL_APPLICABLE_PERCENTAGE_SUPPORT' | translate }}</th>
-              <th class="contenido-main__table__lpp-ico"></th>
+              <th class="table__list-plan__name">{{ 'CONFIGURATION.ADMIN_PAGE_LIST_PLANES.TBL_NAME' | translate }}</th>
+              <th class="table__list-plan__type">{{ 'CONFIGURATION.ADMIN_PAGE_LIST_PLANES.TBL_TYPE' | translate }}</th>
+              <th class="table__list-plan__admin">{{ 'CONFIGURATION.ADMIN_PAGE_LIST_PLANES.TBL_US_CANT_ADMIN' | translate }}</th>
+              <th class="table__list-plan__funct">{{ 'CONFIGURATION.ADMIN_PAGE_LIST_PLANES.TBL_US_CANT_FUNCTIONAL' | translate }}</th>
+              <th class="table__list-plan__price-m">{{ 'CONFIGURATION.ADMIN_PAGE_LIST_PLANES.TBL_MONTHLY_PRICE_SUPPORT' | translate }}</th>
+              <th class="table__list-plan__price-a">{{ 'CONFIGURATION.ADMIN_PAGE_LIST_PLANES.TBL_ANNUAL_PRICE_SUPPORT' | translate }}</th>
+              <th class="table__list-plan__support">{{ 'CONFIGURATION.ADMIN_PAGE_LIST_PLANES.TBL_TECHNICAL_SUPPORT' | translate }}</th>
+              <th class="table__list-plan__t-support">{{ 'CONFIGURATION.ADMIN_PAGE_LIST_PLANES.TBL_APPLICABLE_PERCENTAGE_SUPPORT' | translate }}</th>
+              <th class="table__list-plan__ico"></th>
             </tr>
           </thead>
 
           <tbody>
             <tr *ngFor="let plan of listPlanes">
-    
+
               <!-- asign-plan -->
               <td *ngIf="addPlanBusiness">{{plan.nombre}}</td>
               <td *ngIf="addPlanBusiness">{{plan.tipo}}</td>
-              <td *ngIf="addPlanBusiness" class="contenido-main__table__lpp-admin__td">{{plan.maximoAdministradores}}</td>
-              <td *ngIf="addPlanBusiness" class="contenido-main__table__lpp-funct__td">{{plan.maximoFuncionales}}</td>
-              <td *ngIf="addPlanBusiness" class="contenido-main__table__lpp-price-m__td">{{plan.precioMensual}}</td>
-              <td *ngIf="addPlanBusiness" class="contenido-main__table__lpp-price-a__td">{{plan.precioAnual}}</td>
-              <td *ngIf="addPlanBusiness" class="contenido-main__table__lpp-support__td">{{plan.soporte}}</td>
-              <td *ngIf="addPlanBusiness" class="contenido-main__table__lpp-t-support__td">{{plan.porcentajeSoporteXUsuario}}</td>
+              <td *ngIf="addPlanBusiness" class="table__list-plan__admin__td">{{plan.maximoAdministradores}}</td>
+              <td *ngIf="addPlanBusiness" class="table__list-plan__funct__td">{{plan.maximoFuncionales}}</td>
+              <td *ngIf="addPlanBusiness" class="table__list-plan__price-m__td">{{plan.precioMensual}}</td>
+              <td *ngIf="addPlanBusiness" class="table__list-plan__price-a__td">{{plan.precioAnual}}</td>
+              <td *ngIf="addPlanBusiness" class="table__list-plan__support__td">{{plan.soporte}}</td>
+              <td *ngIf="addPlanBusiness" class="table__list-plan__t-support__td">{{plan.porcentajeSoporteXUsuario}}</td>
     
               <td *ngIf="addPlanBusiness">
                 <button class="item-list-admin-add p-1" (click)="asignarPlan(plan.id)">
@@ -107,12 +107,12 @@
               <td class="item-list-edit" *ngIf="!addPlanBusiness" routerLink="{{urlPageAddEditPlan}}{{plan.id}}"> <mat-icon>edit</mat-icon> </td>  <!-- ico-edit -->
               <td class="item-list-edit" *ngIf="!addPlanBusiness" routerLink="{{urlPageAddEditPlan}}{{plan.id}}">{{plan.nombre}}</td>
               <td class="item-list-edit" *ngIf="!addPlanBusiness" routerLink="{{urlPageAddEditPlan}}{{plan.id}}">{{plan.tipo}}</td>
-              <td class="item-list-edit contenido-main__table__lpp-admin__td" *ngIf="!addPlanBusiness" routerLink="{{urlPageAddEditPlan}}{{plan.id}}">{{plan.maximoAdministradores}}</td>
-              <td class="item-list-edit contenido-main__table__lpp-funct__td" *ngIf="!addPlanBusiness" routerLink="{{urlPageAddEditPlan}}{{plan.id}}">{{plan.maximoFuncionales}}</td>
-              <td class="item-list-edit contenido-main__table__lpp-price-m__td" *ngIf="!addPlanBusiness" routerLink="{{urlPageAddEditPlan}}{{plan.id}}">{{plan.precioMensual}}</td>
-              <td class="item-list-edit contenido-main__table__lpp-price-a__td" *ngIf="!addPlanBusiness" routerLink="{{urlPageAddEditPlan}}{{plan.id}}">{{plan.precioAnual}}</td>
-              <td class="item-list-edit contenido-main__table__lpp-support__td" *ngIf="!addPlanBusiness" routerLink="{{urlPageAddEditPlan}}{{plan.id}}">{{plan.soporte}}</td>
-              <td class="item-list-edit contenido-main__table__lpp-t-support__td" *ngIf="!addPlanBusiness" routerLink="{{urlPageAddEditPlan}}{{plan.id}}">{{plan.porcentajeSoporteXUsuario}}</td>
+              <td class="item-list-edit table__list-plan__admin__td" *ngIf="!addPlanBusiness" routerLink="{{urlPageAddEditPlan}}{{plan.id}}">{{plan.maximoAdministradores}}</td>
+              <td class="item-list-edit table__list-plan__funct__td" *ngIf="!addPlanBusiness" routerLink="{{urlPageAddEditPlan}}{{plan.id}}">{{plan.maximoFuncionales}}</td>
+              <td class="item-list-edit table__list-plan__price-m__td" *ngIf="!addPlanBusiness" routerLink="{{urlPageAddEditPlan}}{{plan.id}}">{{plan.precioMensual}}</td>
+              <td class="item-list-edit table__list-plan__price-a__td" *ngIf="!addPlanBusiness" routerLink="{{urlPageAddEditPlan}}{{plan.id}}">{{plan.precioAnual}}</td>
+              <td class="item-list-edit table__list-plan__support__td" *ngIf="!addPlanBusiness" routerLink="{{urlPageAddEditPlan}}{{plan.id}}">{{plan.soporte}}</td>
+              <td class="item-list-edit table__list-plan__t-support__td" *ngIf="!addPlanBusiness" routerLink="{{urlPageAddEditPlan}}{{plan.id}}">{{plan.porcentajeSoporteXUsuario}}</td>
     
               <td *ngIf="!addPlanBusiness">
                 <button (click)="deletePlan(plan.id)" class="item-list-delete" mat-icon-button> <mat-icon>delete</mat-icon> </button> 

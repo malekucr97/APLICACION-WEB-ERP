@@ -1,10 +1,10 @@
-import { UntypedFormBuilder, UntypedFormGroup, Validators  }      from '@angular/forms';
-import { Component, OnInit, ViewChild }             from '@angular/core';
-import { AccountService, AlertService }             from '@app/_services';
-import { MatSidenav }                               from '@angular/material/sidenav';
+import { UntypedFormBuilder, UntypedFormGroup, Validators  } from '@angular/forms';
+import { Component, OnInit, ViewChild } from '@angular/core';
+import { AccountService, AlertService } from '@app/_services';
+import { MatSidenav } from '@angular/material/sidenav';
 import { User, Module, Compania, ScreenAccessUser } from '@app/_models';
-import { MatDialog }                                from '@angular/material/dialog';
-import { DialogoConfirmacionComponent }             from '@app/_components/dialogo-confirmacion/dialogo-confirmacion.component';
+import { MatDialog } from '@angular/material/dialog';
+import { DialogoConfirmacionComponent } from '@app/_components/dialogo-confirmacion/dialogo-confirmacion.component';
 import { first } from 'rxjs/operators';
 import { ScreenModule } from '@app/_models/admin/screenModule';
 import { ActivatedRoute, Router } from '@angular/router';
@@ -14,11 +14,10 @@ import { TranslateMessagesService } from '@app/_services/translate-messages.serv
 
 declare var $: any;
 
-@Component({
-    selector: 'app-add-access-user-module-admin',
-    templateUrl: 'HTML_AddAccessUserModulePage.html',
-    styleUrls: ['../../../assets/scss/app.scss', '../../../assets/scss/administrator/app.scss'],
-    standalone: false
+@Component({selector: 'app-add-access-user-module-admin',
+            templateUrl: 'HTML_AddAccessUserModulePage.html',
+            styleUrls: ['../../../assets/scss/administrator/app.scss'],
+            standalone: false
 })
 export class AddAccessUserModuleComponent extends OnSeguridad implements OnInit {
     @ViewChild(MatSidenav) sidenav !: MatSidenav;
@@ -249,7 +248,7 @@ export class AddAccessUserModuleComponent extends OnSeguridad implements OnInit 
 
         } else {
 
-            this.accountService.getPantallasModulo(idModuleSelected,this.companiaObservable.id,true)
+            this.accountService.getPantallasModulo(idModuleSelected,this.companiaObservable.id,false)
             .pipe(first())
             .subscribe(response => {
 

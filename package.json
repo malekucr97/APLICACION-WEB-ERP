@@ -1,6 +1,6 @@
 {
   "name": "sistema-administracion-modulos-multicompaia",
-  "version": "1.20.25",
+  "version": "8.09.25",
   "resolutions": {
     "webpack": "^5.0.0"
   },

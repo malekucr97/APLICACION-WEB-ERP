@@ -1,0 +1,156 @@
+<main class="main-modules">
+
+  <div class="contenido-main">
+    
+    <div>
+      <div>
+        <p class="contenido-main__h1">{{ moduleName }}</p>
+        <p class="contenido-main__h2">Administración de Tipos de Líneas de Crédito</p>
+        <!-- <p class="contenido-main__h2">{{ 'CONFIGURATION.ADMIN_PAGE_LIST_USERS.TITLE' | translate }}</p> -->
+      </div>
+      <hr>
+      <button class="back-ico-one"
+              title="{{ 'CONFIGURATION.BTN_ADMIN_USERS' | translate}}"
+              mat-icon-button 
+              (click)="redirectIndexModule()"> <mat-icon>arrow_back</mat-icon> </button>
+    </div>
+
+    <div class="card">  
+      <div class="card-body">
+
+        <div>
+            <p *ngIf="add" class="contenido-main__h3">Actualización de Tipos de Líneas de Crédito</p>
+            <p *ngIf="update" class="contenido-main__h3">Registro de Tipos de Líneas de Crédito</p>
+            <!-- <p *ngIf="add" class="contenido-main__h3">{{ 'CONFIGURATION.ADD_EDIT_USER.PARAMETERS_USER' | translate: { nombreCompleto: entidadSeleccionada.nombreCompleto } }}</p>
+            <p *ngIf="addEntitie" class="contenido-main__h3">{{ 'CONFIGURATION.ADD_EDIT_USER.REGISTER_USER' | translate }}</p> -->
+        </div>
+
+        <hr>
+
+        <!-- ************************** -->
+        <!-- ******* FORMULARIO ******* -->
+        <!-- ************************** -->
+          
+        <div class="formulario-izquierdo">
+          <div class="formulario-izquierdo__nav">
+            <div class="formulario-izquierdo__nav__prev">
+              <p class="formulario-izquierdo__nav__prev__tittle">Parametrización de Tipos de Líneas de Crédito</p>
+              <!-- <p class="formulario-izquierdo__nav__prev__tittle">{{ 'CONFIGURATION.ADD_EDIT_USER.TITLE' | translate }}</p> -->
+            </div>
+
+            <div class="formulario-izquierdo__nav__next">
+              <button *ngIf="habilitaBtnNuevo" class="formulario-izquierdo__nav__next__btn-view" 
+                    mat-flat-button 
+                    (click)="limpiarFormulario()">{{ 'GENERAL.BTN_NEW' | translate }}</button>
+            <button *ngIf="habilitaBtnActualiza" class="formulario-izquierdo__nav__next__btn-warn" 
+                    mat-flat-button 
+                    (click)="actualizar()">{{ 'GENERAL.BTN_UPDATE' | translate }}</button>
+            <button *ngIf="habilitaBtnRegistro" class="formulario-izquierdo__nav__next__btn-ok" 
+                    mat-flat-button 
+                    (click)="registrar()">{{ 'GENERAL.BTN_REGISTER' | translate }}</button>
+            <button *ngIf="habilitaBtnEliminar" class="formulario-izquierdo__nav__next__btn-delete" 
+                    mat-flat-button 
+                    (click)="eliminar()">{{ 'GENERAL.BTN_DELETE' | translate }}</button>
+            </div>
+          </div>
+
+          <div class="p-2">
+            <form [formGroup]="formObject" class="row">
+
+              <div class="col-sm-6">
+                <span for="id_nomLineaCredito" class="form-label">Nombre de Línea de Crédito</span>
+                <!-- <span for="lblNombreEntidad" class="form-label">{{ 'CONFIGURATION.ADD_EDIT_USER.FORM.TXT_USERNAME' | translate }}</span> -->
+                <input  maxlength="100"
+                        formControlName="nomLineaCredito"
+                        class="form-control"
+                        type="text"
+                        id="id_nomLineaCredito"
+                        [ngClass]="{'is-invalid': submitForm && f.nomLineaCredito.errors}" />
+                <div *ngIf="submitForm && f.nomLineaCredito.errors" class="invalid-feedback">
+                  <div *ngIf="f.nomLineaCredito.errors.required">{{ 'GENERAL.VALIDATES.EMPTY' | translate }}</div>
+                </div>
+              </div>
+
+              <div class="col-sm-5">
+                <span for="id_tasaInteres" class="form-label">Tasa de Interés</span>
+                <!-- <span for="lblNombreEntidad" class="form-label">{{ 'CONFIGURATION.ADD_EDIT_USER.FORM.TXT_USERNAME' | translate }}</span> -->
+                <input  formControlName="tasaInteres"
+                        class="form-control"
+                        type="number"
+                        id="id_tasaInteres"
+                        [ngClass]="{'is-invalid': submitForm && f.tasaInteres.errors}" />
+                <div *ngIf="submitForm && f.tasaInteres.errors" class="invalid-feedback">
+                  <div *ngIf="f.tasaInteres.errors.required">{{ 'GENERAL.VALIDATES.EMPTY' | translate }}</div>
+                </div>
+              </div>
+
+              <div class="col-sm-6">
+                <span for="id_codigoSugef" class="form-label">Código Actividad Sugef</span>
+                <!-- <span for="lblNombreEntidad" class="form-label">{{ 'CONFIGURATION.ADD_EDIT_USER.FORM.TXT_USERNAME' | translate }}</span> -->
+                <input  formControlName="codigoActividadSugef"
+                        class="form-control"
+                        type="number"
+                        id="id_codigoSugef"
+                        [ngClass]="{'is-invalid': submitForm && f.codigoActividadSugef.errors}" />
+                <div *ngIf="submitForm && f.codigoActividadSugef.errors" class="invalid-feedback">
+                  <div *ngIf="f.codigoActividadSugef.errors.required">{{ 'GENERAL.VALIDATES.EMPTY' | translate }}</div>
+                </div>
+              </div>
+
+              <div class="form-group col-sm-1 margin-icos-mat d-flex justify-content-center">
+                  <mat-checkbox formControlName="estado"></mat-checkbox>
+              </div>
+
+            </form>
+          </div>
+        </div>
+
+        <!-- ************************* -->
+        <!-- ** OBJETO SELECCIONADO ** -->
+        <!-- ************************* -->
+              
+        <div *ngIf="mostrarLista" class="contenido-main__table">
+          <br>
+          <table class="table table-striped">
+            <thead>
+              <tr>
+                  <th class="contenido-main__table__mp-ico-edit"></th>
+
+                  <th class="contenido-main__table__tlc-nom">Nombre Línea de Crédito</th>
+                  <th class="contenido-main__table__tlc-tasa">Tasa Interés</th>
+                  <th class="contenido-main__table__tlc-cod">Cód. Actividad Sugef</th>
+                  <th class="contenido-main__table__tlc-estado">Estado</th>
+
+                  <th class="contenido-main__table__mp-registra">Registra</th>
+                  <th class="contenido-main__table__mp-fecha-r">Fecha</th>
+                  <th class="contenido-main__table__mp-modifica">Modifica</th>
+                  <th class="contenido-main__table__mp-fecha-m">Fecha</th>
+              </tr>
+            </thead>
+            <tbody>
+
+              <tr *ngFor="let obj of listObjetos" (click)="seleccionarObjeto(obj)">
+        
+                <td class="item-list-edit"> <a> <mat-icon>edit</mat-icon> </a> </td>
+
+                <td class="item-list-edit" >{{obj.nomLineaCredito}}</td>
+                <td class="item-list-edit contenido-main__table__tlc-tasa__td" >{{obj.tasaInteres}}</td>
+                <td class="item-list-edit contenido-main__table__tlc-cod__td" >{{obj.codigoActividadSugef}}</td>
+                <td class="item-list-edit contenido-main__table__tlc-estado__td" >{{obj.estado}}</td>
+
+                <td class="item-list-edit contenido-main__table__tlc-registra__td" >{{obj.usuarioCreacion}}</td>
+                <td class="item-list-edit contenido-main__table__tlc-fecha-r__td" >{{obj.fechaCreacion | date:'dd/MM/yyyy'}}</td>
+                <td class="item-list-edit contenido-main__table__tlc-modifica__td" >{{obj.usuarioModificacion}}</td>
+                <td class="item-list-edit contenido-main__table__tlc-fecha-m__td" >{{obj.fechaModificacion | date:'dd/MM/yyyy'}}</td>
+
+              </tr>
+
+            </tbody>
+          </table>
+        </div>
+
+      </div>
+    </div>
+  </div>
+
+</main>

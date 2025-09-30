@@ -1,301 +1,163 @@
-<main>
+<!-- <main class="contenido-main">
+    <mat-sidenav-container>
 
-    <article class="bloq">
-        <div class="contenedor mat-elevation-z4">
+        <div *ngIf="showList">
 
-            <section>   <!-- header -->
-                <div class="contenedor__header">                    
-                    <div class="contenedor__header__prev">
-                        <h2 >Consulta de Personas </h2>
+            <div class="mat-elevation-z4 mx-3">
+
+                <div class="card">
+                    <div class="card-body">
+
+                        <div class="row">
+                            <div class="col-md-11">
+                                <p class="contenido-main__h3">Asociados</p>
+                            </div>
+                            <div class="col-md-1">
+                                <button class="btn-add"
+                                        title="Registro Asociados"
+                                        mat-icon-button 
+                                        (click)="addPersona()"> <mat-icon>add</mat-icon> </button>
+                            </div>
+                        </div>
+
+                        <hr>
+
+                        <div class="contenido-main__table">
+                            <table class="table table-striped">
+                                <thead>
+                                    <tr>
+                                        <th style="width: 25%">Nombre</th>
+                                        <th style="width: 25%">Primer Apellido</th>
+                                        <th style="width: 15%">Segundo Apellido</th>
+                                        <th style="width: 15%">Identificación</th>
+                                        <th style="width: 10%">Estado</th>
+                                        <th style="width: 10%"></th>
+                                    </tr>
+                                </thead>
+        
+                                <tbody>
+                                    <tr *ngFor="let persona of listPersonas">
+                                        <td>{{persona.nombre}}</td>
+                                        <td>{{persona.primerApellido}}</td>
+                                        <td>{{persona.segundoApellido}}</td>
+                                        <td>{{persona.identificacion}}</td>
+                                        <td *ngIf="persona.estado==true">Activo</td>
+                                        <td *ngIf="persona.estado==false">Inactivo</td>
+                                        <td style="white-space: nowrap">
+        
+                                            <a  (click)="editPersonaModal(persona)" style="margin-right: 5%;" class="btn btn-sm btn-outline-info" matTooltip="Editar">
+                                                <i class="fa fa-edit"></i> </a>
+
+                                            <a  (click)="editInformacionCrediticiaModal(persona)" class="btn btn-sm btn-outline-primary" matTooltip="Información Crediticia">
+                                                <i class="fa fa-university"></i> </a>
+                                        
+                                            <a (click)="deletePersona(persona.id)" style="margin-left: 5%;" class="btn btn-sm btn-outline-danger" matTooltip="Eliminar">
+                                                <i class="fa fa-trash"></i> </a>
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div> 
                     </div>
-                    <div class="contenedor__header__next">  </div>
                 </div>
-            </section>
-
-            <section>   <!-- body -->
-                <div class="contenedor__body">
-
-                    <form [formGroup]="formPersona" class="row">
-
-                        <div class="form-group col-md-3">
-                            <label for="id" class="form-label">Id</label>
-                            <input formControlName="id" class="form-control" type="text" id="id_id" readonly />
-                        </div>
-                        
-                        <div class="form-group col-md-6">
-                            <label for="lblIdentificacion" class="form-label">Número de Identificación</label>
-                            <input formControlName="identificacion" class="form-control" type="text" id="id_identificacion"
-                                [ngClass]="{ 'is-invalid': submittedPersonForm && f.identificacion.errors }" />
-                            <div *ngIf="submittedPersonForm && f.identificacion.errors" class="invalid-feedback">
-                                <div *ngIf="f.identificacion.errors.required">La identificación es requerida</div>
-                            </div>
-                        </div>
-
-                        <div class="col-md-3 margin-icos-mat">
-                            <!-- <a class="item-seleccionable"> <mat-icon (click)="SubmitPerson()">search</mat-icon> </a> -->
-
-                            <a (click)="SubmitPerson()" class="btn btn-sm btn-outline-secondary" matTooltip="Buscar">
-                                <i class="fa fa-search"></i> </a>
-
-                            <a (click)="addPersona()" style="margin-left: 5%;" class="btn btn-sm btn-outline-success" matTooltip="Añadir">
-                                <i class="fa fa-plus"></i> </a>
-                        </div>
-                        
-                        <div class="form-group col-md-6">
-                            <label for="nombre" class="form-label">Nombre</label>
-                            <input formControlName="nombre" class="form-control" type="text" id="id_nombre"
-                                [ngClass]="{ 'is-invalid': submittedPersonForm && f.nombre.errors }" />
-                            <div *ngIf="submittedPersonForm && f.nombre.errors" class="invalid-feedback">
-                                <div *ngIf="f.nombre.errors.required">El nombre es requerido</div>
-                            </div>
-                        </div>
-                        <div class="form-group col-md-3">
-                            <label for="primerApellido" class="form-label">Primer Apellido</label>
-                            <input formControlName="primerApellido" class="form-control" type="text" id="id_nombre"
-                                [ngClass]="{ 'is-invalid': submittedPersonForm && f.primerApellido.errors }" />
-                            <div *ngIf="submittedPersonForm && f.primerApellido.errors" class="invalid-feedback">
-                                <div *ngIf="f.primerApellido.errors.required">El primer apellido es requerido</div>
-                            </div>
-                        </div>
-                        <div class="form-group col-md-3">
-                            <label for="segundoApellido" class="form-label">Segundo Apellido</label>
-                            <input formControlName="segundoApellido" class="form-control" type="text" id="id_nombre"
-                                [ngClass]="{ 'is-invalid': submittedPersonForm && f.segundoApellido.errors }" />
-                            <div *ngIf="submittedPersonForm && f.segundoApellido.errors" class="invalid-feedback">
-                                <div *ngIf="f.segundoApellido.errors.required">El segundo apellido es requerido</div>
-                            </div>
-                        </div>
-                        <button type="submit" (click)="SubmitPerson()"></button>
-                    </form>
-                </div>
-            </section>
-
-            <section> <!-- footer -->
-                <div class="contenedor__footer">
-                    <section class="sectionmenu">
-                        
-                    </section>
-
-                </div>
-            </section>
-
+            </div>
         </div>
-    </article>
-
-    <article class="bloq">
-        <div class="contenedor mat-elevation-z4">
-
-            <section>   <!-- header -->
-                <div class="contenedor__header">                    
-                    <div class="contenedor__header__prev">
-                        <h2 >Lista de Personas </h2>
-                    </div>
-                    <div class="contenedor__header__next">  </div>
-                </div>
-            </section>
-
-            <section>   <!-- body -->
-                <div class="contenedor__body">
-                    <!-- *************** -->
-                    <mat-sidenav-container *ngIf="showList">
-                            
-                        <div class="content mat-elevation-z4">
-                            <main>
-                                
-                                <!-- <a style="margin-top: 3%;" (click)="onAdd()" class="btn btn-sm btn-outline-success float-right" matTooltip="Nuevo">
-                                    <i class="fa fa-plus" aria-hidden="true"></i></a> 
-                    
-                                <h1 style="color:#1A5276;margin-top: 2%;">Personas</h1>-->
-                                
-                                <article>
-                                    <section class="content__menu">
-                            
-                                        <table class="table table-striped">
-                                            <thead>
-                                                <tr>
-                                                    <th style="width: 30%">Nombre</th>
-                                                    <th style="width: 15%">Primer Apellido</th>
-                                                    <th style="width: 15%">Segundo Apellido</th>
-                                                    <th style="width: 10%">Identificación</th>
-                                                    <th style="width: 10%">Estado</th>
-                                                    <th style="width: 10%"></th>
-                                                </tr>
-                                            </thead>
-                    
-                                            <tbody>
-                                                <tr *ngFor="let persona of listPersonas">
-                                                    <td>{{persona.nombre}}</td>
-                                                    <td>{{persona.primerApellido}}</td>
-                                                    <td>{{persona.segundoApellido}}</td>
-                                                    <td>{{persona.identificacion}}</td>
-                                                    <td *ngIf="persona.estado==true">Activo</td>
-                                                    <td *ngIf="persona.estado==false">Inactivo</td>
-                                                    <td style="white-space: nowrap">
-                    
-                                                        <a  (click)="editPersonaModal(persona)" style="margin-right: 5%;" class="btn btn-sm btn-outline-info" matTooltip="Editar">
-                                                            <i class="fa fa-edit"></i> </a>
-
-                                                        <a  (click)="editInformacionCrediticiaModal(persona)" class="btn btn-sm btn-outline-primary" matTooltip="Información Crediticia">
-                                                            <i class="fa fa-university"></i> </a>
-                                                    
-                                                        <a (click)="deletePersona(persona.id)" style="margin-left: 5%;" class="btn btn-sm btn-outline-danger" matTooltip="Eliminar">
-                                                            <i class="fa fa-trash"></i> </a>
-                                                    </td>
-                                                </tr>
-                                            </tbody>
-                                        </table>
-                    
-                                    </section>
-                                </article>
-                            </main>
-                        </div>
-                    </mat-sidenav-container>
-                    
-                    <!-- *************** -->
-                </div>
-            </section>
-
-            <section> <!-- footer -->
-                <div class="contenedor__footer">
-                    <section class="sectionmenu">
-                        <div class=" mat-elevation-z4">
-            
-                            
-                        </div>
-                    </section>
-
-                </div>
-            </section>
-
-        </div>
-    </article>
+    </mat-sidenav-container>
 </main>
 
-<!-- <article class="modal modal-config" id="personaModal">
+<div class="modal fade" id="personaModal" tabindex="-1">
 
-    <div class="modal-content">
+    <div class="modal-dialog modal-xl modal-dialog-centered">
+        <div class="modal-content">
 
-        <section>
-            <div class="contenedor__header-modal" >
-                <div class="contenedor__header__prev">
-                    <h1 style="color:#1A5276">Registro de Personas</h1>
-                </div>
-                <div class="contenedor__header__next">
-                    <button  style="color:red" type="button" class="close btn-close" data-dismiss="modal">&times;</button>
-                </div>
-            </div>
-        </section>
-
-
-        <section>
-
-            <div class="contenedor__body"> 
-                <mat-stepper [linear]="isLinear" #stepper>
-                    <mat-step [stepControl]="formPersona">
-                    <form [formGroup]="formPersona">
-                        <ng-template matStepLabel>Fill out your name</ng-template>
-                        <mat-form-field appearance="fill">
-                        <mat-label>Name</mat-label>
-                        <input matInput placeholder="Last name, First name" formControlName="identificacion" required>
-                        </mat-form-field>
-                        <div>
-                        <button mat-button matStepperNext>Next</button>
+            <div class="modal-header">
+                <div class="cont-modal">
+                    <div class="cont-modal__header">
+                        <div class="cont-modal__header__prev">
+                            <h1 style="color:#1A5276">Registro de Asociados</h1>
                         </div>
-                    </form>
-                    </mat-step>
-                    <mat-step [stepControl]="formPersona" label="Fill out your address">
-                    <form [formGroup]="formPersona">
-                        <mat-form-field appearance="fill">
-                        <mat-label>Address</mat-label>
-                        <input matInput formControlName="identificacion" placeholder="Ex. 1 Main St, New York, NY"
-                                required>
-                        </mat-form-field>
-                        <div>
-                        <button mat-button matStepperPrevious>Back</button>
-                        <button mat-button matStepperNext>Next</button>
+                        <div class="cont-modal__header__next">
+                            <button style="color:red" type="button" class="close btn-close" data-dismiss="modal">&times;</button>
                         </div>
-                    </form>
-                    </mat-step>
-                </mat-stepper>
-            </div>
-        </section>
-    </div>
-</article> -->
-
-<article class="modal modal-config" id="personaModal">
-
-    <div class="modal-content">
-
-        <section>
-            <div class="contenedor__header-modal" >
-                <div class="contenedor__header__prev">
-                    <h1 style="color:#1A5276">Registro de Personas</h1>
-                </div>
-                <div class="contenedor__header__next">
-                    <button  style="color:red" type="button" class="close btn-close" data-dismiss="modal">&times;</button>
+                    </div>
                 </div>
             </div>
-        </section>
 
-
-        <section>
-
-            <div class="contenedor__body">
-
-                <form [formGroup]="formPersona" class="row modal-config__formulario-body" >
+            <div class="modal-body">
+                <form [formGroup]="formPersona" class="row" >
                     
                     <div class="form-group col-md-3">
-                        <label for="identificacionPersona" class="form-label">Identificación</label>
-                        <input formControlName="identificacion" class="form-control" type="text" id="id_identificacion_persona"  
-                            [ngClass]="{ 'is-invalid': submitted && f.nombre.errors }" />
-                        <div *ngIf="submitted && f.identificacion.errors" class="invalid-feedback">
-                            <div *ngIf="f.identificacion.errors.required">La identificación de la persona es requerida.</div>
+                        <label for="id_identificacionPersona" class="form-label">Identificación</label>
+                        <input formControlName="identificacionPersona" 
+                                class="form-control" 
+                                type="text" 
+                                id="id_identificacionPersona"
+                            [ngClass]="{ 'is-invalid': submitted && f.identificacionPersona.errors }" />
+                        <div *ngIf="submitted && f.identificacionPersona.errors" class="invalid-feedback">
+                            <div *ngIf="f.identificacionPersona.errors.required">La identificación de la persona es requerida.</div>
                         </div>
                     </div>
 
                     <div class="form-group col-md-3">
-                        <label for="nombrePersona" class="form-label">Nombre</label>
-                        <input formControlName="nombre" class="form-control" type="text" id="id_nombre_persona"  
-                            [ngClass]="{ 'is-invalid': submitted && f.nombre.errors }" />
-                        <div *ngIf="submitted && f.nombre.errors" class="invalid-feedback">
-                            <div *ngIf="f.nombre.errors.required">El nombre de la persona es requerida.</div>
+                        <label for="id_nombrePersona" class="form-label">Nombre</label>
+                        <input formControlName="nombrePersona" 
+                                class="form-control" 
+                                type="text" 
+                                id="id_nombrePersona"
+                            [ngClass]="{ 'is-invalid': submitted && f.nombrePersona.errors }" />
+                        <div *ngIf="submitted && f.nombrePersona.errors" class="invalid-feedback">
+                            <div *ngIf="f.nombrePersona.errors.required">El nombre de la persona es requerida.</div>
                         </div>
                     </div>
 
                     <div class="form-group col-md-3">
-                        <label for="primerApellidoPersona" class="form-label">Primer Apellido</label>
-                        <input formControlName="primerApellido" class="form-control" type="text" id="id_primer_apellido_persona"  
-                            [ngClass]="{ 'is-invalid': submitted && f.primerApellido.errors }" />
-                        <div *ngIf="submitted && f.primerApellido.errors" class="invalid-feedback">
-                            <div *ngIf="f.primerApellido.errors.required">El primer apellido es requerido.</div>
+                        <label for="id_primerApellido" class="form-label">Primer Apellido</label>
+                        <input formControlName="primerApellidoPersona" 
+                                class="form-control" 
+                                type="text" 
+                                id="id_primerApellido"  
+                            [ngClass]="{ 'is-invalid': submitted && f.primerApellidoPersona.errors }" />
+                        <div *ngIf="submitted && f.primerApellidoPersona.errors" class="invalid-feedback">
+                            <div *ngIf="f.primerApellidoPersona.errors.required">El primer apellido es requerido.</div>
                         </div>
                     </div>
 
                     <div class="form-group col-md-3">
-                        <label for="segundoApellidoPersona" class="form-label">Segundo Apellido</label>
-                        <input formControlName="segundoApellido" class="form-control" type="text" id="id_segundo_apellido_persona"  
-                            [ngClass]="{ 'is-invalid': submitted && f.segundoApellido.errors }" />
-                        <div *ngIf="submitted && f.segundoApellido.errors" class="invalid-feedback">
-                            <div *ngIf="f.segundoApellido.errors.required">El segundo apellido es requerido.</div>
+                        <label for="id_segundoApellido" class="form-label">Segundo Apellido</label>
+                        <input formControlName="segundoApellidoPersona" 
+                                class="form-control" 
+                                type="text" 
+                                id="id_segundoApellido"  
+                            [ngClass]="{ 'is-invalid': submitted && f.segundoApellidoPersona.errors }" />
+                        <div *ngIf="submitted && f.segundoApellidoPersona.errors" class="invalid-feedback">
+                            <div *ngIf="f.segundoApellidoPersona.errors.required">El segundo apellido es requerido.</div>
                         </div>
                     </div>
 
                     <div class="form-group col-md-3">
-                        <label for="lblEstadosCiviles" class="form-label">Estados Civiles</label>
-                        <select formControlName="estadoCivil" class="form-control" name="selectEstadosCiviles"
-                            [ngClass]="{ 'is-invalid': submitted && f.estadoCivil.errors }" >
-                                <option [ngValue]="objeto.id" *ngFor="let objeto of listEstadosCiviles">{{objeto.id}} - {{objeto.descripcion}}</option>
+                        <label for="id_EstadoCivil" class="form-label">Estados Civiles</label>
+                        <select formControlName="estadoCivilPersona" 
+                                class="form-control" 
+                                name="selectEstadosCiviles"
+                                id="id_EstadoCivil"
+                                [ngClass]="{ 'is-invalid': submitted && f.estadoCivilPersona.errors }" >
+                                <option [ngValue]="objeto.id" 
+                                        *ngFor="let objeto of listEstadosCiviles">{{objeto.id}} - {{objeto.descripcion}}</option>
                         </select>
-                        <div *ngIf="submitted && f.estadoCivil.errors" class="invalid-feedback">
-                            <div *ngIf="f.estadoCivil.errors.required">El estado civil es requerido</div>
+                        <div *ngIf="submitted && f.estadoCivilPersona.errors" class="invalid-feedback">
+                            <div *ngIf="f.estadoCivilPersona.errors.required">El estado civil es requerido</div>
                         </div>
                     </div>
 
                     <div class="form-group col-md-3">
-                        <label for="lblTipoPersona" class="form-label">Tipo Persona</label>
-                        <select formControlName="codigoTipoPersona" class="form-control" name="selectTipoPersona"
-                            [ngClass]="{ 'is-invalid': submitted && f.codigoTipoPersona.errors }" >
-                                <option [ngValue]="objeto.id" *ngFor="let objeto of listTiposPersonas">{{objeto.id}} - {{objeto.descripcion}}</option>
+                        <label for="id_TipoPersona" class="form-label">Tipo Persona</label>
+                        <select formControlName="codigoTipoPersona" 
+                                class="form-control" 
+                                name="selectTipoPersona"
+                                id="id_TipoPersona"
+                                [ngClass]="{ 'is-invalid': submitted && f.codigoTipoPersona.errors }" >
+                                <option [ngValue]="objeto.id" 
+                                        *ngFor="let objeto of listTiposPersonas">{{objeto.id}} - {{objeto.descripcion}}</option>
                         </select>
                         <div *ngIf="submitted && f.codigoTipoPersona.errors" class="invalid-feedback">
                             <div *ngIf="f.codigoTipoPersona.errors.required">El tipo de persona es requerido.</div>
@@ -303,292 +165,356 @@
                     </div>
 
                     <div class="form-group col-md-3">
-                        <label for="lblTipoGenero" class="form-label">Tipo Genero</label>
-                        <select formControlName="codigoGenero" class="form-control" name="selectTipoGenero"
-                            [ngClass]="{ 'is-invalid': submitted && f.codigoGenero.errors }" >
-                                <option [ngValue]="objeto.id" *ngFor="let objeto of listTiposGeneros">{{objeto.id}} - {{objeto.descripcion}}</option>
+                        <label for="id_Genero" class="form-label">Tipo Genero</label>
+                        <select formControlName="codigoGeneroPersona" 
+                                class="form-control" 
+                                name="selectTipoGenero"
+                                id="id_Genero"
+                                [ngClass]="{ 'is-invalid': submitted && f.codigoGeneroPersona.errors }" >
+                                <option [ngValue]="objeto.id" 
+                                        *ngFor="let objeto of listTiposGeneros">{{objeto.id}} - {{objeto.descripcion}}</option>
                         </select>
-                        <div *ngIf="submitted && f.codigoGenero.errors" class="invalid-feedback">
-                            <div *ngIf="f.codigoGenero.errors.required">El tipo de genero es requerido.</div>
+                        <div *ngIf="submitted && f.codigoGeneroPersona.errors" class="invalid-feedback">
+                            <div *ngIf="f.codigoGeneroPersona.errors.required">El tipo de genero es requerido.</div>
                         </div>
                     </div>
 
                     <div class="form-group col-md-3">
-                        <label for="lblCondicionLaboral" class="form-label">Condición Laboral</label>
-                        <select formControlName="codigoCondicionLaboral" class="form-control" name="selectCondicionLaboral"
-                            [ngClass]="{ 'is-invalid': submitted && f.codigoCondicionLaboral.errors }" >
-                                <option [ngValue]="objeto.id" *ngFor="let objeto of listCondicionesLaborales">{{objeto.id}} - {{objeto.descripcion}}</option>
+                        <label for="id_CondicionLaboral" class="form-label">Condición Laboral</label>
+                        <select formControlName="codigoCondicionLaboralPersona" 
+                                class="form-control" 
+                                name="selectCondicionLaboral"
+                                id="id_CondicionLaboral"
+                                [ngClass]="{ 'is-invalid': submitted && f.codigoCondicionLaboralPersona.errors }" >
+                                <option [ngValue]="objeto.id" 
+                                        *ngFor="let objeto of listCondicionesLaborales">{{objeto.id}} - {{objeto.descripcion}}</option>
                         </select>
-                        <div *ngIf="submitted && f.codigoCondicionLaboral.errors" class="invalid-feedback">
-                            <div *ngIf="f.codigoCondicionLaboral.errors.required">La condición laboral es requerida.</div>
+                        <div *ngIf="submitted && f.codigoCondicionLaboralPersona.errors" class="invalid-feedback">
+                            <div *ngIf="f.codigoCondicionLaboralPersona.errors.required">La condición laboral es requerida.</div>
                         </div>
                     </div>
 
                     <div class="form-group col-md-3">
-                        <label for="lblTipoHabitacion" class="form-label">Tipo Habitación</label>
-                        <select formControlName="codigoTipoHabitacion" class="form-control" name="selectTipoHabitacion"
-                            [ngClass]="{ 'is-invalid': submitted && f.codigoTipoHabitacion.errors }" >
-                                <option [ngValue]="objeto.id" *ngFor="let objeto of listTiposHabitaciones">{{objeto.id}} - {{objeto.descripcion}}</option>
+                        <label for="id_TipoHabitacion" class="form-label">Tipo Habitación</label>
+                        <select formControlName="codigoTipoHabitacionPersona" 
+                                class="form-control" 
+                                name="selectTipoHabitacion"
+                                id="id_TipoHabitacion"
+                                [ngClass]="{ 'is-invalid': submitted && f.codigoTipoHabitacionPersona.errors }" >
+                                <option [ngValue]="objeto.id" 
+                                        *ngFor="let objeto of listTiposHabitaciones">{{objeto.id}} - {{objeto.descripcion}}</option>
                         </select>
-                        <div *ngIf="submitted && f.codigoTipoHabitacion.errors" class="invalid-feedback">
-                            <div *ngIf="f.codigoTipoHabitacion.errors.required">La condición laboral es requerida.</div>
+                        <div *ngIf="submitted && f.codigoTipoHabitacionPersona.errors" class="invalid-feedback">
+                            <div *ngIf="f.codigoTipoHabitacionPersona.errors.required">La condición laboral es requerida.</div>
                         </div>
                     </div>
 
                     <div class="form-group col-md-3">
-                        <label for="cantidadHijosPersona" class="form-label">Cantidad Hijos</label>
-                        <input formControlName="cantidadHijos" class="form-control" type="number" id="id_cantidad_hijos_persona"  
-                            [ngClass]="{ 'is-invalid': submitted && f.cantidadHijos.errors }" />
-                        <div *ngIf="submitted && f.cantidadHijos.errors" class="invalid-feedback">
-                            <div *ngIf="f.cantidadHijos.errors.required">La cantidad de hijos es requerida.</div>
+                        <label for="id_cantidadHijos" class="form-label">Cantidad Hijos</label>
+                        <input formControlName="cantidadHijosPersona" 
+                                class="form-control" 
+                                type="number" 
+                                id="id_cantidadHijos"  
+                            [ngClass]="{ 'is-invalid': submitted && f.cantidadHijosPersona.errors }" />
+                        <div *ngIf="submitted && f.cantidadHijosPersona.errors" class="invalid-feedback">
+                            <div *ngIf="f.cantidadHijosPersona.errors.required">La cantidad de hijos es requerida.</div>
                         </div>
                     </div>
 
                     <div class="form-group col-md-3">
-                        <label for="fechaNacimientoPersona" class="form-label">Fecha Nacimiento</label>
-                        <input formControlName="fechaNacimiento" class="form-control" type="text" id="id_fecha_nacimiento_persona"  
-                            [ngClass]="{ 'is-invalid': submitted && f.fechaNacimiento.errors }" matInput [matDatepicker]="picker"/>
+                        <label for="id_fechaNacimiento" class="form-label">Fecha Nacimiento</label>
+                        <input formControlName="fechaNacimientoPersona" 
+                                class="form-control" 
+                                type="text" 
+                                id="id_fechaNacimiento"  
+                                [ngClass]="{ 'is-invalid': submitted && f.fechaNacimientoPersona.errors }" matInput [matDatepicker]="picker"/>
                     
                         <mat-datepicker-toggle matIconSuffix [for]="picker"></mat-datepicker-toggle>
                         <mat-datepicker #picker></mat-datepicker> 
 
-                        <div *ngIf="submitted && f.fechaNacimiento.errors" class="invalid-feedback">
-                            <div *ngIf="f.fechaNacimiento.errors.required">La fecha de nacimiento es requerida.</div>
+                        <div *ngIf="submitted && f.fechaNacimientoPersona.errors" class="invalid-feedback">
+                            <div *ngIf="f.fechaNacimientoPersona.errors.required">La fecha de nacimiento es requerida.</div>
                         </div>
                     </div>
-
 
                     <div class="form-group col-sm-1 margin-icos-mat margin-icos-mat__cbx">
-                        <mat-checkbox formControlName="estado">Estado</mat-checkbox>
+                        <mat-checkbox formControlName="estadoPersona">Estado</mat-checkbox>
                     </div>
                     <div class="form-group col-sm-1 margin-icos-mat">
-                        <mat-checkbox formControlName="indAsociado" >Es Asociado</mat-checkbox>
+                        <mat-checkbox formControlName="indAsociadoPersona" >Es Asociado</mat-checkbox>
                     </div>
-
                 </form>
 
-            </div>
-        </section>
-
-        <section>   
-            <div class="contenedor__footer">
-                <div class="contenedor__footer__prev">
-                    <button  class="btn btn-success px-5" (click)="guardarPersona()">
-                        Registrar </button>
+                <div class="cont-modal">
+                    <div class="cont-modal__footer">
+                        <div class="cont-modal__footer__prev"> </div>
+                        <div class="cont-modal__footer__next">
+                            <button class="btn btn-success px-5" 
+                                    (click)="guardarPersona()"> Registrar </button>
+                        </div>
+                    </div>
                 </div>
-                <div class="contenedor__footer__next"> </div>
             </div>
-        </section>
-
+        </div>
     </div>
+</div>
 
-</article>
+<div class="modal fade" id="infoCreiditiciaModal" tabindex="-1">
 
-<!-- Modal Información Crediticia -->
+    <div class="modal-dialog modal-xl modal-dialog-centered">
+        <div class="modal-content">
 
-<article class="modal modal-config" id="infoCreiditiciaModal">
-
-    <div class="modal-content">
-
-        <section>
-            <div class="contenedor__header-modal" >
-                <div class="contenedor__header__prev">
-                    <h1 style="color:#1A5276">Información Crediticia</h1>
-                </div>
-                <div class="contenedor__header__next">
-                    <button  style="color:red" type="button" class="close btn-close" data-dismiss="modal">&times;</button>
+            <div class="modal-header">
+                <div class="cont-modal">
+                    <div class="cont-modal__header">
+                        <div class="cont-modal__header__prev">
+                            <h1 style="color:#1A5276">Información Crediticia</h1>
+                        </div>
+                        <div class="cont-modal__header__next">
+                            <button style="color:red" type="button" class="close btn-close" data-dismiss="modal">&times;</button>
+                        </div>
+                    </div>
                 </div>
             </div>
-        </section>
 
-
-        <section>
-
-            <div class="contenedor__body">
-
-                <form [formGroup]="formPersona" class="row modal-config__formulario-body" >
+            <div class="modal-body">
+                <form [formGroup]="formPersonaCredit" class="row" >
                     
                     <div class="form-group col-md-3">
-                        <label for="identificacionPersona" class="form-label">Identificación</label>
-                        <input formControlName="identificacion" class="form-control" type="text" id="id_identificacion_persona"  
-                            [ngClass]="{ 'is-invalid': submitted && f.nombre.errors }" disabled/>
-                        <div *ngIf="submitted && f.identificacion.errors" class="invalid-feedback">
-                            <div *ngIf="f.identificacion.errors.required">La identificación de la persona es requerida.</div>
+                        <label for="id_identificacionCredit" class="form-label">Identificación</label>
+                        <input formControlName="identificacion" 
+                                class="form-control" 
+                                type="text" 
+                                id="id_identificacionCredit"  
+                                [ngClass]="{ 'is-invalid': submitted && c.nombre.errors }" disabled/>
+                        <div *ngIf="submitted && c.identificacion.errors" class="invalid-feedback">
+                            <div *ngIf="c.identificacion.errors.required">La identificación de la persona es requerida.</div>
                         </div>
                     </div>
 
                     <div class="form-group col-md-3">
-                        <label for="nombrePersona" class="form-label">Nombre</label>
-                        <input formControlName="nombre" class="form-control" type="text" id="id_nombre_persona"  
-                            [ngClass]="{ 'is-invalid': submitted && f.nombre.errors }" disabled/>
-                        <div *ngIf="submitted && f.nombre.errors" class="invalid-feedback">
-                            <div *ngIf="f.nombre.errors.required">El nombre de la persona es requerida.</div>
+                        <label for="id_nombreCredit" class="form-label">Nombre</label>
+                        <input formControlName="nombre" 
+                                class="form-control" 
+                                type="text" 
+                                id="id_nombreCredit"  
+                                [ngClass]="{ 'is-invalid': submitted && c.nombre.errors }" disabled/>
+                        <div *ngIf="submitted && c.nombre.errors" class="invalid-feedback">
+                            <div *ngIf="c.nombre.errors.required">El nombre de la persona es requerida.</div>
                         </div>
                     </div>
 
                     <div class="form-group col-md-3">
-                        <label for="primerApellidoPersona" class="form-label">Primer Apellido</label>
-                        <input formControlName="primerApellido" class="form-control" type="text" id="id_primer_apellido_persona"  
-                            [ngClass]="{ 'is-invalid': submitted && f.primerApellido.errors }" disabled/>
-                        <div *ngIf="submitted && f.primerApellido.errors" class="invalid-feedback">
-                            <div *ngIf="f.primerApellido.errors.required">El primer apellido es requerido.</div>
+                        <label for="id_primerApellidoCredit" class="form-label">Primer Apellido</label>
+                        <input formControlName="primerApellido" 
+                                class="form-control" 
+                                type="text" 
+                                id="id_primerApellidoCredit"  
+                                [ngClass]="{ 'is-invalid': submitted && c.primerApellido.errors }" disabled/>
+                        <div *ngIf="submitted && c.primerApellido.errors" class="invalid-feedback">
+                            <div *ngIf="c.primerApellido.errors.required">El primer apellido es requerido.</div>
                         </div>
                     </div>
 
                     <div class="form-group col-md-3">
-                        <label for="segundoApellidoPersona" class="form-label">Segundo Apellido</label>
-                        <input formControlName="segundoApellido" class="form-control" type="text" id="id_segundo_apellido_persona"  
-                            [ngClass]="{ 'is-invalid': submitted && f.segundoApellido.errors }" disabled/>
-                        <div *ngIf="submitted && f.segundoApellido.errors" class="invalid-feedback">
-                            <div *ngIf="f.segundoApellido.errors.required">El segundo apellido es requerido.</div>
+                        <label for="id_segundoApellidoCredit" class="form-label">Segundo Apellido</label>
+                        <input formControlName="segundoApellido" 
+                                class="form-control" 
+                                type="text" 
+                                id="id_segundoApellidoCredit"  
+                                [ngClass]="{ 'is-invalid': submitted && c.segundoApellido.errors }" disabled/>
+                        <div *ngIf="submitted && c.segundoApellido.errors" class="invalid-feedback">
+                            <div *ngIf="c.segundoApellido.errors.required">El segundo apellido es requerido.</div>
                         </div>
                     </div>
 
                     <div class="form-group col-md-3">
-                        <label for="cantidadFianzasPersona" class="form-label">Cantidad Fianzas</label>
-                        <input formControlName="cantidadFianzas" class="form-control" type="number" id="id_cantidad_fianzas_persona"  
-                            [ngClass]="{ 'is-invalid': submitted && f.cantidadFianzas.errors }" />
-                        <div *ngIf="submitted && f.cantidadFianzas.errors" class="invalid-feedback">
-                            <div *ngIf="f.cantidadFianzas.errors.required">La cantidad de fianzas es requerida.</div>
+                        <label for="id_cantidadFinanzasCredit" class="form-label">Cantidad Fianzas</label>
+                        <input formControlName="cantidadFianzas" 
+                                class="form-control" 
+                                type="number" 
+                                id="id_cantidadFinanzasCredit"  
+                                [ngClass]="{ 'is-invalid': submitted && c.cantidadFianzas.errors }" />
+                        <div *ngIf="submitted && c.cantidadFianzas.errors" class="invalid-feedback">
+                            <div *ngIf="c.cantidadFianzas.errors.required">La cantidad de fianzas es requerida.</div>
                         </div>
                     </div>
 
                     <div class="form-group col-md-3">
-                        <label for="tiempoAfiliacionPersona" class="form-label">Tiempo Afiliación</label>
-                        <input formControlName="tiempoAfiliacion" class="form-control" type="number" id="id_tiempo_afiliacion_persona"  
-                            [ngClass]="{ 'is-invalid': submitted && f.tiempoAfiliacion.errors }" />
-                        <div *ngIf="submitted && f.tiempoAfiliacion.errors" class="invalid-feedback">
-                            <div *ngIf="f.tiempoAfiliacion.errors.required">El tiempo de afiliación es requerido.</div>
+                        <label for="id_tiempoAfiliacionCredit" class="form-label">Tiempo Afiliación</label>
+                        <input formControlName="tiempoAfiliacion" 
+                                class="form-control" 
+                                type="number" 
+                                id="id_tiempoAfiliacionCredit"  
+                                [ngClass]="{ 'is-invalid': submitted && c.tiempoAfiliacion.errors }" />
+                        <div *ngIf="submitted && c.tiempoAfiliacion.errors" class="invalid-feedback">
+                            <div *ngIf="c.tiempoAfiliacion.errors.required">El tiempo de afiliación es requerido.</div>
                         </div>
                     </div>
 
                     <div class="form-group col-md-3">
-                        <label for="cantidadCreditosHistoricoPersona" class="form-label">Cantidad de Créditos Histórico</label>
-                        <input formControlName="cantidadCreditosHistorico" class="form-control" type="number" id="id_cantidad_creditos_persona"  
-                            [ngClass]="{ 'is-invalid': submitted && f.cantidadCreditosHistorico.errors }" />
-                        <div *ngIf="submitted && f.cantidadCreditosHistorico.errors" class="invalid-feedback">
-                            <div *ngIf="f.cantidadCreditosHistorico.errors.required">La cantidad de créditos es requerida.</div>
+                        <label for="id_cantidadCreditosHistCredit" class="form-label">Cantidad de Créditos Histórico</label>
+                        <input formControlName="cantidadCreditosHistorico" 
+                                class="form-control" 
+                                type="number" 
+                                id="id_cantidadCreditosHistCredit"  
+                                [ngClass]="{ 'is-invalid': submitted && c.cantidadCreditosHistorico.errors }" />
+                        <div *ngIf="submitted && c.cantidadCreditosHistorico.errors" class="invalid-feedback">
+                            <div *ngIf="c.cantidadCreditosHistorico.errors.required">La cantidad de créditos es requerida.</div>
                         </div>
                     </div>
 
                     <div class="form-group col-md-3">
-                        <label for="totalSaldoFianzasPersona" class="form-label">Total Saldo Fianzas</label>
-                        <input formControlName="totalSaldoFianzas" class="form-control" type="number" id="id_total_saldo_fianza_persona"  
-                            [ngClass]="{ 'is-invalid': submitted && f.totalSaldoFianzas.errors }" />
-                        <div *ngIf="submitted && f.totalSaldoFianzas.errors" class="invalid-feedback">
-                            <div *ngIf="f.totalSaldoFianzas.errors.required">El total de saldo de fianza es requerido.</div>
+                        <label for="id_totalAaldoFianzaCredit" class="form-label">Total Saldo Fianzas</label>
+                        <input formControlName="totalSaldoFianzas" 
+                                class="form-control" 
+                                type="number" 
+                                id="id_totalAaldoFianzaCredit"  
+                                [ngClass]="{ 'is-invalid': submitted && c.totalSaldoFianzas.errors }" />
+                        <div *ngIf="submitted && c.totalSaldoFianzas.errors" class="invalid-feedback">
+                            <div *ngIf="c.totalSaldoFianzas.errors.required">El total de saldo de fianza es requerido.</div>
                         </div>
                     </div>
                     
                     <div class="form-group col-md-3">
-                        <label for="totalCuotasFianzasPersona" class="form-label">Total Cuotas Fianzas</label>
-                        <input formControlName="totalCuotasFianzas" class="form-control" type="number" id="id_total_cuotas_fianza_persona"  
-                            [ngClass]="{ 'is-invalid': submitted && f.totalCuotasFianzas.errors }" />
-                        <div *ngIf="submitted && f.totalCuotasFianzas.errors" class="invalid-feedback">
-                            <div *ngIf="f.totalCuotasFianzas.errors.required">El total de cuotas de fianza es requerido.</div>
+                        <label for="id_totalCuotasFianzaCredit" class="form-label">Total Cuotas Fianzas</label>
+                        <input formControlName="totalCuotasFianzas" 
+                                class="form-control" 
+                                type="number" 
+                                id="id_totalCuotasFianzaCredit"  
+                                [ngClass]="{ 'is-invalid': submitted && c.totalCuotasFianzas.errors }" />
+                        <div *ngIf="submitted && c.totalCuotasFianzas.errors" class="invalid-feedback">
+                            <div *ngIf="c.totalCuotasFianzas.errors.required">El total de cuotas de fianza es requerido.</div>
                         </div>
                     </div>
 
                     <div class="form-group col-md-3">
-                        <label for="cPHPersona" class="form-label">CPH</label>
-                        <input formControlName="cPH" class="form-control" type="number" id="id_cph_persona"  
-                            [ngClass]="{ 'is-invalid': submitted && f.cPH.errors }" />
-                        <div *ngIf="submitted && f.cPH.errors" class="invalid-feedback">
-                            <div *ngIf="f.cPH.errors.required">El CPH es requerido.</div>
+                        <label for="id_cphCredit" class="form-label">CPH</label>
+                        <input formControlName="cPH" 
+                                class="form-control" 
+                                type="number" 
+                                id="id_cphCredit"  
+                                [ngClass]="{ 'is-invalid': submitted && c.cPH.errors }" />
+                        <div *ngIf="submitted && c.cPH.errors" class="invalid-feedback">
+                            <div *ngIf="c.cPH.errors.required">El CPH es requerido.</div>
                         </div>
                     </div>
 
                     <div class="form-group col-md-3">
-                        <label for="cPHUltimos12MesesPersona" class="form-label">CPH Últimos 12 meses</label>
-                        <input formControlName="cPHUltimos12Meses" class="form-control" type="number" id="id_cph_12meses_persona"  
-                            [ngClass]="{ 'is-invalid': submitted && f.cPHUltimos12Meses.errors }" />
-                        <div *ngIf="submitted && f.cPHUltimos12Meses.errors" class="invalid-feedback">
-                            <div *ngIf="f.cPHUltimos12Meses.errors.required">El CPH de los últimos 12 meses es requerido.</div>
+                        <label for="id_cph12MesesCredit" class="form-label">CPH Últimos 12 meses</label>
+                        <input formControlName="cPHUltimos12Meses" 
+                                class="form-control" 
+                                type="number" 
+                                id="id_cph12MesesCredit"  
+                                [ngClass]="{ 'is-invalid': submitted && c.cPHUltimos12Meses.errors }" />
+                        <div *ngIf="submitted && c.cPHUltimos12Meses.errors" class="invalid-feedback">
+                            <div *ngIf="c.cPHUltimos12Meses.errors.required">El CPH de los últimos 12 meses es requerido.</div>
                         </div>
                     </div>
 
                     <div class="form-group col-md-3">
-                        <label for="cPHUltimos24MesesPersona" class="form-label">CPH Últimos 24 meses</label>
-                        <input formControlName="cPHUltimos24Meses" class="form-control" type="number" id="id_cph_24meses_persona"  
-                            [ngClass]="{ 'is-invalid': submitted && f.cPHUltimos24Meses.errors }" />
-                        <div *ngIf="submitted && f.cPHUltimos24Meses.errors" class="invalid-feedback">
-                            <div *ngIf="f.cPHUltimos24Meses.errors.required">El CPH de los últimos 24 meses es requerido.</div>
+                        <label for="id_cph24MesesCredit" class="form-label">CPH Últimos 24 meses</label>
+                        <input formControlName="cPHUltimos24Meses" 
+                                class="form-control" 
+                                type="number" 
+                                id="id_cph24MesesCredit"  
+                                [ngClass]="{ 'is-invalid': submitted && c.cPHUltimos24Meses.errors }" />
+                        <div *ngIf="submitted && c.cPHUltimos24Meses.errors" class="invalid-feedback">
+                            <div *ngIf="c.cPHUltimos24Meses.errors.required">El CPH de los últimos 24 meses es requerido.</div>
                         </div>
                     </div>
 
                     <div class="form-group col-md-3">
-                        <label for="atrasoMaximoPersona" class="form-label">Atraso Máximo</label>
-                        <input formControlName="atrasoMaximo" class="form-control" type="number" id="id_atraso_maximo_persona"  
-                            [ngClass]="{ 'is-invalid': submitted && f.atrasoMaximo.errors }" />
-                        <div *ngIf="submitted && f.atrasoMaximo.errors" class="invalid-feedback">
-                            <div *ngIf="f.atrasoMaximo.errors.required">El atraso máximo es requerido.</div>
+                        <label for="id_atrasoMaximoCredit" class="form-label">Atraso Máximo</label>
+                        <input formControlName="atrasoMaximo" 
+                                class="form-control" 
+                                type="number" 
+                                id="id_atrasoMaximoCredit"  
+                                [ngClass]="{ 'is-invalid': submitted && c.atrasoMaximo.errors }" />
+                        <div *ngIf="submitted && c.atrasoMaximo.errors" class="invalid-feedback">
+                            <div *ngIf="c.atrasoMaximo.errors.required">El atraso máximo es requerido.</div>
                         </div>
                     </div>
 
                     <div class="form-group col-md-3">
-                        <label for="atrasosUltimos12MesesPersona" class="form-label">Atrasos Últimos 12 meses</label>
-                        <input formControlName="atrasosUltimos12Meses" class="form-control" type="number" id="id_atraso_12meses_persona"  
-                            [ngClass]="{ 'is-invalid': submitted && f.atrasosUltimos12Meses.errors }" />
-                        <div *ngIf="submitted && f.atrasosUltimos12Meses.errors" class="invalid-feedback">
-                            <div *ngIf="f.atrasosUltimos12Meses.errors.required">El atraso de últimos 12 meses es requerido.</div>
+                        <label for="id_atraso12MesesCredit" class="form-label">Atrasos Últimos 12 meses</label>
+                        <input formControlName="atrasosUltimos12Meses" 
+                                class="form-control" 
+                                type="number" 
+                                id="id_atraso12MesesCredit"  
+                                [ngClass]="{ 'is-invalid': submitted && c.atrasosUltimos12Meses.errors }" />
+                        <div *ngIf="submitted && c.atrasosUltimos12Meses.errors" class="invalid-feedback">
+                            <div *ngIf="c.atrasosUltimos12Meses.errors.required">El atraso de últimos 12 meses es requerido.</div>
                         </div>
                     </div>
 
                     <div class="form-group col-md-3">
-                        <label for="atrasosUltimos24MesesPersona" class="form-label">Atrasos Últimos 24 meses</label>
-                        <input formControlName="atrasosUltimos24Meses" class="form-control" type="number" id="id_atraso_24meses_persona"  
-                            [ngClass]="{ 'is-invalid': submitted && f.atrasosUltimos24Meses.errors }" />
-                        <div *ngIf="submitted && f.atrasosUltimos24Meses.errors" class="invalid-feedback">
-                            <div *ngIf="f.atrasosUltimos24Meses.errors.required">El atraso de últimos 24 meses es requerido.</div>
+                        <label for="id_atraso24MesesCredit" class="form-label">Atrasos Últimos 24 meses</label>
+                        <input formControlName="atrasosUltimos24Meses" 
+                                class="form-control" 
+                                type="number" 
+                                id="id_atraso24MesesCredit"  
+                                [ngClass]="{ 'is-invalid': submitted && c.atrasosUltimos24Meses.errors }" />
+                        <div *ngIf="submitted && c.atrasosUltimos24Meses.errors" class="invalid-feedback">
+                            <div *ngIf="c.atrasosUltimos24Meses.errors.required">El atraso de últimos 24 meses es requerido.</div>
                         </div>
                     </div>
 
                     <div class="form-group col-md-3">
-                        <label for="diasAtrasoCortePersona" class="form-label">Días Atraso Corte</label>
-                        <input formControlName="diasAtrasoCorte" class="form-control" type="number" id="id_dias_atraso_persona"  
-                            [ngClass]="{ 'is-invalid': submitted && f.diasAtrasoCorte.errors }" />
-                        <div *ngIf="submitted && f.diasAtrasoCorte.errors" class="invalid-feedback">
-                            <div *ngIf="f.diasAtrasoCorte.errors.required">Los días de atraso de corte son requeridos.</div>
+                        <label for="id_diasAtrasoCredit" class="form-label">Días Atraso Corte</label>
+                        <input formControlName="diasAtrasoCorte" 
+                                class="form-control" 
+                                type="number" 
+                                id="id_diasAtrasoCredit"  
+                                [ngClass]="{ 'is-invalid': submitted && c.diasAtrasoCorte.errors }" />
+                        <div *ngIf="submitted && c.diasAtrasoCorte.errors" class="invalid-feedback">
+                            <div *ngIf="c.diasAtrasoCorte.errors.required">Los días de atraso de corte son requeridos.</div>
                         </div>
                     </div>
 
                     <div class="form-group col-md-3">
-                        <label for="lblCategoriaCredito" class="form-label">Categoría Créditos</label>
-                        <select formControlName="codigoCategoriaCredito" class="form-control" name="selectCategoriaCredito"
-                            [ngClass]="{ 'is-invalid': submitted && f.codigoCategoriaCredito.errors }" >
-                                <option [ngValue]="objeto.id" *ngFor="let objeto of listCategoriasCreditos">{{objeto.descripcion}}</option>
+                        <label for="id_CategoriaCredit" class="form-label">Categoría Créditos</label>
+                        <select formControlName="codigoCategoriaCredito" 
+                                class="form-control" 
+                                name="selectCategoriaCredito"
+                                id="id_CategoriaCredit"
+                                [ngClass]="{ 'is-invalid': submitted && c.codigoCategoriaCredito.errors }" >
+                                <option [ngValue]="objeto.id" 
+                                        *ngFor="let objeto of listCategoriasCreditos">{{objeto.descripcion}}</option>
                         </select>
-                        <div *ngIf="submitted && f.codigoCategoriaCredito.errors" class="invalid-feedback">
-                            <div *ngIf="f.codigoCategoriaCredito.errors.required">La categoría de crédito es requerida.</div>
+                        <div *ngIf="submitted && c.codigoCategoriaCredito.errors" class="invalid-feedback">
+                            <div *ngIf="c.codigoCategoriaCredito.errors.required">La categoría de crédito es requerida.</div>
                         </div>
                     </div>
 
                     <div class="form-group col-md-3">
-                        <label for="lblTipoAsociado" class="form-label">Tipo Asociado</label>
-                        <select formControlName="codigoTipoAsociado" class="form-control" name="selectTipoAsociado"
-                            [ngClass]="{ 'is-invalid': submitted && f.codigoTipoAsociado.errors }" >
-                                <option [ngValue]="objeto.id" *ngFor="let objeto of listTiposAsociados">{{objeto.id}} - {{objeto.descripcion}}</option>
+                        <label for="id_TipoAsociadoCredit" class="form-label">Tipo Asociado</label>
+                        <select formControlName="codigoTipoAsociado" 
+                                class="form-control" 
+                                name="selectTipoAsociado"
+                                id="id_TipoAsociadoCredit"
+                                [ngClass]="{ 'is-invalid': submitted && c.codigoTipoAsociado.errors }" >
+                                <option [ngValue]="objeto.id" 
+                                        *ngFor="let objeto of listTiposAsociados">{{objeto.id}} - {{objeto.descripcion}}</option>
                         </select>
-                        <div *ngIf="submitted && f.codigoTipoAsociado.errors" class="invalid-feedback">
-                            <div *ngIf="f.codigoTipoAsociado.errors.required">El tipo de asociado es requerido.</div>
+                        <div *ngIf="submitted && c.codigoTipoAsociado.errors" class="invalid-feedback">
+                            <div *ngIf="c.codigoTipoAsociado.errors.required">El tipo de asociado es requerido.</div>
                         </div>
                     </div>
-
                 </form>
 
-            </div>
-        </section>
+                <br>
 
-        <section>   
-            <div class="contenedor__footer">
-                <div class="contenedor__footer__prev">
-                    <button  class="btn btn-success px-5" (click)="guardarPersona()">
-                        Registrar </button>
+                <div class="cont-modal">
+                    <div class="cont-modal__footer">
+                        <div class="cont-modal__footer__prev"> </div>
+                        <div class="cont-modal__footer__next">
+                            <button class="btn btn-success px-5" 
+                                    (click)="guardarPersona()"> Registrar </button>
+                        </div>
+                    </div>
                 </div>
-                <div class="contenedor__footer__next"> </div>
             </div>
-        </section>
-
+        </div>
     </div>
-
-</article>
+</div> -->

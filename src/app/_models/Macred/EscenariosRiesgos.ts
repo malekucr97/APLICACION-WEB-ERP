@@ -1,4 +1,4 @@
-export interface MacEscenariosRiesgos {
+export class MacEscenariosRiesgos {
   codEscenario: number;
   codigoCompania: number;
   codModelo: number;

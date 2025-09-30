@@ -1,0 +1,143 @@
+<main class="main-modules">
+  <div class="contenido-main">
+
+    <div>
+      <div>
+        <p class="contenido-main__h1">{{ moduleName }}</p>
+        <p class="contenido-main__h2">Administración de Tipos de Monedas</p>
+      </div>
+      <hr>
+      <button class="back-ico-one"
+              title="{{ 'CONFIGURATION.BTN_ADMIN_USERS' | translate}}"
+              mat-icon-button 
+              (click)="redirectIndexModule()"> <mat-icon>arrow_back</mat-icon> </button>
+    </div>
+
+    <div class="card">  
+      <div class="card-body">
+
+        <div>
+            <p *ngIf="add" class="contenido-main__h3">Actualización de Tipos de Monedas</p>
+            <p *ngIf="update" class="contenido-main__h3">Registro de Tipos de Monedas</p>
+        </div>
+
+        <hr>
+
+        <div class="formulario-izquierdo">
+
+          <div class="formulario-izquierdo__nav">
+            <div class="formulario-izquierdo__nav__prev">
+              <p class="formulario-izquierdo__nav__prev__tittle">Parametrización de Tipos de Monedas</p>
+            </div>
+
+            <div class="formulario-izquierdo__nav__next">
+              <button *ngIf="habilitaBtnNuevo" 
+                      class="formulario-izquierdo__nav__next__btn-view" 
+                      mat-flat-button 
+                      (click)="limpiarFormulario()">{{ 'GENERAL.BTN_NEW' | translate }}</button>
+              <button *ngIf="habilitaBtnActualiza" 
+                      class="formulario-izquierdo__nav__next__btn-warn" 
+                      mat-flat-button 
+                      (click)="actualizar()">{{ 'GENERAL.BTN_UPDATE' | translate }}</button>
+              <button *ngIf="habilitaBtnRegistro" 
+                      class="formulario-izquierdo__nav__next__btn-ok" 
+                      mat-flat-button 
+                      (click)="registrar()">{{ 'GENERAL.BTN_REGISTER' | translate }}</button>
+              <button *ngIf="habilitaBtnEliminar" 
+                      class="formulario-izquierdo__nav__next__btn-delete" 
+                      mat-flat-button 
+                      (click)="eliminar()">{{ 'GENERAL.BTN_DELETE' | translate }}</button>
+            </div>
+          </div>
+
+          <div class="p-2">
+            <form [formGroup]="formObject" class="row tw-py-4">
+
+              <div class="form-group col-sm-4">
+                <label for="id_descripcionMoneda" class="form-label" >Moneda</label>
+                <input maxlength="50"  
+                        formControlName="descripcion"
+                        class="form-control"
+                        type="text"
+                        id="id_descripcionMoneda"
+                        [ngClass]="{ 'is-invalid': submitForm && f.descripcion.errors }" />
+                <div *ngIf="submitForm && f.descripcion.errors" class="invalid-feedback" >
+                  <div *ngIf="f.descripcion.errors.required">{{ 'GENERAL.VALIDATES.EMPTY' | translate }}</div>
+                </div>
+              </div>
+
+              <div class="col-sm-3">
+                <label for="id_simbolo" class="form-label">Símbolo</label>
+                <input  maxlength="1"
+                        formControlName="simbolo"
+                        class="form-control"
+                        type="text"
+                        id="id_simbolo"
+                        [ngClass]="{'is-invalid': submitForm && f.simbolo.errors}" />
+                <div *ngIf="submitForm && f.simbolo.errors" class="invalid-feedback">
+                  <div *ngIf="f.simbolo.errors.required">{{ 'GENERAL.VALIDATES.EMPTY' | translate }}</div>
+                </div>
+              </div>
+
+              <div class="col-sm-3">
+                <label for="id_alias" class="form-label">Alias CIC</label>
+                <input  maxlength="50"
+                        formControlName="alias"
+                        class="form-control"
+                        type="text"
+                        id="id_alias"
+                        [ngClass]="{'is-invalid': submitForm && f.alias.errors}" />
+                <div *ngIf="submitForm && f.alias.errors" class="invalid-feedback">
+                  <div *ngIf="f.alias.errors.required">{{ 'GENERAL.VALIDATES.EMPTY' | translate }}</div>
+                </div>
+              </div>
+
+              <div class="form-group col-sm-2 margin-top-status d-flex justify-content-center">
+                  <mat-checkbox formControlName="estado"></mat-checkbox>
+              </div>
+
+            </form>
+          </div>
+        </div>
+
+        <div *ngIf="mostrarLista" class="contenido-main__table">
+          <br>
+          <table class="table table-striped">
+            <thead>
+              <tr>
+                <th class="table__tipo-moneda__ico"></th>
+
+                <th class="table__tipo-moneda__desc">Moneda</th>
+                <th class="table__tipo-moneda__simbolo">Símbolo</th>
+                <th class="table__tipo-moneda__alias">Alias CIC</th>
+                <th class="table__tipo-moneda__estado">Estado</th>
+
+                <th class="table__tipo-moneda__add">Registra</th>
+                <th class="table__tipo-moneda__add">Fecha</th>
+                <th class="table__tipo-moneda__edit">Modifica</th>
+                <th class="table__tipo-moneda__edit">Fecha</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr *ngFor="let modelo of listObjetos" (click)="seleccionarObjeto(modelo)">
+                <td class="item-list-edit"> <a> <mat-icon>edit</mat-icon> </a> </td>
+                <td class="item-list-edit">{{ modelo.descripcion }}</td>
+                <td class="item-list-edit table__tipo-moneda__simbolo__td">{{ modelo.simbolo }}</td>
+                <td class="item-list-edit">{{ modelo.alias }}</td>
+                <td class="item-list-edit table__tipo-moneda__estado__td" *ngIf="modelo.estado == true">Activo</td>
+                <td class="item-list-edit table__tipo-moneda__estado__td" *ngIf="modelo.estado == false">Inactivo</td>
+
+                <td class="item-list-edit table__tipo-moneda__add__td">{{ modelo.usuarioCreacion }}</td>
+                <td class="item-list-edit table__tipo-moneda__add__td">{{modelo.fechaCreacion | date:'dd/MM/yyyy'}}</td>
+                <td class="item-list-edit table__tipo-moneda__edit__td">{{ modelo.usuarioModificacion }}</td>
+                <td class="item-list-edit table__tipo-moneda__edit__td">{{modelo.fechaModificacion | date:'dd/MM/yyyy'}}</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+
+      </div>
+    </div>
+    
+  </div>
+</main>

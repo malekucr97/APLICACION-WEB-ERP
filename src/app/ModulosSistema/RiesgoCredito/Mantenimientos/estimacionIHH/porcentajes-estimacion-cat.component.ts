@@ -160,6 +160,7 @@ export class PorcentajesEstimacionCatComponent extends OnSeguridad implements On
   // ** MÉTODOS PRIVADOS ** //
 
   private actualizaLista() {
+    this.mostrarLista = false;
     this.riesgoCreditoService.GET_CATEGORIA()
       .pipe(first())
       .subscribe((response) => { 
@@ -170,7 +171,7 @@ export class PorcentajesEstimacionCatComponent extends OnSeguridad implements On
       });
   }
 
-    private inicializaFormulario(objUpdate : Categoria = null) : void {
+  private inicializaFormulario(objUpdate : Categoria = null) : void {
 
     if (objUpdate) {
 

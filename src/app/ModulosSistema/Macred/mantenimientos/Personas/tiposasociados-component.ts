@@ -5,33 +5,17 @@ import { User, Module } from '@app/_models';
 import { MatSidenav } from '@angular/material/sidenav';
 import { Compania } from '../../../../_models/modules/compania';
 import { MacredService } from '@app/_services/macred.service';
-import { ScreenAccessUser } from '@app/_models/admin/screenAccessUser';
 import { Router } from '@angular/router';
 import { first } from 'rxjs/operators';
-import { MacPersona } from '@app/_models/Macred/Persona';
-import { MacTipoIngresoAnalisis } from '@app/_models/Macred/TipoIngresoAnalisis';
-import { MacTipoFormaPagoAnalisis } from '@app/_models/Macred/TipoFormaPagoAnalisis';
-import { MacTiposMoneda } from '@app/_models/Macred/TiposMoneda';
-import { MacModeloAnalisis } from '@app/_models/Macred/ModeloAnalisis';
-import { MacNivelCapacidadPago } from '@app/_models/Macred/NivelCapacidadPago';
-import { MacTipoGenerador } from '@app/_models/Macred/TipoGenerador';
 import { MatDialog } from '@angular/material/dialog';
-import { DialogoConfirmacionComponent } from '@app/_components/dialogo-confirmacion/dialogo-confirmacion.component';
-import { MacTipoPersona } from '@app/_models/Macred/TipoPersona';
-import { MacTipoGenero } from '@app/_models/Macred/TipoGenero';
-import { MacCondicionLaboral } from '@app/_models/Macred/CondicionLaboral';
-import { MacCategoriaCredito } from '@app/_models/Macred/CategoriaCredito';
 import { MacTipoAsociado } from '@app/_models/Macred/TipoAsociado';
-import { MacTipoHabitacion } from '@app/_models/Macred/TipoHabitacion';
-import { valHooks } from 'jquery';
 
 declare var $: any;
 
-@Component({
-    templateUrl: 'HTML_TiposAsociados.html',
-    styleUrls: ['../../../../../assets/scss/app.scss',
-        '../../../../../assets/scss/macred/app.scss'],
-    standalone: false
+@Component({selector: 'app-tipo-asociados-macred',
+            templateUrl: 'HTML_TiposAsociados.html',
+            styleUrls: ['../../../../../assets/scss/app.scss', '../../../../../assets/scss/macred/app.scss'],
+            standalone: false
 })
 export class TiposAsociadosComponent implements OnInit {
     @ViewChild(MatSidenav) sidenav !: MatSidenav;
@@ -48,7 +32,6 @@ export class TiposAsociadosComponent implements OnInit {
 
     // Tipo Asociado
     formTipoAsociado: UntypedFormGroup;
-    formTipoAsociadoList: UntypedFormGroup;
     listTiposAsociados: MacTipoAsociado[];
     showList : boolean = false;
 
@@ -82,8 +65,7 @@ export class TiposAsociadosComponent implements OnInit {
             codigoTipoAsociado  : [null],
             codigoCompania      : [null],
             descripcion         : [null],
-            estado              : [null]
-
+            estado              : [false]
         });
 
         this.accountService.validateAccessUser( this.userObservable.id,
@@ -94,25 +76,16 @@ export class TiposAsociadosComponent implements OnInit {
             .subscribe(response => {
 
                 // ## -->> redirecciona NO ACCESO
-                if(!response.exito)
-                    this.router.navigate([this.moduleObservable.indexHTTP]);
+                if(!response.exito) this.router.navigate([this.moduleObservable.indexHTTP]);
 
-            });
-
-            this.consultaTiposAsociadosCompania();
+                this.consultaTiposAsociadosCompania();
+            });   
     }
 
     get f() { return this.formTipoAsociado.controls; }
 
 
     consultaTiposAsociadosCompania() : void {
-        this.formTipoAsociadoList = this.formBuilder.group({
-            id                  : [''],
-            codigoTipoAsociado  : [''],
-            codigoCompania      : [''],
-            descripcion         : [''],
-            estado              : ['']
-        });
 
         this.macredService.getTiposAsociadosCompania(this.userObservable.empresa)
         .pipe(first())
@@ -123,10 +96,7 @@ export class TiposAsociadosComponent implements OnInit {
                 this.listTiposAsociados = tipoAsociadoResponse;
             }
         },
-        error => {
-            let message : string = 'Problemas al consultar los tipos de asociados. ' + error;
-            this.alertService.error(message);
-        });
+        error => { this.alertService.error('Problemas al consultar los tipos de asociados. ' + error); });
     }
 
     addTipoAsociado() : void {
@@ -162,10 +132,8 @@ export class TiposAsociadosComponent implements OnInit {
         this.alertService.clear();
         this.submittedTipoAsociadoForm = true;
 
-        if ( this.formTipoAsociado.invalid ){
-            return;
-        }
-
+        if ( this.formTipoAsociado.invalid ) return;
+        
         var tipoAsociado : MacTipoAsociado;
         tipoAsociado = this.createTipoAsociadoModal();
 
@@ -188,18 +156,11 @@ export class TiposAsociadosComponent implements OnInit {
                     $('#tipoAsociadoModal').modal('hide');
                     this.ngOnInit();
 
-                } else {
-                    let message : string = 'Problemas al registrar el tipo de asociado.';
-                    this.alertService.error(message);
-                }
-            },
-            error => {
-                let message : string = 'Problemas de conexión. Detalle: ' + error;
-                this.alertService.error(message);
-            });
+                } else { this.alertService.error('Problemas al registrar el tipo de asociado.'); }
+            }, error => { this.alertService.error('Problemas de conexión. Detalle: ' + error); });
 
-        }
-        else if (this.tipoMovimiento == 'E') {
+        } else if (this.tipoMovimiento == 'E') {
+
             tipoAsociado.modificadoPor      = this.userObservable.identificacion;
             tipoAsociado.fechaModificacion  = this.today;
 
@@ -217,15 +178,8 @@ export class TiposAsociadosComponent implements OnInit {
                     $('#tipoAsociadoModal').modal('hide');
                     this.ngOnInit();
 
-                } else {
-                    let message : string = 'Problemas al actualizar el tipo de asociado.';
-                    this.alertService.error(message);
-                }
-            },
-            error => {
-                let message : string = 'Problemas de conexión. Detalle: ' + error;
-                this.alertService.error(message);
-            });
+                } else { this.alertService.error('Problemas al actualizar el tipo de asociado.'); }
+            }, error => { this.alertService.error('Problemas de conexión. Detalle: ' + error); });
         }
     }
 
@@ -234,7 +188,6 @@ export class TiposAsociadosComponent implements OnInit {
         var codigoTipoAsociado  = this.formTipoAsociado.controls['codigoTipoAsociado'].value;
         var descripcion         = this.formTipoAsociado.controls['descripcion'].value;
         var estado              = this.formTipoAsociado.controls['estado'].value
-
 
         var tipoAsociado = this._tipoAsociadoMacred;
 
@@ -247,25 +200,17 @@ export class TiposAsociadosComponent implements OnInit {
 
     deleteTipoAsociado(idTipoAsociado:number){
 
+        this.alertService.clear();
+
         this.macredService.deleteTipoAsociado(idTipoAsociado)
             .pipe(first())
             .subscribe(response => {
 
                 if (response) {
-                    this.alertService.success(
-                        `Tipo de asociado eliminado correctamente!`
-                    );
+                    this.alertService.success( `Tipo de asociado eliminado correctamente!` );
                     this.ngOnInit();
 
-                } else {
-                    let message : string = 'Problemas al eliminar el tipo de genero.';
-                    this.alertService.error(message);
-                }
-            },
-            error => {
-                let message : string = 'Problemas de conexión. Detalle: ' + error;
-                this.alertService.error(message);
-            });
+                } else { this.alertService.error('Problemas al eliminar el tipo de genero.'); }
+            }, error => { this.alertService.error('Problemas de conexión. Detalle: ' + error); });
     }
-
 }

@@ -14,9 +14,7 @@
     font-size: 1.6rem;
     font-weight: 750;
     text-align: center;
-    @media (max-width: 1146px) {
-        font-size: 1.2rem;
-    }
+    @media (max-width: 1146px) { font-size: 1.2rem; }
 }
 ::ng-deep .cdk-overlay-container { z-index:2000; }
 // ********************************
@@ -38,26 +36,11 @@ td { vertical-align: middle; }
     text-align: center;
 }
 
-.tipoCambio {
-    display: flex;
-    flex-direction: row;
-    align-items: center;
-    justify-content: center;
-    height: 40px;
-}
-
 .table_responsive{
     width: 100%;
     @media (max-width: 1200px) { overflow-x:auto; }
 }
 
-// TÍTULOS
-.tittle_h1{
-    color: #053254;
-    font-size: 1.5rem;
-    font-weight: 700;
-    @media (max-width: 800px) { font-size: 1rem; }
-}
 .tittle_h2{
     color: #B3B3B3;
     font-size: 1.2rem;
@@ -123,156 +106,49 @@ td { vertical-align: middle; }
     @include bg-color-maleku;
     border-top: 1px solid rgb(202, 202, 202);
 
-    &__prev-home {
-        width: 30%;
-        display: inline-block;
-        text-align: right;
-        &__div{ &__img { width: 35%; } }
-    }
-    &__next-home{
-        width: 30%;
-        display: inline-block;
-        text-align: left;
-        &__div{ &__img { width: 35%; } }
-    }
-    &__center-home{
-        justify-content: center;
-        text-align: center;
-        width: 40%;
-        display: inline-block;
-        &__titulo{
-            color: white;
-            padding-top: 2%;
-            font-size: 1.8rem;
-            font-weight: 500;
-            text-align: center;
-            @media (max-width: 800px) { font-size: 1.3rem; }
-        }
-    }
-    &__prev-index{
-        width: 20%;
-        display: inline-block;
-        text-align: right;
-        padding-right: 1%;
-        &__div{ 
-            &__img { 
-                width: 45%;
-                @media (max-width: 1300px) { width: 70%; }
-                @media (max-width: 800px) { width: 100%; }
-            } 
-        }
-    }
-    &__center-index{
-        justify-content: center;
-        text-align: center;
-        width: 40%;
-        display: inline-block;
-        &__titulo{
-            color: white;
-            padding-top: 2%;
-            font-size: 1.8rem;
-            font-weight: 700;
-            text-align: center;
-            @media (max-width: 800px) { font-size: 1.3rem; }
-            @media (max-width: 500px) { font-size: 0.7rem; }
-        }
-    }
-    &__next-index{
-        width: 20%;
-        display: inline-block;
-        text-align: left;
-        padding-left: 1%;
-        &__div{ 
-            &__img { 
-                width: 45%;
-                @media (max-width: 1300px) { width: 70%; }
-                @media (max-width: 800px) { width: 100%; }
-            } 
-        }
-    }
-    &__prev-index-icons{
-        width: 10%;
-        display: inline-block;
-        padding-left: 2%;
-    }
-    &__next-index-icons{
-        display: inline-block;
-        text-align: center;
-    }
-    // fin hme - index update
+    &__prev-icons { width: 10%; display: inline-block; padding-left: 1%; }
 
     &__prev {
-        width: 15%;
+        width: 20%;
         display: inline-block;
+        text-align: right;
+        &__div { &__img { width: 50%; padding-bottom: 3%; } }
     }
-
     &__center {
         justify-content: center;
         text-align: center;
-
-        width: 70%;
+        width: 40%;
         display: inline-block;
-        
-        &__left {
-            display: inline-block;
+        &__titulo{
+            color: white;
+            padding-top: 2%;
+            font-size: 1.8rem;
+            font-weight: 600;
             text-align: center;
-            &__img { width: 80%; }
-        }
-        &__center {
-
-            display: inline-block;
-            padding-left: 1%;
-            padding-right: 1%;
-            &__titulo {
-                color: white;
-                padding-top: 2%;
-                font-size: 1.8rem;
-                font-weight: 700;
-                text-align: center;
-                @media (max-width: 800px) {
-                    font-size: 1.3rem;
-                }
-            }
-        }
-        &__rigth {
-            display: inline-block;
-            text-align: center;
-            &__img { width: 80%; }
+            @media (max-width: 800px) { font-size: 1.5rem; }
+            @media (max-width: 500px) { font-size: 1.3rem; }
         }
     }
-
     &__next {
-
-        width: 15%;
+        width: 20%;
         display: inline-block;
-
-        text-align: right;
+        text-align: left;
+        &__div { &__img { width: 50%; padding-bottom: 3%; } }
 
         &__logout {
             color: white;
-            &:hover {
-                color: white;
-                background-color: #f91b1b;
-                cursor: pointer;
-            }
+            &:hover { color: white; background-color: #f91b1b; cursor: pointer; }
         }
         &__home {
             color: white;
-            &:hover {
-                color: white;
-                background-color: #F9A01B;
-                cursor: pointer;
-            }
+            &:hover { color: white; background-color: #F9A01B; cursor: pointer; }
         }
         &__config {
             color: white;
-            &:hover {
-                color: white;
-                background-color: #005188;
-                cursor: pointer;
-            }
+            &:hover { color: white; background-color: #005188; cursor: pointer; }
         }
     }
+    &__next-icons { width: 10%; display: inline-block; text-align: center; }
 }
 
  // ## -- >> Contenido INDEX Módulos
@@ -282,9 +158,7 @@ td { vertical-align: middle; }
     display: flex;
     justify-content: center;
     align-items: center;
-
     background-color: var(--color_gris);
-
     border-radius: 10px;
 
     &__menu {
@@ -326,93 +200,68 @@ td { vertical-align: middle; }
     }
 }
 
-// ## -- >> barra iconos home config logout
-.var {
-    height: 25px;
-    @include bg-color-darkest-blue;
-    &__item {
-        display: flex;
-        justify-content: flex-end;
-        &__p {
-            margin-right: 1%;
-            color: white;
-            &:hover {
-                cursor: pointer;
-                color: #F9A01B;
-            }
-        }
-    }
-}
-
 // ## -- >> contenedor selección compañía
-.select-company-contenedor {
+.select-business {
 
     display:         flex;
     flex-direction:  row;
     justify-content: center;
     align-items:     center;
     flex-wrap:       wrap;
-    // background-color: var(--color_fondo);
+    background-color: var(--color_fondo);
+
+    &__item {
+        color: #005188;
+        transition: color 0.2s ease-in-out;
+        &:hover { color: #F9A01B; cursor: pointer; }
+        &__business {
+            width: 80%;
+            display: inline-block;
+            text-align: left;
+            &__name{
+                color: #B3B3B3;
+                font-size: 1.2rem;
+                font-weight: 500;
+                &:hover { color: #053254; cursor: pointer; font-weight: bold; }
+            }
+        }
+        &__ico {
+            width: 20%;
+            display: inline-block;
+            text-align: center;
+        }
+    }
 
     &__card {
 
         padding-top: 10%;
-        padding-bottom: 15%;
-        width: 25%;
+        width: 30%;
 
-        &__header {
-            @include font-aero;
-            &__titulo {
-                color: #053254;
-                font-size: 2rem;
-                font-weight: 450;
-            }
+        @media (max-width: 1500px) { width: 40%; padding-top: 12%; }
+        @media (max-width: 1200px) { width: 50%; padding-top: 14%; }
+        @media (max-width: 1000px) { width: 60%; padding-top: 16%; }
+        @media (max-width: 800px) { width: 75%; padding-top: 18%; }
+        @media (max-width: 600px) { width: 90%; padding-top: 20%; }
+        @media (max-width: 400px) { width: 90%; padding-top: 18%; }
+        
+        &__tittle {
+            color: #053254;
+            font-size: 2rem;
+            font-weight: 450;
+            display: flex;
+            flex-direction: row;
+            justify-content: center;
+            align-items: center;
+            flex-wrap: wrap;
         }
-        &__body {
 
-            &__item {
-
-                color: #005188;
-                transition: color 0.2s ease-in-out;
-                &:hover {
-                    color: #F9A01B;
-                    cursor: pointer;
-                }
-
-                &__titulo {
-                    width: 90%;
-                    display: inline-block;
-                    text-align: left;
-
-                    &__p{
-                        color: #B3B3B3;
-
-                        font-size: 1.2rem;
-                        font-weight: 500;
-                        &:hover {
-                            color: #053254;
-                            cursor: pointer;
-                            font-weight: bold;
-                        }
-                        @media (max-width: 800px) {
-                            font-size: 1rem;
-                        }
-                    }
-                }
-                &__ico {
-                    width: 10%;
-                    display: inline-block;
-                    text-align: right;
-                }
-            }
-            &__spiner {
-                display: flex;
-                flex-direction: row;
-                justify-content: center;
-                align-items: center;
-                flex-wrap: wrap;
-                color: red;
-            }
+        &__spinner {
+            display: flex;
+            flex-direction: row;
+            justify-content: center;
+            align-items: center;
+            flex-wrap: wrap;
+            color: red;
         }
     }
 }
@@ -628,49 +477,6 @@ td { vertical-align: middle; }
     }
 }
 
-.textListButtonOne {
-  display: inline-block;
-  padding: 5px 10px;
-  background-color: #09440e;
-  color: white;
-  border-radius: 0.375rem;
-  text-align: center;
-  cursor: pointer;
-  text-decoration: none;
-  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2);
-  transition: background-color 0.3s ease;
-
-  &:hover {
-    background-color: color.adjust(#09440e, $lightness: -10%);
-  }
-//   &:active {
-//     transform: scale(0.97);
-//     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
-//   }
-}
-// .textListButtonTwo {
-//   display: inline-block;
-//   padding: 5px 10px;
-//   background-color: #053254;
-//   color: white;
-//   border-radius: 0.375rem;
-//   text-align: center;
-//   cursor: pointer;
-//   text-decoration: none;
-//   box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2);
-//   transition: background-color 0.3s ease;
-
-//   &:hover {
-//     // background-color: darken(#053254, 10%);
-//     background-color: color.adjust(#053254, $lightness: -10%);
-//   }
-//   &:active {
-//     transform: scale(0.97);
-//     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
-//   }
-// }
-
-
 .item-seleccionable {
     color: #053254;
     transition: color 0.2s ease-in-out;
@@ -700,6 +506,43 @@ td { vertical-align: middle; }
 .bloq {
     padding: 0.2% 1% 0.4% 1%;
 }
+
+.cont-modal {
+    width: 100%;
+    &__header {
+        &__prev {
+            width: 50%;
+            display: inline-block;
+            text-align: left;
+        }
+        &__next {
+            width: 50%;
+            display: inline-block;
+            text-align: right;
+        }
+    }
+    &__footer {
+        border-top: 1px solid rgb(202, 202, 202);
+        padding-top: 1%;
+        &__prev {
+            width: 50%;
+            display: inline-block;
+            text-align: left;
+        }
+        &__next {
+            width: 50%;
+            display: inline-block;
+            text-align: right;
+        }
+    }
+}
+.cont-index {
+    border-radius: 10px;
+    background-color: var(--color_gris);
+    &__body{ padding: 1%; }
+}
+
+
 
 .contenedor {
     margin: 1% 1% 1% 1%;
@@ -733,10 +576,6 @@ td { vertical-align: middle; }
             padding: 1% 0 0 2%;
             display: inline-block;
             text-align: left;
-
-            // &__tittle {
-            //     color: white;
-            // }
         }
         &__next {
             width: 50%;
@@ -799,6 +638,28 @@ mat-sidenav-container{ background-color: var(--color_fondo); }
     &:hover {  color: #F9A01B;  cursor: pointer;  }
 }
 
+
+.form-list-inline { display: flex; }
+
+.lista-inline {
+    width: 50%;
+    display: flex;
+    flex-direction: column;
+    border-radius: 10px;
+
+    &__nav {
+        width: 100%;
+        display: inline-block;
+        
+        &__tittle {
+            color: #005188;
+            margin-top: 10px;
+            margin-left: 10px;
+            font-size: 1.3rem;
+            font-weight: 300;
+        }
+    }
+}
 .formulario-izquierdo {
     width: 50%;
     background-color: #254156;
@@ -807,6 +668,7 @@ mat-sidenav-container{ background-color: var(--color_fondo); }
     flex-direction: column;
     border-radius: 10px;
     @media (max-width: 1000px) { width: 100%; }
+
     &__nav {
         border-bottom: 1px solid white;
         &__prev {
@@ -845,13 +707,7 @@ mat-sidenav-container{ background-color: var(--color_fondo); }
     }
 }
 
-.margin-icos-mat { 
-    padding-top: 20px;
-    // @media (max-width: 1140px) { 
-    //     display: flex !important;
-    //     justify-content: center !important;
-    // }
- }
+.margin-icos-mat { padding-top: 20px; }
 
 // ## -- >> main
 .main-modules { margin-left: 1%; margin-right: 1%; }
@@ -927,6 +783,7 @@ mat-sidenav-container{ background-color: var(--color_fondo); }
         width: 100%;
         @media (max-width: 1200px) { overflow-x:auto; }
 
+        /* #region RiesgoCredito */
         /* #region RiesgoCredito-Entidades-Page */
         &__rcep-ico-edit { width: 5%; }
         &__rcep-name { width: 25%; }
@@ -936,7 +793,6 @@ mat-sidenav-container{ background-color: var(--color_fondo); }
         &__rcep-modifica { width: 15%; text-align: center; &__td { text-align: center; } }
         &__rcep-fecha-m { width: 15%; text-align: center; &__td { text-align: center; } }
         /* #endregion */
-
         /* #region RiesgoCredito-Categoría-Page */
         &__rpec-ico-edit { width: 5%; }
         &__rpec-desc { width: 20%; text-align: center; &__td { text-align: center; } }
@@ -949,7 +805,6 @@ mat-sidenav-container{ background-color: var(--color_fondo); }
         &__rpec-modifica { width: 10%; text-align: center; &__td { text-align: center; } }
         &__rpec-fecha-m { width: 10%; text-align: center; &__td { text-align: center; } }
         /* #endregion */
-
         /* #region RiesgoCredito-Rangos-Page */
         &__rped-ico-edit { width: 5%; }
         &__rped-desc { width: 15%; text-align: center; &__td { text-align: center; } }
@@ -964,7 +819,90 @@ mat-sidenav-container{ background-color: var(--color_fondo); }
         &__rped-modifica { width: 7%; text-align: center; &__td { text-align: center; } }
         &__rped-fecha-m { width: 7%; text-align: center; &__td { text-align: center; } }
         /* #endregion */
+        /* #endregion */
 
+
+        /* #region Macred-ActivEconomica-Page */
+        &__mtae-ico-edit { width: 5%; }
+        &__mtae-desc { width: 40%; }
+        &__mtae-estado { width: 25%; text-align: center; &__td { text-align: center; } }
+        &__mtae-modifica { width: 15%; &__td { text-align: center; } }
+        &__mtae-fecha-m { width: 15%; &__td { text-align: center; } }
+        /* #endregion */
+        /* #region Macred-EntidadesFinancieras-Page */
+        &__mef-ico-edit { width: 5%; }
+        &__mef-ident { width: 10%; }
+        &__mef-desc { width: 17%; }
+        &__mef-alias { width: 12%; }
+        &__mef-estado { width: 10%; text-align: center; &__td { text-align: center; } }
+        &__mef-registra { width: 9%; text-align: center; &__td { text-align: center; } }
+        &__mef-fecha-r { width: 9%; text-align: center; &__td { text-align: center; } }
+        &__mef-modifica { width: 9%; text-align: center; &__td { text-align: center; } }
+        &__mef-fecha-m { width: 9%; text-align: center; &__td { text-align: center; } }
+        /* #endregion */
+        /* #region Macred-Periocidades-Page */
+        &__mp-ico-edit { width: 5%; }
+        &__mp-desc { width: 20%; }
+        &__mp-frec { width: 20%; text-align: center; &__td { text-align: center; } }
+        &__mp-estado { width: 15%; text-align: center; &__td { text-align: center; } }
+        &__mp-registra { width: 10%; text-align: center; &__td { text-align: center; } }
+        &__mp-fecha-r { width: 10%; text-align: center; &__td { text-align: center; } }
+        &__mp-modifica { width: 10%; text-align: center; &__td { text-align: center; } }
+        &__mp-fecha-m { width: 10%; text-align: center; &__td { text-align: center; } }
+        /* #endregion */
+        /* #region Macred-TipoLineasCredito-Page */
+        &__tlc-ico-edit { width: 5%; }
+        &__tlc-nom { width: 20%; }
+        &__tlc-tasa { width: 14%; text-align: center; &__td { text-align: center; } }
+        &__tlc-cod { width: 15%; text-align: center; &__td { text-align: center; } }
+        &__tlc-estado { width: 14%; text-align: center; &__td { text-align: center; } }
+        &__tlc-registra { width: 8%; text-align: center; &__td { text-align: center; } }
+        &__tlc-fecha-r { width: 8%; text-align: center; &__td { text-align: center; } }
+        &__tlc-modifica { width: 8%; text-align: center; &__td { text-align: center; } }
+        &__tlc-fecha-m { width: 8%; text-align: center; &__td { text-align: center; } }
+        /* #endregion */
+        /* #region Macred-CategoriasRiesgo-Page */
+        &__cr-ico-edit { width: 5%; }
+        &__cr-cod { width: 10%; }
+        &__cr-desc { width: 10%; text-align: center; &__td { text-align: center; } }
+        &__cr-porc-e { width: 11%; text-align: center; &__td { text-align: center; } }
+        &__cr-nmes { width: 11%; text-align: center; &__td { text-align: center; } }
+        &__cr-porc-v { width: 11%; text-align: center; &__td { text-align: center; } }
+        &__cr-estado { width: 10%; text-align: center; &__td { text-align: center; } }
+        &__cr-registra { width: 8%; text-align: center; &__td { text-align: center; } }
+        &__cr-fecha-r { width: 8%; text-align: center; &__td { text-align: center; } }
+        &__cr-modifica { width: 8%; text-align: center; &__td { text-align: center; } }
+        &__cr-fecha-m { width: 8%; text-align: center; &__td { text-align: center; } }
+        /* #endregion */
+        /* #region Macred-CategoriasRiesgo-Page */
+        &__td-ico-edit { width: 5%; }
+        &__td-desc { width: 30%; }
+        &__td-estado { width: 25%; text-align: center; &__td { text-align: center; } }
+        &__td-registra { width: 10%; text-align: center; &__td { text-align: center; } }
+        &__td-fecha-r { width: 10%; text-align: center; &__td { text-align: center; } }
+        &__td-modifica { width: 10%; text-align: center; &__td { text-align: center; } }
+        &__td-fecha-m { width: 10%; text-align: center; &__td { text-align: center; } }
+        /* #endregion */
+        /* #region Macred-FactoresInferibles-Page */
+        &__fi-ico-edit { width: 5%; }
+        &__fi-desc { width: 10%; }
+        &__fi-valmin { width: 8%; text-align: center; &__td { text-align: center; } }
+        &__fi-valmax { width: 8%; text-align: center; &__td { text-align: center; } }
+        &__fi-quinu { width: 8%; text-align: center; &__td { text-align: center; } }
+        &__fi-quind { width: 8%; text-align: center; &__td { text-align: center; } }
+        &__fi-quint { width: 8%; text-align: center; &__td { text-align: center; } }
+        &__fi-quinc { width: 8%; text-align: center; &__td { text-align: center; } }
+        &__fi-quini { width: 8%; text-align: center; &__td { text-align: center; } }
+        &__fi-estado { width: 9%; text-align: center; &__td { text-align: center; } }
+        &__fi-registra { width: 5%; text-align: center; &__td { text-align: center; } }
+        &__fi-fecha-r { width: 5%; text-align: center; &__td { text-align: center; } }
+        &__fi-modifica { width: 5%; text-align: center; &__td { text-align: center; } }
+        &__fi-fecha-m { width: 5%; text-align: center; &__td { text-align: center; } }
+        /* #endregion */
+
+
+
+        /* #region Administración */
         /* #region ListUserPage */
         &__lup-ico-edit { width: 4%; }
         &__lup-id { width: 12%; }
@@ -1028,6 +966,7 @@ mat-sidenav-container{ background-color: var(--color_fondo); }
         &__am-name { width: 22%; }
         &__am-desc { width: 22%; }
         &__am-image { width: 29%; }
+        /* #endregion */
         /* #endregion */
     }
 }

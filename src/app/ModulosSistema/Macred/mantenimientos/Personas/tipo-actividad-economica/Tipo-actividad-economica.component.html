@@ -1,147 +1,114 @@
-<div class="tw-flex-col">
-  <!-- MODELOS -->
-  <section class="tw-flex">
-    <article class="tw-m-2 tw-my-6 tw-w-1/4">
-      <div class="tw-border tw-shadow tw-rounded-lg tw-shadow">
-        <section>
-          <!-- header -->
-          <div class="contenedor__header">
-            <div class="contenedor__header__prev">
-              <h2>Crear Actividad Económica</h2>
+<main class="main-modules">
+  <div class="contenido-main">
+
+    <div>
+      <div>
+        <p class="contenido-main__h1">{{ moduleName }}</p>
+        <p class="contenido-main__h2">Actividades Económicas</p>
+      </div>
+      <hr>
+      <button class="back-ico-one"
+              title="{{ 'CONFIGURATION.BTN_ADMIN_USERS' | translate}}"
+              mat-icon-button 
+              (click)="redirectIndexModule()"> <mat-icon>arrow_back</mat-icon> </button>
+    </div>
+
+    <div class="card">  
+      <div class="card-body">
+
+        <div>
+            <p *ngIf="add" class="contenido-main__h3">Actualización de Actividades Económicas</p>
+            <p *ngIf="update" class="contenido-main__h3">Registro de Actividades Económicas</p>
+        </div>
+
+        <hr>
+
+        <div class="formulario-izquierdo">
+
+          <div class="formulario-izquierdo__nav">
+            <div class="formulario-izquierdo__nav__prev">
+              <p class="formulario-izquierdo__nav__prev__tittle">Parametrización de Actividades Económicas</p>
             </div>
-            <div class="contenedor__header__next"></div>
+
+            <div class="formulario-izquierdo__nav__next">
+              <button *ngIf="habilitaBtnNuevo" 
+                      class="formulario-izquierdo__nav__next__btn-view" 
+                      mat-flat-button 
+                      (click)="limpiarFormulario()">{{ 'GENERAL.BTN_NEW' | translate }}</button>
+              <button *ngIf="habilitaBtnActualiza" 
+                      class="formulario-izquierdo__nav__next__btn-warn" 
+                      mat-flat-button 
+                      (click)="actualizar()">{{ 'GENERAL.BTN_UPDATE' | translate }}</button>
+              <button *ngIf="habilitaBtnRegistro" 
+                      class="formulario-izquierdo__nav__next__btn-ok" 
+                      mat-flat-button 
+                      (click)="registrar()">{{ 'GENERAL.BTN_REGISTER' | translate }}</button>
+              <button *ngIf="habilitaBtnEliminar" 
+                      class="formulario-izquierdo__nav__next__btn-delete" 
+                      mat-flat-button 
+                      (click)="eliminar()">{{ 'GENERAL.BTN_DELETE' | translate }}</button>
+            </div>
           </div>
-        </section>
 
-        <section>
-          <!-- body -->
-          <div class="contenedor__body">
-            <form [formGroup]="formActividadEconomica" class="row tw-py-4">
+          <div class="p-2">
+            <form [formGroup]="formObject" class="row tw-py-4">
 
-              <div class="form-group col-md-12">
-                <label for="lbldescripcion" class="form-label"
-                  >Nombre del tipo de actividad económica</label
-                >
+              <div class="form-group col-sm-10">
+                <label for="id_descripcion" class="form-label" >Nombre del tipo de actividad económica</label>
                 <input
                   formControlName="descripcion"
                   class="form-control tw-border tw-shadow"
                   type="text"
                   id="id_descripcion"
-                  [ngClass]="{
-                    'is-invalid': submittedActividadEconomicaForm && f.descripcion.errors
-                  }"
-                />
-                <div
-                  *ngIf="submittedActividadEconomicaForm && f.descripcion.errors"
-                  class="invalid-feedback"
-                >
+                  [ngClass]="{ 'is-invalid': submitForm && f.descripcion.errors }" />
+                <div *ngIf="submitForm && f.descripcion.errors"
+                      class="invalid-feedback" >
                   <div *ngIf="f.descripcion.errors.required">
                     El tipo de actividad es requerida
                   </div>
                 </div>
               </div>
 
-              <div class="form-group col-md-12 tw-flex tw-items-center">
-                <label for="estado" class="form-label">Estado</label>
-                <input
-                  type="checkbox"
-                  class="tw-w-6 tw-h-6 tw-mx-2"
-                  formControlName="estado"
-                />
-                <div
-                  *ngIf="submittedActividadEconomicaForm && f.estado.errors"
-                  class="invalid-feedback"
-                >
-                  <div *ngIf="f.estado.errors.required">
-                    El estado debe estar definido
-                  </div>
-                </div>
-              </div>
-
-              <div class="col-md-3 tw-my-2">
-                <a
-                  (click)="handleRegistrarTipoActividadEconomica()"
-                  class="btn btn-sm tw-border-2 tw-border-green-600"
-                  matTooltip="Añadir"
-                >
-                  <i class="fa fa-plus tw-text-green-600"></i>
-                </a>
+              <div class="form-group col-sm-2">
+                  <mat-checkbox formControlName="estado"></mat-checkbox>
               </div>
             </form>
           </div>
-        </section>
+        </div>
+
+        <div *ngIf="mostrarLista" class="contenido-main__table">
+          <br>
+          <table class="table table-striped">
+            <thead>
+              <tr>
+                <th class="contenido-main__table__mtae-ico-edit"></th>
+
+                <th class="contenido-main__table__mtae-desc">Actividad Económica</th>
+                <th class="contenido-main__table__mtae-estado">Estado</th>
+
+                <!-- <th class="contenido-main__table__mtae-registra">Registra</th>
+                <th class="contenido-main__table__mtae-fecha-r">Fecha</th> -->
+                <th class="contenido-main__table__mtae-modifica">Modifica</th>
+                <th class="contenido-main__table__mtae-fecha-m">Fecha</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr *ngFor="let modelo of lstActividades" (click)="seleccionarObjeto(modelo)">
+                <td class="item-list-edit"> <a> <mat-icon>edit</mat-icon> </a> </td>
+                <td class="item-list-edit">{{ modelo.descripcion }}</td>
+                <td class="item-list-edit contenido-main__table__mtae-estado__td" *ngIf="modelo.estado == true">Activo</td>
+                <td class="item-list-edit contenido-main__table__mtae-estado__td" *ngIf="modelo.estado == false">Inactivo</td>
+                <!-- <td class="item-list-edit">{{ modelo.usuarioCreacion }}</td>
+                <td class="item-list-edit">{{ modelo.fechaCreacion }}</td> -->
+                <td class="item-list-edit">{{ modelo.usuarioModificacion }}</td>
+                <td class="item-list-edit">{{ modelo.fechaModificacion }}</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+
       </div>
-    </article>
-
-    <article class="tw-m-2 tw-my-6 tw-flex-1">
-      <div class="tw-border tw-shadow tw-rounded-lg tw-shadow">
-        <section>
-          <!-- header -->
-          <div class="contenedor__header">
-            <div class="contenedor__header__prev">
-              <h2>Lista de Tipo de actividades económicas</h2>
-            </div>
-            <div class="contenedor__header__next"></div>
-          </div>
-        </section>
-
-        <section>
-          <!-- body -->
-          <div class="contenedor__body">
-            <!-- *************** -->
-            <mat-sidenav-container>
-              <div class="content mat-elevation-z4">
-                <main>
-                  <article>
-                    <section class="content__menu">
-                      <table class="table table-striped">
-                        <thead>
-                          <tr>
-                            <th style="width: 40%">Tipo de Actividad Económica</th>
-                            <th style="width: 15%">Usuario Crea</th>
-                            <th style="width: 15%">Usuario Modifica</th>
-                            <th style="width: 15%">Estado</th>
-                            <th style="width: 15%"></th>
-                          </tr>
-                        </thead>
-                        <tbody>
-                          <tr *ngFor="let modelo of lstActividades">
-                            <td>{{ modelo.descripcion }}</td>
-                            <td>{{ modelo.usuarioCreacion }}</td>
-                            <td>{{ modelo.usuarioModificacion }}</td>
-                            <td *ngIf="modelo.estado == true">Activo</td>
-                            <td *ngIf="modelo.estado == false">Inactivo</td>
-                            <td style="white-space: nowrap">
-                              <a
-                                (click)="handleEditarActividadEconomica(modelo)"
-                                style="margin-left: 5%"
-                                class="btn btn-sm tw-border-2 tw-border-blue-600"
-                                matTooltip="Editar el modelo"
-                              >
-                                <i class="fa fa-edit tw-text-blue-600"></i>
-                              </a>
-                              <a
-                                (click)="handleEliminarActividadEconomica(modelo.codActividadEconomica)"
-                                style="margin-left: 5%"
-                                class="btn btn-sm tw-border-2 tw-border-red-600"
-                                matTooltip="Eliminar"
-                              >
-                                <i class="fa fa-trash tw-text-red-600"></i>
-                              </a>
-                            </td>
-                          </tr>
-                        </tbody>
-                      </table>
-                    </section>
-                  </article>
-                </main>
-              </div>
-            </mat-sidenav-container>
-            <!-- *************** -->
-          </div>
-        </section>
-      </div>
-    </article>
-  </section>
-
-</div>
+    </div>
+    
+  </div>
+</main>

@@ -1,101 +1,91 @@
-<article class="articulo">
-    <section>
+<div class="contenido-main-admin">
+    
+    <div>
         <div>
-            <div class="articulo__contenedor__tittle">
-                <p class="articulo__contenedor__tittle__h1">{{ 'CONFIGURATION.ADD_MODULES_ROLE.TITLE' | translate }}</p>
-                <p class="articulo__contenedor__tittle__h2">in {{businessObservable.nombre}}</p>
-            </div>
-            <hr>
-            <button class=" administracion-contenedor__content__item
-                            administracion-contenedor__content__item__second-back-ico
-                            icon-button-medium"
-                    title="{{ 'CONFIGURATION.BTN_ADMIN_USERS' | translate}}"
-                    mat-icon-button
-                    (click)="redirectListRolesPage()"> <mat-icon>arrow_back</mat-icon>
-            </button>
+            <p class="contenido-main-admin__h1">{{ 'CONFIGURATION.ADD_MODULES_ROLE.TITLE' | translate }}</p>
+            <p class="contenido-main-admin__h2">in {{businessObservable.nombre}}</p>
         </div>
-    </section>
-    <!-- / -->
-    <section>
-        <div class="card">
-            <div class="card-body">
+        <hr>
+        <button class="back-ico-two"
+                title="{{ 'CONFIGURATION.BTN_ADMIN_USERS' | translate}}"
+                mat-icon-button
+                (click)="redirectListRolesPage()"> <mat-icon>arrow_back</mat-icon> </button>
+    </div>
+        
+    
+    <div class="card">
+        <div class="card-body">
 
-                <span *ngIf="!enableModulesRole" class="spinner-border spinner-border-lg align-center"></span>
+            <span *ngIf="!enableModulesRole" class="spinner-border spinner-border-lg align-center"></span>
 
-                <section *ngIf="enableModulesRole">
+            <div *ngIf="enableModulesRole">
 
-                    <h3 style="display: inline;"><b>ROL</b></h3>
-                    <p class="articulo__contenedor__tittle__h1">{{role.nombre}}</p>
+                <p class="contenido-main-admin__h3"><b>ROL</b></p>
+                <p class="contenido-main-admin__h1">{{role.nombre}}</p>
+                <hr>
 
-                    <div>
-                        <div *ngIf="listModulesRol">
-                            <p class="articulo__contenedor__tittle__h3" style="color: green;">{{ 'CONFIGURATION.ADD_MODULES_ROLE.MODULES_PERMITTED' | translate }}</p>
-                            <div class="articulo__contenedor__table">
-                                <table class="table table-striped">
-                                    <thead>
-                                        <tr>
-                                            <th style="width: 29%">{{ 'CONFIGURATION.ADD_MODULES_ROLE.TABLE.NAME' | translate }}</th>
-                                            <th style="width: 60%">{{ 'CONFIGURATION.ADD_MODULES_ROLE.TABLE.DESCRIPTION' | translate }}</th>
-                                            <th style="width: 10%">{{ 'CONFIGURATION.ADD_MODULES_ROLE.TABLE.STATUS' | translate }}</th>
-                                            <th style="width: 1%"></th>
-                                        </tr>
-                                    </thead>
-                                    <tbody>
-                                        <tr *ngFor="let modAss of listModulesRol" class="item-list__list">
+                <div *ngIf="listModulesRol" class="contenido-main-admin__table">
+                    <p class="contenido-main-admin__h3" 
+                        style="color: green;">
+                        {{ 'CONFIGURATION.ADD_MODULES_ROLE.MODULES_PERMITTED' | translate }}
+                    </p>
+                    <table class="table table-striped">
+                        <thead>
+                            <tr>
+                                <th class="table__add-module-rol__name">{{ 'CONFIGURATION.ADD_MODULES_ROLE.TABLE.NAME' | translate }}</th>
+                                <th class="table__add-module-rol__desc">{{ 'CONFIGURATION.ADD_MODULES_ROLE.TABLE.DESCRIPTION' | translate }}</th>
+                                <th class="table__add-module-rol__status">{{ 'CONFIGURATION.ADD_MODULES_ROLE.TABLE.STATUS' | translate }}</th>
+                                <th class="table__add-module-rol__ico"></th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr *ngFor="let modAss of listModulesRol">
+    
+                                <td>{{modAss.nombre}}</td>
+                                <td>{{modAss.descripcion}}</td>
+                                <td>{{modAss.estado}}</td>
+    
+                                <td> <button class="btn-sm item-list-danger p-1"
+                                            (click)="eliminarAcceso(modAss.id)" >
+                                            <mat-icon>lock_open</mat-icon>
+                                            {{ 'CONFIGURATION.ADD_MODULES_ROLE.TABLE.BTN_DENY_ACCESS' | translate }} </button> </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
                 
-                                            <td>{{modAss.nombre}}</td>
-                                            <td>{{modAss.descripcion}}</td>
-                                            <td>{{modAss.estado}}</td>
-                
-                                            <td style="white-space: normal">
-                                                <button class="btn-sm item-list__admin__danger"
-                                                        (click)="eliminarAcceso(modAss.id)" >
-                                                        <mat-icon>lock_open</mat-icon>
-                                                        {{ 'CONFIGURATION.ADD_MODULES_ROLE.TABLE.BTN_DENY_ACCESS' | translate }}
-                                                </button>
-                                            </td>
-                                        </tr>
-                                    </tbody>
-                                </table>
-                            </div>
-                        </div>
-            
-                        <hr><br>
-            
-                        <div *ngIf="listModulesBusiness">
-                            <p class="articulo__contenedor__tittle__h3" style="color: orangered;">{{ 'CONFIGURATION.ADD_MODULES_ROLE.MODULES_NOT_PERMITTED' | translate }}</p>
-                            <div class="articulo__contenedor__table">
-                                <table class="table table-striped">
-                                    <thead>
-                                        <tr>
-                                            <th style="width: 29%">{{ 'CONFIGURATION.ADD_MODULES_ROLE.TABLE.NAME' | translate }}</th>
-                                            <th style="width: 60%">{{ 'CONFIGURATION.ADD_MODULES_ROLE.TABLE.DESCRIPTION' | translate }}</th>
-                                            <th style="width: 10%">{{ 'CONFIGURATION.ADD_MODULES_ROLE.TABLE.STATUS' | translate }}</th>
-                                            <th style="width: 1%"></th>
-                                        </tr>
-                                    </thead>
-                                    <tbody>
-                                        <tr *ngFor="let modRol of listModulesBusiness" class="item-list__list">
-                
-                                            <td>{{modRol.nombre}}</td>
-                                            <td>{{modRol.descripcion}}</td>
-                                            <td>{{modRol.estado}}</td>
-                
-                                            <td style="white-space: normal">
-                                                <button class="btn-sm item-list__admin__ok"
-                                                    (click)="otorgarAcceso(modRol.id)"
-                                                    > <mat-icon>lock</mat-icon>
-                                                    {{ 'CONFIGURATION.ADD_MODULES_ROLE.TABLE.BTN_PERMIT_ACCESS' | translate }}
-                                                </button>
-                                            </td>
-                                        </tr>
-                                    </tbody>
-                                </table>
-                            </div>
-                        </div>
-                    </div>
-                </section>
+                <br>
+
+                <div *ngIf="listModulesBusiness" class="contenido-main-admin__table">
+                    <p class="contenido-main-admin__h3" 
+                        style="color: orangered;">{{ 'CONFIGURATION.ADD_MODULES_ROLE.MODULES_NOT_PERMITTED' | translate }}
+                    </p>
+                    <table class="table table-striped">
+                        <thead>
+                            <tr>
+                                <th class="table__add-module-rol__name">{{ 'CONFIGURATION.ADD_MODULES_ROLE.TABLE.NAME' | translate }}</th>
+                                <th class="table__add-module-rol__desc">{{ 'CONFIGURATION.ADD_MODULES_ROLE.TABLE.DESCRIPTION' | translate }}</th>
+                                <th class="table__add-module-rol__status">{{ 'CONFIGURATION.ADD_MODULES_ROLE.TABLE.STATUS' | translate }}</th>
+                                <th class="table__add-module-rol__ico"></th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr *ngFor="let modRol of listModulesBusiness">
+    
+                                <td>{{modRol.nombre}}</td>
+                                <td>{{modRol.descripcion}}</td>
+                                <td>{{modRol.estado}}</td>
+    
+                                <td style="white-space: normal">
+                                    <button class="btn-sm item-list-status-on p-1"
+                                        (click)="otorgarAcceso(modRol.id)" > 
+                                        <mat-icon>lock</mat-icon>
+                                        {{ 'CONFIGURATION.ADD_MODULES_ROLE.TABLE.BTN_PERMIT_ACCESS' | translate }} </button> </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
             </div>
         </div>
-    </section>
-</article>
+    </div>
+</div>

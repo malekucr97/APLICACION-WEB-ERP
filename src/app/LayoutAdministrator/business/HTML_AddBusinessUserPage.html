@@ -1,9 +1,9 @@
-<div class="contenido-main">
+<div class="contenido-main-admin">
     
     <div>
         <div>
-            <p class="contenido-main__h1">{{ 'CONFIGURATION.ADD_EDIT_BUSINESS_USER.TITLE' | translate }}</p>
-            <p class="contenido-main__h2">{{userToAssign.nombreCompleto}}</p>
+            <p class="contenido-main-admin__h1">{{ 'CONFIGURATION.ADD_EDIT_BUSINESS_USER.TITLE' | translate }}</p>
+            <p class="contenido-main-admin__h2">{{userToAssign.nombreCompleto}}</p>
         </div>
 
         <hr>
@@ -17,9 +17,9 @@
     <div class="card">
         <div class="card-body">
 
-            <h3 class="contenido-main__h3-inline-black">{{ 'CONFIGURATION.ADD_EDIT_BUSINESS_USER.ROLE_USER' | translate }} : </h3>
-            <h3 *ngIf="existeRol" class="contenido-main__h3-inline-blue"><b>{{role.nombre}} </b></h3>
-            <h3 *ngIf="!existeRol" class="contenido-main__h3-inline-red">&emsp;<b>{{ 'CONFIGURATION.ADD_EDIT_BUSINESS_USER.VALIDATION.ROLE_NOT_ASSIGNED' | translate }}</b></h3>
+            <h3 class="contenido-main-admin__h3-inline-black">{{ 'CONFIGURATION.ADD_EDIT_BUSINESS_USER.ROLE_USER' | translate }} : </h3>
+            <h3 *ngIf="existeRol" class="contenido-main-admin__h3-inline-blue"><b>{{role.nombre}} </b></h3>
+            <h3 *ngIf="!existeRol" class="contenido-main-admin__h3-inline-red">&emsp;<b>{{ 'CONFIGURATION.ADD_EDIT_BUSINESS_USER.VALIDATION.ROLE_NOT_ASSIGNED' | translate }}</b></h3>
         
             <div *ngIf="listBusinessUser"  class="d-flex justify-content-end">
                 <button (click)="desAsignAllBusinessUser(userToAssign.id)"  class="btn-sm item-list-delete">
@@ -28,18 +28,18 @@
     
             <hr>
             
-            <div *ngIf="listBusinessUser" class="contenido-main__table">
+            <div *ngIf="listBusinessUser" class="contenido-main-admin__table">
                 <br>
-                <p class="contenido-main__h3-on">{{ 'CONFIGURATION.ADD_EDIT_BUSINESS_USER.LIST_COMPANIES_ACCES' | translate }}</p>
+                <p class="contenido-main-admin__h3-on">{{ 'CONFIGURATION.ADD_EDIT_BUSINESS_USER.LIST_COMPANIES_ACCES' | translate }}</p>
                 <table class="table table-striped">
                 
                     <thead>
                         <tr>
-                            <th class="contenido-main__table__abup-id">{{ 'CONFIGURATION.ADD_EDIT_BUSINESS_USER.TABLE.ID' | translate }}</th>
-                            <th class="contenido-main__table__abup-name">{{ 'CONFIGURATION.ADD_EDIT_BUSINESS_USER.TABLE.NAME' | translate }}</th>
-                            <th class="contenido-main__table__abup-email">{{ 'CONFIGURATION.ADD_EDIT_BUSINESS_USER.TABLE.EMAIL' | translate }}</th>
-                            <th class="contenido-main__table__abup-phone">{{ 'CONFIGURATION.ADD_EDIT_BUSINESS_USER.TABLE.PHONE' | translate }}</th>
-                            <th class="contenido-main__table__abup-ico"></th>
+                            <th class="table__add-business-user__id">{{ 'CONFIGURATION.ADD_EDIT_BUSINESS_USER.TABLE.ID' | translate }}</th>
+                            <th class="table__add-business-user__name">{{ 'CONFIGURATION.ADD_EDIT_BUSINESS_USER.TABLE.NAME' | translate }}</th>
+                            <th class="table__add-business-user__email">{{ 'CONFIGURATION.ADD_EDIT_BUSINESS_USER.TABLE.EMAIL' | translate }}</th>
+                            <th class="table__add-business-user__phone">{{ 'CONFIGURATION.ADD_EDIT_BUSINESS_USER.TABLE.PHONE' | translate }}</th>
+                            <th class="table__add-business-user__ico"></th>
                         </tr>
                     </thead>
                     <tbody>
@@ -60,17 +60,17 @@
             <br> <hr>
             </div>
 
-            <div *ngIf="listAllBusiness" class="contenido-main__table">
+            <div *ngIf="listAllBusiness" class="contenido-main-admin__table">
                 <br>
-                <p class="contenido-main__h3-off">{{ 'CONFIGURATION.ADD_EDIT_BUSINESS_USER.LIST_COMPANIES_NOT_ACCES' | translate }}</p>
+                <p class="contenido-main-admin__h3-off">{{ 'CONFIGURATION.ADD_EDIT_BUSINESS_USER.LIST_COMPANIES_NOT_ACCES' | translate }}</p>
                 <table class="table table-striped">
                     <thead>
                         <tr>
-                            <th class="contenido-main__table__abup-id">{{ 'CONFIGURATION.ADD_EDIT_BUSINESS_USER.TABLE.ID' | translate }}</th>
-                            <th class="contenido-main__table__abup-name">{{ 'CONFIGURATION.ADD_EDIT_BUSINESS_USER.TABLE.NAME' | translate }}</th>
-                            <th class="contenido-main__table__abup-email">{{ 'CONFIGURATION.ADD_EDIT_BUSINESS_USER.TABLE.EMAIL' | translate }}</th>
-                            <th class="contenido-main__table__abup-phone">{{ 'CONFIGURATION.ADD_EDIT_BUSINESS_USER.TABLE.PHONE' | translate }}</th>
-                            <th class="contenido-main__table__abup-ico"></th>
+                            <th class="table__add-business-user__id">{{ 'CONFIGURATION.ADD_EDIT_BUSINESS_USER.TABLE.ID' | translate }}</th>
+                            <th class="table__add-business-user__name">{{ 'CONFIGURATION.ADD_EDIT_BUSINESS_USER.TABLE.NAME' | translate }}</th>
+                            <th class="table__add-business-user__email">{{ 'CONFIGURATION.ADD_EDIT_BUSINESS_USER.TABLE.EMAIL' | translate }}</th>
+                            <th class="table__add-business-user__phone">{{ 'CONFIGURATION.ADD_EDIT_BUSINESS_USER.TABLE.PHONE' | translate }}</th>
+                            <th class="table__add-business-user__ico"></th>
                         </tr>
                     </thead>
                     <tbody>

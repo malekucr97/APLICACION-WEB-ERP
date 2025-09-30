@@ -210,4 +210,307 @@ $paddingLength:(2,5,10,15,30,45,50);
   overflow: auto;
 }
 
+// acts 2025 maleku ti
+// **
 
+// .item-list-edit {
+//     color: #053254;
+//     transition: color 0.1s ease-in-out;
+//     &:hover {  color: #F9A01B;  cursor: pointer;  }
+// }
+
+.margin-top-status { padding-top: 20px; }
+
+.table {
+
+    width: 100%;
+    @media (max-width: 1200px) { overflow-x:auto; }
+
+    &__rangos-extras {
+        &__ico { width: 5%; }
+        &__desc { width: 11%; }
+        &__rangoi { width: 10%; text-align: center; &__td { text-align: center; } }
+        &__rangof { width: 10%; text-align: center; &__td { text-align: center; } }
+        &__porc-acep { width: 13%; text-align: center; &__td { text-align: center; } }
+        &__estado { width: 13%; text-align: center; &__td { text-align: center; } }
+
+        &__add { width: 7%; text-align: center; &__td { text-align: center; } }
+        &__edit { width: 7%; text-align: center; &__td { text-align: center; } }
+    }
+    &__ponderacion-riesgos {
+        &__ico { width: 5%; }
+        &__desc { width: 14%; }
+        &__gen { width: 9%; text-align: center; &__td { text-align: center; } }
+        &__nogen { width: 9%; text-align: center; &__td { text-align: center; } }
+        &__desde { width: 8%; text-align: center; &__td { text-align: center; } }
+        &__hasta { width: 8%; text-align: center; &__td { text-align: center; } }
+        &__estado { width: 9%; text-align: center; &__td { text-align: center; } }
+
+        &__add { width: 7%; text-align: center; &__td { text-align: center; } }
+        &__edit { width: 7%; text-align: center; &__td { text-align: center; } }
+    }
+    &__tipo-moneda {
+        &__ico { width: 5%; }
+        &__desc { width: 10%; }
+        &__simbolo { width: 20%; text-align: center; &__td { text-align: center; } }
+        &__alias { width: 10%; }
+        &__estado { width: 15%; text-align: center; &__td { text-align: center; } }
+
+        &__add { width: 10%; text-align: center; &__td { text-align: center; } }
+        &__edit { width: 10%; text-align: center; &__td { text-align: center; } }
+    }
+    &__personas-analisis {
+        &__ico { width: 5%; }
+        &__ident { width: 20%; }
+        &__nombre { width: 25%; }
+        &__apellido { width: 20%; }
+        &__asoc { width: 15%; text-align: center; &__td { text-align: center; } }
+        &__estado { width: 15%; text-align: center; &__td { text-align: center; } }
+    }
+    &__personas-creditos {
+        &__ico { width: 5%; }
+        &__cat { width: 15%; }
+        &__asociado { width: 20%; }
+        &__saldof { width: 20%; }
+        &__cuotaf { width: 20%; }
+        &__diasac { width: 20%; text-align: center; &__td { text-align: center; } }
+    }
+    &__modelos-calificacion {
+        &__ico { width: 5%; }
+        &__desc { width: 80%; }
+        &__estado { width: 15%; text-align: center; &__td { text-align: center; } }
+
+        &__grupo {
+            &__desc { width: 70%; }
+            &__peso { width: 10%; text-align: center; &__td { text-align: center; } }
+        }
+        &__indicador {
+            &__desc { width: 70%; }
+            &__peso { width: 10%; text-align: center; &__td { text-align: center; } }
+        }
+    }
+    &__variables-pd {
+        &__ico { width: 5%; }
+        &__desc { width: 20%; }
+        &__coeficiente { width: 20%; }
+        &__equivalente { width: 13%; }
+        &__estado { width: 10%; text-align: center; &__td { text-align: center; } }
+        &__add { width: 8%; text-align: center; &__td { text-align: center; } }
+        &__update { width: 8%; text-align: center; &__td { text-align: center; } }
+    }
+    &__nivel-capacidad-pago {
+        &__ico { width: 3%; }
+        &__desc { width: 20%; }
+        &__puntaje { width: 9%; text-align: center; &__td { text-align: center; } }
+        &__rangoi { width: 10%; text-align: center; &__td { text-align: center; } }
+        &__rangof { width: 10%; text-align: center; &__td { text-align: center; } }
+        &__cappago { width: 15%; text-align: center; &__td { text-align: center; } }
+        &__estado { width: 9%; text-align: center; &__td { text-align: center; } }
+        &__add { width: 6%; text-align: center; &__td { text-align: center; } }
+        &__update { width: 6%; text-align: center; &__td { text-align: center; } }
+    }
+    &__variables-criticas {
+        &__ico { width: 3%; }
+        &__desc { width: 45%; }
+        &__estado { width: 12%; text-align: center; &__td { text-align: center; } }
+        &__add { width: 10%; text-align: center; &__td { text-align: center; } }
+        &__update { width: 10%; text-align: center; &__td { text-align: center; } }
+    }
+    &__indicadores-relevantes {
+        &__ico { width: 5%; }
+        &__desc { width: 80%; }
+        &__estado { width: 15%; text-align: center; &__td { text-align: center; } }
+
+        &__niveles {
+            &__desc { width: 55%; }
+            &__rangoi { width: 20%; text-align: center; &__td { text-align: center; } }
+            &__rangof { width: 20%; text-align: center; &__td { text-align: center; } }
+        }
+        // &__add { width: 10%; text-align: center; &__td { text-align: center; } }
+        // &__update { width: 10%; text-align: center; &__td { text-align: center; } }
+    }
+}
+
+.back-ico-one {
+    margin-bottom: 12px;
+    &:hover { color: white; background-color: #F9A01B; cursor: pointer; }
+}
+.back-ico-two {
+    margin-bottom: 12px;
+    &:hover { color: white; background-color: #B3B3B3; cursor: pointer; }
+}
+
+.margin-status { padding-top: 20px; }
+.color-chechbox { color: white; font-weight:500; }
+
+.item-list-search { color: white; &:hover { cursor: pointer; } }
+.item-list-on { color: #129523; &:hover { cursor: pointer; } }
+.item-list-delete { color: #b82424; &:hover { cursor: pointer; } }
+
+.form-list-inline { display: flex; }
+
+.item-edit {
+    color: #053254;
+    transition: color 0.1s ease-in-out;
+    &:hover { color: #F9A01B; cursor: pointer; }
+}
+
+.formulario-izquierdo {
+    width: 50%;
+    background-color: #254156;
+    color: white;
+    display: flex;
+    flex-direction: column;
+    border-radius: 10px;
+    @media (max-width: 1000px) { width: 100%; }
+
+    &__segundo {
+        width: 50%;
+        background-color: #7a7a7a;
+        color: white;
+        display: flex;
+        flex-direction: column;
+        border-radius: 10px;
+        @media (max-width: 1000px) { width: 100%; }
+    }
+    &__tercero {
+        width: 50%;
+        background-color: #eb8d00;
+        color: white;
+        display: flex;
+        flex-direction: column;
+        border-radius: 10px;
+        @media (max-width: 1000px) { width: 100%; }
+    }
+
+    &__nav {
+        border-bottom: 1px solid white;
+        &__prev {
+            width: 50%;
+            padding-left: 1%;
+            display: inline-block;
+            &__tittle {
+                color: white;
+                margin-top: 10px;
+                font-size: 1.3rem;
+                font-weight: 300;
+            }
+        }
+        &__next {
+            width: 50%;
+            padding-right : 1%;
+            display: inline-block;
+            text-align: right;
+            &__btn-warn {
+                margin-left: 0.3%; margin-right: 0.3%;
+                &:hover { color: #F9A01B; }
+            }
+            &__btn-ok {
+                margin-left: 0.3%; margin-right: 0.3%;
+                &:hover { color: #129523; cursor: pointer; }
+            }
+            &__btn-view {
+                margin-left: 0.3%; margin-right: 0.3%;
+                &:hover { color: #053254; cursor: pointer; }
+            }
+            &__btn-delete {
+                margin-left: 0.3%; margin-right: 0.3%;
+                &:hover { color: #f91b1b; cursor: pointer; }
+            }
+            &__btn-ott {
+                margin-left: 0.3%; margin-right: 0.3%;
+                &:hover { color: #B3B3B3; cursor: pointer; }
+            }
+        }
+    }
+}
+.lista-inline {
+    width: 50%;
+    display: flex;
+    flex-direction: column;
+    border-radius: 10px;
+
+    &__nav {
+        width: 100%;
+        display: inline-block;
+        
+        &__tittle {
+            color: #005188;
+            margin-top: 10px;
+            margin-left: 10px;
+            font-size: 1.3rem;
+            font-weight: 300;
+        }
+    }
+}
+.scroll-table-macred {
+
+    &__personas { max-height: 350px; overflow: auto; border-radius: 10px; }
+    
+    table {
+        width: 100%;
+        border-collapse: collapse;
+    th, td {
+      padding: 0.5rem;
+      text-align: left;
+      border-bottom: 1px solid #e0e0e0;
+    }
+    thead {
+      background-color: #f9f9f9;
+      position: sticky;
+      top: 0;
+      z-index: 1;
+    }
+  }
+}
+
+.contenido-main-macred {
+    margin-top: 1%;
+    margin-bottom: 1%;
+    margin-left: 1%;
+    &__h1 {
+        color: #053254; font-size: 1.5rem; font-weight: 700;
+        @media (max-width: 800px) { font-size: 1rem; }
+    }
+    &__h2 {
+        color: #B3B3B3; font-size: 1.2rem; font-weight: 500;
+        @media (max-width: 800px) { font-size: 1rem; }
+    }
+    &__h3 {
+        color: #005188; font-size: 1.2rem; font-weight: 500;
+        @media (max-width: 800px) { font-size: 1rem; }
+    }
+    &__h3-on {
+        color: #129523;
+        font-size: 1.2rem;
+        font-weight: 500;
+        @media (max-width: 800px) { font-size: 1rem; }
+    }
+    &__h3-off {
+        color: #b82424;
+        font-size: 1.2rem;
+        font-weight: 500;
+        @media (max-width: 800px) { font-size: 1rem; }
+    }
+    &__h3-inline-black {
+        color: black;
+        font-size: 1.2rem;
+        font-weight: 500;
+        display: inline;
+        @media (max-width: 800px) { font-size: 1rem; }
+    }
+    &__h3-inline-blue {
+        color: #1A5276;
+        font-size: 1.2rem;
+        font-weight: 500;
+        display: inline;
+        @media (max-width: 800px) { font-size: 1rem; }
+    }
+    &__h3-inline-red {
+        color: #b82424;
+        font-size: 1.2rem;
+        font-weight: 500;
+        display: inline;
+        @media (max-width: 800px) { font-size: 1rem; }
+    }
+}

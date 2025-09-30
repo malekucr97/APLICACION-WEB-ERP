@@ -1,8 +1,8 @@
-<div class="contenido-main">
+<div class="contenido-main-admin">
     <div>
         <div>
-            <p class="contenido-main__h1">{{businessObservable.nombre}}</p>
-            <p class="contenido-main__h2">{{ 'CONFIGURATION.ADMIN_PAGE_LIST_MODULES.BUSINESS.SUBTITLE' | translate }}</p>
+            <p class="contenido-main-admin__h1">{{businessObservable.nombre}}</p>
+            <p class="contenido-main-admin__h2">{{ 'CONFIGURATION.ADMIN_PAGE_LIST_MODULES.BUSINESS.SUBTITLE' | translate }}</p>
         </div>
         <hr>
         <button class="back-ico-two"
@@ -14,17 +14,17 @@
     <div class="card">
         <div class="card-body">
 
-            <div *ngIf="listModulesBusiness" class="contenido-main__table">
+            <div *ngIf="listModulesBusiness" class="contenido-main-admin__table">
 
-                <p *ngIf="seleccionEmpresa" class="contenido-main__h3">{{ 'CONFIGURATION.ADMIN_PAGE_LIST_MODULES.BUSINESS.SELECT_MODULE_ACTIVE' | translate }}</p>
+                <p *ngIf="seleccionEmpresa" class="contenido-main-admin__h3">{{ 'CONFIGURATION.ADMIN_PAGE_LIST_MODULES.BUSINESS.SELECT_MODULE_ACTIVE' | translate }}</p>
                 <hr>
                 <table class="table table-striped">
                     <thead>
                         <tr>
-                            <th class="contenido-main__table__lmbp-id">{{ 'CONFIGURATION.ADMIN_PAGE_LIST_MODULES.BUSINESS.TBL_ID' | translate }}</th>
-                            <th class="contenido-main__table__lmbp-name">{{ 'CONFIGURATION.ADMIN_PAGE_LIST_MODULES.BUSINESS.TBL_NAME' | translate }}</th>
-                            <th class="contenido-main__table__lmbp-description">{{ 'CONFIGURATION.ADMIN_PAGE_LIST_MODULES.BUSINESS.TBL_DESCRIPTION' | translate }}</th>
-                            <th class="contenido-main__table__lmbp-ico"></th>
+                            <th class="table__list-module-business__id">{{ 'CONFIGURATION.ADMIN_PAGE_LIST_MODULES.BUSINESS.TBL_ID' | translate }}</th>
+                            <th class="table__list-module-business__name">{{ 'CONFIGURATION.ADMIN_PAGE_LIST_MODULES.BUSINESS.TBL_NAME' | translate }}</th>
+                            <th class="table__list-module-business__desc">{{ 'CONFIGURATION.ADMIN_PAGE_LIST_MODULES.BUSINESS.TBL_DESCRIPTION' | translate }}</th>
+                            <th class="table__list-module-business__ico"></th>
                         </tr>
                     </thead>
                     <tbody>
@@ -41,17 +41,17 @@
                 </table>
             </div>
 
-            <div *ngIf="listModulesSystem" class="contenido-main__table">
+            <div *ngIf="listModulesSystem" class="contenido-main-admin__table">
                 <br>
-                <p *ngIf="seleccionEmpresa" class="contenido-main__h3">{{ 'CONFIGURATION.ADMIN_PAGE_LIST_MODULES.BUSINESS.SELECT_MODULE_INACTIVE' | translate }}</p>
+                <p *ngIf="seleccionEmpresa" class="contenido-main-admin__h3">{{ 'CONFIGURATION.ADMIN_PAGE_LIST_MODULES.BUSINESS.SELECT_MODULE_INACTIVE' | translate }}</p>
                 <hr>
                 <table class="table table-striped">
                     <thead>
                         <tr>
-                            <th class="contenido-main__table__lmbp-id">{{ 'CONFIGURATION.ADMIN_PAGE_LIST_MODULES.BUSINESS.TBL_ID' | translate }}</th>
-                            <th class="contenido-main__table__lmbp-name">{{ 'CONFIGURATION.ADMIN_PAGE_LIST_MODULES.BUSINESS.TBL_NAME' | translate }}</th>
-                            <th class="contenido-main__table__lmbp-description">{{ 'CONFIGURATION.ADMIN_PAGE_LIST_MODULES.BUSINESS.TBL_DESCRIPTION' | translate }}</th>
-                            <th class="contenido-main__table__lmbp-ico"></th>
+                            <th class="table__list-module-business__id">{{ 'CONFIGURATION.ADMIN_PAGE_LIST_MODULES.BUSINESS.TBL_ID' | translate }}</th>
+                            <th class="table__list-module-business__name">{{ 'CONFIGURATION.ADMIN_PAGE_LIST_MODULES.BUSINESS.TBL_NAME' | translate }}</th>
+                            <th class="table__list-module-business__desc">{{ 'CONFIGURATION.ADMIN_PAGE_LIST_MODULES.BUSINESS.TBL_DESCRIPTION' | translate }}</th>
+                            <th class="table__list-module-business__ico"></th>
                         </tr>
                     </thead>
                     <tbody>

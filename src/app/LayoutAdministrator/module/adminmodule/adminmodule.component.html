@@ -1,9 +1,9 @@
-<div class="contenido-main">
+<div class="contenido-main-admin">
   
   <div>
       <div>
-        <p class="contenido-main__h1">{{businessObservable.nombre}}</p>
-        <p class="contenido-main__h2">{{ 'CONFIGURATION.ADMIN_PAGE_LIST_MODULES.TITLE_MANTEINANCE_FOR' | translate }}</p>
+        <p class="contenido-main-admin__h1">{{businessObservable.nombre}}</p>
+        <p class="contenido-main-admin__h2">{{ 'CONFIGURATION.ADMIN_PAGE_LIST_MODULES.TITLE_MANTEINANCE_FOR' | translate }}</p>
       </div>
       <hr>
       <button class="back-ico-two"
@@ -14,7 +14,7 @@
 
   <div class="card">
     <div class="card-body">
-      <p class="contenido-main__h3">{{ 'CONFIGURATION.ADMIN_PAGE_LIST_MODULES.SUBTITLE_POWERBI_FORM' | translate }}</p>
+      <p class="contenido-main-admin__h3">{{ 'CONFIGURATION.ADMIN_PAGE_LIST_MODULES.SUBTITLE_POWERBI_FORM' | translate }}</p>
       
       <hr>
 
@@ -104,8 +104,9 @@
     <!-- ************************ -->
     <!-- SECCIÓN LISTA DE MODULOS -->
     <!-- ************************ -->
+    
     <div class="p-3">
-      <p class="contenido-main__h3">{{ 'CONFIGURATION.ADMIN_PAGE_LIST_MODULES.TITLE_LIST_MANTEINANCE_TO' | translate: {namepg: tituloBasePantalla} }}</p>
+      <p class="contenido-main-admin__h3">{{ 'CONFIGURATION.ADMIN_PAGE_LIST_MODULES.TITLE_LIST_MANTEINANCE_TO' | translate: {namepg: tituloBasePantalla} }}</p>
       <div class="row">
         <div class="col-3 ms-auto">
           <div class="input-group">
@@ -121,28 +122,27 @@
       </div>
     </div>
 
-    <div class="contenido-main__table px-2">
-      <!-- <br> -->
-        <table class="table table-striped">
-          <thead>
-            <tr>
-              <th class="contenido-main__table__am-ico"></th>
-              <th class="contenido-main__table__am-id">{{ 'CONFIGURATION.ADMIN_PAGE_LIST_MODULES.TBL_ID' | translate }}</th>
-              <th class="contenido-main__table__am-name">{{ 'CONFIGURATION.ADMIN_PAGE_LIST_MODULES.TBL_NAME' | translate }}</th>
-              <th class="contenido-main__table__am-desc">{{ 'CONFIGURATION.ADMIN_PAGE_LIST_MODULES.TBL_DESCRIPTION' | translate }}</th>
-              <th class="contenido-main__table__am-image">{{ 'CONFIGURATION.ADMIN_PAGE_LIST_MODULES.TBL_IMAGE' | translate }}</th>
-            </tr>
-          </thead>
-          <tbody>
-            <tr *ngFor="let obj of lstModulosComponente" (click)="seleccionarModulo(obj)">
-              <td class="item-list-edit"> <a> <mat-icon>swap_vert</mat-icon> </a> </td>
-              <td class="item-list-edit">{{ obj.identificador }}</td>
-              <td class="item-list-edit">{{ obj.nombre }}</td>
-              <td class="item-list-edit">{{ obj.descripcion }}</td>
-              <td class="item-list-edit">{{ obj.pathLogo }}</td>
-            </tr>
-          </tbody>
-        </table>
+    <div class="contenido-main-admin__table px-2">
+      <table class="table table-striped">
+        <thead>
+          <tr>
+            <th class="table__admin-module__ico"></th>
+            <th class="table__admin-module__id">{{ 'CONFIGURATION.ADMIN_PAGE_LIST_MODULES.TBL_ID' | translate }}</th>
+            <th class="table__admin-module__name">{{ 'CONFIGURATION.ADMIN_PAGE_LIST_MODULES.TBL_NAME' | translate }}</th>
+            <th class="table__admin-module__desc">{{ 'CONFIGURATION.ADMIN_PAGE_LIST_MODULES.TBL_DESCRIPTION' | translate }}</th>
+            <th class="table__admin-module__image">{{ 'CONFIGURATION.ADMIN_PAGE_LIST_MODULES.TBL_IMAGE' | translate }}</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let obj of lstModulosComponente" (click)="seleccionarModulo(obj)">
+            <td class="item-list-edit"> <a> <mat-icon>swap_vert</mat-icon> </a> </td>
+            <td class="item-list-edit">{{ obj.identificador }}</td>
+            <td class="item-list-edit">{{ obj.nombre }}</td>
+            <td class="item-list-edit">{{ obj.descripcion }}</td>
+            <td class="item-list-edit">{{ obj.pathLogo }}</td>
+          </tr>
+        </tbody>
+      </table>
     </div>
     <br>
   </div>

@@ -1,0 +1,355 @@
+<div class="contenido-main-macred">
+
+    <div>
+        <div>
+            <p class="contenido-main-macred__h1">{{moduleScreen.descripcion}}</p>
+            <p class="contenido-main-macred__h2">Administración de Modelos de Calificación para Análisis de Probability of Default</p>
+        </div>
+        <hr>
+        <button class="back-ico-two"
+                title="{{ 'CONFIGURATION.BTN_ADMIN_USERS' | translate}}"
+                mat-icon-button 
+                (click)="redirectIndexModule()"> <mat-icon>arrow_back</mat-icon> </button>
+    </div>
+
+    <div class="card">
+        <div class="card-body">
+
+            <p class="contenido-main-macred__h3">Modelos de Análisis PD</p>
+
+            <hr>
+
+            <!-- body -->
+            <div class="form-list-inline">
+                <div class="formulario-izquierdo">
+
+                    <div class="formulario-izquierdo__nav">
+                        <div class="formulario-izquierdo__nav__prev" >
+                            <p class="formulario-izquierdo__nav__prev__tittle">Mantenimiento de Modelos PD</p>
+                        </div>
+
+                        <div class="formulario-izquierdo__nav__next" >
+                            <button *ngIf="habilitaBtnNuevo" class="formulario-izquierdo__nav__next__btn-view" 
+                                    mat-flat-button
+                                    (click)="nuevoModelo()">{{ 'GENERAL.BTN_NEW' | translate }}</button>
+                            <button *ngIf="habilitaBtnActualiza" class="formulario-izquierdo__nav__next__btn-warn" 
+                                    mat-flat-button
+                                    (click)="putModelo()">{{ 'GENERAL.BTN_UPDATE' | translate }}</button>
+                            <button *ngIf="habilitaBtnRegistro" class="formulario-izquierdo__nav__next__btn-ok" 
+                                    mat-flat-button
+                                    (click)="postModelo()">{{ 'GENERAL.BTN_REGISTER' | translate }}</button>
+                            <button *ngIf="habilitaBtnEliminar" class="formulario-izquierdo__nav__next__btn-delete" 
+                                    mat-flat-button
+                                    (click)="deleteModelo()">{{ 'GENERAL.BTN_DELETE' | translate }}</button>
+                        </div>
+                    </div>
+
+                    <div class="p-2">
+
+                        <form [formGroup]="formModelo" class="row">
+
+                            <div class="form-group col-sm-10">
+                                <label for="id_descripcionModelo" class="form-label">Descripción</label>
+                                <input  maxlength="200" 
+                                        formControlName="descripcionModelo" 
+                                        class="form-control" 
+                                        type="text" 
+                                        id="id_descripcionModelo"
+                                        [ngClass]="{ 'is-invalid': submitFormModelo && f.descripcionModelo.errors }" />
+                                <div *ngIf="submitFormModelo && f.descripcionModelo.errors" class="invalid-feedback">
+                                    <div *ngIf="f.descripcionModelo.errors.required">{{ 'GENERAL.VALIDATES.EMPTY' | translate }}</div>
+                                </div>
+                            </div>
+
+                            <div class="form-group col-sm-2 margin-status d-flex justify-content-center">
+                                <mat-checkbox formControlName="estadoModelo"></mat-checkbox>
+                            </div>
+                            
+                        </form>
+                    </div>
+                </div>
+
+                <div *ngIf="habilitaListaModelo" class="lista-inline">
+
+                    <div class="lista-inline__nav" >
+                        <p class="lista-inline__nav__tittle">Lista de Modelos PD</p>
+                    </div>
+
+                    <div *ngIf="listModelos" class="scroll-table-macred__personas">
+                        <table class="table table-striped">
+                            <thead>
+                                <tr>
+                                    <th class="table__modelos-calificacion__ico"></th>
+                                    <th class="table__modelos-calificacion__desc">Descripción</th>
+                                    <th class="table__modelos-calificacion__estado">Estado</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr *ngFor="let obj of listModelos" (click)="selectModelo(obj)" >
+                                    
+                                    <td class="item-edit">
+                                        <div> <a> <mat-icon>swap_horiz</mat-icon> </a> </div> </td>
+
+                                    <td class="item-edit table__modelos-calificacion__desc__td">{{obj.descripcion}}</td>
+                                    <td *ngIf="obj.estado==true" class="item-edit table__modelos-calificacion__estado__td">Activo</td>
+                                    <td *ngIf="obj.estado==false" class="item-edit table__modelos-calificacion__estado__td">Inactivo</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+
+            <br>
+
+            <div *ngIf="habilitaFormularioGrupo" class="card">
+                <div class="card-body">
+
+                    <p class="contenido-main-macred__h3">Grupos de  Modelos PD</p>
+                    
+                    <hr>
+
+                    <div class="form-list-inline">
+                        <div class="formulario-izquierdo__segundo">
+
+                            <div class="formulario-izquierdo__nav">
+                                <div class="formulario-izquierdo__nav__prev" >
+                                    <p class="formulario-izquierdo__nav__prev__tittle">Mantenimiento de Grupos de Indicadores PD</p>
+                                </div>
+
+                                <div class="formulario-izquierdo__nav__next" >
+                                    <button *ngIf="habilitaBtnNuevoGrupo" class="formulario-izquierdo__nav__next__btn-view" 
+                                            mat-flat-button
+                                            (click)="nuevoGrupo()">{{ 'GENERAL.BTN_NEW' | translate }}</button>
+                                    <button *ngIf="habilitaBtnActualizaGrupo" class="formulario-izquierdo__nav__next__btn-warn" 
+                                            mat-flat-button
+                                            (click)="putGrupo()">{{ 'GENERAL.BTN_UPDATE' | translate }}</button>
+                                    <button *ngIf="habilitaBtnRegistroGrupo" class="formulario-izquierdo__nav__next__btn-ok" 
+                                            mat-flat-button
+                                            (click)="postGrupo()">{{ 'GENERAL.BTN_REGISTER' | translate }}</button>
+                                    <button *ngIf="habilitaBtnEliminarGrupo" class="formulario-izquierdo__nav__next__btn-delete" 
+                                            mat-flat-button
+                                            (click)="deleteGrupo()">{{ 'GENERAL.BTN_DELETE' | translate }}</button>
+                                </div>
+                            </div>
+
+                            <div class="p-2">
+
+                                <form [formGroup]="formGrupo" class="row">
+
+                                    <div class="form-group col-sm-10">
+                                        <label for="id_descripcionGrupo" class="form-label">Descripción</label>
+                                        <input  maxlength="200" 
+                                                formControlName="descripcionGrupo" 
+                                                class="form-control" 
+                                                type="text" 
+                                                id="id_descripcionGrupo"
+                                                [ngClass]="{ 'is-invalid': submitFormGrupo && g.descripcionGrupo.errors }" />
+                                        <div *ngIf="submitFormGrupo && g.descripcionGrupo.errors" class="invalid-feedback">
+                                            <div *ngIf="g.descripcionGrupo.errors.required">{{ 'GENERAL.VALIDATES.EMPTY' | translate }}</div>
+                                        </div>
+                                    </div>
+
+                                    <div class="form-group col-sm-2">
+                                        <label for="id_pesoGrupo" class="form-label">Peso</label>
+                                        <input formControlName="pesoGrupo" 
+                                                class="form-control" 
+                                                type="number" 
+                                                id="id_pesoGrupo"  
+                                            [ngClass]="{ 'is-invalid': submitFormGrupo && g.pesoGrupo.errors }" />
+                                        <div *ngIf="submitFormGrupo && g.pesoGrupo.errors" class="invalid-feedback">
+                                            <div *ngIf="g.pesoGrupo.errors.required">{{ 'GENERAL.VALIDATES.EMPTY' | translate }}</div>
+                                        </div>
+                                    </div>
+
+                                    <div class="form-group col-sm-3">
+                                        <label for="id_pesoGrupoTotal" class="form-label">Peso Total</label>
+                                        <input readonly
+                                                formControlName="pesoTotalGrupo" 
+                                                class="form-control" 
+                                                type="number" 
+                                                id="id_pesoGrupoTotal"  
+                                            [ngClass]="{ 'is-invalid': submitFormGrupo && g.pesoTotalGrupo.errors }" />
+                                        <div *ngIf="submitFormGrupo && g.pesoTotalGrupo.errors" class="invalid-feedback">
+                                            <div *ngIf="g.pesoTotalGrupo.errors.required">{{ 'GENERAL.VALIDATES.EMPTY' | translate }}</div>
+                                        </div>
+                                    </div>
+
+                                    <div class="col-sm-7"></div>
+
+                                    <div class="form-group col-sm-2 margin-status d-flex justify-content-center">
+                                        <mat-checkbox formControlName="estadoGrupo"></mat-checkbox>
+                                    </div>
+
+                                </form>
+                            </div>
+                        </div>
+
+                        <div *ngIf="habilitaListaGrupo" class="lista-inline">
+
+                            <div class="lista-inline__nav" >
+                                <p class="lista-inline__nav__tittle">Grupos de Modelos PD para {{objSeleccionadoModelo.descripcion}}</p>
+                            </div>
+
+                            <div *ngIf="listModelos" class="scroll-table-macred__personas">
+                                <table class="table table-striped">
+                                    <thead>
+                                        <tr>
+                                            <th class="table__modelos-calificacion__ico"></th>
+                                            <th class="table__modelos-calificacion__grupo__desc">Descripción</th>
+                                            <th class="table__modelos-calificacion__grupo__peso">Peso</th>
+                                            <th class="table__modelos-calificacion__estado">Estado</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr *ngFor="let obj of listGrupos" (click)="selectGrupo(obj)" >
+                                            
+                                            <td class="item-edit">
+                                                <div> <a> <mat-icon>swap_horiz</mat-icon> </a> </div> </td>
+
+                                            <td class="item-edit">{{obj.descripcion}}</td>
+                                            <td class="item-edit table__modelos-calificacion__grupo__peso__td">{{obj.peso}}</td>
+                                            <td *ngIf="obj.estado==true" class="item-edit table__modelos-calificacion__estado__td">Activo</td>
+                                            <td *ngIf="obj.estado==false" class="item-edit table__modelos-calificacion__estado__td">Inactivo</td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+
+            <br>
+
+            <div *ngIf="habilitaFormularioIndicador" class="card">
+                <div class="card-body">
+
+                    <p class="contenido-main-macred__h3">Indicadores por Grupos de Modelos PD</p>
+                    
+                    <hr>
+
+                    <div class="form-list-inline">
+                        <div class="formulario-izquierdo__tercero">
+
+                            <div class="formulario-izquierdo__nav">
+                                <div class="formulario-izquierdo__nav__prev" >
+                                    <p class="formulario-izquierdo__nav__prev__tittle">Mantenimiento de Indicadores PD</p>
+                                </div>
+
+                                <div class="formulario-izquierdo__nav__next" >
+                                    <button *ngIf="habilitaBtnNuevoIndicador" class="formulario-izquierdo__nav__next__btn-view" 
+                                            mat-flat-button
+                                            (click)="nuevoIndicador()">{{ 'GENERAL.BTN_NEW' | translate }}</button>
+                                    <button *ngIf="habilitaBtnActualizaIndicador" class="formulario-izquierdo__nav__next__btn-warn" 
+                                            mat-flat-button
+                                            (click)="putIndicador()">{{ 'GENERAL.BTN_UPDATE' | translate }}</button>
+                                    <button *ngIf="habilitaBtnRegistroIndicador" class="formulario-izquierdo__nav__next__btn-ok"
+                                            mat-flat-button
+                                            (click)="postIndicador()">{{ 'GENERAL.BTN_REGISTER' | translate }}</button>
+                                    <button *ngIf="habilitaBtnEliminarIndicador" class="formulario-izquierdo__nav__next__btn-delete" 
+                                            mat-flat-button
+                                            (click)="deleteIndicador()">{{ 'GENERAL.BTN_DELETE' | translate }}</button>
+                                </div>
+                            </div>
+
+                            <div class="p-2">
+
+                                <form [formGroup]="formIndicador" class="row">
+
+                                    <div class="form-group col-sm-10">
+                                        <label for="id_descripcionIndicador" class="form-label">Descripción</label>
+                                        <select formControlName="descripcionIndicador" 
+                                                class="form-control" 
+                                                name="selectVariables"
+                                                id="id_descripcionIndicador"
+                                                [ngClass]="{ 'is-invalid': submitFormIndicador && i.descripcionIndicador.errors }" 
+                                                (change)="onChangeEvent()">
+                                            <option [ngValue]="objeto"
+                                                    *ngFor="let objeto of listVariablesPD"> {{objeto.id}} - 
+                                                                                            {{objeto.descripcionVariable}}</option>
+                                        </select>
+                                        <div *ngIf="submitFormIndicador && i.descripcionIndicador.errors" class="invalid-feedback">
+                                            <div *ngIf="i.descripcionIndicador.errors.required">{{ 'GENERAL.VALIDATES.EMPTY' | translate }}</div>
+                                        </div>
+                                    </div>
+
+
+                                    <div class="form-group col-sm-2">
+                                        <label for="id_pesoIndicador" class="form-label">Peso</label>
+                                        <input formControlName="pesoIndicador" 
+                                                class="form-control" 
+                                                type="number" 
+                                                id="id_pesoIndicador"  
+                                            [ngClass]="{ 'is-invalid': submitFormIndicador && i.pesoIndicador.errors }" />
+                                        <div *ngIf="submitFormIndicador && i.pesoIndicador.errors" class="invalid-feedback">
+                                            <div *ngIf="i.pesoIndicador.errors.required">{{ 'GENERAL.VALIDATES.EMPTY' | translate }}</div>
+                                        </div>
+                                    </div>
+
+                                    <div class="form-group col-sm-6">
+                                        <label for="id_pesoIndicadorTotal" class="form-label">Coeficiente</label>
+                                        <input readonly
+                                                formControlName="pesoTotalIndicador" 
+                                                class="form-control" 
+                                                type="number" 
+                                                id="id_pesoIndicadorTotal"  
+                                            [ngClass]="{ 'is-invalid': submitFormIndicador && i.pesoTotalIndicador.errors }" />
+                                        <div *ngIf="submitFormIndicador && i.pesoTotalIndicador.errors" class="invalid-feedback">
+                                            <div *ngIf="i.pesoTotalIndicador.errors.required">{{ 'GENERAL.VALIDATES.EMPTY' | translate }}</div>
+                                        </div>
+                                    </div>
+
+                                    <!-- listas -->
+                            
+
+                                    <div class="col-sm-4"></div>
+
+                                    <div class="form-group col-sm-2 margin-status d-flex justify-content-center">
+                                        <mat-checkbox formControlName="estadoIndicador"></mat-checkbox>
+                                    </div>
+
+                                </form>
+                            </div>
+                        </div>
+
+                        <div *ngIf="habilitaListaIndicador" class="lista-inline">
+
+                            <div class="lista-inline__nav" >
+                                <p class="lista-inline__nav__tittle">Lista de Indicadores del Grupo {{objSeleccionadoGrupo.descripcion}}</p>
+                            </div>
+
+                            <div *ngIf="listIndicadores" class="scroll-table-macred__personas">
+                                <table class="table table-striped">
+                                    <thead>
+                                        <tr>
+                                            <th class="table__modelos-calificacion__ico"></th>
+                                            <th class="table__modelos-calificacion__indicador__desc">Descripción</th>
+                                            <th class="table__modelos-calificacion__indicador__peso">Peso</th>
+                                            <th class="table__modelos-calificacion__estado">Estado</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr *ngFor="let obj of listIndicadores" (click)="selectIndicador(obj)" >
+                                            
+                                            <td class="item-edit">
+                                                <div> <a> <mat-icon>swap_horiz</mat-icon> </a> </div> </td>
+
+                                            <td class="item-edit">{{obj.descripcion}}</td>
+                                            <td class="item-edit table__modelos-calificacion__indicador__peso__td">{{obj.peso}}</td>
+                                            <td *ngIf="obj.estado==true" class="item-edit table__modelos-calificacion__estado__td">Activo</td>
+                                            <td *ngIf="obj.estado==false" class="item-edit table__modelos-calificacion__estado__td">Inactivo</td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+
+        </div>
+    </div>
+</div>

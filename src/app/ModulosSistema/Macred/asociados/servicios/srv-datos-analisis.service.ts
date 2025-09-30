@@ -82,7 +82,7 @@ export class SrvDatosAnalisisService {
       });
 
     this.macredService
-      .getEstadosCivilesCompania(this.companiaObservable.id)
+      .getEstadosCiviles()
       .pipe(first())
       .subscribe((response) => {
         this.lstEstadoCivil = response;

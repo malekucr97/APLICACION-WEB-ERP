@@ -1,0 +1,216 @@
+<main class="main-modules">
+  <div class="contenido-main">
+
+    <div>
+      <div>
+        <p class="contenido-main__h1">{{ moduleName }}</p>
+        <p class="contenido-main__h2">Administración de Factores Inferibles</p>
+      </div>
+      <hr>
+      <button class="back-ico-one"
+              title="{{ 'CONFIGURATION.BTN_ADMIN_USERS' | translate}}"
+              mat-icon-button 
+              (click)="redirectIndexModule()"> <mat-icon>arrow_back</mat-icon> </button>
+    </div>
+
+    <div class="card">  
+      <div class="card-body">
+
+        <div>
+            <p *ngIf="add" class="contenido-main__h3">Actualización de Factores Inferibles</p>
+            <p *ngIf="update" class="contenido-main__h3">Registro de Factores Inferibles</p>
+        </div>
+
+        <hr>
+
+        <div class="formulario-izquierdo">
+
+          <div class="formulario-izquierdo__nav">
+            <div class="formulario-izquierdo__nav__prev">
+              <p class="formulario-izquierdo__nav__prev__tittle">Parametrización de Factores Inferibles</p>
+            </div>
+
+            <div class="formulario-izquierdo__nav__next">
+              <button *ngIf="habilitaBtnNuevo" 
+                      class="formulario-izquierdo__nav__next__btn-view" 
+                      mat-flat-button 
+                      (click)="limpiarFormulario()">{{ 'GENERAL.BTN_NEW' | translate }}</button>
+              <!-- (()) -->
+              <button *ngIf="habilitaBtnNuevo" 
+                      class="formulario-izquierdo__nav__next__btn-view" 
+                      mat-flat-button 
+                      (click)="calculaMontosInferibles()">Calc.Factores</button>
+              <!-- (()) -->
+              <button *ngIf="habilitaBtnActualiza" 
+                      class="formulario-izquierdo__nav__next__btn-warn" 
+                      mat-flat-button 
+                      (click)="actualizar()">{{ 'GENERAL.BTN_UPDATE' | translate }}</button>
+              <button *ngIf="habilitaBtnRegistro" 
+                      class="formulario-izquierdo__nav__next__btn-ok" 
+                      mat-flat-button 
+                      (click)="registrar()">{{ 'GENERAL.BTN_REGISTER' | translate }}</button>
+              <button *ngIf="habilitaBtnEliminar" 
+                      class="formulario-izquierdo__nav__next__btn-delete" 
+                      mat-flat-button 
+                      (click)="eliminar()">{{ 'GENERAL.BTN_DELETE' | translate }}</button>
+            </div>
+          </div>
+
+          <div class="p-2">
+            <form [formGroup]="formObject" class="row tw-py-4">
+
+              <div class="form-group col-sm-6">
+                <label for="id_descripcionFactor" class="form-label" >Descripción de Tipo de Deducciones</label>
+                <input
+                  maxlength="100"  
+                  formControlName="descripcion"
+                  class="form-control"
+                  type="text"
+                  id="id_descripcionFactor"
+                  [ngClass]="{ 'is-invalid': submitForm && f.descripcion.errors }" />
+                <div *ngIf="submitForm && f.descripcion.errors" class="invalid-feedback" >
+                  <div *ngIf="f.descripcion.errors.required">{{ 'GENERAL.VALIDATES.EMPTY' | translate }}</div>
+                </div>
+              </div>
+
+              <div class="col-sm-3">
+                <label for="id_valorMinimo" class="form-label">Valor Mínimo</label>
+                <input  formControlName="valorMinimo"
+                        class="form-control"
+                        type="number"
+                        id="id_valorMinimo"
+                        [ngClass]="{'is-invalid': submitForm && f.valorMinimo.errors}" />
+                <div *ngIf="submitForm && f.valorMinimo.errors" class="invalid-feedback">
+                  <div *ngIf="f.valorMinimo.errors.required">{{ 'GENERAL.VALIDATES.EMPTY' | translate }}</div>
+                </div>
+              </div>
+
+              <div class="col-sm-3">
+                <label for="id_valorMaximo" class="form-label">Valor Máximo</label>
+                <input  formControlName="valorMaximo"
+                        class="form-control"
+                        type="number"
+                        id="id_valorMaximo"
+                        [ngClass]="{'is-invalid': submitForm && f.valorMaximo.errors}" />
+                <div *ngIf="submitForm && f.valorMaximo.errors" class="invalid-feedback">
+                  <div *ngIf="f.valorMaximo.errors.required">{{ 'GENERAL.VALIDATES.EMPTY' | translate }}</div>
+                </div>
+              </div>
+
+              <div class="col-sm-2">
+                <label for="id_quintilUno" class="form-label">Quintil 1</label>
+                <input  formControlName="quintilUno"
+                        class="form-control"
+                        type="number"
+                        id="id_quintilUno"
+                        [ngClass]="{'is-invalid': submitForm && f.quintilUno.errors}" />
+                <div *ngIf="submitForm && f.quintilUno.errors" class="invalid-feedback">
+                  <div *ngIf="f.quintilUno.errors.required">{{ 'GENERAL.VALIDATES.EMPTY' | translate }}</div>
+                </div>
+              </div>
+
+              <div class="col-sm-2">
+                <label for="id_quintilDos" class="form-label">Quintil 2</label>
+                <input  formControlName="quintilDos"
+                        class="form-control"
+                        type="number"
+                        id="id_quintilDos"
+                        [ngClass]="{'is-invalid': submitForm && f.quintilDos.errors}" />
+                <div *ngIf="submitForm && f.quintilDos.errors" class="invalid-feedback">
+                  <div *ngIf="f.quintilDos.errors.required">{{ 'GENERAL.VALIDATES.EMPTY' | translate }}</div>
+                </div>
+              </div>
+
+              <div class="col-sm-2">
+                <label for="id_quintilTres" class="form-label">Quintil 3</label>
+                <input  formControlName="quintilTres"
+                        class="form-control"
+                        type="number"
+                        id="id_quintilTres"
+                        [ngClass]="{'is-invalid': submitForm && f.quintilTres.errors}" />
+                <div *ngIf="submitForm && f.quintilTres.errors" class="invalid-feedback">
+                  <div *ngIf="f.quintilTres.errors.required">{{ 'GENERAL.VALIDATES.EMPTY' | translate }}</div>
+                </div>
+              </div>
+
+              <div class="col-sm-2">
+                <label for="id_quintilCuatro" class="form-label">Quintil 4</label>
+                <input  formControlName="quintilCuatro"
+                        class="form-control"
+                        type="number"
+                        id="id_quintilCuatro"
+                        [ngClass]="{'is-invalid': submitForm && f.quintilCuatro.errors}" />
+                <div *ngIf="submitForm && f.quintilCuatro.errors" class="invalid-feedback">
+                  <div *ngIf="f.quintilCuatro.errors.required">{{ 'GENERAL.VALIDATES.EMPTY' | translate }}</div>
+                </div>
+              </div>
+
+              <div class="col-sm-2">
+                <label for="id_quintilCinco" class="form-label">Quintil 5</label>
+                <input  formControlName="quintilCinco"
+                        class="form-control"
+                        type="number"
+                        id="id_quintilCinco"
+                        [ngClass]="{'is-invalid': submitForm && f.quintilCinco.errors}" />
+                <div *ngIf="submitForm && f.quintilCinco.errors" class="invalid-feedback">
+                  <div *ngIf="f.quintilCinco.errors.required">{{ 'GENERAL.VALIDATES.EMPTY' | translate }}</div>
+                </div>
+              </div>
+
+              <div class="form-group col-sm-2 margin-icos-mat d-flex justify-content-center">
+                  <mat-checkbox formControlName="estado"></mat-checkbox>
+              </div>
+            </form>
+          </div>
+        </div>
+
+        <div *ngIf="mostrarLista" class="contenido-main__table">
+          <br>
+          <table class="table table-striped">
+            <thead>
+              <tr>
+                <th class="contenido-main__table__td-ico-edit"></th>
+
+                <th class="contenido-main__table__fi-desc">Descripción Factor</th>
+                <th class="contenido-main__table__fi-valmin">Val.Mínimo</th>
+                <th class="contenido-main__table__fi-valmax">Val.Máximo</th>
+                <th class="contenido-main__table__fi-quinu">Quintil 1</th>
+                <th class="contenido-main__table__fi-quind">Quintil 2</th>
+                <th class="contenido-main__table__fi-quint">Quintil 3</th>
+                <th class="contenido-main__table__fi-quinc">Quintil 4</th>
+                <th class="contenido-main__table__fi-quini">Quintil 5</th>
+                <th class="contenido-main__table__fi-estado">Estado</th>
+
+                <th class="contenido-main__table__fi-registra">Registra</th>
+                <th class="contenido-main__table__fi-fecha-r">Fecha</th>
+                <th class="contenido-main__table__fi-modifica">Modifica</th>
+                <th class="contenido-main__table__fi-fecha-m">Fecha</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr *ngFor="let modelo of listObjetos" (click)="seleccionarObjeto(modelo)">
+                <td class="item-list-edit"> <a> <mat-icon>edit</mat-icon> </a> </td>
+                <td class="item-list-edit">{{ modelo.descripcion }}</td>
+                <td class="item-list-edit contenido-main__table__fi-valmin__td">{{ modelo.valorMinimo }}</td>
+                <td class="item-list-edit contenido-main__table__fi-valmax__td">{{ modelo.valorMaximo }}</td>
+                <td class="item-list-edit contenido-main__table__fi-quinu__td">{{ modelo.quintilUno }}</td>
+                <td class="item-list-edit contenido-main__table__fi-quind__td">{{ modelo.quintilDos }}</td>
+                <td class="item-list-edit contenido-main__table__fi-quint__td">{{ modelo.quintilTres }}</td>
+                <td class="item-list-edit contenido-main__table__fi-quinc__td">{{ modelo.quintilCuatro }}</td>
+                <td class="item-list-edit contenido-main__table__fi-quini__td">{{ modelo.quintilCinco }}</td>
+                <td class="item-list-edit contenido-main__table__fi-estado__td" *ngIf="modelo.estado == true">Activo</td>
+                <td class="item-list-edit contenido-main__table__fi-estado__td" *ngIf="modelo.estado == false">Inactivo</td>
+                <td class="item-list-edit contenido-main__table__fi-registra__td">{{ modelo.usuarioCreacion }}</td>
+                <td class="item-list-edit contenido-main__table__fi-fecha-r__td">{{modelo.fechaCreacion | date:'dd/MM/yyyy'}}</td>
+                <td class="item-list-edit contenido-main__table__fi-modifica__td">{{ modelo.usuarioModificacion }}</td>
+                <td class="item-list-edit contenido-main__table__fi-fecha-m__td">{{modelo.fechaModificacion | date:'dd/MM/yyyy'}}</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+
+      </div>
+    </div>
+    
+  </div>
+</main>

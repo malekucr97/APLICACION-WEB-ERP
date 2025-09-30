@@ -1,12 +1,10 @@
-<div>
-  <section class="contenedorReporte">
-    <section class="mensajeError" *ngIf="!mostrarReporte">
-      <p>{{ 'ALERTS.PATH_REPORT_NOT_FOUND' | translate }}</p>
-    </section>
-    <powerbi-report *ngIf="mostrarReporte"
-                    [embedConfig]="reportConfig"
-                    [cssClassName]="reportClass"
-                    [phasedEmbedding]="phasedEmbeddingFlag" >
-    </powerbi-report>
-  </section>
+<div class="contenedorReporte">
+  <div class="mensajeError" *ngIf="!mostrarReporte">
+    <p>{{ 'ALERTS.PATH_REPORT_NOT_FOUND' | translate }}</p>
+  </div>
+  <powerbi-report *ngIf="mostrarReporte"
+                  [embedConfig]="reportConfig"
+                  [cssClassName]="reportClass"
+                  [phasedEmbedding]="phasedEmbeddingFlag" >
+  </powerbi-report>
 </div>

@@ -1,9 +1,9 @@
-<div class="contenido-main">
+<div class="contenido-main-admin">
   
   <div>
     <div>
-      <p class="contenido-main__h1">{{businessObservable.nombre}}</p>
-      <p class="contenido-main__h2">{{ 'CONFIGURATION.ADMIN_PAGE_LIST_USERS.TITLE' | translate }}</p>
+      <p class="contenido-main-admin__h1">{{businessObservable.nombre}}</p>
+      <p class="contenido-main-admin__h2">{{ 'CONFIGURATION.ADMIN_PAGE_LIST_USERS.TITLE' | translate }}</p>
     </div>
     <hr>
     <button class="back-ico-two"
@@ -16,8 +16,8 @@
     <div class="card-body">
 
       <div>
-          <p *ngIf="updateUser" class="contenido-main__h3">{{ 'CONFIGURATION.ADD_EDIT_USER.PARAMETERS_USER' | translate: { nombreCompleto: usuarioSeleccionado.nombreCompleto } }}</p>
-          <p *ngIf="addUser" class="contenido-main__h3">{{ 'CONFIGURATION.ADD_EDIT_USER.REGISTER_USER' | translate }}</p>
+          <p *ngIf="updateUser" class="contenido-main-admin__h3">{{ 'CONFIGURATION.ADD_EDIT_USER.PARAMETERS_USER' | translate: { nombreCompleto: usuarioSeleccionado.nombreCompleto } }}</p>
+          <p *ngIf="addUser" class="contenido-main-admin__h3">{{ 'CONFIGURATION.ADD_EDIT_USER.REGISTER_USER' | translate }}</p>
       </div>
 
       <hr>
@@ -48,7 +48,7 @@
           <form [formGroup]="usuarioForm" class="row">
 
             <div class="col-md-4">
-              <span for="lblIdentificacionUsuario" class="form-label">{{ 'CONFIGURATION.ADD_EDIT_USER.FORM.TXT_ID' | translate }}</span>
+              <label for="id_identificacionUsuario" class="form-label">{{ 'CONFIGURATION.ADD_EDIT_USER.FORM.TXT_ID' | translate }}</label>
               <input formControlName="identificacionUsuario"
                       class="form-control"
                       type="text"
@@ -65,7 +65,7 @@
             </div>
 
             <div class="col-md-8">
-              <span for="lblNombreCompletoUsuario" class="form-label">{{ 'CONFIGURATION.ADD_EDIT_USER.FORM.TXT_USERNAME' | translate }}</span>
+              <label for="id_nombreCompletoUsuario" class="form-label">{{ 'CONFIGURATION.ADD_EDIT_USER.FORM.TXT_USERNAME' | translate }}</label>
               <input  maxlength="300"
                       formControlName="nombreCompletoUsuario"
                       class="form-control"
@@ -78,7 +78,7 @@
             </div>
 
             <div class="col-md-4">
-              <span for="lblNumeroTelefonoUsuario" class="form-label">{{ 'CONFIGURATION.ADD_EDIT_USER.FORM.TXT_PHONE' | translate }}</span>
+              <label for="id_numeroTelefonoUsuario" class="form-label">{{ 'CONFIGURATION.ADD_EDIT_USER.FORM.TXT_PHONE' | translate }}</label>
               <input  maxlength="15"
                       formControlName="numeroTelefonoUsuario"
                       class="form-control"
@@ -91,7 +91,7 @@
             </div>
 
             <div class="col-md-8">
-                <span for="lblCorreoElectronicoUsuario" class="form-label">{{ 'CONFIGURATION.ADD_EDIT_USER.FORM.TXT_EMAIL' | translate }}</span>
+                <label for="id_correoElectronicoUsuario" class="form-label">{{ 'CONFIGURATION.ADD_EDIT_USER.FORM.TXT_EMAIL' | translate }}</label>
                 <input  formControlName="correoElectronicoUsuario"
                         class="form-control"
                         type="text"
@@ -106,7 +106,7 @@
             </div>
 
             <div class="col-md-4">
-              <span for="lblPasswordUsuario" class="form-label">{{ 'CONFIGURATION.ADD_EDIT_USER.FORM.TXT_PASSWORD' | translate }}</span>
+              <label for="id_passwordUsuario" class="form-label">{{ 'CONFIGURATION.ADD_EDIT_USER.FORM.TXT_PASSWORD' | translate }}</label>
               <input  formControlName="passwordUsuario"
                       class="form-control"
                       type="password"
@@ -123,7 +123,7 @@
             </div>
 
             <div class="col-md-8">
-              <span for="lblPuestoUsuario" class="form-label">{{ 'CONFIGURATION.ADD_EDIT_USER.FORM.TXT_POSITION' | translate }}</span>
+              <label for="id_puestoUsuario" class="form-label">{{ 'CONFIGURATION.ADD_EDIT_USER.FORM.TXT_POSITION' | translate }}</label>
               <input  maxlength="100"
                       formControlName="puestoUsuario"
                       class="form-control"
@@ -136,7 +136,7 @@
             </div>
 
             <div class="col-md-12">
-              <span for="lblRolUsuario" class="form-label">{{ 'CONFIGURATION.ADD_EDIT_USER.FORM.TXT_ROLE' | translate }}</span>
+              <label for="id_rolUsuario" class="form-label">{{ 'CONFIGURATION.ADD_EDIT_USER.FORM.TXT_ROLE' | translate }}</label>
               <input  maxlength="100"
                       formControlName="rolUsuario"
                       class="form-control"
@@ -156,16 +156,16 @@
       <!-- USUARIO SELECCIONADO     -->
       <!-- ************************ -->
             
-      <div *ngIf="updateUser" class="contenido-main__table">
+      <div *ngIf="updateUser" class="contenido-main-admin__table">
         <br>
         <table class="table table-striped">
           <thead>
             <tr>
-                <th class="contenido-main__table__aeup-id">{{ 'CONFIGURATION.ADD_EDIT_USER.TABLE.ID' | translate }}</th>
-                <th class="contenido-main__table__aeup-name">{{ 'CONFIGURATION.ADD_EDIT_USER.TABLE.USERNAME' | translate }}</th>
-                <th class="contenido-main__table__aeup-email">{{ 'CONFIGURATION.ADD_EDIT_USER.TABLE.EMAIL' | translate }}</th>
-                <th class="contenido-main__table__aeup-position">{{ 'CONFIGURATION.ADD_EDIT_USER.TABLE.POSITION' | translate }}</th>
-                <th class="contenido-main__table__aeup-role">{{ 'CONFIGURATION.ADD_EDIT_USER.TABLE.ROLE' | translate }}</th>
+                <th class="table__add-edit-user__id">{{ 'CONFIGURATION.ADD_EDIT_USER.TABLE.ID' | translate }}</th>
+                <th class="table__add-edit-user__name">{{ 'CONFIGURATION.ADD_EDIT_USER.TABLE.USERNAME' | translate }}</th>
+                <th class="table__add-edit-user__email">{{ 'CONFIGURATION.ADD_EDIT_USER.TABLE.EMAIL' | translate }}</th>
+                <th class="table__add-edit-user__position">{{ 'CONFIGURATION.ADD_EDIT_USER.TABLE.POSITION' | translate }}</th>
+                <th class="table__add-edit-user__role">{{ 'CONFIGURATION.ADD_EDIT_USER.TABLE.ROLE' | translate }}</th>
             </tr>
           </thead>
           <tbody>

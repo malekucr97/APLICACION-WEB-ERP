@@ -168,6 +168,7 @@ export class EntidadesComponent extends OnSeguridad implements OnInit {
   // ** MÉTODOS PRIVADOS ** //
 
   private actualizaListaEntidades() {
+    this.mostrarLista = false;
     this.riesgoCreditoService.GET_ENTIDAD()
       .pipe(first())
       .subscribe((response) => { 

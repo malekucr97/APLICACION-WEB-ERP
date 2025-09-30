@@ -237,6 +237,7 @@ export class PorcentajesEstimacionDiasComponent extends OnSeguridad implements O
 
   private actualizaLista(pidentif : string = null) {
 
+    this.mostrarLista = false;
     const identificador = pidentif || this.formObject.controls['identificador'].value;
 
     this.riesgoCreditoService.GET_RANGOS_IDENTIFICADOR(identificador)

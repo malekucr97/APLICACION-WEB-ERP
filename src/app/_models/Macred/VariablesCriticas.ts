@@ -1,11 +1,14 @@
+export class MacVariablesCriticas {
+  
+  id: number;
+  idCompania: number;
+  idModulo: number;
+  
+  descripcion: string;
+  estado: boolean;
 
-export interface MacVariablesCriticas {
-  codVariable: number,
-  codigoCompania: number,
-  descripcion: string,
-  estado: boolean,
-  usuarioCreacion: string,
-  fechaCreacion: Date,
-  usuarioModificacion?: string,
-  fechaModificacion?: Date
+  adicionadoPor: string;
+  fechaAdicion: Date;
+  modificadoPor?: string;
+  fechaModificacion?: Date;
 }

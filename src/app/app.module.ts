@@ -5,18 +5,12 @@ import { AppRoutingModule } from './app-routing.module';
 import { JwtInterceptor, ErrorInterceptor, TranslateMessageInterceptor } from './_helpers';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
-import { MatTreeModule } from '@angular/material/tree';
-import { MatTooltipModule } from '@angular/material/tooltip';
-import {MatIconModule} from '@angular/material/icon';
-import {MatToolbarModule} from '@angular/material/toolbar';
-import { MatSelectModule } from '@angular/material/select';
-
 // -- >> ** componentes iniciales sistema ** << --
 import { AppComponent } from './app.component';
 import { AlertComponent } from './_components';
 import { HomeComponent } from './home';
 
-import {LocationStrategy, HashLocationStrategy} from '@angular/common';
+import { LocationStrategy, HashLocationStrategy} from '@angular/common';
 import { TranslateComponent } from './_components/translate/translate.component';
 
 import { TranslateModule, TranslateLoader } from '@ngx-translate/core';
@@ -24,10 +18,11 @@ import { TranslateHttpLoader } from '@ngx-translate/http-loader';
 import { HttpClient } from '@angular/common/http';;
 import { FooterComponent } from './_components/footer/footer.component'
 import { SharedModule } from './_shared/shared.module';
+import { CoreModule } from './_core/core.module';
 
-export function HttpLoaderFactory(httpHandler: HttpBackend) {
-    return new TranslateHttpLoader(new HttpClient(httpHandler));
-}
+// export function HttpLoaderFactory(httpHandler: HttpBackend) {
+//     return new TranslateHttpLoader(new HttpClient(httpHandler));
+// }
 
 @NgModule({ declarations: [
         AppComponent,
@@ -40,30 +35,27 @@ export function HttpLoaderFactory(httpHandler: HttpBackend) {
         AppComponent,
         TranslateComponent,
         FooterComponent
-    ], imports: [
+    ], 
+    imports: [
         BrowserModule,
         AppRoutingModule,
         BrowserAnimationsModule,
         SharedModule,
-        // MatIconModule,
-        // MatTreeModule,
-        // MatTooltipModule,
-        // MatToolbarModule,
-        // MatSelectModule,
-        TranslateModule.forRoot({
-            defaultLanguage: 'es',
-            extend: true,
-            loader: {
-                provide: TranslateLoader,
-                useFactory: HttpLoaderFactory,
-                deps: [HttpBackend]
-            },
-        })], providers: [
-        { provide: HTTP_INTERCEPTORS, useClass: JwtInterceptor, multi: true },
-        { provide: HTTP_INTERCEPTORS, useClass: ErrorInterceptor, multi: true },
-        { provide: HTTP_INTERCEPTORS, useClass: TranslateMessageInterceptor, multi: true },
-        // ## rewrrite /# ## //
-        { provide: LocationStrategy, useClass: HashLocationStrategy },
-        provideHttpClient(withInterceptorsFromDi())
+        CoreModule,
+        // TranslateModule.forRoot({
+        //     defaultLanguage: 'es',
+        //     extend: true,
+        //     loader: {
+        //         provide: TranslateLoader,
+        //         useFactory: HttpLoaderFactory,
+        //         deps: [HttpBackend]
+        //     },
+        // })], providers: [
+        // { provide: HTTP_INTERCEPTORS, useClass: JwtInterceptor, multi: true },
+        // { provide: HTTP_INTERCEPTORS, useClass: ErrorInterceptor, multi: true },
+        // { provide: HTTP_INTERCEPTORS, useClass: TranslateMessageInterceptor, multi: true },
+        // // ## rewrrite /# ## //
+        // { provide: LocationStrategy, useClass: HashLocationStrategy },
+        // provideHttpClient(withInterceptorsFromDi())
     ] })
 export class AppModule { }

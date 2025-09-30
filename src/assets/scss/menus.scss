@@ -21,7 +21,7 @@
 
 .item-menu { color: white; &:hover { background-color: #053254; } }
 
-.var-menu-mod {
+.var-menu-modulos {
     @include bg-color-maleku;
     border-top: 1px solid rgb(202, 202, 202);
 
@@ -156,37 +156,21 @@ span{
     color: white;
 }
 
-/*.div-back-bottons{
-    background: #005188;
-    color: white;
-
-    width: 100%;
-    position: absolute;
-    bottom: 1%;
-}*/
-// Tree
-
 .menu-button-submodulo {
-    //width: 100%;
     position: absolute;
     left: 1%;    
 }
 
 .menu-button-back {
-    //width: 100%;
     position: absolute;
     right: 1%;
 }
 
 .info-modulo {
     margin-top: 1%;
-    // width: 100%;
 }
 
 .avatar {
-    // margin-top: 5%;
-    // border-radius: 50%;
-
     transition: opacity 0.5s ease-in-out;
     cursor: pointer;
     width: 40%;

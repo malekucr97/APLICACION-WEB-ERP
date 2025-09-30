@@ -10,19 +10,18 @@ import { Bitacora } from '@app/_models/bitacora';
 import { administrator } from '@environments/environment.prod';
 import { TranslateMessagesService } from '@app/_services/translate-messages.service';
 
-@Component({
-    selector: 'home',
-    templateUrl: 'HTML_HomePage.html',
-    styleUrls: ['../../assets/scss/app.scss'],
-    standalone: false
+@Component({selector: 'home',
+            templateUrl: 'HTML_HomePage.html',
+            styleUrls: ['../../assets/scss/app.scss'],
+            standalone: false
 })
 export class HomeComponent extends OnSeguridad implements OnInit {
 
     userObservable: User;
     listBusiness: Compania[] = [];
 
-    conexion : boolean = false;
-    message  : string = 'Esperando respuesta del servidor';
+    conexion : boolean;
+    message : string = 'Esperando respuesta del servidor';
 
     _httpNoBusinessUserPage : string = httpLandingIndexPage.indexHTTPNoBussinesUser;
     _httpInactiveRolUserPage : string = httpLandingIndexPage.indexHTTPInactiveRolUser;
@@ -45,12 +44,11 @@ export class HomeComponent extends OnSeguridad implements OnInit {
 
         this.userObservable = this.accountService.userValue;
         this.today = new Date();
+
+        this.conexion = false;
     }
 
     ngOnInit() {
-
-        this.conexion   = true;
-        this.message    = 'Por Favor Seleccione la Compañía para Iniciar la Sesión';
 
         if (this.userObservable.esAdmin) {
 
@@ -59,41 +57,14 @@ export class HomeComponent extends OnSeguridad implements OnInit {
                 .subscribe(listBusinessResponse => {
 
                     if (listBusinessResponse && listBusinessResponse.length > 0) {
+                        
+                        this.message = 'Seleccione la Compañía para Iniciar la Sesión';
+                        this.conexion = true;
                         this.listBusiness = listBusinessResponse;
 
                         if (this.listBusiness.length === 1) this.selectBusiness(this.listBusiness[0]) ;
 
-                    } else {
-                        // #region "registro en bitácora"
-                        let bit : Bitacora = new Bitacora(  'NO-LOG11', /** codigoInterno */
-                                                            true, /** sesion */
-                                                            false, /** consulta */
-                                                            0, /** idCompania */
-                                                            0, /** idModulo */
-                                                            this.userObservable.id, /** idUsuario */
-                                                            'No se han devuelto registros de compañías para el usuario al iniciar sesión.', /** descripcion */
-                                                            0, /** contadorSesion */
-                                                            this.today, /** fechaSesion */
-                                                            '', /** lugarSesion */
-                                                            '', /** token */
-                                                            '' /** urlConsulta */ );
-
-                        // *****************************************************************
-                        // REGISTRA EN BITÁCORA INTENTO DE INICIO DE SESIÓN DE ROL SIN PERMISOS
-                        this.accountService.postBitacora(bit, this._HIdUserSessionRequest)
-                            .pipe(first())
-                            .subscribe(response => {
-
-                                this.userObservable.codeNoLogin = '404';
-                                this.userObservable.idRol = null;
-                                this.userObservable.token = null;
-                                this.accountService.loadUserAsObservable(this.userObservable);
-
-                                // redirect http nologin **
-                                this.router.navigate([this._httpNoBusinessUserPage]);
-                            });
-                        // #endregion "registro en bitácora"
-                    }
+                    } else { this.createBitacora('NO-LOG11','Sin compañías para el usuario al iniciar sesión.');  }
                 });
 
         } else {
@@ -103,41 +74,14 @@ export class HomeComponent extends OnSeguridad implements OnInit {
                 .subscribe(listBusinessResponse => {
 
                     if (listBusinessResponse && listBusinessResponse.length > 0) {
+                        
+                        this.message = 'Seleccione la Compañía para Iniciar la Sesión';
+                        this.conexion = true;
                         this.listBusiness = listBusinessResponse;
 
                         if (this.listBusiness.length === 1) this.selectBusiness(this.listBusiness[0]);
 
-                    } else {
-                        // #region "registro en bitácora"
-                        let bit : Bitacora = new Bitacora(  'NO-LOG10', /** codigoInterno */
-                                                            true, /** sesion */
-                                                            false, /** consulta */
-                                                            0, /** idCompania */
-                                                            0, /** idModulo */
-                                                            this.userObservable.id, /** idUsuario */
-                                                            'No se han devuelto registros de compañías para el usuario al iniciar sesión.', /** descripcion */
-                                                            0, /** contadorSesion */
-                                                            this.today, /** fechaSesion */
-                                                            '', /** lugarSesion */
-                                                            '', /** token */
-                                                            '' /** urlConsulta */ );
-
-                        // *****************************************************************
-                        // REGISTRA EN BITÁCORA INTENTO DE INICIO DE SESIÓN DE ROL SIN PERMISOS
-                        this.accountService.postBitacora(bit, this._HIdUserSessionRequest)
-                            .pipe(first())
-                            .subscribe(response => {
-
-                                this.userObservable.codeNoLogin = '404';
-                                this.userObservable.idRol = null;
-                                this.userObservable.token = null;
-                                this.accountService.loadUserAsObservable(this.userObservable);
-
-                                // redirect http nologin **
-                                this.router.navigate([this._httpNoBusinessUserPage]);
-                            });
-                        // #endregion "registro en bitácora"
-                    }
+                    } else { this.createBitacora('NO-LOG10','Sin compañías para el usuario al iniciar sesión.'); }
                 });
         }
     }
@@ -165,68 +109,44 @@ export class HomeComponent extends OnSeguridad implements OnInit {
                         // redirect http index /* ** INDEX MÓDULOS ** */ .html
                         this.router.navigate([httpLandingIndexPage.indexHTTP]);
 
-                    } else {
-                        // #region "registro en bitácora"
-                        let bit : Bitacora = new Bitacora(  'NO-LOG09', /** codigoInterno */
-                                                            true, /** sesion */
-                                                            false, /** consulta */
-                                                            businessId, /** idCompania */
-                                                            0, /** idModulo */
-                                                            this.userObservable.id, /** idUsuario */
-                                                            'Rol asignado a usuario inactivo.', /** descripcion */
-                                                            0, /** contadorSesion */
-                                                            this.today, /** fechaSesion */
-                                                            '', /** lugarSesion */
-                                                            '', /** token */
-                                                            '' /** urlConsulta */ );
+                    } else { this.createBitacora('NO-LOG9','Rol asignado a usuario inactivo.', businessId); }
 
-                        // *****************************************************************
-                        // REGISTRA EN BITÁCORA INTENTO DE INICIO DE SESIÓN DE ROL SIN PERMISOS
-                        this.accountService.postBitacora(bit, this._HIdUserSessionRequest)
-                            .pipe(first())
-                            .subscribe(response => {
+                } else { this.createBitacora('NO-LOG8','Sin roles para el usuario al iniciar sesión.', businessId); }
+            });
+    }
 
-                                this.userObservable.codeNoLogin = '404';
-                                this.userObservable.idRol = null;
-                                this.userObservable.token = null;
-                                this.accountService.loadUserAsObservable(this.userObservable);
+    private createBitacora(pcod:string,pdesc:string, pidbussiness : number = null) : void {
+        
+        let bit : Bitacora = new Bitacora(  pcod, /** codigoInterno */
+                                            true, /** sesion */
+                                            false, /** consulta */
+                                            pidbussiness ? pidbussiness : 0, /** idCompania */
+                                            // 0, /** idCompania */
+                                            0, /** idModulo */
+                                            this.userObservable.id, /** idUsuario */
+                                            pdesc, /** descripcion */
+                                            0, /** contadorSesion */
+                                            this.today, /** fechaSesion */
+                                            '', /** lugarSesion */
+                                            '', /** token */
+                                            '' /** urlConsulta */ );
 
-                                // redirect http nologin **
-                                this.router.navigate([this._httpInactiveRolUserPage]);
-                            });
-                        // #endregion "registro en bitácora"
-                    }
+        // *****************************************************************
+        // REGISTRA EN BITÁCORA INTENTO DE INICIO DE SESIÓN DE ROL SIN PERMISOS
+        this.accountService.postBitacora(bit, this._HIdUserSessionRequest)
+            .pipe(first())
+            .subscribe(response => {
 
-                } else {
-                    // #region "registro en bitácora"
-                    let bit : Bitacora = new Bitacora(  'NO-LOG08', /** codigoInterno */
-                                                        true, /** sesion */
-                                                        false, /** consulta */
-                                                        businessId, /** idCompania */
-                                                        0, /** idModulo */
-                                                        this.userObservable.id, /** idUsuario */
-                                                        'No se han devuelto registros de roles para el usuario al iniciar sesión.', /** descripcion */
-                                                        0, /** contadorSesion */
-                                                        this.today, /** fechaSesion */
-                                                        '', /** lugarSesion */
-                                                        '', /** token */
-                                                        '' /** urlConsulta */ );
+                this.userObservable.codeNoLogin = '404';
+                this.userObservable.idRol = null;
+                this.userObservable.token = null;
+                this.accountService.loadUserAsObservable(this.userObservable);
 
-                    // *****************************************************************
-                    // REGISTRA EN BITÁCORA INTENTO DE INICIO DE SESIÓN DE ROL SIN PERMISOS
-                    this.accountService.postBitacora(bit, this._HIdUserSessionRequest)
-                        .pipe(first())
-                        .subscribe(response => {
-
-                            this.userObservable.codeNoLogin = '404';
-                            this.userObservable.idRol = null;
-                            this.userObservable.token = null;
-                            this.accountService.loadUserAsObservable(this.userObservable);
-
-                            // redirect http nologin **
-                            this.router.navigate([this._httpInactiveRolUserPage]);
-                        });
-                    // #endregion "registro en bitácora"
+                // redirect http nologin **
+                if (pidbussiness) {
+                    this.router.navigate([this._httpInactiveRolUserPage]);
+                } else { 
+                    this.router.navigate([this._httpNoBusinessUserPage]); 
                 }
             });
     }

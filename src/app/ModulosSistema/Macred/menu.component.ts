@@ -22,7 +22,7 @@ const TREE_DATA: FoodNode[] = [
     name: 'Análisis de Personas',
     link: '',
     icon: '',
-    children: [{ name: 'Asociados', link: /*ModulesSystem.macredbasehref*/ '' + 'asociados/calificacion-asociados.html', icon: '' },
+    children: [{ name: 'Asociados', link: 'asociados/calificacion-asociados.html', icon: '' },
               { name: 'No Asociados', link: '/', icon: '' }],
   },
   // PROCESOS
@@ -33,15 +33,13 @@ const TREE_DATA: FoodNode[] = [
     children: [{name: 'Carga de Datos',
                 link: '',
                 icon: '',
-                children: [{name: 'Cargar Personas', link: '/', icon: ''},//monetization_on
+                children: [{name: 'Cargar Personas', link: '/', icon: ''},
                           {name: 'Cargar Obligaciones', link: '/', icon: ''}],
                 },
                 {name: 'Reportes',
                 link: '',
                 icon: '',
-                children: [{name: 'Análisis de Capacidad de Pago', link: '/', icon: ''}
-                          ],}
-              ],
+                children: [{name: 'Análisis de Capacidad de Pago', link: '/', icon: ''}]}],
   },
   {
     name: 'Mantenimientos',
@@ -50,80 +48,68 @@ const TREE_DATA: FoodNode[] = [
     children: [{name: 'Personas',
                 link: '',
                 icon: '',
-                children: [{name: 'Datos Personas', link: /*ModulesSystem.macredbasehref*/ '' + 'mantenimientos/personas/datos-personas.html', icon: ''},//monetization_on
-                          {name: 'Estado Civil', link: /*ModulesSystem.macredbasehref*/ '' + 'mantenimientos/personas/estados-civiles.html', icon: ''},//monetization_on
-                          {name: 'Condición Laboral', link: /*ModulesSystem.macredbasehref*/ '' + 'mantenimientos/personas/condiciones-laborales.html', icon: ''},//monetization_on
-                          {name: 'Tipos de Género', link: /*ModulesSystem.macredbasehref*/ '' + 'mantenimientos/personas/tipos-generos.html', icon: ''},//monetization_on
-                          {name: 'Tipos de Persona', link: /*ModulesSystem.macredbasehref*/ '' + 'mantenimientos/personas/tipos-personas.html', icon: ''},//monetization_on
-                          {name: 'Tipos de Asociado', link: /*ModulesSystem.macredbasehref*/ '' + 'mantenimientos/personas/tipos-asociados.html', icon: ''},
-                          {name: 'Tipos de Actividad Económica', link: /*ModulesSystem.macredbasehref*/ '' + 'mantenimientos/personas/tipo-actividad-economica.html', icon: ''}
-                          ],
+                children: [
+                          // {name: 'Datos Personas', link: 'mantenimientos/personas/datos-personas.html', icon: ''},
+                          {name: 'Personas Analisis', link: 'mantenimientos/personas/personas-analisis.html', icon: ''},
+                          {name: 'Estado Civil', link: 'mantenimientos/personas/estados-civiles.html', icon: ''},
+                          {name: 'Condición Laboral', link: 'mantenimientos/personas/condiciones-laborales.html', icon: ''},
+                          {name: 'Tipos de Género', link: 'mantenimientos/personas/tipos-generos.html', icon: ''},
+                          {name: 'Tipos de Persona', link: 'mantenimientos/personas/tipos-personas.html', icon: ''},
+                          {name: 'Tipos de Asociado', link: 'mantenimientos/personas/tipos-asociados.html', icon: ''},
+                          {name: 'Tipos de Actividad Económica', link: 'mantenimientos/personas/tipo-actividad-economica.html', icon: ''}],
                 },
                 {name: 'Entidades',
-                  link: '/',
+                  link: 'mantenimientos/entidades-financieras.html',
                   icon: ''
                 },
                 {name: 'Obligaciones',
                 link: '',
                 icon: '',
-                children: [{name: 'Formas de Pago', link: /*ModulesSystem.macredbasehref*/ '' + 'mantenimientos/obligaciones/tipos-forma-pago-analisis.html', icon: ''},
-                          {name: 'Periodicidades', link: '/', icon: ''},
-                          {name: 'Tipos de Línea de Crédito', link: '/', icon: ''},
-                          {name: 'Tipos de Categoría de Riesgo', link: '/', icon: ''}
-                          ],},
+                children: [{name: 'Formas de Pago', link: 'mantenimientos/obligaciones/tipos-forma-pago-analisis.html', icon: ''},
+                          {name: 'Periodicidades', link: 'mantenimientos/obligaciones/periocidades.html', icon: ''},
+                          {name: 'Tipos de Línea de Crédito', link: 'mantenimientos/obligaciones/tipos-lineas-credito.html', icon: ''},
+                          {name: 'Tipos de Categoría de Riesgo', link: 'mantenimientos/obligaciones/categoria-riesgo.html', icon: ''}
+                          ]},
                 {name: 'Análisis de Personas',
                 link: '',
                 icon: '',
-                children: [{name: 'Tipo de Ingreso', link: /*ModulesSystem.macredbasehref*/ '' + 'mantenimientos/analisispersonas/tipos-ingresos.html', icon: ''},
-                          {name: 'Tipo de Ingreso de Análisis', link: /*ModulesSystem.macredbasehref*/ '' + 'mantenimientos/analisispersonas/tipos-ingresos-analisis.html', icon: ''},
-                          {name: 'Tipo de Deducciones', link: '/', icon: ''},
-                          {name: 'Factores de Gastos Inferibles', link: '/', icon: ''},
-                          {name: 'Rangos para las Extras por Ingreso', link: '/', icon: ''},
-                          {name: 'Niveles Ponderación Riesgo', link: '/', icon: ''}
-                          ],},
+                children: [
+                          {name: 'Tipo de Ingreso', link: 'mantenimientos/analisispersonas/tipos-ingresos.html', icon: ''},
+                          {name: 'Tipo de Ingreso de Análisis', link: 'mantenimientos/analisispersonas/tipos-ingresos-analisis.html', icon: ''},
+                          {name: 'Tipo de Deducciones', link: 'mantenimientos/analisispersonas/tipos-deducciones.html', icon: ''},
+                          {name: 'Factores de Gastos Inferibles', link: 'mantenimientos/analisispersonas/factores-inferibles.html', icon: ''},
+                          {name: 'Rangos Extras por Ingreso', link: 'mantenimientos/analisispersonas/rangos-extras-aceptacion.html', icon: ''},
+                          {name: 'Niveles Ponderación Riesgo', link: 'mantenimientos/analisispersonas/ponderacion-riesgos-ltv.html', icon: ''}]},
                 {name: 'Monedas y Tipo de Cambio',
-                  link: '/',
+                  link: 'mantenimientos/tipo-moneda.html',
                   icon: ''
                 },
                 {name: 'Modelos de Calificación',
                 link: '',
                 icon: '',
-                children: [{name: 'Indicadores Relevantes', link: /*ModulesSystem.macredbasehref*/ '' + 'mantenimientos/modeloscalificacion/indicadores-relevantes.html', icon: ''},
-                          {name: 'Configuración de Modelos', link: '/', icon: ''},
-                          {name: 'Variables Críticas', link: /*ModulesSystem.macredbasehref*/ '' + 'mantenimientos/modeloscalificacion/variables-criticas.html', icon: ''},
-                          {name: 'Escenarios de Riesgos', link: /*ModulesSystem.macredbasehref*/ '' + 'mantenimientos/modeloscalificacion/escenarios-riesgos.html', icon: ''},
-                          {name: 'Niveles Capacidad Pago (Global)', link: /*ModulesSystem.macredbasehref*/ '' + 'mantenimientos/modeloscalificacion/niveles-capacidad-pago.html', icon: ''}
-                          ],},
+                children: [{name: 'Indicadores Relevantes', link: 'mantenimientos/modeloscalificacion/indicadores-relevantes.html', icon: ''},
+                          {name: 'Configuración de Modelos', link: 'mantenimientos/modeloscalificacion/configuracion-modelos.html', icon: ''},
+                          {name: 'Variables Críticas', link: 'mantenimientos/modeloscalificacion/variables-criticas.html', icon: ''},
+                          {name: 'Escenarios de Riesgos', link: 'mantenimientos/modeloscalificacion/escenarios-riesgos.html', icon: ''},
+                          {name: 'Niveles Capacidad Pago (Global)', link: 'mantenimientos/modeloscalificacion/niveles-capacidad-pago.html', icon: ''}]},
                 {name: 'Parámetros',
                 link: '',
                 icon: '',
-                children: [{name: 'Configuración de Modelos', link: /*ModulesSystem.macredbasehref*/ '' + 'mantenimientos/parametros/configuracion-modelos.html', icon: ''},
-                          {name: 'Variables de Análisis PD', link: /*ModulesSystem.macredbasehref*/ '' + 'mantenimientos/parametros/configuracion-parametros-pd.html', icon: ''}
-                          ],},
+                children: [{name: 'Configuración de Modelos', link: 'mantenimientos/parametros/configuracion-modelos.html', icon: ''},
+                          {name: 'Variables de Análisis PD', link: 'mantenimientos/parametros/variables-pd.html', icon: ''}]},
                 {name: 'Parámetros Scoring',
                 link: '',
                 icon: '',
                 children: [{name: 'Configuración de Modelos', link: '/', icon: ''},
                           {name: 'Indicadores Relevantes', link: '/', icon: ''},
                           {name: 'Niveles de Riesgo', link: '/', icon: ''},
-                          {name: 'Rangos de Puntaje', link: '/', icon: ''}
-                          ],}
-              ],
+                          {name: 'Rangos de Puntaje', link: '/', icon: ''}]}],
   },
   {
     name: 'Configuración',
     link: '',
     icon: '',
-    children: [{name: 'Seguridad',
-                link: '',
-                icon: '',
-                children: [{name: 'Usuarios', link: '/', icon: ''},
-                          {name: 'Roles y Programas', link: '/', icon: ''},
-                          {name: 'Cambio Contraseña', link: '/', icon: ''}
-                          ],
-              },
-              {name: 'Parámetros', link: /*ModulesSystem.macredbasehref*/ '' + 'configuracion/parametros-generales.html', icon: ''},//monetization_on
-              {name: 'Menú Principal', link: '/', icon: ''}
+    children: [{name: 'Parámetros', link: 'configuracion/parametros-generales.html', icon: ''}
     ],
   },
 ];

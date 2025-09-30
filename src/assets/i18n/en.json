@@ -192,8 +192,8 @@
         "NAME": "Name",
         "EMAIL": "Email",
         "STATUS": "Status",
-        "MODIFIED": "Modified",
-        "DATE_UPDATE": "Updated"
+        "MODIFIED": "Update",
+        "DATE_UPDATE": "Date"
       },
       "FORM": {
         "TXT_ID": "Id",

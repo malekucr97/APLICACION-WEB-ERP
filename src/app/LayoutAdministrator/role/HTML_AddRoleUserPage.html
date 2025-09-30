@@ -1,9 +1,9 @@
-<div class="contenido-main">
+<div class="contenido-main-admin">
     
     <div>
         <div>
-            <p class="contenido-main__h1">{{businessObservable.nombre}}</p>
-            <p class="contenido-main__h2">{{ 'CONFIGURATION.ADD_EDIT_ROLE_USER.TITLE' | translate }}</p>
+            <p class="contenido-main-admin__h1">{{businessObservable.nombre}}</p>
+            <p class="contenido-main-admin__h2">{{ 'CONFIGURATION.ADD_EDIT_ROLE_USER.TITLE' | translate }}</p>
         </div>
 
         <hr>
@@ -37,11 +37,11 @@
             <span *ngIf="!enableRoleUser" class="spinner-border spinner-border-lg align-center"></span>
 
             <div *ngIf="enableRoleUser">
-                <h3 class="contenido-main__h3-inline-black"><b>{{ 'CONFIGURATION.ADD_EDIT_BUSINESS_USER.ROLE_USER' | translate }}: </b></h3>
-                <h3 *ngIf="isRolAssign" class="contenido-main__h3-inline-blue">{{roleUser.nombre}}</h3>
-                <h3 *ngIf="!isRolAssign" class="contenido-main__h3-inline-red">{{ 'CONFIGURATION.ADD_EDIT_ROLE_USER.VALIDATION.ROLE_NOT_ASSIGNED' | translate }}</h3>
+                <h3 class="contenido-main-admin__h3-inline-black"><b>{{ 'CONFIGURATION.ADD_EDIT_BUSINESS_USER.ROLE_USER' | translate }}: </b></h3>
+                <h3 *ngIf="isRolAssign" class="contenido-main-admin__h3-inline-blue">{{roleUser.nombre}}</h3>
+                <h3 *ngIf="!isRolAssign" class="contenido-main-admin__h3-inline-red">{{ 'CONFIGURATION.ADD_EDIT_ROLE_USER.VALIDATION.ROLE_NOT_ASSIGNED' | translate }}</h3>
                 <br>
-                <h2 class="contenido-main__h2">{{userToAssign.email}}</h2>
+                <h2 class="contenido-main-admin__h2">{{userToAssign.email}}</h2>
                 
                 <div *ngIf="isRolAssign" class="d-flex justify-content-end">
                     <button (click)="desAsignAllRolesUser()" class="btn-sm item-list-delete">
@@ -50,18 +50,18 @@
                 <hr>
             </div>
         
-            <div *ngIf="listRolesBusiness && isListRolesBusiness" class="contenido-main__table">
+            <div *ngIf="listRolesBusiness && isListRolesBusiness" class="contenido-main-admin__table">
                 <br>
-                <p class="contenido-main__h3-on">{{ 'CONFIGURATION.ADD_EDIT_ROLE_USER.SUBTITLE' | translate }}</p>
+                <p class="contenido-main-admin__h3-on">{{ 'CONFIGURATION.ADD_EDIT_ROLE_USER.SUBTITLE' | translate }}</p>
                 
                 <table class="table table-striped">                    
                     <thead>
                         <tr>
-                            <th class="contenido-main__table__arup-name">{{ 'CONFIGURATION.ADD_EDIT_ROLE_USER.TABLE.NAME' | translate }}</th>
-                            <th class="contenido-main__table__arup-description">{{ 'CONFIGURATION.ADD_EDIT_ROLE_USER.TABLE.DESCRIPTION' | translate }}</th>
-                            <th class="contenido-main__table__arup-status">{{ 'CONFIGURATION.ADD_EDIT_ROLE_USER.TABLE.STATUS' | translate }}</th>
-                            <th class="contenido-main__table__arup-kind">{{ 'CONFIGURATION.ADD_EDIT_ROLE_USER.TABLE.KIND' | translate }}</th>
-                            <th class="contenido-main__table__arup-ico"></th>
+                            <th class="table__add-role-user__name">{{ 'CONFIGURATION.ADD_EDIT_ROLE_USER.TABLE.NAME' | translate }}</th>
+                            <th class="table__add-role-user__desc">{{ 'CONFIGURATION.ADD_EDIT_ROLE_USER.TABLE.DESCRIPTION' | translate }}</th>
+                            <th class="table__add-role-user__status">{{ 'CONFIGURATION.ADD_EDIT_ROLE_USER.TABLE.STATUS' | translate }}</th>
+                            <th class="table__add-role-user__kind">{{ 'CONFIGURATION.ADD_EDIT_ROLE_USER.TABLE.KIND' | translate }}</th>
+                            <th class="table__add-role-user__ico"></th>
                         </tr>
                     </thead>
                     <tbody>

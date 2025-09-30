@@ -5,33 +5,17 @@ import { User, Module } from '@app/_models';
 import { MatSidenav } from '@angular/material/sidenav';
 import { Compania } from '../../../../_models/modules/compania';
 import { MacredService } from '@app/_services/macred.service';
-import { ScreenAccessUser } from '@app/_models/admin/screenAccessUser';
 import { Router } from '@angular/router';
 import { first } from 'rxjs/operators';
-import { MacPersona } from '@app/_models/Macred/Persona';
-import { MacTipoIngresoAnalisis } from '@app/_models/Macred/TipoIngresoAnalisis';
-import { MacTipoFormaPagoAnalisis } from '@app/_models/Macred/TipoFormaPagoAnalisis';
-import { MacTiposMoneda } from '@app/_models/Macred/TiposMoneda';
-import { MacModeloAnalisis } from '@app/_models/Macred/ModeloAnalisis';
-import { MacNivelCapacidadPago } from '@app/_models/Macred/NivelCapacidadPago';
-import { MacTipoGenerador } from '@app/_models/Macred/TipoGenerador';
 import { MatDialog } from '@angular/material/dialog';
-import { DialogoConfirmacionComponent } from '@app/_components/dialogo-confirmacion/dialogo-confirmacion.component';
-import { MacTipoPersona } from '@app/_models/Macred/TipoPersona';
-import { MacTipoGenero } from '@app/_models/Macred/TipoGenero';
 import { MacCondicionLaboral } from '@app/_models/Macred/CondicionLaboral';
-import { MacCategoriaCredito } from '@app/_models/Macred/CategoriaCredito';
-import { MacTipoAsociado } from '@app/_models/Macred/TipoAsociado';
-import { MacTipoHabitacion } from '@app/_models/Macred/TipoHabitacion';
-import { valHooks } from 'jquery';
 
 declare var $: any;
 
-@Component({
-    templateUrl: 'HTML_CondicionesLaborales.html',
-    styleUrls: ['../../../../../assets/scss/app.scss',
-        '../../../../../assets/scss/macred/app.scss'],
-    standalone: false
+@Component({selector: 'app-condicion-laboral-macred',
+            templateUrl: 'HTML_CondicionesLaborales.html',
+            styleUrls: ['../../../../../assets/scss/app.scss', '../../../../../assets/scss/macred/app.scss'],
+            standalone: false
 })
 export class CondicionesLaboralesComponent implements OnInit {
     @ViewChild(MatSidenav) sidenav !: MatSidenav;
@@ -48,7 +32,6 @@ export class CondicionesLaboralesComponent implements OnInit {
 
     // Condicion laboral
     formCondicionLaboral: UntypedFormGroup;
-    formCondicionLaboralList: UntypedFormGroup;
     listCondicionesLaborales: MacCondicionLaboral[];
     showList : boolean = false;
 
@@ -82,7 +65,7 @@ export class CondicionesLaboralesComponent implements OnInit {
             codigoCondicionLaboral  : [null],
             codigoCompania          : [null],
             descripcion             : [null],
-            estado                  : [null]
+            estado                  : [false]
 
         });
 
@@ -94,25 +77,15 @@ export class CondicionesLaboralesComponent implements OnInit {
             .subscribe(response => {
 
                 // ## -->> redirecciona NO ACCESO
-                if(!response.exito)
-                    this.router.navigate([this.moduleObservable.indexHTTP]);
+                if(!response.exito) this.router.navigate([this.moduleObservable.indexHTTP]);
 
+                this.consultaCondicionesLaboralesCompania();
             });
-
-            this.consultaCondicionesLaboralesCompania();
     }
 
     get f() { return this.formCondicionLaboral.controls; }
 
-
     consultaCondicionesLaboralesCompania() : void {
-        this.formCondicionLaboralList = this.formBuilder.group({
-            id                      : [''],
-            codigoCondicionLaboral  : [''],
-            codigoCompania          : [''],
-            descripcion             : [''],
-            estado                  : ['']
-        });
 
         this.macredService.getCondicionesLaboralesCompania(this.userObservable.empresa)
         .pipe(first())
@@ -122,11 +95,7 @@ export class CondicionesLaboralesComponent implements OnInit {
                 this.showList = true;
                 this.listCondicionesLaborales = condicionLaboralResponse;
             }
-        },
-        error => {
-            let message : string = 'Problemas al consultar los tipos de personas. ' + error;
-            this.alertService.error(message);
-        });
+        }, error => { this.alertService.error('Problemas al consultar los tipos de personas. ' + error); });
     }
 
     addCondicionLaboral() : void {
@@ -162,10 +131,8 @@ export class CondicionesLaboralesComponent implements OnInit {
         this.alertService.clear();
         this.submittedCondicionLaboralForm = true;
 
-        if ( this.formCondicionLaboral.invalid ){
-            return;
-        }
-
+        if ( this.formCondicionLaboral.invalid ) return;
+        
         var condicionLaboral : MacCondicionLaboral;
         condicionLaboral = this.createCondicionLaboralModal();
 
@@ -188,15 +155,8 @@ export class CondicionesLaboralesComponent implements OnInit {
                     $('#condicionLaboralModal').modal('hide');
                     this.ngOnInit();
 
-                } else {
-                    let message : string = 'Problemas al registrar la condición laboral.';
-                    this.alertService.error(message);
-                }
-            },
-            error => {
-                let message : string = 'Problemas de conexión. Detalle: ' + error;
-                this.alertService.error(message);
-            });
+                } else { this.alertService.error('Problemas al registrar la condición laboral.'); }
+            }, error => { this.alertService.error('Problemas de conexión. Detalle: ' + error); });
 
         }
         else if (this.tipoMovimiento == 'E') {
@@ -217,15 +177,8 @@ export class CondicionesLaboralesComponent implements OnInit {
                     $('#condicionLaboralModal').modal('hide');
                     this.ngOnInit();
 
-                } else {
-                    let message : string = 'Problemas al actualizar la condición laboral.';
-                    this.alertService.error(message);
-                }
-            },
-            error => {
-                let message : string = 'Problemas de conexión. Detalle: ' + error;
-                this.alertService.error(message);
-            });
+                } else { this.alertService.error('Problemas al actualizar la condición laboral.'); }
+            }, error => { this.alertService.error('Problemas de conexión. Detalle: ' + error); });
         }
     }
 
@@ -234,7 +187,6 @@ export class CondicionesLaboralesComponent implements OnInit {
         var codigoCondicionLaboral  = this.formCondicionLaboral.controls['codigoCondicionLaboral'].value;
         var descripcion             = this.formCondicionLaboral.controls['descripcion'].value;
         var estado                  = this.formCondicionLaboral.controls['estado'].value
-
 
         var condicionLaboral = this._condicionLaboralMacred;
 
@@ -247,25 +199,17 @@ export class CondicionesLaboralesComponent implements OnInit {
 
     deleteCondicionLaboral(idCondicionLaboral:number){
 
+        this.alertService.clear();
+
         this.macredService.deleteCondicionLaboral(idCondicionLaboral)
             .pipe(first())
             .subscribe(response => {
 
                 if (response) {
-                    this.alertService.success(
-                        `Condición laboral eliminada correctamente!`
-                    );
+                    this.alertService.success( `Condición laboral eliminada correctamente!` );
                     this.ngOnInit();
 
-                } else {
-                    let message : string = 'Problemas al eliminar la condición laboral.';
-                    this.alertService.error(message);
-                }
-            },
-            error => {
-                let message : string = 'Problemas de conexión. Detalle: ' + error;
-                this.alertService.error(message);
-            });
+                } else { this.alertService.error('Problemas al eliminar la condición laboral.'); }
+            }, error => { this.alertService.error('Problemas de conexión. Detalle: ' + error); });
     }
-
 }

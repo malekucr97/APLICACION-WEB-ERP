@@ -224,7 +224,7 @@ export class AsociadosComponent implements OnInit, OnDestroy {
           });
 
         this.macredService
-          .getNivelesCapacidadPago(this.companiaObservable.id, false)
+          .getNivelesCapacidadPago(false)
           .pipe(first())
           .subscribe((response) => {
             this.listNivelesCapacidadpago = response;

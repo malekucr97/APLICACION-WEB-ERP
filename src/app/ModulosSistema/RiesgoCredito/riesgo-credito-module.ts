@@ -4,18 +4,7 @@ import { RiesgoCreditoRoutingModule } from './riesgo-credito-routing.module';
 import { IndexRiesgoCreditoComponent } from './index.component';
 import { SharedModule } from '../../_shared/shared.module';
 
-import { MatToolbarModule } from '@angular/material/toolbar';
-import { MatSidenavModule } from '@angular/material/sidenav';
-import { MatButtonModule } from '@angular/material/button';
-import { MatIconModule } from '@angular/material/icon';
-import { MatDividerModule } from '@angular/material/divider';
-import { MatTreeModule } from '@angular/material/tree';
-import { MatTooltipModule } from '@angular/material/tooltip';
-import { MatSelectModule } from '@angular/material/select';
-import { MatDatepickerModule } from '@angular/material/datepicker';
 import { MAT_DATE_LOCALE } from '@angular/material/core';
-import { MatNativeDateModule } from '@angular/material/core';
-import { MatCheckboxModule } from '@angular/material/checkbox';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { MenuRiesgoCreditoComponent } from './menu.component';
 import { CargaDatosCreditoComponent } from './Mantenimientos/carga-datos-credito.component';
@@ -39,20 +28,6 @@ import { PorcentajesEstimacionDiasComponent } from './Mantenimientos/estimacionI
     ReactiveFormsModule,
     RiesgoCreditoRoutingModule,
     SharedModule,
-    // MatToolbarModule,
-    // MatSidenavModule,
-    // MatSelectModule,
-    // MatDatepickerModule,
-    // MatButtonModule,
-    // MatIconModule,
-    // MatDividerModule,
-    // MatTreeModule,
-    // MatTooltipModule,
-    // MatNativeDateModule,
-    // MatCheckboxModule,
-    // MatDialogModule,
-    // MatFormFieldModule,
-    // MatListModule
     TranslateModule.forChild()
   ],
   declarations: [

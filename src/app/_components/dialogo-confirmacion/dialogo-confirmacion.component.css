@@ -1,11 +1,12 @@
+.container { width: 400px; padding: 5%; }
+
 .buttoms {
     display: flex;
     flex-direction: row;
-    justify-content: right;
-    align-items: right;
+    justify-content: center;
+    align-items: center;
     flex-wrap: wrap;
+    width: 100%;
 }
 
-.buttom {
-    margin: 1% 1% 1% 1%;
-}
+.buttom { margin: 2%; }

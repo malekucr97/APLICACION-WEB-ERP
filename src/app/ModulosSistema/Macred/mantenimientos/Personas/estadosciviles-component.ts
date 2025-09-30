@@ -5,34 +5,18 @@ import { User, Module } from '@app/_models';
 import { MatSidenav } from '@angular/material/sidenav';
 import { Compania } from '../../../../_models/modules/compania';
 import { MacredService } from '@app/_services/macred.service';
-import { ScreenAccessUser } from '@app/_models/admin/screenAccessUser';
 import { Router } from '@angular/router';
 import { first } from 'rxjs/operators';
-import { MacPersona } from '@app/_models/Macred/Persona';
-import { MacTipoIngresoAnalisis } from '@app/_models/Macred/TipoIngresoAnalisis';
-import { MacTipoFormaPagoAnalisis } from '@app/_models/Macred/TipoFormaPagoAnalisis';
-import { MacTiposMoneda } from '@app/_models/Macred/TiposMoneda';
-import { MacModeloAnalisis } from '@app/_models/Macred/ModeloAnalisis';
-import { MacNivelCapacidadPago } from '@app/_models/Macred/NivelCapacidadPago';
-import { MacTipoGenerador } from '@app/_models/Macred/TipoGenerador';
 import { MatDialog } from '@angular/material/dialog';
-import { DialogoConfirmacionComponent } from '@app/_components/dialogo-confirmacion/dialogo-confirmacion.component';
 import { MacEstadoCivil } from '@app/_models/Macred/EstadoCivil';
-import { MacTipoPersona } from '@app/_models/Macred/TipoPersona';
-import { MacTipoGenero } from '@app/_models/Macred/TipoGenero';
-import { MacCondicionLaboral } from '@app/_models/Macred/CondicionLaboral';
-import { MacCategoriaCredito } from '@app/_models/Macred/CategoriaCredito';
-import { MacTipoAsociado } from '@app/_models/Macred/TipoAsociado';
-import { MacTipoHabitacion } from '@app/_models/Macred/TipoHabitacion';
-import { valHooks } from 'jquery';
 
 declare var $: any;
 
-@Component({
-    templateUrl: 'HTML_EstadosCiviles.html',
-    styleUrls: ['../../../../../assets/scss/app.scss',
-        '../../../../../assets/scss/macred/app.scss'],
-    standalone: false
+@Component({selector: 'app-estado-civil-macred',
+            templateUrl: 'HTML_EstadosCiviles.html',
+            styleUrls: ['../../../../../assets/scss/app.scss',
+                '../../../../../assets/scss/macred/app.scss'],
+            standalone: false
 })
 export class EstadosCivilesComponent implements OnInit {
     @ViewChild(MatSidenav) sidenav !: MatSidenav;
@@ -49,7 +33,7 @@ export class EstadosCivilesComponent implements OnInit {
 
     // Estados Civiles
     formEstadoCivil: UntypedFormGroup;
-    formEstadoCivilList: UntypedFormGroup;
+    // formEstadoCivilList: UntypedFormGroup;
     listEstadosCiviles: MacEstadoCivil[];
     showList : boolean = false;
 
@@ -76,6 +60,8 @@ export class EstadosCivilesComponent implements OnInit {
         this.companiaObservable = this.accountService.businessValue;
     }
 
+    get f() { return this.formEstadoCivil.controls; }
+
     ngOnInit() {
 
         this.formEstadoCivil = this.formBuilder.group({
@@ -83,8 +69,7 @@ export class EstadosCivilesComponent implements OnInit {
             codigoEstadoCivil   : [null],
             codigoCompania      : [null],
             descripcion         : [null],
-            estado              : [null]
-
+            estado              : [false]
         });
 
         this.accountService.validateAccessUser( this.userObservable.id,
@@ -95,27 +80,15 @@ export class EstadosCivilesComponent implements OnInit {
             .subscribe(response => {
 
                 // ## -->> redirecciona NO ACCESO
-                if(!response.exito)
-                    this.router.navigate([this.moduleObservable.indexHTTP]);
+                if(!response.exito) this.router.navigate([this.moduleObservable.indexHTTP]);
 
-            });
-
-            this.consultaEstadosCivilesCompania();
+                this.consultaEstadosCivilesCompania();
+            }); 
     }
 
-    get f() { return this.formEstadoCivil.controls; }
-
-
     consultaEstadosCivilesCompania() : void {
-        this.formEstadoCivilList = this.formBuilder.group({
-            id                  : [''],
-            codigoEstadoCivil   : [''],
-            codigoCompania      : [''],
-            descripcion         : [''],
-            estado              : ['']
-        });
 
-        this.macredService.getEstadosCivilesCompania(this.userObservable.empresa)
+        this.macredService.getEstadosCiviles()
         .pipe(first())
         .subscribe(estadoCivilResponse => {
 
@@ -123,11 +96,7 @@ export class EstadosCivilesComponent implements OnInit {
                 this.showList = true;
                 this.listEstadosCiviles = estadoCivilResponse;
             }
-        },
-        error => {
-            let message : string = 'Problemas al consultar los estados civiles. ' + error;
-            this.alertService.error(message);
-        });
+        }, error => { this.alertService.error('Problemas al consultar los estados civiles. ' + error); });
     }
 
     addEstadoCivil() : void {
@@ -163,10 +132,8 @@ export class EstadosCivilesComponent implements OnInit {
         this.alertService.clear();
         this.submittedEstadoCivilForm = true;
 
-        if ( this.formEstadoCivil.invalid ){
-            return;
-        }
-
+        if ( this.formEstadoCivil.invalid ) return;
+        
         var estadoCivil : MacEstadoCivil;
         estadoCivil = this.createEstadoCivilModal();
 
@@ -189,15 +156,8 @@ export class EstadosCivilesComponent implements OnInit {
                     $('#estadoCivilModal').modal('hide');
                     this.ngOnInit();
 
-                } else {
-                    let message : string = 'Problemas al registrar el estado civil.';
-                    this.alertService.error(message);
-                }
-            },
-            error => {
-                let message : string = 'Problemas de conexión. Detalle: ' + error;
-                this.alertService.error(message);
-            });
+                } else { this.alertService.error('Problemas al registrar el estado civil.'); }
+            }, error => { this.alertService.error('Problemas de conexión. Detalle: ' + error); });
 
         }
         else if (this.tipoMovimiento == 'E') {
@@ -218,15 +178,8 @@ export class EstadosCivilesComponent implements OnInit {
                     $('#estadoCivilModal').modal('hide');
                     this.ngOnInit();
 
-                } else {
-                    let message : string = 'Problemas al actualizar el estado civil.';
-                    this.alertService.error(message);
-                }
-            },
-            error => {
-                let message : string = 'Problemas de conexión. Detalle: ' + error;
-                this.alertService.error(message);
-            });
+                } else { this.alertService.error('Problemas al actualizar el estado civil.'); }
+            }, error => { this.alertService.error('Problemas de conexión. Detalle: ' + error); });
         }
     }
 
@@ -235,7 +188,6 @@ export class EstadosCivilesComponent implements OnInit {
         var codigoEstadoCivil   = this.formEstadoCivil.controls['codigoEstadoCivil'].value;
         var descripcion         = this.formEstadoCivil.controls['descripcion'].value;
         var estado              = this.formEstadoCivil.controls['estado'].value
-
 
         var estadoCivil = this._estadoCivilMacred;
 
@@ -248,25 +200,17 @@ export class EstadosCivilesComponent implements OnInit {
 
     deleteEstadoCivil(idEstadoCivil:number){
 
+        this.alertService.clear();
+
         this.macredService.deleteEstadoCivil(idEstadoCivil)
             .pipe(first())
             .subscribe(response => {
 
                 if (response) {
-                    this.alertService.success(
-                        `Estado civil eliminado correctamente!`
-                    );
+                    this.alertService.success( `Estado civil eliminado correctamente!` );
                     this.ngOnInit();
 
-                } else {
-                    let message : string = 'Problemas al eliminar el estado civil.';
-                    this.alertService.error(message);
-                }
-            },
-            error => {
-                let message : string = 'Problemas de conexión. Detalle: ' + error;
-                this.alertService.error(message);
-            });
+                } else { this.alertService.error('Problemas al eliminar el estado civil.'); }
+            }, error => { this.alertService.error('Problemas de conexión. Detalle: ' + error); });
     }
-
 }

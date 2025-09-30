@@ -10,3 +10,10 @@ export class Module {
                 public indexHTTP:string ) {
     }
 }
+
+export class ModuleScreen {
+
+    public descripcion:string;
+
+    constructor() { }
+}

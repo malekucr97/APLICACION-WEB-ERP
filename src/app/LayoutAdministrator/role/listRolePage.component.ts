@@ -8,11 +8,10 @@ import { OnSeguridad } from '@app/_helpers/abstractSeguridad';
 import { administrator, httpAccessAdminPage } from '@environments/environment';
 import { TranslateMessagesService } from '@app/_services/translate-messages.service';
 
-@Component({
-    selector: 'app-list-role-admin',
-    templateUrl: 'HTML_ListRolePage.html',
-    styleUrls: ['../../../assets/scss/app.scss', '../../../assets/scss/administrator/app.scss'],
-    standalone: false
+@Component({selector: 'app-list-role-admin',
+            templateUrl: 'HTML_ListRolePage.html',
+            styleUrls: ['../../../assets/scss/administrator/app.scss'],
+            standalone: false
 })
 export class ListRoleComponent extends OnSeguridad implements OnInit {
   userObservable: User;

@@ -1,0 +1,146 @@
+<div class="contenido-main-macred">
+    
+  <div>
+    <div>
+      <p class="contenido-main-macred__h1">{{ moduleName }}</p>
+      <p class="contenido-main-macred__h2">Administración de Variables de Análisis Probability of Default</p>
+    </div>
+    <hr>
+    <button class="back-ico-one"
+            title="{{ 'CONFIGURATION.BTN_ADMIN_USERS' | translate}}"
+            mat-icon-button 
+            (click)="redirectIndexModule()"> <mat-icon>arrow_back</mat-icon> </button>
+  </div>
+
+  <div class="card">  
+    <div class="card-body">
+
+      <div>
+          <p *ngIf="add" class="contenido-main-macred__h3">Actualización de Variables PD</p>
+          <p *ngIf="update" class="contenido-main-macred__h3">Registro de Variables PD</p>
+      </div>
+
+      <hr>
+
+      <!-- ************************** -->
+      <!-- ******* FORMULARIO ******* -->
+      <!-- ************************** -->
+        
+      <div class="formulario-izquierdo">
+        <div class="formulario-izquierdo__nav">
+          <div class="formulario-izquierdo__nav__prev">
+            <p class="formulario-izquierdo__nav__prev__tittle">Parametrización de Variables PD</p>
+          </div>
+
+          <div class="formulario-izquierdo__nav__next">
+            <button *ngIf="habilitaBtnNuevo" class="formulario-izquierdo__nav__next__btn-view" 
+                  mat-flat-button 
+                  (click)="limpiarFormulario()">{{ 'GENERAL.BTN_NEW' | translate }}</button>
+          <button *ngIf="habilitaBtnActualiza" class="formulario-izquierdo__nav__next__btn-warn" 
+                  mat-flat-button 
+                  (click)="put()">{{ 'GENERAL.BTN_UPDATE' | translate }}</button>
+          <button *ngIf="habilitaBtnRegistro" class="formulario-izquierdo__nav__next__btn-ok" 
+                  mat-flat-button 
+                  (click)="post()">{{ 'GENERAL.BTN_REGISTER' | translate }}</button>
+          <button *ngIf="habilitaBtnEliminar" class="formulario-izquierdo__nav__next__btn-delete" 
+                  mat-flat-button 
+                  (click)="delete()">{{ 'GENERAL.BTN_DELETE' | translate }}</button>
+          </div>
+        </div>
+
+        <div class="p-2">
+          <form [formGroup]="formObject" class="row">
+
+            <div class="col-sm-4">
+              <span for="id_descripcionPd" class="form-label">Descripción</span>
+              <input  maxlength="300"
+                      formControlName="descripcion"
+                      class="form-control"
+                      type="text"
+                      id="id_descripcionPd"
+                      [ngClass]="{'is-invalid': submitForm && f.descripcion.errors}" />
+              <div *ngIf="submitForm && f.descripcion.errors" class="invalid-feedback">
+                <div *ngIf="f.descripcion.errors.required">{{ 'GENERAL.VALIDATES.EMPTY' | translate }}</div>
+              </div>
+            </div>
+
+            <div class="col-sm-3">
+              <span for="id_coeficiente" class="form-label">Coeficiente</span>
+              <input  formControlName="coeficiente"
+                      class="form-control"
+                      type="number"
+                      id="id_coeficiente"
+                      [ngClass]="{'is-invalid': submitForm && f.coeficiente.errors}" />
+              <div *ngIf="submitForm && f.coeficiente.errors" class="invalid-feedback">
+                <div *ngIf="f.coeficiente.errors.required">{{ 'GENERAL.VALIDATES.EMPTY' | translate }}</div>
+              </div>
+            </div>
+
+            <div class="col-sm-3">
+              <span for="id_equivalente" class="form-label">Equivalente</span>
+              <input  maxlength="300"
+                      formControlName="equivalente"
+                      class="form-control"
+                      type="text"
+                      id="id_equivalente"
+                      [ngClass]="{'is-invalid': submitForm && f.equivalente.errors}" />
+              <div *ngIf="submitForm && f.equivalente.errors" class="invalid-feedback">
+                <div *ngIf="f.equivalente.errors.required">{{ 'GENERAL.VALIDATES.EMPTY' | translate }}</div>
+              </div>
+            </div>
+
+            <div class="form-group col-sm-2 margin-status d-flex justify-content-center">
+                <mat-checkbox formControlName="estado"></mat-checkbox>
+            </div>
+
+          </form>
+        </div>
+      </div>
+
+      <!-- ************************* -->
+      <!-- ** OBJETO SELECCIONADO ** -->
+      <!-- ************************* -->
+            
+      <div *ngIf="mostrarLista">
+        <br>
+        <table class="table table-striped">
+          <thead>
+            <tr>
+                <th class="table__variables-pd__ico"></th>
+
+                <th class="table__variables-pd__desc">Descripción</th>
+                <th class="table__variables-pd__coeficiente">Coeficiente</th>
+                <th class="table__variables-pd__equivalente">Campo Equivalente</th>
+                <th class="table__variables-pd__estado">Estado</th>
+
+                <th class="table__variables-pd__add">Registra</th>
+                <th class="table__variables-pd__add">Fecha</th>
+                <th class="table__variables-pd__update">Modifica</th>
+                <th class="table__variables-pd__update">Fecha</th>
+            </tr>
+          </thead>
+          <tbody>
+
+            <tr *ngFor="let obj of listObjetos" (click)="seleccionarObjeto(obj)">
+      
+              <td class="item-edit"> <a> <mat-icon>edit</mat-icon> </a> </td>
+
+              <td class="item-edit" >{{obj.descripcionVariable}}</td>
+              <td class="item-edit" >{{obj.valorCoeficiente}}</td>
+              <td class="item-edit" >{{obj.codCampoEquivalente}}</td>
+              <td *ngIf="obj.estado==true" class="item-edit table__variables-pd__estado__td" >Activo</td>
+              <td *ngIf="obj.estado==false" class="item-edit table__variables-pd__estado__td" >Inactivo</td>
+              <td class="item-edit table__variables-pd__add__td" >{{obj.usuarioCreacion}}</td>
+              <td class="item-edit table__variables-pd__add__td" >{{obj.fechaCreacion | date:'dd/MM/yyyy'}}</td>
+              <td class="item-edit table__variables-pd__update__td" >{{obj.usuarioModificacion}}</td>
+              <td class="item-edit table__variables-pd__update__td" >{{obj.fechaModificacion | date:'dd/MM/yyyy'}}</td>
+
+            </tr>
+
+          </tbody>
+        </table>
+      </div>
+
+    </div>
+  </div>
+</div>

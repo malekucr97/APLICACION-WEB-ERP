@@ -5,19 +5,17 @@ import { User, Module } from '@app/_models';
 import { MatSidenav } from '@angular/material/sidenav';
 import { Compania } from '../../../../_models/modules/compania';
 import { MacredService } from '@app/_services/macred.service';
-import { ScreenAccessUser } from '@app/_models/admin/screenAccessUser';
 import { Router } from '@angular/router';
 import { first } from 'rxjs/operators';
 import { MatDialog } from '@angular/material/dialog';
-import { MacTipoAsociado } from '@app/_models/Macred/TipoAsociado';
 import { MacTipoFormaPagoAnalisis } from '@app/_models/Macred';
 
 declare var $: any;
 
 @Component({
+    selector: 'app-formas-pago-analisis-macred',
     templateUrl: 'HTML_TiposFormasPagoAnalisis.html',
-    styleUrls: ['../../../../../assets/scss/app.scss',
-        '../../../../../assets/scss/macred/app.scss'],
+    styleUrls: ['../../../../../assets/scss/app.scss', '../../../../../assets/scss/macred/app.scss'],
     standalone: false
 })
 export class TiposFormasPagoAnalisisComponent implements OnInit {
@@ -35,7 +33,6 @@ export class TiposFormasPagoAnalisisComponent implements OnInit {
     
     // Tipo Forma Pago Analisis
     formTipoFormaPagoAnalisis: UntypedFormGroup;
-    formTipoFormaPagoAnalisisList: UntypedFormGroup;
     listTiposFormasPagoAnalisis: MacTipoFormaPagoAnalisis[];
     showList : boolean = false;
 
@@ -69,8 +66,7 @@ export class TiposFormasPagoAnalisisComponent implements OnInit {
             codigoTFormaPagoAnalisis    : [null],
             codigoCompania              : [null],
             descripcion                 : [null],
-            estado                      : [null]
-
+            estado                      : [false]
         });
         
         this.accountService.validateAccessUser( this.userObservable.id,
@@ -81,25 +77,15 @@ export class TiposFormasPagoAnalisisComponent implements OnInit {
             .subscribe(response => {
 
                 // ## -->> redirecciona NO ACCESO
-                if(!response.exito)
-                    this.router.navigate([this.moduleObservable.indexHTTP]);
+                if(!response.exito) this.router.navigate([this.moduleObservable.indexHTTP]);
 
-            });
-
-            this.consultaTiposFormasPagoAnalisisCompania();
+                this.consultaTiposFormasPagoAnalisisCompania();
+            });    
     }
 
     get f() { return this.formTipoFormaPagoAnalisis.controls; }
 
-    
     consultaTiposFormasPagoAnalisisCompania() : void {
-        this.formTipoFormaPagoAnalisisList = this.formBuilder.group({
-            id                          : [''],
-            codigoTFormaPagoAnalisis    : [''],
-            codigoCompania              : [''],
-            descripcion                 : [''],
-            estado                      : ['']
-        });
 
         this.macredService.getTiposFormaPagoAnalisis(this.userObservable.empresa)
         .pipe(first())
@@ -109,11 +95,7 @@ export class TiposFormasPagoAnalisisComponent implements OnInit {
                 this.showList = true;
                 this.listTiposFormasPagoAnalisis = tipoFormaPagoAnalisisResponse;
             }
-        },
-        error => {
-            let message : string = 'Problemas al consultar los tipos de forma de pago de análisis. ' + error;
-            this.alertService.error(message); 
-        });
+        }, error => { this.alertService.error('Problemas al consultar los tipos de forma de pago de análisis. ' + error); });
     }
 
     addTipoFormaPagoAnalisis() : void {
@@ -149,9 +131,7 @@ export class TiposFormasPagoAnalisisComponent implements OnInit {
         this.alertService.clear();
         this.submittedTipoFormaPagoAnalisisForm = true;
 
-        if ( this.formTipoFormaPagoAnalisis.invalid ){
-            return;
-        }
+        if ( this.formTipoFormaPagoAnalisis.invalid ) return;
         
         var TipoFormaPagoAnalisis : MacTipoFormaPagoAnalisis;
         TipoFormaPagoAnalisis = this.createTipoFormaPagoAnalisisModal();
@@ -175,15 +155,8 @@ export class TiposFormasPagoAnalisisComponent implements OnInit {
                     $('#tipoFormaPagoAnalisisModal').modal('hide');
                     this.ngOnInit();
 
-                } else {
-                    let message : string = 'Problemas al registrar el tipo de forma de pago.';
-                    this.alertService.error(message);
-                }
-            },
-            error => {
-                let message : string = 'Problemas de conexión. Detalle: ' + error;
-                this.alertService.error(message);
-            });
+                } else { this.alertService.error('Problemas al registrar el tipo de forma de pago.'); }
+            }, error => { this.alertService.error('Problemas de conexión. Detalle: ' + error); });
 
         }
         else if (this.tipoMovimiento == 'E') {
@@ -204,15 +177,8 @@ export class TiposFormasPagoAnalisisComponent implements OnInit {
                     $('#tipoFormaPagoAnalisisModal').modal('hide');
                     this.ngOnInit();
 
-                } else {
-                    let message : string = 'Problemas al actualizar el tipo de forma de pago.';
-                    this.alertService.error(message);
-                }
-            },
-            error => {
-                let message : string = 'Problemas de conexión. Detalle: ' + error;
-                this.alertService.error(message);
-            });
+                } else { this.alertService.error('Problemas al actualizar el tipo de forma de pago.'); }
+            }, error => { this.alertService.error('Problemas de conexión. Detalle: ' + error); });
         }
     }
 
@@ -233,6 +199,8 @@ export class TiposFormasPagoAnalisisComponent implements OnInit {
 
     deleteTipoFormaPagoAnalisis(idTipoFormaPagoAnalisis : number){
 
+        this.alertService.clear();
+
         this.macredService.deleteTipoFormaPagoAnalisis(idTipoFormaPagoAnalisis)
             .pipe(first())
             .subscribe(response => {
@@ -243,15 +211,7 @@ export class TiposFormasPagoAnalisisComponent implements OnInit {
                     );
                     this.ngOnInit();
 
-                } else {
-                    let message : string = 'Problemas al eliminar el tipo de forma de pago.';
-                    this.alertService.error(message);
-                }
-            },
-            error => {
-                let message : string = 'Problemas de conexión. Detalle: ' + error;
-                this.alertService.error(message);
-            });
+                } else { this.alertService.error('Problemas al eliminar el tipo de forma de pago.'); }
+            }, error => { this.alertService.error('Problemas de conexión. Detalle: ' + error); });
     }
-   
 }

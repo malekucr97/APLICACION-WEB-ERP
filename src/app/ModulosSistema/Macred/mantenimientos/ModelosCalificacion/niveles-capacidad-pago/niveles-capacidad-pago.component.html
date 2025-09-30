@@ -1,253 +1,172 @@
-<div class="tw-flex-col">
+<div class="contenido-main-macred">
+    
+  <div>
+    <div>
+      <p class="contenido-main-macred__h1">{{ moduleName }}</p>
+      <p class="contenido-main-macred__h2">Administración de Niveles de Capacidad de Pago</p>
+    </div>
+    <hr>
+    <button class="back-ico-one"
+            title="{{ 'CONFIGURATION.BTN_ADMIN_USERS' | translate}}"
+            mat-icon-button 
+            (click)="redirectIndexModule()"> <mat-icon>arrow_back</mat-icon> </button>
+  </div>
 
-  <!-- NIVELES CAPACIDAD DE PAGO -->
-  <section class="tw-flex">
-    <article class="tw-m-2 tw-my-6 tw-w-1/4">
-      <div class="tw-border tw-shadow tw-rounded-lg tw-shadow">
-        <section>
-          <!-- header -->
-          <div class="contenedor__header">
-            <div class="contenedor__header__prev">
-              <h2>Niveles Capacidad de Pago</h2>
-            </div>
-            <div class="contenedor__header__next"></div>
-          </div>
-        </section>
+  <div class="card">  
+    <div class="card-body">
 
-        <section>
-          <!-- body -->
-          <div class="contenedor__body">
-            <form [formGroup]="frmNivelCapacidadPago" class="row">
-              <div class="form-group col-md-4">
-                <label for="codNivelCapPAgo" class="form-label">Código</label>
-                <input
-                  formControlName="codNivelCapPAgo"
-                  class="form-control tw-border tw-shadow"
-                  type="text"
-                  id="id_codNivelCapPAgo"
-                  readonly
-                />
-              </div>
-
-              <div class="form-group col-md-8">
-                <label for="lbldescripcion" class="form-label"
-                  >Nombre</label
-                >
-                <input
-                  formControlName="descripcion"
-                  class="form-control tw-border tw-shadow"
-                  type="text"
-                  id="id_descripcion"
-                  [ngClass]="{
-                    'is-invalid': submittedForm && f.descripcion.errors
-                  }"
-                />
-                <div
-                  *ngIf="submittedForm && f.descripcion.errors"
-                  class="invalid-feedback"
-                >
-                  <div *ngIf="f.descripcion.errors.required">
-                    El nombre es requerido
-                  </div>
-                </div>
-              </div>
-
-              <div class="form-group col-md-12">
-                <label for="puntaje" class="form-label"
-                  >Puntaje</label
-                >
-                <input
-                  formControlName="puntaje"
-                  class="form-control tw-border tw-shadow"
-                  type="number"
-                  id="id_puntaje"
-                  [ngClass]="{
-                    'is-invalid': submittedForm && f.puntaje.errors
-                  }"
-                />
-                <div
-                  *ngIf="submittedForm && f.puntaje.errors"
-                  class="invalid-feedback"
-                >
-                  <div *ngIf="f.puntaje.errors.required">
-                    El puntaje es requerido
-                  </div>
-                </div>
-              </div>
-
-              <div class="form-group col-md-6">
-                <label for="rangoInicial" class="form-label"
-                  >Rango Inicial</label
-                >
-                <input
-                  formControlName="rangoInicial"
-                  class="form-control tw-border tw-shadow"
-                  type="number"
-                  id="id_rangoInicial"
-                  [ngClass]="{
-                    'is-invalid': submittedForm && f.rangoInicial.errors
-                  }"
-                />
-                <div
-                  *ngIf="submittedForm && f.rangoInicial.errors"
-                  class="invalid-feedback"
-                >
-                  <div *ngIf="f.rangoInicial.errors.required">
-                    El rango inicial es requerido
-                  </div>
-                </div>
-              </div>
-
-              <div class="form-group col-md-6">
-                <label for="rangoFinal" class="form-label"
-                  >Rango Final</label
-                >
-                <input
-                  formControlName="rangoFinal"
-                  class="form-control tw-border tw-shadow"
-                  type="number"
-                  id="id_rangoFinal"
-                  [ngClass]="{
-                    'is-invalid': submittedForm && f.rangoFinal.errors
-                  }"
-                />
-                <div
-                  *ngIf="submittedForm && f.rangoFinal.errors"
-                  class="invalid-feedback"
-                >
-                  <div *ngIf="f.rangoFinal.errors.required">
-                    El rango final es requerido
-                  </div>
-                </div>
-              </div>
-
-              <div class="form-group col-md-6 tw-flex tw-items-center">
-                <label for="tieneCapacidadPago" class="form-label">Capacidad de Pago</label>
-                <input
-                  type="checkbox"
-                  class="tw-w-6 tw-h-6 tw-mx-1"
-                  formControlName="tieneCapacidadPago"
-                />
-                <div
-                  *ngIf="submittedForm && f.tieneCapacidadPago.errors"
-                  class="invalid-feedback"
-                >
-                  <div *ngIf="f.tieneCapacidadPago.errors.required">
-                    El campo es requerido
-                  </div>
-                </div>
-              </div>
-
-              <div class="form-group col-md-6 tw-flex tw-items-center">
-                <label for="estado" class="form-label">Estado</label>
-                <input
-                  type="checkbox"
-                  class="tw-w-6 tw-h-6 tw-mx-1"
-                  formControlName="estado"
-                />
-                <div
-                  *ngIf="submittedForm && f.estado.errors"
-                  class="invalid-feedback"
-                >
-                  <div *ngIf="f.estado.errors.required">
-                    El estado debe estar definido
-                  </div>
-                </div>
-              </div>
-
-              <div class="col-md-3 tw-my-2">
-                <a
-                  (click)="handleRegistrarNivelCapacidadPago()"
-                  class="btn btn-sm tw-border-2 tw-border-green-600"
-                  matTooltip="Añadir"
-                >
-                  <i class="fa fa-plus tw-text-green-600"></i>
-                </a>
-              </div>
-            </form>
-          </div>
-        </section>
+      <div>
+          <p *ngIf="add" class="contenido-main-macred__h3">Actualización de Niveles de Capacidad de Pago</p>
+          <p *ngIf="update" class="contenido-main-macred__h3">Registro de Niveles de Capacidad de Pago</p>
       </div>
-    </article>
 
-    <article class="tw-m-2 tw-my-6 tw-flex-1">
-      <div class="tw-border tw-shadow tw-rounded-lg tw-shadow">
-        <section>
-          <!-- header -->
-          <div class="contenedor__header">
-            <div class="contenedor__header__prev">
-              <h2>Lista de Niveles de Capacidad de Pago (Global)</h2>
-            </div>
-            <div class="contenedor__header__next"></div>
+      <hr>
+
+      <!-- ************************** -->
+      <!-- ******* FORMULARIO ******* -->
+      <!-- ************************** -->
+        
+      <div class="formulario-izquierdo">
+        <div class="formulario-izquierdo__nav">
+          <div class="formulario-izquierdo__nav__prev">
+            <p class="formulario-izquierdo__nav__prev__tittle">Mantenimiento de Niveles de Capacidad de Pago</p>
           </div>
-        </section>
 
-        <section>
-          <!-- body -->
-          <div class="contenedor__body">
-            <!-- *************** -->
-            <mat-sidenav-container>
-              <div class="content mat-elevation-z4">
-                <main>
-                  <article>
-                    <section class="content__menu">
-                      <table class="table table-striped">
-                        <thead>
-                          <tr>
-                            <th style="width: 5%">Código</th>
-                            <th style="width: 25%">Nombre</th>
-                            <th style="width: 10%">Puntaje</th>
-                            <th style="width: 10%">Rango Inicial</th>
-                            <th style="width: 10%">Rango Final</th>
-                            <th style="width: 15%">Tiene Capacidad Pago</th>
-                            <th style="width: 10%">Estado</th>
-                            <th style="width: 15%">Creado por</th>
-                            <th style="width: 15%">Modificado por</th>
-                            <th style="width: 15%"></th>
-                          </tr>
-                        </thead>
-                        <tbody>
-                          <tr *ngFor="let modelo of lstNivelesCapacidadPago">
-                            <td>{{ modelo.id }}</td>
-                            <td>{{ modelo.descripcion }}</td>
-                            <td>{{ modelo.puntaje }}</td>
-                            <td>{{ modelo.rangoInicial }}</td>
-                            <td>{{ modelo.rangoFinal }}</td>
-                            <td>{{ modelo.tieneCapacidadPago ? 'Si' : 'No' }}</td>
-                            <td>{{ modelo.estado ? 'Activo' : 'Inactivo' }}</td>
-                            <td>{{ modelo.adicionadoPor }}</td>
-                            <td>{{ modelo.modificadoPor }}</td>
-                            <td style="white-space: nowrap">
-                              <a
-                                (click)="handleEditarNivelCapPago(modelo)"
-                                style="margin-left: 5%"
-                                class="btn btn-sm tw-border-2 tw-border-blue-600"
-                                matTooltip="Editar el nivel"
-                              >
-                                <i class="fa fa-edit tw-text-blue-600"></i>
-                              </a>
-                              <!-- <a
-                                (click)="handleEliminarModelo(modelo.id)"
-                                style="margin-left: 5%"
-                                class="btn btn-sm tw-border-2 tw-border-red-600"
-                                matTooltip="Eliminar"
-                              >
-                                <i class="fa fa-trash tw-text-red-600"></i>
-                              </a> -->
-                            </td>
-                          </tr>
-                        </tbody>
-                      </table>
-                    </section>
-                  </article>
-                </main>
+          <div class="formulario-izquierdo__nav__next">
+            <button *ngIf="habilitaBtnNuevo" class="formulario-izquierdo__nav__next__btn-view" 
+                  mat-flat-button 
+                  (click)="limpiarFormulario()">{{ 'GENERAL.BTN_NEW' | translate }}</button>
+          <button *ngIf="habilitaBtnActualiza" class="formulario-izquierdo__nav__next__btn-warn" 
+                  mat-flat-button 
+                  (click)="put()">{{ 'GENERAL.BTN_UPDATE' | translate }}</button>
+          <button *ngIf="habilitaBtnRegistro" class="formulario-izquierdo__nav__next__btn-ok" 
+                  mat-flat-button 
+                  (click)="post()">{{ 'GENERAL.BTN_REGISTER' | translate }}</button>
+          <button *ngIf="habilitaBtnEliminar" class="formulario-izquierdo__nav__next__btn-delete" 
+                  mat-flat-button 
+                  (click)="delete()">{{ 'GENERAL.BTN_DELETE' | translate }}</button>
+          </div>
+        </div>
+
+        <div class="p-2">
+          <form [formGroup]="formObject" class="row">
+
+            <div class="col-sm-6">
+              <label for="id_descripcionCp" class="form-label">Descripción</label>
+              <input  maxlength="300"
+                      formControlName="descripcion"
+                      class="form-control"
+                      type="text"
+                      id="id_descripcionCp"
+                      [ngClass]="{'is-invalid': submitForm && f.descripcion.errors}" />
+              <div *ngIf="submitForm && f.descripcion.errors" class="invalid-feedback">
+                <div *ngIf="f.descripcion.errors.required">{{ 'GENERAL.VALIDATES.EMPTY' | translate }}</div>
               </div>
-            </mat-sidenav-container>
-            <!-- *************** -->
-          </div>
-        </section>
-      </div>
-    </article>
-  </section>
+            </div>
 
+            <div class="form-group col-sm-4 margin-status d-flex justify-content-center">
+                <mat-checkbox formControlName="tieneCapacidadPago">
+                  <span class="color-chechbox">Tiene Capacidad de Pago ?</span>
+                </mat-checkbox>
+            </div>
+
+            <div class="form-group col-sm-2 margin-status d-flex justify-content-center">
+                <mat-checkbox formControlName="estado" style="border-color: white;">
+                  <span class="color-chechbox">Estado</span>
+                </mat-checkbox>
+            </div>
+
+            <div class="col-sm-6">
+              <label for="id_puntaje" class="form-label">Puntaje</label>
+              <input  formControlName="puntaje"
+                      class="form-control"
+                      type="number"
+                      id="id_puntaje"
+                      [ngClass]="{'is-invalid': submitForm && f.puntaje.errors}" />
+              <div *ngIf="submitForm && f.puntaje.errors" class="invalid-feedback">
+                <div *ngIf="f.puntaje.errors.required">{{ 'GENERAL.VALIDATES.EMPTY' | translate }}</div>
+              </div>
+            </div>
+
+            <div class="col-sm-3">
+              <label for="id_rangoInicial" class="form-label">Rango Inicial</label>
+              <input  formControlName="rangoInicial"
+                      class="form-control"
+                      type="number"
+                      id="id_rangoInicial"
+                      [ngClass]="{'is-invalid': submitForm && f.rangoInicial.errors}" />
+              <div *ngIf="submitForm && f.rangoInicial.errors" class="invalid-feedback">
+                <div *ngIf="f.rangoInicial.errors.required">{{ 'GENERAL.VALIDATES.EMPTY' | translate }}</div>
+              </div>
+            </div>
+
+            <div class="col-sm-3">
+              <label for="id_rangoFinal" class="form-label">Rango Final</label>
+              <input  formControlName="rangoFinal"
+                      class="form-control"
+                      type="number"
+                      id="id_rangoFinal"
+                      [ngClass]="{'is-invalid': submitForm && f.rangoFinal.errors}" />
+              <div *ngIf="submitForm && f.rangoFinal.errors" class="invalid-feedback">
+                <div *ngIf="f.rangoFinal.errors.required">{{ 'GENERAL.VALIDATES.EMPTY' | translate }}</div>
+              </div>
+            </div>
+
+            
+
+          </form>
+        </div>
+      </div>
+
+      <!-- ************************* -->
+      <!-- ** OBJETO SELECCIONADO ** -->
+      <!-- ************************* -->
+            
+      <div *ngIf="mostrarLista" class="table">
+        <br>
+        <table class="table table-striped">
+          <thead>
+            <tr>
+                <th class="table__nivel-capacidad-pago__ico"></th>
+
+                <th class="table__nivel-capacidad-pago__desc">Descripción</th>
+                <th class="table__nivel-capacidad-pago__puntaje">Puntaje</th>
+                <th class="table__nivel-capacidad-pago__rangoi">Rango Inicial</th>
+                <th class="table__nivel-capacidad-pago__rangof">Rango Final</th>
+                <th class="table__nivel-capacidad-pago__cappago">Capacidad de Pago</th>
+                <th class="table__nivel-capacidad-pago__estado">Estado</th>
+
+                <th class="table__nivel-capacidad-pago__add">Registra</th>
+                <th class="table__nivel-capacidad-pago__add">Fecha</th>
+                <th class="table__nivel-capacidad-pago__update">Modifica</th>
+                <th class="table__nivel-capacidad-pago__update">Fecha</th>
+            </tr>
+          </thead>
+          <tbody>
+
+            <tr *ngFor="let obj of listObjetos" (click)="seleccionarObjeto(obj)">
+      
+              <td class="item-edit"> <a> <mat-icon>edit</mat-icon> </a> </td>
+
+              <td class="item-edit" >{{obj.descripcion}}</td>
+              <td class="item-edit table__nivel-capacidad-pago__puntaje__td" >{{obj.puntaje}}</td>
+              <td class="item-edit table__nivel-capacidad-pago__rangoi__td" >{{obj.rangoInicial}}</td>
+              <td class="item-edit table__nivel-capacidad-pago__rangof__td" >{{obj.rangoFinal}}</td>
+              <td *ngIf="obj.tieneCapacidadPago==true" class="item-edit table__nivel-capacidad-pago__cappago__td" >Sí</td>
+              <td *ngIf="obj.tieneCapacidadPago==false" class="item-edit table__nivel-capacidad-pago__cappago__td" >No</td>
+              <td *ngIf="obj.estado==true" class="item-edit table__nivel-capacidad-pago__estado__td" >Activo</td>
+              <td *ngIf="obj.estado==false" class="item-edit table__nivel-capacidad-pago__estado__td" >Inactivo</td>
+              <td class="item-edit table__nivel-capacidad-pago__add__td" >{{obj.adicionadoPor}}</td>
+              <td class="item-edit table__nivel-capacidad-pago__add__td" >{{obj.fechaAdicion | date:'dd/MM/yyyy'}}</td>
+              <td class="item-edit table__nivel-capacidad-pago__update__td" >{{obj.modificadoPor}}</td>
+              <td class="item-edit table__nivel-capacidad-pago__update__td" >{{obj.fechaModificacion | date:'dd/MM/yyyy'}}</td>
+
+            </tr>
+
+          </tbody>
+        </table>
+      </div>
+
+    </div>
+  </div>
 </div>

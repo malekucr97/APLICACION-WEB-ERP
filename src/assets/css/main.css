@@ -184,12 +184,12 @@ body, html {
   left: 0;
   bottom: 0;
 }
-.tipoCambio {
+/* .tipoCambio {
   display: flex;
   flex-direction: row;
   align-items: center;
   justify-content: center;
-}
+} */
 .textoTipoCambio{
   padding: 0 30px;
   color: var(--color_accent) !important;

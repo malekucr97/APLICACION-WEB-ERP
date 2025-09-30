@@ -1,8 +1,11 @@
-export interface MacIndicadoresRelevantes {
-  codigoCompania: number;
+export class MacIndicadoresRelevantes {
+  
   codIndicador: number;
+  codigoCompania: number;
+  
   descripcion: string;
   estado: boolean;
+
   usuarioCreacion: string;
   fechaCreacion: Date;
   usuarioModificacion?: string;

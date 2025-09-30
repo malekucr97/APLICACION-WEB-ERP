@@ -1,0 +1,157 @@
+<main class="main-modules">
+  <div class="contenido-main">
+
+    <div>
+      <div>
+        <p class="contenido-main__h1">{{ moduleName }}</p>
+        <p class="contenido-main__h2">Administración de Porcentajes de aceptación Extras por Ingresos</p>
+      </div>
+      <hr>
+      <button class="back-ico-one"
+              title="{{ 'CONFIGURATION.BTN_ADMIN_USERS' | translate}}"
+              mat-icon-button 
+              (click)="redirectIndexModule()"> <mat-icon>arrow_back</mat-icon> </button>
+    </div>
+
+    <div class="card">  
+      <div class="card-body">
+
+        <div>
+            <p *ngIf="add" class="contenido-main__h3">Actualización de Porcentajes de Aceptación</p>
+            <p *ngIf="update" class="contenido-main__h3">Registro de Porcentajes de Aceptación</p>
+        </div>
+
+        <hr>
+
+        <div class="formulario-izquierdo">
+
+          <div class="formulario-izquierdo__nav">
+            <div class="formulario-izquierdo__nav__prev">
+              <p class="formulario-izquierdo__nav__prev__tittle">Parametrización de Porcentajes de Aceptación</p>
+            </div>
+
+            <div class="formulario-izquierdo__nav__next">
+              <button *ngIf="habilitaBtnNuevo" 
+                      class="formulario-izquierdo__nav__next__btn-view" 
+                      mat-flat-button 
+                      (click)="limpiarFormulario()">{{ 'GENERAL.BTN_NEW' | translate }}</button>
+              <button *ngIf="habilitaBtnActualiza" 
+                      class="formulario-izquierdo__nav__next__btn-warn" 
+                      mat-flat-button 
+                      (click)="actualizar()">{{ 'GENERAL.BTN_UPDATE' | translate }}</button>
+              <button *ngIf="habilitaBtnRegistro" 
+                      class="formulario-izquierdo__nav__next__btn-ok" 
+                      mat-flat-button 
+                      (click)="registrar()">{{ 'GENERAL.BTN_REGISTER' | translate }}</button>
+              <button *ngIf="habilitaBtnEliminar" 
+                      class="formulario-izquierdo__nav__next__btn-delete" 
+                      mat-flat-button 
+                      (click)="eliminar()">{{ 'GENERAL.BTN_DELETE' | translate }}</button>
+            </div>
+          </div>
+
+          <div class="p-2">
+            <form [formGroup]="formObject" class="row tw-py-4">
+
+              <div class="form-group col-sm-9">
+                <label for="id_descripcionRango" class="form-label" >Descripción de Rango</label>
+                <input
+                  maxlength="100"  
+                  formControlName="descripcion"
+                  class="form-control"
+                  type="text"
+                  id="id_descripcionRango"
+                  [ngClass]="{ 'is-invalid': submitForm && f.descripcion.errors }" />
+                <div *ngIf="submitForm && f.descripcion.errors" class="invalid-feedback" >
+                  <div *ngIf="f.descripcion.errors.required">{{ 'GENERAL.VALIDATES.EMPTY' | translate }}</div>
+                </div>
+              </div>
+
+              <div class="form-group col-sm-3 margin-top-status d-flex justify-content-center">
+                  <mat-checkbox formControlName="estado"></mat-checkbox>
+              </div>
+
+              <div class="col-sm-3">
+                <label for="id_rangoInicial" class="form-label">Rango Inicial</label>
+                <input  formControlName="rangoInicial"
+                        class="form-control"
+                        type="number"
+                        id="id_rangoInicial"
+                        [ngClass]="{'is-invalid': submitForm && f.rangoInicial.errors}" />
+                <div *ngIf="submitForm && f.rangoInicial.errors" class="invalid-feedback">
+                  <div *ngIf="f.rangoInicial.errors.required">{{ 'GENERAL.VALIDATES.EMPTY' | translate }}</div>
+                </div>
+              </div>
+
+              <div class="col-sm-3">
+                <label for="id_rangoFinal" class="form-label">Rango Final</label>
+                <input  formControlName="rangoFinal"
+                        class="form-control"
+                        type="number"
+                        id="id_rangoFinal"
+                        [ngClass]="{'is-invalid': submitForm && f.rangoFinal.errors}" />
+                <div *ngIf="submitForm && f.rangoFinal.errors" class="invalid-feedback">
+                  <div *ngIf="f.rangoFinal.errors.required">{{ 'GENERAL.VALIDATES.EMPTY' | translate }}</div>
+                </div>
+              </div>
+
+              <div class="col-sm-3">
+                <label for="id_porcentajeAceptacion" class="form-label">Porcentaje Aceptación</label>
+                <input  formControlName="porcentajeAceptacion"
+                        class="form-control"
+                        type="number"
+                        id="id_porcentajeAceptacion"
+                        [ngClass]="{'is-invalid': submitForm && f.porcentajeAceptacion.errors}" />
+                <div *ngIf="submitForm && f.porcentajeAceptacion.errors" class="invalid-feedback">
+                  <div *ngIf="f.porcentajeAceptacion.errors.required">{{ 'GENERAL.VALIDATES.EMPTY' | translate }}</div>
+                </div>
+              </div>
+
+              
+            </form>
+          </div>
+        </div>
+
+        <div *ngIf="mostrarLista" class="contenido-main__table">
+          <br>
+          <table class="table table-striped">
+            <thead>
+              <tr>
+                <th class="table__rangos-extras__ico"></th>
+
+                <th class="table__rangos-extras__desc">Descripción Rango</th>
+                <th class="table__rangos-extras__rangoi">Rango Inicial</th>
+                <th class="table__rangos-extras__rangof">Rango Final</th>
+                <th class="table__rangos-extras__porc-acep">Porcentaje Aceptación</th>
+                <th class="table__rangos-extras__estado">Estado</th>
+
+                <th class="table__rangos-extras__add">Registra</th>
+                <th class="table__rangos-extras__add">Fecha</th>
+                <th class="table__rangos-extras__edit">Modifica</th>
+                <th class="table__rangos-extras__edit">Fecha</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr *ngFor="let modelo of listObjetos" (click)="seleccionarObjeto(modelo)">
+                <td class="item-list-edit"> <a> <mat-icon>edit</mat-icon> </a> </td>
+                <td class="item-list-edit">{{ modelo.descripcion }}</td>
+                <td class="item-list-edit table__rangos-extras__rangoi__td">{{ modelo.rangoInicial }}</td>
+                <td class="item-list-edit table__rangos-extras__rangof__td">{{ modelo.rangoFinal }}</td>
+                <td class="item-list-edit table__rangos-extras__porc-acep__td">{{ modelo.porcentajeAceptacion }}</td>
+                <td class="item-list-edit table__rangos-extras__estado__td" *ngIf="modelo.estado == true">Activo</td>
+                <td class="item-list-edit table__rangos-extras__estado__td" *ngIf="modelo.estado == false">Inactivo</td>
+
+                <td class="item-list-edit table__rangos-extras__add__td">{{ modelo.usuarioCreacion }}</td>
+                <td class="item-list-edit table__rangos-extras__add__td">{{modelo.fechaCreacion | date:'dd/MM/yyyy'}}</td>
+                <td class="item-list-edit table__rangos-extras__edit__td">{{ modelo.usuarioModificacion }}</td>
+                <td class="item-list-edit table__rangos-extras__edit__td">{{modelo.fechaModificacion | date:'dd/MM/yyyy'}}</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+
+      </div>
+    </div>
+    
+  </div>
+</main>

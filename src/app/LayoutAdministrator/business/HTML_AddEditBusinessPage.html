@@ -1,9 +1,9 @@
-<div class="contenido-main">
+<div class="contenido-main-admin">
   
   <div>
     <div>
-      <p class="contenido-main__h1">{{ 'CONFIGURATION.ADD_EDIT_COMPANY.TITLE' | translate }}</p>
-      <p class="contenido-main__h2">{{ 'CONFIGURATION.ADD_EDIT_COMPANY.SUBTITLE' | translate }}</p>
+      <p class="contenido-main-admin__h1">{{ 'CONFIGURATION.ADD_EDIT_COMPANY.TITLE' | translate }}</p>
+      <p class="contenido-main-admin__h2">{{ 'CONFIGURATION.ADD_EDIT_COMPANY.SUBTITLE' | translate }}</p>
     </div>
     <hr>
     <button class="back-ico-two"
@@ -16,8 +16,8 @@
       <div class="card-body">
         <div class="row">
           <div class="col-md-12">
-              <p *ngIf="updateBusiness" class="contenido-main__h3">{{ 'CONFIGURATION.ADD_EDIT_COMPANY.PARAMETERS_COMPANY' | translate: { companyName: companyName } }}</p>
-              <p *ngIf="addBusiness" class="contenido-main__h3">{{ 'CONFIGURATION.ADD_EDIT_COMPANY.REGISTER_COMPANY' | translate }}</p>
+              <p *ngIf="updateBusiness" class="contenido-main-admin__h3">{{ 'CONFIGURATION.ADD_EDIT_COMPANY.PARAMETERS_COMPANY' | translate: { companyName: companyName } }}</p>
+              <p *ngIf="addBusiness" class="contenido-main-admin__h3">{{ 'CONFIGURATION.ADD_EDIT_COMPANY.REGISTER_COMPANY' | translate }}</p>
           </div>
         </div>
         <!-- <br> -->

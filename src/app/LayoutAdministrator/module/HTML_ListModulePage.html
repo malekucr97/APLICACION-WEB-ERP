@@ -1,42 +1,40 @@
-<div class="contenido-main">
+<div class="contenido-main-admin">
     <div>
         <div>
-            <p class="contenido-main__h1">{{businessObservable.nombre}}</p>
-            <p class="contenido-main__h2">{{ 'CONFIGURATION.ADMIN_PAGE_LIST_MODULES.TITLE' | translate }}</p>
+            <p class="contenido-main-admin__h1">{{businessObservable.nombre}}</p>
+            <p class="contenido-main-admin__h2">{{ 'CONFIGURATION.ADMIN_PAGE_LIST_MODULES.TITLE' | translate }}</p>
         </div>
         <hr>
-        <div class="container-fluid">
-            <div class="row">
-                <div class="col-1">
-                    <button class=" back-ico-one"
-                            title="{{ 'CONFIGURATION.BTN_ADMIN_USERS' | translate}}"
-                            mat-icon-button 
-                            (click)="redirectAdminUsersPage()"> <mat-icon>arrow_back</mat-icon> </button>
-                </div>
+        <div class="row">
+            <div class="col-1">
+                <button class="back-ico-one"
+                        title="{{ 'CONFIGURATION.BTN_ADMIN_USERS' | translate}}"
+                        mat-icon-button 
+                        (click)="redirectAdminUsersPage()"> <mat-icon>arrow_back</mat-icon> </button>
+            </div>
 
-                <div class="col-11">
-                    <button class="btn btn-power-bi"
-                            (click)="redirectAdminModulePowerBiPage()">
-                            {{ 'CONFIGURATION.ADMIN_PAGE_LIST_MODULES.BTN_MANTEINANCE_POWER_BI' | translate }}
-                            <mat-icon>crop_original</mat-icon> </button>
-                </div>
+            <div class="col-11">
+                <button class="btn btn-power-bi"
+                        (click)="redirectAdminModulePowerBiPage()">
+                        {{ 'CONFIGURATION.ADMIN_PAGE_LIST_MODULES.BTN_MANTEINANCE_POWER_BI' | translate }}
+                        <mat-icon>crop_original</mat-icon> </button>
             </div>
         </div>
     </div>
 
     <div class="card">
         <div class="card-body">
-            <p class="contenido-main__h3">{{ 'CONFIGURATION.ADMIN_PAGE_LIST_MODULES.SUBTITLE' | translate }}</p>
+            <p class="contenido-main-admin__h3">{{ 'CONFIGURATION.ADMIN_PAGE_LIST_MODULES.SUBTITLE' | translate }}</p>
             <hr>
-            <div class="contenido-main__table">
+            <div class="contenido-main-admin__table">
                 <table class="table table-striped">
                     <thead>
                         <tr>
-                            <th style="width: 25%">{{ 'CONFIGURATION.ADMIN_PAGE_LIST_MODULES.TBL_ID' | translate }}</th>
-                            <th style="width: 25%">{{ 'CONFIGURATION.ADMIN_PAGE_LIST_MODULES.TBL_NAME' | translate }}</th>
-                            <th style="width: 40%">{{ 'CONFIGURATION.ADMIN_PAGE_LIST_MODULES.TBL_DESCRIPTION' | translate }}</th>
-                            <th style="width: 5%"></th>
-                            <th style="width: 5%"></th>
+                            <th class="table__list-module__id">{{ 'CONFIGURATION.ADMIN_PAGE_LIST_MODULES.TBL_ID' | translate }}</th>
+                            <th class="table__list-module__name">{{ 'CONFIGURATION.ADMIN_PAGE_LIST_MODULES.TBL_NAME' | translate }}</th>
+                            <th class="table__list-module__desc">{{ 'CONFIGURATION.ADMIN_PAGE_LIST_MODULES.TBL_DESCRIPTION' | translate }}</th>
+                            <th class="table__list-module__ico"></th>
+                            <th class="table__list-module__ico"></th>
                         </tr>
                     </thead>
                     <tbody>

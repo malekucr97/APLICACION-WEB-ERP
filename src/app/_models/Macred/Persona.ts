@@ -6,32 +6,37 @@ export class MacPersona {
     nombre: string;
     primerApellido: string;
     segundoApellido: string;
-    codigoGenero: number;
-    fechaNacimiento: Date;
-    codigoTipoPersona: number;
     codigoEstadoCivil: number;
+    codigoTipoPersona: number;
+    codigoGenero: number;
     codigoCondicionLaboral: number;
-    codigoCategoriaCredito: number;
     codigoTipoHabitacion: number;
-    codigoTipoGarantia: number;
     cantidadHijos: number;
+    fechaNacimiento: Date;
     edad: number;
     indAsociado: boolean;
+    estado: boolean;
+
+    // informacion credito
+    codigoCategoriaCredito: number;
     codigoTipoAsociado: string;
-    tiempoAfiliacion: number;
-    codExterno: string;
-    codigoPerfilCoop: number;
-    cantidadCreditosHistorico: number;
-    cPH: number;
-    cPHUltimos12Meses: number;
-    cPHUltimos24Meses: number;
     cantidadFianzas: number;
+    tiempoAfiliacion: number;
+    cantidadCreditosHistorico: number;
     totalSaldoFianzas: number;
     totalCuotasFianzas: number;
-    diasAtrasoCorte: number;
+    cph: number;
+    cphUltimos12Meses: number;
+    cphUltimos24Meses: number;
     atrasoMaximo: number;
     atrasosUltimos12Meses: number;
     atrasosUltimos24Meses: number;
+    diasAtrasoCorte: number;
+    //
+
+    codigoTipoGarantia: number;
+    codExterno: string;
+    codigoPerfilCoop: number;
     montoAprobadoTotal: number;
     saldoTotal: number;
     saldoCuotas: number;
@@ -50,10 +55,8 @@ export class MacPersona {
     perEndeudamientoTotal: number;
     perAnioAfiliacion: number;
     vCoeficiente: number;
-
     constante: number;
-    estado: boolean;
-
+    
     adicionadoPor: string;
     fechaAdicion: Date;
     modificadoPor: string;
@@ -62,5 +65,35 @@ export class MacPersona {
     pdCsd?: number;
     pdTienePropiedad?: boolean;
     pdTieneVehiculo?: boolean;
+}
 
+export class MacInformacionCreditoPersona {
+    id: number;
+    idCompania: number;
+    idModulo: number;
+
+    idPersona: number;
+
+    codigoCategoriaCredito: number;
+    codigoTipoAsociado: number;
+    
+    cantidadFianzas: number;
+    tiempoAfiliacion: number;
+    cantidadCreditosHistorico: number;
+    totalSaldoFianzas: number;
+    totalCuotasFianzas: number;
+    cph: number;
+    cphUltimos12Meses: number;
+    cphUltimos24Meses: number;
+    atrasoMaximo: number;
+    atrasosUltimos12Meses: number;
+    atrasosUltimos24Meses: number;
+    diasAtrasoCorte: number;
+
+    estado: boolean;
+
+    adicionadoPor: string
+    fechaAdicion: Date;
+    modificadoPor: string;
+    fechaModificacion: Date;
 }

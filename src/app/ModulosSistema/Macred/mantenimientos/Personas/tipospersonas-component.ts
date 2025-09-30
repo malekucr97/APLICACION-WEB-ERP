@@ -5,33 +5,17 @@ import { User, Module } from '@app/_models';
 import { MatSidenav } from '@angular/material/sidenav';
 import { Compania } from '../../../../_models/modules/compania';
 import { MacredService } from '@app/_services/macred.service';
-import { ScreenAccessUser } from '@app/_models/admin/screenAccessUser';
 import { Router } from '@angular/router';
 import { first } from 'rxjs/operators';
-import { MacPersona } from '@app/_models/Macred/Persona';
-import { MacTipoIngresoAnalisis } from '@app/_models/Macred/TipoIngresoAnalisis';
-import { MacTipoFormaPagoAnalisis } from '@app/_models/Macred/TipoFormaPagoAnalisis';
-import { MacTiposMoneda } from '@app/_models/Macred/TiposMoneda';
-import { MacModeloAnalisis } from '@app/_models/Macred/ModeloAnalisis';
-import { MacNivelCapacidadPago } from '@app/_models/Macred/NivelCapacidadPago';
-import { MacTipoGenerador } from '@app/_models/Macred/TipoGenerador';
 import { MatDialog } from '@angular/material/dialog';
-import { DialogoConfirmacionComponent } from '@app/_components/dialogo-confirmacion/dialogo-confirmacion.component';
 import { MacTipoPersona } from '@app/_models/Macred/TipoPersona';
-import { MacTipoGenero } from '@app/_models/Macred/TipoGenero';
-import { MacCondicionLaboral } from '@app/_models/Macred/CondicionLaboral';
-import { MacCategoriaCredito } from '@app/_models/Macred/CategoriaCredito';
-import { MacTipoAsociado } from '@app/_models/Macred/TipoAsociado';
-import { MacTipoHabitacion } from '@app/_models/Macred/TipoHabitacion';
-import { valHooks } from 'jquery';
 
 declare var $: any;
 
-@Component({
-    templateUrl: 'HTML_TiposPersonas.html',
-    styleUrls: ['../../../../../assets/scss/app.scss',
-        '../../../../../assets/scss/macred/app.scss'],
-    standalone: false
+@Component({selector: 'app-tipos-persona-macred',
+            templateUrl: 'HTML_TiposPersonas.html',
+            styleUrls: ['../../../../../assets/scss/app.scss', '../../../../../assets/scss/macred/app.scss'],
+            standalone: false
 })
 export class TiposPersonasComponent implements OnInit {
     @ViewChild(MatSidenav) sidenav !: MatSidenav;
@@ -48,7 +32,6 @@ export class TiposPersonasComponent implements OnInit {
 
     // Tipo Persona
     formTipoPersona: UntypedFormGroup;
-    formTipoPersonaList: UntypedFormGroup;
     listTiposPersonas: MacTipoPersona[];
     showList : boolean = false;
 
@@ -82,8 +65,7 @@ export class TiposPersonasComponent implements OnInit {
             codigoTipoPersona   : [null],
             codigoCompania      : [null],
             descripcion         : [null],
-            estado              : [null]
-
+            estado              : [false]
         });
 
         this.accountService.validateAccessUser( this.userObservable.id,
@@ -94,25 +76,15 @@ export class TiposPersonasComponent implements OnInit {
             .subscribe(response => {
 
                 // ## -->> redirecciona NO ACCESO
-                if(!response.exito)
-                    this.router.navigate([this.moduleObservable.indexHTTP]);
+                if(!response.exito) this.router.navigate([this.moduleObservable.indexHTTP]);
 
-            });
-
-            this.consultaTiposPersonasCompania();
+                this.consultaTiposPersonasCompania();
+            });     
     }
 
     get f() { return this.formTipoPersona.controls; }
 
-
     consultaTiposPersonasCompania() : void {
-        this.formTipoPersonaList = this.formBuilder.group({
-            id                  : [''],
-            codigoTipoPersona   : [''],
-            codigoCompania      : [''],
-            descripcion         : [''],
-            estado              : ['']
-        });
 
         this.macredService.getTiposPersonasCompania(this.userObservable.empresa)
         .pipe(first())
@@ -122,11 +94,7 @@ export class TiposPersonasComponent implements OnInit {
                 this.showList = true;
                 this.listTiposPersonas = tipoPersonaResponse;
             }
-        },
-        error => {
-            let message : string = 'Problemas al consultar los tipos de personas. ' + error;
-            this.alertService.error(message);
-        });
+        }, error => { this.alertService.error('Problemas al consultar los tipos de personas. ' + error); });
     }
 
     addTipoPersona() : void {
@@ -162,10 +130,8 @@ export class TiposPersonasComponent implements OnInit {
         this.alertService.clear();
         this.submittedTipoPersonaForm = true;
 
-        if ( this.formTipoPersona.invalid ){
-            return;
-        }
-
+        if ( this.formTipoPersona.invalid ) return;
+        
         var tipoPersona : MacTipoPersona;
         tipoPersona = this.createTipoPersonaModal();
 
@@ -188,18 +154,11 @@ export class TiposPersonasComponent implements OnInit {
                     $('#tipoPersonaModal').modal('hide');
                     this.ngOnInit();
 
-                } else {
-                    let message : string = 'Problemas al registrar el tipo de persona.';
-                    this.alertService.error(message);
-                }
-            },
-            error => {
-                let message : string = 'Problemas de conexión. Detalle: ' + error;
-                this.alertService.error(message);
-            });
+                } else { this.alertService.error('Problemas al registrar el tipo de persona.'); }
+            }, error => { this.alertService.error('Problemas de conexión. Detalle: ' + error); });
 
-        }
-        else if (this.tipoMovimiento == 'E') {
+        } else if (this.tipoMovimiento == 'E') {
+
             tipoPersona.modificadoPor      = this.userObservable.identificacion;
             tipoPersona.fechaModificacion  = this.today;
 
@@ -217,15 +176,8 @@ export class TiposPersonasComponent implements OnInit {
                     $('#tipoPersonaModal').modal('hide');
                     this.ngOnInit();
 
-                } else {
-                    let message : string = 'Problemas al actualizar el tipo de persona.';
-                    this.alertService.error(message);
-                }
-            },
-            error => {
-                let message : string = 'Problemas de conexión. Detalle: ' + error;
-                this.alertService.error(message);
-            });
+                } else { this.alertService.error('Problemas al actualizar el tipo de persona.'); }
+            }, error => { this.alertService.error('Problemas de conexión. Detalle: ' + error); });
         }
     }
 
@@ -234,7 +186,6 @@ export class TiposPersonasComponent implements OnInit {
         var codigoTipoPersona   = this.formTipoPersona.controls['codigoTipoPersona'].value;
         var descripcion         = this.formTipoPersona.controls['descripcion'].value;
         var estado              = this.formTipoPersona.controls['estado'].value
-
 
         var tipoPersona = this._tipoPersonaMacred;
 
@@ -245,27 +196,19 @@ export class TiposPersonasComponent implements OnInit {
         return tipoPersona;
     }
 
-    deleteTipoPersona(idTipoPersona:number){
+    deleteTipoPersona(idTipoPersona:number) {
+
+        this.alertService.clear();
 
         this.macredService.deleteTipoPesona(idTipoPersona)
             .pipe(first())
             .subscribe(response => {
 
                 if (response) {
-                    this.alertService.success(
-                        `Tipo persona eliminado correctamente!`
-                    );
+                    this.alertService.success( `Tipo persona eliminado correctamente!` );
                     this.ngOnInit();
 
-                } else {
-                    let message : string = 'Problemas al eliminar el tipo de persona.';
-                    this.alertService.error(message);
-                }
-            },
-            error => {
-                let message : string = 'Problemas de conexión. Detalle: ' + error;
-                this.alertService.error(message);
-            });
+                } else { this.alertService.error('Problemas al eliminar el tipo de persona.'); }
+            }, error => { this.alertService.error('Problemas de conexión. Detalle: ' + error); });
     }
-
 }
