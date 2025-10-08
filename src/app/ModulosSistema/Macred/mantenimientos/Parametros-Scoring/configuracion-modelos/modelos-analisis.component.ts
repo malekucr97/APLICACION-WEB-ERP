@@ -11,20 +11,20 @@ import { OnSeguridad } from '@app/_helpers/abstractSeguridad';
 import { TranslateMessagesService } from '@app/_services/translate-messages.service';
 import { ModulesSystem } from '@environments/environment';
 import { MacredService } from '@app/_services/macred.service';
-import { MacGrupoModeloCalificacion, MacIndicadorGrupoModeloCalificacion, MacModeloCalificacion } from '@app/_models/Macred/ModeloCalificacion';
-import { MacIndicadoresRelevantes } from '@app/_models/Macred';
+import { MacIndicadorScoring } from '@app/_models/Macred/IndicadorScoring';
+import { MacGrupoModeloAnalisis, MacIndicadorGrupoModeloAnalisis, MacModeloAnalisis } from '@app/_models/Macred';
 
 declare var $: any;
 
-@Component({selector: 'app-modelos-calificacion-macred',
-            templateUrl: './modelos-calificacion.html',
+@Component({selector: 'app-modelos-analisis-macred',
+            templateUrl: './modelos-analisis.html',
             styleUrls: ['../../../../../../assets/scss/macred/app.scss'],
             standalone: false
 })
-export class ModelosCalificacionComponent extends OnSeguridad implements OnInit {
+export class ModelosAnalisisComponent extends OnSeguridad implements OnInit {
     @ViewChild(MatSidenav) sidenav !: MatSidenav;
 
-    private nombrePantalla  : string = 'configuracion-modelos.html';
+    private nombrePantalla  : string = 'modelos-analisis.html';
 
     // ## -- objetos suscritos -- ## //
     private userObservable      : User;
@@ -70,21 +70,21 @@ export class ModelosCalificacionComponent extends OnSeguridad implements OnInit 
     URLIndexModulePage: string;
 
     // ## -- listas -- ## //
-    listModelos: MacModeloCalificacion[] = [];
-    listGrupos: MacGrupoModeloCalificacion[] = [];
-    listIndicadoresModelos: MacIndicadorGrupoModeloCalificacion[] = [];
-    listIndicadoresRelevantes: MacIndicadoresRelevantes[] = [];
+    listModelos: MacModeloAnalisis[] = [];
+    listGrupos: MacGrupoModeloAnalisis[] = [];
+    listIndicadoresModelos: MacIndicadorGrupoModeloAnalisis[] = [];
+    listIndicadoresScoring: MacIndicadorScoring[] = [];
 
-    objSeleccionadoModelo: MacModeloCalificacion = undefined;
-    objSeleccionadoGrupo: MacGrupoModeloCalificacion = undefined;
-    objSeleccionadoIndicador: MacIndicadorGrupoModeloCalificacion = undefined;
+    objSeleccionadoModelo: MacModeloAnalisis = undefined;
+    objSeleccionadoGrupo: MacGrupoModeloAnalisis = undefined;
+    objSeleccionadoIndicador: MacIndicadorGrupoModeloAnalisis = undefined;
 
     public today : Date = new Date();
 
     public sumatoriaPesoGrupo : number ;
     public sumatoriaPesoIndicador : number ;
 
-    oIndicador : MacIndicadoresRelevantes = undefined;
+    oIndicador : MacIndicadorScoring = undefined;
 
     constructor (   private route:          ActivatedRoute,
                     private alertService:   AlertService,
@@ -128,30 +128,16 @@ export class ModelosCalificacionComponent extends OnSeguridad implements OnInit 
                 // ## -->> redirecciona NO ACCESO
                 if(!response.exito) this.router.navigate([this.URLIndexModulePage]);
 
-                this.getModelos();
-                this.getIndicadoresRelevantesActivos();
+                this.getModelosAnalisis();
+                this.getIndicadoresScoringActivos();
         });
     }
 
     public redirectIndexModule() : void { this.router.navigate([this.URLIndexModulePage]); }
 
-    buscarModuloId(moduleId : number) : void {
-        this.accountService.getModuleId(moduleId)
-            .pipe(first())
-            .subscribe(response => { 
-                if (response) this.moduleScreen = response ; });
-    }
-    private getIndicadoresRelevantesActivos() : void {
-        this.macredService.getIndicadoresRelevantesActivos()
-            .pipe(first())
-            .subscribe(response => {
-                if (response && response.length > 0)  this.listIndicadoresRelevantes = response;
-                
-            }, error => { this.alertService.error(error); });
-    }
-
+    
     onChangeEventIndicador() {
-        this.oIndicador = this.formIndicador.get('indicadorRelevante')?.value;
+        this.oIndicador = this.formIndicador.get('indicadorScoring')?.value;
     }
 
     nuevoModelo() : void { 
@@ -175,7 +161,7 @@ export class ModelosCalificacionComponent extends OnSeguridad implements OnInit 
         this.inicializaFormularioIndicador();
     }
 
-    selectModelo(objeto : MacModeloCalificacion = null) : void {
+    selectModelo(objeto : MacModeloAnalisis = null) : void {
 
         this.sumatoriaPesoGrupo = 0;
         this.habilitaFormularioGrupo = true;
@@ -185,9 +171,9 @@ export class ModelosCalificacionComponent extends OnSeguridad implements OnInit 
         this.inicializaFormularioGrupo();
 
         // consultar grupos modelos
-        this.getGruposModelosCalificacion(objeto.id);
+        this.getGruposModelosAnalisis(objeto.id);
     }
-    selectGrupo(objeto : MacGrupoModeloCalificacion = null) : void {
+    selectGrupo(objeto : MacGrupoModeloAnalisis = null) : void {
         
         this.sumatoriaPesoIndicador = 0;
         this.habilitaFormularioIndicador = true;
@@ -196,15 +182,15 @@ export class ModelosCalificacionComponent extends OnSeguridad implements OnInit 
         this.inicializaFormularioIndicador();
 
         // consultar indicadores grupo
-        this.getIndicadoresGruposCalif(objeto.id);
+        this.getIndicadoresGruposAnalisis(objeto.id);
     }
-    selectIndicador(objeto : MacIndicadorGrupoModeloCalificacion = null) : void {
+    selectIndicador(objeto : MacIndicadorGrupoModeloAnalisis = null) : void {
         
         this.inicializaFormularioIndicador(objeto);
-        this.formIndicador.get('indicadorRelevante')?.disable();
+        this.formIndicador.get('indicadorScoring')?.disable();
     }
 
-    private inicializaFormularioModelo(objeto : MacModeloCalificacion = null) : void {
+    private inicializaFormularioModelo(objeto : MacModeloAnalisis = null) : void {
 
         if (objeto) {
 
@@ -225,7 +211,7 @@ export class ModelosCalificacionComponent extends OnSeguridad implements OnInit 
             this.iniciarBotonesModelo(true);
         }
     }
-    private inicializaFormularioGrupo(objeto : MacGrupoModeloCalificacion = null) : void {
+    private inicializaFormularioGrupo(objeto : MacGrupoModeloAnalisis = null) : void {
 
         if (objeto) {
 
@@ -250,12 +236,12 @@ export class ModelosCalificacionComponent extends OnSeguridad implements OnInit 
             this.iniciarBotonesGrupo(true);
         }
     }
-    private inicializaFormularioIndicador(objeto : MacIndicadorGrupoModeloCalificacion = null) : void {
+    private inicializaFormularioIndicador(objeto : MacIndicadorGrupoModeloAnalisis = null) : void {
 
         if (objeto) {
 
             this.formIndicador = this.formBuilder.group({
-                indicadorRelevante : [this.listIndicadoresRelevantes.find(v => v.codIndicador === objeto.idIndicador), Validators.required],
+                indicadorScoring : [this.listIndicadoresScoring.find(v => v.id === objeto.idIndicador), Validators.required],
                 pesoIndicador : [objeto.peso, Validators.required],
                 pesoTotalIndicador : [this.sumatoriaPesoIndicador],
                 estadoIndicador : [objeto.estado]
@@ -263,12 +249,12 @@ export class ModelosCalificacionComponent extends OnSeguridad implements OnInit 
             this.objSeleccionadoIndicador = objeto;
             this.iniciarBotonesIndicador(false);
 
-            this.oIndicador = this.listIndicadoresRelevantes.find(v => v.codIndicador === objeto.idIndicador);
+            this.oIndicador = this.listIndicadoresScoring.find(v => v.id === objeto.idIndicador);
         } 
         else {
 
             this.formIndicador = this.formBuilder.group({
-                indicadorRelevante : [null, Validators.required],
+                indicadorScoring : [null, Validators.required],
                 pesoIndicador : [null, Validators.required],
                 pesoTotalIndicador : [this.sumatoriaPesoIndicador],
                 estadoIndicador : [false]
@@ -278,21 +264,22 @@ export class ModelosCalificacionComponent extends OnSeguridad implements OnInit 
         }
     }
 
-    private createModeloForm(registra : boolean = false) : MacModeloCalificacion {
+    private createModeloForm(registra : boolean = false) : MacModeloAnalisis {
 
         const { descripcionModelo,
                 estadoModelo
         } = this.formModelo.controls;
 
-        var objeto = new MacModeloCalificacion();
+        var objeto = new MacModeloAnalisis();
+
+        objeto.idCompania = this.companiaObservable.id;
+        objeto.idModulo = this.moduleObservable.id;
 
         objeto.descripcion = descripcionModelo.value;
         objeto.estado = estadoModelo.value;
 
         if (registra) {
 
-            objeto.idCompania = this.companiaObservable.id;
-            objeto.idModulo = this.moduleObservable.id;
             objeto.adicionadoPor = this.userObservable.identificacion;
             objeto.fechaAdicion = this.today;
 
@@ -303,7 +290,7 @@ export class ModelosCalificacionComponent extends OnSeguridad implements OnInit 
         }
         return objeto;
     }
-    private createGrupoForm(registra : boolean = false) : MacGrupoModeloCalificacion {
+    private createGrupoForm(registra : boolean = false) : MacGrupoModeloAnalisis {
 
         let totalPeso : number = 0;
 
@@ -331,7 +318,7 @@ export class ModelosCalificacionComponent extends OnSeguridad implements OnInit 
         this.sumatoriaPesoGrupo = totalPeso;
         this.formGrupo.get('pesoTotalGrupo')?.setValue(this.sumatoriaPesoGrupo);
 
-        var objeto = new MacGrupoModeloCalificacion();
+        var objeto = new MacGrupoModeloAnalisis();
 
         objeto.descripcion = descripcionGrupo.value;
         objeto.peso = pesoGrupo.value;
@@ -339,10 +326,7 @@ export class ModelosCalificacionComponent extends OnSeguridad implements OnInit 
 
         if (registra) {
 
-            objeto.idCompania = this.companiaObservable.id;
-            objeto.idModulo = this.moduleObservable.id;
-
-            objeto.idModeloCalificacion = this.objSeleccionadoModelo.id;
+            objeto.idModeloAnalisis = this.objSeleccionadoModelo.id;
 
             objeto.adicionadoPor = this.userObservable.identificacion;
             objeto.fechaAdicion = this.today;
@@ -355,11 +339,11 @@ export class ModelosCalificacionComponent extends OnSeguridad implements OnInit 
         }
         return objeto;
     }
-    private createIndicadorForm(registra : boolean = false) : MacIndicadorGrupoModeloCalificacion {
+    private createIndicadorForm(registra : boolean = false) : MacIndicadorGrupoModeloAnalisis {
 
         let totalPeso : number = 0;
 
-        const { indicadorRelevante,
+        const { indicadorScoring,
                 pesoIndicador, 
                 pesoTotalIndicador, 
                 estadoIndicador
@@ -383,19 +367,16 @@ export class ModelosCalificacionComponent extends OnSeguridad implements OnInit 
         this.sumatoriaPesoIndicador = totalPeso;
         this.formIndicador.get('pesoTotalIndicador')?.setValue(this.sumatoriaPesoIndicador);
 
-        var objeto = new MacIndicadorGrupoModeloCalificacion();
+        var objeto = new MacIndicadorGrupoModeloAnalisis();
 
-        objeto.idIndicador = indicadorRelevante.value.codIndicador;
-        objeto.descripcion = indicadorRelevante.value.descripcion;
+        objeto.idIndicador = indicadorScoring.value.id;
+        objeto.descripcion = indicadorScoring.value.descripcion;
         objeto.peso = pesoIndicador.value;
         objeto.estado = estadoIndicador.value;
 
         if (registra) {
 
-            objeto.idCompania = this.companiaObservable.id;
-            objeto.idModulo = this.moduleObservable.id;
-
-            objeto.idGrupoModeloCalificacion = this.objSeleccionadoGrupo.id;
+            objeto.idGrupoModeloAnalisis = this.objSeleccionadoGrupo.id;
 
             objeto.adicionadoPor = this.userObservable.identificacion;
             objeto.fechaAdicion = this.today;
@@ -416,13 +397,13 @@ export class ModelosCalificacionComponent extends OnSeguridad implements OnInit 
 
         if ( this.formModelo.invalid ) return;
 
-        let objeto : MacModeloCalificacion = this.createModeloForm(true);
+        let objeto : MacModeloAnalisis = this.createModeloForm(true);
 
-        this.macredService.postModeloCalificacion(objeto)
+        this.macredService.postModeloAnalisis(objeto)
             .pipe(first())
             .subscribe(response => {
 
-                if (response) {
+                if (response.exito) {
 
                     this.submitFormModelo = false;
                     this.listModelos.push(response.objetoDb);
@@ -430,10 +411,9 @@ export class ModelosCalificacionComponent extends OnSeguridad implements OnInit 
 
                     if (!this.habilitaListaModelo) this.habilitaListaModelo = true;
                     
-                    this.alertService.success( 
-                        `Modelo ${ response.objetoDb.descripcion } registrado.`
-                    );
-                } else { this.alertService.error('Problemas al registrar objeto.'); }
+                    this.alertService.success( response.responseMesagge );
+
+                } else { this.alertService.error(response.responseMesagge); }
             }, error => { this.alertService.error(this.translate.translateKeyP('ALERTS.CONNECTION_ERROR', { ERROR: error })); 
         });
     }
@@ -444,10 +424,10 @@ export class ModelosCalificacionComponent extends OnSeguridad implements OnInit 
 
         if ( this.formGrupo.invalid ) return;
 
-        let objeto : MacGrupoModeloCalificacion = this.createGrupoForm(true);
+        let objeto : MacGrupoModeloAnalisis = this.createGrupoForm(true);
 
         if (objeto) {
-            this.macredService.postGrupoModeloCalificacion(objeto)
+            this.macredService.postGrupoModeloAnalisis(objeto)
                 .pipe(first())
                 .subscribe(response => {
 
@@ -459,7 +439,7 @@ export class ModelosCalificacionComponent extends OnSeguridad implements OnInit 
 
                         this.habilitaListaGrupo = true;
                         
-                        this.alertService.success( `Grupo guardado correctamente.` );
+                        this.alertService.success( response.responseMesagge );
 
                     } else { this.alertService.error(response.responseMesagge); }
                 }, error => { this.alertService.error(this.translate.translateKeyP('ALERTS.CONNECTION_ERROR', { ERROR: error })); 
@@ -474,13 +454,13 @@ export class ModelosCalificacionComponent extends OnSeguridad implements OnInit 
 
         if ( this.formIndicador.invalid ) return;
 
-        let objeto : MacIndicadorGrupoModeloCalificacion = this.createIndicadorForm(true);
+        let objeto : MacIndicadorGrupoModeloAnalisis = this.createIndicadorForm(true);
 
         if (objeto) {
 
             if (!this.listIndicadoresModelos.find(x => x.idIndicador === objeto.idIndicador)) {
 
-                this.macredService.postIndicadoresGrupoModCalif(objeto)
+                this.macredService.postIndicadorGrupoModAnalisis(objeto)
                     .pipe(first())
                     .subscribe(response => {
 
@@ -495,7 +475,6 @@ export class ModelosCalificacionComponent extends OnSeguridad implements OnInit 
                             this.alertService.success( response.responseMesagge );
 
                         } else { this.alertService.error(response.responseMesagge); }
-
                     }, error => { this.alertService.error(this.translate.translateKeyP('ALERTS.CONNECTION_ERROR', { ERROR: error })); 
                 });
                 
@@ -520,7 +499,7 @@ export class ModelosCalificacionComponent extends OnSeguridad implements OnInit 
 
             if (confirmado) {
 
-                this.macredService.deleteModeloCalificacion(this.objSeleccionadoModelo.id)
+                this.macredService.deleteModeloAnalisis(this.objSeleccionadoModelo.id)
                     .pipe(first())
                     .subscribe(response => {
 
@@ -535,9 +514,9 @@ export class ModelosCalificacionComponent extends OnSeguridad implements OnInit 
                                 this.habilitaFormularioGrupo = false;
                             }
 
-                            this.alertService.success( `Modelo eliminado correctamente.` );
+                            this.alertService.success( response.responseMesagge );
 
-                        } else { this.alertService.error('Problemas al eliminar objeto.'); }
+                        } else { this.alertService.error(response.responseMesagge); }
                     }, error => { this.alertService.error('Problemas de conexión. Detalle: ' + error);
                 });
             } else { return; }
@@ -562,11 +541,11 @@ export class ModelosCalificacionComponent extends OnSeguridad implements OnInit 
 
             if (confirmado) {
 
-                this.macredService.deleteGrupoModeloCalificacion(this.objSeleccionadoGrupo.id)
+                this.macredService.deleteGrupoModeloAnalisis(this.objSeleccionadoGrupo.id)
                     .pipe(first())
                     .subscribe(response => {
 
-                        if (response) {
+                        if (response.exito) {
 
                             this.submitFormGrupo = false;
                             this.listGrupos.splice(this.listGrupos.findIndex( m => m.id == this.objSeleccionadoGrupo.id ), 1);
@@ -582,7 +561,7 @@ export class ModelosCalificacionComponent extends OnSeguridad implements OnInit 
                             this.sumatoriaPesoGrupo = totalPeso;
                             this.formGrupo.get('pesoTotalGrupo')?.setValue(this.sumatoriaPesoGrupo);
 
-                            this.alertService.success( `Crédito eliminado correctamente!` );
+                            this.alertService.success( response.responseMesagge );
 
                         } else { this.alertService.error(response.responseMesagge); }
                     }, error => { this.alertService.error('Problemas de conexión. Detalle: ' + error);
@@ -604,7 +583,7 @@ export class ModelosCalificacionComponent extends OnSeguridad implements OnInit 
 
             if (confirmado) {
 
-                this.macredService.deleteIndicadoresGrupoModCalif(this.objSeleccionadoIndicador.id)
+                this.macredService.deleteIndicadoresGrupoModAnalisis(this.objSeleccionadoIndicador.id)
                     .pipe(first())
                     .subscribe(response => {
 
@@ -639,13 +618,13 @@ export class ModelosCalificacionComponent extends OnSeguridad implements OnInit 
 
         if ( this.formModelo.invalid ) return;
 
-        let obj : MacModeloCalificacion = this.createModeloForm(false);
+        let obj : MacModeloAnalisis = this.createModeloForm(false);
 
-        this.macredService.putModeloCalificacion(obj)
+        this.macredService.putModeloAnalisis(obj)
             .pipe(first())
             .subscribe(response => {
 
-                if (response) {
+                if (response.exito) {
 
                     this.submitFormModelo = false;
                     this.listModelos.splice(this.listModelos.findIndex( m => m.id == response.objetoDb.id ), 1);
@@ -656,12 +635,9 @@ export class ModelosCalificacionComponent extends OnSeguridad implements OnInit 
 
                     this.habilitaFormularioGrupo = false;
 
-                    this.alertService.success(
-                        `Modelo ${response.objetoDb.descripcion} actualizado correctamente.`
-                    );
+                    this.alertService.success( response.responseMesagge );
 
-                } else { this.alertService.error('Problemas al actualizar objeto.'); }
-            
+                } else { this.alertService.error(response.responseMesagge); }
             }, error => { this.alertService.error(this.translate.translateKeyP('ALERTS.CONNECTION_ERROR', { ERROR: error })); 
         });
     }
@@ -672,15 +648,15 @@ export class ModelosCalificacionComponent extends OnSeguridad implements OnInit 
 
         if ( this.formGrupo.invalid ) return;
 
-        let objeto : MacGrupoModeloCalificacion = this.createGrupoForm(false);
+        let objeto : MacGrupoModeloAnalisis = this.createGrupoForm(false);
 
         if (objeto) {
 
-            this.macredService.putGrupoModeloCalificacion(objeto)
+            this.macredService.putGrupoModeloAnalisis(objeto)
                 .pipe(first())
                 .subscribe(response => {
 
-                    if (response) {
+                    if (response.exito) {
 
                         this.submitFormGrupo = false;
                         this.listGrupos.splice(this.listGrupos.findIndex( m => m.id == response.objetoDb.id ), 1);
@@ -689,9 +665,7 @@ export class ModelosCalificacionComponent extends OnSeguridad implements OnInit 
 
                         this.habilitaFormularioIndicador = false;
 
-                        this.alertService.success(
-                            `Grupo ${response.objetoDb.id} actualizado correctamente.`
-                        );
+                        this.alertService.success( response.responseMesagge );
 
                     } else { this.alertService.error(response.responseMesagge); }
                 }, error => { this.alertService.error(this.translate.translateKeyP('ALERTS.CONNECTION_ERROR', { ERROR: error })); 
@@ -706,11 +680,11 @@ export class ModelosCalificacionComponent extends OnSeguridad implements OnInit 
 
         if ( this.formIndicador.invalid ) return;
 
-        let objeto : MacIndicadorGrupoModeloCalificacion = this.createIndicadorForm(false);
+        let objeto : MacIndicadorGrupoModeloAnalisis = this.createIndicadorForm(false);
 
         if (objeto) {
 
-            this.macredService.putIndicadoresGrupoModCalif(objeto)
+            this.macredService.putIndicadoresGrupoModAnalisis(objeto)
                 .pipe(first())
                 .subscribe(response => {
 
@@ -732,8 +706,8 @@ export class ModelosCalificacionComponent extends OnSeguridad implements OnInit 
         } else { this.alertService.error( 'La sumatoria de los pesos no puede superar los 100.' ); }
     }
     
-    private getModelos() : void {
-        this.macredService.getModelosCalificacion()
+    private getModelosAnalisis() : void {
+        this.macredService.getModelosAnalisis(true)
             .pipe(first())
             .subscribe(response => {
                 if (response && response.length > 0) {
@@ -742,11 +716,12 @@ export class ModelosCalificacionComponent extends OnSeguridad implements OnInit 
                 }
             }, error => { this.alertService.error(error); });
     }
-    private getGruposModelosCalificacion(pidModelo : number) : void {
+    private getGruposModelosAnalisis(pidModelo : number) : void {
 
-        this.macredService.getGruposModelosCalificacion(pidModelo)
+        this.macredService.getGruposModelosAnalisis(pidModelo)
             .pipe(first())
             .subscribe(response => {
+
                 if (response && response.length > 0) {
                     this.habilitaListaGrupo = true;
                     this.listGrupos = response;
@@ -755,17 +730,16 @@ export class ModelosCalificacionComponent extends OnSeguridad implements OnInit 
 
                     this.formGrupo.get('pesoTotalGrupo')?.setValue(this.sumatoriaPesoGrupo);
 
-                } else {
-                    this.habilitaListaGrupo = false;
-                    this.listGrupos = [];
-                }
+                } else { this.habilitaListaGrupo = false; }
+
             }, error => { this.alertService.error(error); });
     }
-    private getIndicadoresGruposCalif(pidGrupo : number) : void {
+    private getIndicadoresGruposAnalisis(pidGrupo : number) : void {
 
-        this.macredService.getIndicadoresGrupoModCalif(pidGrupo)
+        this.macredService.getIndicadoresGrupoModAnalisis(pidGrupo)
             .pipe(first())
             .subscribe(response => {
+
                 if (response && response.length > 0) {
                     this.habilitaListaIndicador = true;
                     this.listIndicadoresModelos = response;
@@ -774,10 +748,23 @@ export class ModelosCalificacionComponent extends OnSeguridad implements OnInit 
 
                     this.formIndicador.get('pesoTotalIndicador')?.setValue(this.sumatoriaPesoIndicador);
 
-                } else {
-                    this.habilitaListaIndicador = false;
-                    this.listIndicadoresModelos = [];
-                }
+                } else { this.habilitaListaIndicador = false; }
+
+            }, error => { this.alertService.error(error); });
+    }
+
+    private buscarModuloId(moduleId : number) : void {
+        this.accountService.getModuleId(moduleId)
+            .pipe(first())
+            .subscribe(response => { 
+                if (response) this.moduleScreen = response ; });
+    }
+    private getIndicadoresScoringActivos() : void {
+        this.macredService.getIndicadoresScoringActivos()
+            .pipe(first())
+            .subscribe(response => {
+                if (response && response.length > 0)  this.listIndicadoresScoring = response;
+                
             }, error => { this.alertService.error(error); });
     }
 

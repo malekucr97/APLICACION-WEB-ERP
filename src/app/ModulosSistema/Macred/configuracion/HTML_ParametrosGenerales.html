@@ -1,67 +1,65 @@
-<mat-sidenav-container>
-    <main class="contenido-main">
+<main class="contenido-main">
 
-        <div *ngIf="showList">
-            <div class="mat-elevation-z4 mx-3">
+    <div *ngIf="showList">
+        <div class="mat-elevation-z4 mx-3">
 
-                <div class="card">
-                    <div class="card-body">
-                        <div class="row">
-                            <div class="col-md-11">
-                                <p class="contenido-main__h3">Parámetros Generales</p>
-                            </div>
-                            <div class="col-md-1">
-                                <button class="btn-add"
-                                        title="{{ 'CONFIGURATION.BTN_ADMIN_USERS' | translate}}"
-                                        mat-icon-button 
-                                        (click)="addParametroGeneral()"> <mat-icon>add</mat-icon> </button>
-                            </div>
+            <div class="card">
+                <div class="card-body">
+                    <div class="row">
+                        <div class="col-md-11">
+                            <p class="contenido-main__h3">Parámetros Generales</p>
                         </div>
-                        
-                        <hr>
-
-                        <div class="contenido-main__table">
-                            <table class="table table-striped">
-                                <thead>
-                                    <tr>
-                                        <th style="width: 25%">Código</th>
-                                        <th style="width: 10%">Valor 1</th>
-                                        <th style="width: 10%">Valor 2</th>
-                                        <th style="width: 10%">Valor 3</th>
-                                        <th style="width: 10%">Valor 4</th>
-                                        <th style="width: 10%">Valor 5</th>
-                                        <th style="width: 15%">Encriptado</th>
-                                        <th style="width: 10%"></th>
-                                    </tr>
-                                </thead>
-
-                                <tbody>
-                                    <tr *ngFor="let parametroGeneral of listParametrosGenerales">
-                                        <td>{{parametroGeneral.codigoParametro}}</td>
-                                        <td>{{parametroGeneral.valor1}}</td>
-                                        <td>{{parametroGeneral.valor2}}</td>
-                                        <td>{{parametroGeneral.valor3}}</td>
-                                        <td>{{parametroGeneral.valor4}}</td>
-                                        <td>{{parametroGeneral.valor5}}</td>
-                                        <td *ngIf="parametroGeneral.encriptado==true">Activo</td>
-                                        <td *ngIf="parametroGeneral.encriptado==false">Inactivo</td>
-                                        <td style="white-space: nowrap">
-                                            <a style="margin-right: 5%;" (click)="editParametroGeneral(parametroGeneral)" class="btn btn-sm btn-outline-info" matTooltip="Editar">
-                                                <i class="fa fa-edit"></i> </a>
-
-                                            <a style="margin-left: 5%;" (click)="deleteParametroGeneral(parametroGeneral.id)" class="btn btn-sm btn-outline-danger" matTooltip="Eliminar">
-                                                <i class="fa fa-trash"></i> </a>
-                                        </td>
-                                    </tr>
-                                </tbody>
-                            </table>
+                        <div class="col-md-1">
+                            <button class="btn-add"
+                                    title="{{ 'CONFIGURATION.BTN_ADMIN_USERS' | translate}}"
+                                    mat-icon-button 
+                                    (click)="addParametroGeneral()"> <mat-icon>add</mat-icon> </button>
                         </div>
+                    </div>
+                    
+                    <hr>
+
+                    <div class="contenido-main__table">
+                        <table class="table table-striped">
+                            <thead>
+                                <tr>
+                                    <th style="width: 25%">Código</th>
+                                    <th style="width: 10%">Valor 1</th>
+                                    <th style="width: 10%">Valor 2</th>
+                                    <th style="width: 10%">Valor 3</th>
+                                    <th style="width: 10%">Valor 4</th>
+                                    <th style="width: 10%">Valor 5</th>
+                                    <th style="width: 15%">Encriptado</th>
+                                    <th style="width: 10%"></th>
+                                </tr>
+                            </thead>
+
+                            <tbody>
+                                <tr *ngFor="let parametroGeneral of listParametrosGenerales">
+                                    <td>{{parametroGeneral.codigoParametro}}</td>
+                                    <td>{{parametroGeneral.valor1}}</td>
+                                    <td>{{parametroGeneral.valor2}}</td>
+                                    <td>{{parametroGeneral.valor3}}</td>
+                                    <td>{{parametroGeneral.valor4}}</td>
+                                    <td>{{parametroGeneral.valor5}}</td>
+                                    <td *ngIf="parametroGeneral.encriptado==true">Activo</td>
+                                    <td *ngIf="parametroGeneral.encriptado==false">Inactivo</td>
+                                    <td style="white-space: nowrap">
+                                        <a style="margin-right: 5%;" (click)="editParametroGeneral(parametroGeneral)" class="btn btn-sm btn-outline-info" matTooltip="Editar">
+                                            <i class="fa fa-edit"></i> </a>
+
+                                        <a style="margin-left: 5%;" (click)="deleteParametroGeneral(parametroGeneral.id)" class="btn btn-sm btn-outline-danger" matTooltip="Eliminar">
+                                            <i class="fa fa-trash"></i> </a>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
                     </div>
                 </div>
             </div>
         </div>
-    </main>
-</mat-sidenav-container>
+    </div>
+</main>
 
 <div class="modal fade" id="parametroGeneralModal" tabindex="-1">
     <div class="modal-dialog modal-xl modal-dialog-centered">

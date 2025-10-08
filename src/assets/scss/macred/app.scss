@@ -5,6 +5,8 @@
 @mixin bg-color-skyblue { background-color: #00AEEF; }
 @mixin bg-color-light-gray { background-color: #B3B3B3; }
 
+td { vertical-align: middle; }
+
 $paddingDirection:('right','left','top','bottom');
 $paddingLength:(2,5,10,15,30,45,50);
 
@@ -326,8 +328,52 @@ $paddingLength:(2,5,10,15,30,45,50);
             &__rangoi { width: 20%; text-align: center; &__td { text-align: center; } }
             &__rangof { width: 20%; text-align: center; &__td { text-align: center; } }
         }
-        // &__add { width: 10%; text-align: center; &__td { text-align: center; } }
-        // &__update { width: 10%; text-align: center; &__td { text-align: center; } }
+    }
+    &__escenarios-riesgos {
+        &__ico { width: 5%; }
+        &__desc { width: 70%; }
+        &__estado { width: 25%; text-align: center; &__td { text-align: center; } }
+        &__variables {
+            &__desc { width: 45%; }
+            &__tipoe { width: 25%; text-align: center; &__td { text-align: center; } }
+            &__valore { width: 25%; text-align: center; &__td { text-align: center; } }
+        }
+    }
+    &__nivel-riesgo {
+        &__ico { width: 3%; }
+        &__desc { width: 20%; }
+        &__puntaje { width: 9%; text-align: center; &__td { text-align: center; } }
+        &__rangoi { width: 10%; text-align: center; &__td { text-align: center; } }
+        &__rangof { width: 10%; text-align: center; &__td { text-align: center; } }
+        &__score { width: 15%; text-align: center; &__td { text-align: center; } }
+        &__estado { width: 9%; text-align: center; &__td { text-align: center; } }
+        &__add { width: 6%; text-align: center; &__td { text-align: center; } }
+        &__update { width: 6%; text-align: center; &__td { text-align: center; } }
+    }
+    &__indicadores-scoring {
+        &__ico { width: 5%; }
+        &__desc { width: 80%; }
+        &__estado { width: 15%; text-align: center; &__td { text-align: center; } }
+
+        &__niveles {
+            &__desc { width: 55%; }
+            &__rangoi { width: 20%; text-align: center; &__td { text-align: center; } }
+            &__rangof { width: 20%; text-align: center; &__td { text-align: center; } }
+        }
+    }
+    &__modelos-analisis {
+        &__ico { width: 5%; }
+        &__desc { width: 80%; }
+        &__estado { width: 15%; text-align: center; &__td { text-align: center; } }
+
+        &__grupo {
+            &__desc { width: 70%; }
+            &__peso { width: 10%; text-align: center; &__td { text-align: center; } }
+        }
+        &__indicador {
+            &__desc { width: 70%; }
+            &__peso { width: 10%; text-align: center; &__td { text-align: center; } }
+        }
     }
 }
 
@@ -465,9 +511,9 @@ $paddingLength:(2,5,10,15,30,45,50);
 }
 
 .contenido-main-macred {
-    margin-top: 1%;
-    margin-bottom: 1%;
-    margin-left: 1%;
+    
+    margin: 1% 1% 1% 1%;
+
     &__h1 {
         color: #053254; font-size: 1.5rem; font-weight: 700;
         @media (max-width: 800px) { font-size: 1rem; }

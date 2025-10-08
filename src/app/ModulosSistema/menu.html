@@ -1,68 +1,83 @@
-<div class="var-menu-modulos">
+<mat-sidenav-container>
+  <!-- SIDENAV (menú lateral) -->
+  <mat-sidenav #sidenav mode="over">
+    <div class="info-modulo">
+      <button class="menu-button-submodulo"
+              [matTooltip]="this.translate.translateKey('MENU.TLT_CLOSE_MENU')"
+              mat-button 
+              (click)="sidenav.toggle()">
+        <mat-icon>menu</mat-icon>
+      </button>
+
+      <button class="menu-button-submodulo"
+              [matTooltip]="this.translate.translateKey('MENU.TLT_SELECT_MODULE')"
+              mat-button 
+              class="menu-button-back"
+              [routerLink]="URLRedirectIndexContent">
+        <mat-icon>reply</mat-icon>
+      </button>
+
+      <img class="avatar mat-elevation-z8" [src]="moduleObservable.pathLogo">
+      <mat-divider></mat-divider>
+
+      <h4 class="name">{{moduleObservable.nombre}}</h4>
+      <h4 class="name">{{businessObservable.nombre}}</h4>
+      <h4 class="name">{{businessObservable.correoElectronico}}</h4>
+      <mat-divider></mat-divider>
+
+      <mat-tree [dataSource]="dataSource" [treeControl]="treeControl">
+        <mat-tree-node *matTreeNodeDef="let node" matTreeNodePadding>
+          <button mat-button (click)="sidenav.toggle()">
+            <mat-icon>{{node.icon}}</mat-icon>
+            <span [routerLink]="node.link">{{node.name}}</span>
+          </button>
+        </mat-tree-node>
+
+        <mat-tree-node *matTreeNodeDef="let node; when: hasChild" matTreeNodePadding>
+          <button mat-button matTreeNodeToggle>
+            <mat-icon class="mat-icon-rtl-mirror">
+              {{treeControl.isExpanded(node) ? 'expand_more' : 'chevron_right'}}
+            </mat-icon>
+            <span>{{node.name}}</span>
+          </button>
+        </mat-tree-node>
+      </mat-tree>
+    </div>
+  </mat-sidenav>
+
+  <!-- CONTENIDO PRINCIPAL -->
+  <mat-sidenav-content>
+    <div class="var-menu-modulos">
+      <div class="var-menu-modulos__prev-icons">
+        <button mat-icon-button (click)="sidenav.toggle()" class="item-menu">
+          <mat-icon>menu</mat-icon>
+        </button>
+      </div>
+
+      <div class="var-menu-modulos__prev">
+        <img class="var-menu-modulos__prev__div__img" src="./assets/images/inra/img_bankap_left.png" />
+      </div>
+
+      <div class="var-menu-modulos__center">
+        <p class="var-menu-modulos__center__titulo">{{businessObservable.nombre}}</p>
+      </div>
+
+      <div class="var-menu-modulos__next">
+        <img class="var-menu-modulos__next__div__img" src="./assets/images/inra/img_bankap_rigth.png" />
+      </div>
+
+      <div class="var-menu-modulos__next-icons">
+        <button mat-icon-button (click)="redirectIndex()">
+          <mat-icon>home</mat-icon>
+        </button>
+
+        <button mat-icon-button (click)="logout()">
+          <mat-icon>input</mat-icon>
+        </button>
+      </div>
+    </div>
+
+    <router-outlet></router-outlet>
     
-        <div class="var-menu-modulos__prev-icons">
-            <button class="item-menu"
-                    mat-icon-button
-                    (click)="sidenav.toggle()" > <mat-icon>menu</mat-icon> </button> </div>
-
-        <div class="var-menu-modulos__prev"> <div> <img class="var-menu-modulos__prev__div__img" src="./assets/images/inra/img_bankap_left.png " /> </div> </div>
-        <div class="var-menu-modulos__center"> <p class="var-menu-modulos__center__titulo">{{businessObservable.nombre}}</p> </div>
-        <div class="var-menu-modulos__next"> <div> <img class="var-menu-modulos__next__div__img" src="./assets/images/inra/img_bankap_rigth.png " /> </div> </div>
-
-        <div class="var-menu-modulos__next-icons">
-            <button class="var-menu-modulos__next__home" 
-                    mat-icon-button
-                    (click)="redirectIndex()"> <mat-icon>home</mat-icon> </button>
-      
-            <button class="var-menu-modulos__next__logout" 
-                    mat-icon-button 
-                    (click)="logout()"> <mat-icon>input</mat-icon> </button> </div>
-</div>
-
-<mat-sidenav mode="over">
-    <mat-sidenav-container>
-
-        <div class="info-modulo">
-
-            <button class="menu-button-submodulo"
-                    [matTooltip]="this.translate.translateKey('MENU.TLT_CLOSE_MENU')"
-                    aria-label="Button that displays a tooltip when focused or hovered over" 
-                    mat-button 
-                    (click)="sidenav.toggle()"> <mat-icon>menu</mat-icon> </button>
-
-            <button class="menu-button-submodulo"
-                    [matTooltip]="this.translate.translateKey('MENU.TLT_SELECT_MODULE')"
-                    aria-label="Button that displays a tooltip when focused or hovered over" 
-                    mat-button class="menu-button-back" 
-                    routerLink="{{URLRedirectIndexContent}}"> <mat-icon>reply</mat-icon> </button>
-
-            <img class="avatar mat-elevation-z8" src="{{moduleObservable.pathLogo}}">
-
-            <mat-divider></mat-divider>
-            <h4 class="name">{{moduleObservable.nombre}}</h4>
-            <h4 class="name">{{businessObservable.nombre}}</h4>
-            <h4 class="name">{{businessObservable.correoElectronico}}</h4>
-            <mat-divider></mat-divider>
-
-                <mat-tree [dataSource]="dataSource" [treeControl]="treeControl">
-                    <!-- This is the tree node template for leaf nodes -->
-                    <!-- opciones hijas -->
-                    <mat-tree-node *matTreeNodeDef="let node" matTreeNodePadding >
-                        <button mat-button >
-                            <mat-icon>{{node.icon}}</mat-icon>
-                            <span routerLink="{{node.link}}" (click)="sidenav.toggle()">{{node.name}}</span> </button>
-                    </mat-tree-node>
-                    <!-- This is the tree node template for expandable nodes -->
-                    <!-- opciones principales -->
-                    <mat-tree-node *matTreeNodeDef="let node;when: hasChild" matTreeNodePadding >
-                        <button mat-button matTreeNodeToggle [attr.aria-label]="'Toggle ' + node.name" >
-                            <mat-icon class="mat-icon-rtl-mirror"> {{treeControl.isExpanded(node) ? 'expand_more' : 'chevron_right'}} </mat-icon>
-                            <span>{{node.name}}</span> </button>
-                    </mat-tree-node>
-
-                </mat-tree>
-        </div>
-    </mat-sidenav-container>
-</mat-sidenav>
-
-<router-outlet></router-outlet>
+  </mat-sidenav-content>
+</mat-sidenav-container>

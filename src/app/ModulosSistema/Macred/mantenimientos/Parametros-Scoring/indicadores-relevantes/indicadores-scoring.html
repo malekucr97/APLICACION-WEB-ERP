@@ -1,0 +1,227 @@
+<div class="contenido-main-macred">
+
+    <div>
+        <div>
+            <p class="contenido-main-macred__h1">{{moduleScreen.descripcion}}</p>
+            <p class="contenido-main-macred__h2">Administración de Indicadores Scoring</p>
+        </div>
+        <hr>
+        <button class="back-ico-two"
+                title="{{ 'CONFIGURATION.BTN_ADMIN_USERS' | translate}}"
+                mat-icon-button 
+                (click)="redirectIndexModule()"> <mat-icon>arrow_back</mat-icon> </button>
+    </div>
+
+    <div class="card">
+        <div class="card-body">
+
+            <p class="contenido-main-macred__h3">Indicadores Scoring</p>
+
+            <hr>
+
+            <!-- body -->
+            <div class="form-list-inline">
+                <div class="formulario-izquierdo">
+
+                    <div class="formulario-izquierdo__nav">
+                        <div class="formulario-izquierdo__nav__prev" >
+                            <p class="formulario-izquierdo__nav__prev__tittle">Mantenimiento de Indicadores Scoring</p>
+                        </div>
+
+                        <div class="formulario-izquierdo__nav__next" >
+                            <button *ngIf="habilitaBtnNuevo" class="formulario-izquierdo__nav__next__btn-view" 
+                                    mat-flat-button
+                                    (click)="nuevoIndicadorScoring()">{{ 'GENERAL.BTN_NEW' | translate }}</button>
+                            <button *ngIf="habilitaBtnActualiza" class="formulario-izquierdo__nav__next__btn-warn" 
+                                    mat-flat-button
+                                    (click)="putIndicadorScoring()">{{ 'GENERAL.BTN_UPDATE' | translate }}</button>
+                            <button *ngIf="habilitaBtnRegistro" class="formulario-izquierdo__nav__next__btn-ok" 
+                                    mat-flat-button
+                                    (click)="postIndicadorScoring()">{{ 'GENERAL.BTN_REGISTER' | translate }}</button>
+                            <button *ngIf="habilitaBtnEliminar" class="formulario-izquierdo__nav__next__btn-delete" 
+                                    mat-flat-button
+                                    (click)="deleteIndicadorScoring()">{{ 'GENERAL.BTN_DELETE' | translate }}</button>
+                        </div>
+                    </div>
+
+                    <div class="p-2">
+
+                        <form [formGroup]="formIndicadorScoring" class="row">
+
+                            <div class="form-group col-sm-10">
+                                <label for="id_descripcionIndScoring" class="form-label">Descripción</label>
+                                <input  maxlength="200" 
+                                        formControlName="descripcionIndScoring" 
+                                        class="form-control" 
+                                        type="text" 
+                                        id="id_descripcionIndScoring"
+                                        [ngClass]="{ 'is-invalid': submitFormIndicador && f.descripcionIndScoring.errors }" />
+                                <div *ngIf="submitFormIndicador && f.descripcionIndScoring.errors" class="invalid-feedback">
+                                    <div *ngIf="f.descripcionIndScoring.errors.required">{{ 'GENERAL.VALIDATES.EMPTY' | translate }}</div>
+                                </div>
+                            </div>
+
+                            <div class="form-group col-sm-2 margin-status d-flex justify-content-center">
+                                <mat-checkbox formControlName="estadoIndScoring"></mat-checkbox>
+                            </div>
+                            
+                        </form>
+                    </div>
+                </div>
+
+                <div *ngIf="habilitaListaIndicadores" class="lista-inline">
+
+                    <div class="lista-inline__nav" >
+                        <p class="lista-inline__nav__tittle">Lista de Indicadores Relevantes</p>
+                    </div>
+
+                    <div class="scroll-table-macred__personas">
+                        <table class="table table-striped">
+                            <thead>
+                                <tr>
+                                    <th class="table__indicadores-scoring__ico"></th>
+                                    <th class="table__indicadores-scoring__desc">Descripción</th>
+                                    <th class="table__indicadores-scoring__estado">Estado</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr *ngFor="let obj of listIndicadores" (click)="selectIndicadorRelevante(obj)" >
+                                    
+                                    <td class="item-edit">
+                                        <div> <a> <mat-icon>swap_horiz</mat-icon> </a> </div> </td>
+
+                                    <td class="item-edit">{{obj.descripcion}}</td>
+                                    <td *ngIf="obj.estado==true" class="item-edit table__indicadores-scoring__estado__td">Activo</td>
+                                    <td *ngIf="obj.estado==false" class="item-edit table__indicadores-scoring__estado__td">Inactivo</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+
+            <br>
+
+            <div *ngIf="habilitaFormularioNiveles" class="card">
+                <div class="card-body">
+
+                    <p class="contenido-main-macred__h3">Niveles de Riesgo Activos por Indicador</p>
+                    
+                    <hr>
+
+                    <div class="form-list-inline">
+                        <div class="formulario-izquierdo__segundo">
+
+                            <div class="formulario-izquierdo__nav">
+                                <div class="formulario-izquierdo__nav__prev" >
+                                    <p class="formulario-izquierdo__nav__prev__tittle">Mantenimiento de Niveles de Riesgo por Indicador</p>
+                                </div>
+
+                                <div class="formulario-izquierdo__nav__next" >
+                                    <button *ngIf="habilitaBtnRegistroNivel" class="formulario-izquierdo__nav__next__btn-ott" 
+                                            mat-flat-button
+                                            (click)="consultaRangosNiveles()">Consulta Rangos Niveles</button>
+                                    <button *ngIf="habilitaBtnNuevoNivel" class="formulario-izquierdo__nav__next__btn-view" 
+                                            mat-flat-button
+                                            (click)="nuevoNivelXIndicador()">{{ 'GENERAL.BTN_NEW' | translate }}</button>
+                                    <button *ngIf="habilitaBtnActualizaNivel" class="formulario-izquierdo__nav__next__btn-warn" 
+                                            mat-flat-button
+                                            (click)="putNivelXIndicador()">{{ 'GENERAL.BTN_UPDATE' | translate }}</button>
+                                    <button *ngIf="habilitaBtnRegistroNivel" class="formulario-izquierdo__nav__next__btn-ok" 
+                                            mat-flat-button
+                                            (click)="postNivelXIndicador()">{{ 'GENERAL.BTN_REGISTER' | translate }}</button>
+                                    <button *ngIf="habilitaBtnEliminarNivel" class="formulario-izquierdo__nav__next__btn-delete" 
+                                            mat-flat-button
+                                            (click)="deleteNivelXIndicador()">{{ 'GENERAL.BTN_DELETE' | translate }}</button>
+                                </div>
+                            </div>
+
+                            <div class="p-2">
+
+                                <form [formGroup]="formNivel" class="row">
+
+                                    <div class="form-group col-sm-6">
+                                        <label for="id_descripcionNivel" class="form-label">Descripción</label>
+                                        <select formControlName="descripcionNivel" 
+                                                class="form-control" 
+                                                name="selectVariables"
+                                                id="id_descripcionNivel"
+                                                [ngClass]="{ 'is-invalid': submitFormNiveles && i.descripcionNivel.errors }" 
+                                                (change)="onChangeEvent()">
+                                            <option [ngValue]="objeto"
+                                                    *ngFor="let objeto of listNiveles">{{objeto.id}} - 
+                                                                                                    {{objeto.descripcion}}</option>
+                                        </select>
+                                        <div *ngIf="submitFormNiveles && i.descripcionNivel.errors" class="invalid-feedback">
+                                            <div *ngIf="i.descripcionNivel.errors.required">{{ 'GENERAL.VALIDATES.EMPTY' | translate }}</div>
+                                        </div>
+                                    </div>
+
+
+                                    <div class="form-group col-sm-3">
+                                        <label for="id_rangoInicial" class="form-label">Rango Inicial</label>
+                                        <input formControlName="rangoInicial" 
+                                                class="form-control" 
+                                                type="number" 
+                                                id="id_rangoInicial"  
+                                            [ngClass]="{ 'is-invalid': submitFormNiveles && i.rangoInicial.errors }" />
+                                        <div *ngIf="submitFormNiveles && i.rangoInicial.errors" class="invalid-feedback">
+                                            <div *ngIf="i.rangoInicial.errors.required">{{ 'GENERAL.VALIDATES.EMPTY' | translate }}</div>
+                                        </div>
+                                    </div>
+
+                                    <div class="form-group col-sm-3">
+                                        <label for="id_rangoFinal" class="form-label">Rango Final</label>
+                                        <input formControlName="rangoFinal" 
+                                                class="form-control" 
+                                                type="number" 
+                                                id="id_rangoFinal"  
+                                            [ngClass]="{ 'is-invalid': submitFormNiveles && i.rangoFinal.errors }" />
+                                        <div *ngIf="submitFormNiveles && i.rangoFinal.errors" class="invalid-feedback">
+                                            <div *ngIf="i.rangoFinal.errors.required">{{ 'GENERAL.VALIDATES.EMPTY' | translate }}</div>
+                                        </div>
+                                    </div>
+
+                                </form>
+                            </div>
+                        </div>
+
+                        <div *ngIf="habilitaListaNiveles" class="lista-inline">
+
+                            <div class="lista-inline__nav" >
+                                <p class="lista-inline__nav__tittle">Lista de Niveles de Riesgo del Indicador: {{objSeleccionadoIndicador.descripcion}}</p>
+                            </div>
+
+                            <div class="scroll-table-macred__personas">
+                                
+                                <table class="table table-striped">
+                                    <thead>
+                                        <tr>
+                                            <th class="table__indicadores-scoring__ico"></th>
+                                            <th class="table__indicadores-scoring__niveles__desc">Descripción</th>
+                                            <th class="table__indicadores-scoring__niveles__rangoi">Rango Inicial</th>
+                                            <th class="table__indicadores-scoring__niveles__rangof">Rango Final</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr *ngFor="let obj of listNivelesIndicadorScoring" (click)="selectNivel(obj)" >
+                                            
+                                            <td class="item-edit">
+                                                <div> <a> <mat-icon>swap_horiz</mat-icon> </a> </div> </td>
+
+                                            <td class="item-edit">{{obj.descripcion}}</td>
+                                            <td class="item-edit table__indicadores-scoring__niveles__rangoi__td">{{obj.rangoInicial}}</td>
+                                            <td class="item-edit table__indicadores-scoring__niveles__rangof__td">{{obj.rangoFinal}}</td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

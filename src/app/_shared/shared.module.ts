@@ -1,4 +1,4 @@
-import { NgModule } from '@angular/core';
+import { NgModule, Optional, SkipSelf } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
@@ -62,4 +62,12 @@ import { MatListModule } from '@angular/material/list';
     MatListModule
   ]
 })
-export class SharedModule {}
+export class SharedModule {
+
+  // constructor(@Optional() @SkipSelf() parentModule: SharedModule) {
+  //   if (parentModule) {
+  //     throw new Error('SharedModule ya ha sido importado. Solo importarlo en AppModule o CoreModule.');
+  //   }
+  // }
+
+}

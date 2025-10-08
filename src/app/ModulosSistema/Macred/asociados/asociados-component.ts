@@ -216,12 +216,12 @@ export class AsociadosComponent implements OnInit, OnDestroy {
             this.listTipoIngresoAnalisis = response;
           });
 
-        this.macredService
-          .getModelosAnalisis(this.companiaObservable.id, false)
-          .pipe(first())
-          .subscribe((response) => {
-            this.listModelosAnalisis = response;
-          });
+        // this.macredService
+        //   .getModelosAnalisis(this.companiaObservable.id, false)
+        //   .pipe(first())
+        //   .subscribe((response) => {
+        //     this.listModelosAnalisis = response;
+        //   });
 
         this.macredService
           .getNivelesCapacidadPago(false)

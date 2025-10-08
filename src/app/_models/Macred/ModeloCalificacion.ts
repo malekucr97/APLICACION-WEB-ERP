@@ -33,6 +33,7 @@ export class MacIndicadorGrupoModeloCalificacion {
     idCompania: number;
     idModulo: number;
 
+    idIndicador: number;
     idGrupoModeloCalificacion: number;
     
     descripcion: string;

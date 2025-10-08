@@ -11,7 +11,7 @@ import { OnSeguridad } from '@app/_helpers/abstractSeguridad';
 import { TranslateMessagesService } from '@app/_services/translate-messages.service';
 import { ModulesSystem } from '@environments/environment';
 import { MacredService } from '@app/_services/macred.service';
-import { MacEscenariosRiesgos, MacIndicadoresRelevantes, MacNivelCapacidadPago, MacNivelesXIndicador } from '@app/_models/Macred';
+import { MacEscenariosRiesgos, MacVariableCriticaXEscenario, MacVariablesCriticas } from '@app/_models/Macred';
 import { MacModeloCalificacion } from '@app/_models/Macred/ModeloCalificacion';
 
 declare var $: any;
@@ -61,19 +61,27 @@ export class EscenariosRiesgosComponent extends OnSeguridad implements OnInit {
 
     // ## -- listas -- ## //
     listEscenarios: MacEscenariosRiesgos[] = [];
-    listVariables: MacNivelCapacidadPago[] = [];
-    listVariablesEscenario: MacNivelCapacidadPago[] = [];
+    listVariablesEscenario: MacVariableCriticaXEscenario[] = [];
+
+    listTipoEstres = [
+        {id : 'R', descripcion : 'Puntos Porcentuales'},
+        {id : 'P', descripcion : 'Porcentaje'}
+    ];
 
     listModelosCalificacion: MacModeloCalificacion[] = [];
+    listVariablesCriticas : MacVariablesCriticas[] = [];
 
     objSeleccionadoEscenario: MacEscenariosRiesgos = undefined;
-    objSeleccionadoVariable: MacNivelCapacidadPago = undefined;
+    objSeleccionadoVariable: MacVariablesCriticas = undefined;
+    objSeleccionadoVariableEscenario: MacVariableCriticaXEscenario = undefined;
+
     objSeleccionadoModelo: MacModeloCalificacion = undefined;
 
     public today : Date = new Date();
 
     oModelo : MacModeloCalificacion = undefined;
-    oVariableEscenario : MacNivelCapacidadPago = undefined;
+    oVariable : MacVariablesCriticas = undefined;
+    oTipoEstres : string = undefined;
 
     constructor (   private route:          ActivatedRoute,
                     private alertService:   AlertService,
@@ -116,9 +124,9 @@ export class EscenariosRiesgosComponent extends OnSeguridad implements OnInit {
                 if(!response.exito) this.router.navigate([this.URLIndexModulePage]);
 
                 this.getModelosActivos();
+                this.getVariablesCriticasActivas();
 
                 this.getEscenariosRiesgos();
-                this.getNivelesCapacidadPago();
         });
     }
     private getModelosActivos() : void {
@@ -130,38 +138,38 @@ export class EscenariosRiesgosComponent extends OnSeguridad implements OnInit {
                 
             }, error => { this.alertService.error(error); });
     }
+    private getVariablesCriticasActivas() {
+        this.macredService.getVariablesCriticasActivas()
+            .pipe(first())
+            .subscribe((response) => {
+
+                if (response && response.length > 0) this.listVariablesCriticas = response;
+                
+            }, error => { this.alertService.error(error); });
+    }
 
     redirectIndexModule() : void { this.router.navigate([this.URLIndexModulePage]); }
 
     onChangeEventModelo() {
-
         this.oModelo = this.formEscenario.get('modelo')?.value;
         this.objSeleccionadoModelo = this.oModelo;
     }
-    onChangeEvent() {
-
-        this.oVariableEscenario = this.formVariable.get('descripcionNivel')?.value;
-        this.objSeleccionadoVariable = this.oVariableEscenario;
-
-        let nivel : MacNivelCapacidadPago = this.listVariables.find(e => e.id == this.objSeleccionadoVariable.id);
-
-        this.formVariable.get('rangoInicial')?.setValue(nivel.rangoInicial);;
-        this.formVariable.get('rangoFinal')?.setValue(nivel.rangoFinal);;
+    onChangeEventVariable() {
+        this.oVariable = this.formVariable.get('variableCritica')?.value;
+        this.objSeleccionadoVariable = this.oVariable;
+    }
+    onChangeEventTipoEstres() {
+        this.oTipoEstres = this.formVariable.get('tipoEstres')?.value.id;
     }
 
-    consultaRangosNiveles() : void {
-        this.getNivelesCapacidadPago();
-        this.inicializaFormularioVariable();
-    }
-
-    nuevoIndicadorRelevante() : void { 
+    nuevoEscenario() : void { 
 
         this.submitFormEscenario = false;
         this.inicializaFormularioEscenario();
 
         this.habilitaFormularioVariable = false;
     }
-    nuevoNivelXIndicador() : void { 
+    nuevaVariableXEscenario() : void { 
 
         this.submitFormVariable = false;
         this.inicializaFormularioVariable();
@@ -174,44 +182,43 @@ export class EscenariosRiesgosComponent extends OnSeguridad implements OnInit {
         this.inicializaFormularioEscenario(objeto);
         this.inicializaFormularioVariable();
 
-        // consultar niveles por indicador
-        // this.getNivelesPorIndicador(objeto.codIndicador);
+        // consultar variables por escenario
+        this.getVariablesEscenario(objeto.codEscenario);
     }
-    selectNivel(objeto : MacNivelCapacidadPago = null) : void {
+    selectVariableEscenario(objeto : MacVariableCriticaXEscenario = null) : void {
 
         this.inicializaFormularioVariable(objeto);
-        this.formVariable.get('descripcionNivel')?.disable();
+        this.formVariable.get('variableCritica')?.disable();
     }
 
-    private getNivelesPorIndicador(pidIndicador : number) {
+    private getVariablesEscenario(pidEscenario : number) {
 
-        let listNivelesTemp : MacNivelCapacidadPago[] = null;
+        let listTemp : MacVariableCriticaXEscenario[] = [];
 
-        this.macredService.getNivelesXIndicador(pidIndicador)
+        this.macredService.getVariablesCriticasXEscenario(pidEscenario)
             .pipe(first())
             .subscribe((response) => {
 
                 if (response && response.length > 0) {
 
-                    listNivelesTemp = [];
                     this.habilitaListaVariable = true;
 
                     response.forEach(element => {
 
-                        let nivel : MacNivelCapacidadPago = this.listVariables.find(e => e.id == element.codNivel);
+                        let descripcionVariable : string = 
+                                this.listVariablesCriticas.find(e => e.id == element.idVariable).descripcion;
+                            
+                        let descripcionTipoEstres : string = 
+                            this.listTipoEstres.find(t => t.id === element.tipoEstres)?.descripcion;
 
-                        nivel.id
-                        nivel.rangoInicial = element.rangoInicial;
-                        nivel.rangoFinal = element.rangoFinal;
+                        element.descripcionVariable = descripcionVariable;
+                        element.descripcionTipoEstres = descripcionTipoEstres;
 
-                        listNivelesTemp.push(nivel);
+                        listTemp.push(element);
                     });
-                    this.listVariablesEscenario = listNivelesTemp;
-
-                } else {
-                    this.habilitaListaVariable = false;
-                    this.listVariablesEscenario = [];
-                }
+                    this.listVariablesEscenario = listTemp;
+                    
+                } else { this.habilitaListaVariable = false; this.listVariablesEscenario = []; }
             });
     }
 
@@ -238,27 +245,31 @@ export class EscenariosRiesgosComponent extends OnSeguridad implements OnInit {
             this.iniciarBotonesModelo(true);
         }
     }
-    private inicializaFormularioVariable(objeto : MacNivelCapacidadPago = null) : void {
+    private inicializaFormularioVariable(objeto : MacVariableCriticaXEscenario = null) : void {
 
         if (objeto) {
 
             this.formVariable = this.formBuilder.group({
-                descripcionNivel : [this.listVariables.find(v => v.id === objeto.id), Validators.required],
-                rangoInicial : [objeto.rangoInicial, Validators.required],
-                rangoFinal : [objeto.rangoFinal, Validators.required]
+                variableCritica : [this.listVariablesCriticas.find(v => v.id === objeto.idVariable), Validators.required],
+                tipoEstres : [this.listTipoEstres.find(t => t.id === objeto.tipoEstres), Validators.required],
+                valorEstres : [objeto.valorEstres, Validators.required]
             });
-            this.objSeleccionadoVariable = objeto;
+            this.objSeleccionadoVariableEscenario = objeto;
             this.iniciarBotonesNivel(false);
+
+            this.objSeleccionadoVariable = this.listVariablesCriticas.find(e => e.id == objeto.idVariable);
         } 
         else {
 
             this.formVariable = this.formBuilder.group({
-                descripcionNivel : [null, Validators.required],
-                rangoInicial : [null, Validators.required],
-                rangoFinal : [null, Validators.required]
+                variableCritica : [null, Validators.required],
+                tipoEstres : [null, Validators.required],
+                valorEstres : [null, Validators.required]
             });
-            this.objSeleccionadoVariable = undefined;
+            this.objSeleccionadoVariableEscenario = undefined;
             this.iniciarBotonesNivel(true);
+
+            this.objSeleccionadoVariable = undefined;
         }
     }
 
@@ -287,31 +298,29 @@ export class EscenariosRiesgosComponent extends OnSeguridad implements OnInit {
         }
         return objeto;
     }
-    private createNivelesForm(registra : boolean = false) : MacNivelesXIndicador {
+    private createVariableEscenarioForm(registra : boolean = false) : MacVariableCriticaXEscenario {
 
         this.submitFormVariable = false;
 
-        const { rangoInicial, 
-                rangoFinal,
-            } = this.formVariable.controls;
+        const { valorEstres, tipoEstres } = this.formVariable.controls;
 
-        var objeto = new MacNivelesXIndicador();
+        var objeto = new MacVariableCriticaXEscenario();
 
-        objeto.codigoCompania = this.companiaObservable.id;
-        // objeto.codIndicador = this.objSeleccionadoEscenario.codIndicador;
-        objeto.codNivel = this.objSeleccionadoVariable.id;
-
-        objeto.rangoInicial = rangoInicial.value;
-        objeto.rangoFinal = rangoFinal.value;
+        objeto.idEscenario = this.objSeleccionadoEscenario.codEscenario;
+        objeto.idVariable = this.objSeleccionadoVariable.id;
+        
+        objeto.tipoEstres = tipoEstres.value.id;
+        objeto.valorEstres = valorEstres.value;
 
         if (registra) {
 
-            objeto.usuarioCreacion = this.userObservable.identificacion;
-            objeto.fechaCreacion = this.today;
+            objeto.adicionadoPor = this.userObservable.identificacion;
+            objeto.fechaAdicion = this.today;
 
         } else {
 
-            objeto.usuarioModificacion = this.userObservable.identificacion; 
+            objeto.id = this.objSeleccionadoVariableEscenario.id;
+            objeto.modificadoPor = this.userObservable.identificacion; 
             objeto.fechaModificacion = this.today;
         }
         return objeto;
@@ -346,7 +355,7 @@ export class EscenariosRiesgosComponent extends OnSeguridad implements OnInit {
             }, error => { this.alertService.error(this.translate.translateKeyP('ALERTS.CONNECTION_ERROR', { ERROR: error })); 
         });
     }
-    postNivelXIndicador() : void {
+    postVariableXEscenario() : void {
 
         this.alertService.clear();
         this.submitFormVariable = true;
@@ -355,15 +364,13 @@ export class EscenariosRiesgosComponent extends OnSeguridad implements OnInit {
 
         if ( this.formVariable.invalid ) return;
 
-        let objeto : MacNivelesXIndicador = this.createNivelesForm(true);
+        let objeto : MacVariableCriticaXEscenario = this.createVariableEscenarioForm(true);
 
-        if (objeto.rangoInicial <= objeto.rangoFinal) {
-
-            if (this.listVariablesEscenario.find(e => e.id == this.oVariableEscenario.id)) registrar = false;
+        if (this.listVariablesEscenario.find(e => e.idVariable == this.objSeleccionadoVariable.id)) registrar = false;
 
             if (registrar) {
 
-                this.macredService.postNivelXIndicador(objeto)
+                this.macredService.postVariableCriticaXEscenario(objeto)
                     .pipe(first())
                     .subscribe(response => {
 
@@ -371,13 +378,16 @@ export class EscenariosRiesgosComponent extends OnSeguridad implements OnInit {
 
                             this.submitFormVariable = false;
 
-                            let objPost : MacNivelCapacidadPago = 
-                                this.listVariables.find(e => e.id == response.objetoDb.codNivel);
-                                
-                            objPost.rangoInicial = response.objetoDb.rangoInicial;
-                            objPost.rangoFinal = response.objetoDb.rangoFinal;
+                            let descripcionVariable : string = 
+                                this.listVariablesCriticas.find(e => e.id == response.objetoDb.idVariable).descripcion;
+                            
+                            let descripcionTipoEstres : string = 
+                                this.listTipoEstres.find(t => t.id === response.objetoDb.tipoEstres)?.descripcion;
 
-                            this.listVariablesEscenario.push(objPost);
+                            response.objetoDb.descripcionVariable = descripcionVariable;
+                            response.objetoDb.descripcionTipoEstres = descripcionTipoEstres;
+
+                            this.listVariablesEscenario.push(response.objetoDb);
 
                             this.inicializaFormularioVariable();
 
@@ -390,15 +400,14 @@ export class EscenariosRiesgosComponent extends OnSeguridad implements OnInit {
                 });
 
             } else { this.alertService.error('El nivel ya se encuentra registrado.'); }
-        } else { this.alertService.error('El rango Inicial no puede ser menor al rango Final.'); } 
     }
 
-    deleteIndicadorRelevante() {
+    deleteEscenario() {
 
         this.alertService.clear();
 
         if (this.listVariablesEscenario && this.listVariablesEscenario.length > 0) {
-            this.alertService.error('Deben eliminar los niveles de riesgo asociados al indicador.');
+            this.alertService.error('Debe eliminar las variables asociadas al escenario.');
             return;
         }
 
@@ -410,66 +419,69 @@ export class EscenariosRiesgosComponent extends OnSeguridad implements OnInit {
 
             if (confirmado) {
 
-                // let idIndRelevante : number = this.objSeleccionadoEscenario.codIndicador;
+                let id : number = this.objSeleccionadoEscenario.codEscenario;
 
-                // this.macredService.deleteIndicadorRelevante(idIndRelevante)
-                //     .pipe(first())
-                //     .subscribe(response => {
+                this.macredService.deleteEscenariosRiesgos(id)
+                    .pipe(first())
+                    .subscribe(response => {
 
-                //         if (response.exito) {
+                        if (response.exito) {
 
-                //             this.submitFormEscenario = false;
+                            this.submitFormEscenario = false;
 
-                //             this.listEscenarios.splice(
-                //                 this.listEscenarios.findIndex( m => m.codIndicador == idIndRelevante ), 1
-                //             );
-                //             this.inicializaFormularioEscenario();
+                            this.listEscenarios.splice(
+                                this.listEscenarios.findIndex( m => m.codEscenario == id ), 1
+                            );
+                            this.inicializaFormularioEscenario();
 
-                //             if (this.listEscenarios.length === 0) this.habilitaListaEscenario = false;
+                            if (this.listEscenarios.length === 0) this.habilitaListaEscenario = false;
 
-                //             this.habilitaFormularioVariable = false;
+                            this.habilitaFormularioVariable = false;
 
-                //             this.alertService.success( response.responseMesagge );
+                            this.alertService.success( response.responseMesagge );
 
-                //         } else { this.alertService.error(response.responseMesagge); }
-                //     }, error => { this.alertService.error('Problemas de conexión. Detalle: ' + error);
-                // });
+                        } else { this.alertService.error(response.responseMesagge); }
+                    }, error => { this.alertService.error('Problemas de conexión. Detalle: ' + error);
+                });
             } else { return; }
         });
     }
-    deleteNivelXIndicador() {
+    deleteVariableXEscenario() {
 
         this.alertService.clear();
 
+        let idVariable : number = this.objSeleccionadoVariableEscenario.idVariable;
+        let idVariableEscenario : number = this.objSeleccionadoVariableEscenario.id;
+
+        let descripcionVariable : string = 
+            this.listVariablesCriticas.find(e => e.id == idVariable).descripcion;
+
         this.dialogo.open(DialogoConfirmacionComponent, { 
-            data: 'Seguro que desea eliminar el nivel ' + this.objSeleccionadoVariable.descripcion + '?' 
+            data: 'Seguro que desea eliminar la variable ' + descripcionVariable + '?' 
         })
         .afterClosed()
         .subscribe((confirmado: Boolean) => {
 
             if (confirmado) {
-
-                // let idIndicador : number = this.objSeleccionadoEscenario.codIndicador;
-                // let idNivel : number = this.objSeleccionadoVariable.id;
                 
-                // this.macredService.deleteNivelXIndicador(idIndicador, idNivel)
-                //     .pipe(first())
-                //     .subscribe(response => {
+                this.macredService.deleteVariableCriticaXEscenario(idVariableEscenario)
+                    .pipe(first())
+                    .subscribe(response => {
 
-                //         if (response.exito) {
+                        if (response.exito) {
 
-                //             this.listVariablesEscenario.splice(
-                //                 this.listVariablesEscenario.findIndex( m => m.id == idNivel ), 1
-                //             );
-                //             this.inicializaFormularioVariable();
+                            this.listVariablesEscenario.splice(
+                                this.listVariablesEscenario.findIndex( m => m.id == idVariableEscenario ), 1
+                            );
+                            this.inicializaFormularioVariable();
 
-                //             if (this.listVariablesEscenario.length === 0) this.habilitaListaVariable = false;
+                            if (this.listVariablesEscenario.length === 0) this.habilitaListaVariable = false;
 
-                //             this.alertService.success( response.responseMesagge );
+                            this.alertService.success( response.responseMesagge );
 
-                //         } else { this.alertService.error(response.responseMesagge); }
-                //     }, error => { this.alertService.error('Problemas de conexión. Detalle: ' + error);
-                // });
+                        } else { this.alertService.error(response.responseMesagge); }
+                    }, error => { this.alertService.error('Problemas de conexión. Detalle: ' + error);
+                });
             } else { return; }
         });
     }
@@ -483,25 +495,25 @@ export class EscenariosRiesgosComponent extends OnSeguridad implements OnInit {
 
         let obj : MacEscenariosRiesgos = this.createEscenarioForm(false);
 
-        // this.macredService.putIndicadorRelevante(obj)
-        //     .pipe(first())
-        //     .subscribe(response => {
+        this.macredService.putEscenariosRiesgos(obj)
+            .pipe(first())
+            .subscribe(response => {
 
-        //         if (response.exito) {
+                if (response.exito) {
 
-        //             this.submitFormEscenario = false;
-        //             this.listEscenarios.splice(
-        //                 this.listEscenarios.findIndex( m => m.codIndicador == response.objetoDb.codIndicador ), 1
-        //             );
-        //             this.listEscenarios.push(response.objetoDb);
+                    this.submitFormEscenario = false;
+                    this.listEscenarios.splice(
+                        this.listEscenarios.findIndex( m => m.codEscenario == response.objetoDb.codEscenario ), 1
+                    );
+                    this.listEscenarios.push(response.objetoDb);
 
-        //             this.selectEscenario(response.objetoDb);
+                    this.selectEscenario(response.objetoDb);
 
-        //             this.alertService.success( response.responseMesagge );
+                    this.alertService.success( response.responseMesagge );
 
-        //         } else { this.alertService.error(response.responseMesagge); }
-        //     }, error => { this.alertService.error(this.translate.translateKeyP('ALERTS.CONNECTION_ERROR', { ERROR: error })); 
-        // });
+                } else { this.alertService.error(response.responseMesagge); }
+            }, error => { this.alertService.error(this.translate.translateKeyP('ALERTS.CONNECTION_ERROR', { ERROR: error })); 
+        });
     }
     putNivelXIndicador() : void {
 
@@ -510,37 +522,37 @@ export class EscenariosRiesgosComponent extends OnSeguridad implements OnInit {
 
         if ( this.formVariable.invalid ) return;
 
-        let objeto : MacNivelesXIndicador = this.createNivelesForm(false);
+        let objeto : MacVariableCriticaXEscenario = this.createVariableEscenarioForm(false);
 
-        if (objeto.rangoInicial <= objeto.rangoFinal) {
+        this.macredService.putVariableCriticaXEscenario(objeto)
+            .pipe(first())
+            .subscribe(response => {
 
-            this.macredService.putNivelXIndicador(objeto)
-                .pipe(first())
-                .subscribe(response => {
+                if (response.exito) {
 
-                    if (response.exito) {
+                    this.submitFormVariable = false;
 
-                        this.submitFormVariable = false;
+                    let descripcionVariable : string = 
+                                this.listVariablesCriticas.find(e => e.id == response.objetoDb.idVariable).descripcion;
+                            
+                    let descripcionTipoEstres : string = 
+                        this.listTipoEstres.find(t => t.id === response.objetoDb.tipoEstres)?.descripcion;
 
-                        let objPut : MacNivelCapacidadPago = 
-                            this.listVariables.find(e => e.id == response.objetoDb.codNivel);
+                    response.objetoDb.descripcionVariable = descripcionVariable;
+                    response.objetoDb.descripcionTipoEstres = descripcionTipoEstres;
 
-                        objPut.rangoInicial = response.objetoDb.rangoInicial;
-                        objPut.rangoFinal = response.objetoDb.rangoFinal;
+                    this.listVariablesEscenario.splice(
+                        this.listVariablesEscenario.findIndex( m => m.id == response.objetoDb.id ), 1
+                    );
+                    this.listVariablesEscenario.push(response.objetoDb);
 
-                        this.listVariablesEscenario.splice(
-                            this.listVariablesEscenario.findIndex( m => m.id == objPut.id ), 1
-                        );
-                        this.listVariablesEscenario.push(objPut);
+                    this.inicializaFormularioVariable();
 
-                        this.inicializaFormularioVariable();
+                    this.alertService.success( response.responseMesagge );
 
-                        this.alertService.success( response.responseMesagge );
-
-                    } else { this.alertService.error(response.responseMesagge); }
-                }, error => { this.alertService.error(this.translate.translateKeyP('ALERTS.CONNECTION_ERROR', { ERROR: error })); 
-            });
-        } else { this.alertService.error('El rango Inicial no puede ser menor al rango final.'); } 
+                } else { this.alertService.error(response.responseMesagge); }
+            }, error => { this.alertService.error(this.translate.translateKeyP('ALERTS.CONNECTION_ERROR', { ERROR: error })); 
+        });
     }
     
     private getEscenariosRiesgos() : void {
@@ -551,20 +563,6 @@ export class EscenariosRiesgosComponent extends OnSeguridad implements OnInit {
                     this.habilitaListaEscenario = true;
                     this.listEscenarios = response;
                 }
-            }, error => { this.alertService.error(error); });
-    }
-    private getNivelesCapacidadPago() : void {
-
-        this.macredService.getNivelesCapacidadPago(false)
-            .pipe(first())
-            .subscribe(response => {
-
-                if (response && response.length > 0) {
-
-                    this.listVariables = response;
-
-                } else { this.listVariables = []; }
-
             }, error => { this.alertService.error(error); });
     }
 

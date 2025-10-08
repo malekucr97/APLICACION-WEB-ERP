@@ -9,16 +9,16 @@ import { ModulesSystem } from '@environments/environment';
 import { OnSeguridad } from '@app/_helpers/abstractSeguridad';
 import { TranslateMessagesService } from '@app/_services/translate-messages.service';
 import { MacredService } from '@app/_services/macred.service';
-import { MacNivelCapacidadPago } from '@app/_models/Macred';
 import { DialogoConfirmacionComponent } from '@app/_components/dialogo-confirmacion/dialogo-confirmacion.component';
 import { MatDialog } from '@angular/material/dialog';
+import { MacNivelRiesgo } from '@app/_models/Macred/NivelRiesgo';
 
-@Component({selector: 'app-niveles-capacidad-pago-macred',
-            templateUrl: './niveles-capacidad-pago.component.html', 
+@Component({selector: 'app-niveles-riesgo-macred',
+            templateUrl: './niveles-riesgo.html', 
             styleUrls: ['../../../../../../assets/scss/macred/app.scss'],
             standalone: false
 })
-export class NivelesCapacidadPagoComponent extends OnSeguridad implements OnInit {
+export class NivelesRiesgoComponent extends OnSeguridad implements OnInit {
 
   formObject: UntypedFormGroup;
   response: ResponseMessage;
@@ -37,11 +37,11 @@ export class NivelesCapacidadPagoComponent extends OnSeguridad implements OnInit
   public moduleName : string ;
   public mostrarLista: boolean ;
 
-  public listObjetos : MacNivelCapacidadPago[] = [];
+  public listObjetos : MacNivelRiesgo[] = [];
   
-  objSeleccionado: MacNivelCapacidadPago = undefined;
+  objSeleccionado: MacNivelRiesgo = undefined;
 
-  private nombrePantalla:string = 'niveles-capacidad-pago.html';
+  private nombrePantalla:string = 'niveles-riesgo.html';
 
   habilitaBtnNuevo: boolean = true;
   habilitaBtnActualiza: boolean = false;
@@ -96,7 +96,7 @@ export class NivelesCapacidadPagoComponent extends OnSeguridad implements OnInit
 
         this.moduleName = this.moduleObservable.nombre;
 
-        this.getListaValores();
+        this.getNivelesRiesgos();
       });
   }
 
@@ -107,14 +107,20 @@ export class NivelesCapacidadPagoComponent extends OnSeguridad implements OnInit
     this.alertService.clear();
     this.submitForm = true;
 
+    let registra : boolean = true;
+
     if (this.formObject.invalid) {
       this.alertService.error(this.translate.translateKey('ALERTS.informationNotValid'));
       return undefined;
     }
 
-    let objForm = this.obtenerDatosFormulario();
+    let objForm : MacNivelRiesgo = this.obtenerDatosFormulario();
 
-    this.MacredService.postNivelCapacidadPago(objForm)
+    if (objForm.rangoInicial > objForm.rangoFinal) registra = false;
+    
+    if ( registra ) {
+
+      this.MacredService.postNivelRiesgo(objForm)
         .pipe(first())
         .subscribe((response) => {
           
@@ -122,17 +128,21 @@ export class NivelesCapacidadPagoComponent extends OnSeguridad implements OnInit
 
             this.submitForm = false;
             this.inicializaFormulario();
-            this.getListaValores();
-            this.alertService.success(response.responseMesagge);
+            this.getNivelesRiesgos();
+            this.alertService.success( response.responseMesagge );
 
           } else { this.alertService.error(response.responseMesagge); }
         }, error => { this.alertService.error(error); });
+    
+      } else { this.alertService.error('El rango Inicial no puede ser mayor al rango Final.'); }
   }
 
   put() {
 
     this.alertService.clear();
     this.submitForm = true;
+
+    let actualiza : boolean = true;
 
     if (this.formObject.invalid) {
       this.alertService.error(this.translate.translateKey('ALERTS.informationNotValid'));
@@ -141,7 +151,11 @@ export class NivelesCapacidadPagoComponent extends OnSeguridad implements OnInit
 
     let objForm = this.obtenerDatosFormulario(false);
 
-    this.MacredService.putNivelCapacidadPago(objForm)
+    if (objForm.rangoInicial > objForm.rangoFinal) actualiza = false;
+
+    if ( actualiza ) {
+
+      this.MacredService.putNivelRiesgo(objForm)
         .pipe(first())
         .subscribe((response) => {
 
@@ -149,11 +163,13 @@ export class NivelesCapacidadPagoComponent extends OnSeguridad implements OnInit
 
             this.submitForm = false;
             this.inicializaFormulario();
-            this.getListaValores();
-            this.alertService.success(response.responseMesagge);
+            this.getNivelesRiesgos();
+            this.alertService.success( response.responseMesagge );
 
           } else { this.alertService.error(response.responseMesagge); }
         }, error => { this.alertService.error(error); });
+
+    } else { this.alertService.error('El rango Inicial no puede ser mayor al rango Final.'); }
   }
 
   delete() {
@@ -170,15 +186,15 @@ export class NivelesCapacidadPagoComponent extends OnSeguridad implements OnInit
 
         if (confirmado) {
 
-            this.MacredService.deleteNivelCapacidadPago(this.objSeleccionado.id)
+            this.MacredService.deleteNiveleRiesgo(this.objSeleccionado.id)
               .pipe(first())
               .subscribe((response) => {
                 
                 if (response.exito) {
 
                   this.inicializaFormulario();
-                  this.getListaValores();
-                  this.alertService.success(response.responseMesagge);
+                  this.getNivelesRiesgos();
+                  this.alertService.success( response.responseMesagge );
 
                 } else { this.alertService.error(response.responseMesagge); }
               } , error => { this.alertService.error(error); });
@@ -190,34 +206,32 @@ export class NivelesCapacidadPagoComponent extends OnSeguridad implements OnInit
 
   // ** MÉTODOS PRIVADOS ** //
 
-  private getListaValores() {
+  private getNivelesRiesgos() {
 
-    this.mostrarLista = false;
-
-    this.MacredService.getNivelesCapacidadPago(true)
+    this.MacredService.getNivelesRiesgos(true)
       .pipe(first())
       .subscribe((response) => {
 
         if (response && response.length > 0) {
           this.listObjetos = response;
-          
+
           if (!this.mostrarLista) this.mostrarLista = true;
         }
     }, error => { this.alertService.error(error); });
   }
 
-  private inicializaFormulario(objdUpdate : MacNivelCapacidadPago = null) : void {
+  private inicializaFormulario(objdUpdate : MacNivelRiesgo = null) : void {
 
     if (objdUpdate) {
 
       this.add = true; this.update = false;
 
       this.formObject = this.formBuilder.group({
-        descripcion: [objdUpdate.descripcion, Validators.required],
-        puntaje: [objdUpdate.puntaje, Validators.required],
+        descripcionNivelRiesgo: [objdUpdate.descripcion, Validators.required],
         rangoInicial: [objdUpdate.rangoInicial, Validators.required],
         rangoFinal: [objdUpdate.rangoFinal, Validators.required],
-        tieneCapacidadPago: [objdUpdate.tieneCapacidadPago],
+        puntaje: [objdUpdate.puntaje, Validators.required],
+        tieneScore: [objdUpdate.tieneScore],
         estado: [objdUpdate.estado]
       });
 
@@ -230,11 +244,11 @@ export class NivelesCapacidadPagoComponent extends OnSeguridad implements OnInit
       this.submitForm = false;
 
       this.formObject = this.formBuilder.group({
-        descripcion: [null, Validators.required],
-        puntaje: [null, Validators.required],
+        descripcionNivelRiesgo: [null, Validators.required],
         rangoInicial: [null, Validators.required],
         rangoFinal: [null, Validators.required],
-        tieneCapacidadPago: [false],
+        puntaje: [null, Validators.required],
+        tieneScore: [false],
         estado: [false]
       });
 
@@ -243,31 +257,32 @@ export class NivelesCapacidadPagoComponent extends OnSeguridad implements OnInit
     }
   }
 
-  private obtenerDatosFormulario(registra : boolean = true): MacNivelCapacidadPago {
+  private obtenerDatosFormulario(registra : boolean = true): MacNivelRiesgo {
 
-    const { descripcion, 
+    const { descripcionNivelRiesgo, 
             puntaje, 
             rangoInicial, 
             rangoFinal, 
-            tieneCapacidadPago, 
+            tieneScore, 
             estado } = this.formObject.controls;
 
-    let obj : MacNivelCapacidadPago = new MacNivelCapacidadPago;
+    let obj : MacNivelRiesgo = new MacNivelRiesgo;
 
-    obj.descripcion = descripcion.value;
+    obj.descripcion = descripcionNivelRiesgo.value;
     obj.puntaje = puntaje.value;
     obj.rangoInicial = rangoInicial.value;
     obj.rangoFinal = rangoFinal.value;
-    obj.tieneCapacidadPago = tieneCapacidadPago.value;
+    obj.tieneScore = tieneScore.value;
     obj.estado = estado.value;
 
     if (registra) {
-      obj.codigoCompania = this.businessObservable.id;
-      obj.adicionadoPor = this.userObservable.identificacion; 
-      obj.fechaAdicion = this.today;
+      obj.idCompania = this.businessObservable.id;
+      obj.idModulo = this.moduleObservable.id;
+      obj.usuarioCreacion = this.userObservable.identificacion; 
+      obj.fechaCreacion = this.today;
     } else {
       obj.id = this.objSeleccionado.id;
-      obj.modificadoPor = this.userObservable.identificacion; 
+      obj.usuarioModificacion = this.userObservable.identificacion; 
       obj.fechaModificacion = this.today;
     }
     return obj;
@@ -286,7 +301,7 @@ export class NivelesCapacidadPagoComponent extends OnSeguridad implements OnInit
 
   public limpiarFormulario() { this.inicializaFormulario(); }
 
-  public seleccionarObjeto(obj: MacNivelCapacidadPago) : void {
+  public seleccionarObjeto(obj: MacNivelRiesgo) : void {
     this.inicializaFormulario(obj);
     this.iniciarBotones(false);
   }

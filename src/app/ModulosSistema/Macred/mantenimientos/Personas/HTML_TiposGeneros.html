@@ -1,60 +1,58 @@
-<mat-sidenav-container>
-    <main class="contenido-main">
-        <div *ngIf="showList">
-            <div class="mat-elevation-z4 mx-3">
-                <div class="card">
-                    <div class="card-body">
+<main class="contenido-main">
+    <div *ngIf="showList">
+        <div class="mat-elevation-z4 mx-3">
+            <div class="card">
+                <div class="card-body">
 
-                        <div class="row">
-                            <div class="col-md-11">
-                                <p class="contenido-main__h3">Tipos de Géneros</p>
-                            </div>
-                            <div class="col-md-1">
-                                <button class="btn-add"
-                                        title="Registrar Estado Civil"
-                                        mat-icon-button 
-                                        (click)="addTipoGenero()"> <mat-icon>add</mat-icon> </button>
-                            </div>
+                    <div class="row">
+                        <div class="col-md-11">
+                            <p class="contenido-main__h3">Tipos de Géneros</p>
                         </div>
-                        
-                        <hr>
-
-                        <div class="contenido-main__table">
-                            <table class="table table-striped">
-                                <thead>
-                                    <tr>
-                                        <th style="width: 20%">Código</th>
-                                        <th style="width: 50%">Descripción</th>
-                                        <th style="width: 20%">Estado</th>
-                                        <th style="width: 10%"></th>
-                                    </tr>
-                                </thead>
-        
-                                <tbody>
-                                    <tr *ngFor="let tipoGenero of listTiposGeneros">
-                                        <td>{{tipoGenero.codigoGenero}}</td>
-                                        <td>{{tipoGenero.descripcion}}</td>
-                                        <td *ngIf="tipoGenero.estado==true">Activo</td>
-                                        <td *ngIf="tipoGenero.estado==false">Inactivo</td>
-                                        <td style="white-space: nowrap">
-        
-                                            <a style="margin-right: 5%;" (click)="editTipoGenero(tipoGenero)" class="btn btn-sm btn-outline-info" matTooltip="Editar">
-                                                <i class="fa fa-edit"></i> </a>
-                                        
-                                            <a style="margin-left: 5%;" (click)="deleteTipoGenero(tipoGenero.id)" class="btn btn-sm btn-outline-danger" matTooltip="Eliminar">
-                                                <i class="fa fa-trash"></i> </a>
-                                        </td>
-                                    </tr>
-                                </tbody>
-                            </table>
+                        <div class="col-md-1">
+                            <button class="btn-add"
+                                    title="Registrar Estado Civil"
+                                    mat-icon-button 
+                                    (click)="addTipoGenero()"> <mat-icon>add</mat-icon> </button>
                         </div>
-
                     </div>
+                    
+                    <hr>
+
+                    <div class="contenido-main__table">
+                        <table class="table table-striped">
+                            <thead>
+                                <tr>
+                                    <th style="width: 20%">Código</th>
+                                    <th style="width: 50%">Descripción</th>
+                                    <th style="width: 20%">Estado</th>
+                                    <th style="width: 10%"></th>
+                                </tr>
+                            </thead>
+    
+                            <tbody>
+                                <tr *ngFor="let tipoGenero of listTiposGeneros">
+                                    <td>{{tipoGenero.codigoGenero}}</td>
+                                    <td>{{tipoGenero.descripcion}}</td>
+                                    <td *ngIf="tipoGenero.estado==true">Activo</td>
+                                    <td *ngIf="tipoGenero.estado==false">Inactivo</td>
+                                    <td style="white-space: nowrap">
+    
+                                        <a style="margin-right: 5%;" (click)="editTipoGenero(tipoGenero)" class="btn btn-sm btn-outline-info" matTooltip="Editar">
+                                            <i class="fa fa-edit"></i> </a>
+                                    
+                                        <a style="margin-left: 5%;" (click)="deleteTipoGenero(tipoGenero.id)" class="btn btn-sm btn-outline-danger" matTooltip="Eliminar">
+                                            <i class="fa fa-trash"></i> </a>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+
                 </div>
             </div>
         </div>
-    </main>
-</mat-sidenav-container>
+    </div>
+</main>
 
 <div class="modal fade" id="tipoGeneroModal" tabindex="-1">
     <div class="modal-dialog modal-xl modal-dialog-centered">

@@ -3,11 +3,10 @@ import { AccountService } from './_services';
 import { Location } from '@angular/common';
 import { User } from './_models';
 
-@Component({
-    selector: 'app',
-    templateUrl: 'app.component.html',
-    styleUrls: ['../assets/scss/app.scss'],
-    standalone: false
+@Component({selector: 'app',
+            templateUrl: 'app.component.html',
+            styleUrls: ['../assets/scss/app.scss'],
+            standalone: false
 })
 export class AppComponent {
   user: User;

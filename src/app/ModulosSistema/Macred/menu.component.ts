@@ -6,18 +6,24 @@ import { FlatTreeControl}       from '@angular/cdk/tree';
 import { MatTreeFlatDataSource, MatTreeFlattener} from '@angular/material/tree';
 import { Module, User }   from '@app/_models';
 import { Compania }       from '../../_models/modules/compania';
-import { ModulesSystem, httpLandingIndexPage }  from '@environments/environment';
+import { httpLandingIndexPage }  from '@environments/environment';
 import { TranslateMessagesService } from '@app/_services/translate-messages.service';
 import { Router } from '@angular/router';
 
 /** menu - tree Interfaz o estructura del arbol  */
-interface FoodNode        { name: string; link: string; icon: string; children?: FoodNode[]; }
+interface FoodNode {  name: string; 
+                      link: string; 
+                      icon: string; 
+                      children?: FoodNode[]; }
 /** Flat node with expandable and level information */
-interface ExampleFlatNode { expandable: boolean; name: string; link?: string; icon?: string; level: number; }
+interface ExampleFlatNode { expandable: boolean; 
+                            name: string; 
+                            link?: string; 
+                            icon?: string; 
+                            level: number; }
 
 // Datos del Arbol
 const TREE_DATA: FoodNode[] = [
-  // ANÁLISIS DE PERSONAS
   {
     name: 'Análisis de Personas',
     link: '',
@@ -25,7 +31,6 @@ const TREE_DATA: FoodNode[] = [
     children: [{ name: 'Asociados', link: 'asociados/calificacion-asociados.html', icon: '' },
               { name: 'No Asociados', link: '/', icon: '' }],
   },
-  // PROCESOS
   {
     name: 'Procesos',
     link: '',
@@ -48,9 +53,7 @@ const TREE_DATA: FoodNode[] = [
     children: [{name: 'Personas',
                 link: '',
                 icon: '',
-                children: [
-                          // {name: 'Datos Personas', link: 'mantenimientos/personas/datos-personas.html', icon: ''},
-                          {name: 'Personas Analisis', link: 'mantenimientos/personas/personas-analisis.html', icon: ''},
+                children: [{name: 'Personas Analisis', link: 'mantenimientos/personas/personas-analisis.html', icon: ''},
                           {name: 'Estado Civil', link: 'mantenimientos/personas/estados-civiles.html', icon: ''},
                           {name: 'Condición Laboral', link: 'mantenimientos/personas/condiciones-laborales.html', icon: ''},
                           {name: 'Tipos de Género', link: 'mantenimientos/personas/tipos-generos.html', icon: ''},
@@ -100,25 +103,24 @@ const TREE_DATA: FoodNode[] = [
                 {name: 'Parámetros Scoring',
                 link: '',
                 icon: '',
-                children: [{name: 'Configuración de Modelos', link: '/', icon: ''},
-                          {name: 'Indicadores Relevantes', link: '/', icon: ''},
-                          {name: 'Niveles de Riesgo', link: '/', icon: ''},
+                children: [{name: 'Configuración de Modelos', link: 'mantenimientos/parametrosscoring/modelos-analisis.html', icon: ''},
+                          {name: 'Indicadores Relevantes', link: 'mantenimientos/parametrosscoring/indicadores-scoring.html', icon: ''},
+                          {name: 'Niveles de Riesgo', link: 'mantenimientos/parametrosscoring/niveles-riesgo.html', icon: ''},
                           {name: 'Rangos de Puntaje', link: '/', icon: ''}]}],
   },
   {
     name: 'Configuración',
     link: '',
     icon: '',
-    children: [{name: 'Parámetros', link: 'configuracion/parametros-generales.html', icon: ''}
+    children: [{name: 'Parámetros', link: 'configuracion/parametros/parametros-generales.html', icon: ''}
     ],
   },
 ];
 
-@Component({
-    selector: 'app-menu-macred',
-    templateUrl: '../menu.html',
-    styleUrls: ['../../../assets/scss/app.scss', '../../../assets/scss/menus.scss'],
-    standalone: false
+@Component({selector: 'app-menu-macred',
+            templateUrl: '../menu.html',
+            styleUrls: ['../../../assets/scss/app.scss', '../../../assets/scss/menus.scss'],
+            standalone: false
 })
 export class MenuMacredComponent {
     @ViewChild(MatSidenav)
@@ -130,11 +132,6 @@ export class MenuMacredComponent {
 
     URLRedirectIndexContent: string = httpLandingIndexPage.indexHTTP;
 
-    menuArray = [
-        { menuLink: '/',        menuIcon: 'home',    menuName: 'submenu 1'},
-        { menuLink: '/',        menuIcon: 'home',    menuName: 'submenu 2'}
-    ];
-
     constructor(private accountService: AccountService,
                 public translate: TranslateMessagesService,
                 private router: Router) {
@@ -144,6 +141,10 @@ export class MenuMacredComponent {
         this.businessObservable = this.accountService.businessValue;
 
         this.dataSource.data = TREE_DATA;
+    }
+
+    ngOnInit() {
+      console.log('MenuComponent iniciado');
     }
 
     redirectIndex() : void { this.router.navigate([this.URLRedirectIndexContent]); }

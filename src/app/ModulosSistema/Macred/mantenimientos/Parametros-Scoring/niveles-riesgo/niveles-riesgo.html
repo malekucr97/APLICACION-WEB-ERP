@@ -1,0 +1,172 @@
+<div class="contenido-main-macred">
+    
+  <div>
+    <div>
+      <p class="contenido-main-macred__h1">{{ moduleName }}</p>
+      <p class="contenido-main-macred__h2">Administración de Niveles de Riesgo</p>
+    </div>
+    <hr>
+    <button class="back-ico-one"
+            title="{{ 'CONFIGURATION.BTN_ADMIN_USERS' | translate}}"
+            mat-icon-button 
+            (click)="redirectIndexModule()"> <mat-icon>arrow_back</mat-icon> </button>
+  </div>
+
+  <div class="card">  
+    <div class="card-body">
+
+      <div>
+          <p *ngIf="add" class="contenido-main-macred__h3">Actualización de Niveles de Riesgo</p>
+          <p *ngIf="update" class="contenido-main-macred__h3">Registro de Niveles de Riesgo</p>
+      </div>
+
+      <hr>
+
+      <!-- ************************** -->
+      <!-- ******* FORMULARIO ******* -->
+      <!-- ************************** -->
+        
+      <div class="formulario-izquierdo">
+        <div class="formulario-izquierdo__nav">
+          <div class="formulario-izquierdo__nav__prev">
+            <p class="formulario-izquierdo__nav__prev__tittle">Mantenimiento de Niveles de Riesgo</p>
+          </div>
+
+          <div class="formulario-izquierdo__nav__next">
+            <button *ngIf="habilitaBtnNuevo" class="formulario-izquierdo__nav__next__btn-view" 
+                  mat-flat-button 
+                  (click)="limpiarFormulario()">{{ 'GENERAL.BTN_NEW' | translate }}</button>
+          <button *ngIf="habilitaBtnActualiza" class="formulario-izquierdo__nav__next__btn-warn" 
+                  mat-flat-button 
+                  (click)="put()">{{ 'GENERAL.BTN_UPDATE' | translate }}</button>
+          <button *ngIf="habilitaBtnRegistro" class="formulario-izquierdo__nav__next__btn-ok" 
+                  mat-flat-button 
+                  (click)="post()">{{ 'GENERAL.BTN_REGISTER' | translate }}</button>
+          <button *ngIf="habilitaBtnEliminar" class="formulario-izquierdo__nav__next__btn-delete" 
+                  mat-flat-button 
+                  (click)="delete()">{{ 'GENERAL.BTN_DELETE' | translate }}</button>
+          </div>
+        </div>
+
+        <div class="p-2">
+          <form [formGroup]="formObject" class="row">
+
+            <div class="col-sm-6">
+              <label for="id_descripcioNivelRiesgo" class="form-label">Descripción</label>
+              <input  maxlength="100"
+                      formControlName="descripcionNivelRiesgo"
+                      class="form-control"
+                      type="text"
+                      id="id_descripcioNivelRiesgo"
+                      [ngClass]="{'is-invalid': submitForm && f.descripcionNivelRiesgo.errors}" />
+              <div *ngIf="submitForm && f.descripcionNivelRiesgo.errors" class="invalid-feedback">
+                <div *ngIf="f.descripcionNivelRiesgo.errors.required">{{ 'GENERAL.VALIDATES.EMPTY' | translate }}</div>
+              </div>
+            </div>
+
+            <div class="form-group col-sm-4 margin-status d-flex justify-content-center">
+                <mat-checkbox formControlName="tieneScore">
+                  <span class="color-chechbox">Tiene Score ?</span>
+                </mat-checkbox>
+            </div>
+
+            <div class="form-group col-sm-2 margin-status d-flex justify-content-center">
+                <mat-checkbox formControlName="estado" style="border-color: white;">
+                  <span class="color-chechbox">Estado</span>
+                </mat-checkbox>
+            </div>
+
+            <div class="col-sm-6">
+              <label for="id_puntaje" class="form-label">Puntaje</label>
+              <input  formControlName="puntaje"
+                      class="form-control"
+                      type="number"
+                      id="id_puntaje"
+                      [ngClass]="{'is-invalid': submitForm && f.puntaje.errors}" />
+              <div *ngIf="submitForm && f.puntaje.errors" class="invalid-feedback">
+                <div *ngIf="f.puntaje.errors.required">{{ 'GENERAL.VALIDATES.EMPTY' | translate }}</div>
+              </div>
+            </div>
+
+            <div class="col-sm-3">
+              <label for="id_rangoInicial" class="form-label">Rango Inicial</label>
+              <input  formControlName="rangoInicial"
+                      class="form-control"
+                      type="number"
+                      id="id_rangoInicial"
+                      [ngClass]="{'is-invalid': submitForm && f.rangoInicial.errors}" />
+              <div *ngIf="submitForm && f.rangoInicial.errors" class="invalid-feedback">
+                <div *ngIf="f.rangoInicial.errors.required">{{ 'GENERAL.VALIDATES.EMPTY' | translate }}</div>
+              </div>
+            </div>
+
+            <div class="col-sm-3">
+              <label for="id_rangoFinal" class="form-label">Rango Final</label>
+              <input  formControlName="rangoFinal"
+                      class="form-control"
+                      type="number"
+                      id="id_rangoFinal"
+                      [ngClass]="{'is-invalid': submitForm && f.rangoFinal.errors}" />
+              <div *ngIf="submitForm && f.rangoFinal.errors" class="invalid-feedback">
+                <div *ngIf="f.rangoFinal.errors.required">{{ 'GENERAL.VALIDATES.EMPTY' | translate }}</div>
+              </div>
+            </div>
+
+            
+
+          </form>
+        </div>
+      </div>
+
+      <!-- ************************* -->
+      <!-- ** OBJETO SELECCIONADO ** -->
+      <!-- ************************* -->
+            
+      <div *ngIf="mostrarLista" class="table">
+        <br>
+        <table class="table table-striped">
+          <thead>
+            <tr>
+                <th class="table__nivel-riesgo__ico"></th>
+
+                <th class="table__nivel-riesgo__desc">Descripción</th>
+                <th class="table__nivel-riesgo__puntaje">Puntaje</th>
+                <th class="table__nivel-riesgo__rangoi">Rango Inicial</th>
+                <th class="table__nivel-riesgo__rangof">Rango Final</th>
+                <th class="table__nivel-riesgo__score">Tiene Score</th>
+                <th class="table__nivel-riesgo__estado">Estado</th>
+
+                <th class="table__nivel-riesgo__add">Registra</th>
+                <th class="table__nivel-riesgo__add">Fecha</th>
+                <th class="table__nivel-riesgo__update">Modifica</th>
+                <th class="table__nivel-riesgo__update">Fecha</th>
+            </tr>
+          </thead>
+          <tbody>
+
+            <tr *ngFor="let obj of listObjetos" (click)="seleccionarObjeto(obj)">
+      
+              <td class="item-edit"> <a> <mat-icon>edit</mat-icon> </a> </td>
+
+              <td class="item-edit" >{{obj.descripcion}}</td>
+              <td class="item-edit table__nivel-riesgo__puntaje__td" >{{obj.puntaje}}</td>
+              <td class="item-edit table__nivel-riesgo__rangoi__td" >{{obj.rangoInicial}}</td>
+              <td class="item-edit table__nivel-riesgo__rangof__td" >{{obj.rangoFinal}}</td>
+              <td *ngIf="obj.tieneScore==true" class="item-edit table__nivel-riesgo__score__td" >Sí</td>
+              <td *ngIf="obj.tieneScore==false" class="item-edit table__nivel-riesgo__score__td" >No</td>
+              <td *ngIf="obj.estado==true" class="item-edit table__nivel-riesgo__estado__td" >Activo</td>
+              <td *ngIf="obj.estado==false" class="item-edit table__nivel-riesgo__estado__td" >Inactivo</td>
+              <td class="item-edit table__nivel-riesgo__add__td" >{{obj.usuarioCreacion}}</td>
+              <td class="item-edit table__nivel-riesgo__add__td" >{{obj.fechaCreacion | date:'dd/MM/yyyy'}}</td>
+              <td class="item-edit table__nivel-riesgo__update__td" >{{obj.usuarioModificacion}}</td>
+              <td class="item-edit table__nivel-riesgo__update__td" >{{obj.fechaModificacion | date:'dd/MM/yyyy'}}</td>
+
+            </tr>
+
+          </tbody>
+        </table>
+      </div>
+
+    </div>
+  </div>
+</div>

@@ -11,19 +11,21 @@ import { OnSeguridad } from '@app/_helpers/abstractSeguridad';
 import { TranslateMessagesService } from '@app/_services/translate-messages.service';
 import { ModulesSystem } from '@environments/environment';
 import { MacredService } from '@app/_services/macred.service';
-import { MacIndicadoresRelevantes, MacNivelCapacidadPago, MacNivelesXIndicador } from '@app/_models/Macred';
+import { MacIndicadorScoring } from '@app/_models/Macred/IndicadorScoring';
+import { MacNivelesXIndicadorScoring } from '@app/_models/Macred/NivelXIndicadorScoring';
+import { MacNivelRiesgo } from '@app/_models/Macred/NivelRiesgo';
 
 declare var $: any;
 
-@Component({selector: 'app-indicadores-relevantes-macred',
-            templateUrl: './indicadores-relevantes.component.html',
+@Component({selector: 'app-indicadores-scoring-macred',
+            templateUrl: './indicadores-scoring.html',
             styleUrls: ['../../../../../../assets/scss/macred/app.scss'],
             standalone: false
 })
-export class IndicadoresRelevantesComponent extends OnSeguridad implements OnInit {
+export class IndicadoresScoringComponent extends OnSeguridad implements OnInit {
     @ViewChild(MatSidenav) sidenav !: MatSidenav;
 
-    private nombrePantalla  : string = 'indicadores-relevantes.html';
+    private nombrePantalla  : string = 'indicadores-scoring.html';
 
     // ## -- objetos suscritos -- ## //
     private userObservable      : User;
@@ -31,7 +33,7 @@ export class IndicadoresRelevantesComponent extends OnSeguridad implements OnIni
     private moduleObservable    : Module;
 
     // ## -- formularios -- ## //
-    formIndicadorRelevante : UntypedFormGroup;
+    formIndicadorScoring : UntypedFormGroup;
     formNivel : UntypedFormGroup;
 
     // ## -- submit formularios -- ## //
@@ -59,16 +61,16 @@ export class IndicadoresRelevantesComponent extends OnSeguridad implements OnIni
     URLIndexModulePage: string;
 
     // ## -- listas -- ## //
-    listIndicadores: MacIndicadoresRelevantes[] = [];
-    listNiveles: MacNivelCapacidadPago[] = [];
-    listNivelesIndicador: MacNivelCapacidadPago[] = [];
+    listIndicadores: MacIndicadorScoring[] = [];
+    listNiveles: MacNivelRiesgo[] = [];
+    listNivelesIndicadorScoring: MacNivelRiesgo[] = [];
 
-    objSeleccionadoIndicador: MacIndicadoresRelevantes = undefined;
-    objSeleccionadoNivel: MacNivelCapacidadPago = undefined;
+    objSeleccionadoIndicador: MacIndicadorScoring = undefined;
+    objSeleccionadoNivel: MacNivelRiesgo = undefined;
 
     public today : Date = new Date();
 
-    oNivelIndicador : MacNivelCapacidadPago = undefined;
+    oNivelIndicador : MacNivelRiesgo = undefined;
 
     constructor (   private route:          ActivatedRoute,
                     private alertService:   AlertService,
@@ -91,11 +93,11 @@ export class IndicadoresRelevantesComponent extends OnSeguridad implements OnIni
 
         this.buscarModuloId(this.moduleObservable.id);
 
-        this.inicializaFormularioIndRelevante();
+        this.inicializaFormularioIndScoring();
         this.inicializaFormularioNivelRiesgo();
     }
     
-    get f () { return this.formIndicadorRelevante.controls; }
+    get f () { return this.formIndicadorScoring.controls; }
     get i () { return this.formNivel.controls; }
 
     ngOnInit() {
@@ -110,8 +112,8 @@ export class IndicadoresRelevantesComponent extends OnSeguridad implements OnIni
                 // ## -->> redirecciona NO ACCESO
                 if(!response.exito) this.router.navigate([this.URLIndexModulePage]);
 
-                this.getIndicadoresRelevantes();
-                this.getNivelesCapacidadPago();
+                this.getIndicadoresScoring();
+                this.getNivelesRiesgo();
         });
     }
 
@@ -122,21 +124,21 @@ export class IndicadoresRelevantesComponent extends OnSeguridad implements OnIni
         this.oNivelIndicador = this.formNivel.get('descripcionNivel')?.value;
         this.objSeleccionadoNivel = this.oNivelIndicador;
 
-        let nivel : MacNivelCapacidadPago = this.listNiveles.find(e => e.id == this.objSeleccionadoNivel.id);
+        let nivel : MacNivelRiesgo = this.listNiveles.find(e => e.id == this.objSeleccionadoNivel.id);
 
         this.formNivel.get('rangoInicial')?.setValue(nivel.rangoInicial);;
         this.formNivel.get('rangoFinal')?.setValue(nivel.rangoFinal);;
     }
 
     consultaRangosNiveles() : void {
-        this.getNivelesCapacidadPago();
+        this.getNivelesRiesgo();
         this.inicializaFormularioNivelRiesgo();
     }
 
-    nuevoIndicadorRelevante() : void { 
+    nuevoIndicadorScoring() : void { 
 
         this.submitFormIndicador = false;
-        this.inicializaFormularioIndRelevante();
+        this.inicializaFormularioIndScoring();
 
         this.habilitaFormularioNiveles = false;
     }
@@ -146,27 +148,27 @@ export class IndicadoresRelevantesComponent extends OnSeguridad implements OnIni
         this.inicializaFormularioNivelRiesgo();
     }
 
-    selectIndicadorRelevante(objeto : MacIndicadoresRelevantes = null) : void {
+    selectIndicadorRelevante(objeto : MacIndicadorScoring = null) : void {
 
         this.habilitaFormularioNiveles = true;
 
-        this.inicializaFormularioIndRelevante(objeto);
+        this.inicializaFormularioIndScoring(objeto);
         this.inicializaFormularioNivelRiesgo();
 
         // consultar niveles por indicador
-        this.getNivelesPorIndicador(objeto.codIndicador);
+        this.getNivelesPorIndicadorScoring(objeto.id);
     }
-    selectNivel(objeto : MacNivelCapacidadPago = null) : void {
+    selectNivel(objeto : MacNivelRiesgo = null) : void {
 
         this.inicializaFormularioNivelRiesgo(objeto);
         this.formNivel.get('descripcionNivel')?.disable();
     }
 
-    private getNivelesPorIndicador(pidIndicador : number) {
+    private getNivelesPorIndicadorScoring(pidIndicador : number) {
 
-        let listNivelesTemp : MacNivelCapacidadPago[] = null;
+        let listNivelesTemp : MacNivelRiesgo[] = null;
 
-        this.macredService.getNivelesXIndicador(pidIndicador)
+        this.macredService.getNivelesXIndicadorScoring(pidIndicador)
             .pipe(first())
             .subscribe((response) => {
 
@@ -177,45 +179,44 @@ export class IndicadoresRelevantesComponent extends OnSeguridad implements OnIni
 
                     response.forEach(element => {
 
-                        let nivel : MacNivelCapacidadPago = this.listNiveles.find(e => e.id == element.codNivel);
+                        let nivel : MacNivelRiesgo = this.listNiveles.find(e => e.id == element.idNivel);
 
-                        // nivel.id
                         nivel.rangoInicial = element.rangoInicial;
                         nivel.rangoFinal = element.rangoFinal;
 
                         listNivelesTemp.push(nivel);
                     });
-                    this.listNivelesIndicador = listNivelesTemp;
+                    this.listNivelesIndicadorScoring = listNivelesTemp;
 
                 } else {
                     this.habilitaListaNiveles = false;
-                    this.listNivelesIndicador = [];
+                    this.listNivelesIndicadorScoring = [];
                 }
             });
     }
 
-    private inicializaFormularioIndRelevante(objeto : MacIndicadoresRelevantes = null) : void {
+    private inicializaFormularioIndScoring(objeto : MacIndicadorScoring = null) : void {
 
         if (objeto) {
 
-            this.formIndicadorRelevante = this.formBuilder.group({
-                descripcionIndRelevante : [objeto.descripcion, Validators.required],
-                estadoIndRelevante : [objeto.estado]
+            this.formIndicadorScoring = this.formBuilder.group({
+                descripcionIndScoring : [objeto.descripcion, Validators.required],
+                estadoIndScoring : [objeto.estado]
             });
             this.objSeleccionadoIndicador = objeto;
             this.iniciarBotonesModelo(false);
         } 
         else {
 
-            this.formIndicadorRelevante = this.formBuilder.group({
-                descripcionIndRelevante : ['', Validators.required],
-                estadoIndRelevante : [false]
+            this.formIndicadorScoring = this.formBuilder.group({
+                descripcionIndScoring : ['', Validators.required],
+                estadoIndScoring : [false]
             });
             this.objSeleccionadoIndicador = undefined;
             this.iniciarBotonesModelo(true);
         }
     }
-    private inicializaFormularioNivelRiesgo(objeto : MacNivelCapacidadPago = null) : void {
+    private inicializaFormularioNivelRiesgo(objeto : MacNivelRiesgo = null) : void {
 
         if (objeto) {
 
@@ -239,31 +240,33 @@ export class IndicadoresRelevantesComponent extends OnSeguridad implements OnIni
         }
     }
 
-    private createIndRelevanteForm(registra : boolean = false) : MacIndicadoresRelevantes {
+    private createIndScoringForm(registra : boolean = false) : MacIndicadorScoring {
 
-        const { descripcionIndRelevante,
-                estadoIndRelevante
-             } = this.formIndicadorRelevante.controls;
+        const { descripcionIndScoring,
+                estadoIndScoring
+            } = this.formIndicadorScoring.controls;
 
-        var objeto = new MacIndicadoresRelevantes();
+        var objeto = new MacIndicadorScoring();
 
-        objeto.descripcion = descripcionIndRelevante.value;
-        objeto.estado = estadoIndRelevante.value;
+        objeto.idCompania = this.companiaObservable.id;
+        objeto.idModulo = this.moduleObservable.id;
+
+        objeto.descripcion = descripcionIndScoring.value;
+        objeto.estado = estadoIndScoring.value;
 
         if (registra) {
 
-            objeto.codigoCompania = this.companiaObservable.id;
-            objeto.usuarioCreacion = this.userObservable.identificacion;
-            objeto.fechaCreacion = this.today;
+            objeto.adicionadoPor = this.userObservable.identificacion;
+            objeto.fechaAdicion = this.today;
 
         } else {
-            objeto.codIndicador = this.objSeleccionadoIndicador.codIndicador;
-            objeto.usuarioModificacion = this.userObservable.identificacion;
+            objeto.id = this.objSeleccionadoIndicador.id;
+            objeto.modificadoPor = this.userObservable.identificacion;
             objeto.fechaModificacion = this.today;
         }
         return objeto;
     }
-    private createNivelesForm(registra : boolean = false) : MacNivelesXIndicador {
+    private createNivelesForm(registra : boolean = false) : MacNivelesXIndicadorScoring {
 
         this.submitFormNiveles = false;
 
@@ -271,38 +274,37 @@ export class IndicadoresRelevantesComponent extends OnSeguridad implements OnIni
                 rangoFinal,
             } = this.formNivel.controls;
 
-        var objeto = new MacNivelesXIndicador();
+        var objeto = new MacNivelesXIndicadorScoring();
 
-        objeto.codigoCompania = this.companiaObservable.id;
-        objeto.codIndicador = this.objSeleccionadoIndicador.codIndicador;
-        objeto.codNivel = this.objSeleccionadoNivel.id;
+        objeto.idIndicador = this.objSeleccionadoIndicador.id;
+        objeto.idNivel = this.objSeleccionadoNivel.id;
 
         objeto.rangoInicial = rangoInicial.value;
         objeto.rangoFinal = rangoFinal.value;
 
         if (registra) {
 
-            objeto.usuarioCreacion = this.userObservable.identificacion;
-            objeto.fechaCreacion = this.today;
+            objeto.adicionadoPor = this.userObservable.identificacion;
+            objeto.fechaAdicion = this.today;
 
         } else {
 
-            objeto.usuarioModificacion = this.userObservable.identificacion; 
+            objeto.modificadoPor = this.userObservable.identificacion; 
             objeto.fechaModificacion = this.today;
         }
         return objeto;
     }
 
-    postIndicadorRelevante() : void {
+    postIndicadorScoring() : void {
 
         this.alertService.clear();
         this.submitFormIndicador = true;
 
-        if ( this.formIndicadorRelevante.invalid ) return;
+        if ( this.formIndicadorScoring.invalid ) return;
 
-        let objeto : MacIndicadoresRelevantes = this.createIndRelevanteForm(true);
+        let objeto : MacIndicadorScoring = this.createIndScoringForm(true);
 
-        this.macredService.postIndicadorRelevante(objeto)
+        this.macredService.postIndicadorScoring(objeto)
             .pipe(first())
             .subscribe(response => {
 
@@ -311,7 +313,6 @@ export class IndicadoresRelevantesComponent extends OnSeguridad implements OnIni
                     this.submitFormIndicador = false;
 
                     this.listIndicadores.push(response.objetoDb);
-                    // this.inicializaFormularioIndRelevante();
 
                     this.selectIndicadorRelevante(response.objetoDb);
 
@@ -332,15 +333,15 @@ export class IndicadoresRelevantesComponent extends OnSeguridad implements OnIni
 
         if ( this.formNivel.invalid ) return;
 
-        let objeto : MacNivelesXIndicador = this.createNivelesForm(true);
+        let objeto : MacNivelesXIndicadorScoring = this.createNivelesForm(true);
 
         if (objeto.rangoInicial <= objeto.rangoFinal) {
 
-            if (this.listNivelesIndicador.find(e => e.id == this.oNivelIndicador.id)) registrar = false;
+            if (this.listNivelesIndicadorScoring.find(e => e.id == this.objSeleccionadoNivel.id)) registrar = false;
 
             if (registrar) {
 
-                this.macredService.postNivelXIndicador(objeto)
+                this.macredService.postNivelXIndicadorScoring(objeto)
                     .pipe(first())
                     .subscribe(response => {
 
@@ -348,13 +349,13 @@ export class IndicadoresRelevantesComponent extends OnSeguridad implements OnIni
 
                             this.submitFormNiveles = false;
 
-                            let objPost : MacNivelCapacidadPago = 
-                                this.listNiveles.find(e => e.id == response.objetoDb.codNivel);
+                            let objPost : MacNivelRiesgo = 
+                                this.listNiveles.find(e => e.id == response.objetoDb.idNivel);
                                 
                             objPost.rangoInicial = response.objetoDb.rangoInicial;
                             objPost.rangoFinal = response.objetoDb.rangoFinal;
 
-                            this.listNivelesIndicador.push(objPost);
+                            this.listNivelesIndicadorScoring.push(objPost);
 
                             this.inicializaFormularioNivelRiesgo();
 
@@ -370,17 +371,17 @@ export class IndicadoresRelevantesComponent extends OnSeguridad implements OnIni
         } else { this.alertService.error('El rango Inicial no puede ser menor al rango Final.'); } 
     }
 
-    deleteIndicadorRelevante() {
+    deleteIndicadorScoring() {
 
         this.alertService.clear();
 
-        if (this.listNivelesIndicador && this.listNivelesIndicador.length > 0) {
+        if (this.listNivelesIndicadorScoring && this.listNivelesIndicadorScoring.length > 0) {
             this.alertService.error('Deben eliminar los niveles de riesgo asociados al indicador.');
             return;
         }
 
         let existeIndicadorGrupo : boolean = false;
-        let idIndRelevante : number = this.objSeleccionadoIndicador.codIndicador;
+        let idIndicador : number = this.objSeleccionadoIndicador.id;
         
         this.dialogo.open(DialogoConfirmacionComponent, { 
             data: 'Seguro que desea eliminar : ' + this.objSeleccionadoIndicador.descripcion + ' ?' 
@@ -390,15 +391,15 @@ export class IndicadoresRelevantesComponent extends OnSeguridad implements OnIni
 
             if (confirmado) {
 
-                this.macredService.getIndicadoresGrupoModCalifXIndicador(idIndRelevante)
-                    .pipe(first())
-                    .subscribe(response => {
+                // this.macredService.getIndicadoresGrupoModCalifXIndicador(idIndRelevante)
+                //     .pipe(first())
+                //     .subscribe(response => {
 
-                        if (response && response.length > 0) existeIndicadorGrupo = true;
+                //         if (response && response.length > 0) existeIndicadorGrupo = true;
 
                         if (!existeIndicadorGrupo) {
 
-                            this.macredService.deleteIndicadorRelevante(idIndRelevante)
+                            this.macredService.deleteIndicadorScoring(idIndicador)
                                 .pipe(first())
                                 .subscribe(response => {
 
@@ -407,9 +408,9 @@ export class IndicadoresRelevantesComponent extends OnSeguridad implements OnIni
                                         this.submitFormIndicador = false;
 
                                         this.listIndicadores.splice(
-                                            this.listIndicadores.findIndex( m => m.codIndicador == idIndRelevante ), 1
+                                            this.listIndicadores.findIndex( m => m.id == idIndicador ), 1
                                         );
-                                        this.inicializaFormularioIndRelevante();
+                                        this.inicializaFormularioIndScoring();
 
                                         if (this.listIndicadores.length === 0) this.habilitaListaIndicadores = false;
 
@@ -430,7 +431,7 @@ export class IndicadoresRelevantesComponent extends OnSeguridad implements OnIni
                                 ' Debe eliminar el Indicador en los Indicadores por Grupos de Modelos de Calificación.'
                             );
                         }
-                    }, error => { this.alertService.error(error); });
+                    // }, error => { this.alertService.error(error); });
             } else { return; }
         });
     }
@@ -446,21 +447,21 @@ export class IndicadoresRelevantesComponent extends OnSeguridad implements OnIni
 
             if (confirmado) {
 
-                let idIndicador : number = this.objSeleccionadoIndicador.codIndicador;
+                let idIndicador : number = this.objSeleccionadoIndicador.id;
                 let idNivel : number = this.objSeleccionadoNivel.id;
                 
-                this.macredService.deleteNivelXIndicador(idIndicador, idNivel)
+                this.macredService.deleteNivelXIndicadorScoring(idIndicador, idNivel)
                     .pipe(first())
                     .subscribe(response => {
 
                         if (response.exito) {
 
-                            this.listNivelesIndicador.splice(
-                                this.listNivelesIndicador.findIndex( m => m.id == idNivel ), 1
+                            this.listNivelesIndicadorScoring.splice(
+                                this.listNivelesIndicadorScoring.findIndex( m => m.id == idNivel ), 1
                             );
                             this.inicializaFormularioNivelRiesgo();
 
-                            if (this.listNivelesIndicador.length === 0) this.habilitaListaNiveles = false;
+                            if (this.listNivelesIndicadorScoring.length === 0) this.habilitaListaNiveles = false;
 
                             this.alertService.success( response.responseMesagge );
 
@@ -470,29 +471,17 @@ export class IndicadoresRelevantesComponent extends OnSeguridad implements OnIni
             } else { return; }
         });
     }
-    // private getIndicadoresGruposCalifXIndicador(pidIndicador : number) {
 
-    //     this.macredService.getIndicadoresGrupoModCalifXIndicador(pidIndicador)
-    //         .pipe(first())
-    //         .subscribe(response => {
-
-    //             if (response && response.length > 0) return true;
-
-    //         }, error => { this.alertService.error(error); });
-
-    //     return false;
-    // }
-
-    putIndicadorRelevante() : void {
+    putIndicadorScoring() : void {
 
         this.alertService.clear();
         this.submitFormIndicador = true;
 
-        if ( this.formIndicadorRelevante.invalid ) return;
+        if ( this.formIndicadorScoring.invalid ) return;
 
-        let obj : MacIndicadoresRelevantes = this.createIndRelevanteForm(false);
+        let obj : MacIndicadorScoring = this.createIndScoringForm(false);
 
-        this.macredService.putIndicadorRelevante(obj)
+        this.macredService.putIndicadorScoring(obj)
             .pipe(first())
             .subscribe(response => {
 
@@ -500,7 +489,7 @@ export class IndicadoresRelevantesComponent extends OnSeguridad implements OnIni
 
                     this.submitFormIndicador = false;
                     this.listIndicadores.splice(
-                        this.listIndicadores.findIndex( m => m.codIndicador == response.objetoDb.codIndicador ), 1
+                        this.listIndicadores.findIndex( m => m.id == response.objetoDb.id ), 1
                     );
                     this.listIndicadores.push(response.objetoDb);
 
@@ -519,11 +508,11 @@ export class IndicadoresRelevantesComponent extends OnSeguridad implements OnIni
 
         if ( this.formNivel.invalid ) return;
 
-        let objeto : MacNivelesXIndicador = this.createNivelesForm(false);
+        let objeto : MacNivelesXIndicadorScoring = this.createNivelesForm(false);
 
         if (objeto.rangoInicial <= objeto.rangoFinal) {
 
-            this.macredService.putNivelXIndicador(objeto)
+            this.macredService.putNivelXIndicadorScoring(objeto)
                 .pipe(first())
                 .subscribe(response => {
 
@@ -531,16 +520,16 @@ export class IndicadoresRelevantesComponent extends OnSeguridad implements OnIni
 
                         this.submitFormNiveles = false;
 
-                        let objPut : MacNivelCapacidadPago = 
-                            this.listNiveles.find(e => e.id == response.objetoDb.codNivel);
+                        let objPut : MacNivelRiesgo = 
+                            this.listNiveles.find(e => e.id == response.objetoDb.idNivel);
 
                         objPut.rangoInicial = response.objetoDb.rangoInicial;
                         objPut.rangoFinal = response.objetoDb.rangoFinal;
 
-                        this.listNivelesIndicador.splice(
-                            this.listNivelesIndicador.findIndex( m => m.id == objPut.id ), 1
+                        this.listNivelesIndicadorScoring.splice(
+                            this.listNivelesIndicadorScoring.findIndex( m => m.id == objPut.id ), 1
                         );
-                        this.listNivelesIndicador.push(objPut);
+                        this.listNivelesIndicadorScoring.push(objPut);
 
                         this.inicializaFormularioNivelRiesgo();
 
@@ -552,8 +541,8 @@ export class IndicadoresRelevantesComponent extends OnSeguridad implements OnIni
         } else { this.alertService.error('El rango Inicial no puede ser menor al rango final.'); } 
     }
     
-    private getIndicadoresRelevantes() : void {
-        this.macredService.getIndicadoresRelevantes()
+    private getIndicadoresScoring() : void {
+        this.macredService.getIndicadoresScoring()
             .pipe(first())
             .subscribe(response => {
                 if (response && response.length > 0) {
@@ -562,17 +551,13 @@ export class IndicadoresRelevantesComponent extends OnSeguridad implements OnIni
                 }
             }, error => { this.alertService.error(error); });
     }
-    private getNivelesCapacidadPago() : void {
+    private getNivelesRiesgo() : void {
 
-        this.macredService.getNivelesCapacidadPago(false)
+        this.macredService.getNivelesRiesgos(false)
             .pipe(first())
             .subscribe(response => {
 
-                if (response && response.length > 0) {
-
-                    this.listNiveles = response;
-
-                } else { this.listNiveles = []; }
+                if (response && response.length > 0) this.listNiveles = response;
 
             }, error => { this.alertService.error(error); });
     }

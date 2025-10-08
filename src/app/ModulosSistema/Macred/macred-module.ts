@@ -20,7 +20,6 @@ import { EscenariofclComponent } from './asociados/escenariofcl/escenariofcl.com
 import { DatosAnalisisComponent } from './asociados/datos-analisis/datos-analisis.component';
 import { IngresosComponent } from './asociados/ingresos/ingresos.component';
 import { PdComponent } from './asociados/pd/pd.component';
-// import { EscenariosRiesgosComponent } from './mantenimientos/ModelosCalificacion/escenarios-riesgos/escenarios-riesgos.component1';
 import { SharedModule } from '@app/_shared/shared.module';
 import { TranslateModule } from '@ngx-translate/core';
 import { EntidadesFinancierasComponent } from './mantenimientos/entidades-financieras.component';
@@ -40,13 +39,9 @@ import { NivelesCapacidadPagoComponent } from './mantenimientos/ModelosCalificac
 import { VariablesCriticasComponent } from './mantenimientos/ModelosCalificacion/variables-criticas/variables-criticas.component';
 import { IndicadoresRelevantesComponent } from './mantenimientos/ModelosCalificacion/indicadores-relevantes/indicadores-relevantes.component';
 import { EscenariosRiesgosComponent } from './mantenimientos/ModelosCalificacion/escenarios-riesgos/escenarios-riesgos.component';
-
-// import { PersonasComponent } from './mantenimientos/Personas/personas-component';
-// import { ConfiguracionModelosComponent } from './mantenimientos/Parametros/configuracion-modelos/configuracion-modelos.component';
-// import { ConfiguracionParametrosPdComponent } from './mantenimientos/Parametros/configuracion-parametros-pd/configuracion-parametros-pd.component';
-// import { NivelesCapacidadPagoComponent } from './mantenimientos/ModelosCalificacion/niveles-capacidad-pago/niveles-capacidad-pago.component1';
-// import { IndicadoresRelevantesComponent } from './mantenimientos/ModelosCalificacion/indicadores-relevantes/indicadores-relevantes.component1';
-// import { VariablesCriticasComponent } from './mantenimientos/ModelosCalificacion/variables-criticas/variables-criticas.component1';
+import { NivelesRiesgoComponent } from './mantenimientos/Parametros-Scoring/niveles-riesgo/niveles-riesgo.component';
+import { IndicadoresScoringComponent } from './mantenimientos/Parametros-Scoring/indicadores-relevantes/indicadores-scoring.component';
+import { ModelosAnalisisComponent } from './mantenimientos/Parametros-Scoring/configuracion-modelos/modelos-analisis.component';
 
 @NgModule({
     imports: [
@@ -61,7 +56,6 @@ import { EscenariosRiesgosComponent } from './mantenimientos/ModelosCalificacion
         IndexMacredComponent,
         MenuMacredComponent,
         AsociadosComponent,
-        // PersonasComponent,
         EstadosCivilesComponent,
         ParametrosGeneralesComponent,
         TiposPersonasComponent,
@@ -71,18 +65,13 @@ import { EscenariosRiesgosComponent } from './mantenimientos/ModelosCalificacion
         TiposFormasPagoAnalisisComponent,
         TipoIngresoAnalisisComponent,
         TipoIngresoComponent,
-        // ConfiguracionModelosComponent,
-        // ConfiguracionParametrosPdComponent,
         TipoActividadEconomicaComponent,
         FclComponent,
         EscenariofclComponent,
         NivelesCapacidadPagoComponent,
-        // IndicadoresRelevantesComponent,
         DatosAnalisisComponent,
         IngresosComponent,
         PdComponent,
-        // VariablesCriticasComponent,
-        // EscenariosRiesgosComponent,
         EntidadesFinancierasComponent,
         PeriocidadComponent,
         TiposLineasCreditoComponent,
@@ -98,7 +87,10 @@ import { EscenariosRiesgosComponent } from './mantenimientos/ModelosCalificacion
         VariablesPDComponent,
         VariablesCriticasComponent,
         IndicadoresRelevantesComponent,
-        EscenariosRiesgosComponent
+        EscenariosRiesgosComponent,
+        NivelesRiesgoComponent,
+        IndicadoresScoringComponent,
+        ModelosAnalisisComponent
     ]
 })
 export class MacredModule { }

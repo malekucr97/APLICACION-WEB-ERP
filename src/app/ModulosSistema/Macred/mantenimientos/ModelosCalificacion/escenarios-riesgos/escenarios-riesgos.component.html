@@ -31,7 +31,7 @@
                         <div class="formulario-izquierdo__nav__next" >
                             <button *ngIf="habilitaBtnNuevo" class="formulario-izquierdo__nav__next__btn-view" 
                                     mat-flat-button
-                                    (click)="nuevoIndicadorRelevante()">{{ 'GENERAL.BTN_NEW' | translate }}</button>
+                                    (click)="nuevoEscenario()">{{ 'GENERAL.BTN_NEW' | translate }}</button>
                             <button *ngIf="habilitaBtnActualiza" class="formulario-izquierdo__nav__next__btn-warn" 
                                     mat-flat-button
                                     (click)="putEscenario()">{{ 'GENERAL.BTN_UPDATE' | translate }}</button>
@@ -40,7 +40,7 @@
                                     (click)="postEscenario()">{{ 'GENERAL.BTN_REGISTER' | translate }}</button>
                             <button *ngIf="habilitaBtnEliminar" class="formulario-izquierdo__nav__next__btn-delete" 
                                     mat-flat-button
-                                    (click)="deleteIndicadorRelevante()">{{ 'GENERAL.BTN_DELETE' | translate }}</button>
+                                    (click)="deleteEscenario()">{{ 'GENERAL.BTN_DELETE' | translate }}</button>
                         </div>
                     </div>
 
@@ -67,13 +67,13 @@
                                         class="form-control" 
                                         name="selectVariables"
                                         id="id_modelo"
-                                        [ngClass]="{ 'is-invalid': submitFormVariable && f.modelo.errors }" 
+                                        [ngClass]="{ 'is-invalid': submitFormEscenario && f.modelo.errors }" 
                                         (change)="onChangeEventModelo()">
                                     <option [ngValue]="objeto"
                                             *ngFor="let objeto of listModelosCalificacion">{{objeto.id}} - 
                                                                                 {{objeto.descripcion}}</option>
                                 </select>
-                                <div *ngIf="submitFormVariable && f.modelo.errors" class="invalid-feedback">
+                                <div *ngIf="submitFormEscenario && f.modelo.errors" class="invalid-feedback">
                                     <div *ngIf="f.modelo.errors.required">{{ 'GENERAL.VALIDATES.EMPTY' | translate }}</div>
                                 </div>
                             </div>
@@ -96,9 +96,9 @@
                         <table class="table table-striped">
                             <thead>
                                 <tr>
-                                    <th class="table__indicadores-relevantes__ico"></th>
-                                    <th class="table__indicadores-relevantes__desc">Descripción</th>
-                                    <th class="table__indicadores-relevantes__estado">Estado</th>
+                                    <th class="table__escenarios-riesgos__ico"></th>
+                                    <th class="table__escenarios-riesgos__desc">Descripción</th>
+                                    <th class="table__escenarios-riesgos__estado">Estado</th>
                                 </tr>
                             </thead>
                             <tbody>
@@ -108,8 +108,8 @@
                                         <div> <a> <mat-icon>swap_horiz</mat-icon> </a> </div> </td>
 
                                     <td class="item-edit">{{obj.descripcion}}</td>
-                                    <td *ngIf="obj.estado==true" class="item-edit table__indicadores-relevantes__estado__td">Activo</td>
-                                    <td *ngIf="obj.estado==false" class="item-edit table__indicadores-relevantes__estado__td">Inactivo</td>
+                                    <td *ngIf="obj.estado==true" class="item-edit table__escenarios-riesgos__estado__td">Activo</td>
+                                    <td *ngIf="obj.estado==false" class="item-edit table__escenarios-riesgos__estado__td">Inactivo</td>
                                 </tr>
                             </tbody>
                         </table>
@@ -135,21 +135,18 @@
                                 </div>
 
                                 <div class="formulario-izquierdo__nav__next" >
-                                    <button *ngIf="habilitaBtnRegistroVariable" class="formulario-izquierdo__nav__next__btn-ott" 
-                                            mat-flat-button
-                                            (click)="consultaRangosNiveles()">Consulta Rangos Niveles</button>
                                     <button *ngIf="habilitaBtnNuevoVariable" class="formulario-izquierdo__nav__next__btn-view" 
                                             mat-flat-button
-                                            (click)="nuevoNivelXIndicador()">{{ 'GENERAL.BTN_NEW' | translate }}</button>
+                                            (click)="nuevaVariableXEscenario()">{{ 'GENERAL.BTN_NEW' | translate }}</button>
                                     <button *ngIf="habilitaBtnActualizaVariable" class="formulario-izquierdo__nav__next__btn-warn" 
                                             mat-flat-button
                                             (click)="putNivelXIndicador()">{{ 'GENERAL.BTN_UPDATE' | translate }}</button>
                                     <button *ngIf="habilitaBtnRegistroVariable" class="formulario-izquierdo__nav__next__btn-ok" 
                                             mat-flat-button
-                                            (click)="postNivelXIndicador()">{{ 'GENERAL.BTN_REGISTER' | translate }}</button>
+                                            (click)="postVariableXEscenario()">{{ 'GENERAL.BTN_REGISTER' | translate }}</button>
                                     <button *ngIf="habilitaBtnEliminarVariable" class="formulario-izquierdo__nav__next__btn-delete" 
                                             mat-flat-button
-                                            (click)="deleteNivelXIndicador()">{{ 'GENERAL.BTN_DELETE' | translate }}</button>
+                                            (click)="deleteVariableXEscenario()">{{ 'GENERAL.BTN_DELETE' | translate }}</button>
                                 </div>
                             </div>
 
@@ -157,45 +154,52 @@
 
                                 <form [formGroup]="formVariable" class="row">
 
-                                    <div class="form-group col-sm-6">
-                                        <label for="id_descripcionNivel" class="form-label">Descripción</label>
-                                        <select formControlName="descripcionNivel" 
+
+                                    <div class="form-group col-sm-5">
+                                        <label for="id_variableCritica" class="form-label">Variable Crítica</label>
+                                        <select formControlName="variableCritica" 
                                                 class="form-control" 
-                                                name="selectVariables"
-                                                id="id_descripcionNivel"
-                                                [ngClass]="{ 'is-invalid': submitFormVariable && i.descripcionNivel.errors }" 
-                                                (change)="onChangeEvent()">
+                                                name="selectVariable"
+                                                id="id_variableCritica"
+                                                [ngClass]="{ 'is-invalid': submitFormVariable && i.variableCritica.errors }" 
+                                                (change)="onChangeEventVariable()">
                                             <option [ngValue]="objeto"
-                                                    *ngFor="let objeto of listVariables">{{objeto.id}} - 
+                                                    *ngFor="let objeto of listVariablesCriticas">{{objeto.id}} - 
                                                                                                     {{objeto.descripcion}}</option>
                                         </select>
-                                        <div *ngIf="submitFormVariable && i.descripcionNivel.errors" class="invalid-feedback">
-                                            <div *ngIf="i.descripcionNivel.errors.required">{{ 'GENERAL.VALIDATES.EMPTY' | translate }}</div>
+                                        <div *ngIf="submitFormVariable && i.variableCritica.errors" class="invalid-feedback">
+                                            <div *ngIf="i.variableCritica.errors.required">{{ 'GENERAL.VALIDATES.EMPTY' | translate }}</div>
                                         </div>
                                     </div>
 
 
-                                    <div class="form-group col-sm-3">
-                                        <label for="id_rangoInicial" class="form-label">Rango Inicial</label>
-                                        <input formControlName="rangoInicial" 
+                                    <div class="form-group col-sm-5">
+                                        <label for="id_tipoEstres" class="form-label">Tipo de Estrés</label>
+                                        <select formControlName="tipoEstres" 
                                                 class="form-control" 
-                                                type="number" 
-                                                id="id_rangoInicial"  
-                                            [ngClass]="{ 'is-invalid': submitFormVariable && i.rangoInicial.errors }" />
-                                        <div *ngIf="submitFormVariable && i.rangoInicial.errors" class="invalid-feedback">
-                                            <div *ngIf="i.rangoInicial.errors.required">{{ 'GENERAL.VALIDATES.EMPTY' | translate }}</div>
+                                                name="selectVariables"
+                                                id="id_tipoEstres"
+                                                [ngClass]="{ 'is-invalid': submitFormVariable && i.tipoEstres.errors }" 
+                                                (change)="onChangeEventTipoEstres()">
+                                            <option [ngValue]="objeto"
+                                                    *ngFor="let objeto of listTipoEstres">{{objeto.id}} - 
+                                                                                            {{objeto.descripcion}}</option>
+                                        </select>
+                                        <div *ngIf="submitFormVariable && i.tipoEstres.errors" class="invalid-feedback">
+                                            <div *ngIf="i.tipoEstres.errors.required">{{ 'GENERAL.VALIDATES.EMPTY' | translate }}</div>
                                         </div>
                                     </div>
 
-                                    <div class="form-group col-sm-3">
-                                        <label for="id_rangoFinal" class="form-label">Rango Final</label>
-                                        <input formControlName="rangoFinal" 
+
+                                    <div class="form-group col-sm-2">
+                                        <label for="id_valorEstres" class="form-label">Valor Estrés</label>
+                                        <input formControlName="valorEstres" 
                                                 class="form-control" 
                                                 type="number" 
-                                                id="id_rangoFinal"  
-                                            [ngClass]="{ 'is-invalid': submitFormVariable && i.rangoFinal.errors }" />
-                                        <div *ngIf="submitFormVariable && i.rangoFinal.errors" class="invalid-feedback">
-                                            <div *ngIf="i.rangoFinal.errors.required">{{ 'GENERAL.VALIDATES.EMPTY' | translate }}</div>
+                                                id="id_valorEstres"  
+                                            [ngClass]="{ 'is-invalid': submitFormVariable && i.valorEstres.errors }" />
+                                        <div *ngIf="submitFormVariable && i.valorEstres.errors" class="invalid-feedback">
+                                            <div *ngIf="i.valorEstres.errors.required">{{ 'GENERAL.VALIDATES.EMPTY' | translate }}</div>
                                         </div>
                                     </div>
 
@@ -214,21 +218,21 @@
                                 <table class="table table-striped">
                                     <thead>
                                         <tr>
-                                            <th class="table__indicadores-relevantes__ico"></th>
-                                            <th class="table__indicadores-relevantes__niveles__desc">Descripción</th>
-                                            <th class="table__indicadores-relevantes__niveles__rangoi">Rango Inicial</th>
-                                            <th class="table__indicadores-relevantes__niveles__rangof">Rango Final</th>
+                                            <th class="table__escenarios-riesgos__ico"></th>
+                                            <th class="table__escenarios-riesgos__variables__desc">Descripción</th>
+                                            <th class="table__escenarios-riesgos__variables__tipoe">Tipo Estrés</th>
+                                            <th class="table__escenarios-riesgos__variables__valore">Valor Estrés</th>
                                         </tr>
                                     </thead>
                                     <tbody>
-                                        <tr *ngFor="let obj of listVariablesEscenario" (click)="selectNivel(obj)" >
+                                        <tr *ngFor="let obj of listVariablesEscenario" (click)="selectVariableEscenario(obj)" >
                                             
                                             <td class="item-edit">
                                                 <div> <a> <mat-icon>swap_horiz</mat-icon> </a> </div> </td>
 
-                                            <td class="item-edit">{{obj.descripcion}}</td>
-                                            <td class="item-edit table__indicadores-relevantes__niveles__rangoi__td">{{obj.rangoInicial}}</td>
-                                            <td class="item-edit table__indicadores-relevantes__niveles__rangof__td">{{obj.rangoFinal}}</td>
+                                            <td class="item-edit">{{obj.descripcionVariable}}</td>
+                                            <td class="item-edit table__escenarios-riesgos__variables__tipoe__td">{{obj.descripcionTipoEstres}}</td>
+                                            <td class="item-edit table__escenarios-riesgos__variables__valore__td">{{obj.valorEstres}}</td>
                                         </tr>
                                     </tbody>
                                 </table>

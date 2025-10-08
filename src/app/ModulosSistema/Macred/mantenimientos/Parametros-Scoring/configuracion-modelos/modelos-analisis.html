@@ -3,7 +3,7 @@
     <div>
         <div>
             <p class="contenido-main-macred__h1">{{moduleScreen.descripcion}}</p>
-            <p class="contenido-main-macred__h2">Administración de Modelos de Calificación para Análisis de Capacidad de Pago</p>
+            <p class="contenido-main-macred__h2">Administración de Modelos de Análisis Scoring</p>
         </div>
         <hr>
         <button class="back-ico-two"
@@ -15,7 +15,7 @@
     <div class="card">
         <div class="card-body">
 
-            <p class="contenido-main-macred__h3">Modelos de Calificación</p>
+            <p class="contenido-main-macred__h3">Modelos de Análisis Scoring</p>
 
             <hr>
 
@@ -25,7 +25,7 @@
 
                     <div class="formulario-izquierdo__nav">
                         <div class="formulario-izquierdo__nav__prev" >
-                            <p class="formulario-izquierdo__nav__prev__tittle">Mantenimiento de Modelos de Calificación</p>
+                            <p class="formulario-izquierdo__nav__prev__tittle">Mantenimiento de Modelos de Análisis Scoring</p>
                         </div>
 
                         <div class="formulario-izquierdo__nav__next" >
@@ -68,16 +68,16 @@
                 <div *ngIf="habilitaListaModelo" class="lista-inline">
 
                     <div class="lista-inline__nav" >
-                        <p class="lista-inline__nav__tittle">Lista de Modelos de Calificación</p>
+                        <p class="lista-inline__nav__tittle">Lista de Modelos de Análisis Scoring</p>
                     </div>
 
                     <div *ngIf="listModelos" class="scroll-table-macred__personas">
                         <table class="table table-striped">
                             <thead>
                                 <tr>
-                                    <th class="table__modelos-calificacion__ico"></th>
-                                    <th class="table__modelos-calificacion__desc">Descripción</th>
-                                    <th class="table__modelos-calificacion__estado">Estado</th>
+                                    <th class="table__modelos-analisis__ico"></th>
+                                    <th class="table__modelos-analisis__desc">Descripción</th>
+                                    <th class="table__modelos-analisis__estado">Estado</th>
                                 </tr>
                             </thead>
                             <tbody>
@@ -86,9 +86,9 @@
                                     <td class="item-edit">
                                         <div> <a> <mat-icon>swap_horiz</mat-icon> </a> </div> </td>
 
-                                    <td class="item-edit table__modelos-calificacion__desc__td">{{obj.descripcion}}</td>
-                                    <td *ngIf="obj.estado==true" class="item-edit table__modelos-calificacion__estado__td">Activo</td>
-                                    <td *ngIf="obj.estado==false" class="item-edit table__modelos-calificacion__estado__td">Inactivo</td>
+                                    <td class="item-edit table__modelos-analisis__desc__td">{{obj.descripcion}}</td>
+                                    <td *ngIf="obj.estado==true" class="item-edit table__modelos-analisis__estado__td">Activo</td>
+                                    <td *ngIf="obj.estado==false" class="item-edit table__modelos-analisis__estado__td">Inactivo</td>
                                 </tr>
                             </tbody>
                         </table>
@@ -101,7 +101,7 @@
             <div *ngIf="habilitaFormularioGrupo" class="card">
                 <div class="card-body">
 
-                    <p class="contenido-main-macred__h3">Grupos de Modelos de Calificación</p>
+                    <p class="contenido-main-macred__h3">Grupos de Modelos de Análisis</p>
                     
                     <hr>
 
@@ -184,17 +184,17 @@
                         <div *ngIf="habilitaListaGrupo" class="lista-inline">
 
                             <div class="lista-inline__nav" >
-                                <p class="lista-inline__nav__tittle">Grupos de Modelos de Calificación para {{objSeleccionadoModelo.descripcion}}</p>
+                                <p class="lista-inline__nav__tittle">Grupos de Modelos de Análisis para {{objSeleccionadoModelo.descripcion}}</p>
                             </div>
 
                             <div *ngIf="listModelos" class="scroll-table-macred__personas">
                                 <table class="table table-striped">
                                     <thead>
                                         <tr>
-                                            <th class="table__modelos-calificacion__ico"></th>
-                                            <th class="table__modelos-calificacion__grupo__desc">Descripción</th>
-                                            <th class="table__modelos-calificacion__grupo__peso">Peso</th>
-                                            <th class="table__modelos-calificacion__estado">Estado</th>
+                                            <th class="table__modelos-analisis__ico"></th>
+                                            <th class="table__modelos-analisis__grupo__desc">Descripción</th>
+                                            <th class="table__modelos-analisis__grupo__peso">Peso</th>
+                                            <th class="table__modelos-analisis__estado">Estado</th>
                                         </tr>
                                     </thead>
                                     <tbody>
@@ -204,9 +204,9 @@
                                                 <div> <a> <mat-icon>swap_horiz</mat-icon> </a> </div> </td>
 
                                             <td class="item-edit">{{obj.descripcion}}</td>
-                                            <td class="item-edit table__modelos-calificacion__grupo__peso__td">{{obj.peso}}</td>
-                                            <td *ngIf="obj.estado==true" class="item-edit table__modelos-calificacion__estado__td">Activo</td>
-                                            <td *ngIf="obj.estado==false" class="item-edit table__modelos-calificacion__estado__td">Inactivo</td>
+                                            <td class="item-edit table__modelos-analisis__grupo__peso__td">{{obj.peso}}</td>
+                                            <td *ngIf="obj.estado==true" class="item-edit table__modelos-analisis__estado__td">Activo</td>
+                                            <td *ngIf="obj.estado==false" class="item-edit table__modelos-analisis__estado__td">Inactivo</td>
                                         </tr>
                                     </tbody>
                                 </table>
@@ -222,7 +222,7 @@
             <div *ngIf="habilitaFormularioIndicador" class="card">
                 <div class="card-body">
 
-                    <p class="contenido-main-macred__h3">Indicadores por Grupos de Modelos de Calificación</p>
+                    <p class="contenido-main-macred__h3">Indicadores por Grupos de Modelos de Análisis</p>
                     
                     <hr>
 
@@ -256,18 +256,17 @@
 
                                     <div class="form-group col-sm-10">
                                         <label for="id_indicador" class="form-label">Modelo</label>
-                                        <select formControlName="indicadorRelevante" 
+                                        <select formControlName="indicadorScoring" 
                                                 class="form-control" 
                                                 name="selectIndicadores"
                                                 id="id_indicador"
-                                                [ngClass]="{ 'is-invalid': submitFormIndicador && i.indicadorRelevante.errors }" 
+                                                [ngClass]="{ 'is-invalid': submitFormIndicador && i.indicadorScoring.errors }" 
                                                 (change)="onChangeEventIndicador()">
                                             <option [ngValue]="objeto"
-                                                    *ngFor="let objeto of listIndicadoresRelevantes">{{objeto.codIndicador}} - 
-                                                                                                        {{objeto.descripcion}}</option>
+                                                    *ngFor="let objeto of listIndicadoresScoring">{{objeto.id}} - {{objeto.descripcion}}</option>
                                         </select>
-                                        <div *ngIf="submitFormIndicador && i.indicadorRelevante.errors" class="invalid-feedback">
-                                            <div *ngIf="i.indicadorRelevante.errors.required">{{ 'GENERAL.VALIDATES.EMPTY' | translate }}</div>
+                                        <div *ngIf="submitFormIndicador && i.indicadorScoring.errors" class="invalid-feedback">
+                                            <div *ngIf="i.indicadorScoring.errors.required">{{ 'GENERAL.VALIDATES.EMPTY' | translate }}</div>
                                         </div>
                                     </div>
 
@@ -316,10 +315,10 @@
                                 <table class="table table-striped">
                                     <thead>
                                         <tr>
-                                            <th class="table__modelos-calificacion__ico"></th>
-                                            <th class="table__modelos-calificacion__indicador__desc">Descripción</th>
-                                            <th class="table__modelos-calificacion__indicador__peso">Peso</th>
-                                            <th class="table__modelos-calificacion__estado">Estado</th>
+                                            <th class="table__modelos-analisis__ico"></th>
+                                            <th class="table__modelos-analisis__indicador__desc">Descripción</th>
+                                            <th class="table__modelos-analisis__indicador__peso">Peso</th>
+                                            <th class="table__modelos-analisis__estado">Estado</th>
                                         </tr>
                                     </thead>
                                     <tbody>
@@ -329,9 +328,9 @@
                                                 <div> <a> <mat-icon>swap_horiz</mat-icon> </a> </div> </td>
 
                                             <td class="item-edit">{{obj.descripcion}}</td>
-                                            <td class="item-edit table__modelos-calificacion__indicador__peso__td">{{obj.peso}}</td>
-                                            <td *ngIf="obj.estado==true" class="item-edit table__modelos-calificacion__estado__td">Activo</td>
-                                            <td *ngIf="obj.estado==false" class="item-edit table__modelos-calificacion__estado__td">Inactivo</td>
+                                            <td class="item-edit table__modelos-analisis__indicador__peso__td">{{obj.peso}}</td>
+                                            <td *ngIf="obj.estado==true" class="item-edit table__modelos-analisis__estado__td">Activo</td>
+                                            <td *ngIf="obj.estado==false" class="item-edit table__modelos-analisis__estado__td">Inactivo</td>
                                         </tr>
                                     </tbody>
                                 </table>

@@ -6,7 +6,7 @@ import { MacInformacionCreditoPersona, MacPersona } from '@app/_models/Macred/Pe
 import { MacTipoIngresoAnalisis } from '@app/_models/Macred/TipoIngresoAnalisis';
 import { MacTipoFormaPagoAnalisis } from '@app/_models/Macred/TipoFormaPagoAnalisis';
 import { MacTiposMoneda } from '@app/_models/Macred/TiposMoneda';
-import { MacModeloAnalisis } from '@app/_models/Macred/ModeloAnalisis';
+import { MacGrupoModeloAnalisis, MacIndicadorGrupoModeloAnalisis, MacModeloAnalisis } from '@app/_models/Macred/ModeloAnalisis';
 import { MacNivelCapacidadPago } from '@app/_models/Macred/NivelCapacidadPago';
 import { MacTipoGenerador } from '@app/_models/Macred/TipoGenerador';
 import { MacAnalisisCapacidadPago } from '@app/_models/Macred/AnalisisCapacidadPago';
@@ -30,6 +30,7 @@ import {  AnalisisHistoricoPD,
           MacIndicadoresRelevantes,
           MacNivelesXIndicador,
           MacParametrosGenerales,
+          MacVariableCriticaXEscenario,
           MacVariablesCriticas,
           ModelosPD,
           ScoringFlujoCajaLibre,
@@ -45,8 +46,13 @@ import { FactoresInferibles } from '@app/_models/Macred/FactoresInferibles';
 import { RangoExtra } from '@app/_models/Macred/RangoExtra';
 import { PonderacionRiesgo } from '@app/_models/Macred/PonderacionRangos';
 import { TipoMoneda } from '@app/_models/Macred/TipoMoneda';
-import { MacGrupoModeloCalificacion, MacIndicadorGrupoModeloCalificacion, MacModeloCalificacion } from '@app/_models/Macred/ModeloCalificacion';
+import {  MacGrupoModeloCalificacion, 
+          MacIndicadorGrupoModeloCalificacion, 
+          MacModeloCalificacion } from '@app/_models/Macred/ModeloCalificacion';
 import { MacGrupoModeloPD, MacIndicadorGrupoModeloPD, MacModeloPD } from '@app/_models/Macred/ModeloPD';
+import { MacNivelRiesgo } from '@app/_models/Macred/NivelRiesgo';
+import { MacIndicadorScoring } from '@app/_models/Macred/IndicadorScoring';
+import { MacNivelesXIndicadorScoring } from '@app/_models/Macred/NivelXIndicadorScoring';
 
 @Injectable({ providedIn: 'root' })
 export class MacredService {
@@ -120,6 +126,12 @@ export class MacredService {
       { headers: this.headersValue }
     );
   }
+  getIndicadoresRelevantesActivos() {
+    return this.http.get<MacIndicadoresRelevantes[]>(
+      `${environment.apiUrl}/macred/getindicadoresrelevantesactivos?pidCompania=${this.businessValue.id}`,
+      { headers: this.headersValue }
+    );
+  }
   postIndicadorRelevante(pobj: MacIndicadoresRelevantes) {
     return this.http.post<ResponseMessage>(
       `${environment.apiUrl}/macred/postindicadorrelevante`, pobj,
@@ -134,7 +146,66 @@ export class MacredService {
   }
   deleteIndicadorRelevante(pIndRelevante: number) {
     return this.http.delete<ResponseMessage>(
-      `${environment.apiUrl}/macred/deleteindicadorRelevante?pidIndRelevante=${pIndRelevante}`,
+      `${environment.apiUrl}/macred/deleteindicadorrelevante?pidIndRelevante=${pIndRelevante}`,
+      { headers: this.headersValue }
+    );
+  }
+
+  // INDICADORES SCORING
+  getIndicadoresScoring() {
+    return this.http.get<MacIndicadorScoring[]>(
+      `${environment.apiUrl}/macred/getindicadoresscoring?pidCompania=${this.businessValue.id}
+                                                          &pidModulo=${this.moduleValue.id}`,
+      { headers: this.headersValue }
+    );
+  }
+  getIndicadoresScoringActivos() {
+    return this.http.get<MacIndicadorScoring[]>(
+      `${environment.apiUrl}/macred/getindicadoresactivosscoring?pidCompania=${this.businessValue.id}
+                                                                &pidModulo=${this.moduleValue.id}`,
+      { headers: this.headersValue }
+    );
+  }
+  postIndicadorScoring(pobj: MacIndicadorScoring) {
+    return this.http.post<ResponseMessage>(
+      `${environment.apiUrl}/macred/postindicadorscoring`, pobj,
+      { headers: this.headersValue }
+    );
+  }
+  putIndicadorScoring(pobj: MacIndicadorScoring) {
+    return this.http.put<ResponseMessage>(
+      `${environment.apiUrl}/macred/putindicadorscoring`, pobj,
+      { headers: this.headersValue }
+    );
+  }
+  deleteIndicadorScoring(pidIndicador: number) {
+    return this.http.delete<ResponseMessage>(
+      `${environment.apiUrl}/macred/deleteindicadorscoring?pidIndicador=${pidIndicador}`,
+      { headers: this.headersValue }
+    );
+  }
+
+  // NIVELES RIESGO X INDICADORES SCORING
+  getNivelesXIndicadorScoring(pidIndicador: number) {
+    return this.http.get<MacNivelesXIndicadorScoring[]>(
+      `${environment.apiUrl}/macred/getnivelesxindicadorscoring?pidIndicador=${pidIndicador}`,
+      { headers: this.headersValue }
+    );
+  }
+  postNivelXIndicadorScoring(pobj: MacNivelesXIndicadorScoring) {
+    return this.http.post<ResponseMessage>(
+      `${environment.apiUrl}/macred/postnivelxindicadorscoring`, pobj, { headers: this.headersValue }
+    );
+  }
+  putNivelXIndicadorScoring(pobj: MacNivelesXIndicadorScoring) {
+    return this.http.put<ResponseMessage>(
+      `${environment.apiUrl}/macred/puttnivelxindicadorscoring`, pobj, { headers: this.headersValue }
+    );
+  }
+  deleteNivelXIndicadorScoring(pidIndicador: number, pidNivel: number) {
+    return this.http.delete<ResponseMessage>(
+      `${environment.apiUrl}/macred/deletenivelxindicadorscoring?pidIndicador=${pidIndicador}
+                                                                &pidNivel=${pidNivel}`, 
       { headers: this.headersValue }
     );
   }
@@ -144,6 +215,13 @@ export class MacredService {
     return this.http.get<MacVariablesCriticas[]>(
       `${environment.apiUrl}/macred/getvariablescriticas?pidCompania=${this.businessValue.id}
                                                         &pidModulo=${this.moduleValue.id}`,
+      { headers: this.headersValue }
+    );
+  }
+  getVariablesCriticasActivas() {
+    return this.http.get<MacVariablesCriticas[]>(
+      `${environment.apiUrl}/macred/getvariablescriticasactivas?pidCompania=${this.businessValue.id}
+                                                                &pidModulo=${this.moduleValue.id}`,
       { headers: this.headersValue }
     );
   }
@@ -166,29 +244,78 @@ export class MacredService {
     );
   }
 
-  // NIVEL DE CAPACIDAD DE PAGO
-  getNivelesCapacidadPago(pininactivos: boolean) {
-    return this.http.get<MacNivelCapacidadPago[]>(
-      `${environment.apiUrl}/macred/getnivelcapacidadpago?idCompania=${this.businessValue.id}&ininactivos=${pininactivos}`,
+  // VARIABES CRITICAS X ESCENARIO
+  getVariablesCriticasXEscenario(pidEscenario: number) {
+    return this.http.get<MacVariableCriticaXEscenario[]>(
+      `${environment.apiUrl}/macred/getvariablescriticasxescenario?pidEscenario=${pidEscenario}`,
       { headers: this.headersValue }
     );
   }
-  postNiveleCapacidadPago(pobj: MacNivelCapacidadPago) {
+  postVariableCriticaXEscenario(pobj: MacVariableCriticaXEscenario) {
+    return this.http.post<ResponseMessage>(
+      `${environment.apiUrl}/macred/postvariablecriticaxescenario`, pobj,
+      { headers: this.headersValue }
+    );
+  }
+  putVariableCriticaXEscenario(pobj: MacVariableCriticaXEscenario) {
+    return this.http.put<ResponseMessage>(
+      `${environment.apiUrl}/macred/putvariablecriticaxescenario`, pobj,
+      { headers: this.headersValue }
+    );
+  }
+  deleteVariableCriticaXEscenario(pid: number) {
+    return this.http.delete<ResponseMessage>(
+      `${environment.apiUrl}/macred/deletevariablecriticaxescenario?pid=${pid}`,
+      { headers: this.headersValue }
+    );
+  }
+
+  // NIVEL DE CAPACIDAD DE PAGO
+  getNivelesCapacidadPago(pininactivos: boolean) {
+    return this.http.get<MacNivelCapacidadPago[]>(
+      `${environment.apiUrl}/macred/getnivelescapacidadpago?idCompania=${this.businessValue.id}&ininactivos=${pininactivos}`,
+      { headers: this.headersValue }
+    );
+  }
+  postNivelCapacidadPago(pobj: MacNivelCapacidadPago) {
     return this.http.post<ResponseMessage>(
       `${environment.apiUrl}/macred/postnivelcapacidadpago`, pobj,
       { headers: this.headersValue }
     );
   }
-  putNiveleCapacidadPago(pobj: MacNivelCapacidadPago) {
+  putNivelCapacidadPago(pobj: MacNivelCapacidadPago) {
     return this.http.put<ResponseMessage>(
       `${environment.apiUrl}/macred/putnivelcapacidadpago`, pobj,
       { headers: this.headersValue }
     );
   }
-  deleteNiveleCapacidadPago(pid: number) {
+  deleteNivelCapacidadPago(pid: number) {
     return this.http.delete<ResponseMessage>(
       `${environment.apiUrl}/macred/deletenivelcapacidadpago?pid=${pid}`,
       { headers: this.headersValue } );
+  }
+
+  // NIVELES DE RIESGO
+  getNivelesRiesgos(pinactivos: boolean) {
+    return this.http.get<MacNivelRiesgo[]>(
+      `${environment.apiUrl}/macred/getnivelesriesgos?pidCompania=${this.businessValue.id}
+                                                      &pidModulo=${this.moduleValue.id}
+                                                      &pinactivos=${pinactivos}`,
+      { headers: this.headersValue });
+  }
+  postNivelRiesgo(pobj: MacNivelRiesgo) {
+    return this.http.post<ResponseMessage>(
+      `${environment.apiUrl}/macred/postnivelriesgo`, pobj, { headers: this.headersValue });
+  }
+  putNivelRiesgo(pobj: MacNivelRiesgo) {
+    return this.http.put<ResponseMessage>(
+      `${environment.apiUrl}/macred/putnivelriesgo`, pobj,
+      { headers: this.headersValue });
+  }
+  deleteNiveleRiesgo(pid: number) {
+    return this.http.delete<ResponseMessage>(
+      `${environment.apiUrl}/macred/deletenivelriesgo?pid=${pid}`,
+      { headers: this.headersValue });
   }
 
   // VARIABLES PD
@@ -238,7 +365,7 @@ export class MacredService {
       { headers: this.headersValue });
   }
 
-  // GRUPOS MODELOS CALIFICACION
+  // GRUPOS MODELOS PD
   getGruposModelosPD(pidModelo : number) {
     return this.http.get<MacGrupoModeloPD[]>(
       `${environment.apiUrl}/macred/getgruposmodpd?pidModelo=${ pidModelo }
@@ -259,7 +386,7 @@ export class MacredService {
       { headers: this.headersValue });
   }
 
-  // MODELOS CALIFICACION
+  // MODELOS PD
   getModeloPD(pid : number) {
     return this.http.get<MacModeloPD>(
       `${environment.apiUrl}/macred/getmodelopd?pid=${pid}`,
@@ -289,8 +416,16 @@ export class MacredService {
   getIndicadoresGrupoModCalif(pidGrupo : number) {
     return this.http.get<MacIndicadorGrupoModeloCalificacion[]>(
       `${environment.apiUrl}/macred/getindicadoresgrupomodcalif?pidGrupo=${ pidGrupo }
-        &pidBusiness=${ this.businessValue.id }
-        &pidModule=${ this.moduleValue.id }`, { headers: this.headersValue } );
+                                                                &pidBusiness=${ this.businessValue.id }
+                                                                &pidModule=${ this.moduleValue.id }`, 
+      { headers: this.headersValue } );
+  }
+  getIndicadoresGrupoModCalifXIndicador(pidIndicador : number) {
+    return this.http.get<MacIndicadorGrupoModeloCalificacion[]>(
+      `${environment.apiUrl}/macred/getindgrupomodcalifindicador?pidIndicador=${ pidIndicador }
+                                                                &pidBusiness=${ this.businessValue.id }
+                                                                &pidModule=${ this.moduleValue.id }`, 
+      { headers: this.headersValue } );
   }
   postIndicadoresGrupoModCalif(pobj: MacIndicadorGrupoModeloCalificacion) {
     return this.http.post<ResponseMessage>(
@@ -310,8 +445,8 @@ export class MacredService {
   getGruposModelosCalificacion(pidModelo : number) {
     return this.http.get<MacGrupoModeloCalificacion[]>(
       `${environment.apiUrl}/macred/getgruposmodcalificacion?pidModelo=${ pidModelo }
-        &pidBusiness=${ this.businessValue.id }
-        &pidModule=${ this.moduleValue.id }`, { headers: this.headersValue } );
+                                                            &pidBusiness=${ this.businessValue.id }
+                                                            &pidModule=${ this.moduleValue.id }`, { headers: this.headersValue } );
   }
   postGrupoModeloCalificacion(pobj: MacGrupoModeloCalificacion) {
     return this.http.post<ResponseMessage>(
@@ -343,7 +478,7 @@ export class MacredService {
     return this.http.get<MacModeloCalificacion[]>(
       `${environment.apiUrl}/macred/getmodeloscalificacionactivos?pidBusiness=${this.businessValue.id}
                                                                   &pidModule=${this.moduleValue.id}`,
-      { headers: this.headersValue } );
+      { headers: this.headersValue });
   }
   postModeloCalificacion(pobj: MacModeloCalificacion) {
     return this.http.post<ResponseMessage>(
@@ -356,6 +491,89 @@ export class MacredService {
   deleteModeloCalificacion(pid: number) {
     return this.http.delete<ResponseMessage>(
       `${environment.apiUrl}/macred/deletemodelocalificacion?pid=${pid}`,
+      { headers: this.headersValue });
+  }
+
+  // MODELOS ANÁLISIS
+  getModelosAnalisis(pinactivos : boolean) {
+    return this.http.get<MacModeloAnalisis[]>(
+      `${environment.apiUrl}/macred/getmodelosanalisis?pidCompania=${this.businessValue.id}
+                                                          &pidModulo=${this.moduleValue.id}
+                                                          &pinactivos=${pinactivos}`,
+      { headers: this.headersValue });
+  }
+  postModeloAnalisis(pobj: MacModeloAnalisis) {
+    return this.http.post<ResponseMessage>(
+      `${environment.apiUrl}/macred/postmodeloanalisis`, pobj, { headers: this.headersValue });
+  }
+  putModeloAnalisis(pobj: MacModeloAnalisis) {
+    return this.http.put<ResponseMessage>(
+      `${environment.apiUrl}/macred/putmodeloanalisis`, pobj, { headers: this.headersValue });
+  }
+  deleteModeloAnalisis(pid: number) {
+    return this.http.delete<ResponseMessage>(
+      `${environment.apiUrl}/macred/deletemodeloanalisis?pid=${pid}`, { headers: this.headersValue });
+  }
+
+  // GRUPOS MODELOS ANÁLISIS
+  getGruposModelosAnalisis(pidModelo : number) {
+    return this.http.get<MacGrupoModeloAnalisis[]>(
+      `${environment.apiUrl}/macred/getgruposmodanalisis?pidModelo=${ pidModelo }`, 
+      { headers: this.headersValue } );
+  }
+  postGrupoModeloAnalisis(pobj: MacGrupoModeloAnalisis) {
+    return this.http.post<ResponseMessage>(
+      `${environment.apiUrl}/macred/postgrupomodanalisis`, pobj, { headers: this.headersValue });
+  }
+  putGrupoModeloAnalisis(pobj: MacGrupoModeloAnalisis) {
+    return this.http.put<ResponseMessage>(
+      `${environment.apiUrl}/macred/putgrupomodanalisis`, pobj, { headers: this.headersValue });
+  }
+  deleteGrupoModeloAnalisis(pid: number) {
+    return this.http.delete<ResponseMessage>(
+      `${environment.apiUrl}/macred/deletegrupomodanalisis?pid=${pid}`,
+      { headers: this.headersValue });
+  }
+
+  // INDICADORES GRUPOS MODELOS ANÁLISIS
+  getIndicadoresGrupoModAnalisis(pidGrupo : number) {
+    return this.http.get<MacIndicadorGrupoModeloAnalisis[]>(
+      `${environment.apiUrl}/macred/getindicadoresgrupomodanalisis?pidGrupo=${ pidGrupo }`, 
+      { headers: this.headersValue } );
+  }
+  postIndicadorGrupoModAnalisis(pobj: MacIndicadorGrupoModeloAnalisis) {
+    return this.http.post<ResponseMessage>(
+      `${environment.apiUrl}/macred/postindicadorgrupomodanalisis`, pobj, { headers: this.headersValue });
+  }
+  putIndicadoresGrupoModAnalisis(pobj: MacIndicadorGrupoModeloAnalisis) {
+    return this.http.put<ResponseMessage>(
+      `${environment.apiUrl}/macred/putindicadorgrupomodanalisis`, pobj, { headers: this.headersValue });
+  }
+  deleteIndicadoresGrupoModAnalisis(pid: number) {
+    return this.http.delete<ResponseMessage>(
+      `${environment.apiUrl}/macred/deleteindicadorgrupomodanalisis?pid=${pid}`,
+      { headers: this.headersValue });
+  }
+
+  // ESCENARIOS RIESGO
+  getEscenariosRiesgos() {
+    return this.http.get<MacEscenariosRiesgos[]>(
+      `${environment.apiUrl}/macred/getescenariosriesgo?pidCompania=${this.businessValue.id}`,
+      { headers: this.headersValue });
+  }
+  postEscenariosRiesgo(pobj: MacEscenariosRiesgos) {
+    return this.http.post<ResponseMessage>(
+      `${environment.apiUrl}/macred/postescenarioriesgo`, pobj, { headers: this.headersValue }
+    );
+  }
+  putEscenariosRiesgos(pobj: MacEscenariosRiesgos) {
+    return this.http.put<ResponseMessage>(
+      `${environment.apiUrl}/macred/putescenarioriesgo`, pobj, { headers: this.headersValue }
+    );
+  }
+  deleteEscenariosRiesgos(pid: number) {
+    return this.http.delete<ResponseMessage>(
+      `${environment.apiUrl}/macred/deleteescenarioriesgo?pid=${pid}`,
       { headers: this.headersValue });
   }
 
@@ -381,6 +599,7 @@ export class MacredService {
                                                             &pidModule=${pobj.idModulo}`, 
       { headers: this.headersValue });
   }
+
   // PERIOCIDADES
   GET_PERIOCIDAD() {
     return this.http.get<Periocidad[]>(
@@ -403,6 +622,7 @@ export class MacredService {
                                                     &pidModule=${pobj.idModulo}`, 
       { headers: this.headersValue });
   }
+  
   // TIPOS LÍNEAS DE CRÉDITO
   GET_TIPOS_CREDITO() {
     return this.http.get<TipoLineaCredito[]>(
@@ -425,6 +645,7 @@ export class MacredService {
                                                           &pidModule=${pobj.idModulo}`, 
       { headers: this.headersValue });
   }
+  
   // CATEGORÍAS RIESGO
   GET_CATEGORIA_RIESGO() {
     return this.http.get<CategoriaRiesgo[]>(
@@ -851,11 +1072,11 @@ export class MacredService {
       `${environment.apiUrl}/macred/gettiposmonedas?idCompania=${idCompania}`
     );
   }
-  getModelosAnalisis(idCompania: number, incluyeInactivos: boolean) {
-    return this.http.get<MacModeloAnalisis[]>(
-      `${environment.apiUrl}/macred/getmodelosanalisis?idCompania=${idCompania}&incluyeInactivos=${incluyeInactivos}`
-    );
-  }
+  // getModelosAnalisis(idCompania: number, incluyeInactivos: boolean) {
+  //   return this.http.get<MacModeloAnalisis[]>(
+  //     `${environment.apiUrl}/macred/getmodelosanalisis?idCompania=${idCompania}&incluyeInactivos=${incluyeInactivos}`
+  //   );
+  // }
   getTiposGenerador(idCompania: number, incluyeInactivos: boolean) {
     return this.http.get<MacTipoGenerador[]>(
       `${environment.apiUrl}/macred/gettiposgeneradores?idCompania=${idCompania}&incluyeInactivos=${incluyeInactivos}`
@@ -1170,37 +1391,6 @@ export class MacredService {
   }
 
   //#endregion
-
-  //#endregion
-
-  //#region ESCENARIOS DE RIESGOS
-
-  getEscenariosRiesgos() {
-    return this.http.get<MacEscenariosRiesgos[]>(
-      `${environment.apiUrl}/macred/getescenariosriesgo?pidCompania=${this.businessValue.id}`
-    );
-  }
-  postEscenariosRiesgo(pobj: MacEscenariosRiesgos) {
-    return this.http.post<ResponseMessage>(
-      `${environment.apiUrl}/macred/postescenarioriesgo`, pobj
-    );
-  }
-
-  putEscenariosRiesgos(
-    idCodVariable: number,
-    inVariableCritica: MacEscenariosRiesgos
-  ) {
-    return this.http.put<ResponseMessage>(
-      `${environment.apiUrl}/macred/putEscenariosRiesgo/${idCodVariable}`,
-      inVariableCritica
-    );
-  }
-
-  deleteEscenariosRiesgos(idCodVariable: number) {
-    return this.http.delete<ResponseMessage>(
-      `${environment.apiUrl}/macred/deleteEscenariosRiesgo/${idCodVariable}`
-    );
-  }
 
   //#endregion
 }
