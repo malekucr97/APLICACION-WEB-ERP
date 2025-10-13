@@ -563,7 +563,7 @@ export class PersonaAnalisisComponent extends OnSeguridad implements OnInit {
     }
 
     private getPersonas() : void {
-        this.macredService.getPersonasCompania(this.userObservable.empresa)
+        this.macredService.getPersonas()
             .pipe(first())
             .subscribe(response => {
                 if (response && response.length > 0) {
@@ -683,9 +683,9 @@ export class PersonaAnalisisComponent extends OnSeguridad implements OnInit {
         this.listPersonas = [];
         this.listInfoCreditoPersonas = [];
 
-        let identificacion = this.formPersona.controls['identificacion'].value ;
-        let nombre = this.formPersona.controls['nombre'].value ;
-        let apellido = this.formPersona.controls['primerApellido'].value ;
+        let identificacion = this.formPersona.controls['identificacion'].value;
+        let nombre = this.formPersona.controls['nombre'].value;
+        let apellido = this.formPersona.controls['primerApellido'].value;
 
         let busqueda : string = '';
         

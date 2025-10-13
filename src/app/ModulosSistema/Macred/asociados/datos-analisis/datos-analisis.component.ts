@@ -1,16 +1,14 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { UntypedFormBuilder, UntypedFormGroup, Validators } from '@angular/forms';
 import { Compania, Module, User } from '@app/_models';
-import {
-  MacAnalisisCapacidadPago,
-  MacModeloAnalisis,
-  MacNivelCapacidadPago,
-  MacPersona,
-  MacTipoFormaPagoAnalisis,
-  MacTipoGenerador,
-  MacTipoIngresoAnalisis,
-  MacTiposMoneda,
-} from '@app/_models/Macred';
+import {  MacAnalisisCapacidadPago,
+          MacModeloAnalisis,
+          MacNivelCapacidadPago,
+          MacPersona,
+          MacTipoFormaPagoAnalisis,
+          MacTipoGenerador,
+          MacTipoIngresoAnalisis,
+          MacTiposMoneda } from '@app/_models/Macred';
 import { AccountService, AlertService } from '@app/_services';
 import { MacredService } from '@app/_services/macred.service';
 import { first } from 'rxjs/operators';
@@ -18,16 +16,16 @@ import { SrvDatosAnalisisService } from '../servicios/srv-datos-analisis.service
 
 declare var $: any;
 
-@Component({
-    selector: 'app-datos-analisis',
-    templateUrl: './datos-analisis.component.html',
-    styleUrls: [
-        '../../../../../assets/scss/app.scss',
-        '../../../../../assets/scss/macred/app.scss',
-    ],
-    standalone: false
+@Component({selector: 'app-datos-analisis-macred',
+            templateUrl: './datos-analisis.component.html',
+            styleUrls: [
+                '../../../../../assets/scss/app.scss',
+                '../../../../../assets/scss/macred/app.scss',
+            ],
+            standalone: false
 })
 export class DatosAnalisisComponent implements OnInit {
+
   //VARIABLES INPUT DEL COMPONENTE PADRE
   @Input() _personaAnalisis: MacPersona;
   @Input() _globalCodMonedaPrincipal: number;
@@ -45,7 +43,6 @@ export class DatosAnalisisComponent implements OnInit {
   private userObservable: User;
   private companiaObservable: Compania;
   private moduleObservable: Module;
-  public today: Date;
 
   habilitaBtnRegistroDeudor: boolean = false;
   habilitaBtnHistoprialIngreso: boolean = true;
@@ -56,41 +53,42 @@ export class DatosAnalisisComponent implements OnInit {
 
   formAnalisis: UntypedFormGroup;
   submittedAnalisisForm: boolean = false;
-  get g() {
-    return this.formAnalisis.controls;
-  }
 
   listHistorialAnalisis: MacAnalisisCapacidadPago[] = [];
 
   formHistorialAnalisis: UntypedFormGroup;
   submittedHistorialAnalisisForm: boolean = false;
-  get h() {
-    return this.formHistorialAnalisis.controls;
-  }
 
-  constructor(
-    private formBuilder: UntypedFormBuilder,
-    private macredService: MacredService,
-    private accountService: AccountService,
-    private alertService: AlertService,
-    public srvDatosAnalisisService: SrvDatosAnalisisService
-  ) {
+  get g() { return this.formAnalisis.controls; }
+  get h() { return this.formHistorialAnalisis.controls; }
+
+  public today : Date = new Date();
+
+  analisisSeleccionado : MacAnalisisCapacidadPago = undefined;
+
+  constructor(private formBuilder: UntypedFormBuilder,
+              private macredService: MacredService,
+              private accountService: AccountService,
+              private alertService: AlertService,
+              public srvDatosAnalisisService: SrvDatosAnalisisService) {
+
     this.srvDatosAnalisisService._analisisCapacidadpago = undefined;
+
     this.userObservable = this.accountService.userValue;
     this.moduleObservable = this.accountService.moduleValue;
     this.companiaObservable = this.accountService.businessValue;
-    this.today = new Date();
-  }
 
-  ngOnInit(): void {
-    this.formHistorialAnalisis = this.formBuilder.group({
-      codigoAnalisisHistorial: [null],
-    });
     this.inicializaFormDatosAnalisis();
+    this.inicializaFormHistorial();
   }
 
-  inicializaFormDatosAnalisis(): void {
+  ngOnInit(): void {}
+
+
+  inicializaFormDatosAnalisis1(): void {
+
     if (this.srvDatosAnalisisService._analisisCapacidadpago) {
+
       this.habilitaBtnGeneraNuevoAnalisis = false;
       this.habilitaBtnGuardarAnalisis = true;
       this.inicializarBotonesParaContinuar();
@@ -188,12 +186,9 @@ export class DatosAnalisisComponent implements OnInit {
       //   totalDeducciones: this._analisisCapacidadpago.totalDeducciones,
       // });
     } else {
-      let observacion: string =
-        `Análisis generado el ` +
-        this.today +
-        ` por ` +
-        this.userObservable.nombreCompleto +
-        `.`;
+
+      let observacion: string = `Análisis generado el ` + this.today + ` por ` +
+                                this.userObservable.identificacion + `.`;
 
       this.habilitaBtnGeneraNuevoAnalisis = true;
       this.habilitaBtnGuardarAnalisis = false;
@@ -209,34 +204,35 @@ export class DatosAnalisisComponent implements OnInit {
         tipoIngresoAnalisis: [null, Validators.required],
         tipoFormaPagoAnalisis: [null, Validators.required],
 
-        tipoMoneda: [
-          this.listTiposMonedas.find(
-            (x) => x.id === this._globalCodMonedaPrincipal
-          ),
-          Validators.required,
-        ],
+        // tipoMoneda: [ this.listTiposMonedas.find(
+        //               (x) => x.id === this._globalCodMonedaPrincipal ), Validators.required ],
+        tipoMoneda: [null, Validators.required ],
         analisisDefinitivo: false,
         estado: true,
 
-        modeloAnalisis: [
-          this.listModelosAnalisis.find((x) => x.id === 5),
-          Validators.required,
-        ],
+        // modeloAnalisis: [ this.listModelosAnalisis.find((x) => x.id === 5), Validators.required ],
+        modeloAnalisis: [null, Validators.required ],
         indicadorCsd: null,
         ponderacionLvt: null,
 
-        capacidadPago: this.listNivelesCapacidadpago.find((x) => x.id === 99),
-        tipoGenerador: this.listTiposGeneradores.find((x) => x.id === 99),
-        numeroDependientes: 0,
-        puntajeAnalisis: 0,
-        calificacionCic: '0',
-        calificacionFinalCic: 0,
+        // capacidadPago: this.listNivelesCapacidadpago.find((x) => x.id === 99),
+        // tipoGenerador: this.listTiposGeneradores.find((x) => x.id === 99),
+        capacidadPago: null,
+        tipoGenerador: null,
+        // numeroDependientes: 0,
+        // puntajeAnalisis: 0,
+        // calificacionCic: '0',
+        // calificacionFinalCic: 0,
+        numeroDependientes: null,
+        puntajeAnalisis: null,
+        calificacionCic: null,
+        calificacionFinalCic: null,
         observaciones: observacion,
       });
     }
   }
 
-  inicializarBotonesParaContinuar(){
+  inicializarBotonesParaContinuar() {
 
     this.habilitaBtnIngreso = false;
     this.habilitaBtnPD_analisisIndependiente = false;
@@ -255,24 +251,22 @@ export class DatosAnalisisComponent implements OnInit {
   }
 
   openHistorialModal(): void {
-    this.formHistorialAnalisis = this.formBuilder.group({
-      codigoAnalisisHistorial: [null, Validators.required],
-    });
 
-    this.macredService
-      .getHistorialAnlisis(this.companiaObservable.id)
+    this.alertService.clear();
+
+    this.macredService.getHistorialAnlisisPersona(this._personaAnalisis.id)
       .pipe(first())
-      .subscribe((response) => {
-        if (!this.listHistorialAnalisis) this.listHistorialAnalisis = [];
+      .subscribe((response) => { 
+        
+        if (response && response.length > 0) {
 
-        this.listHistorialAnalisis = response;
+          this.listHistorialAnalisis = response;
+          $('#analisisHistorialModal').modal( { backdrop: 'static', keyboard: false }, 'show' );
+
+        } else { this.alertService.warn( `El usuario seleccionado no posee historial de análisis.` ); }
       });
 
-    // $('#analisisHistorialModal').modal('show');
-    $('#analisisHistorialModal').modal(
-      { backdrop: 'static', keyboard: false },
-      'show'
-    );
+    
   }
 
   SubmitNuevoAnalisis(): void {
@@ -415,8 +409,11 @@ export class DatosAnalisisComponent implements OnInit {
   }
 
   selectAnalisisHistorial(analisis: MacAnalisisCapacidadPago): void {
+    
     this.srvDatosAnalisisService._analisisCapacidadpago = analisis;
-    this.inicializaFormDatosAnalisis();
+    this.analisisSeleccionado = analisis;
+
+    this.inicializaFormDatosAnalisis(this.analisisSeleccionado);
 
     $('#analisisHistorialModal').modal('hide');
   }
@@ -427,5 +424,83 @@ export class DatosAnalisisComponent implements OnInit {
 
   handleOnPD() {
     this.onPD.emit();
+  }
+
+
+
+  // actualizaciones 2025
+  private inicializaFormHistorial(): void {
+    this.formHistorialAnalisis = this.formBuilder.group({
+      codigoAnalisisHistorial: [null]
+    });
+  }
+  private inicializaFormDatosAnalisis(srvAnalisis : MacAnalisisCapacidadPago = null): void {
+
+    if (srvAnalisis) { 
+
+      this.habilitaBtnGeneraNuevoAnalisis = false;
+      this.habilitaBtnGuardarAnalisis = true;
+
+      this.inicializarBotonesParaContinuar();
+
+      this.formAnalisis = this.formBuilder.group({
+        fechaAnalisis: [srvAnalisis.fechaAnalisis, Validators.required],
+
+        tipoIngresoAnalisis: [this.listTipoIngresoAnalisis.find((x) => 
+          x.id === srvAnalisis.codigoTipoIngresoAnalisis), Validators.required],
+        tipoFormaPagoAnalisis: [this.listTipoFormaPagoAnalisis.find((x) => 
+          x.id === srvAnalisis.codigoTipoFormaPagoAnalisis), Validators.required],
+
+        tipoMoneda: [this.listTiposMonedas.find((x) => 
+          x.id === srvAnalisis.codigoMoneda), Validators.required],
+        analisisDefinitivo: srvAnalisis.analisisDefinitivo,
+        estado: srvAnalisis.estado,
+
+        modeloAnalisis: [this.listModelosAnalisis.find((x) => 
+          x.id === srvAnalisis.codigoModeloAnalisis), Validators.required],
+        indicadorCsd: srvAnalisis.indicadorCsd,
+        ponderacionLvt: srvAnalisis.descPondLvt,
+
+        capacidadPago: this.listNivelesCapacidadpago.find((x) => 
+          x.id === srvAnalisis.codigoNivelCapPago),
+        tipoGenerador: this.listTiposGeneradores.find((x) => 
+          x.id === srvAnalisis.codigoTipoGenerador ),
+
+        numeroDependientes: srvAnalisis.numeroDependientes,
+        puntajeAnalisis: srvAnalisis.puntajeAnalisis,
+        calificacionCic: srvAnalisis.calificacionCic,
+        calificacionFinalCic: srvAnalisis.puntajeFinalCic,
+        observaciones: srvAnalisis.observaciones
+      });
+
+    } else {
+
+      let observacion: string = `Análisis generado el ` + this.today + ` por ` +
+                                this.userObservable.identificacion + `.`;
+
+      this.habilitaBtnGeneraNuevoAnalisis = true;
+      this.habilitaBtnGuardarAnalisis = false;
+      this.habilitaBtnIngreso = false;
+      this.habilitaBtnPD_analisisIndependiente = false;
+
+      this.formAnalisis = this.formBuilder.group({
+        fechaAnalisis: [this.today, Validators.required],
+        tipoIngresoAnalisis: [null, Validators.required],
+        tipoFormaPagoAnalisis: [null, Validators.required],
+        tipoMoneda: [null, Validators.required ],
+        analisisDefinitivo: false,
+        estado: false,
+        modeloAnalisis: [null, Validators.required ],
+        indicadorCsd: null,
+        ponderacionLvt: null,
+        capacidadPago: null,
+        tipoGenerador: null,
+        numeroDependientes: null,
+        puntajeAnalisis: null,
+        calificacionCic: null,
+        calificacionFinalCic: null,
+        observaciones: observacion,
+      });
+    }
   }
 }

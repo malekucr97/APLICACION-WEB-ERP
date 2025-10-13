@@ -2,10 +2,11 @@
 
 export const environment = {
     production: true,
-    apiUrl: 'http://localhost:4000',
+    apiUrl: 'https://localhost:4001',
 
-    sessionStorageIdentificationUserKey: '_httpUsernameSessionStorageAppAdminModulesInraSA',
-    sessionStorageModuleIdentification : '_httpModuleSelectedSessionStorageAppAdminModulesInraSA'
+    sessionStorageIdentificationUserKey: '_httpUsernameSessionStorageAppAdminModules'
+    // ,
+    // sessionStorageModuleIdentification : '_httpModuleSelectedSessionStorageAppAdminModules'
 };
 
 export const administrator = {

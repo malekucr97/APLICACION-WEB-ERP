@@ -18,9 +18,14 @@ import { AdminPlan } from '@app/_models/admin/planes/plan';
 })
 export class ListUserComponent extends OnSeguridad implements OnInit {
 
-  public userObservable: User;  public businessObservable: Compania;
-  public isUserSuperAdmin: boolean; public isUserAdminBusiness: boolean;
-  public technicalUserId: string; public adminBusinessUserId: string;
+  public userObservable: User;
+  public businessObservable: Compania;
+
+  public isUserSuperAdmin: boolean;
+  public isUserAdminBusiness: boolean;
+
+  public technicalUserId: string;
+  public adminBusinessUserId: string;
 
   // --
   public URLAddEditUsertPage: string;
@@ -52,7 +57,9 @@ export class ListUserComponent extends OnSeguridad implements OnInit {
     this.URLAddRoleUsertPage = httpAccessAdminPage.urlPageAddRUser;
     this.URLAdministratorPage = httpAccessAdminPage.urlPageAdministrator;
 
-    this.isUserSuperAdmin = false; this.isUserAdminBusiness = false; this.enableList = false;
+    this.isUserSuperAdmin = false;
+    this.isUserAdminBusiness = false;
+    this.enableList = false;
 
     this.userObservable = this.accountService.userValue;
     this.businessObservable = this.accountService.businessValue;
@@ -71,7 +78,7 @@ export class ListUserComponent extends OnSeguridad implements OnInit {
 
   ngOnInit() {
 
-    if (this.userObservable.esAdmin) { 
+    if (this.userObservable.esAdmin) {
       
       this.isUserSuperAdmin = true;
       
@@ -80,7 +87,7 @@ export class ListUserComponent extends OnSeguridad implements OnInit {
           .subscribe((users) => {
             if (users) {
               this.listUsers = users;
-              this.accountService.suscribeListUser(this.listUsers);
+              this.accountService.subscribeListUser(this.listUsers);
               this.enableList = true;
             }
           });
@@ -94,7 +101,7 @@ export class ListUserComponent extends OnSeguridad implements OnInit {
         .subscribe((users) => {
           if (users && users.length > 0) {
             this.listUsers = users;
-            this.accountService.suscribeListUser(this.listUsers);
+            this.accountService.subscribeListUser(this.listUsers);
             this.enableList = true;
           }
         });

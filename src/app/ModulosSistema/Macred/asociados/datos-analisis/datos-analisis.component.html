@@ -1,29 +1,22 @@
-<section>
-  <div class="contenedor__header">
-    <div class="contenedor__header__prev">
-      <h2 *ngIf="!srvDatosAnalisisService._analisisCapacidadpago">Información de Análisis</h2>
-      <h2 *ngIf="srvDatosAnalisisService._analisisCapacidadpago">
-        codigo de análisis: {{srvDatosAnalisisService._analisisCapacidadpago.codigoAnalisis}}
-      </h2>
+<div class="cont-main-analisis mat-elevation-z4">
+  
+  <div class="cont-main-analisis__header">
+    <div>
+      <h2>
+        Información de Análisis para {{_personaAnalisis.nombre}} {{_personaAnalisis.primerApellido}}</h2>
     </div>
-    <div class="contenedor__header__next">
-      <button
-        *ngIf="habilitaBtnHistoprialIngreso"
-        (click)="openHistorialModal()"
-        class="btn btn-dark px-5"
-      >
-        Historial
-      </button>
-      <button
-        *ngIf="habilitaBtnRegistroDeudor"
-        class="btn btn-dark px-5"
-      >
-        Nuevo Deudor
-      </button>
+
+    <div class="cont-main-analisis__header__next">
+      <h2 *ngIf="analisisSeleccionado"> Codigo de Análisis: {{analisisSeleccionado.codigoAnalisis}} </h2>
+      <button *ngIf="habilitaBtnHistoprialIngreso"
+              (click)="openHistorialModal()"
+              class="btn btn-dark px-5" > Historial </button>
+      <button *ngIf="habilitaBtnRegistroDeudor"
+              class="btn btn-dark px-5" > Nuevo Deudor </button>
     </div>
   </div>
 
-  <div class="contenedor-analisis__tabletas__body">
+  <div class="cont-analisis__tabletas__body">
     <form [formGroup]="formAnalisis" class="row">
       <div class="col-md-3">
         <label for="lblFechaAnalisis" class="form-label"
@@ -372,110 +365,105 @@
       </button>
     </div>
   </div>
+</div>
 
-  <!-- ****************************** -->
-  <!-- MODAL DE HISTORIAL DE ANÁLISIS -->
-  <!-- ****************************** -->
-  <article class="modal modal-config" id="analisisHistorialModal">
-    <div class="modal-content">
-      <section>
+<!-- modal -->
+<div class="modal fade" id="analisisHistorialModal" tabindex="-1">
+
+  <div class="modal-dialog modal-xl modal-dialog-centered">
+      <div class="modal-content">
+
         <div class="modal-header">
-          <div class="contenedor__header-modal">
-            <div class="contenedor__header__prev">
-              <h1 style="color: #1a5276">
-                Historial de Análisis de Capacida de Pago
-              </h1>
-            </div>
-            <div class="contenedor__header__next">
-              <button
-                style="color: red"
-                type="button"
-                class="close btn-close"
-                data-dismiss="modal"
-              >
-                &times;
-              </button>
-            </div>
+          <div class="cont-modal-analisis__header">
+              <div class="cont-modal-analisis__header__prev">
+                  <h1 style="color:#1A5276">Historial de Análisis de Capacida de Pago</h1>
+              </div>
+              <div class="cont-modal-analisis__header__next">
+                  <button type="button"
+                          class="btn-close"
+                          data-dismiss="modal"></button>
+              </div>
           </div>
         </div>
-      </section>
 
-      <section>
-        <form
-          [formGroup]="formHistorialAnalisis"
-          class="row modal-config__formulario-header"
-        >
-          <div class="form-group col-md-3">
-            <label
-              for="lblCodigoAnalisisHistorial"
-              class="form-label"
-              >Código de Análisis del Historial</label
-            >
-            <input
-              formControlName="codigoAnalisisHistorial"
-              class="form-control"
-              type="number"
-              id="id_codigoAnalisisHistorial"
-              [ngClass]="{ 'is-invalid': submittedHistorialAnalisisForm && h.codigoAnalisisHistorial.errors }"
-            />
-            <div
-              *ngIf="submittedHistorialAnalisisForm && h.codigoAnalisisHistorial.errors"
-              class="invalid-feedback"
-            >
-              <div
-                *ngIf="h.codigoAnalisisHistorial.errors.required"
-              >
-                El Código de Análisis del Historial es requerido
+        <div class="modal-body">
+
+          <form [formGroup]="formHistorialAnalisis" class="row">
+            
+            <div class="form-group col-md-3">
+              <label  for="id_codigoAnalisisHistorial" class="form-label" >Código de Análisis del Historial</label>
+              <input  formControlName="codigoAnalisisHistorial"
+                      class="form-control"
+                      type="number"
+                      id="id_codigoAnalisisHistorial"
+                      [ngClass]="{ 'is-invalid': submittedHistorialAnalisisForm && h.codigoAnalisisHistorial.errors }"/>
+              
+              <div *ngIf="submittedHistorialAnalisisForm && h.codigoAnalisisHistorial.errors"
+                    class="invalid-feedback" >
+                <div *ngIf="h.codigoAnalisisHistorial.errors.required" > El Código de Análisis del Historial es requerido </div>
               </div>
             </div>
-          </div>
-          <div class="col-md-3 margin-icos-mat item-list">
-            <a class="item-list__edit">
-              <mat-icon>filter_list</mat-icon>
-            </a>
-          </div>
-        </form>
-      </section>
 
-      <section>
-        <!-- body -->
-        <div class="contenedor__body">
+            <div class="col-md-3 margin-filter">
+              <a class="item-edit"> <mat-icon>filter_list</mat-icon> </a>
+            </div>
+          </form>
+
+          <hr>
+
           <div *ngIf="listHistorialAnalisis">
-            <table class="table table-striped">
-              <thead>
-                <tr>
-                  <th style="width: 5%">Análisis</th>
-                  <th style="width: 12%">Fecha de Análisis</th>
-                  <th style="width: 12%">Cód. Nivel Cap pago</th>
-                  <th style="width: 7%">Estado</th>
-                  <th style="width: 8%">Definitivo</th>
-                  <th style="width: 10%">Scoring Análisis</th>
-                  <th style="width: 10%">Puntaje Final CIC</th>
-                  <th style="width: 10%">Moneda</th>
-                  <th style="width: 26%">Observaciones</th>
-                </tr>
-              </thead>
-              <tbody>
-                <tr
-                  *ngFor="let obj of listHistorialAnalisis"
-                  class="item-list__confirm"
-                  (click)="selectAnalisisHistorial(obj)"
-                >
-                  <td>{{obj.codigoAnalisis}}</td>
-                  <td>{{obj.fechaAnalisis}}</td>
-                  <td>{{obj.codigoNivelCapPago}}</td>
-                  <td>{{obj.estado}}</td>
-                  <td>{{obj.analisisDefinitivo}}</td>
-                  <td>{{obj.puntajeAnalisis}}</td>
-                  <td>{{obj.puntajeFinalCic}}</td>
-                  <td>{{obj.codigoMoneda}}</td>
-                  <td>{{obj.observaciones}}</td>
-                </tr>
-              </tbody>
-            </table>
+              <table class="table table-striped">
+                <thead>
+                  <tr>
+                    <th class="table__hist-analisis__id">Análisis</th>
+                    <th class="table__hist-analisis__definitivo">Definitivo</th>
+
+                    <th class="table__hist-analisis__nivel-cap">Nivel Cap pago</th>
+                    
+                    <th class="table__hist-analisis__scoring">Scoring</th>
+                    <th class="table__hist-analisis__cic">Puntaje Final CIC</th>
+                    <th class="table__hist-analisis__moneda">Moneda</th>
+
+                    <th class="table__hist-analisis__fecha">Fecha de Análisis</th>
+                    <th class="table__hist-analisis__estado">Estado</th>
+                    <th class="table__hist-analisis__obs">Observaciones</th>
+                  </tr>
+                </thead>
+                <tbody>
+
+                  <tr *ngFor="let obj of listHistorialAnalisis"
+                      class="item-list__confirm"
+                      (click)="selectAnalisisHistorial(obj)" >
+
+                    <td class="item-edit table__hist-analisis__id__td">{{obj.codigoAnalisis}}</td>
+
+                    <td *ngIf="obj.analisisDefinitivo==true" class="item-edit table__hist-analisis__estado__td">Sí</td>
+                    <td *ngIf="obj.analisisDefinitivo==false" class="item-edit table__hist-analisis__estado__td">No</td>
+
+                    <td class="item-edit table__hist-analisis__nivel-cap__td">{{obj.codigoNivelCapPago}}</td>
+                    
+                    <td class="item-edit table__hist-analisis__scoring__td">{{obj.puntajeAnalisis}}</td>
+                    <td class="item-edit table__hist-analisis__cic__td">{{obj.puntajeFinalCic}}</td>
+                    <td class="item-edit table__hist-analisis__moneda__td">{{obj.codigoMoneda}}</td>
+
+                    <td class="item-edit table__hist-analisis__fecha__td">{{obj.fechaAnalisis | date:'dd/MM/yyyy'}}</td>
+
+                    <td *ngIf="obj.estado==true" class="item-edit table__hist-analisis__estado__td">Activo</td>
+                    <td *ngIf="obj.estado==false" class="item-edit table__hist-analisis__estado__td">Inactivo</td>
+
+                    <td class="item-edit table__hist-analisis__obs__td">{{obj.observaciones}}</td>
+                  </tr>
+                </tbody>
+              </table>
           </div>
+
+          <div class="cont-modal-analisis__footer">
+              <div class="cont-modal-analisis__footer__prev"> </div>
+              <div class="cont-modal-analisis__footer__next"> </div>
+          </div>
+
         </div>
-      </section>
-    </div>
-  </article>
-</section>
+
+      </div>
+  </div>
+</div>

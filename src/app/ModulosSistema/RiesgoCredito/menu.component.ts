@@ -109,7 +109,7 @@ export class MenuRiesgoCreditoComponent implements OnInit {
 
   hasChild = (_: number, node: ExampleFlatNode) => node.expandable;
 
-  logout() { this.accountService.logout(); }
+  logout() { this.accountService.logout().subscribe(); }
 
   redirectIndex() : void { this.router.navigate([this.URLRedirectIndexContent]); }
 }

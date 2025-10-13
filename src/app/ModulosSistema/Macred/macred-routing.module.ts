@@ -1,6 +1,6 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
-import { AsociadosComponent } from './asociados/asociados-component';
+import { AnalisisAsociadosComponent } from './asociados/analisis-asociados.component';
 import { ParametrosGeneralesComponent } from './configuracion/parametrosgenerales-component';
 import { IndexMacredComponent } from './index.component';
 import { TipoIngresoComponent } from './mantenimientos/AnalisisPersonas/tipoingreso-component';
@@ -43,7 +43,7 @@ const routes: Routes = [
             { path: '',             component: IndexMacredComponent },
             { path: 'index.html',   component: IndexMacredComponent },
             // datos de análisis
-            { path: 'asociados/calificacion-asociados.html', component: AsociadosComponent },
+            { path: 'asociados/analisis-asociados.html', component: AnalisisAsociadosComponent },
             // mantenimientos
             { path: 'mantenimientos/personas/personas-analisis.html', component: PersonaAnalisisComponent },
             { path: 'mantenimientos/personas/estados-civiles.html', component: EstadosCivilesComponent},

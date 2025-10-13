@@ -202,5 +202,5 @@ export class IndexContentPageComponent extends OnSeguridad implements OnInit {
   }
   // ******************************************
 
-  logout() { this.accountService.logout(); }
+  logout() { this.accountService.logout().subscribe(); }
 }

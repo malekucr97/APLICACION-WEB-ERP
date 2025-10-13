@@ -28,7 +28,7 @@ const TREE_DATA: FoodNode[] = [
     name: 'Análisis de Personas',
     link: '',
     icon: '',
-    children: [{ name: 'Asociados', link: 'asociados/calificacion-asociados.html', icon: '' },
+    children: [{ name: 'Asociados', link: 'asociados/analisis-asociados.html', icon: '' },
               { name: 'No Asociados', link: '/', icon: '' }],
   },
   {
@@ -149,7 +149,7 @@ export class MenuMacredComponent {
 
     redirectIndex() : void { this.router.navigate([this.URLRedirectIndexContent]); }
 
-    logout() { this.accountService.logout(); }
+    logout() { this.accountService.logout().subscribe(); }
 
     /* Menu-Tree */
     private _transformer = (node: FoodNode, level: number) => {

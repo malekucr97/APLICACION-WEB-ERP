@@ -1,0 +1,829 @@
+<div class="contenido-main-macred">
+  
+  <!-- <article class="bloq">
+    <div class="contenedor mat-elevation-z4">
+      <section>
+        <div class="contenedor__header">
+          <div class="contenedor__header__prev">
+            <h2>Consulta de Personas</h2>
+          </div>
+          <div class="contenedor__header__next"></div>
+        </div>
+      </section>
+
+      <section>
+        <div class="contenedor__body">
+          <form [formGroup]="formPersona" class="row">
+            <div class="form-group col-md-3">
+              <label for="id" class="form-label">Id</label>
+              <input
+                formControlName="id"
+                class="form-control"
+                type="text"
+                id="id_id"
+                readonly
+              />
+            </div>
+
+            <div class="form-group col-md-6">
+              <label for="lblIdentificacion" class="form-label"
+                >Número de Identificación</label
+              >
+              <input
+                formControlName="identificacion"
+                class="form-control"
+                type="text"
+                id="id_identificacion"
+                [ngClass]="{ 'is-invalid': submittedPersonForm && f.identificacion.errors }"
+              />
+              <div
+                *ngIf="submittedPersonForm && f.identificacion.errors"
+                class="invalid-feedback"
+              >
+                <div *ngIf="f.identificacion.errors.required">
+                  La identificación es requerida
+                </div>
+              </div>
+            </div>
+
+            <div class="col-md-3 margin-icos-mat item-list">
+              <a class="item-list__confirm">
+                <mat-icon (click)="SubmitPerson()">search</mat-icon>
+              </a>
+            </div>
+
+            <div class="form-group col-md-6">
+              <label for="nombre" class="form-label">Nombre</label>
+              <input
+                formControlName="nombre"
+                class="form-control"
+                type="text"
+                id="id_nombre"
+                [ngClass]="{ 'is-invalid': submittedPersonForm && f.nombre.errors }"
+              />
+              <div
+                *ngIf="submittedPersonForm && f.nombre.errors"
+                class="invalid-feedback"
+              >
+                <div *ngIf="f.nombre.errors.required">
+                  El nombre es requerido
+                </div>
+              </div>
+            </div>
+            <div class="form-group col-md-3">
+              <label for="primerApellido" class="form-label"
+                >Primer Apellido</label
+              >
+              <input
+                formControlName="primerApellido"
+                class="form-control"
+                type="text"
+                id="id_nombre"
+                [ngClass]="{ 'is-invalid': submittedPersonForm && f.primerApellido.errors }"
+              />
+              <div
+                *ngIf="submittedPersonForm && f.primerApellido.errors"
+                class="invalid-feedback"
+              >
+                <div *ngIf="f.primerApellido.errors.required">
+                  El primer apellido es requerido
+                </div>
+              </div>
+            </div>
+            <div class="form-group col-md-3">
+              <label for="segundoApellido" class="form-label"
+                >Segundo Apellido</label
+              >
+              <input
+                formControlName="segundoApellido"
+                class="form-control"
+                type="text"
+                id="id_nombre"
+                [ngClass]="{ 'is-invalid': submittedPersonForm && f.segundoApellido.errors }"
+              />
+              <div
+                *ngIf="submittedPersonForm && f.segundoApellido.errors"
+                class="invalid-feedback"
+              >
+                <div *ngIf="f.segundoApellido.errors.required">
+                  El segundo apellido es requerido
+                </div>
+              </div>
+            </div>
+            <button
+              class="item-list__confirm"
+              type="submit"
+              (click)="SubmitPerson()"
+            ></button>
+          </form>
+        </div>
+      </section>
+    </div>
+  </article> -->
+
+  <div>
+    <div>
+        <p class="contenido-main-macred__h1">{{moduleScreen.descripcion}}</p>
+        <p class="contenido-main-macred__h2">Análisis de Créditos & Asociados</p>
+    </div>
+    <hr>
+    <button class="back-ico-one"
+            title="{{ 'CONFIGURATION.BTN_ADMIN_USERS' | translate}}"
+            mat-icon-button 
+            (click)="redirectIndexModule()"> <mat-icon>arrow_back</mat-icon> </button>
+  </div>
+
+  <div>
+    <div>
+
+      <div *ngIf="!habilitaPersona" class="form-list-inline">
+          <div class="formulario-izquierdo">
+
+            <div class="formulario-izquierdo__nav">
+              <div class="formulario-izquierdo__nav__prev" >
+                  <p class="formulario-izquierdo__nav__prev__tittle">Consulta de Personas</p>
+              </div>
+
+              <div class="formulario-izquierdo__nav__next" >
+                <button *ngIf="habilitaBtnSeleccionaPersona" class="formulario-izquierdo__nav__next__btn-ott" 
+                          mat-flat-button
+                          (click)="seleccionarPersona()">Seleccionar Persona para Análisis</button>
+              </div>
+            </div>
+
+            <div class="p-2">
+
+              <form [formGroup]="formPersona" class="row">
+
+                <div class="form-group col-sm-3">
+                    <label for="id_identificacion" class="form-label">Identificación</label>
+                    <input  maxlength="20" 
+                            formControlName="identificacion" 
+                            class="form-control" 
+                            type="text" 
+                            id="id_identificacion"
+                            [ngClass]="{ 'is-invalid': submitFormPersona && f.identificacion.errors }" />
+                    <div *ngIf="submitFormPersona && f.identificacion.errors" class="invalid-feedback">
+                        <div *ngIf="f.identificacion.errors.required">{{ 'GENERAL.VALIDATES.EMPTY' | translate }}</div>
+                    </div>
+                </div>
+
+                <div class="form-group col-sm-3">
+                    <label for="id_nombre" class="form-label">Nombre</label>
+                    <input  maxlength="50" 
+                            formControlName="nombre" 
+                            class="form-control" 
+                            type="text" 
+                            id="id_nombre"
+                            [ngClass]="{ 'is-invalid': submitFormPersona && f.nombre.errors }" />
+                    <div *ngIf="submitFormPersona && f.nombre.errors" class="invalid-feedback">
+                        <div *ngIf="f.nombre.errors.required">{{ 'GENERAL.VALIDATES.EMPTY' | translate }}</div>
+                    </div>
+                </div>
+
+                <div class="form-group col-sm-3">
+                    <label for="id_primerApellido" class="form-label">Primer Apellido</label>
+                    <input  formControlName="primerApellido" 
+                            class="form-control" 
+                            type="text" 
+                            id="id_primerApellido"
+                        [ngClass]="{ 'is-invalid': submitFormPersona && f.primerApellido.errors }" />
+                    <div *ngIf="submitFormPersona && f.primerApellido.errors" class="invalid-feedback">
+                        <div *ngIf="f.primerApellido.errors.required">{{ 'GENERAL.VALIDATES.EMPTY' | translate }}</div>
+                    </div>
+                </div>
+
+                <div class="form-group col-sm-3">
+                    <label for="id_segundoApellido" class="form-label">Segundo Apellido</label>
+                    <input  formControlName="segundoApellido" 
+                            class="form-control" 
+                            type="text" 
+                            id="id_segundoApellido"
+                        [ngClass]="{ 'is-invalid': submitFormPersona && f.segundoApellido.errors }" />
+                    <div *ngIf="submitFormPersona && f.segundoApellido.errors" class="invalid-feedback">
+                        <div *ngIf="f.segundoApellido.errors.required">{{ 'GENERAL.VALIDATES.EMPTY' | translate }}</div>
+                    </div>
+                </div>
+
+                <div class="col-sm-9"></div>
+
+                <div class="form-group col-sm-3 d-flex justify-content-center pt-1">
+                    <a class="item-list-search"> <mat-icon (click)="buscarPersona()">search</mat-icon> </a>
+                </div>
+
+              </form>
+              
+            </div>
+          </div>
+
+          <div *ngIf="habilitaListasPersonas" class="lista-inline">
+
+              <div class="lista-inline__nav" >
+                  <p class="lista-inline__nav__tittle">Lista de Personas Activas - Asociados y No Asociados</p>
+              </div>
+
+              <div class="scroll-table-macred__personas">
+                  <table class="table table-striped">
+                      <thead>
+                          <tr>
+                              <th class="table__personas-analisis__ico"></th>
+                              <th class="table__personas-analisis__ident">Identificación</th>
+                              <th class="table__personas-analisis__nombre">Nombre</th>
+                              <th class="table__personas-analisis__apellido">Apellido</th>
+                              <th class="table__personas-analisis__asoc">Asociado</th>
+                              <th class="table__personas-analisis__estado">Estado</th>
+                          </tr>
+                      </thead>
+                      <tbody>
+                          <tr *ngFor="let obj of listPersonas" (click)="selectPersona(obj)" >
+                              
+                              <td class="item-edit">
+                                  <div> <a> <mat-icon>swap_horiz</mat-icon> </a> </div> </td>
+
+                              <td class="item-edit">{{obj.identificacion}}</td>
+                              <td class="item-edit">{{obj.nombre}}</td>
+                              <td class="item-edit">{{obj.primerApellido}}</td>
+                              <td *ngIf="obj.indAsociado==true" class="item-edit table__personas-analisis__asoc__td">Sí</td>
+                              <td *ngIf="obj.indAsociado==false" class="item-edit table__personas-analisis__asoc__td">No</td>
+                              <td *ngIf="obj.estado==true" class="item-edit table__personas-analisis__estado__td">Activo</td>
+                              <td *ngIf="obj.estado==false" class="item-edit table__personas-analisis__estado__td">Inactivo</td>
+                          </tr>
+                      </tbody>
+                  </table>
+              </div>
+          </div>
+      </div>
+
+      <!-- persona seleccionada -->
+
+      <div *ngIf="habilitaPersona" class="card">
+
+        <div class="card-body">
+
+          <div class="lista-inline-select-items">
+            <div class="lista-inline-select-items__nav-left" >
+              <p class="lista-inline-select-items__nav-left__tittle">Código de Persona Seleccionada: {{objSeleccionadoPersona.id}}</p>
+            </div>
+            <div class="lista-inline-select-items__nav-right" >
+                <button *ngIf="habilitaBtnSeleccionaPersona" class="lista-inline-select-items__nav-right__btn-ott" 
+                        mat-flat-button
+                        (click)="limpiarSeleccionPersona()">Limpiar Selección de Persona</button>
+            </div>
+          </div>
+
+          <div class="scroll-table-macred__personas">
+            <table class="table table-striped">
+              <thead>
+                  <tr>
+                      <th class="table__personas-analisis-select__ident">Identificación</th>
+                      <th class="table__personas-analisis-select__nombre">Nombre</th>
+                      <th class="table__personas-analisis-select__apellido">Apellido</th>
+
+                      <th class="table__personas-analisis-select__civil">Estado Civil</th>
+                      <th class="table__personas-analisis-select__laboral">Condición Laboral</th>
+                      <th class="table__personas-analisis-select__habitacion">Habitación</th>
+
+                      <th class="table__personas-analisis-select__hijos">Hijos</th>
+                      <th class="table__personas-analisis-select__nacimiento">Nacimiento</th>
+                      <th class="table__personas-analisis-select__edad">Edad</th>
+
+                      <th class="table__personas-analisis-select__asoc">Asociado</th>
+                      
+                  </tr>
+              </thead>
+              <tbody>
+                  <tr>
+
+                      <td class="item-edit table__personas-analisis-select__ident__td">{{_per.identificacion}}</td>
+                      <td class="item-edit table__personas-analisis-select__nombre__td">{{_per.nombre}}</td>
+                      <td class="item-edit table__personas-analisis-select__apellido__td">{{_per.primerApellido}}</td>
+
+                      <td class="item-edit table__personas-analisis-select__civil__td">{{_per.descEstadoCivil}}</td>
+                      <td class="item-edit table__personas-analisis-select__laboral__td">{{_per.descCondicionLaboral}}</td>
+                      <td class="item-edit table__personas-analisis-select__habitacion__td">{{_per.descTipoHabitacion}}</td>
+
+                      <td class="item-edit table__personas-analisis-select__hijos__td">{{_per.cantidadHijos}}</td>
+                      <td class="item-edit table__personas-analisis-select__nacimiento__td">{{_per.fechaNacimiento | date:'dd/MM/yyyy'}}</td>
+                      <td class="item-edit table__personas-analisis-select__edad__td">{{_per.edad}}</td>
+
+                      <td *ngIf="_per.indAsociado==true" class="item-edit table__personas-analisis__asoc__td">Sí</td>
+                      <td *ngIf="_per.indAsociado==false" class="item-edit table__personas-analisis__asoc__td">No</td>
+                  </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+
+      <br>
+
+      <div *ngIf="habilitaFormularioCredito" class="card">
+        <div class="card-body">
+
+          <p *ngIf="!habilitaCredito" class="contenido-main-macred__h3">Información Crediticia</p>
+          
+          <hr *ngIf="!habilitaCredito">
+
+          <div *ngIf="!habilitaCredito" class="form-list-inline">
+            <div class="formulario-izquierdo__segundo">
+
+                <div class="formulario-izquierdo__nav">
+                    <div class="formulario-izquierdo__nav__prev" >
+                        <p class="formulario-izquierdo__nav__prev__tittle">Información Crediticia</p>
+                    </div>
+
+                    <div class="formulario-izquierdo__nav__next" >
+                      <button *ngIf="habilitaBtnSeleccionaCredito" class="formulario-izquierdo__nav__next__btn-ott" 
+                              mat-flat-button
+                              (click)="seleccionarCredito()">Seleccionar Crédito para Análisis</button>
+                    </div>
+                </div>
+
+                <div class="p-2">
+
+                    <form [formGroup]="formCredito" class="row">
+
+                      <div class="form-group col-sm-3">
+                        <label for="id_categoriaCredito" class="form-label">Categoría Crédito</label>
+                        <select formControlName="categoriaCredito" 
+                                class="form-control" 
+                                name="selectCategoriaCredito"
+                                id="id_categoriaCredito"
+                                [ngClass]="{ 'is-invalid': submitFormCredito && c.categoriaCredito.errors }" >
+                                <option [ngValue]="objeto.id" 
+                                        *ngFor="let objeto of listCategoriasCreditos">{{objeto.id}} - {{objeto.descripcion}}</option>
+                        </select>
+                        <div *ngIf="submitFormCredito && c.categoriaCredito.errors" class="invalid-feedback">
+                          <div *ngIf="c.categoriaCredito.errors.required">{{ 'GENERAL.VALIDATES.EMPTY' | translate }}</div>
+                        </div>
+                      </div>
+
+                      <div class="form-group col-sm-3">
+                        <label for="id_tipoAsociado" class="form-label">Tipo Asociado</label>
+                        <select formControlName="tipoAsociado" 
+                                class="form-control" 
+                                name="selectTipoAsociado"
+                                id="id_tipoAsociado"
+                                [ngClass]="{ 'is-invalid': submitFormCredito && c.tipoAsociado.errors }" >
+                                <option [ngValue]="objeto.id" 
+                                        *ngFor="let objeto of listTiposAsociados">{{objeto.id}} - {{objeto.descripcion}}</option>
+                        </select>
+                        <div *ngIf="submitFormCredito && c.tipoAsociado.errors" class="invalid-feedback">
+                          <div *ngIf="c.tipoAsociado.errors.required">{{ 'GENERAL.VALIDATES.EMPTY' | translate }}</div>
+                        </div>
+                      </div>
+
+                      <div class="form-group col-sm-3">
+                        <label for="id_tiempoAfiliacion" class="form-label">Tiempo Afiliación</label>
+                        <input formControlName="tiempoAfiliacion" 
+                                class="form-control" 
+                                type="number" 
+                                id="id_tiempoAfiliacion"  
+                            [ngClass]="{ 'is-invalid': submitFormCredito && c.tiempoAfiliacion.errors }" />
+                        <div *ngIf="submitFormCredito && c.tiempoAfiliacion.errors" class="invalid-feedback">
+                          <div *ngIf="c.tiempoAfiliacion.errors.required">{{ 'GENERAL.VALIDATES.EMPTY' | translate }}</div>
+                        </div>
+                      </div>
+
+                      <div class="form-group col-sm-3 margin-status">
+                          <mat-checkbox formControlName="estadoCredito">Estado</mat-checkbox>
+                      </div>
+
+                      <div class="form-group col-sm-3">
+                        <label for="id_cantCreditosHistoricos" class="form-label">Cantidad Créditos Históricos</label>
+                        <input formControlName="cantidadCreditosHistorico" 
+                                class="form-control" 
+                                type="number" 
+                                id="id_cantCreditosHistoricos"  
+                            [ngClass]="{ 'is-invalid': submitFormCredito && c.cantidadCreditosHistorico.errors }" />
+                        <div *ngIf="submitFormCredito && c.cantidadCreditosHistorico.errors" class="invalid-feedback">
+                          <div *ngIf="c.cantidadCreditosHistorico.errors.required">{{ 'GENERAL.VALIDATES.EMPTY' | translate }}</div>
+                        </div>
+                      </div>
+
+                      
+
+                      <div class="form-group col-sm-3">
+                        <label for="id_cantidadFianzas" class="form-label">Cantidad Fianzas</label>
+                        <input formControlName="cantidadFianzas" 
+                                class="form-control" 
+                                type="number" 
+                                id="id_cantidadFianzas"  
+                            [ngClass]="{ 'is-invalid': submitFormCredito && c.cantidadFianzas.errors }" />
+                        <div *ngIf="submitFormCredito && c.cantidadFianzas.errors" class="invalid-feedback">
+                          <div *ngIf="c.cantidadFianzas.errors.required">{{ 'GENERAL.VALIDATES.EMPTY' | translate }}</div>
+                        </div>
+                      </div>
+
+                      <div class="form-group col-sm-3">
+                        <label for="id_totalSaldoFianza" class="form-label">Total Saldos Fianzas</label>
+                        <input formControlName="totalSaldoFianzas" 
+                                class="form-control" 
+                                type="number" 
+                                id="id_totalSaldoFianza"  
+                            [ngClass]="{ 'is-invalid': submitFormCredito && c.totalSaldoFianzas.errors }" />
+                        <div *ngIf="submitFormCredito && c.totalSaldoFianzas.errors" class="invalid-feedback">
+                          <div *ngIf="c.totalSaldoFianzas.errors.required">{{ 'GENERAL.VALIDATES.EMPTY' | translate }}</div>
+                        </div>
+                      </div>
+
+                      <div class="form-group col-sm-3">
+                        <label for="id_totalCuotaFianza" class="form-label">Total Cuotas Fianzas</label>
+                        <input formControlName="totalCuotasFianzas" 
+                                class="form-control" 
+                                type="number" 
+                                id="id_totalCuotaFianza"  
+                            [ngClass]="{ 'is-invalid': submitFormCredito && c.totalCuotasFianzas.errors }" />
+                        <div *ngIf="submitFormCredito && c.totalCuotasFianzas.errors" class="invalid-feedback">
+                          <div *ngIf="c.totalCuotasFianzas.errors.required">{{ 'GENERAL.VALIDATES.EMPTY' | translate }}</div>
+                        </div>
+                      </div>
+
+                      <div class="form-group col-sm-3">
+                        <label for="id_cph" class="form-label">CPH</label>
+                        <input formControlName="cph" 
+                                class="form-control" 
+                                type="number" 
+                                id="id_cph"  
+                            [ngClass]="{ 'is-invalid': submitFormCredito && c.cph.errors }" />
+                        <div *ngIf="submitFormCredito && c.cph.errors" class="invalid-feedback">
+                          <div *ngIf="c.cph.errors.required">{{ 'GENERAL.VALIDATES.EMPTY' | translate }}</div>
+                        </div>
+                      </div>
+
+                      <div class="form-group col-sm-3">
+                        <label for="id_cph12meses" class="form-label">CPH Últimos 12 Meses</label>
+                        <input formControlName="cphUltimos12Meses" 
+                                class="form-control" 
+                                type="number" 
+                                id="id_cph12meses"  
+                            [ngClass]="{ 'is-invalid': submitFormCredito && c.cphUltimos12Meses.errors }" />
+                        <div *ngIf="submitFormCredito && c.cphUltimos12Meses.errors" class="invalid-feedback">
+                          <div *ngIf="c.cphUltimos12Meses.errors.required">{{ 'GENERAL.VALIDATES.EMPTY' | translate }}</div>
+                        </div>
+                      </div>
+
+                      <div class="form-group col-sm-3">
+                        <label for="id_cph24meses" class="form-label">CPH Últimos 24 Meses</label>
+                        <input formControlName="cphUltimos24Meses" 
+                                class="form-control" 
+                                type="number" 
+                                id="id_cph24meses"  
+                            [ngClass]="{ 'is-invalid': submitFormCredito && c.cphUltimos24Meses.errors }" />
+                        <div *ngIf="submitFormCredito && c.cphUltimos24Meses.errors" class="invalid-feedback">
+                          <div *ngIf="c.cphUltimos24Meses.errors.required">{{ 'GENERAL.VALIDATES.EMPTY' | translate }}</div>
+                        </div>
+                      </div>
+
+                      <div class="col-sm-3"></div>
+
+                      <div class="form-group col-sm-3">
+                        <label for="id_atrasosUltimos12Meses" class="form-label">Atrasos Últimos 12 Meses</label>
+                        <input formControlName="atrasosUltimos12Meses" 
+                                class="form-control" 
+                                type="number" 
+                                id="id_atrasosUltimos12Meses"  
+                            [ngClass]="{ 'is-invalid': submitFormCredito && c.atrasosUltimos12Meses.errors }" />
+                        <div *ngIf="submitFormCredito && c.atrasosUltimos12Meses.errors" class="invalid-feedback">
+                          <div *ngIf="c.atrasosUltimos12Meses.errors.required">{{ 'GENERAL.VALIDATES.EMPTY' | translate }}</div>
+                        </div>
+                      </div>
+
+                      <div class="form-group col-sm-3">
+                        <label for="id_atrasosUltimos24Meses" class="form-label">Atrasos Últimos 24 Meses</label>
+                        <input formControlName="atrasosUltimos24Meses" 
+                                class="form-control" 
+                                type="number" 
+                                id="id_atrasosUltimos24Meses"  
+                            [ngClass]="{ 'is-invalid': submitFormCredito && c.atrasosUltimos24Meses.errors }" />
+                        <div *ngIf="submitFormCredito && c.atrasosUltimos24Meses.errors" class="invalid-feedback">
+                          <div *ngIf="c.atrasosUltimos24Meses.errors.required">{{ 'GENERAL.VALIDATES.EMPTY' | translate }}</div>
+                        </div>
+                      </div>
+
+                      <div class="form-group col-sm-3">
+                        <label for="id_diasAtrasoCorte" class="form-label">Días Atraso Corte</label>
+                        <input formControlName="diasAtrasoCorte" 
+                                class="form-control" 
+                                type="number" 
+                                id="id_diasAtrasoCorte"  
+                            [ngClass]="{ 'is-invalid': submitFormCredito && c.diasAtrasoCorte.errors }" />
+                        <div *ngIf="submitFormCredito && c.diasAtrasoCorte.errors" class="invalid-feedback">
+                          <div *ngIf="c.diasAtrasoCorte.errors.required">{{ 'GENERAL.VALIDATES.EMPTY' | translate }}</div>
+                        </div>
+                      </div>
+
+                      <div class="form-group col-sm-3">
+                        <label for="id_atrasoMaximo" class="form-label">Atraso Máximo</label>
+                        <input formControlName="atrasoMaximo" 
+                                class="form-control" 
+                                type="number" 
+                                id="id_atrasoMaximo"  
+                            [ngClass]="{ 'is-invalid': submitFormCredito && c.atrasoMaximo.errors }" />
+                        <div *ngIf="submitFormCredito && c.atrasoMaximo.errors" class="invalid-feedback">
+                          <div *ngIf="c.atrasoMaximo.errors.required">{{ 'GENERAL.VALIDATES.EMPTY' | translate }}</div>
+                        </div>
+                      </div>
+
+                    </form>
+                </div>
+            </div>
+
+            <div *ngIf="habilitaListaCredito" class="lista-inline">
+
+              <div class="lista-inline__nav" >
+                  <p class="lista-inline__nav__tittle">Lista de Créditos de {{objSeleccionadoPersona.nombre}}</p>
+              </div>
+
+              <div class="scroll-table-macred__personas">
+                <table class="table table-striped">
+                  <thead>
+                    <tr>
+                      <th class="table__personas-creditos__ico"></th>
+                      <th class="table__personas-creditos__cat">Cat.Crédito</th>
+                      <th class="table__personas-creditos__asociado">T.Asociado</th>
+                      <th class="table__personas-creditos__saldof">Saldo Fianzas</th>
+                      <th class="table__personas-creditos__cuotaf">Cuotas Fianzas</th>
+                      <th class="table__personas-creditos__diasac">Días Atraso Corte</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr *ngFor="let obj of listInfoCreditoPersonas" (click)="selectCredito(obj)" >
+                        
+                      <td class="item-edit">
+                        <div> <a> <mat-icon>swap_horiz</mat-icon> </a> </div> </td>
+
+                      <td class="item-edit">{{obj.codigoCategoriaCredito}}</td>
+                      <td class="item-edit">{{obj.codigoTipoAsociado}}</td>
+                      <td class="item-edit">{{obj.totalSaldoFianzas}}</td>
+                      <td class="item-edit">{{obj.totalCuotasFianzas}}</td>
+                      <td class="item-edit table__personas-creditos__diasac__td">{{obj.diasAtrasoCorte}}</td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
+            </div>
+          </div>
+
+          <!-- crédito seleccionado -->
+
+          <div *ngIf="habilitaCredito">
+
+            <div class="lista-inline-select-items">
+              <div class="lista-inline-select-items__nav-left" >
+                <p class="lista-inline-select-items__nav-left__tittle">Código de Crédito Seleccionado: {{objSeleccionadoCredito.id}}</p>
+              </div>
+              <div class="lista-inline-select-items__nav-right" >
+                  <button *ngIf="habilitaBtnSeleccionaCredito" class="lista-inline-select-items__nav-right__btn-ott" 
+                          mat-flat-button
+                          (click)="limpiarSeleccionCredito()">Limpiar Selección de Crédito</button>
+              </div>
+            </div>
+
+            <div class="scroll-table-macred__personas">
+              <table class="table table-striped">
+                <thead>
+                  <tr>
+                    <th class="table__personas-creditos-analisis__cat">Categoría</th>
+                    <th class="table__personas-creditos-analisis__asociado">Asociado</th>
+
+                    <th class="table__personas-creditos-analisis__cantf">Cant.Fianzas</th>
+                    <th class="table__personas-creditos-analisis__saldof">Saldo Fianzas</th>
+                    <th class="table__personas-creditos-analisis__cuotaf">Cuotas Fianzas</th>
+
+                    <th class="table__personas-creditos-analisis__tafiliacion">T.Afiliación</th>
+                    <th class="table__personas-creditos-analisis__credhist">Cant.Créd Históricos</th>
+
+                    <th class="table__personas-creditos-analisis__cph">CPH</th>
+                    <th class="table__personas-creditos-analisis__cph12">CPH 12 Meses</th>
+                    <th class="table__personas-creditos-analisis__cph24">CPH 24 Meses</th>
+
+                    <th class="table__personas-creditos-analisis__amaximo">Atraso Máximo</th>
+                    <th class="table__personas-creditos-analisis__atraso12">Atraso 12 Meses</th>
+                    <th class="table__personas-creditos-analisis__atraso24">Atraso 24 Meses</th>
+
+                    <th class="table__personas-creditos-analisis__diasac">Días Atraso Corte</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td class="item-edit table__personas-creditos-analisis__cat__td">{{_cre.descCategoriaCredito}}</td>
+                    <td class="item-edit table__personas-creditos-analisis__asociado__td">{{_cre.descTipoAsociado}}</td>
+
+                    <td class="item-edit table__personas-creditos-analisis__cantf__td">{{_cre.cantidadFianzas}}</td>
+                    <td class="item-edit table__personas-creditos-analisis__saldof">{{_cre.totalSaldoFianzas}}</td>
+                    <td class="item-edit table__personas-creditos-analisis__cuotaf">{{_cre.totalCuotasFianzas}}</td>
+
+                    <td class="item-edit table__personas-creditos-analisis__tafiliacion__td">{{_cre.tiempoAfiliacion}}</td>
+                    <td class="item-edit table__personas-creditos-analisis__credhist__td">{{_cre.cantidadCreditosHistorico}}</td>
+
+                    <td class="item-edit table__personas-creditos-analisis__cph__td">{{_cre.cph}}</td>
+                    <td class="item-edit table__personas-creditos-analisis__cph12__td">{{_cre.cphUltimos12Meses}}</td>
+                    <td class="item-edit table__personas-creditos-analisis__cph24__td">{{_cre.cphUltimos24Meses}}</td>
+                    <td class="item-edit table__personas-creditos-analisis__amaximo__td">{{_cre.atrasoMaximo}}</td>
+                    <td class="item-edit table__personas-creditos-analisis__atraso12__td">{{_cre.atrasosUltimos12Meses}}</td>
+                    <td class="item-edit table__personas-creditos-analisis__atraso24__td">{{_cre.atrasosUltimos24Meses}}</td>
+
+                    <td class="item-edit table__personas-creditos-analisis__diasac__td">{{_cre.diasAtrasoCorte}}</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+
+        </div>
+      </div>
+
+    </div>
+  </div>
+  
+  <br>
+
+  <!-- titulo menú -->
+  <div *ngIf="menuItem">
+      <div class="center-div">
+        <p class="center-div__tittle"> {{menuItem.descripcion}} </p>
+      </div>
+  </div>
+
+  <div *ngIf="menuItem" class="cont-analisis mat-elevation-z4">
+
+    <!-- menú -->
+    <div class="cont-analisis__menu">
+      <div class="p-2"
+          *ngFor="let module of listSubMenu" >
+          <p  class="cont-analisis__menu__items-submenu"
+              (click)="selectModule(module)" > {{module.descripcion}} </p>
+      </div>
+    </div>
+
+
+    <div class="cont-analisis__tabletas">
+      <!-- ************************** -->
+      <!-- ARTÍCULO DATOS DE ANALISIS -->
+      <!-- ************************** -->
+      <div *ngIf="datosAnalisis">
+        <app-datos-analisis-macred
+          [_personaAnalisis]="_per"
+          [_globalCodMonedaPrincipal]="_globalCodMonedaPrincipal"
+          [listTipoFormaPagoAnalisis]="listTipoFormaPagoAnalisis"
+          [listTipoIngresoAnalisis]="listTipoIngresoAnalisis"
+          [listModelosAnalisis]="listModelosAnalisis"
+          [listNivelesCapacidadpago]="listNivelesCapacidadpago"
+          [listTiposGeneradores]="listTiposGeneradores"
+          [listTiposMonedas]="listTiposMonedas"
+          (onIngresos)="habilitaFormularioIngreso()"
+          (onPD)="habilitarFormPD()" >
+        </app-datos-analisis-macred>
+      </div>
+
+      <!-- ************************** -->
+      <!-- ARTÍCULO INGRESOS          -->
+      <!-- ************************** -->
+      <article *ngIf="ingresos">
+        <app-ingresos
+        [_personaAnalisis]="_per"
+        [_globalCodMonedaPrincipal]="_globalCodMonedaPrincipal"
+        [listTiposIngresos]="listTiposIngresos"
+        [listTiposDeducciones]="listTiposDeducciones"
+        [listMatrizAceptacionIngreso]="listMatrizAceptacionIngreso"
+        [listTiposMonedas]="listTiposMonedas"
+        [habilitaBtnPD]="habilitaBtnPD"
+        (onHabilitarPD)="habilitarFormPD()"
+        ></app-ingresos>
+      </article>
+
+      <!-- ************************** -->
+      <!-- ARTÍCULO PD                -->
+      <!-- ************************** -->
+      <article *ngIf="pd">
+        <app-pd
+        [_personaAnalisis]="_per"
+        [_globalCodMonedaPrincipal]="_globalCodMonedaPrincipal"
+        [listTipoIngresoAnalisis]="listTipoIngresoAnalisis"
+        (onFCL)="habilitarFormFCL()"
+        ></app-pd>
+      </article>
+
+      <!-- ************************** -->
+      <!-- ARTÍCULO FCL               -->
+      <!-- ************************** -->
+      <app-fcl
+      *ngIf="flujoCaja"
+      [_analisisCapacidadpago]="srvDatosAnalisisService._analisisCapacidadpago"
+      [_personaAnalisis]="_per"
+      (onEscenariosFCL)="handleHabilitarEscenariosFCL($event)"
+      ></app-fcl>
+
+      <!-- ************************** -->
+      <!-- ARTÍCULO ESCENARIO FCL     -->
+      <!-- ************************** -->
+      <app-escenariofcl
+      *ngIf="escenariosFcl"
+      ></app-escenariofcl>
+
+    </div>
+  </div>
+
+
+  <div class="col-md-12 mt-5" *ngIf="scoring">
+
+      <div class="asociado_content mat-elevation-z4">
+        <main>
+          <article>
+            <section>
+              <br />
+              <br />
+
+              <div>
+                <p>Administración de Scoring Crediticio !</p>
+              </div>
+              <br />
+            </section>
+          </article>
+        </main>
+      </div>
+
+  </div>
+
+  <div class="col-md-12 mt-5" *ngIf="obligacionesSupervisadas">
+
+      <div class="asociado_content mat-elevation-z4">
+        <main>
+          <article>
+            <section>
+              <br />
+              <br />
+
+              <div>
+                <p>Administración de Obligaciones Supervisadas !</p>
+              </div>
+              <br />
+            </section>
+          </article>
+        </main>
+      </div>
+
+  </div>
+
+  <div class="col-md-12 mt-5" *ngIf="oNoSupervisadas">
+
+      <div class="asociado_content mat-elevation-z4">
+        <main>
+          <article>
+            <section>
+              <br />
+              <br />
+
+              <div>
+                <p>Administración de O. No Supervisadas !</p>
+              </div>
+              <br />
+            </section>
+          </article>
+        </main>
+      </div>
+
+  </div>
+
+  <div class="col-md-12 mt-5" *ngIf="lvt">
+
+      <div class="asociado_content mat-elevation-z4">
+        <main>
+          <article>
+            <section>
+              <br />
+              <br />
+
+              <div>
+                <p>Administración de LVT !</p>
+              </div>
+              <br />
+            </section>
+          </article>
+        </main>
+      </div>
+
+  </div>
+
+  <div class="col-md-12 mt-5" *ngIf="escenarios">
+
+      <div class="asociado_content mat-elevation-z4">
+        <main>
+          <article>
+            <section>
+              <br />
+              <br />
+
+              <div>
+                <p>Administración de Escenarios !</p>
+              </div>
+              <br />
+            </section>
+          </article>
+        </main>
+      </div>
+
+  </div>
+
+</div>

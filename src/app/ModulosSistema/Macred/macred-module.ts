@@ -4,7 +4,7 @@ import { CommonModule } from '@angular/common';
 import { MacredRoutingModule } from './macred-routing.module';
 import { IndexMacredComponent } from './index.component';
 import { MenuMacredComponent } from './menu.component';
-import { AsociadosComponent } from './asociados/asociados-component';
+import { AnalisisAsociadosComponent } from './asociados/analisis-asociados.component';
 import { EstadosCivilesComponent } from './mantenimientos/Personas/estadosciviles-component';
 import { ParametrosGeneralesComponent } from './configuracion/parametrosgenerales-component';
 import { TiposPersonasComponent } from './mantenimientos/Personas/tipospersonas-component';
@@ -55,7 +55,7 @@ import { ModelosAnalisisComponent } from './mantenimientos/Parametros-Scoring/co
     declarations: [
         IndexMacredComponent,
         MenuMacredComponent,
-        AsociadosComponent,
+        AnalisisAsociadosComponent,
         EstadosCivilesComponent,
         ParametrosGeneralesComponent,
         TiposPersonasComponent,

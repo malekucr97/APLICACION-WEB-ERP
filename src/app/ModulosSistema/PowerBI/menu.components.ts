@@ -52,7 +52,7 @@ export class MenuPowerBIComponent {
         this.dataSource.data = TREE_DATA;
     }
 
-    logout() { this.accountService.logout(); }
+    logout() { this.accountService.logout().subscribe(); }
 
     redirectIndex() : void { this.router.navigate([this.URLRedirectIndexContent]); }
 

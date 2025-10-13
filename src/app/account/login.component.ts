@@ -7,10 +7,9 @@ import { administrator, environment, httpLandingIndexPage } from '@environments/
 import { User } from '@app/_models';
 import { TranslateService } from '@ngx-translate/core';
 
-@Component({
-    selector: 'login',
-    templateUrl: 'login.component.html',
-    standalone: false
+@Component({selector: 'login',
+            templateUrl: 'login.component.html',
+            standalone: false
 })
 export class LoginComponent implements OnInit {
 
@@ -111,22 +110,29 @@ export class LoginComponent implements OnInit {
                             break;
                         }
 
-                        case "NO-LOG01": { this.alertService.info(this.translate.instant('ALERTS.USER_NOT_REGISTERED')); break; } // usuario no registrado 
-                        case "NO-LOG02": { this.router.navigate([this._httpBlockedUserPage]);   break; } // usuario bloqueado
-                        case "NO-LOG03": { this.router.navigate([this._httpInactiveUserPage]);  break; } // usuario inactivo
-                        case "NO-LOG04": { this.router.navigate([this._httpPendingUserPage]);   break; } // usuario pendiente
-                        case "NO-LOG05": { this.router.navigate([this._httpNotRoleUserPage]);   break; } // usuario sin rol
-                        case "NO-LOG06": {
-                            this.intentosFallidosInicioSesion++;
-                            this.alertService.info(this.translate.instant('ALERTS.PASSWORD_ERROR'));
-                            break;
-                        } // contraseña incorrecta
-                        case "NO-LOG07": {
-                            this.alertService.info(this.translate.instant('ALERTS.ACTIVATE_EMAIL_NOT_SEND'));
-                            break;
-                        } // contraseña incorrecta
+                        case "404": { this.alertService.warn(
+                            this.translate.instant('ALERTS.USER_NOT_REGISTERED')); break; }         // usuario no registrado 
 
-                        default: { this.alertService.info(this.translate.instant('ALERTS.EXCEPTION_NOT_CONTROLLED')); break; }
+                        case "403": { this.router.navigate([this._httpBlockedUserPage]);   break; } // usuario bloqueado
+                        case "423": { this.router.navigate([this._httpInactiveUserPage]);  break; } // usuario inactivo
+                        case "409": { this.router.navigate([this._httpPendingUserPage]);   break; } // usuario pendiente
+                        case "405": { this.router.navigate([this._httpNotRoleUserPage]);   break; } // usuario sin rol
+                        case "401": {
+                            this.intentosFallidosInicioSesion++;
+                            this.alertService.warn(this.translate.instant('ALERTS.PASSWORD_ERROR'));
+                            break;
+                        } // contraseña incorrecta
+                        case "424": {
+                            this.alertService.error(this.translate.instant('ALERTS.ACTIVATE_EMAIL_NOT_SEND'));
+                            break;
+                        } // correo no enviado revisar bitacoras y logs
+
+                        case "500": {
+                            this.alertService.error(responseLogin.messageNoLogin);
+                            break;
+                        } // error interno del servidor
+
+                        default: { this.alertService.error(this.translate.instant('ALERTS.EXCEPTION_NOT_CONTROLLED')); break; }
                     }
 
                 // ************************
@@ -136,7 +142,7 @@ export class LoginComponent implements OnInit {
                 this.loading    = false;
                 this.submitted  = false;
                 
-            }, (error) => { this.alertService.error(this.translate.instant('ALERTS.ERROR_CATCH', {ERROR: error})); });
+            }, (error) => { this.loading = false; this.submitted = false; this.alertService.error(this.translate.instant('ALERTS.ERROR_CATCH', {ERROR: error})); });
     }
 
     visualizarContrasena() { this.mostrarContrasena = !this.mostrarContrasena; }

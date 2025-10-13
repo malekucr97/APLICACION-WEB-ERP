@@ -1,8 +1,8 @@
 ﻿import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
-import { BehaviorSubject, Observable } from 'rxjs';
-import { map } from 'rxjs/operators';
+import { BehaviorSubject, Observable, throwError } from 'rxjs';
+import { catchError, finalize, map, tap } from 'rxjs/operators';
 import { administrator, environment } from '@environments/environment';
 import { RoleBusiness, User } from '@app/_models';
 import { Module, Role, ResponseMessage } from '@app/_models/';
@@ -67,8 +67,8 @@ export class AccountService {
   // *******************************************************************
   // ********************** MÉTODOS SUBSCRIPTORES **********************
   // *******************************************************************
-  // -- >> Suscribe lista de usuario para administración
-  public suscribeListUser(listaUsuarios: User[]): void {
+
+  public subscribeListUser(listaUsuarios: User[]): void {
     listaUsuarios.splice( listaUsuarios.findIndex( (m) => m.identificacion == administrator.identification ), 1);
     this.listUsersSubject = new BehaviorSubject<User[]>(listaUsuarios);
   }
@@ -77,7 +77,7 @@ export class AccountService {
     this.listUsersSubject.next(listaUsuarios);
   }
   // -- >> Suscribe lista de roles para administración
-  public suscribeListRol(listaRoles: Role[]): void {
+  public subscribeListRoles(listaRoles: Role[]): void {
     this.listRolesSubject = new BehaviorSubject<Role[]>(listaRoles);
   }
   // -- >> Actualiza lista de roles administración
@@ -85,31 +85,52 @@ export class AccountService {
     this.listRolesSubject.next(listaRoles);
   }
   // -- >> Suscribe lista de roles para administración
-  public suscribeListBusiness(listaBusiness: Compania[]): void {
+  public subscribeListBusiness(listaBusiness: Compania[]): void {
     this.listBusinessSubject = new BehaviorSubject<Compania[]>(listaBusiness);
   }
   // -- >> Actualiza lista de compañías administración
   public loadListBusiness(listaCompanias: Compania[]): void {
     this.listBusinessSubject.next(listaCompanias);
   }
+
+
+  // Actualiza objetos en memoria y localStorage
+  private updateSessionItem<T>(key: string, value: T, subject: BehaviorSubject<T | null>): void {
+    localStorage.setItem(key, JSON.stringify(value));
+    subject.next(value);
+  }
+  public loadBusinessAsObservable(business: Compania): void {
+    this.updateSessionItem('Obusiness', business, this.businessSubject);
+  }
+
+  public loadModuleAsObservable(module: Module): void {
+    this.updateSessionItem('Omodule', module, this.moduleSubject);
+  }
+
+  public loadUserAsObservable(user: User): void {
+    this.updateSessionItem('user', user, this.userSubject);
+  }
+
   // -- >> Actualiza Objeto Compañía en memoria y subcripción
-  public loadBusinessAsObservable(objectBusiness: Compania) {
-    localStorage.removeItem('Obusiness');
-    localStorage.setItem('Obusiness', JSON.stringify(objectBusiness));
-    this.businessSubject.next(objectBusiness);
-  }
-  // -- >> Actualiza Objeto Módulo en memoria y subcripción
-  public loadModuleAsObservable(mod: Module) {
-    localStorage.removeItem('Omodule');
-    localStorage.setItem('Omodule', JSON.stringify(mod));
-    this.moduleSubject.next(mod);
-  }
-  // -- >> Actualiza subscripción de Usuario en localstorage
-  loadUserAsObservable(user: User) {
-    localStorage.removeItem('user');
-    localStorage.setItem('user', JSON.stringify(user));
-    this.userSubject.next(user);
-  }
+  // public loadBusinessAsObservable(objectBusiness: Compania) {
+  //   localStorage.removeItem('Obusiness');
+  //   localStorage.setItem('Obusiness', JSON.stringify(objectBusiness));
+  //   this.businessSubject.next(objectBusiness);
+  // }
+  // // -- >> Actualiza Objeto Módulo en memoria y subcripción
+  // public loadModuleAsObservable(mod: Module) {
+  //   localStorage.removeItem('Omodule');
+  //   localStorage.setItem('Omodule', JSON.stringify(mod));
+  //   this.moduleSubject.next(mod);
+  // }
+  // // -- >> Actualiza subscripción de Usuario en localstorage
+  // loadUserAsObservable(user: User) {
+  //   localStorage.removeItem('user');
+  //   localStorage.setItem('user', JSON.stringify(user));
+  //   this.userSubject.next(user);
+  // }
+
+
   // *******************************************************************
 
   clearObjectModuleObservable() { localStorage.removeItem('Omodule'); this.moduleSubject.next(null); }
@@ -139,10 +160,36 @@ export class AccountService {
     return this.http.post<ResponseMessage>( `${environment.apiUrl}/users/postbitacora`, bitacora, { headers });
   }
 
+
+  /**
+   * Renueva el access token usando el refresh token almacenado (idealmente en httpOnly cookie).
+   * El backend debe exponer un endpoint como /users/refresh-token que retorne un nuevo access token.
+   * Retorna un Observable<string> con el nuevo access token.
+   */
+  refreshToken(): Observable<string> {
+    return this.http.post<any>(`${environment.apiUrl}/users/refresh-token`, {}, { withCredentials: true })
+      .pipe(
+        map((response) => {
+          // Se espera que el backend retorne { token: '...' }
+          if (response && response.token) {
+            // Actualizar el usuario en memoria y localStorage
+            const user = { ...this.userValue, token: response.token };
+            this.loadUserAsObservable(user);
+            return response.token;
+          } else {
+            throw new Error('No se recibió un nuevo token');
+          }
+        }),
+        catchError(err => {
+          return throwError(() => err);
+        })
+      );
+  }
+
   // **********************************************************************************************
   // -- >> Inicio de Sesión
   login(username, password) {
-    return this.http.post<User>(`${environment.apiUrl}/users/autenticar`, { username, password })
+    return this.http.post<User>(`${environment.apiUrl}/users/autenticar`, { username, password }, { withCredentials: true })
       .pipe(
         map((user) => {
           localStorage.setItem('user', JSON.stringify(user));
@@ -150,12 +197,27 @@ export class AccountService {
           return user;
       }));
   }
-  logout() {
-    localStorage.removeItem('user'); this.userSubject.next(null);
-    localStorage.removeItem('Obusiness'); this.businessSubject.next(null);
-    localStorage.removeItem('Omodule'); this.moduleSubject.next(null);
-    this.router.navigate(['account/login']);
+  logout(): Observable<void> {
+    const token = this.userValue?.token;
+
+    return this.http.post<void>(
+      `${environment.apiUrl}/users/logout`, {},
+      {
+        withCredentials: true,
+        headers: token ? { Authorization: `Bearer ${token}` } : undefined
+      }
+    ).pipe(
+      tap(() => this.clearSession()),
+      finalize(() => this.router.navigate(['account/login']))
+    );
   }
+  private clearSession(): void {
+    ['user', 'Obusiness', 'Omodule'].forEach(key => localStorage.removeItem(key));
+    this.userSubject.next(null);
+    this.businessSubject.next(null);
+    this.moduleSubject.next(null);
+  }
+
   // **********************************************************************************************
   // 2024 ** ACTS SEGURIDAD ******
   // **********************************************************************************************

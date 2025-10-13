@@ -730,7 +730,7 @@ export class ModelosAnalisisComponent extends OnSeguridad implements OnInit {
 
                     this.formGrupo.get('pesoTotalGrupo')?.setValue(this.sumatoriaPesoGrupo);
 
-                } else { this.habilitaListaGrupo = false; }
+                } else { this.listGrupos = []; this.habilitaListaGrupo = false; }
 
             }, error => { this.alertService.error(error); });
     }
@@ -748,7 +748,8 @@ export class ModelosAnalisisComponent extends OnSeguridad implements OnInit {
 
                     this.formIndicador.get('pesoTotalIndicador')?.setValue(this.sumatoriaPesoIndicador);
 
-                } else { this.habilitaListaIndicador = false; }
+                    // limpia lista de indicadores
+                } else { this.listIndicadoresModelos = []; this.habilitaListaIndicador = false; }
 
             }, error => { this.alertService.error(error); });
     }

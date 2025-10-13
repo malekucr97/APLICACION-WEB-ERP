@@ -37,7 +37,7 @@ export class HomeComponent extends OnSeguridad implements OnInit {
 
         // *********************************************************
         // VALIDA ACCESO PANTALLA
-        if (!super.userAuthenticateHome()) { this.accountService.logout(); return; }
+        if (!super.userAuthenticateHome()) { this.accountService.logout().subscribe(); return; }
         // *********************************************************
 
         this.accountService.clearObjectBusinesObservable();
@@ -151,5 +151,5 @@ export class HomeComponent extends OnSeguridad implements OnInit {
             });
     }
 
-    logout() { this.accountService.logout(); }
+    logout() { this.accountService.logout() }
 }

@@ -814,9 +814,15 @@ export class MacredService {
       { headers: this.headersValue }
     );
   }
-  getPersonasCompania(idCompania: number) {
+  getPersonas() {
     return this.http.get<MacPersona[]>(
-      `${environment.apiUrl}/macred/getpersonascompania?idCompania=${idCompania}`, 
+      `${environment.apiUrl}/macred/getpersonas?pidCompania=${this.businessValue.id}`,
+      { headers: this.headersValue }
+    );
+  }
+  getPersonasActivas() {
+    return this.http.get<MacPersona[]>(
+      `${environment.apiUrl}/macred/getpersonasactivas?pidCompania=${this.businessValue.id}`,
       { headers: this.headersValue }
     );
   }
@@ -844,6 +850,12 @@ export class MacredService {
       { headers: this.headersValue }
     );
   }
+  getInfoCreditoActivosPersonas(pidPersona: number) {
+    return this.http.get<MacInformacionCreditoPersona[]>(
+      `${environment.apiUrl}/macred/getinfocreditoactivospersona?pidpersona=${pidPersona}`, 
+      { headers: this.headersValue }
+    );
+  }
   postInfoCreditoPersona(pobj: MacInformacionCreditoPersona) {
     return this.http.post<ResponseMessage>(
       `${environment.apiUrl}/macred/postinfocreditopersona`, pobj, { headers: this.headersValue }
@@ -859,6 +871,23 @@ export class MacredService {
       `${environment.apiUrl}/macred/deleteinfocreditopersona?pid=${pid}`, { headers: this.headersValue }
     );
   }
+
+
+  // analisis
+  getHistorialAnlisis() {
+    return this.http.get<MacAnalisisCapacidadPago[]>(
+      `${environment.apiUrl}/macred/gethistorialcapacidadpago?pidCompania=${this.businessValue.id}`,
+      { headers: this.headersValue }
+    );
+  }
+  getHistorialAnlisisPersona(pidPersona: number) {
+    return this.http.get<MacAnalisisCapacidadPago[]>(
+      `${environment.apiUrl}/macred/gethistorialpersonacappago?pidPersona=${pidPersona}`,
+      { headers: this.headersValue }
+    );
+  }
+
+
   //
 
 
@@ -1134,11 +1163,11 @@ export class MacredService {
       extras
     );
   }
-  getHistorialAnlisis(idCompania: number) {
-    return this.http.get<MacAnalisisCapacidadPago[]>(
-      `${environment.apiUrl}/macred/gethistorialcapacidadpago?idCompania=${idCompania}`
-    );
-  }
+  // getHistorialAnlisis(idCompania: number) {
+  //   return this.http.get<MacAnalisisCapacidadPago[]>(
+  //     `${environment.apiUrl}/macred/gethistorialcapacidadpago?idCompania=${idCompania}`
+  //   );
+  // }
   getMatrizAceptacionIngreso(idCompania: number, incluyeInactivos: boolean) {
     return this.http.get<MacMatrizAceptacionIngreso[]>(
       `${environment.apiUrl}/macred/getmatrizaceptacioningreso?idCompania=${idCompania}&incluyeInactivos=${incluyeInactivos}`

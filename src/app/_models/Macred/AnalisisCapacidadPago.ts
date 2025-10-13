@@ -3,6 +3,7 @@ export class MacAnalisisCapacidadPago {
     codigoCompania       :number;
 
     codigoPersona        : number;
+    
     fechaAnalisis        : Date;
     estado               : boolean;
     analisisDefinitivo   : boolean;

@@ -81,10 +81,20 @@
           },
           "configurations": {
             "production": {
-              "buildTarget": "uil:build:production"
+              "buildTarget": "uil:build:production",
+              "ssl": true,
+              "sslCert": "ssl/server.crt",
+              "sslKey": "ssl/server.key",
+              "port": 4200,
+              "host": "localhost"
             },
             "development": {
-              "buildTarget": "uil:build:development"
+              "buildTarget": "uil:build:development",
+              "ssl": true,
+              "sslCert": "ssl/server.crt",
+              "sslKey": "ssl/server.key",
+              "port": 4200,
+              "host": "localhost"
             }
           }
         },

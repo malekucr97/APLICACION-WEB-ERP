@@ -1,21 +1,18 @@
 import { Injectable } from '@angular/core';
 import { Compania, Module, User } from '@app/_models';
-import {
-  MacAnalisisCapacidadPago,
-  MacEstadoCivil,
-  MacPersona,
-  ModelosPD,
-} from '@app/_models/Macred';
+import {  MacAnalisisCapacidadPago,
+          MacEstadoCivil,
+          MacPersona,
+          ModelosPD } from '@app/_models/Macred';
 import { MacTipoGenero } from '@app/_models/Macred/TipoGenero';
 import { MacTipoHabitacion } from '@app/_models/Macred/TipoHabitacion';
 import { AccountService } from '@app/_services';
 import { MacredService } from '@app/_services/macred.service';
 import { first } from 'rxjs/operators';
 
-@Injectable({
-  providedIn: 'root',
-})
+@Injectable({ providedIn: 'root' })
 export class SrvDatosAnalisisService {
+
   _analisisCapacidadpago: MacAnalisisCapacidadPago;
   _personaAnalisis: MacPersona;
 
@@ -30,10 +27,9 @@ export class SrvDatosAnalisisService {
   private companiaObservable: Compania;
   // ## -- ----------------- -- ## //
 
-  constructor(
-    private macredService: MacredService,
-    private accountService: AccountService
-  ) {
+  constructor(private macredService: MacredService,
+              private accountService: AccountService) {
+
     this.userObservable = this.accountService.userValue;
     this.moduleObservable = this.accountService.moduleValue;
     this.companiaObservable = this.accountService.businessValue;
@@ -45,25 +41,22 @@ export class SrvDatosAnalisisService {
 
   //#region ANALISIS CAPACIDAD PAGO
 
-  procesoActualizarAnalisisCapacidadPago(
-    nuevoAnalisisCapacidadPago: MacAnalisisCapacidadPago
-  ) {
+  procesoActualizarAnalisisCapacidadPago( panalisis: MacAnalisisCapacidadPago) {
+    
     return new Promise((resolve, reject) => {
-      this.macredService
-        .putAnalisisCapPago(nuevoAnalisisCapacidadPago)
+      
+      this.macredService.putAnalisisCapPago(panalisis)
         .pipe(first())
-        .subscribe(
-          (response) => {
-            if (response) {
+        .subscribe((response) => {
+            
+          if (response) {
+            
               resolve(response);
-            } else {
-              reject(`No fue posible actualizar el análisis.`);
-            }
-          },
-          (error) => {
-            reject(
-              `Problemas al establecer la conexión con el servidor. Detalle: ${error}`
-            );
+
+          } else { reject(`No fue posible actualizar el análisis.`); }
+
+          }, (error) => { 
+            reject( `Problemas al establecer la conexión con el servidor. Detalle: ${error}` );
           }
         );
     });

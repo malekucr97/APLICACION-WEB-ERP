@@ -68,7 +68,7 @@ export class ListRoleComponent extends OnSeguridad implements OnInit {
           }
           else { this.listRoles = responseRoles; } 
   
-          this.accountService.suscribeListRol(this.listRoles);
+          this.accountService.subscribeListRoles(this.listRoles);
 
         } else { this.alertService.info(this.translate.translateKey('ALERTS.companyNotRoleAssignment')); }
       });

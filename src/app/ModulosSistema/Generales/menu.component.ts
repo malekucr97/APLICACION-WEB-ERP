@@ -134,5 +134,5 @@ export class MenuGeneralesComponent implements OnInit {
 
   redirectIndex() : void { this.router.navigate([this.URLRedirectIndexContent]); }
 
-  logout() { this.accountService.logout(); }
+  logout() { this.accountService.logout().subscribe(); }
 }

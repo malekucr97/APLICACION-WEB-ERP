@@ -17,6 +17,12 @@ export class MacPersona {
     indAsociado: boolean;
     estado: boolean;
 
+    // descripciones
+    descEstadoCivil?: string;
+    descCondicionLaboral?: string;
+    descTipoHabitacion?: string;
+
+
     // informacion credito
     codigoCategoriaCredito: number;
     codigoTipoAsociado: string;
@@ -96,4 +102,8 @@ export class MacInformacionCreditoPersona {
     fechaAdicion: Date;
     modificadoPor: string;
     fechaModificacion: Date;
+
+    // Descripciones
+    descCategoriaCredito?: string;
+    descTipoAsociado?: string;
 }

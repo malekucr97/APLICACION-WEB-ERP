@@ -17,3 +17,9 @@ export class ModuleScreen {
 
     constructor() { }
 }
+
+export class ModuleSubMenu {
+
+    constructor(public id:number,
+                public descripcion:string) { }
+}

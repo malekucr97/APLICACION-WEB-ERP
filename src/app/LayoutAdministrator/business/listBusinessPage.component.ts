@@ -56,7 +56,7 @@ export class ListBusinessComponent extends OnSeguridad implements OnInit {
             .pipe(first())
             .subscribe(response => {
                 this.listBusiness = response;
-                this.accountService.suscribeListBusiness(this.listBusiness);
+                this.accountService.subscribeListBusiness(this.listBusiness);
                 this.accountService.loadListBusiness(this.listBusiness);
             });
     }

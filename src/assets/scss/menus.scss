@@ -63,7 +63,17 @@
             &:hover { color: white; background-color: #F9A01B; cursor: pointer; }
         }
     }
-    &__next-icons { width: 10%; display: inline-block; text-align: center; }
+    &__next-icons { 
+        width: 10%;  display: inline-block; text-align: center; 
+        &__logout {
+            color: white;
+            &:hover { color: white; background-color: #f91b1b; cursor: pointer; }
+        }
+        &__home {
+            color: white;
+            &:hover { color: white; background-color: #F9A01B; cursor: pointer; }
+        }
+    }
 }
 
 // //

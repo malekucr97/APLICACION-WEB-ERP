@@ -13,7 +13,7 @@ export class LayoutAdministratorComponent  {
 
     constructor(private accountService: AccountService, private router: Router) { }
 
-    logout() { this.accountService.logout(); }
+    logout() { this.accountService.logout().subscribe(); }
 
     redirectIndex() : void { this.router.navigate([this.urlIndex]); }
 }

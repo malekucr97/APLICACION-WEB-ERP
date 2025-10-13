@@ -755,10 +755,8 @@ export class ModelosCalificacionComponent extends OnSeguridad implements OnInit 
 
                     this.formGrupo.get('pesoTotalGrupo')?.setValue(this.sumatoriaPesoGrupo);
 
-                } else {
-                    this.habilitaListaGrupo = false;
-                    this.listGrupos = [];
-                }
+                } else { this.listGrupos = []; this.habilitaListaGrupo = false; }
+                
             }, error => { this.alertService.error(error); });
     }
     private getIndicadoresGruposCalif(pidGrupo : number) : void {
@@ -774,10 +772,8 @@ export class ModelosCalificacionComponent extends OnSeguridad implements OnInit 
 
                     this.formIndicador.get('pesoTotalIndicador')?.setValue(this.sumatoriaPesoIndicador);
 
-                } else {
-                    this.habilitaListaIndicador = false;
-                    this.listIndicadoresModelos = [];
-                }
+                } else { this.listIndicadoresModelos = []; this.habilitaListaIndicador = false; }
+                
             }, error => { this.alertService.error(error); });
     }
 
