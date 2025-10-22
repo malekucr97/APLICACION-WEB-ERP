@@ -13,7 +13,7 @@ import { User, Module, Compania } from '@app/_models';
 
 @Component({selector: 'app-historico-ihh-crediticio-riesgo-credito',
             templateUrl: './historico-ihh-crediticio.component.html',
-            styleUrls: ['../../../../assets/scss/tailwind.scss'],
+            // styleUrls: ['../../../../assets/scss/tailwind.scss'],
             standalone: false
 })
 export class HistoricoIhhCrediticioComponent implements OnInit {

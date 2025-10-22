@@ -1,8 +1,8 @@
 <section>
   <div class="contenedor__header">
     <div class="contenedor__header__prev">
-      <h2 *ngIf="srvDatosAnalisisService._analisisCapacidadpago">
-        codigo de análisis: {{srvDatosAnalisisService._analisisCapacidadpago.codigoAnalisis}}
+      <h2 *ngIf="oAnalisis">
+        codigo de análisis: {{oAnalisis.codigoAnalisis}}
       </h2>
     </div>
     <div class="contenedor__header__next">
@@ -52,7 +52,7 @@
         >
           <option
             [ngValue]="estadoCivil"
-            *ngFor="let estadoCivil of srvDatosAnalisisService.lstEstadoCivil"
+            *ngFor="let estadoCivil of srvDatosAnalisisService.listEstadosCiviles"
           >
             {{estadoCivil.id}} - {{estadoCivil.descripcion}}
           </option>
@@ -82,7 +82,7 @@
         >
           <option
             [ngValue]="tipoHabitacion"
-            *ngFor="let tipoHabitacion of srvDatosAnalisisService.listTipoHabitaciones"
+            *ngFor="let tipoHabitacion of srvDatosAnalisisService.listTiposHabitaciones"
           >
             {{tipoHabitacion.id}} - {{tipoHabitacion.descripcion}}
           </option>

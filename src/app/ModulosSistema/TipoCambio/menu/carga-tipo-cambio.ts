@@ -13,7 +13,7 @@ import { User, Module, Compania } from '@app/_models';
 
 @Component({selector: 'app-carga-tipo-cambio',
             templateUrl: './carga-tipo-cambio.html',
-            styleUrls: ['../../../../assets/scss/tailwind.scss'],
+            // styleUrls: ['../../../../assets/scss/tailwind.scss'],
             standalone: false
 })
 export class CargaTipoCambioComponent implements OnInit {

@@ -87,7 +87,7 @@ export class TiposAsociadosComponent implements OnInit {
 
     consultaTiposAsociadosCompania() : void {
 
-        this.macredService.getTiposAsociadosCompania(this.userObservable.empresa)
+        this.macredService.getTiposAsociados()
         .pipe(first())
         .subscribe(tipoAsociadoResponse => {
 

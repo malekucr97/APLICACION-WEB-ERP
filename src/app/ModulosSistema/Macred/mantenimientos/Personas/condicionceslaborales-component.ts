@@ -87,7 +87,7 @@ export class CondicionesLaboralesComponent implements OnInit {
 
     consultaCondicionesLaboralesCompania() : void {
 
-        this.macredService.getCondicionesLaboralesCompania(this.userObservable.empresa)
+        this.macredService.getCondicionesLaborales()
         .pipe(first())
         .subscribe(condicionLaboralResponse => {
 

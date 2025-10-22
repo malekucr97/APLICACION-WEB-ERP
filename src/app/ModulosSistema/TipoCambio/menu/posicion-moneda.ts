@@ -13,7 +13,7 @@ import { User, Module, Compania } from '@app/_models';
 
 @Component({selector: 'app-posicion-moneda',
             templateUrl: './posicion-moneda.html',
-            styleUrls: ['../../../../assets/scss/tailwind.scss'],
+            // styleUrls: ['../../../../assets/scss/tailwind.scss'],
             standalone: false
 })
 export class PosicionMonedaComponent implements OnInit {

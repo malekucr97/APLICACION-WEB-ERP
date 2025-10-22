@@ -13,7 +13,7 @@ import { User, Module, Compania } from '@app/_models';
 
 @Component({selector: 'app-volatilidad-tipo-cambio',
             templateUrl: './volatilidad-tipo-cambio.html',
-            styleUrls: ['../../../../assets/scss/tailwind.scss'],
+            // styleUrls: ['../../../../assets/scss/tailwind.scss'],
             standalone: false
 })
 export class VolatilidadTipoCambioComponent implements OnInit {

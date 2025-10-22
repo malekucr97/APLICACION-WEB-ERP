@@ -2,7 +2,7 @@ import { PercentPipe } from '@angular/common';
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { UntypedFormBuilder, UntypedFormGroup } from '@angular/forms';
 import { Compania, Module, User } from '@app/_models';
-import { AnalisisHistoricoPD, GruposPD, MacPersona, MacTipoIngresoAnalisis, ModelosPD } from '@app/_models/Macred';
+import { AnalisisHistoricoPD, GruposPD, MacAnalisisCapacidadPago, MacPersona, MacTipoIngresoAnalisis, ModelosPD } from '@app/_models/Macred';
 import { AccountService, AlertService } from '@app/_services';
 import { MacredService } from '@app/_services/macred.service';
 import { first } from 'rxjs/operators';
@@ -22,7 +22,9 @@ declare var $: any;
 export class PdComponent implements OnInit {
   @Input() _personaAnalisis: MacPersona;
   @Input() _globalCodMonedaPrincipal: number;
-  @Input() listTipoIngresoAnalisis: MacTipoIngresoAnalisis[];
+  // @Input() listTipoIngresoAnalisis: MacTipoIngresoAnalisis[];
+
+  listTipoIngresoAnalisis: MacTipoIngresoAnalisis[];
 
   @Output() onFCL = new EventEmitter();
 
@@ -52,6 +54,7 @@ export class PdComponent implements OnInit {
     return this.formPD.controls;
   }
 
+  oAnalisis : MacAnalisisCapacidadPago;
 
   constructor(
     private formBuilder: UntypedFormBuilder,
@@ -68,10 +71,17 @@ export class PdComponent implements OnInit {
   }
 
   ngOnInit(): void {
+
+    this.listTipoIngresoAnalisis = this.srvDatosAnalisisService.listTipoIngresoAnalisis;
+
+    this.srvDatosAnalisisService.analisisCapacidadPago$.subscribe(
+      analisis => { 
+        if (analisis) this.oAnalisis = analisis; 
+    });
   }
 
   private procesarAnalisisPDInicial() {
-    if (this.srvDatosAnalisisService._analisisCapacidadpago) {
+    if (this.oAnalisis) {
       this.obtenerAnalisisPD();
     }
   }
@@ -79,7 +89,7 @@ export class PdComponent implements OnInit {
   private crearAnalisisPD() {
     let oAnalisisPD: AnalisisHistoricoPD = {
       pdhCodAnalisisPd: 0,
-      codAnalisis: this.srvDatosAnalisisService._analisisCapacidadpago.codigoAnalisis,
+      codAnalisis: this.oAnalisis.codigoAnalisis,
       codPersona: this._personaAnalisis.id,
       identificacion: this._personaAnalisis.identificacion,
       fechaCreacion: new Date(),
@@ -119,7 +129,7 @@ export class PdComponent implements OnInit {
 
   private obtenerAnalisisPD() {
     this.macredService
-      .getAnalisisPD(this.srvDatosAnalisisService._analisisCapacidadpago.codigoAnalisis)
+      .getAnalisisPD(this.oAnalisis.codigoAnalisis)
       .pipe(first())
       .subscribe(
         (response) => {
@@ -168,12 +178,12 @@ export class PdComponent implements OnInit {
         ),
       ],
       codigoEstadoCivil: [
-        this.srvDatosAnalisisService.lstEstadoCivil.find(
+        this.srvDatosAnalisisService.listEstadosCiviles.find(
           (x) => x.id === this._personaAnalisis.codigoEstadoCivil
         ),
       ],
       codigoTipoHabitacion: [
-        this.srvDatosAnalisisService.listTipoHabitaciones.find(
+        this.srvDatosAnalisisService.listTiposHabitaciones.find(
           (x) => x.id === this._personaAnalisis.codigoTipoHabitacion
         ),
       ],
@@ -222,7 +232,7 @@ export class PdComponent implements OnInit {
     if (
       this.listTipoIngresoAnalisis
         .find(
-          (x) => x.id == this.srvDatosAnalisisService._analisisCapacidadpago.codigoTipoIngresoAnalisis
+          (x) => x.id == this.oAnalisis.codigoTipoIngresoAnalisis
         )
         .descripcion.toLocaleLowerCase() == 'independiente'
     ) {
@@ -364,7 +374,7 @@ export class PdComponent implements OnInit {
 
     //SE GENERA LA INFORMACIÓN DEL PD
     const oAnalisisPD = {
-      codAnalisis: this.srvDatosAnalisisService._analisisCapacidadpago.codigoAnalisis,
+      codAnalisis: this.oAnalisis.codigoAnalisis,
       codModeloPd: this.modeloPDSeleccionado.id,
       codGrupoPd: this.grupoPDSeleccionado.idGrupoPd,
       codPersona: this._personaAnalisis.id,

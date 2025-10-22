@@ -620,7 +620,7 @@ export class PersonaAnalisisComponent extends OnSeguridad implements OnInit {
     }
     private getCondicionesLaborales() : void {
 
-        this.macredService.getCondicionesLaboralesCompania(this.companiaObservable.id)
+        this.macredService.getCondicionesLaborales()
         .pipe(first())
         .subscribe(response => {
 
@@ -630,7 +630,7 @@ export class PersonaAnalisisComponent extends OnSeguridad implements OnInit {
     }
     private getTiposHabitaciones() : void {
 
-        this.macredService.getTiposHabitacionesCompania(this.companiaObservable.id)
+        this.macredService.getTiposHabitaciones()
         .pipe(first())
         .subscribe(response => {
 
@@ -640,7 +640,7 @@ export class PersonaAnalisisComponent extends OnSeguridad implements OnInit {
     }
     private getCategoriasCreditos() : void {
 
-        this.macredService.getCategoriasCreditosCompania(this.userObservable.empresa)
+        this.macredService.getCategoriasCreditos()
         .pipe(first())
         .subscribe(response => {
 
@@ -650,7 +650,7 @@ export class PersonaAnalisisComponent extends OnSeguridad implements OnInit {
     }
     private getTiposAsociados() : void {
 
-        this.macredService.getTiposAsociadosCompania(this.userObservable.empresa)
+        this.macredService.getTiposAsociados()
         .pipe(first())
         .subscribe(response => {
 

@@ -13,7 +13,7 @@ import { User, Module, Compania } from '@app/_models';
 
 @Component({selector: 'app-carga-zaltman-datos-riesgo-credito',
             templateUrl: './carga-zaltman-datos.component.html',
-            styleUrls: ['../../../../assets/scss/tailwind.scss'],
+            // styleUrls: ['../../../../assets/scss/tailwind.scss'],
             standalone: false
 })
 export class CargaZaltmanDatosComponent implements OnInit {

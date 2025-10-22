@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { MacEscenariosRiesgos } from '@app/_models/Macred';
+import { MacAnalisisCapacidadPago, MacEscenariosRiesgos } from '@app/_models/Macred';
 import { AccountService, AlertService } from '@app/_services';
 import { MacredService } from '@app/_services/macred.service';
 import { SrvDatosAnalisisService } from '../servicios/srv-datos-analisis.service';
@@ -16,6 +16,8 @@ import { SrvDatosAnalisisService } from '../servicios/srv-datos-analisis.service
 export class EscenariofclComponent implements OnInit {
 
   lstEscenariosRiesgo: MacEscenariosRiesgos[] = [];
+
+  oAnalisis : MacAnalisisCapacidadPago;
 
   constructor(
     private macredService: MacredService,

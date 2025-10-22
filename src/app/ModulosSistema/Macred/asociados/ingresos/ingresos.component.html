@@ -1,531 +1,398 @@
-<section>
-  <div class="contenedor__header">
-    <div class="contenedor__header__prev">
-      <h2 *ngIf="srvDatosAnalisisService._analisisCapacidadpago">
-        codigo de análisis: {{srvDatosAnalisisService._analisisCapacidadpago.codigoAnalisis}}
-      </h2>
+<!-- <section> -->
+<div class="cont-main-analisis div-borde mat-elevation-z4"
+      [ngClass]="{'borde-success': bordeSuccess,
+                  'borde-error': bordeError }">
+
+  <div class="cont-main-analisis__header">
+    <div class="header-titles">
+      <h2>Información de Ingresos para {{_personaAnalisis.nombre}} {{_personaAnalisis.primerApellido}}</h2>
+      <h2 *ngIf="oAnalisis">Análisis: {{oAnalisis.codigoAnalisis}} </h2>
     </div>
-    <div class="contenedor__header__next">
-      <h2>Información de Ingresos</h2>
+
+    <div>
+      <button *ngIf="habilitaBtnNuevoIngreso"
+              (click)="nuevoIngreso()"
+              class="btn btn-dark px-4" >
+              <i class="fas fa-file-medical"></i> Nuevo Ingreso </button>
     </div>
   </div>
 
-  <div class="contenedor-analisis__tabletas__body">
+  <div class="cont-analisis__tabletas__body">
     <form [formGroup]="formIngresos" class="row">
+
       <div class="form-group col-md-3">
-        <label for="lblCodigoTipoIngreso" class="form-label"
-          >Tipo de Ingreso</label
-        >
-        <select
-          formControlName="codigoTipoIngreso"
-          class="form-control"
-          name="selectCodigoTipoIngreso"
-          [ngClass]="{ 'is-invalid': submittedIngresosForm && i.codigoTipoIngreso.errors }"
-        >
-          <option
-            [ngValue]="objeto"
-            *ngFor="let objeto of listTiposIngresos"
-          >
-            {{objeto.id}} - {{objeto.descripcion}}
-          </option>
+        <label for="id_tipoIngreso" class="form-label" >Tipo de Ingreso</label>
+        <select id="id_tipoIngreso"
+                formControlName="codigoTipoIngreso"
+                class="form-control"
+                name="selectCodigoTipoIngreso"
+                [ngClass]="{ 'is-invalid': submittedIngresosForm && i.codigoTipoIngreso.errors }" >
+          <option [ngValue]="objeto"
+                  *ngFor="let objeto of listTiposIngresos" > {{objeto.id}} - {{objeto.descripcion}} </option>
         </select>
-        <div
-          *ngIf="submittedIngresosForm && i.codigoTipoIngreso.errors"
-          class="invalid-feedback"
-        >
-          <div *ngIf="i.codigoTipoIngreso.errors.required">
-            El Tipo de Ingreso es requerido
-          </div>
+        <div *ngIf="submittedIngresosForm && i.codigoTipoIngreso.errors" class="invalid-feedback" >
+          <div *ngIf="i.codigoTipoIngreso.errors.required"> El Tipo de Ingreso es requerido </div>
         </div>
       </div>
+
       <div class="col-md-5"></div>
-      <!-- total ingreso para analisis -->
+      
       <div class="form-group col-md-2">
-        <label for="lblTotalMontoAnalisis" class="form-label"
-          >Total Ingreso de Análisis</label
-        >
-        <input
-          formControlName="totalMontoAnalisis"
-          class="form-control"
-          type="number"
-          id="id_totalMontoAnalisis"
-          readonly
-        />
+        <label for="id_totalMontoAnalisis" class="form-label" >Total Ingreso de Análisis</label>
+        <input formControlName="totalMontoAnalisis"
+                class="form-control"
+                type="number"
+                id="id_totalMontoAnalisis"
+                readonly />
       </div>
 
       <div class="form-group col-md-3">
-        <label for="lblMontoBruto" class="form-label"
-          >Salario Monto Bruto</label
-        >
-        <input
-          formControlName="montoBruto"
-          class="form-control"
-          type="number"
-          id="id_montoBruto"
-          [ngClass]="{ 'is-invalid': submittedIngresosForm && i.montoBruto.errors }"
-        />
-        <div
-          *ngIf="submittedIngresosForm && i.montoBruto.errors"
-          class="invalid-feedback"
-        >
-          <div *ngIf="i.montoBruto.errors.required">
-            El Salario Monto Bruto es requerido
-          </div>
+        <label for="id_montoBruto" class="form-label">Salario Monto Bruto</label>
+        <input formControlName="montoBruto"
+                class="form-control"
+                type="number"
+                id="id_montoBruto"
+                [ngClass]="{ 'is-invalid': submittedIngresosForm && i.montoBruto.errors }"/>
+        <div *ngIf="submittedIngresosForm && i.montoBruto.errors" class="invalid-feedback" >
+          <div *ngIf="i.montoBruto.errors.required">  El Salario Monto Bruto es requerido </div>
         </div>
       </div>
 
       <div class="form-group col-md-3">
-        <label for="lblMontoNeto" class="form-label"
-          >Salario Monto Neto</label
-        >
-        <input
-          formControlName="montoNeto"
-          class="form-control"
-          type="number"
-          id="id_montoNeto"
-          [ngClass]="{ 'is-invalid': submittedIngresosForm && i.montoNeto.errors }"
-        />
-        <div
-          *ngIf="submittedIngresosForm && i.montoNeto.errors"
-          class="invalid-feedback"
-        >
-          <div *ngIf="i.montoNeto.errors.required">
-            El monto neto es requerido
-          </div>
+        <label for="id_montoNeto" class="form-label">Salario Monto Neto</label>
+        <input formControlName="montoNeto"
+                class="form-control"
+                type="number"
+                id="id_montoNeto"
+                [ngClass]="{ 'is-invalid': submittedIngresosForm && i.montoNeto.errors }"/>
+        <div *ngIf="submittedIngresosForm && i.montoNeto.errors" class="invalid-feedback" >
+          <div *ngIf="i.montoNeto.errors.required"> El monto neto es requerido </div>
         </div>
       </div>
+
       <div class="col-md-2"></div>
-      <!-- total ingreso bruto -->
+      
       <div class="form-group col-md-2">
-        <label for="lblTotalIngresoBruto" class="form-label"
-          >Total Ingreso Bruto</label
-        >
-        <input
-          formControlName="totalIngresoBruto"
-          class="form-control"
-          type="number"
-          id="id_totalIngresoBruto"
-          readonly
-        />
+        <label for="id_totalIngresoBruto" class="form-label">Total Ingreso Bruto</label>
+        <input formControlName="totalIngresoBruto"
+                class="form-control"
+                type="number"
+                id="id_totalIngresoBruto"
+                readonly />
       </div>
-      <!-- total ingreso neto -->
+      
       <div class="form-group col-md-2">
-        <label for="lblTotalingresoNeto" class="form-label"
-          >Total Ingreso Neto</label
-        >
-        <input
-          formControlName="totalIngresoNeto"
-          class="form-control"
-          type="number"
-          id="id_totalingresoNeto"
-          readonly
-        />
+        <label for="id_totalingresoNeto" class="form-label">Total Ingreso Neto</label>
+        <input formControlName="totalIngresoNeto"
+                class="form-control"
+                type="number"
+                id="id_totalingresoNeto"
+                readonly />
       </div>
 
       <div class="form-group col-md-3">
-        <label for="lblCargasSociales" class="form-label"
-          >Cargas Sociales</label
-        >
-        <input
-          formControlName="cargasSociales"
-          class="form-control"
-          type="number"
-          id="id_cargasSociales"
-          [ngClass]="{ 'is-invalid': submittedIngresosForm && i.cargasSociales.errors }"
-        />
-        <div
-          *ngIf="submittedIngresosForm && i.cargasSociales.errors"
-          class="invalid-feedback"
-        >
-          <div *ngIf="i.cargasSociales.errors.required">
-            Ingrese 0 si no aplican extras
-          </div>
+        <label for="id_cargasSociales" class="form-label">Cargas Sociales</label>
+        <input formControlName="cargasSociales"
+                class="form-control"
+                type="number"
+                id="id_cargasSociales"
+                [ngClass]="{ 'is-invalid': submittedIngresosForm && i.cargasSociales.errors }" />
+        <div *ngIf="submittedIngresosForm && i.cargasSociales.errors" class="invalid-feedback" >
+          <div *ngIf="i.cargasSociales.errors.required"> Ingrese 0 si no aplican extras </div>
         </div>
       </div>
 
       <div class="form-group col-md-3">
-        <label for="lblImpuestoRenta" class="form-label"
-          >Impuesto de Renta</label
-        >
-        <input
-          formControlName="impuestoRenta"
-          class="form-control"
-          type="number"
-          id="id_impuestoRenta"
-          [ngClass]="{ 'is-invalid': submittedIngresosForm && i.impuestoRenta.errors }"
-        />
-        <div
-          *ngIf="submittedIngresosForm && i.impuestoRenta.errors"
-          class="invalid-feedback"
-        >
-          <div *ngIf="i.impuestoRenta.errors.required">
-            El impuesto sobre la renta es requerido
-          </div>
+        <label for="id_impuestoRenta" class="form-label">Impuesto de Renta</label>
+        <input formControlName="impuestoRenta"
+                class="form-control"
+                type="number"
+                id="id_impuestoRenta"
+                [ngClass]="{ 'is-invalid': submittedIngresosForm && i.impuestoRenta.errors }" />
+        <div *ngIf="submittedIngresosForm && i.impuestoRenta.errors" class="invalid-feedback" >
+          <div *ngIf="i.impuestoRenta.errors.required"> El impuesto sobre la renta es requerido </div>
         </div>
       </div>
+
       <div class="col-md-2"></div>
-      <!-- total cargas impuestos -->
+      
       <div class="form-group col-md-2">
-        <label for="lblTotalCargaImpuestos" class="form-label"
-          >Total Cargas & Impuestos</label
-        >
-        <input
-          formControlName="totalCargaImpuestos"
-          class="form-control"
-          type="number"
-          id="id_totalCargaImpuestos"
-          readonly
-        />
+        <label for="id_totalCargaImpuestos" class="form-label">Total Cargas & Impuestos</label>
+        <input formControlName="totalCargaImpuestos"
+                class="form-control"
+                type="number"
+                id="id_totalCargaImpuestos"
+                readonly />
       </div>
+
+      <div class="col-md-1"></div>
 
       <div class="form-group col-md-3">
-        <label for="lblMontoExtras" class="form-label"
-          >Monto Extras Aplicables</label
-        >
-        <input
-          formControlName="montoExtras"
-          class="form-control"
-          type="number"
-          id="id_montoExtras"
-          readonly
-        />
+        <label for="id_montoExtras" class="form-label">Monto Extras Aplicables</label>
+        <input formControlName="montoExtras"
+                class="form-control"
+                type="number"
+                id="id_montoExtras"
+                readonly />
       </div>
 
-      <!-- <div class="col-md-3"></div> -->
-      <!-- <div class="form-group col-md-3">
-                        <label for="lblPorcentajeExtras" class="form-label">Porcentaje Extras Aplicables</label>
-                        <input formControlName="porcentajeExtras" class="form-control" type="number" id="id_porcentajeExtras"
-                            readonly />
-
-                    </div> -->
-      <div class="col-md-2 margin-icos-mat item-list">
-        <a *ngIf="habilitaIcoOpenModalExtras" class="item-list__edit">
+      <div class="col-md-2 margin-open">
+        <a *ngIf="habilitaIcoOpenModalExtras" class="item-edit">
           <mat-icon (click)="openExtrasModal()">open_in_new</mat-icon>
         </a>
       </div>
 
       <div class="col-md-3"></div>
 
-      <!-- total extras aplicables -->
       <div class="form-group col-md-2">
-        <label for="lblTotalExtrasAplicables" class="form-label"
-          >Total Extras Aplicables</label
-        >
-        <input
-          formControlName="totalExtrasAplicables"
-          class="form-control"
-          type="number"
-          id="id_totalExtrasAplicables"
-          readonly
-        />
+        <label for="id_totalExtrasAplicables" class="form-label">Total Extras Aplicables</label>
+        <input formControlName="totalExtrasAplicables"
+                class="form-control"
+                type="number"
+                id="id_totalExtrasAplicables"
+                readonly />
       </div>
+
+      <div class="col-md-2"></div>
 
       <div class="form-group col-md-3">
-        <label for="lblMontoDeducciones" class="form-label"
-          >Monto Deducciones</label
-        >
-        <input
-          formControlName="montoDeducciones"
-          class="form-control"
-          type="number"
-          id="id_montoDeducciones"
-          readonly
-        />
+        <label for="id_montoDeducciones" class="form-label">Monto Deducciones</label>
+        <input formControlName="montoDeducciones"
+                class="form-control"
+                type="number"
+                id="id_montoDeducciones"
+                readonly />
       </div>
-      <div class="col-md-5 margin-icos-mat item-list">
-        <a
-          *ngIf="habilitaIcoOpenModalDeducciones"
-          class="item-list__edit"
-        >
-          <mat-icon (click)="openDeduccionesModal()"
-            >open_in_new</mat-icon
-          >
+      <div class="col-md-5 margin-open">
+        <a *ngIf="habilitaIcoOpenModalDeducciones" class="item-edit" >
+          <mat-icon (click)="openDeduccionesModal()" >open_in_new</mat-icon >
         </a>
       </div>
-      <!-- total deducciones -->
+      
       <div class="form-group col-md-2">
-        <label for="lblTotalDeducciones" class="form-label"
-          >Total Deducciones</label
-        >
-        <input
-          formControlName="totalDeducciones"
-          class="form-control"
-          type="number"
-          id="id_totalDeducciones"
-          readonly
-        />
+        <label for="id_totalDeducciones" class="form-label">Total Deducciones</label>
+        <input formControlName="totalDeducciones"
+                class="form-control"
+                type="number"
+                id="id_totalDeducciones"
+                readonly />
       </div>
     </form>
-  </div>
-  <div class="contenedor-analisis__tabletas__body">
-    <div *ngIf="listIngresosAnalisis">
-      <table class="table table-striped">
-        <thead>
-          <tr>
-            <th style="width: 5%">Ingreso</th>
-            <th style="width: 10%">Tipo de Ingreso</th>
-            <th style="width: 12%">Monto Bruto</th>
-            <th style="width: 12%">Monto Neto</th>
-            <th style="width: 8%">Cargas Sociales</th>
-            <th style="width: 8%">Impuesto Renta</th>
-            <th style="width: 8%">Extras Aplicables</th>
-            <th style="width: 10%">Deducciones</th>
-            <th style="width: 8%"></th>
-          </tr>
-        </thead>
 
-        <tbody>
-          <tr *ngFor="let obj of listIngresosAnalisis">
-            <td>{{obj.id}}</td>
-            <td>{{obj.codigoTipoIngreso}}</td>
-            <td>{{obj.montoBruto}}</td>
-            <td>{{obj.montoNeto}}</td>
-            <td>{{obj.cargasSociales}}</td>
-            <td>{{obj.impuestoRenta}}</td>
-            <td>{{obj.montoExtras}}</td>
-            <td>{{obj.montoDeducciones}}</td>
+    <hr>
+  
+    <div>
+      <div *ngIf="listIngresosAnalisis">
+        <table class="table table-striped">
+          <thead>
+            <tr>
+              <th class="table__ingresos-analisis__tipo">Tipo de Ingreso</th>
+              <th class="table__ingresos-analisis__bruto">Monto Bruto</th>
+              <th class="table__ingresos-analisis__neto">Monto Neto</th>
+              <th class="table__ingresos-analisis__cargas">Cargas Sociales</th>
+              <th class="table__ingresos-analisis__renta">Impuesto Renta</th>
+              <th class="table__ingresos-analisis__extras">Extras Aplicables</th>
+              <th class="table__ingresos-analisis__deducciones">Deducciones</th>
+              <th class="table__ingresos-analisis__ico"></th>
+            </tr>
+          </thead>
 
-            <td style="white-space: nowrap">
-              <div class="item-list">
-                <a
-                  class="item-list__edit"
-                  (click)="selectIngresoAnalisis(obj)"
-                >
-                  <mat-icon>visibility</mat-icon>
-                </a>
-                <a
-                  class="item-list__delete"
-                  (click)="deleteIngreso(obj)"
-                >
-                  <mat-icon>clear</mat-icon>
-                </a>
-              </div>
-            </td>
-          </tr>
-        </tbody>
-      </table>
+          <tbody>
+            <tr *ngFor="let obj of listIngresosAnalisis"
+                (click)="selectIngresoAnalisis(obj)">
+              <td class="item-edit table__ingresos-analisis__tipo__td">{{obj.descTipoIngreso}}</td>
+              <td class="item-edit table__ingresos-analisis__bruto__td">{{obj.montoBruto}}</td>
+              <td class="item-edit table__ingresos-analisis__neto__td">{{obj.montoNeto}}</td>
+              <td class="item-edit table__ingresos-analisis__cargas__td">{{obj.cargasSociales}}</td>
+              <td class="item-edit table__ingresos-analisis__renta__td">{{obj.impuestoRenta}}</td>
+              <td class="item-edit table__ingresos-analisis__extras__td">{{obj.montoExtras}}</td>
+              <td class="item-edit table__ingresos-analisis__deducciones__td">{{obj.montoDeducciones}}</td>
+
+              <td class="table__ingresos-analisis__ico__td">
+                <div class="margin-icos-list">
+                  <a class="item-list-view" 
+                    (click)="selectIngresoAnalisis(obj)"> <i class="fa-solid fa-eye"></i> </a>
+                  <a class="item-list-delete"
+                    (click)="deleteIngreso(obj)" > <i class="fa-solid fa-trash-can"></i> </a>
+                </div>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
     </div>
+
   </div>
 
-  <div class="contenedor__footer">
-    <div class="contenedor__footer__prev">
-      <button
-        *ngIf="habilitaBtnRegistrarIngreso"
-        (click)="RegistrarIngresoAnalisis()"
-        class="btn btn-success px-5"
-        mat-flat-button
-        color="primary"
-      >
-        Registrar Ingreso
-      </button>
-      <button
-        *ngIf="habilitaBtnActualizaIngreso"
-        (click)="ActualizaFormIngresos()"
-        class="btn btn-success px-5"
-        mat-flat-button
-        color="primary"
-      >
-        Guardar Cambios
-      </button>
+  <div class="cont-main-analisis__footer">
+    <div>
+      <button *ngIf="habilitaBtnRegistrarIngreso"
+              (click)="postIngreso()"
+              class="btn btn-success px-5"
+              mat-flat-button
+              color="primary" > Registrar </button>
+      <button *ngIf="habilitaBtnActualizaIngreso"
+              (click)="putIngreso()"
+              class="btn btn-success px-5"
+              mat-flat-button
+              color="primary" > Guardar Cambios </button>
     </div>
-    <div class="contenedor__footer__next">
-      <button
-        *ngIf="habilitaBtnPD"
-        (click)="handleHabilitarPD()"
-        class="btn px-5 btn-info"
-        mat-flat-button
-        color="primary"
-      >
-        PD
-      </button>
+    <div>
+      <button *ngIf="habilitaBtnPD"
+              (click)="handleHabilitarPD()"
+              class="btn px-5 btn-info"
+              mat-flat-button
+              color="primary" > PD </button>
     </div>
   </div>
+</div>
 
-  <!-- ****************************** -->
-  <!-- MODAL DE REGISTRO DE EXTRAS -->
-  <!-- ****************************** -->
-  <article class="modal modal-config" id="extrasModal">
-    <div class="modal-content">
-      <section>
-        <div class="modal-header">
-          <div class="contenedor__header-modal">
-            <div class="contenedor__header__prev">
-              <h1 style="color: #1a5276">
-                Registro de Extras Aplicables
-              </h1>
-            </div>
-            <div class="contenedor__header__next">
-              <button
-                style="color: red"
-                type="button"
-                class="close btn-close"
-                (click)="CerrarExtrasModal()"
-              >
-                &times;
-              </button>
-            </div>
+
+
+<!-- ****************************** -->
+<!-- MODAL DE REGISTRO DE EXTRAS -->
+<!-- ****************************** -->
+<div class="modal fade " id="extrasModal" tabindex="-1">
+  <div class="modal-dialog modal-xl modal-dialog-centered">
+    <div class="modal-content div-borde"
+          [ngClass]="{'borde-success': bordeExtrasSuccess,
+                      'borde-error': bordeExtrasError }">
+
+      <div class="modal-header">
+
+        <div class="cont-modal-header">
+          <div class="header-titles">
+            <h1 *ngIf="oAnalisis">Análisis: {{oAnalisis.codigoAnalisis}}</h1>
+            <h2 *ngIf="objIngresoSeleccionado">Código de Ingreso: {{objIngresoSeleccionado.id}}</h2>
           </div>
+          <div>
+            <button *ngIf="habilitaBtnLimpiarExtras"
+                    (click)="limpiarExtras()"
+                    class="btn-new" >
+                    <i class="fa-solid fa-file-pen"></i> Limpiar </button>
+            <button *ngIf="habilitaBtnNewExtra"
+                    (click)="nuevoExtras()"
+                    class="btn-new" >
+                    <i class="fa-solid fa-file-pen"></i> Nuevo </button>
+            <button *ngIf="habilitaBtnFinalizarExtras"
+                    (click)="finalizaCalculoExtras()"
+                    class="btn-post" >
+                    <i class="fa-solid fa-floppy-disk"></i> Finalizar </button>
+            <button *ngIf="habilitaBtnPostExtra"
+                    (click)="calcularExtras()"
+                    class="btn-post" >
+                    <i class="fa-solid fa-plus"></i> Registrar </button>
+            <button *ngIf="habilitaBtnPutExtra"
+                    (click)="putExtras()"
+                    class="btn-put" >
+                    <i class="fa-solid fa-pen"></i> Actualizar </button>
+            <button *ngIf="habilitaBtnDeleteExtra"
+                    (click)="deleteExtras()"
+                    class="btn-delete" >
+                    <i class="fa-solid fa-trash"></i> Eliminar </button>
+            <button type="button"
+                    class="btn-close position-absolute top-0 end-0 m-2"
+                    data-dismiss="modal" aria-label="Close"></button>
+          </div>
+          
         </div>
-      </section>
+      </div>
 
-      <section>
-        <form
-          [formGroup]="formExtras"
-          class="row modal-config__formulario-header"
-        >
+      <div class="modal-body">
+
+        <form [formGroup]="formExtras" class="row" >
           <div class="form-group col-md-3">
-            <label for="lblMontoExtras" class="form-label"
-              >Monto de las Extras</label
-            >
-            <input
-              formControlName="montoExtra"
-              class="form-control"
-              type="number"
-              id="id_montoExtra"
-              [ngClass]="{ 'is-invalid': submittedExtrasForm && e.montoExtra.errors }"
-            />
-            <div
-              *ngIf="submittedExtrasForm && e.montoExtra.errors"
-              class="invalid-feedback"
-            >
-              <div *ngIf="e.montoExtra.errors.required">
-                El Monto de las Extras es requerido
-              </div>
+            <label for="id_montoExtra" class="form-label">Monto de las Extras</label >
+            <input formControlName="montoExtra"
+                    class="form-control"
+                    type="number"
+                    id="id_montoExtra"
+                    [ngClass]="{ 'is-invalid': submittedExtrasForm && e.montoExtra.errors }"/>
+            <div *ngIf="submittedExtrasForm && e.montoExtra.errors" class="invalid-feedback" >
+              <div *ngIf="e.montoExtra.errors.required"> El Monto de las Extras es requerido </div>
             </div>
           </div>
 
-          <!-- <div class="form-group col-md-2">
-                                <label for="lblMesesExtrasAplicables" class="form-label">Meses Aplicables</label>
-                                <input formControlName="mesesExtrasAplicables" class="form-control" type="number" id="id_mesesExtrasAplicables"
-                                readonly />
-                            </div> -->
-
-          <div class="col-md-7"></div>
+          <div class="col-md-6"></div>
 
           <div class="form-group col-md-3">
-            <label for="lblPorcentajeExtrasAplicable" class="form-label"
-              >Porcentaje de Extras Aplicables</label
-            >
-            <input
-              formControlName="porcentajeExtrasAplicable"
-              class="form-control"
-              type="number"
-              id="id_porcentajeExtrasAplicable"
-              readonly
-            />
+            <label for="id_sumatoriaExtras" class="form-label">Sumatoria Extras Aplicables</label>
+            <input formControlName="sumatoriaExtras"
+                    class="form-control"
+                    type="number"
+                    id="id_sumatoriaExtras"
+                    readonly />
           </div>
 
           <div class="form-group col-md-3">
-            <label for="lblDesviacionEstandar" class="form-label"
-              >Desviación Estándar</label
-            >
-            <input
-              formControlName="desviacionEstandar"
-              class="form-control"
-              type="number"
-              id="id_desviacionEstandar"
-              readonly
-            />
+            <label for="id_porcentajeExtrasAplicable" class="form-label">Porcentaje de Extras Aplicables</label>
+            <input formControlName="porcentajeExtrasAplicable"
+                    class="form-control"
+                    type="number"
+                    id="id_porcentajeExtrasAplicable"
+                    readonly />
           </div>
 
           <div class="form-group col-md-3">
-            <label for="lblCoeficienteVarianza" class="form-label"
-              >Coeficiente Varianza</label
-            >
-            <input
-              formControlName="coeficienteVarianza"
-              class="form-control"
-              type="number"
-              id="id_coeficienteVarianza"
-              readonly
-            />
+            <label for="id_desviacionEstandar" class="form-label">Desviación Estándar</label>
+            <input formControlName="desviacionEstandar"
+                    class="form-control"
+                    type="number"
+                    id="id_desviacionEstandar"
+                    readonly />
           </div>
 
           <div class="form-group col-md-3">
-            <label for="lblPromedioExtrasAplicables" class="form-label"
-              >Promedio de Extras Aplicables</label
-            >
-            <input
-              formControlName="promedioExtrasAplicables"
-              class="form-control"
-              type="number"
-              id="id_promedioExtrasAplicables"
-              readonly
-            />
+            <label for="id_coeficienteVarianza" class="form-label">Coeficiente Varianza</label>
+            <input formControlName="coeficienteVarianza"
+                    class="form-control"
+                    type="number"
+                    id="id_coeficienteVarianza"
+                    readonly />
+          </div>
+
+          <div class="form-group col-md-3">
+            <label for="id_promedioExtrasAplicables" class="form-label" >Promedio de Extras Aplicables</label>
+            <input formControlName="promedioExtrasAplicables"
+                    class="form-control"
+                    type="number"
+                    id="id_promedioExtrasAplicables"
+                    readonly />
           </div>
         </form>
-      </section>
 
-      <section>
-        <div class="contenedor__body">
-          <div *ngIf="listExtrasAplicables">
+        <div *ngIf="listTempExtrasAplicables">
             <table class="table table-striped">
               <thead>
                 <tr>
-                  <th style="width: 20%">Monto Extras</th>
-                  <th style="width: 20%">Desviación Estándar</th>
-                  <th style="width: 20%">Coeficiente de Varianza</th>
-                  <th style="width: 20%">
-                    Porcentaje de Extras Aplicables
-                  </th>
-                  <th style="width: 20%">
-                    Promedio de Extras Aplicables
-                  </th>
+                  <th class="table__extras-aplicables__monto">Monto Extras</th>
+                  <th class="table__extras-aplicables__porcentaje">Porcentaje de Extras Aplicables</th>
+                  <th class="table__extras-aplicables__desviacion">Desviación Estándar</th>
+                  <th class="table__extras-aplicables__coeficiente">Coeficiente de Varianza</th>
+                  <th class="table__extras-aplicables__promedio">Promedio de Extras Aplicables</th>
                 </tr>
               </thead>
               <tbody>
-                <tr *ngFor="let obj of listExtrasAplicables">
-                  <td>{{obj.montoExtras}}</td>
-                  <td>{{obj.desviacionEstandar}}</td>
-                  <td>{{obj.coeficienteVarianza}}</td>
-                  <td>{{obj.porcentajeExtrasAplicables}}</td>
-                  <td>{{obj.promedioExtrasAplicables}}</td>
+                <tr *ngFor="let obj of listTempExtrasAplicables">
+                  <td class="table__extras-aplicables__monto__td">{{obj.montoExtras}}</td>
+                  <td class="table__extras-aplicables__porcentaje__td">{{obj.porcentajeExtrasAplicables}}</td>
+                  <td class="table__extras-aplicables__desviacion__td">{{obj.desviacionEstandar}}</td>
+                  <td class="table__extras-aplicables__coeficiente__td">{{obj.coeficienteVarianza}}</td>
+                  <td class="table__extras-aplicables__promedio__td">{{obj.promedioExtrasAplicables}}</td>
                 </tr>
               </tbody>
             </table>
-          </div>
         </div>
-      </section>
 
-      <section>
-        <!-- footer -->
-        <div class="contenedor__footer">
-          <div class="contenedor__footer__prev">
-            <button
-              *ngIf="habilitarBtnSubmitExtras"
-              (click)="SubmitFormExtras()"
-              class="btn btn-success px-5"
-              mat-flat-button
-              color="primary"
-            >
-              Registrar
-            </button>
-          </div>
-          <div class="contenedor__footer__next">
-            <button
-              *ngIf="habilitarBtnFinalizarExtras"
-              (click)="FinalizarRegistroExtras()"
-              class="btn btn-success px-5"
-              mat-flat-button
-              color="primary"
-            >
-              Finalizar
-            </button>
-
-            <button
-              *ngIf="habilitarBtnEliminarExtras"
-              (click)="deleteExtra()"
-              class="btn btn-danger px-5"
-              mat-flat-button
-              color="primary"
-            >
-              Eliminar
-            </button>
-          </div>
+        <div class="cont-modal-analisis__footer">
+            <div class="cont-modal-analisis__footer__prev"> </div>
+            <div class="cont-modal-analisis__footer__next"> </div>
         </div>
-      </section>
+
+      </div>
     </div>
-  </article>
+  </div>
+</div>
 
   <!-- ****************************** -->
   <!-- MODAL DE REGISTRO DE DEDUCCIONES -->
@@ -703,7 +570,7 @@
         <div class="contenedor__footer">
           <div class="contenedor__footer__prev">
             <button
-              *ngIf="habilitarBtnRegistraDeduccion"
+              *ngIf="habilitaBtnRegistraDeduccion"
               (click)="SubmitFormDeducciones()"
               class="btn btn-success px-5"
               mat-flat-button
@@ -712,7 +579,7 @@
               Registrar
             </button>
             <button
-              *ngIf="habilitarBtnActualizaDeduccion"
+              *ngIf="habilitaBtnActualizaDeduccion"
               (click)="ActualizaFormDeducciones()"
               class="btn btn-success px-5"
               mat-flat-button
@@ -723,7 +590,7 @@
           </div>
           <div class="contenedor__footer__next">
             <button
-              *ngIf="habilitarBtnFinalizarDeducciones"
+              *ngIf="habilitaBtnFinalizarDeducciones"
               (click)="finalizarFormularioDeducciones()"
               class="btn btn-success px-5"
               mat-flat-button
@@ -736,4 +603,4 @@
       </section>
     </div>
   </article>
-</section>
+<!-- </section> -->

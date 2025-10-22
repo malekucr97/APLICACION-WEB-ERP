@@ -197,21 +197,20 @@ export class AccountService {
           return user;
       }));
   }
-  logout(): Observable<void> {
-    const token = this.userValue?.token;
+  logout(): Observable< void > {
 
     return this.http.post<void>(
       `${environment.apiUrl}/users/logout`, {},
       {
         withCredentials: true,
-        headers: token ? { Authorization: `Bearer ${token}` } : undefined
+        headers: { Authorization: `Bearer ${this.userValue?.token}` } 
       }
     ).pipe(
       tap(() => this.clearSession()),
       finalize(() => this.router.navigate(['account/login']))
     );
   }
-  private clearSession(): void {
+  public clearSession(): void {
     ['user', 'Obusiness', 'Omodule'].forEach(key => localStorage.removeItem(key));
     this.userSubject.next(null);
     this.businessSubject.next(null);

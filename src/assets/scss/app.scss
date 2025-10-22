@@ -88,19 +88,97 @@ td { vertical-align: middle; }
 
 // ********************************
 // ## -- >> mensaje de alerta
+// .alerta {
+//     position: absolute;
+//     left: 0;
+//     right: 0;
+//     top: 0;
+//     margin-left: auto;
+//     margin-right: auto;
+//     width: 70%;
+//     &__messaje{
+//         margin-top: 35px;
+//         text-align: center;
+//     }
+// }
 .alerta {
-    position: absolute;
-    left: 0;
-    right: 0;
-    top: 0;
-    margin-left: auto;
-    margin-right: auto;
-    width: 70%;
-    &__messaje{
-        margin-top: 35px;
-        text-align: center;
-    }
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  z-index: 3000;
+  display: flex;
+  justify-content: center;
+  pointer-events: none;
+  animation: slideDown 0.4s ease-out;
+
+  &__messaje {
+    pointer-events: auto;
+    margin-top: 15px;
+    padding: 14px 24px;
+    border-radius: 10px;
+    text-align: center;
+    font-size: 15px;
+    font-weight: 500;
+    min-width: 50%;
+    max-width: 80%;
+    box-shadow: 0 3px 12px rgba(0, 0, 0, 0.15);
+    opacity: 0.95;
+    transition: all 0.3s ease-in-out;
+  }
+
+//   &__messaje.alert-success {
+//     background-color: #d4edda;
+//     color: #155724;
+//   }
+
+//   &__messaje.alert-error {
+//     background-color: #f8d7da;
+//     color: #721c24;
+//   }
+
+//   &__messaje.alert-warning {
+//     background-color: #fff3cd;
+//     color: #856404;
+//   }
+
+//   &__messaje.alert-info {
+//     background-color: #d1ecf1;
+//     color: #0c5460;
+//   }
 }
+.alerta .alerta__messaje.alert-success {
+  background-color: #d4edda;
+  color: #155724;
+}
+
+.alerta .alerta__messaje.alert-error {
+  background-color: #f8d7da;
+  color: #721c24;
+}
+
+.alerta .alerta__messaje.alert-warning {
+  background-color: #fff3cd;
+  color: #856404;
+}
+
+.alerta .alerta__messaje.alert-info {
+  background-color: #d1ecf1;
+  color: #0c5460;
+}
+
+
+@keyframes slideDown {
+  from {
+    transform: translateY(-50px);
+    opacity: 0;
+  }
+  to {
+    transform: translateY(0);
+    opacity: 1;
+  }
+}
+
 
 .var-menu {
     @include bg-color-maleku;

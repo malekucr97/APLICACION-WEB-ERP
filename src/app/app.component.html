@@ -1,6 +1,11 @@
-﻿<div class="alerta"> 
+﻿<!-- <div class="alerta"> 
     <div class="alerta__messaje"> 
         <alert></alert> 
     </div> 
+</div> -->
+<div class="alerta" *ngIf="alert">
+  <div class="alerta__messaje" [ngClass]="alert.cssClass">
+    {{ alert.message }}
+  </div>
 </div>
 <router-outlet></router-outlet>
