@@ -3,7 +3,7 @@ import { Component, OnDestroy, OnInit, ViewChild } from '@angular/core';
 import { AccountService, AlertService } from '@app/_services';
 import { MatSidenav } from '@angular/material/sidenav';
 import { Router } from '@angular/router';
-import { first } from 'rxjs/operators';
+import { first, takeUntil } from 'rxjs/operators';
 import { User, Module, Compania, ModuleScreen, ModuleSubMenu } from '@app/_models';
 import { MatDialog } from '@angular/material/dialog';
 import { DialogoConfirmacionComponent } from '@app/_components/dialogo-confirmacion/dialogo-confirmacion.component';
@@ -11,25 +11,16 @@ import { MacredService } from '@app/_services/macred.service';
 import {  MacAnalisisCapacidadPago,
           MacEstadoCivil,
           MacInformacionCreditoPersona,
-          MacMatrizAceptacionIngreso,
-          MacModeloAnalisis,
-          MacNivelCapacidadPago,
           MacPersona,
-          MacTipoDeducciones,
-          MacTipoFormaPagoAnalisis,
-          MacTipoGenerador,
-          MacTipoIngreso,
-          MacTipoIngresoAnalisis,
-          MacTiposMoneda,
           ScoringFlujoCajaLibre } from '@app/_models/Macred';
 import { DatosAnalisisComponent } from './datos-analisis/datos-analisis.component';
 import { SrvDatosAnalisisService } from './servicios/srv-datos-analisis.service';
 import { ModulesSystem } from '@environments/environment';
 import { MacTipoAsociado } from '@app/_models/Macred/TipoAsociado';
 import { MacCategoriaCredito } from '@app/_models/Macred/CategoriaCredito';
+import { firstValueFrom, Subject } from 'rxjs';
 import { MacCondicionLaboral } from '@app/_models/Macred/CondicionLaboral';
 import { MacTipoHabitacion } from '@app/_models/Macred/TipoHabitacion';
-import { firstValueFrom, forkJoin } from 'rxjs';
 
 declare var $: any;
 
@@ -39,6 +30,9 @@ declare var $: any;
             standalone: false
 })
 export class AnalisisAsociadosComponent implements OnInit, OnDestroy {
+
+  private destroy$ = new Subject<void>();
+
   @ViewChild(MatSidenav) sidenav!: MatSidenav;
   // @ViewChild(MatSidenav) sidenav2: MatSidenav;
 
@@ -48,10 +42,10 @@ export class AnalisisAsociadosComponent implements OnInit, OnDestroy {
   private nombrePantalla: string = 'analisis-asociados.html';
 
   // objetos seleccionados
-  _per: MacPersona = undefined;
-  _cre: MacInformacionCreditoPersona = undefined;
+  // _per: MacPersona = undefined;
+  // _cre: MacInformacionCreditoPersona = undefined;
 
-  _globalCodMonedaPrincipal: number;
+  // _globalCodMonedaPrincipal: number;
   // _globalMesesAplicaExtras: number;
   _analisisCapacidadpago: MacAnalisisCapacidadPago;
 
@@ -79,7 +73,7 @@ export class AnalisisAsociadosComponent implements OnInit, OnDestroy {
   isDeleting: boolean = false;
 
   // ## -- habilita botones -- ## //
-  habilitaBtnPD: boolean = false;
+  // habilitaBtnPD: boolean = false;
   // ## -- ---------------- -- ## //
 
   public listSubMenu: ModuleSubMenu[] = [];
@@ -129,17 +123,19 @@ export class AnalisisAsociadosComponent implements OnInit, OnDestroy {
   habilitaFormularioCredito : boolean = false;
   habilitaListaCredito : boolean = false;
 
-  objSeleccionadoPersona: MacPersona = undefined;
-  objSeleccionadoCredito: MacInformacionCreditoPersona = undefined;
+  // objSeleccionadoCredito: MacInformacionCreditoPersona = undefined;
 
   listPersonas: MacPersona[] = [];
   listInfoCreditoPersonas: MacInformacionCreditoPersona[] = [];
 
   listTiposAsociados: MacTipoAsociado[];
-  listCategoriasCreditos: MacCategoriaCredito[];
   listEstadosCiviles: MacEstadoCivil[];
+  listCategoriasCreditos: MacCategoriaCredito[];
   listCondicionesLaborales: MacCondicionLaboral[];
   listTiposHabitaciones: MacTipoHabitacion[];
+
+  oPersona : MacPersona;
+  oCredito: MacInformacionCreditoPersona;
 
   public today : Date = new Date();
 
@@ -182,6 +178,19 @@ export class AnalisisAsociadosComponent implements OnInit, OnDestroy {
                                               this.companiaObservable.id ));
         // ## -->> redirecciona NO ACCESO
         if ( !response.exito ) this.router.navigate([this.moduleObservable.indexHTTP]);
+
+        this.srvDatosAnalisisService.personaAnalisis$
+          .pipe(takeUntil(this.destroy$))
+          .subscribe(
+            persona => { 
+              if (persona) this.oPersona = persona;
+          });
+        this.srvDatosAnalisisService.creditoAnalisis$
+          .pipe(takeUntil(this.destroy$))
+          .subscribe(
+            credito => { 
+              if (credito) this.oCredito = credito;
+          });
   }
 
   // selecciona items pruebas
@@ -202,7 +211,7 @@ export class AnalisisAsociadosComponent implements OnInit, OnDestroy {
             primerApellido : [objeto.primerApellido, Validators.required],
             segundoApellido : [objeto.segundoApellido]
         });
-        this.objSeleccionadoPersona = objeto;
+        this.srvDatosAnalisisService.setPersonaAnalisis(objeto);
     } 
     else {
 
@@ -212,7 +221,7 @@ export class AnalisisAsociadosComponent implements OnInit, OnDestroy {
             primerApellido : ['', Validators.required],
             segundoApellido : ['']
         });
-        this.objSeleccionadoPersona = undefined;
+        this.srvDatosAnalisisService.setPersonaAnalisis(undefined);
     }
   }
   private inicializaFormularioCredito(objeto : MacInformacionCreditoPersona = null) : void {
@@ -236,7 +245,8 @@ export class AnalisisAsociadosComponent implements OnInit, OnDestroy {
             diasAtrasoCorte : [objeto.diasAtrasoCorte, Validators.required],
             estadoCredito : [objeto.estado]
         });
-        this.objSeleccionadoCredito = objeto;
+        this.srvDatosAnalisisService.setCreditoAnalisis(objeto);
+        // this.objSeleccionadoCredito = objeto;
     } 
     else {
 
@@ -257,7 +267,8 @@ export class AnalisisAsociadosComponent implements OnInit, OnDestroy {
             diasAtrasoCorte : [null, Validators.required],
             estadoCredito : [false]
         });
-        this.objSeleccionadoCredito = undefined;
+        this.srvDatosAnalisisService.setCreditoAnalisis(undefined);
+        // this.objSeleccionadoCredito = undefined;
     }
   }
 
@@ -270,24 +281,21 @@ export class AnalisisAsociadosComponent implements OnInit, OnDestroy {
 
     this.inicializaFormularioPersona(objeto);
 
-    this.inicializaFormularioCredito();
+    // this.inicializaFormularioCredito();
     this.getInfoCreditoActivosPersonas(objeto.id);
 
     this.formPersona.get('segundoApellido')?.disable();
   }
   public seleccionarPersona() : void {
 
-    this._per = this.objSeleccionadoPersona;
-    this.srvDatosAnalisisService._personaAnalisis = this._per;
+    this.oPersona.descEstadoCivil = 
+      this.listEstadosCiviles.find(x => x.id === this.oPersona.codigoEstadoCivil)?.descripcion;
 
-    this._per.descEstadoCivil = 
-      this.srvDatosAnalisisService.listEstadosCiviles.find(x => x.id === this._per.codigoEstadoCivil)?.descripcion;
+    this.oPersona.descCondicionLaboral = 
+      this.listCondicionesLaborales.find(x => x.id === this.oPersona.codigoCondicionLaboral)?.descripcion;
 
-    this._per.descCondicionLaboral = 
-      this.srvDatosAnalisisService.listCondicionesLaborales.find(x => x.id === this._per.codigoCondicionLaboral)?.descripcion;
-
-      this._per.descTipoHabitacion = 
-        this.srvDatosAnalisisService.listTiposHabitaciones.find(x => x.id === this._per.codigoTipoHabitacion)?.descripcion;
+    this.oPersona.descTipoHabitacion = 
+      this.listTiposHabitaciones.find(x => x.id === this.oPersona.codigoTipoHabitacion)?.descripcion;
 
     this.habilitaPersona = true;
     this.inicializaFormularioCredito();
@@ -300,8 +308,7 @@ export class AnalisisAsociadosComponent implements OnInit, OnDestroy {
     this.habilitaBtnSeleccionaPersona = false;
     this.habilitaBtnSeleccionaCredito = false;
 
-    this._per = undefined;
-    this._cre = undefined;
+    // this._cre = undefined;
     this.inicializaFormularioPersona();
 
     this.habilitaPersona = false;
@@ -311,19 +318,19 @@ export class AnalisisAsociadosComponent implements OnInit, OnDestroy {
     
     this.inicializaFormularioCredito(objeto);
 
-    if (this._per) this.habilitaBtnSeleccionaCredito = true;
+    if (this.oPersona) this.habilitaBtnSeleccionaCredito = true;
 
     this.formCredito.disable();
   }
   public seleccionarCredito() : void {
 
-    this._cre = this.objSeleccionadoCredito;
+    // this._cre = this.objSeleccionadoCredito;
 
-    this._cre.descCategoriaCredito = 
-      this.listCategoriasCreditos.find(x => x.id === this._cre.codigoCategoriaCredito)?.descripcion;
+    this.oCredito.descCategoriaCredito = 
+      this.listCategoriasCreditos.find(x => x.id === this.oCredito.codigoCategoriaCredito)?.descripcion;
 
-    this._cre.descTipoAsociado = 
-      this.listTiposAsociados.find(x => x.id === this._cre.codigoTipoAsociado)?.descripcion;
+    this.oCredito.descTipoAsociado = 
+      this.listTiposAsociados.find(x => x.id === this.oCredito.codigoTipoAsociado)?.descripcion;
 
     this.habilitaCredito = true;
 
@@ -333,7 +340,7 @@ export class AnalisisAsociadosComponent implements OnInit, OnDestroy {
 
     this.habilitaBtnSeleccionaCredito = false;
 
-    this._cre = undefined;
+    // this._cre = undefined;
     this.inicializaFormularioCredito();
 
     this.habilitaCredito = false;
@@ -434,9 +441,7 @@ export class AnalisisAsociadosComponent implements OnInit, OnDestroy {
         this.flujoCaja = true;
         break;
 
-      case 3:
-        this.pd = true;
-        break;
+      case 3: this.pd = true; break;
 
       case 4:
         this.scoring = true;
@@ -551,125 +556,95 @@ export class AnalisisAsociadosComponent implements OnInit, OnDestroy {
 
     this.macredService.getCategoriasCreditos()
       .pipe(first())
-      .subscribe({ next: (response) => { 
-        if (response?.length) {
-          this.listCategoriasCreditos = response;
-          this.srvDatosAnalisisService.listCategoriasCreditos = this.listCategoriasCreditos;
-        }
-      }});
-
-    this.macredService.getEstadosCiviles()
-      .pipe(first())
-      .subscribe({ next: (response) => {
-        if (response?.length) {
-          this.listEstadosCiviles = response;
-          this.srvDatosAnalisisService.listEstadosCiviles = this.listEstadosCiviles;
-        }
-      }});
-
-    this.macredService.getCondicionesLaborales()
-      .pipe(first())
-      .subscribe({ next: (response) => { 
-        if (response?.length) {
-          this.listCondicionesLaborales = response;
-          this.srvDatosAnalisisService.listCondicionesLaborales = this.listCondicionesLaborales;
-        }
-      }});
-
-    this.macredService.getTiposHabitaciones()
-      .pipe(first())
-      .subscribe({ next: (response) => { 
-        if (response?.length) {
-          this.listTiposHabitaciones = response;
-          this.srvDatosAnalisisService.listTiposHabitaciones = this.listTiposHabitaciones;
-        }
-      }});
+      .subscribe({ next: (response) => { this.listCategoriasCreditos = response; }});
 
       // listas generales
+
+      this.macredService.getEstadosCiviles()
+        .pipe(first())
+        .subscribe({ next: (response) => { 
+          this.listEstadosCiviles = response;
+          this.srvDatosAnalisisService.listEstadosCiviles = this.listEstadosCiviles; 
+        }});
+
+      this.macredService.getTiposHabitaciones()
+        .pipe(first())
+        .subscribe({ next: (response) => { 
+          this.listTiposHabitaciones = response;
+          this.srvDatosAnalisisService.listTiposHabitaciones = this.listTiposHabitaciones; 
+        }});
+
       this.macredService.getTiposAsociados()
         .pipe(first())
         .subscribe({ next: (response) => { 
-          if (response?.length) {
             this.listTiposAsociados = response;
             this.srvDatosAnalisisService.listTiposAsociados = this.listTiposAsociados;
-          }
         }});
 
-      this.macredService.getTiposMonedas(this.companiaObservable.id)
+      this.macredService.getTiposMonedas()
         .pipe(first())
-        .subscribe({ next: (response) => { 
-          if (response?.length) this.srvDatosAnalisisService.listTiposMonedas = response;
+        .subscribe({ next: (response) => { this.srvDatosAnalisisService.listTiposMonedas = response;
         }});
 
-      this.macredService.getTiposIngresoAnalisis(this.companiaObservable.id)
+      this.macredService.getTiposAnalisis()
+        .pipe(first())
+        .subscribe({ next: (response) => { this.srvDatosAnalisisService.listTipoAnalisis = response; }});
+
+      this.macredService.getCondicionesLaborales()
         .pipe(first())
         .subscribe({ next: (response) => { 
-          if (response?.length) {
-            // this.listTipoIngresoAnalisis = response;
-            this.srvDatosAnalisisService.listTipoIngresoAnalisis = response;
-          }
+          this.listCondicionesLaborales = response;
+          this.srvDatosAnalisisService.listCondicionesLaborales = this.listCondicionesLaborales;
         }});
+
 
       // listas datos analisis
-      this.macredService.getTiposFormaPagoAnalisis(this.companiaObservable.id)
+      this.macredService.getTiposFormaPagoAnalisis()
         .pipe(first())
-        .subscribe({ next: (response) => { 
-          if (response?.length) {
-            // this.listTipoFormaPagoAnalisis = response;
-            this.srvDatosAnalisisService.listTipoFormaPagoAnalisis = response;
-          }
-        }});
+        .subscribe({ next: (response) => { this.srvDatosAnalisisService.listTipoFormaPagoAnalisis = response; }});
 
       this.macredService.getModelosCalificacionActivos()
         .pipe(first())
-        .subscribe({ next: (response) => { 
-          if (response?.length) {
-            // this.listModelosAnalisis = response;
-            this.srvDatosAnalisisService.listModelosAnalisis = response;
-          }
-        }});
+        .subscribe({ next: (response) => { this.srvDatosAnalisisService.listModelosAnalisis = response; }});
 
       this.macredService.getNivelesCapacidadPago(false)
         .pipe(first())
-        .subscribe({ next: (response) => { 
-          if (response?.length) {
-            // this.listNivelesCapacidadpago = response;
-            this.srvDatosAnalisisService.listNivelesCapacidadpago = response;
-          }
-        }});
+        .subscribe({ next: (response) => { this.srvDatosAnalisisService.listNivelesCapacidadpago = response; }});
 
-      this.macredService.getTiposGenerador(this.companiaObservable.id, false)
+      this.macredService.getTiposGenerador(false)
         .pipe(first())
-        .subscribe({ next: (response) => { 
-          if (response?.length) {
-            // this.listTiposGeneradores = response;
-            this.srvDatosAnalisisService.listTiposGeneradores = response;
-          }
-        }});
+        .subscribe({ next: (response) => { this.srvDatosAnalisisService.listTiposGeneradores = response; }});
 
       // listas ingresos
       this.macredService.getTiposIngresos(this.companiaObservable.id, false)
         .pipe(first())
-        .subscribe({ next: (response) => { if (response?.length) this.srvDatosAnalisisService.listTiposIngresos = response; }});
+        .subscribe({ next: (response) => { this.srvDatosAnalisisService.listTiposIngresos = response; }});
 
-      this.macredService.getTiposDeducciones(this.companiaObservable.id, false)
+      // this.macredService.getTiposDeducciones(this.companiaObservable.id, false)
+      //   .pipe(first())
+      //   .subscribe({ next: (response) => { this.srvDatosAnalisisService.listTiposDeducciones = response; }});
+
+      // this.macredService.getMatrizAceptacionIngreso(this.companiaObservable.id, false)
+      //   .pipe(first())
+      //   .subscribe({ next: (response) => { this.srvDatosAnalisisService.listMatrizAceptacionIngreso = response; }});
+
+      // listas pd
+      this.macredService.getTiposGeneros()
         .pipe(first())
-        .subscribe({ next: (response) => { if (response?.length) this.srvDatosAnalisisService.listTiposDeducciones = response; }});
+        .subscribe({ next: (response) => { this.srvDatosAnalisisService.listTipoGenero = response; }});
 
       // info parametros generales
       this.macredService.GetParametroGeneralVal1('COD_MONEDA_PRINCIPAL', true)
         .pipe(first())
-        .subscribe({ next: (response) => { 
-          this._globalCodMonedaPrincipal = +response;
-          this.srvDatosAnalisisService._globalCodMonedaPrincipal = this._globalCodMonedaPrincipal;
-        }});
+        .subscribe({ next: (response) => { this.srvDatosAnalisisService._globalCodMonedaPrincipal = +response; }});
 
       this.macredService.GetParametroGeneralVal1('MESES_APLICABLES_EXTRAS', true)
         .pipe(first())
-        .subscribe({ next: (response) => { 
-          // this._globalMesesAplicaExtras = +response; 
-          this.srvDatosAnalisisService._globalMesesAplicaExtras = +response;
-        }});
+        .subscribe({ next: (response) => { this.srvDatosAnalisisService._globalMesesAplicaExtras = +response; }});
+
+      this.macredService.GetParametroGeneralVal1('CONSTANTE', false)
+        .pipe(first())
+        .subscribe({ next: (response) => { this.srvDatosAnalisisService._constantePD = response; }});
   }
 
   public limpiarTabs(): void {
@@ -686,65 +661,41 @@ export class AnalisisAsociadosComponent implements OnInit, OnDestroy {
     this.escenarios = false;
     this.escenariosFcl = false;
   }
-  ngOnDestroy(): void {
-    this.srvDatosAnalisisService.setAnalisisCapacidadPago();
-    this.srvDatosAnalisisService._personaAnalisis = undefined;
+
+
+  habilitaPD(): void {
+
+    const item = this.listSubMenu.find(x => x.id === 3);
+
+    if (item) {
+
+      this.selectModule(item);
+
+    } else { this.limpiarTabs(); this.habilitarItemSubMenu(new ModuleSubMenu( 3, 'Probability Of Default')); }
   }
 
-  habilitarFormPD(): void {
-    this.habilitarItemSubMenu(
-      new Module(
-        3,
-        'PD',
-        'Probability Of Default',
-        'Probability Of Default',
-        'A',
-        '.png',
-        '.ico',
-        'http'
-      )
-    );
-    // this.selectModule(
-    //   new Module(
-    //     3,
-    //     'PD',
-    //     'Probability Of Default',
-    //     'Probability Of Default',
-    //     'I',
-    //     '.png',
-    //     '.ico',
-    //     'http'
-    //   )
-    // );
-    this.habilitaBtnPD = false;
+  habilitaScoring(): void {
+
+    const item = this.listSubMenu.find(x => x.id === 4);
+
+    if (item) {
+
+      this.selectModule(item);
+
+    } else { this.limpiarTabs(); this.habilitarItemSubMenu(new ModuleSubMenu( 4, 'Scoring')); }
   }
 
-  habilitarFormFCL(): void {
-    this.habilitarItemSubMenu(
-      new Module(
-        2,
-        'FCL',
-        'Flujo de Caja Libre',
-        'Flujo de Caja Libre',
-        'A',
-        '.png',
-        '.ico',
-        'http'
-      )
-    );
-    // this.selectModule(
-    //   new Module(
-    //     2,
-    //     'FCL',
-    //     'Flujo de Caja Libre',
-    //     'Flujo de Caja Libre',
-    //     'I',
-    //     '.png',
-    //     '.ico',
-    //     'http'
-    //   )
-    // );
-    this.habilitaBtnPD = false;
+  habilitaFCL(): void {
+
+    const item = this.listSubMenu.find(x => x.id === 2);
+
+    if (item) {
+
+      this.selectModule(item);
+
+    } else { this.limpiarTabs(); this.habilitarItemSubMenu(new ModuleSubMenu( 2, 'Flujo de Caja Libre')); }
+
+    // this.habilitaBtnPD = false;
   }
 
   _analisisScoringFCL: ScoringFlujoCajaLibre = undefined;
@@ -775,59 +726,9 @@ export class AnalisisAsociadosComponent implements OnInit, OnDestroy {
     //   )
     // );
   }
+
+  ngOnDestroy(): void {
+    this.destroy$.next();
+    this.destroy$.complete();
+  }
 }
-
-
-
-  // SubmitPerson(): void {
-  //   this.alertService.clear();
-  //   this.submittedPersonForm = true;
-
-  //   if (this.formPersona.invalid) return;
-
-  //   let identificacionPersona =
-  //     this.formPersona.controls['identificacion'].value;
-
-  //   if (this.oAnalisis) {
-      
-  //     this.dialogo.open(DialogoConfirmacionComponent, {
-  //         data: 'Existe un análisis en proceso, seguro que desea continuar ?',
-  //       })
-  //       .afterClosed()
-  //       .subscribe((confirmado: Boolean) => {
-          
-  //         if (confirmado) {
-  //           this.listSubMenu = [];
-  //           this.limpiarTabs();
-
-  //           this.srvDatosAnalisisService.setAnalisisCapacidadPago();
-  //           this._per = null;
-  //           this._cre = null;
-  //           this.menuItem = null;
-
-  //           // this.cargaInformacionPersona(identificacionPersona);
-  //           // this._cDatosAnalisisComponent.inicializaFormDatosAnalisis();
-
-  //           // this.muestraTabs = true;
-          
-  //         } else { return; }
-
-  //       });
-  //   } else {
-  //     // this.cargaInformacionPersona(identificacionPersona);
-  //     // this._cDatosAnalisisComponent.inicializaFormDatosAnalisis();
-  //   }
-  // }
-
-  // addListMenu(modItem: Module): void {
-  //   this.listSubMenu.push(modItem);
-  //   // this.listSubMenu.push(new Module(2,'Flujo de Caja','Flujo de Caja','Flujo de Caja','I','.png','.ico','http'));
-  //   // this.listSubMenu.push(new Module(3,'Probability of Default','Probability of Default','Probability of Default','I','.png','.ico','http'));
-  //   // this.listSubMenu.push(new Module(4,'Scoring Crediticio','Scoring Crediticio','Scoring Crediticio','I','.png','.ico','http'));
-  //   // this.listSubMenu.push(new Module(5,'Ingresos','Ingresos','Ingresos','I','.png','.ico','http'));
-  //   // this.listSubMenu.push(new Module(6,'Obligaciones Supervisadas','Obligaciones Supervisadas','Obligaciones Supervisadas','I','.png','.ico','http'));
-  //   // this.listSubMenu.push(new Module(7,'O. No Supervisadas','O. No Supervisadas','O. No Supervisadas','I','.png','.ico','http'));
-  //   // this.listSubMenu.push(new Module(8,'LVT','LVT','LVT','I','.png','.ico','http'));
-  //   // this.listSubMenu.push(new Module(9,'Escenarios','Escenarios','Escenarios','I','.png','.ico','http'));
-  //   // this.listSubMenu.push(new Module(10,'Escenarios FCL','Escenarios FCL','Escenarios FCL','I','.png','.ico','http'));
-  // }

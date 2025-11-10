@@ -150,7 +150,7 @@
 
           <div class="lista-inline-select-items">
             <div class="lista-inline-select-items__nav-left" >
-              <h2 class="lista-inline-select-items__nav-left__tittle">Código de Persona Seleccionada: {{objSeleccionadoPersona.id}}</h2>
+              <h2 class="lista-inline-select-items__nav-left__tittle">Código de Persona Seleccionada: {{oPersona.id}}</h2>
             </div>
             <div class="lista-inline-select-items__nav-right" >
                 <button *ngIf="habilitaBtnSeleccionaPersona" class="lista-inline-select-items__nav-right__btn-ott" 
@@ -182,20 +182,20 @@
               <tbody>
                   <tr>
 
-                      <td class="item-edit table__personas-analisis-select__ident__td">{{_per.identificacion}}</td>
-                      <td class="item-edit table__personas-analisis-select__nombre__td">{{_per.nombre}}</td>
-                      <td class="item-edit table__personas-analisis-select__apellido__td">{{_per.primerApellido}}</td>
+                      <td class="item-edit table__personas-analisis-select__ident__td">{{oPersona.identificacion}}</td>
+                      <td class="item-edit table__personas-analisis-select__nombre__td">{{oPersona.nombre}}</td>
+                      <td class="item-edit table__personas-analisis-select__apellido__td">{{oPersona.primerApellido}}</td>
 
-                      <td class="item-edit table__personas-analisis-select__civil__td">{{_per.descEstadoCivil}}</td>
-                      <td class="item-edit table__personas-analisis-select__laboral__td">{{_per.descCondicionLaboral}}</td>
-                      <td class="item-edit table__personas-analisis-select__habitacion__td">{{_per.descTipoHabitacion}}</td>
+                      <td class="item-edit table__personas-analisis-select__civil__td">{{oPersona.descEstadoCivil}}</td>
+                      <td class="item-edit table__personas-analisis-select__laboral__td">{{oPersona.descCondicionLaboral}}</td>
+                      <td class="item-edit table__personas-analisis-select__habitacion__td">{{oPersona.descTipoHabitacion}}</td>
 
-                      <td class="item-edit table__personas-analisis-select__hijos__td">{{_per.cantidadHijos}}</td>
-                      <td class="item-edit table__personas-analisis-select__nacimiento__td">{{_per.fechaNacimiento | date:'dd/MM/yyyy'}}</td>
-                      <td class="item-edit table__personas-analisis-select__edad__td">{{_per.edad}}</td>
+                      <td class="item-edit table__personas-analisis-select__hijos__td">{{oPersona.cantidadHijos}}</td>
+                      <td class="item-edit table__personas-analisis-select__nacimiento__td">{{oPersona.fechaNacimiento | date:'dd/MM/yyyy'}}</td>
+                      <td class="item-edit table__personas-analisis-select__edad__td">{{oPersona.edad}}</td>
 
-                      <td *ngIf="_per.indAsociado==true" class="item-edit table__personas-analisis__asoc__td">Sí</td>
-                      <td *ngIf="_per.indAsociado==false" class="item-edit table__personas-analisis__asoc__td">No</td>
+                      <td *ngIf="oPersona.indAsociado==true" class="item-edit table__personas-analisis__asoc__td">Sí</td>
+                      <td *ngIf="oPersona.indAsociado==false" class="item-edit table__personas-analisis__asoc__td">No</td>
                   </tr>
               </tbody>
             </table>
@@ -290,7 +290,6 @@
                       </div>
 
                       
-
                       <div class="form-group col-sm-3">
                         <label for="id_cantidadFianzas" class="form-label">Cantidad Fianzas</label>
                         <input formControlName="cantidadFianzas" 
@@ -420,7 +419,7 @@
             <div *ngIf="habilitaListaCredito" class="lista-inline">
 
               <div class="lista-inline__nav" >
-                  <p class="lista-inline__nav__tittle">Lista de Créditos de {{objSeleccionadoPersona.nombre}}</p>
+                  <p class="lista-inline__nav__tittle">Lista de Créditos de {{oPersona.nombre}}</p>
               </div>
 
               <div class="scroll-table-macred__personas">
@@ -459,7 +458,7 @@
 
             <div class="lista-inline-select-items">
               <div class="lista-inline-select-items__nav-left" >
-                <h2 class="lista-inline-select-items__nav-left__tittle">Código de Crédito Seleccionado: {{objSeleccionadoCredito.id}}</h2>
+                <h2 class="lista-inline-select-items__nav-left__tittle">Código de Crédito Seleccionado: {{oCredito.id}}</h2>
               </div>
               <div class="lista-inline-select-items__nav-right" >
                   <button *ngIf="habilitaBtnSeleccionaCredito" class="lista-inline-select-items__nav-right__btn-ott" 
@@ -495,24 +494,24 @@
                 </thead>
                 <tbody>
                   <tr>
-                    <td class="item-edit table__personas-creditos-analisis__cat__td">{{_cre.descCategoriaCredito}}</td>
-                    <td class="item-edit table__personas-creditos-analisis__asociado__td">{{_cre.descTipoAsociado}}</td>
+                    <td class="item-edit table__personas-creditos-analisis__cat__td">{{oCredito.descCategoriaCredito}}</td>
+                    <td class="item-edit table__personas-creditos-analisis__asociado__td">{{oCredito.descTipoAsociado}}</td>
 
-                    <td class="item-edit table__personas-creditos-analisis__cantf__td">{{_cre.cantidadFianzas}}</td>
-                    <td class="item-edit table__personas-creditos-analisis__saldof">{{_cre.totalSaldoFianzas}}</td>
-                    <td class="item-edit table__personas-creditos-analisis__cuotaf">{{_cre.totalCuotasFianzas}}</td>
+                    <td class="item-edit table__personas-creditos-analisis__cantf__td">{{oCredito.cantidadFianzas}}</td>
+                    <td class="item-edit table__personas-creditos-analisis__saldof">{{oCredito.totalSaldoFianzas}}</td>
+                    <td class="item-edit table__personas-creditos-analisis__cuotaf">{{oCredito.totalCuotasFianzas}}</td>
 
-                    <td class="item-edit table__personas-creditos-analisis__tafiliacion__td">{{_cre.tiempoAfiliacion}}</td>
-                    <td class="item-edit table__personas-creditos-analisis__credhist__td">{{_cre.cantidadCreditosHistorico}}</td>
+                    <td class="item-edit table__personas-creditos-analisis__tafiliacion__td">{{oCredito.tiempoAfiliacion}}</td>
+                    <td class="item-edit table__personas-creditos-analisis__credhist__td">{{oCredito.cantidadCreditosHistorico}}</td>
 
-                    <td class="item-edit table__personas-creditos-analisis__cph__td">{{_cre.cph}}</td>
-                    <td class="item-edit table__personas-creditos-analisis__cph12__td">{{_cre.cphUltimos12Meses}}</td>
-                    <td class="item-edit table__personas-creditos-analisis__cph24__td">{{_cre.cphUltimos24Meses}}</td>
-                    <td class="item-edit table__personas-creditos-analisis__amaximo__td">{{_cre.atrasoMaximo}}</td>
-                    <td class="item-edit table__personas-creditos-analisis__atraso12__td">{{_cre.atrasosUltimos12Meses}}</td>
-                    <td class="item-edit table__personas-creditos-analisis__atraso24__td">{{_cre.atrasosUltimos24Meses}}</td>
+                    <td class="item-edit table__personas-creditos-analisis__cph__td">{{oCredito.cph}}</td>
+                    <td class="item-edit table__personas-creditos-analisis__cph12__td">{{oCredito.cphUltimos12Meses}}</td>
+                    <td class="item-edit table__personas-creditos-analisis__cph24__td">{{oCredito.cphUltimos24Meses}}</td>
+                    <td class="item-edit table__personas-creditos-analisis__amaximo__td">{{oCredito.atrasoMaximo}}</td>
+                    <td class="item-edit table__personas-creditos-analisis__atraso12__td">{{oCredito.atrasosUltimos12Meses}}</td>
+                    <td class="item-edit table__personas-creditos-analisis__atraso24__td">{{oCredito.atrasosUltimos24Meses}}</td>
 
-                    <td class="item-edit table__personas-creditos-analisis__diasac__td">{{_cre.diasAtrasoCorte}}</td>
+                    <td class="item-edit table__personas-creditos-analisis__diasac__td">{{oCredito.diasAtrasoCorte}}</td>
                   </tr>
                 </tbody>
               </table>
@@ -545,86 +544,46 @@
       </div>
     </div>
 
-
     <div class="cont-analisis__tabletas"> 
-      <!-- ************************** -->
-      <!-- ARTÍCULO DATOS DE ANALISIS -->
-      <!-- ************************** -->
+
+      <!-- tab análisis -->
       <div [hidden]="!datosAnalisis">
         <app-datos-analisis-macred
-          [_personaAnalisis]="_per"
           (onIngresos)="habilitaIngresos()"
-          (onPD)="habilitarFormPD()"
+          (onPD)="habilitaPD()"
           
-          [onConfirmNuevoAnalisis]="habilitarDatosAnalisis.bind(this)"
-          >
+          [onConfirmNuevoAnalisis]="habilitarDatosAnalisis.bind(this)" >
         </app-datos-analisis-macred>
       </div>
-      <!-- <div [hidden]="!datosAnalisis">
-        <app-datos-analisis-macred
-          [_personaAnalisis]="_per"
-          [_globalCodMonedaPrincipal]="_globalCodMonedaPrincipal"
-          [listTipoFormaPagoAnalisis]="listTipoFormaPagoAnalisis"
-          [listTipoIngresoAnalisis]="listTipoIngresoAnalisis"
-          [listModelosAnalisis]="listModelosAnalisis"
-          [listNivelesCapacidadpago]="listNivelesCapacidadpago"
-          [listTiposGeneradores]="listTiposGeneradores"
-          [listTiposMonedas]="listTiposMonedas"
-          (onIngresos)="habilitaIngresos()"
-          (onPD)="habilitarFormPD()"
-          
-          [onConfirmNuevoAnalisis]="habilitarDatosAnalisis.bind(this)"
-          >
-        </app-datos-analisis-macred>
-      </div> -->
 
+      <!-- tab ingresos -->
       <div [hidden]="!ingresos">
         <app-ingresos
-          [_personaAnalisis]="_per"
-          [habilitaBtnPD]="habilitaBtnPD"
-          (onHabilitarPD)="habilitarFormPD()" >
+          (onPD)="habilitaPD()" >
         </app-ingresos>
       </div>
-      <!-- <div [hidden]="!ingresos">
-        <app-ingresos
-          [_personaAnalisis]="_per"
-          [_globalCodMonedaPrincipal]="_globalCodMonedaPrincipal"
-          [listTiposIngresos]="listTiposIngresos"
-          [listTiposDeducciones]="listTiposDeducciones"
-          [listMatrizAceptacionIngreso]="listMatrizAceptacionIngreso"
-          [listTiposMonedas]="listTiposMonedas"
-          [habilitaBtnPD]="habilitaBtnPD"
-          (onHabilitarPD)="habilitarFormPD()" >
-        </app-ingresos>
-      </div> -->
 
-      <!-- ************************** -->
-      <!-- ARTÍCULO PD                -->
-      <!-- ************************** -->
-      <article *ngIf="pd">
+      <!-- tab pd -->
+      <div *ngIf="pd">
         <app-pd
-        [_personaAnalisis]="_per"
-        [_globalCodMonedaPrincipal]="_globalCodMonedaPrincipal"
-        (onFCL)="habilitarFormFCL()"
-        ></app-pd>
-      </article>
-      <!-- <article *ngIf="pd">
-        <app-pd
-        [_personaAnalisis]="_per"
-        [_globalCodMonedaPrincipal]="_globalCodMonedaPrincipal"
-        [listTipoIngresoAnalisis]="listTipoIngresoAnalisis"
-        (onFCL)="habilitarFormFCL()"
-        ></app-pd>
-      </article> -->
+          (onFCL)="habilitaFCL()"
+          (onScoring)="habilitaScoring()">
+        </app-pd>
+      </div>
 
-      <!-- ************************** -->
-      <!-- ARTÍCULO FCL               -->
-      <!-- ************************** -->
-      <app-fcl
-      *ngIf="flujoCaja"
-      [_personaAnalisis]="_per"
-      (onEscenariosFCL)="handleHabilitarEscenariosFCL($event)"
-      ></app-fcl>
+      <!-- tab scoring -->
+      <div *ngIf="scoring">
+        <app-scoring>
+        </app-scoring>
+      </div>
+
+
+
+      <!-- tab fcl -->
+      <app-fcl *ngIf="flujoCaja"
+        (onEscenariosFCL)="handleHabilitarEscenariosFCL($event)">
+      </app-fcl>
+
       <!-- <app-fcl
       *ngIf="flujoCaja"
       [_analisisCapacidadpago]="oAnalisis"
@@ -643,15 +602,13 @@
   </div>
 
 
-  <div class="col-md-12 mt-5" *ngIf="scoring">
-
+  <!-- <div class="col-md-12 mt-5" *ngIf="scoring">
       <div class="asociado_content mat-elevation-z4">
         <main>
           <article>
             <section>
               <br />
               <br />
-
               <div>
                 <p>Administración de Scoring Crediticio !</p>
               </div>
@@ -660,8 +617,7 @@
           </article>
         </main>
       </div>
-
-  </div>
+  </div> -->
 
   <div class="col-md-12 mt-5" *ngIf="obligacionesSupervisadas">
 

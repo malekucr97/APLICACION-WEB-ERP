@@ -14,4 +14,8 @@ export class MacDeduccionesAnalisis {
     fechaAdicion: Date;
     modificadoPor: string;
     fechaModificacion: Date;
+
+    // descripciones
+    descTipoIngreso?: string;
+    descTipoMoneda?: string;
 }

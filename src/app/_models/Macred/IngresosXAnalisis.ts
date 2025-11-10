@@ -8,7 +8,7 @@ export class MacIngresosXAnalisis {
 
     montoBruto          : number;
     montoExtras         : number;
-    // porcentajeExtras    : number;
+    porcentajeExtras    : number;
     cargasSociales      : number;
     impuestoRenta       : number;
     montoNeto           : number;

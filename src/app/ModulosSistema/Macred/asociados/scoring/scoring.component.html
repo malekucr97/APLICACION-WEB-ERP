@@ -1,0 +1,247 @@
+<div class="cont-main-analisis div-borde mat-elevation-z4"
+      [ngClass]="{'borde-success': bordeSuccessScoring,
+                  'borde-error': bordeErrorScoring }">
+
+  <div class="cont-main-analisis__header">
+    <div class="header-titles">
+      <h1>Información de Scoring para {{oPersona.nombre}} {{oPersona.primerApellido}}</h1>
+      <h2 *ngIf="oAnalisis">Análisis: {{oAnalisis.codigoAnalisis}} </h2>
+    </div>
+
+    <div>
+      <button *ngIf="habilitaBtnEditar"
+              (click)="habilitaEditarFormulario()"
+              class="btn btn-dark px-4" >
+              <i class="fas fa-file-medical"></i> Editar Scoring </button>
+      <button *ngIf="habilitaBtnEliminar"
+              (click)="delete()"
+              class="btn btn-danger px-4" >
+              <i class="fas fa-file-medical"></i> Eliminar Scoring </button>
+    </div>
+  </div>
+
+  <div class="cont-analisis__tabletas__body">
+    <form [formGroup]="formScoring" class="row">
+
+      <!-- SELECCION DE MODELOS -->
+      <div class="form-group col-sm-6">
+        <label for="id_modeloScoring" class="form-label">Modelo de Análisis Scoring</label>
+        <select id="id_modeloScoring"
+                formControlName="modeloAnalisisScoring"
+                class="form-control"
+                name="selectModeloAnalisisScoring"
+                [ngClass]="{ 'is-invalid': submittedScoringForm && j.modeloAnalisisScoring.errors }"
+                (change)="onModeloScoringChange()" >
+          <option [ngValue]="objeto"
+                  *ngFor="let objeto of listModelosScoring"> 
+                  {{objeto.id}} - {{objeto.descripcion}} 
+          </option>
+        </select>
+        <div *ngIf="submittedScoringForm && j.modeloAnalisisScoring.errors" class="invalid-feedback" >
+          <div *ngIf="j.modeloAnalisisScoring.errors.required"> El campo es requerido </div>
+        </div>
+      </div>
+      <div class="col-sm-6"></div>
+      
+      <div class="form-group col-sm-6">
+        <label for="id_numeroAtrasoCoope" class="form-label">Número de atraso en el año en la Cooperativa</label>
+        <input formControlName="numeroAtrasoCoope"
+                class="form-control"
+                type="number"
+                id="id_numeroAtrasoCoope"
+                [ngClass]="{ 'is-invalid': submittedScoringForm && j.numeroAtrasoCoope.errors }" />
+        <div *ngIf="submittedScoringForm && j.numeroAtrasoCoope.errors" class="invalid-feedback" >
+          <div *ngIf="j.numeroAtrasoCoope.errors.required"> El campo es requerido </div>
+        </div>
+      </div>
+
+      <div class="form-group col-sm-6">
+        <label for="id_tiempoSolicitudes" class="form-label">Tiempo entre solicitudes (meses)</label>
+        <input formControlName="tiempoSolicitudes"
+                class="form-control"
+                type="number"
+                id="id_tiempoSolicitudes"
+                [ngClass]="{ 'is-invalid': submittedScoringForm && j.tiempoSolicitudes.errors }" />
+        <div *ngIf="submittedScoringForm && j.tiempoSolicitudes.errors" class="invalid-feedback" >
+          <div *ngIf="j.tiempoSolicitudes.errors.required"> El campo es requerido </div>
+        </div>
+      </div>
+
+      <div class="form-group col-sm-6">
+        <label for="id_variedadLineas" class="form-label">Variedad de líneas utilizadas en la Cooperativa</label>
+        <input formControlName="variedadLineas"
+                class="form-control"
+                type="number"
+                id="id_variedadLineas"
+                [ngClass]="{ 'is-invalid': submittedScoringForm && j.variedadLineas.errors }" />
+        <div *ngIf="submittedScoringForm && j.variedadLineas.errors" class="invalid-feedback" >
+          <div *ngIf="j.variedadLineas.errors.required"> El campo es requerido </div>
+        </div>
+      </div>
+
+      <div class="form-group col-sm-6">
+        <label for="id_institucionesUtilizadas" class="form-label">Número de Instituciones utilizadas</label>
+        <input formControlName="institucionesUtilizadas"
+                class="form-control"
+                type="number"
+                id="id_institucionesUtilizadas"
+                [ngClass]="{ 'is-invalid': submittedScoringForm && j.institucionesUtilizadas.errors }" />
+        <div *ngIf="submittedScoringForm && j.institucionesUtilizadas.errors" class="invalid-feedback" >
+          <div *ngIf="j.institucionesUtilizadas.errors.required"> El campo es requerido </div>
+        </div>
+      </div>
+
+      <div class="form-group col-sm-6">
+        <label for="id_diasAtrasoSistema" class="form-label">Días máximos de atraso en el Sistema Financiero</label>
+        <input formControlName="diasAtrasoSistema"
+                class="form-control"
+                type="number"
+                id="id_diasAtrasoSistema"
+                [ngClass]="{ 'is-invalid': submittedScoringForm && j.diasAtrasoSistema.errors }" />
+        <div *ngIf="submittedScoringForm && j.diasAtrasoSistema.errors" class="invalid-feedback" >
+          <div *ngIf="j.diasAtrasoSistema.errors.required"> El campo es requerido </div>
+        </div>
+      </div>
+
+      <div class="form-group col-sm-6">
+        <label for="id_creditosActivosSistema" class="form-label">Número de créditos activos en el Sistema</label>
+        <input formControlName="creditosActivosSistema"
+                class="form-control"
+                type="number"
+                id="id_creditosActivosSistema"
+                [ngClass]="{ 'is-invalid': submittedScoringForm && j.creditosActivosSistema.errors }" />
+        <div *ngIf="submittedScoringForm && j.creditosActivosSistema.errors" class="invalid-feedback" >
+          <div *ngIf="j.creditosActivosSistema.errors.required"> El campo es requerido </div>
+        </div>
+      </div>
+
+      <div class="form-group col-sm-6">
+        <label for="id_cic" class="form-label">CIC</label>
+        <input formControlName="cic"
+                class="form-control"
+                type="number"
+                id="id_cic"
+                [ngClass]="{ 'is-invalid': submittedScoringForm && j.cic.errors }" />
+        <div *ngIf="submittedScoringForm && j.cic.errors" class="invalid-feedback" >
+          <div *ngIf="j.cic.errors.required"> El campo es requerido </div>
+        </div>
+      </div>
+
+      <div class="form-group col-sm-6">
+        <label for="id_aniosCreditoCoope" class="form-label">Años de créditos en la Cooperativa</label>
+        <input formControlName="aniosCreditoCoope"
+                class="form-control"
+                type="number"
+                id="id_aniosCreditoCoope"
+                [ngClass]="{ 'is-invalid': submittedScoringForm && j.aniosCreditoCoope.errors }" />
+        <div *ngIf="submittedScoringForm && j.aniosCreditoCoope.errors" class="invalid-feedback" >
+          <div *ngIf="j.aniosCreditoCoope.errors.required"> El campo es requerido </div>
+        </div>
+      </div>
+
+      <div class="form-group col-sm-6">
+        <label for="id_pd" class="form-label">Probability of Default</label>
+        <input formControlName="pd"
+                class="form-control"
+                type="number"
+                id="id_pd"
+                readonly />
+      </div>
+
+      <div class="form-group col-sm-6">
+        <label for="id_numeroRefinanciamientos" class="form-label">Número de refinanciamientos en el último año</label>
+        <input formControlName="numeroRefinanciamientos"
+                class="form-control"
+                type="number"
+                id="id_numeroRefinanciamientos"
+                [ngClass]="{ 'is-invalid': submittedScoringForm && j.numeroRefinanciamientos.errors }" />
+        <div *ngIf="submittedScoringForm && j.numeroRefinanciamientos.errors" class="invalid-feedback" >
+          <div *ngIf="j.numeroRefinanciamientos.errors.required"> EEl campo es requerido </div>
+        </div>
+      </div>
+
+      <div class="form-group col-sm-6">
+        <label for="id_puntaje" class="form-label">Puntaje</label>
+        <input formControlName="puntaje"
+                class="form-control"
+                type="number"
+                id="id_puntaje"
+                readonly />
+      </div>
+
+      <div class="form-group col-sm-6">
+        <label for="id_calificacion" class="form-label">Calificación</label>
+        <input formControlName="calificacion"
+                class="form-control"
+                type="text"
+                id="id_calificacion"
+                readonly />
+      </div>
+
+    </form>
+
+    <hr>
+
+    <div *ngIf="habilitaHistoricoScoring">
+        <table class="table table-striped">
+          <thead>
+            <tr>
+              <th class="table__scoring-historico__variable">Variable</th>
+              <th class="table__scoring-historico__pesov">Peso Variable</th>
+              <th class="table__scoring-historico__item">Ítem</th>
+              <th class="table__scoring-historico__pesoi">Peso Ítem</th>
+              <th class="table__scoring-historico__puntaje">Puntaje</th>
+              <th class="table__scoring-historico__riesgo">Riesgo Asignado</th>
+            </tr>
+          </thead>
+
+          <tbody>
+            <tr *ngFor="let obj of listScoringHistorico">
+              <td class="item-edit table__scoring-historico__variable__td">{{obj.variable}}</td>
+              <td class="item-edit table__scoring-historico__pesov__td">{{obj.peso}}</td>
+              <td class="item-edit table__scoring-historico__item__td">{{obj.item}}</td>
+              <td class="item-edit table__scoring-historico__pesoi__td">{{obj.pesoItem}}</td>
+              <td class="item-edit table__scoring-historico__puntaje__td">{{obj.puntaje}}</td>
+              <td class="item-edit table__scoring-historico__riesgo__td">{{obj.descRiesgoAsignado}}</td>
+
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+  </div>
+
+  <br>
+
+  <div class="cont-main-analisis__footer">
+    <div>
+      <button *ngIf="habilitaBtnRegistrar"
+              (click)="post()"
+              class="btn btn-success px-5"
+              mat-flat-button
+              color="primary" > Registrar </button>
+      <button *ngIf="habilitaBtnGuardar"
+              (click)="putPD()"
+              class="btn btn-success px-5"
+              mat-flat-button
+              color="primary" > Guardar Cambios </button>
+      <button *ngIf="habilitaBtnCalcular"
+              (click)="calcularScoring()"
+              class="btn btn-success px-5"
+              mat-flat-button
+              color="primary" > Calcular Scoring </button>
+    </div>
+    <!-- <div>
+      <button *ngIf="habilitaBtnScoring"
+              (click)="handleOnScoring()"
+              class="btn px-5 btn-info"
+              mat-flat-button
+              color="primary" > Scoring </button>
+      <button *ngIf="habilitaBtnFCL"
+              (click)="handleOnFCL()"
+              class="btn px-5 btn-info"
+              mat-flat-button
+              color="primary" > Flujo de Caja Libre </button>
+    </div> -->
+  </div>
+</div>

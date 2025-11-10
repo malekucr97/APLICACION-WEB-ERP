@@ -88,7 +88,7 @@ export class TiposGenerosComponent implements OnInit {
 
     consultaTiposGenerosCompania() : void {
 
-        this.macredService.getTiposGenerosCompania(this.userObservable.empresa)
+        this.macredService.getTiposGeneros()
         .pipe(first())
         .subscribe(tipoGeneroResponse => {
 

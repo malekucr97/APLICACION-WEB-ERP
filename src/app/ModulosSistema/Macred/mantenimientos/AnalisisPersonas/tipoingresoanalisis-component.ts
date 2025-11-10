@@ -100,7 +100,7 @@ export class TipoIngresoAnalisisComponent implements OnInit {
             estado                      : ['']
         });
 
-        this.macredService.getTiposIngresoAnalisis(this.userObservable.empresa)
+        this.macredService.getTiposAnalisis()
         .pipe(first())
         .subscribe(tipoIngresoAnalisisResponse => {
 

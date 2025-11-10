@@ -506,11 +506,11 @@ export class PersonaAnalisisComponent extends OnSeguridad implements OnInit {
             .pipe(first())
             .subscribe(response => {
 
-                if (response) {
+                if (response.exito) {
 
                     this.submitFormPersona = false;
-                    this.listPersonas.splice(this.listPersonas.findIndex( m => m.id == response.id ), 1);
-                    this.listPersonas.push(response);
+                    this.listPersonas.splice(this.listPersonas.findIndex( m => m.id == response.objetoDb.id ), 1);
+                    this.listPersonas.push(response.objetoDb);
                     
                     this.inicializaFormularioPersona();
                     this.inicializaFormularioCredito();
@@ -518,7 +518,7 @@ export class PersonaAnalisisComponent extends OnSeguridad implements OnInit {
                     this.habilitaFormularioCredito = false;
 
                     this.alertService.success(
-                        `Persona ${response.identificacion} actualizada correctamente!`
+                        `Persona ${response.objetoDb.identificacion} actualizada correctamente!`
                     );
 
                 } else { this.alertService.error('Problemas al actualizar la persona.'); }
@@ -610,7 +610,7 @@ export class PersonaAnalisisComponent extends OnSeguridad implements OnInit {
     }
     private getTiposGeneros() : void {
 
-        this.macredService.getTiposGenerosCompania(this.companiaObservable.id)
+        this.macredService.getTiposGeneros()
         .pipe(first())
         .subscribe(response => {
 

@@ -1,573 +1,330 @@
-<section>
-  <div class="contenedor__header">
-    <div class="contenedor__header__prev">
-      <h2 *ngIf="oAnalisis">
-        codigo de análisis: {{oAnalisis.codigoAnalisis}}
-      </h2>
+<div class="cont-main-analisis div-borde mat-elevation-z4"
+      [ngClass]="{'borde-success': bordeSuccessPD,
+                  'borde-error': bordeErrorPD }">
+
+  <div class="cont-main-analisis__header">
+    <div class="header-titles">
+      <h1>Información de PD para {{oPersona.nombre}} {{oPersona.primerApellido}}</h1>
+      <h2 *ngIf="oAnalisis">Análisis: {{oAnalisis.codigoAnalisis}} </h2>
+      <!-- <h3 *ngIf="objIngresoSeleccionado">Ingreso Seleccionado: {{objIngresoSeleccionado.id}} </h3> -->
     </div>
-    <div class="contenedor__header__next">
-      <h2>Información de PD</h2>
+
+    <div>
+      <!-- <button *ngIf="habilitaBtnCargarIPersona"
+              (click)="cargarDatosPersona()"
+              class="btn btn-dark px-4" >
+              <i class="fas fa-file-medical"></i> Cargar D. Persona </button> -->
+      <button *ngIf="habilitaBtnEditarPD"
+              (click)="habilitaEditarFormulario()"
+              class="btn btn-dark px-4" >
+              <i class="fas fa-file-medical"></i> Editar Análisis </button>
+      <button *ngIf="habilitaBtnEliminarPD"
+              (click)="deletePD()"
+              class="btn btn-danger px-4" >
+              <i class="fas fa-file-medical"></i> Eliminar Análisis </button>
     </div>
   </div>
 
-  <div class="contenedor-analisis__tabletas__body">
-    <form *ngIf="formPD" [formGroup]="formPD" class="gridContainer">
+  <div class="cont-analisis__tabletas__body">
+    <form [formGroup]="formPD" class="row">
+      
+      <!-- SELECCION DE MODELOS -->
+        <div *ngIf="habilitaOpcionesModelosPD" class="form-group col-sm-5">
+          <label for="id_modeloPD" class="form-label">Modelo de Análisis PD</label>
+          <select id="id_modeloPD"
+                  formControlName="modeloAnalisisPD"
+                  class="form-control"
+                  name="selectModeloAnalisisPD"
+                  [ngClass]="{ 'is-invalid': submittedPDForm && j.modeloAnalisisPD.errors }"
+                  (change)="onModeloPDChange()" >
+            <option [ngValue]="objeto"
+                    *ngFor="let objeto of listModelosPD"> 
+                    {{objeto.id}} - {{objeto.descripcion}} 
+            </option>
+          </select>
+          <div *ngIf="submittedPDForm && j.modeloAnalisisPD.errors" class="invalid-feedback" >
+            <div *ngIf="j.modeloAnalisisPD.errors.required"> El campo es requerido </div>
+          </div>
+        </div>
+        <div *ngIf="habilitaOpcionesModelosPD" class="form-group col-sm-4">
+          <label for="id_grupoModeloPD" class="form-label">Grupo Modelo de Análisis PD</label>
+          <select id="id_grupoModeloPD"
+                  formControlName="grupoModeloAnalisisPD"
+                  class="form-control"
+                  name="selectModeloAnalisisPD"
+                  [ngClass]="{ 'is-invalid': submittedPDForm && j.grupoModeloAnalisisPD.errors }" >
+            <option [ngValue]="objeto"
+                    *ngFor="let objeto of listGruposPD"> 
+                    {{objeto.id}} - {{objeto.descripcion}} 
+            </option>
+          </select>
+          <div *ngIf="submittedPDForm && j.grupoModeloAnalisisPD.errors" class="invalid-feedback" >
+            <div *ngIf="j.grupoModeloAnalisisPD.errors.required"> El campo es requerido </div>
+          </div>
+        </div>
+        <div *ngIf="habilitaOpcionesModelosPD" class="col-sm-3"></div>
+
       <!-- GENERO -->
-      <div class="form-group">
-        <label for="lblGenero" class="form-label">Género</label>
-        <select
-          formControlName="codigoGenero"
-          class="form-control"
-          name="selectcodigoGenero"
-          [attr.disabled]="disabledDatosPD ? '' : null"
-          [ngClass]="{ 'is-invalid': submittedPDForm && j.codigoGenero.errors }"
-        >
-          <option
-            [ngValue]="genero"
-            *ngFor="let genero of srvDatosAnalisisService.listTipoGenero"
-          >
-            {{genero.id}} - {{genero.descripcion}}
+      <div class="form-group col-sm-3">
+        <label for="id_generoPD" class="form-label">Género</label>
+        <select id="id_generoPD"
+                formControlName="codigoGenero"
+                class="form-control"
+                name="selectcodigoGenero"
+                [ngClass]="{ 'is-invalid': submittedPDForm && j.codigoGenero.errors }" >
+          <option [ngValue]="objeto"
+                  *ngFor="let objeto of listTipoGenero"> 
+                  {{objeto.id}} - {{objeto.descripcion}} 
           </option>
         </select>
-
-        <div
-          *ngIf="submittedPDForm && j.codigoGenero.errors"
-          class="invalid-feedback"
-        >
-          <div *ngIf="j.codigoGenero.errors.required">
-            El Género es requerido
-          </div>
+        <div *ngIf="submittedPDForm && j.codigoGenero.errors" class="invalid-feedback" >
+          <div *ngIf="j.codigoGenero.errors.required"> El Género es requerido </div>
         </div>
       </div>
 
       <!-- ESTADO CIVIL -->
-      <div class="form-group">
-        <label for="lblGenero" class="form-label">Estado Civil</label>
-        <select
-          formControlName="codigoEstadoCivil"
-          class="form-control"
-          name="selectcodigoEstadoCivil"
-          [attr.disabled]="disabledDatosPD ? '' : null"
-          [ngClass]="{ 'is-invalid': submittedPDForm && j.codigoEstadoCivil.errors }"
-        >
-          <option
-            [ngValue]="estadoCivil"
-            *ngFor="let estadoCivil of srvDatosAnalisisService.listEstadosCiviles"
-          >
-            {{estadoCivil.id}} - {{estadoCivil.descripcion}}
+      <div class="form-group col-sm-3">
+        <label for="id_estadoCivilPD" class="form-label">Estado Civil</label>
+        <select id="id_estadoCivilPD"
+                formControlName="codigoEstadoCivil"
+                class="form-control"
+                name="selectcodigoEstadoCivil"
+                [ngClass]="{ 'is-invalid': submittedPDForm && j.codigoEstadoCivil.errors }" >
+          <option [ngValue]="objeto"
+                  *ngFor="let objeto of listEstadosCiviles" >
+                  {{objeto.id}} - {{objeto.descripcion}}
           </option>
         </select>
-
-        <div
-          *ngIf="submittedPDForm && j.codigoEstadoCivil.errors"
-          class="invalid-feedback"
-        >
-          <div *ngIf="j.codigoEstadoCivil.errors.required">
-            El Estado Civil es requerido
-          </div>
+        <div *ngIf="submittedPDForm && j.codigoEstadoCivil.errors" class="invalid-feedback" >
+          <div *ngIf="j.codigoEstadoCivil.errors.required"> El Estado Civil es requerido </div>
         </div>
       </div>
 
       <!-- TIPO HABITACION -->
-      <div class="form-group">
-        <label for="lblTipoHabitacion" class="form-label"
-          >Tipo de habitación</label
-        >
-        <select
-          formControlName="codigoTipoHabitacion"
-          class="form-control"
-          name="selectcodigoTipoHabitacion"
-          [attr.disabled]="disabledDatosPD ? '' : null"
-          [ngClass]="{ 'is-invalid': submittedPDForm && j.codigoTipoHabitacion.errors }"
-        >
-          <option
-            [ngValue]="tipoHabitacion"
-            *ngFor="let tipoHabitacion of srvDatosAnalisisService.listTiposHabitaciones"
-          >
-            {{tipoHabitacion.id}} - {{tipoHabitacion.descripcion}}
+      <div class="form-group col-sm-3">
+        <label for="id_habitacionPD" class="form-label" >Tipo de habitación</label>
+        <select id="id_habitacionPD" 
+                formControlName="codigoTipoHabitacion"
+                class="form-control"
+                name="selectcodigoTipoHabitacion"
+                [ngClass]="{ 'is-invalid': submittedPDForm && j.codigoTipoHabitacion.errors }">
+          <option [ngValue]="objeto"
+                  *ngFor="let objeto of listTiposHabitaciones">
+                  {{objeto.id}} - {{objeto.descripcion}}
           </option>
         </select>
+        <div *ngIf="submittedPDForm && j.codigoTipoHabitacion.errors" class="invalid-feedback">
+          <div *ngIf="j.codigoTipoHabitacion.errors.required"> El Tipo de Habitación es requerido </div>
+        </div>
+      </div>
 
-        <div
-          *ngIf="submittedPDForm && j.codigoTipoHabitacion.errors"
-          class="invalid-feedback"
-        >
-          <div *ngIf="j.codigoTipoHabitacion.errors.required">
-            El Tipo de Habitación es requerido
-          </div>
+      <div class="form-group col-sm-3 margin-top-status" >
+        <mat-checkbox formControlName="tienePropiedades" >Tiene Propiedades ?</mat-checkbox>
+      </div>
+
+      <!-- NUMERO DE HIJOS -->
+      <div class="form-group col-sm-3">
+        <label for="id_numeroHijosPD" class="form-label" >Número de hijos</label>
+        <input formControlName="numeroHijos"
+                class="form-control"
+                type="number"
+                id="id_numeroHijosPD"
+                [ngClass]="{ 'is-invalid': submittedPDForm && j.numeroHijos.errors }" />
+        <div *ngIf="submittedPDForm && j.numeroHijos.errors" class="invalid-feedback" >
+          <div *ngIf="j.numeroHijos.errors.required"> El Número de Hijos es requerido </div>
         </div>
       </div>
 
       <!-- EDAD -->
-      <div class="form-group">
-        <label for="lblEdad" class="form-label">Edad</label>
-        <input
-          formControlName="edad"
-          class="form-control"
-          type="number"
-          id="id_edad"
-          min="0"
-          max="200"
-          [ngClass]="{ 'is-invalid': submittedPDForm && j.edad.errors }"
-          [readOnly]="disabledDatosPD"
-        />
-        <div
-          *ngIf="submittedPDForm && j.edad.errors"
-          class="invalid-feedback"
-        >
-          <div *ngIf="j.edad.errors.required">La edad es requerida</div>
-        </div>
+      <div class="form-group col-sm-3">
+        <label for="id_edadPD" class="form-label">Edad</label>
+        <input formControlName="edad"
+              class="form-control"
+              type="number"
+              id="id_edadPD"
+              readonly />
       </div>
 
-      <div class="form-group">
-        <section class="flex">
-          <input
-            formControlName="tienePropiedades"
-            id="tienePropiedades"
-            type="checkbox"
-            name="tienePropiedades"
-            class="chk m-right-5"
-            [readOnly]="disabledDatosPD"
-          />
-          <label for="tienePropiedades">Tiene Propiedades?</label>
-        </section>
-        <section class="flex">
-          <input
-            formControlName="tieneVehiculo"
-            id="tieneVehiculo"
-            type="checkbox"
-            name="tieneVehiculo"
-            class="chk m-right-5"
-            [readOnly]="disabledDatosPD"
-          />
-          <label for="tieneVehiculo">Tiene Vehículo?</label>
-        </section>
-      </div>
-
-      <!-- NUMERO DE HIJOS -->
-      <div class="form-group">
-        <label for="lblnumeroHijos" class="form-label"
-          >Número de hijos</label
-        >
-        <input
-          formControlName="numeroHijos"
-          class="form-control"
-          type="number"
-          id="id_numeroHijos"
-          [ngClass]="{ 'is-invalid': submittedPDForm && j.numeroHijos.errors }"
-          [readOnly]="disabledDatosPD"
-        />
-        <div
-          *ngIf="submittedPDForm && j.numeroHijos.errors"
-          class="invalid-feedback"
-        >
-          <div *ngIf="j.numeroHijos.errors.required">
-            El Número de Hijos es requerido
-          </div>
-        </div>
+      <div class="col-sm-3"></div>
+      
+      <div class="form-group col-sm-3 margin-top-status">
+        <mat-checkbox formControlName="tieneVehiculo" >Tiene Vehículo ?</mat-checkbox>
       </div>
 
       <!-- NUMERO DE FIANZAS -->
-      <div class="form-group">
-        <label for="lblnumeroFianzas" class="form-label"
-          >Número de Fianzas</label
-        >
-        <input
-          formControlName="numeroFianzas"
-          class="form-control"
-          type="number"
-          id="id_numeroFianzas"
-          [ngClass]="{ 'is-invalid': submittedPDForm && j.numeroFianzas.errors }"
-          [readOnly]="disabledDatosPD"
-        />
-        <div
-          *ngIf="submittedPDForm && j.numeroFianzas.errors"
-          class="invalid-feedback"
-        >
-          <div *ngIf="j.numeroFianzas.errors.required">
-            El número de fianzas es requerido
-          </div>
+      <div class="form-group col-sm-3">
+        <label for="id_numeroFianzasPD" class="form-label">Número de Fianzas</label>
+        <input formControlName="numeroFianzas"
+                class="form-control"
+                type="number"
+                id="id_numeroFianzasPD"
+                [ngClass]="{ 'is-invalid': submittedPDForm && j.numeroFianzas.errors }" />
+        <div *ngIf="submittedPDForm && j.numeroFianzas.errors" class="invalid-feedback" >
+          <div *ngIf="j.numeroFianzas.errors.required"> El número de fianzas es requerido </div>
         </div>
       </div>
 
       <!-- CREDITOS ACTIVOS -->
-      <div class="form-group">
-        <label for="lblcreditosActivos" class="form-label"
-          >Créditos activos</label
-        >
-        <input
-          formControlName="creditosActivos"
-          class="form-control"
-          type="number"
-          id="id_creditosActivos"
-          [ngClass]="{ 'is-invalid': submittedPDForm && j.creditosActivos.errors }"
-          [readOnly]="disabledDatosPD"
-        />
-        <div
-          *ngIf="submittedPDForm && j.creditosActivos.errors"
-          class="invalid-feedback"
-        >
-          <div *ngIf="j.creditosActivos.errors.required">
-            Los créditos activos son requeridos
-          </div>
+      <div class="form-group col-sm-3">
+        <label for="id_creditosActivosPD" class="form-label">Créditos activos</label>
+        <input formControlName="creditosActivos"
+                class="form-control"
+                type="number"
+                id="id_creditosActivosPD"
+                [ngClass]="{ 'is-invalid': submittedPDForm && j.creditosActivos.errors }" />
+        <div *ngIf="submittedPDForm && j.creditosActivos.errors" class="invalid-feedback" >
+          <div *ngIf="j.creditosActivos.errors.required"> Los créditos activos son requeridos </div>
         </div>
       </div>
 
       <!-- CSD -->
-      <div class="form-group">
-        <label for="lblcsd" class="form-label">CSD</label>
-        <input
-          formControlName="csd"
-          class="form-control"
-          type="number"
-          id="id_csd"
-          [ngClass]="{ 'is-invalid': submittedPDForm && j.csd.errors }"
-          [readOnly]="disabledDatosPD"
-        />
-        <div
-          *ngIf="submittedPDForm && j.csd.errors"
-          class="invalid-feedback"
-        >
-          <div *ngIf="j.csd.errors.required">El CSD es requerido</div>
-        </div>
+      <div class="form-group col-sm-3">
+        <label for="id_csdPD" class="form-label">CSD</label>
+        <input formControlName="csd"
+                class="form-control"
+                type="number"
+                id="id_csdPD"
+                readonly />
       </div>
 
       <!-- SEGMENTO -->
-      <div class="form-group">
-        <label for="lblNumeroDependientes" class="form-label"
-          >Segmento</label
-        >
-        <input
-          formControlName="segmento"
-          class="form-control"
-          type="number"
-          id="id_segmento"
-          [ngClass]="{ 'is-invalid': submittedPDForm && j.segmento.errors }"
-          [readOnly]="disabledDatosPD"
-        />
-        <div
-          *ngIf="submittedPDForm && j.segmento.errors"
-          class="invalid-feedback"
-        >
-          <div *ngIf="j.segmento.errors.required">
-            El Segmento es requerido
-          </div>
+      <div class="form-group col-sm-3">
+        <label for="id_segmentoPD" class="form-label">Segmento</label>
+        <input formControlName="segmento"
+                class="form-control"
+                type="number"
+                id="id_segmentoPD"
+                [ngClass]="{ 'is-invalid': submittedPDForm && j.segmento.errors }" />
+        <div *ngIf="submittedPDForm && j.segmento.errors" class="invalid-feedback" >
+          <div *ngIf="j.segmento.errors.required"> El Segmento es requerido </div>
         </div>
       </div>
 
+      <!-- <div class="w-100"></div> -->
+
       <!-- SALARIO BRUTO -->
-      <div class="form-group">
-        <label for="lblsalarioBruto" class="form-label"
-          >Salario bruto</label
-        >
-        <input
-          formControlName="salarioBruto"
-          class="form-control"
-          type="number"
-          id="id_salarioBruto"
-          [ngClass]="{ 'is-invalid': submittedPDForm && j.salarioBruto.errors }"
-          [readOnly]="disabledDatosPD"
-        />
-        <div
-          *ngIf="submittedPDForm && j.salarioBruto.errors"
-          class="invalid-feedback"
-        >
-          <div *ngIf="j.salarioBruto.errors.required">
-            El Salario Bruto es requerido
-          </div>
-        </div>
+      <div class="form-group col-sm-3 mt-3">
+        <label for="id_salarioBrutoPD" class="form-label">Salario bruto</label>
+        <input formControlName="salarioBruto"
+                class="form-control"
+                type="number"
+                id="id_salarioBrutoPD"
+                readonly />
       </div>
 
       <!-- MONTO APROBADO -->
-      <div class="form-group">
-        <label for="lblNumeroDependientes" class="form-label"
-          >Monto Aprobado</label
-        >
-        <input
-          formControlName="montoAprobadoTotal"
-          class="form-control"
-          type="number"
-          id="id_montoAprobadoTotal"
-          [ngClass]="{ 'is-invalid': submittedPDForm && j.montoAprobadoTotal.errors }"
-          [readOnly]="disabledDatosPD"
-        />
-        <div
-          *ngIf="submittedPDForm && j.montoAprobadoTotal.errors"
-          class="invalid-feedback"
-        >
-          <div *ngIf="j.montoAprobadoTotal.errors.required">
-            El Monto Aprobado es requerido
+      <div class="form-group col-sm-3 mt-3">
+        <label for="id_montoAprobadoTotalPD" class="form-label">Monto Aprobado</label>
+        <input formControlName="montoAprobadoTotal"
+                class="form-control"
+                type="number"
+                id="id_montoAprobadoTotalPD"
+                [ngClass]="{ 'is-invalid': submittedPDForm && j.montoAprobadoTotal.errors }" />
+        <div *ngIf="submittedPDForm && j.montoAprobadoTotal.errors" class="invalid-feedback" >
+          <div *ngIf="j.montoAprobadoTotal.errors.required"> El Monto Aprobado es requerido
           </div>
         </div>
+      </div>
+
+      <div class="col-sm-3"></div>
+
+      <div class="form-group col-sm-3 mt-3">
+        <label for="id_modeloAnalisisPD" class="form-label" >Modelo de Análisis PD</label>
+        <strong>
+          <p>
+            {{j.modeloAnalisis.value}}
+          </p>
+        </strong>
+        <strong>
+          <p>
+            {{j.modeloAnalisisConglomerado.value}}
+          </p>
+        </strong>
       </div>
 
       <!-- ENDEUDAMIENTO TOTAL CIC -->
-      <div class="form-group">
-        <label for="lblendeudamientoTotalCIC" class="form-label"
-          >Endeudamiento Total CIC</label
-        >
-        <input
-          formControlName="endeudamientoTotalCIC"
-          class="form-control"
-          type="number"
-          id="id_endeudamientoTotalCIC"
-          [ngClass]="{ 'is-invalid': submittedPDForm && j.endeudamientoTotalCIC.errors }"
-          [readOnly]="disabledDatosPD"
-        />
-        <div
-          *ngIf="submittedPDForm && j.endeudamientoTotalCIC.errors"
-          class="invalid-feedback"
-        >
-          <div *ngIf="j.endeudamientoTotalCIC.errors.required">
-            El Endeudamiento Total CIC es requerido
-          </div>
+      <div class="form-group col-sm-3">
+        <label for="id_endeudamientoTotalCICPD" class="form-label">Endeudamiento Total CIC</label>
+        <input formControlName="endeudamientoTotalCIC"
+                class="form-control"
+                type="number"
+                id="id_endeudamientoTotalCICPD"
+                [ngClass]="{ 'is-invalid': submittedPDForm && j.endeudamientoTotalCIC.errors }" />
+        <div *ngIf="submittedPDForm && j.endeudamientoTotalCIC.errors" class="invalid-feedback" >
+          <div *ngIf="j.endeudamientoTotalCIC.errors.required"> El Endeudamiento Total CIC es requerido </div>
         </div>
+      </div>
+
+      <div class="col-sm-6"></div>
+
+      <div class="form-group col-sm-3">
+        <label for="id_zscorePD" class="form-label">Z-Score</label>
+        <strong>
+          <p>
+            {{j.zScore.value}}
+          </p>
+        </strong>
       </div>
 
       <!-- CONSTANTE -->
-      <div class="form-group">
-        <label for="lblconstante" class="form-label">Constante</label>
-        <input
-          formControlName="constante"
-          class="form-control"
-          type="number"
-          id="id_constante"
-          [ngClass]="{ 'is-invalid': submittedPDForm && j.constante.errors }"
-          [readOnly]="disabledDatosPD"
-        />
-        <div
-          *ngIf="submittedPDForm && j.constante.errors"
-          class="invalid-feedback"
-        >
-          <div *ngIf="j.constante.errors.required">
-            La constante es requerida
-          </div>
+      <div class="form-group col-sm-3">
+        <label for="id_constante" class="form-label">Constante</label>
+        <input formControlName="constante"
+                class="form-control"
+                type="text"
+                id="id_constante"
+                [ngClass]="{ 'is-invalid': submittedPDForm && j.constante.errors }"
+                readonly />
+        <div *ngIf="submittedPDForm && j.constante.errors" class="invalid-feedback" >
+          <div *ngIf="j.constante.errors.required"> La constante es requerida </div>
         </div>
       </div>
 
-      <section></section>
-
-      <div class="form-group">
-        <label for="lblmodeloAnalisis" class="form-label"
-          >Modelo de análisis</label
-        >
-        <!-- <input
-          formControlName="modeloAnalisis"
-          class="form-control"
-          type="text"
-          id="id_modeloAnalisis"
-          [ngClass]="{ 'is-invalid': submittedPDForm && j.modeloAnalisis.errors }"
-          readonly
-        /> -->
-        <!-- <input
-          formControlName="modeloAnalisisConglomerado"
-          class="form-control"
-          type="text"
-          id="id_modeloAnalisisConglomerado"
-          [ngClass]="{ 'is-invalid': submittedPDForm && j.modeloAnalisisConglomerado.errors }"
-          readonly
-        /> -->
-        <p>
-          {{j.modeloAnalisis.value}} / {{j.modeloAnalisisConglomerado.value}}
-        </p>
-      </div>
-      <div class="form-group">
-        <label for="lblzScore" class="form-label">Z-Score</label>
-        <!-- <input
-          formControlName="zScore"
-          class="form-control"
-          type="number"
-          id="id_zScore"
-          [ngClass]="{ 'is-invalid': submittedPDForm && j.zScore.errors }"
-          readonly
-        /> -->
-        <p>
-          {{j.zScore.value}}
-        </p>
-      </div>
-      <div class="form-group">
-        <label for="lblpdResult" class="form-label"
-          >Probability Of Default</label
-        >
-        <!-- <input
-          formControlName="pdResult"
-          class="form-control"
-          type="number"
-          id="id_pdResult"
-          [ngClass]="{ 'is-invalid': submittedPDForm && j.pdResult.errors }"
-          readonly
-        /> -->
-        <p>
-          {{j.pdResult.value | percent:'1.2-2'}}
-        </p>
+      <div class="col-sm-6"></div>
+      
+      <div class="form-group col-sm-3">
+        <label for="id_PD" class="form-label">Probability Of Default</label>
+        <strong>
+          <p>
+            {{j.pdResult.value | percent:'1.2-2'}}
+          </p>
+        </strong>
       </div>
     </form>
+
   </div>
 
-  <div class="contenedor__footer">
-    <div class="contenedor__footer__prev">
-      <button
-        *ngIf="habilitarBtnEditarDatos"
-        (click)="habilitarCamposPDEditar(true)"
-        class="btn btn-success px-5 mx-1"
-        mat-flat-button
-        color="primary"
-      >
-        Editar
-      </button>
-      <button
-        *ngIf="habilitarBtnGuardarDatos"
-        (click)="procesoGuardarDatosPD()"
-        class="btn btn-success px-5 mx-1"
-        mat-flat-button
-        color="primary"
-      >
-        Guardar
-      </button>
-      <button
-        *ngIf="habilitarBtnCalcularDatosPD"
-        (click)="procesoCalculaPD()"
-        class="btn btn-success px-5 mx-1"
-        mat-flat-button
-        color="primary"
-      >
-        Calcular
-      </button>
+  <br>
+
+  <div class="cont-main-analisis__footer">
+    <div>
+      <button *ngIf="habilitaBtnRegistrarPD"
+              (click)="postPD()"
+              class="btn btn-success px-5"
+              mat-flat-button
+              color="primary" > Registrar </button>
+      <button *ngIf="habilitaBtnGuardarPD"
+              (click)="putPD()"
+              class="btn btn-success px-5"
+              mat-flat-button
+              color="primary" > Guardar Cambios </button>
+      <button *ngIf="habilitaBtnCalcularPD"
+              (click)="calcularPD()"
+              class="btn btn-success px-5"
+              mat-flat-button
+              color="primary" > Calcular PD </button>
     </div>
-    <div class="contenedor__footer__next">
-      <!-- <button
-        *ngIf="habilitarBtnPD_ContinuarScoring"
-        (click)="habilitarFormPD()"
-        class="btn px-5 btn-info"
-        mat-flat-button
-        color="primary"
-      >
-        Scoring
-      </button> -->
-      <button
-        *ngIf="habilitarBtnPD_ContinuarFCL"
-        (click)="handleHabilitarFCL()"
-        class="btn px-5 btn-info"
-        mat-flat-button
-        color="primary"
-      >
-        Flujo de Caja Libre
-      </button>
+    <div>
+      <button *ngIf="habilitaBtnScoring"
+              (click)="handleOnScoring()"
+              class="btn px-5 btn-info"
+              mat-flat-button
+              color="primary" > Scoring </button>
+      <button *ngIf="habilitaBtnFCL"
+              (click)="handleOnFCL()"
+              class="btn px-5 btn-info"
+              mat-flat-button
+              color="primary" > Flujo de Caja Libre </button>
     </div>
   </div>
-
-  <!-- ****************************** -->
-  <!-- MODAL DE MODELOS DE PD -->
-  <!-- ****************************** -->
-  <article class="modal modal-config" id="modalModelosPD">
-    <div class="modal-content">
-      <section>
-        <div class="modal-header">
-          <div class="contenedor__header-modal">
-            <div class="contenedor__header__prev">
-              <h1 style="color: #1a5276">
-                Modelos de análisis PD
-              </h1>
-            </div>
-            <div class="contenedor__header__next">
-              <button
-                style="color: red"
-                type="button"
-                class="close btn-close"
-                data-dismiss="modal"
-              >
-                &times;
-              </button>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      <section>
-        <!-- body -->
-        <div class="contenedor__body">
-          <div *ngIf="srvDatosAnalisisService.lstModelosPD">
-            <p>Por favor seleccionar un modelo para el cálculo.</p>
-            <table class="table table-striped">
-              <thead>
-                <tr>
-                  <th style="width: 50%">Modelo</th>
-                  <th style="width: 50%">Fecha de creación</th>
-                </tr>
-              </thead>
-              <tbody>
-                <tr
-                  *ngFor="let obj of srvDatosAnalisisService.lstModelosPD"
-                  class="item-list__confirm"
-                  (click)="handleModalPDSelececionarModelo(obj)"
-                >
-                  <td>{{obj.descripcion}}</td>
-                  <td>{{obj.fechaCreacion}}</td>
-                </tr>
-              </tbody>
-            </table>
-          </div>
-        </div>
-      </section>
-
-    </div>
-  </article>
-
-  <!-- ****************************** -->
-  <!-- MODAL DE GRUPOS DE PD -->
-  <!-- ****************************** -->
-  <article class="modal modal-config" id="modalGruposPD">
-    <div class="modal-content">
-      <section>
-        <div class="modal-header">
-          <div class="contenedor__header-modal">
-            <div class="contenedor__header__prev">
-              <h1 style="color: #1a5276">
-                Grupos asignados al modelo PD
-              </h1>
-            </div>
-            <div class="contenedor__header__next">
-              <button
-                style="color: red"
-                type="button"
-                class="close btn-close"
-                data-dismiss="modal"
-              >
-                &times;
-              </button>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      <section>
-        <!-- body -->
-        <div class="contenedor__body">
-          <div *ngIf="lstGruposPD">
-            <p>Por favor seleccionar un grupo para el cálculo.</p>
-            <table class="table table-striped">
-              <thead>
-                <tr>
-                  <th style="width: 50%">Nombre del grupo</th>
-                  <th style="width: 50%">Fecha de creación</th>
-                </tr>
-              </thead>
-              <tbody>
-                <tr
-                  *ngFor="let obj of lstGruposPD"
-                  class="item-list__confirm"
-                  (click)="handleModalPDSeleccionarGrupo(obj)"
-                >
-                  <td>{{obj.descripcion}}</td>
-                  <td>{{obj.fechaCreacion}}</td>
-                </tr>
-              </tbody>
-            </table>
-          </div>
-        </div>
-      </section>
-
-    </div>
-  </article>
-
-</section>
+</div>

@@ -68,6 +68,10 @@ export class MacPersona {
     modificadoPor: string;
     fechaModificacion: Date;
 
+    // pd temp
+    codModeloPD?: number;
+    codGrupoModeloPD?: number;
+
     pdCsd?: number;
     pdTienePropiedad?: boolean;
     pdTieneVehiculo?: boolean;

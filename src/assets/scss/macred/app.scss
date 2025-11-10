@@ -62,6 +62,12 @@ $paddingLength:(2,5,10,15,30,45,50);
       font-weight: 450;
       color: #1A5276;
     }
+    h3 {
+        color: #B3B3B3;
+        font-size: 1.2rem;
+        font-weight: 500;
+        @media (max-width: 800px) { font-size: 1rem; }
+    }
 }
 
 .cont-main-analisis {
@@ -101,6 +107,12 @@ $paddingLength:(2,5,10,15,30,45,50);
       margin: 0;
       font-weight: 550;
       color: #1A5276;
+    }
+    h3 {
+        color: #B3B3B3;
+        font-size: 1.2rem;
+        font-weight: 500;
+        @media (max-width: 800px) { font-size: 1rem; }
     }
   }
   &__footer {
@@ -419,14 +431,15 @@ $paddingLength:(2,5,10,15,30,45,50);
         &__estado {width: 25%; text-align: center; &__td { text-align: center; } }
     }
     &__ingresos-analisis {
+        &__id { width: 5%; text-align: center; &__td { text-align: center; } }
         &__tipo { width: 15%; text-align: center; &__td { text-align: center; } }
         &__bruto { width: 15%; text-align: center; &__td { text-align: center; } }
         &__neto { width: 15%; text-align: center; &__td { text-align: center; } }
-        &__cargas { width: 10%; text-align: center; &__td { text-align: center; } }
-        &__renta { width: 10%; text-align: center; &__td { text-align: center; } }
-        &__extras { width: 15%; text-align: center; &__td { text-align: center; } }
-        &__deducciones { width: 10%; text-align: center; &__td { text-align: center; } }
-        &__ico { width: 10%; text-align: center; &__td { text-align: center; } }
+        &__cargas { width: 9%; text-align: center; &__td { text-align: center; } }
+        &__renta { width: 9%; text-align: center; &__td { text-align: center; } }
+        &__extras { width: 14%; text-align: center; &__td { text-align: center; } }
+        &__deducciones { width: 9%; text-align: center; &__td { text-align: center; } }
+        &__ico { width: 9%; text-align: center; &__td { text-align: center; } }
     }
     &__extras-aplicables {
         &__monto { width: 16%; text-align: center; &__td { text-align: center; } }
@@ -434,6 +447,23 @@ $paddingLength:(2,5,10,15,30,45,50);
         &__coeficiente {width: 21%; text-align: right; &__td { text-align: right; } }
         &__porcentaje {width: 21%; text-align: right; &__td { text-align: right; } }
         &__promedio {width: 21%; text-align: right; &__td { text-align: right; } }
+    }
+    &__deducciones {
+        &__id { width: 10%; text-align: center; &__td { text-align: center; } }
+        &__ingreso { width: 10%; text-align: center; &__td { text-align: center; } }
+        &__tipo {width: 25%; text-align: center; &__td { text-align: center; } }
+        &__moneda {width: 20%; text-align: center; &__td { text-align: center; } }
+        &__cambio {width: 10%; text-align: center; &__td { text-align: center; } }
+        &__monto {width: 15%; text-align: center; &__td { text-align: center; } }
+        &__ico { width: 10%; text-align: center; &__td { text-align: center; } }
+    }
+    &__scoring-historico {
+        &__variable { width: 20%; text-align: center; &__td { text-align: center; } }
+        &__pesov { width: 10%; text-align: center; &__td { text-align: center; } }
+        &__item {width: 30%; text-align: center; &__td { text-align: center; } }
+        &__pesoi {width: 10%; text-align: center; &__td { text-align: center; } }
+        &__puntaje {width: 10%; text-align: center; &__td { text-align: center; } }
+        &__riesgo {width: 20%; text-align: center; &__td { text-align: center; } }
     }
 }
 
@@ -460,8 +490,6 @@ $paddingLength:(2,5,10,15,30,45,50);
     margin-bottom: 12px;
     &:hover { color: white; background-color: #B3B3B3; cursor: pointer; }
 }
-
-
 
 .color-chechbox { color: white; font-weight:500; }
 
@@ -556,7 +584,7 @@ $paddingLength:(2,5,10,15,30,45,50);
 
 .btn-new {
     margin-left: 1%; margin-right: 1%;
-    &:hover { color: #B3B3B3; cursor: pointer; }
+    &:hover { color: #B3B3B3; }
 }
 .btn-put {
     margin-left: 1%; margin-right: 1%;
@@ -564,11 +592,28 @@ $paddingLength:(2,5,10,15,30,45,50);
 }
 .btn-post {
     margin-left: 1%; margin-right: 1%;
-    &:hover { color: #129523; cursor: pointer; }
+    &:hover { color: #129523; }
 }
 .btn-delete {
     margin-left: 1%; margin-right: 1%;
-    &:hover { color: #f91b1b; cursor: pointer; }
+    &:hover { color: #f91b1b;  }
+}
+
+.btn-new-static {
+    color: #B3B3B3;
+    margin-left: 1%; margin-right: 1%;
+}
+.btn-put-static {
+    color: #F9A01B;
+    margin-left: 1%; margin-right: 1%;
+}
+.btn-post-static {
+    color: #129523;
+    margin-left: 1%; margin-right: 1%;
+}
+.btn-delete-static {
+    color: #f91b1b;
+    margin-left: 1%; margin-right: 1%;
 }
 
 .lista-inline {
@@ -704,6 +749,12 @@ $paddingLength:(2,5,10,15,30,45,50);
         margin-top: 2%;
         &__prev { width: 50%; display: inline-block; text-align: left; }
         &__next { width: 50%; display: inline-block; text-align: right; }
+
+        &__info {
+            font-size: 14px;
+            color: #495057;
+            margin: 0;
+        }
     }
 }
 
@@ -746,6 +797,25 @@ $paddingLength:(2,5,10,15,30,45,50);
   }
 }
 #extrasModal {
+  .modal-dialog {
+    max-width: 90vw;
+    margin: 5px auto;
+  }
+  .modal-content {
+    max-height: 95vh;
+    display: flex;
+    flex-direction: column;
+    margin-top: 20px;
+  }
+  .modal-body {
+    overflow-y: auto;
+  }
+  table {
+    width: 100%;
+    margin: 0 auto;
+  }
+}
+#deduccionesModal {
   .modal-dialog {
     max-width: 90vw;
     margin: 5px auto;

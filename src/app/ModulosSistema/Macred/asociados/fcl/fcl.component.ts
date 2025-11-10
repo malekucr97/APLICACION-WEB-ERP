@@ -25,7 +25,7 @@ import { SrvDatosAnalisisService } from '../servicios/srv-datos-analisis.service
 export class FclComponent implements OnInit {
   //VARIABLES INPUT DEL COMPONENTE PADRE
   @Input() _analisisCapacidadpago: MacAnalisisCapacidadPago;
-  @Input() _personaAnalisis: MacPersona;
+  // @Input() oPersona: MacPersona;
 
   //VARIABLES OUTPUT PARA ENVIAR AL COMPONENTE PADRE
   @Output() onEscenariosFCL = new EventEmitter<ScoringFlujoCajaLibre>();
@@ -48,6 +48,7 @@ export class FclComponent implements OnInit {
   editarCamposFCL: boolean = true;
   habilitarFinalizacion: boolean = false;
 
+  oPersona : MacPersona;
   oAnalisis : MacAnalisisCapacidadPago;
 
   constructor(private formBuilder: UntypedFormBuilder,
@@ -225,6 +226,13 @@ export class FclComponent implements OnInit {
     this.ObtenerActividadesEconomicas();
     this.IniciarFlujoCajaLibre();
 
+    this.srvDatosAnalisisService.personaAnalisis$.subscribe(
+      persona => { 
+        if (persona) {
+          this.oPersona = persona;
+        }
+    });
+
     this.srvDatosAnalisisService.analisisCapacidadPago$.subscribe(
       analisis => { 
         if (analisis) this.oAnalisis = analisis; 
@@ -234,7 +242,7 @@ export class FclComponent implements OnInit {
   private IniciarFlujoCajaLibre() {
     let oAnalisisConsulta = {
       codAnalisis: this._analisisCapacidadpago.codigoAnalisis,
-      codPersona: this._personaAnalisis.id,
+      codPersona: this.oPersona.id,
       usuarioCreacion: this.userObservable.nombreCompleto,
       fechaCreacion: new Date(),
     } as ScoringFlujoCajaLibre;
@@ -411,7 +419,7 @@ export class FclComponent implements OnInit {
     let oAnalisis: ScoringFlujoCajaLibre = {
       ...this.analisisFlujoCajaLibre,
       codAnalisis: this._analisisCapacidadpago.codigoAnalisis,
-      codPersona: this._personaAnalisis.id,
+      codPersona: this.oPersona.id,
       codActividadEconomica: actividadEconomica.value,
       nuevaObligacion: obligacionesNuevaObligacion.value,
       ahorroNuevaObligacion: obligacionAhorroGenerado.value,

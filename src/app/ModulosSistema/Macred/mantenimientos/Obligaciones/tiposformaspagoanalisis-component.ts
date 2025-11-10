@@ -87,7 +87,7 @@ export class TiposFormasPagoAnalisisComponent implements OnInit {
 
     consultaTiposFormasPagoAnalisisCompania() : void {
 
-        this.macredService.getTiposFormaPagoAnalisis(this.userObservable.empresa)
+        this.macredService.getTiposFormaPagoAnalisis()
         .pipe(first())
         .subscribe(tipoFormaPagoAnalisisResponse => {
 

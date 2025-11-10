@@ -4,8 +4,8 @@
   
   <div class="cont-main-analisis__header">
     <div class="header-titles">
-      <h2>Información de Análisis para {{_personaAnalisis.nombre}} {{_personaAnalisis.primerApellido}}</h2>
-        <h2 *ngIf="oAnalisis"> Análisis: {{oAnalisis.codigoAnalisis}} </h2>
+      <h1>Información de Análisis para {{oPersona.nombre}} {{oPersona.primerApellido}}</h1>
+      <h2 *ngIf="oAnalisis"> Análisis: {{oAnalisis.codigoAnalisis}} </h2>
     </div>
 
     <div>
@@ -28,7 +28,7 @@
     <form [formGroup]="formAnalisis" class="row">
       
       <div class="col-sm-3">
-        <label for="id_fechaAnalisis" class="form-label" >Fecha de Análisis</label >
+        <label for="id_fechaAnalisis" class="form-label" >Fecha de Análisis</label>
         <input id="id_fechaAnalisis"
                 formControlName="fechaAnalisis"
                 class="form-control"
@@ -38,9 +38,9 @@
         <mat-datepicker #picker></mat-datepicker>
       </div>
 
-      <div class="col-sm-6"></div>
+      <div class="col-sm-5"></div>
 
-      <div class="form-group col-sm-1 margin-top-status" >
+      <div class="form-group col-sm-2 margin-top-status" >
         <mat-checkbox formControlName="estado">Estado</mat-checkbox>
       </div>
       <div class="form-group col-sm-2 margin-top-status">
@@ -48,7 +48,7 @@
       </div>
 
       <div class="form-group col-md-6">
-        <label for="id_capacidadPago" class="form-label" >Nivel de Capacidad de Pago</label >
+        <label for="id_capacidadPago" class="form-label" >Nivel de Capacidad de Pago</label>
         <select id="id_capacidadPago"
                 formControlName="capacidadPago"
                 class="form-control"
@@ -66,7 +66,7 @@
 
       <!-- read only -->
       <div class="form-group col-md-2">
-        <label for="id_puntajeAnalisis" class="form-label" >Puntaje del Análisis</label >
+        <label for="id_puntajeAnalisis" class="form-label" >Puntaje del Análisis</label>
         <input formControlName="puntajeAnalisis"
                 class="form-control"
                 type="text"
@@ -74,7 +74,7 @@
                 readonly />
       </div>
       <div class="form-group col-md-2">
-        <label for="id_calificacionCic" class="form-label" >Calificación CIC</label >
+        <label for="id_calificacionCic" class="form-label" >Calificación CIC</label>
         <input formControlName="calificacionCic"
                 class="form-control"
                 type="text"
@@ -82,7 +82,7 @@
                 readonly />
       </div>
       <div class="form-group col-md-2">
-        <label for="id_calificacionFinalCic" class="form-label" >Calificación FINAL CIC</label >
+        <label for="id_calificacionFinalCic" class="form-label" >Calificación FINAL CIC</label>
         <input formControlName="calificacionFinalCic"
                 class="form-control"
                 type="text"
@@ -91,21 +91,21 @@
       </div>
 
       <div class="form-group col-md-3">
-        <label for="id_tipoAnalisis" class="form-label" >Tipo de Análisis</label >
+        <label for="id_tipoAnalisis" class="form-label" >Tipo de Análisis</label>
         <select id="id_tipoAnalisis"
                 formControlName="tipoIngresoAnalisis"
                 class="form-control"
                 name="selectTipoIngresoAnalisis"
                 [ngClass]="{ 'is-invalid': submittedAnalisisForm && g.tipoIngresoAnalisis.errors }">
           <option [ngValue]="objeto" 
-                  *ngFor="let objeto of listTipoIngresoAnalisis" > {{objeto.id}} - {{objeto.descripcion}}</option>
+                  *ngFor="let objeto of listTipoAnalisis" > {{objeto.id}} - {{objeto.descripcion}}</option>
         </select>
         <div *ngIf="submittedAnalisisForm && g.tipoIngresoAnalisis.errors" class="invalid-feedback" >
           <div *ngIf="g.tipoIngresoAnalisis.errors.required"> El Tipo de Ingreso es requerido </div>
         </div>
       </div>
       <div class="form-group col-md-3">
-        <label for="id_formaPagoAnalisis" class="form-label" >Forma de Pago de Análisis</label >
+        <label for="id_formaPagoAnalisis" class="form-label" >Forma de Pago de Análisis</label>
         <select id="id_formaPagoAnalisis"
                 formControlName="tipoFormaPagoAnalisis"
                 class="form-control"
@@ -120,7 +120,7 @@
       </div>
 
       <div class="form-group col-md-4">
-        <label for="id_modeloCalificacion" class="form-label" >Modelo de Análisis</label >
+        <label for="id_modeloCalificacion" class="form-label" >Modelo de Calificación de Análisis</label>
         <select id="id_modeloCalificacion"
                 formControlName="modeloAnalisis"
                 class="form-control"
@@ -150,7 +150,7 @@
       </div>
 
       <div class="form-group col-md-3">
-        <label for="id_tipoGenerador" class="form-label" >Tipo de Generador</label >
+        <label for="id_tipoGenerador" class="form-label" >Tipo de Generador</label>
         <select id="id_tipoGenerador"
                 formControlName="tipoGenerador"
                 class="form-control"
@@ -165,7 +165,7 @@
       </div>
 
       <div class="form-group col-md-3">
-        <label for="id_indicadorcsd" class="form-label" >Indicador CSD</label >
+        <label for="id_indicadorcsd" class="form-label" >Indicador CSD</label>
         <input formControlName="indicadorCsd"
               class="form-control"
               type="number"
@@ -177,7 +177,7 @@
       </div>
 
       <div class="form-group col-md-4">
-        <label for="id_ponderacionLvt" class="form-label" >Ponderación LVT</label >
+        <label for="id_ponderacionLvt" class="form-label" >Ponderación LVT</label>
         <input formControlName="ponderacionLvt"
                 class="form-control"
                 type="text"
@@ -189,7 +189,7 @@
       </div>
 
       <div class="form-group col-md-2">
-        <label for="id_numeroDependientes" class="form-label" >Número de Dependientes</label >
+        <label for="id_numeroDependientes" class="form-label" >Número de Dependientes</label>
         <input formControlName="numeroDependientes"
                 class="form-control"
                 type="number"

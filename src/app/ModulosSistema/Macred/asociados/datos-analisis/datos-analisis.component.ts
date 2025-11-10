@@ -11,12 +11,13 @@ import {  MacAnalisisCapacidadPago,
           MacTiposMoneda } from '@app/_models/Macred';
 import { AccountService, AlertService } from '@app/_services';
 import { MacredService } from '@app/_services/macred.service';
-import { first } from 'rxjs/operators';
+import { first, takeUntil } from 'rxjs/operators';
 import { SrvDatosAnalisisService } from '../servicios/srv-datos-analisis.service';
 import { MatDialog } from '@angular/material/dialog';
 import { CodeudorFiador } from '@app/_models/Macred/CodeudorFiador';
 import { MacTipoAsociado } from '@app/_models/Macred/TipoAsociado';
 import { DialogoConfirmacionComponent } from '@app/_components/dialogo-confirmacion/dialogo-confirmacion.component';
+import { Subject } from 'rxjs';
 
 declare var $: any;
 
@@ -27,20 +28,11 @@ declare var $: any;
 })
 export class DatosAnalisisComponent implements OnInit {
 
-  //VARIABLES INPUT DEL COMPONENTE PADRE
-  @Input() _personaAnalisis: MacPersona;
-  // @Input() _globalCodMonedaPrincipal: number;
-  
-  // @Input() listTipoFormaPagoAnalisis: MacTipoFormaPagoAnalisis[];
-  // @Input() listTipoIngresoAnalisis: MacTipoIngresoAnalisis[];
-  // @Input() listModelosAnalisis: MacModeloAnalisis[];
-  // @Input() listNivelesCapacidadpago: MacNivelCapacidadPago[];
-  // @Input() listTiposGeneradores: MacTipoGenerador[];
-  // @Input() listTiposMonedas: MacTiposMoneda[];
+  private destroy$ = new Subject<void>();
   
   listTiposAsociados: MacTipoAsociado[];
   listTipoFormaPagoAnalisis: MacTipoFormaPagoAnalisis[];
-  listTipoIngresoAnalisis: MacTipoIngresoAnalisis[];
+  listTipoAnalisis: MacTipoIngresoAnalisis[];
   listModelosAnalisis: MacModeloAnalisis[];
   listNivelesCapacidadpago: MacNivelCapacidadPago[];
   listTiposGeneradores: MacTipoGenerador[];
@@ -71,7 +63,6 @@ export class DatosAnalisisComponent implements OnInit {
   habilitaBtnPutCod: boolean = false;
   habilitaBtnDeleteCod: boolean = false;
 
-  
   listCodeudoresFiadores: CodeudorFiador[] = null;
 
   listHistorialAnalisis: MacAnalisisCapacidadPago[] = [];
@@ -91,6 +82,7 @@ export class DatosAnalisisComponent implements OnInit {
   get h() { return this.formHistorialAnalisis.controls; }
   get c() { return this.formCodeudorFiadorAnalisis.controls; }
 
+  oPersona : MacPersona;
   oAnalisis : MacAnalisisCapacidadPago;
 
   public today : Date = new Date();
@@ -109,9 +101,21 @@ export class DatosAnalisisComponent implements OnInit {
 
   ngOnInit(): void {
 
+    this.srvDatosAnalisisService.personaAnalisis$.subscribe(
+      persona => { 
+        if (persona) this.oPersona = persona;
+    });
+
+    this.srvDatosAnalisisService.analisisCapacidadPago$
+      .pipe(takeUntil(this.destroy$))
+      .subscribe(
+        analisis => { 
+          if (analisis) this.oAnalisis = analisis;
+      });
+
     this.listTiposAsociados = this.srvDatosAnalisisService.listTiposAsociados;
     this.listTipoFormaPagoAnalisis = this.srvDatosAnalisisService.listTipoFormaPagoAnalisis;
-    this.listTipoIngresoAnalisis = this.srvDatosAnalisisService.listTipoIngresoAnalisis;
+    this.listTipoAnalisis = this.srvDatosAnalisisService.listTipoAnalisis;
     this.listModelosAnalisis = this.srvDatosAnalisisService.listModelosAnalisis;
     this.listNivelesCapacidadpago = this.srvDatosAnalisisService.listNivelesCapacidadpago;
     this.listTiposGeneradores = this.srvDatosAnalisisService.listTiposGeneradores;
@@ -137,7 +141,7 @@ export class DatosAnalisisComponent implements OnInit {
       this.habilitaBtnNuevoAnalisis = true;
       this.habilitaBtnGuardarAnalisis = true;
 
-      const tipoAnalisis = this.srvDatosAnalisisService.listTipoIngresoAnalisis.find(
+      const tipoAnalisis = this.srvDatosAnalisisService.listTipoAnalisis.find(
         (x) => x.id === this.oAnalisis.codigoTipoIngresoAnalisis).descripcion.toLocaleLowerCase();
 
       if (tipoAnalisis === 'independiente' ) {
@@ -157,7 +161,7 @@ export class DatosAnalisisComponent implements OnInit {
   openHistorialModal(): void {
     this.alertService.clear();
 
-    this.macredService.getHistorialAnlisisPersona(this._personaAnalisis.id)
+    this.macredService.getHistorialAnlisisPersona(this.oPersona.id)
       .pipe(first())
       .subscribe((response) => { 
         
@@ -219,7 +223,7 @@ export class DatosAnalisisComponent implements OnInit {
     obj.idAnalisis = this.oAnalisis.codigoAnalisis;
     obj.idTipoAsociado = idTipoAsociado.value.id;
 
-    obj.idPersona = this._personaAnalisis.id;
+    obj.idPersona = this.oPersona.id;
     obj.identificacionCF = identificacionCF.value;
     obj.montoCF = montoCF.value;
 
@@ -379,7 +383,7 @@ export class DatosAnalisisComponent implements OnInit {
           setTimeout(() => { this.bordeSuccess = false; }, 2000);
 
         } else { 
-          this.alertService.error( response.responseMesagge );
+          this.alertService.error(response.responseMesagge);
           this.bordeError = true;
           setTimeout(() => { this.bordeError = false; }, 2000);
         }
@@ -400,7 +404,7 @@ export class DatosAnalisisComponent implements OnInit {
     const analisis = new MacAnalisisCapacidadPago();
 
     analisis.codigoCompania = this.companiaObservable.id;
-    analisis.codigoPersona = this._personaAnalisis.id;
+    analisis.codigoPersona = this.oPersona.id;
 
     analisis.fechaAnalisis = f['fechaAnalisis'].value;
     analisis.estado = f['estado'].value;
@@ -471,7 +475,11 @@ export class DatosAnalisisComponent implements OnInit {
         this.habilitaBtnNuevoAnalisis = true;
         this.habilitaBtnIngreso = true;
 
+        this.srvDatosAnalisisService._globalCodMonedaPrincipal = panalisis.codigoMoneda;
+
         this.inicializaFormDatosAnalisis(panalisis);
+
+        this.srvDatosAnalisisService.triggerResetFormsIngreso();
 
         $('#analisisHistorialModal').modal('hide');
       }
@@ -496,35 +504,24 @@ export class DatosAnalisisComponent implements OnInit {
       this.formAnalisis = this.formBuilder.group({
         fechaAnalisis: [panalisis.fechaAnalisis, Validators.required],
 
-        
-        tipoIngresoAnalisis: [this.listTipoIngresoAnalisis.find((x) => 
-          x.id === panalisis.codigoTipoIngresoAnalisis), Validators.required],
-        
-        // tipoIngresoAnalisis: [this.srvDatosAnalisisService.listTipoIngresoAnalisis.find((x) => 
-        //   x.id === panalisis.codigoTipoIngresoAnalisis), Validators.required],
-        // tipoFormaPagoAnalisis: [this.srvDatosAnalisisService.listTipoFormaPagoAnalisis.find((x) => 
-        //   x.id === panalisis.codigoTipoFormaPagoAnalisis), Validators.required],
-        // tipoMoneda: [this.srvDatosAnalisisService.listTiposMonedas.find((x) => 
-        //   x.id === panalisis.codigoMoneda), Validators.required],
-        // modeloAnalisis: [this.srvDatosAnalisisService.listModelosAnalisis.find((x) => 
-        //   x.id === panalisis.codigoModeloAnalisis), Validators.required],
-        // capacidadPago: this.srvDatosAnalisisService.listNivelesCapacidadpago.find((x) => 
-        //   x.id === panalisis.codigoNivelCapPago),
-        // tipoGenerador: this.srvDatosAnalisisService.listTiposGeneradores.find((x) => 
-        //   x.id === panalisis.codigoTipoGenerador ),
-
-        tipoFormaPagoAnalisis: [this.listTipoFormaPagoAnalisis.find((x) => x.id === panalisis.codigoTipoFormaPagoAnalisis), Validators.required],
-        tipoMoneda: [this.listTiposMonedas.find((x) => x.id === panalisis.codigoMoneda), Validators.required],
+        tipoIngresoAnalisis: [this.listTipoAnalisis.find(
+          (x) => x.id === panalisis.codigoTipoIngresoAnalisis), Validators.required],
+        tipoFormaPagoAnalisis: [this.listTipoFormaPagoAnalisis.find(
+          (x) => x.id === panalisis.codigoTipoFormaPagoAnalisis), Validators.required],
+        tipoMoneda: [this.listTiposMonedas.find(
+          (x) => x.id === panalisis.codigoMoneda), Validators.required],
         
         analisisDefinitivo: panalisis.analisisDefinitivo,
         estado: panalisis.estado,
-
-        modeloAnalisis: [this.listModelosAnalisis.find((x) => x.id === panalisis.codigoModeloAnalisis), Validators.required],
+        modeloAnalisis: [this.listModelosAnalisis.find(
+          (x) => x.id === panalisis.codigoModeloAnalisis), Validators.required],
         indicadorCsd: panalisis.indicadorCsd,
         ponderacionLvt: panalisis.descPondLvt,
 
-        capacidadPago: this.listNivelesCapacidadpago.find((x) => x.id === panalisis.codigoNivelCapPago),
-        tipoGenerador: this.listTiposGeneradores.find((x) => x.id === panalisis.codigoTipoGenerador ),
+        capacidadPago: this.listNivelesCapacidadpago.find(
+          (x) => x.id === panalisis.codigoNivelCapPago),
+        tipoGenerador: this.listTiposGeneradores.find(
+          (x) => x.id === panalisis.codigoTipoGenerador ),
 
         numeroDependientes: panalisis.numeroDependientes,
         puntajeAnalisis: panalisis.puntajeAnalisis,
@@ -533,7 +530,7 @@ export class DatosAnalisisComponent implements OnInit {
         observaciones: panalisis.observaciones
       });
       this.srvDatosAnalisisService.setAnalisisCapacidadPago(panalisis);
-      this.oAnalisis = panalisis;
+      // this.oAnalisis = panalisis;
 
       this.iniciarBotonesDatosAnalisis(true);
 
@@ -547,9 +544,8 @@ export class DatosAnalisisComponent implements OnInit {
         tipoIngresoAnalisis: [null, Validators.required],
         tipoFormaPagoAnalisis: [null, Validators.required],
 
-        tipoMoneda: [this.listTiposMonedas.find((x) => x.id === this.srvDatosAnalisisService._globalCodMonedaPrincipal), Validators.required],
-        // tipoMoneda: [this.srvDatosAnalisisService.listTiposMonedas.find((x) => 
-        //   x.id === this.srvDatosAnalisisService._globalCodMonedaPrincipal), Validators.required],
+        tipoMoneda: [this.listTiposMonedas.find(
+          (x) => x.id === this.srvDatosAnalisisService._globalCodMonedaPrincipal), Validators.required],
         
         analisisDefinitivo: false,
         estado: true,
@@ -558,16 +554,14 @@ export class DatosAnalisisComponent implements OnInit {
         ponderacionLvt: null,
         capacidadPago: this.listNivelesCapacidadpago.find((x) => x.id === 99),
         tipoGenerador: this.listTiposGeneradores.find((x) => x.id === 99),
-        // capacidadPago: this.srvDatosAnalisisService.listNivelesCapacidadpago.find((x) => x.id === 99),
-        // tipoGenerador: this.srvDatosAnalisisService.listTiposGeneradores.find((x) => x.id === 99),
         numeroDependientes: null,
         puntajeAnalisis: null,
         calificacionCic: null,
         calificacionFinalCic: null,
         observaciones: observacion,
       });
-      this.srvDatosAnalisisService.setAnalisisCapacidadPago();
-      this.oAnalisis = undefined;
+      this.srvDatosAnalisisService.setAnalisisCapacidadPago(undefined);
+      // this.oAnalisis = undefined;
 
       this.iniciarBotonesDatosAnalisis(false);
     }
@@ -581,10 +575,10 @@ export class DatosAnalisisComponent implements OnInit {
 
       this.formCodeudorFiadorAnalisis = this.formBuilder.group({
         
-        identificacionRelacionado: [this._personaAnalisis.identificacion],
-        nombreCompletoRelacionado: [this._personaAnalisis.nombre + ' ' + 
-                                    this._personaAnalisis.primerApellido + ' ' + 
-                                    this._personaAnalisis.segundoApellido],
+        identificacionRelacionado: [this.oPersona.identificacion],
+        nombreCompletoRelacionado: [this.oPersona.nombre + ' ' + 
+                                    this.oPersona.primerApellido + ' ' + 
+                                    this.oPersona.segundoApellido],
         
         idTipoAsociado: [this.listTiposAsociados.find((x) => x.id === pcodeudorFiador.idTipoAsociado), Validators.required],
         identificacionCF: [pcodeudorFiador.identificacionCF, Validators.required],
@@ -603,10 +597,10 @@ export class DatosAnalisisComponent implements OnInit {
     
       this.formCodeudorFiadorAnalisis = this.formBuilder.group({
 
-        identificacionRelacionado: [this._personaAnalisis.identificacion],
-        nombreCompletoRelacionado: [this._personaAnalisis.nombre + ' ' + 
-                                    this._personaAnalisis.primerApellido + ' ' + 
-                                    this._personaAnalisis.segundoApellido],
+        identificacionRelacionado: [this.oPersona.identificacion],
+        nombreCompletoRelacionado: [this.oPersona.nombre + ' ' + 
+                                    this.oPersona.primerApellido + ' ' + 
+                                    this.oPersona.segundoApellido],
 
         idTipoAsociado: [
           this.listTiposAsociados && this.listTiposAsociados.length > 0
@@ -625,152 +619,9 @@ export class DatosAnalisisComponent implements OnInit {
       this.habilitaBtnPostCod = true;
     }
   }
+
+  ngOnDestroy(): void {
+    this.destroy$.next();
+    this.destroy$.complete();
+  }
 }
-
-
-// inicializaFormDatosAnalisis1(): void {
-
-//     if (this.srvDatosAnalisisService._analisisCapacidadpago) {
-
-//       this.habilitaBtnRegistroAnalisis = false;
-//       this.habilitaBtnGuardarAnalisis = true;
-//       this.iniciarBotonesDatosAnalisis();
-
-//       // this._ingresoAnalisisSeleccionado = null;
-//       // this._extrasAplicables = null;
-//       // this._deduccion = null;
-
-//       // this.listDeduccionesAnalisis = null;
-//       // this.listExtrasAplicables = null;
-
-//       this.formAnalisis = this.formBuilder.group({
-//         fechaAnalisis: [
-//           this.srvDatosAnalisisService._analisisCapacidadpago.fechaAnalisis,
-//           Validators.required,
-//         ],
-//         tipoIngresoAnalisis: [
-//           this.listTipoIngresoAnalisis.find(
-//             (x) =>
-//               x.id ===
-//               this.srvDatosAnalisisService._analisisCapacidadpago
-//                 .codigoTipoIngresoAnalisis
-//           ),
-//           Validators.required,
-//         ],
-//         tipoFormaPagoAnalisis: [
-//           this.listTipoFormaPagoAnalisis.find(
-//             (x) =>
-//               x.id ===
-//               this.srvDatosAnalisisService._analisisCapacidadpago
-//                 .codigoTipoFormaPagoAnalisis
-//           ),
-//           Validators.required,
-//         ],
-
-//         tipoMoneda: [
-//           this.listTiposMonedas.find(
-//             (x) =>
-//               x.id ===
-//               this.srvDatosAnalisisService._analisisCapacidadpago.codigoMoneda
-//           ),
-//           Validators.required,
-//         ],
-//         analisisDefinitivo:
-//           this.srvDatosAnalisisService._analisisCapacidadpago
-//             .analisisDefinitivo,
-//         estado: this.srvDatosAnalisisService._analisisCapacidadpago.estado,
-
-//         modeloAnalisis: [
-//           this.listModelosAnalisis.find(
-//             (x) =>
-//               x.id ===
-//               this.srvDatosAnalisisService._analisisCapacidadpago
-//                 .codigoModeloAnalisis
-//           ),
-//           Validators.required,
-//         ],
-//         indicadorCsd:
-//           this.srvDatosAnalisisService._analisisCapacidadpago.indicadorCsd,
-//         ponderacionLvt:
-//           this.srvDatosAnalisisService._analisisCapacidadpago.descPondLvt,
-
-//         capacidadPago: this.listNivelesCapacidadpago.find(
-//           (x) =>
-//             x.id ===
-//             this.srvDatosAnalisisService._analisisCapacidadpago
-//               .codigoNivelCapPago
-//         ),
-//         tipoGenerador: this.listTiposGeneradores.find(
-//           (x) =>
-//             x.id ===
-//             this.srvDatosAnalisisService._analisisCapacidadpago
-//               .codigoTipoGenerador
-//         ),
-//         numeroDependientes:
-//           this.srvDatosAnalisisService._analisisCapacidadpago
-//             .numeroDependientes,
-//         puntajeAnalisis:
-//           this.srvDatosAnalisisService._analisisCapacidadpago.puntajeAnalisis,
-//         calificacionCic:
-//           this.srvDatosAnalisisService._analisisCapacidadpago.calificacionCic,
-//         calificacionFinalCic:
-//           this.srvDatosAnalisisService._analisisCapacidadpago.puntajeFinalCic,
-//         observaciones:
-//           this.srvDatosAnalisisService._analisisCapacidadpago.observaciones,
-//       });
-
-//       // this.formIngresos.patchValue({
-//       //   totalMontoAnalisis: this._analisisCapacidadpago.totalMontoAnalisis,
-//       //   totalIngresoBruto: this._analisisCapacidadpago.totalIngresoBruto,
-//       //   totalIngresoNeto: this._analisisCapacidadpago.totalIngresoNeto,
-//       //   totalCargaImpuestos: this._analisisCapacidadpago.totalCargaImpuestos,
-//       //   totalExtrasAplicables:
-//       //     this._analisisCapacidadpago.totalExtrasAplicables,
-//       //   totalDeducciones: this._analisisCapacidadpago.totalDeducciones,
-//       // });
-//     } else {
-
-//       let observacion: string = `Análisis generado el ` + this.today + ` por ` +
-//                                 this.userObservable.identificacion + `.`;
-
-//       this.habilitaBtnRegistroAnalisis = true;
-//       this.habilitaBtnGuardarAnalisis = false;
-//       this.habilitaBtnIngreso = false;
-//       this.habilitaBtnPD = false;
-
-//       // this.listDeduccionesAnalisis = null;
-//       // this.listIngresosAnalisis = null;
-//       // this.listExtrasAplicables = null;
-
-//       this.formAnalisis = this.formBuilder.group({
-//         fechaAnalisis: [this.today, Validators.required],
-//         tipoIngresoAnalisis: [null, Validators.required],
-//         tipoFormaPagoAnalisis: [null, Validators.required],
-
-//         // tipoMoneda: [ this.listTiposMonedas.find(
-//         //               (x) => x.id === this._globalCodMonedaPrincipal ), Validators.required ],
-//         tipoMoneda: [null, Validators.required ],
-//         analisisDefinitivo: false,
-//         estado: true,
-
-//         // modeloAnalisis: [ this.listModelosAnalisis.find((x) => x.id === 5), Validators.required ],
-//         modeloAnalisis: [null, Validators.required ],
-//         indicadorCsd: null,
-//         ponderacionLvt: null,
-
-//         // capacidadPago: this.listNivelesCapacidadpago.find((x) => x.id === 99),
-//         // tipoGenerador: this.listTiposGeneradores.find((x) => x.id === 99),
-//         capacidadPago: null,
-//         tipoGenerador: null,
-//         // numeroDependientes: 0,
-//         // puntajeAnalisis: 0,
-//         // calificacionCic: '0',
-//         // calificacionFinalCic: 0,
-//         numeroDependientes: null,
-//         puntajeAnalisis: null,
-//         calificacionCic: null,
-//         calificacionFinalCic: null,
-//         observaciones: observacion,
-//       });
-//     }
-//   }

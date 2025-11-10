@@ -42,6 +42,7 @@ import { EscenariosRiesgosComponent } from './mantenimientos/ModelosCalificacion
 import { NivelesRiesgoComponent } from './mantenimientos/Parametros-Scoring/niveles-riesgo/niveles-riesgo.component';
 import { IndicadoresScoringComponent } from './mantenimientos/Parametros-Scoring/indicadores-relevantes/indicadores-scoring.component';
 import { ModelosAnalisisComponent } from './mantenimientos/Parametros-Scoring/configuracion-modelos/modelos-analisis.component';
+import { ScoringComponent } from './asociados/scoring/scoring.component';
 
 @NgModule({
     imports: [
@@ -90,7 +91,8 @@ import { ModelosAnalisisComponent } from './mantenimientos/Parametros-Scoring/co
         EscenariosRiesgosComponent,
         NivelesRiesgoComponent,
         IndicadoresScoringComponent,
-        ModelosAnalisisComponent
+        ModelosAnalisisComponent,
+        ScoringComponent
     ]
 })
 export class MacredModule { }
