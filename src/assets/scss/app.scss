@@ -7,7 +7,7 @@
 @mixin bg-color-skyblue { background-color: #00AEEF; }
 @mixin bg-color-light-gray { background-color: #B3B3B3; }
 
-@mixin bg-color-maleku { background-color: #07360b; }
+// @mixin bg-color-maleku { background-color: #07360b; }
 
 @mixin font-aero {
     font-family: "../../assets/fonts/Aero.ttf";
@@ -25,7 +25,9 @@ td { vertical-align: middle; }
 // ********************************
 
 .contenidoFooter {
-    background-color: var(--color_malek);
+    @include bg-color-darkest-blue;
+    // background-color: var(bg-color-darkest-blue );
+    // background-color: var(--color_malek);
     color: var(--color_fondo);
     width: 100%;
     display: flex;
@@ -181,7 +183,7 @@ td { vertical-align: middle; }
 
 
 .var-menu {
-    @include bg-color-maleku;
+    @include bg-color-darkest-blue;
     border-top: 1px solid rgb(202, 202, 202);
 
     &__prev-icons { width: 10%; display: inline-block; padding-left: 1%; }

@@ -99,6 +99,8 @@ export class HomeComponent extends OnSeguridad implements OnInit {
 
                 if ( responseRole ) {
 
+                    console.log(responseRole.estado);
+
                     if (responseRole.estado===active.state || responseRole.estado===administrator.state ) {
                         
                         this.userObservable.empresa = businessId;

@@ -1,4 +1,4 @@
-import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
+import { Component, EventEmitter, Input, OnInit, Output, SimpleChanges } from '@angular/core';
 import { UntypedFormBuilder, UntypedFormGroup, Validators } from '@angular/forms';
 import { Compania, Module, User } from '@app/_models';
 import {  MacAnalisisCapacidadPago,
@@ -17,7 +17,9 @@ import { MatDialog } from '@angular/material/dialog';
 import { CodeudorFiador } from '@app/_models/Macred/CodeudorFiador';
 import { MacTipoAsociado } from '@app/_models/Macred/TipoAsociado';
 import { DialogoConfirmacionComponent } from '@app/_components/dialogo-confirmacion/dialogo-confirmacion.component';
-import { Subject } from 'rxjs';
+import { firstValueFrom, Subject } from 'rxjs';
+import { PonderacionRiesgo } from '@app/_models/Macred/PonderacionRangos';
+import { MacModeloCalificacion } from '@app/_models/Macred/ModeloCalificacion';
 
 declare var $: any;
 
@@ -34,11 +36,17 @@ export class DatosAnalisisComponent implements OnInit {
   listTipoFormaPagoAnalisis: MacTipoFormaPagoAnalisis[];
   listTipoAnalisis: MacTipoIngresoAnalisis[];
   listModelosAnalisis: MacModeloAnalisis[];
+  listModelosAnalisisCalificacion: MacModeloCalificacion[];
   listNivelesCapacidadpago: MacNivelCapacidadPago[];
   listTiposGeneradores: MacTipoGenerador[];
   listTiposMonedas: MacTiposMoneda[];
   
   @Input() onConfirmNuevoAnalisis!: () => Promise<boolean>;
+
+  @Input() updateEscenario!: {
+    ponderacionLTV: number;
+    capacidadPago: number;
+  };
 
   //VARIABLES OUTPUT PARA ENVIAR AL COMPONENTE PADRE
   @Output() onIngresos = new EventEmitter();
@@ -110,13 +118,16 @@ export class DatosAnalisisComponent implements OnInit {
       .pipe(takeUntil(this.destroy$))
       .subscribe(
         analisis => { 
-          if (analisis) this.oAnalisis = analisis;
+          if (analisis) {
+            this.oAnalisis = analisis;
+          }
       });
 
     this.listTiposAsociados = this.srvDatosAnalisisService.listTiposAsociados;
     this.listTipoFormaPagoAnalisis = this.srvDatosAnalisisService.listTipoFormaPagoAnalisis;
     this.listTipoAnalisis = this.srvDatosAnalisisService.listTipoAnalisis;
     this.listModelosAnalisis = this.srvDatosAnalisisService.listModelosAnalisis;
+    this.listModelosAnalisisCalificacion = this.srvDatosAnalisisService.listModelosCalificacionAnalisis;
     this.listNivelesCapacidadpago = this.srvDatosAnalisisService.listNivelesCapacidadpago;
     this.listTiposGeneradores = this.srvDatosAnalisisService.listTiposGeneradores;
     this.listTiposMonedas = this.srvDatosAnalisisService.listTiposMonedas;
@@ -124,6 +135,14 @@ export class DatosAnalisisComponent implements OnInit {
     this.inicializaFormDatosAnalisis();
     this.inicializaFormHistorial();
     this.inicializaFormCodeudorFiador();
+  }
+
+  actualizarEscenarioFCL(ponderacionLvt: string, capacidadPago: number) {
+
+      this.formAnalisis.patchValue({
+        ponderacionLvt: ponderacionLvt
+        // , capacidadPago: this.updateEscenario.capacidadPago
+      });
   }
 
   handleOnIngresos() { this.habilitaBtnIngreso = false; this.onIngresos.emit(); }
@@ -415,9 +434,14 @@ export class DatosAnalisisComponent implements OnInit {
     analisis.calificacionCic = f['calificacionCic'].value ?? '0';
     analisis.puntajeFinalCic = f['calificacionFinalCic'].value ?? 0;
 
+    // --
+    analisis.codModeloAnalisis = f['modeloAnalisis'].value.id;
+    analisis.codigoModeloAnalisis = f['modeloAnalisisCalificacion'].value.id;
     analisis.codigoTipoIngresoAnalisis = f['tipoIngresoAnalisis'].value.id;
+    // --
+
     analisis.codigoTipoFormaPagoAnalisis = f['tipoFormaPagoAnalisis'].value.id;
-    analisis.codigoModeloAnalisis = f['modeloAnalisis'].value.id;
+    
     analisis.codigoMoneda = f['tipoMoneda'].value.id;
     analisis.codigoTipoGenerador = f['tipoGenerador'].value.id;
 
@@ -481,9 +505,28 @@ export class DatosAnalisisComponent implements OnInit {
 
         this.srvDatosAnalisisService.triggerResetFormsIngreso();
 
+        if (panalisis.codigoTipoIngresoAnalisis === 1) {
+          
+        }
+        if (panalisis.codigoTipoIngresoAnalisis === 2) {
+          this.getEscenariosRiesgoAnalisis(this.oAnalisis.codigoModeloAnalisis);
+        }
+
         $('#analisisHistorialModal').modal('hide');
       }
     }
+  }
+
+  private async getEscenariosRiesgoAnalisis(pcodModeloAnalisis : number) : Promise<void> {
+    
+    try {
+
+      const response = 
+        await firstValueFrom(this.macredService.getEscenariosRiesgosAnalisis(pcodModeloAnalisis).pipe(first()));
+    
+      if (response) this.srvDatosAnalisisService.listEscenariosEstres = response;
+      
+    } catch (error) { this.alertService.error(error.message); }
   }
   
   // actualizaciones 2025
@@ -501,6 +544,9 @@ export class DatosAnalisisComponent implements OnInit {
 
     if (panalisis) {
 
+      panalisis.descModeloAnalisis = 
+        this.listModelosAnalisisCalificacion.find((x) => x.id === panalisis.codigoModeloAnalisis).descripcion;
+
       this.formAnalisis = this.formBuilder.group({
         fechaAnalisis: [panalisis.fechaAnalisis, Validators.required],
 
@@ -513,8 +559,12 @@ export class DatosAnalisisComponent implements OnInit {
         
         analisisDefinitivo: panalisis.analisisDefinitivo,
         estado: panalisis.estado,
+
         modeloAnalisis: [this.listModelosAnalisis.find(
+          (x) => x.id === panalisis.codModeloAnalisis), Validators.required],
+        modeloAnalisisCalificacion: [this.listModelosAnalisisCalificacion.find(
           (x) => x.id === panalisis.codigoModeloAnalisis), Validators.required],
+
         indicadorCsd: panalisis.indicadorCsd,
         ponderacionLvt: panalisis.descPondLvt,
 
@@ -549,7 +599,10 @@ export class DatosAnalisisComponent implements OnInit {
         
         analisisDefinitivo: false,
         estado: true,
-        modeloAnalisis: [null, Validators.required ],
+
+        modeloAnalisis: [null, Validators.required],
+        modeloAnalisisCalificacion: [null, Validators.required ],
+
         indicadorCsd: null,
         ponderacionLvt: null,
         capacidadPago: this.listNivelesCapacidadpago.find((x) => x.id === 99),

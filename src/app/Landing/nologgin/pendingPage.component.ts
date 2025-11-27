@@ -22,7 +22,7 @@ export class PendingUserPageComponent {
 
   constructor(private accountService: AccountService) { this.user = this.accountService.userValue; }
 
-  redirect() { this.accountService.logout(); }
+  redirect() { this.accountService.logotWithoutApiCall(); }
 
   reenviarEmail() {
     this.mostrarMensajeReenvio = false;

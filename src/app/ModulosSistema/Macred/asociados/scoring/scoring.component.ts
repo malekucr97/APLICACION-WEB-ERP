@@ -100,7 +100,7 @@ export class ScoringComponent implements OnInit {
 
     this.srvDatosAnalisisService.analisisCapacidadPago$.subscribe(
       analisis => { 
-        if (analisis) {
+        if (analisis && analisis.codigoTipoIngresoAnalisis===1) {
           this.oAnalisis = analisis;
           this.getPuntajePD();
           this.getScoring();
@@ -224,6 +224,23 @@ export class ScoringComponent implements OnInit {
     this.habilitaBtnGuardar = true;
   }
 
+  habilitaBtns(registra : boolean) : void {
+
+    if (registra) {
+      this.habilitaBtnEditar = false;
+      this.habilitaBtnCalcular = false;
+      this.habilitaBtnEliminar = false;
+      this.habilitaBtnRegistrar = true;
+      this.habilitaBtnGuardar = true;
+    } else {
+      this.habilitaBtnEditar = true;
+      this.habilitaBtnCalcular = true;
+      this.habilitaBtnEliminar = true;
+      this.habilitaBtnRegistrar = false;
+      this.habilitaBtnGuardar = false;
+    }
+  }
+
   private inicializaFormScoring(pScoring : Scoring = null) {
 
     this.submittedScoringForm = false;
@@ -250,12 +267,7 @@ export class ScoringComponent implements OnInit {
 
       this.objSeleccionadoScoring = pScoring;
 
-      this.habilitaBtnEditar = true;
-      this.habilitaBtnCalcular = true;
-      this.habilitaBtnEliminar = true;
-      this.habilitaBtnRegistrar = false;
-      this.habilitaBtnGuardar = false;
-
+      this.habilitaBtns(false);
       this.habilitarCamposPDEditar(false);
 
     } else {
@@ -280,11 +292,7 @@ export class ScoringComponent implements OnInit {
 
       this.objSeleccionadoScoring = undefined;
 
-      this.habilitaBtnEditar = false;
-      this.habilitaBtnCalcular = false;
-      this.habilitaBtnEliminar = false;
-      this.habilitaBtnRegistrar = true;
-
+      this.habilitaBtns(true);
       this.habilitarCamposPDEditar(true);
     }
   }

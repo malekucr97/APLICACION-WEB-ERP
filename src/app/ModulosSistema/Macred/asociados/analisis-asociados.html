@@ -12,12 +12,12 @@
             (click)="redirectIndexModule()"> <mat-icon>arrow_back</mat-icon> </button>
 
     <!-- // selecciona items pruebas -->
-    <div *ngIf="test" style="display: flex; justify-content: flex-end;">
+    <!-- <div *ngIf="test" style="display: flex; justify-content: flex-end;">
       <button class=""
               title="select test"
               mat-flat-button
               (click)="selectItems()"> select test </button>
-    </div>
+    </div> -->
 
   </div>
 
@@ -581,7 +581,7 @@
 
       <!-- tab fcl -->
       <app-fcl *ngIf="flujoCaja"
-        (onEscenariosFCL)="handleHabilitarEscenariosFCL($event)">
+        (onEscenariosFCL)="habilitaEscenariosFCL()">
       </app-fcl>
 
       <!-- <app-fcl
@@ -594,8 +594,8 @@
       <!-- ************************** -->
       <!-- ARTÍCULO ESCENARIO FCL     -->
       <!-- ************************** -->
-      <app-escenariofcl
-      *ngIf="escenariosFcl"
+      <app-escenariofcl *ngIf="escenariosFcl"
+        (onActualizarFormAnalisis_EscenarioFCL)="actualizarFormAnalisis_EscenarioFCL($event)"
       ></app-escenariofcl>
 
     </div>

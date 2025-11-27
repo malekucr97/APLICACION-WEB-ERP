@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import { Compania, Module, ResponseMessage, User } from '@app/_models';
 import {  AnalisisHistoricoPD, MacAnalisisCapacidadPago,
           MacDeduccionesAnalisis,
+          MacEscenariosRiesgos,
           MacEstadoCivil,
           MacExtrasAplicables,
           MacInformacionCreditoPersona,
@@ -17,9 +18,11 @@ import {  AnalisisHistoricoPD, MacAnalisisCapacidadPago,
           MacTipoIngreso,
           MacTipoIngresoAnalisis,
           MacTiposMoneda,
-          ModelosPD } from '@app/_models/Macred';
+          ModelosPD, 
+          ScoringFlujoCajaLibre} from '@app/_models/Macred';
 import { MacCategoriaCredito } from '@app/_models/Macred/CategoriaCredito';
 import { MacCondicionLaboral } from '@app/_models/Macred/CondicionLaboral';
+import { MacModeloCalificacion } from '@app/_models/Macred/ModeloCalificacion';
 import { Scoring } from '@app/_models/Macred/Scoring';
 import { MacTipoAsociado } from '@app/_models/Macred/TipoAsociado';
 import { MacTipoGenero } from '@app/_models/Macred/TipoGenero';
@@ -46,6 +49,11 @@ export class SrvDatosAnalisisService {
   analisisCapacidadPago$ = this._analisisCapacidadPago.asObservable();
   setAnalisisCapacidadPago(analisis: MacAnalisisCapacidadPago = null) { this._analisisCapacidadPago.next(analisis); }
   getAnalisisCapacidadPago(): MacAnalisisCapacidadPago | null { return this._analisisCapacidadPago.value; }
+
+  private _fclAnalisis = new BehaviorSubject<ScoringFlujoCajaLibre | null>(null);
+  fclAnalisis$ = this._fclAnalisis.asObservable();
+  setFclAnalisis(fcl: ScoringFlujoCajaLibre = null) { this._fclAnalisis.next(fcl); }
+  getFclAnalisis(): ScoringFlujoCajaLibre | null { return this._fclAnalisis.value; }
 
   // _personaAnalisis: MacPersona;
 
@@ -75,14 +83,18 @@ export class SrvDatosAnalisisService {
   listTiposMonedas: MacTiposMoneda[];
   
   // listas datos analisis
-  listTipoFormaPagoAnalisis: MacTipoFormaPagoAnalisis[];
   listModelosAnalisis: MacModeloAnalisis[];
+  listTipoFormaPagoAnalisis: MacTipoFormaPagoAnalisis[];
+  listModelosCalificacionAnalisis: MacModeloCalificacion[];
   listNivelesCapacidadpago: MacNivelCapacidadPago[];
   listTiposGeneradores: MacTipoGenerador[];
 
   listTiposIngresos: MacTipoIngreso[];
   // listTiposDeducciones: MacTipoDeducciones[];
   // listMatrizAceptacionIngreso: MacMatrizAceptacionIngreso[];
+
+  // listas independiente
+  listEscenariosEstres: MacEscenariosRiesgos[];
 
   // PD
   listTipoGenero: MacTipoGenero[];
@@ -92,8 +104,8 @@ export class SrvDatosAnalisisService {
   _globalMesesAplicaExtras: number;
   _constantePD: string;
 
-  private _listasCargadas$ = new BehaviorSubject<boolean>(false);
-  listasCargadas$ = this._listasCargadas$.asObservable();
+  // private _listasCargadas$ = new BehaviorSubject<boolean>(false);
+  // listasCargadas$ = this._listasCargadas$.asObservable();
 
   constructor(private macredService: MacredService,
               private accountService: AccountService) {
@@ -202,6 +214,20 @@ export class SrvDatosAnalisisService {
   async actualizarScoring(scoring: Scoring): Promise<ResponseMessage> {
     try {
       return await firstValueFrom( this.macredService.putScoring(scoring) );
+
+    } catch (error: any) { throw new Error(`HTTP Error. Detalle: ${error.message || error}`); }
+  }
+
+  // fcl
+  async registrarFCL(fcl: ScoringFlujoCajaLibre): Promise<ResponseMessage> {
+    try {
+      return await firstValueFrom( this.macredService.postFlujoCajaLibre(fcl) );
+
+    } catch (error: any) { throw new Error(`HTTP Error. Detalle: ${error.message || error}`); }
+  }
+  async actualizarFCL(fcl: ScoringFlujoCajaLibre): Promise<ResponseMessage> {
+    try {
+      return await firstValueFrom( this.macredService.putFlujoCajaLibre(fcl) );
 
     } catch (error: any) { throw new Error(`HTTP Error. Detalle: ${error.message || error}`); }
   }

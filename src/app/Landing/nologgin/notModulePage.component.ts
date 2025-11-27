@@ -9,5 +9,5 @@ import { AccountService } from '@app/_services';
 })
 export class NotModulePageComponent {
     constructor(private accountService: AccountService) { }
-    redirect() { this.accountService.logout(); }
+    redirect() { this.accountService.logotWithoutApiCall(); }
 }

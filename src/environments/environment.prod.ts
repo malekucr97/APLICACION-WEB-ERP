@@ -2,7 +2,7 @@
 
 export const environment = {
     production: true,
-    apiUrl: 'https://localhost:4001',
+    apiUrl: 'https://localhost:4002',
 
     sessionStorageIdentificationUserKey: '_httpUsernameSessionStorageAppAdminModules'
     // ,
@@ -26,7 +26,7 @@ export const pending = {
 };
 
 export const active = {
-    state: 'Activo',
+    state: 'Active',
     urlRedirect: ''
 };
 

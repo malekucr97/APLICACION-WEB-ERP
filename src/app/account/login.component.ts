@@ -6,6 +6,7 @@ import { AccountService, AlertService } from '@app/_services';
 import { administrator, environment, httpLandingIndexPage } from '@environments/environment';
 import { User } from '@app/_models';
 import { TranslateService } from '@ngx-translate/core';
+import { firstValueFrom } from 'rxjs';
 
 @Component({selector: 'login',
             templateUrl: 'login.component.html',
@@ -75,74 +76,163 @@ export class LoginComponent implements OnInit {
                                             rememberme: [this.SSLState] });
     }
 
-    onSubmit() {
+    async onSubmit() : Promise<void> {
 
         this.alertService.clear();
 
         this.submitted  = true;
         this.loading    = true;
 
-        if (this.form.invalid) return;
+        if (this.form.invalid) {this.loading = false; return;}
 
         let userName : string = this.f.username.value;
         let password : string = this.f.password.value;
 
-        if (this.f.rememberme.value) { 
-            sessionStorage.setItem(this.KeySessionStorageUserName, userName); 
-        }
-        else { sessionStorage.removeItem(this.KeySessionStorageUserName); }
+        try {
 
-        this.accountService.login(userName.trim(), password.trim())
-            .pipe(first())
-            .subscribe( responseLogin => {
+            const responseLogin = await firstValueFrom( this.accountService.login( userName.trim(), password.trim() ));
 
-                if ( responseLogin ) {
+            if (responseLogin) {
 
-                    this.userLog = responseLogin;
+                this.userLog = responseLogin;
 
-                    switch(this.userLog.codeNoLogin) {
+                console.log(this.userLog.codeNoLogin);
 
-                        // ************************
-                        // grant access response **
-                        case "202": {
-                            this.userLog.esAdmin = administrator.identification === this.userLog.idRol ? true : false;
-                            this.router.navigate([this.UrlHome]);
-                            break;
+                switch (this.userLog.codeNoLogin) {
+
+                    // ************************
+                    // grant access response **
+                    case "202": {
+
+                        if (this.f.rememberme.value) { 
+                            sessionStorage.setItem(this.KeySessionStorageUserName, userName); 
                         }
+                        else { sessionStorage.removeItem(this.KeySessionStorageUserName); }
 
-                        case "404": { this.alertService.warn(
-                            this.translate.instant('ALERTS.USER_NOT_REGISTERED')); break; }         // usuario no registrado 
-
-                        case "403": { this.router.navigate([this._httpBlockedUserPage]);   break; } // usuario bloqueado
-                        case "423": { this.router.navigate([this._httpInactiveUserPage]);  break; } // usuario inactivo
-                        case "409": { this.router.navigate([this._httpPendingUserPage]);   break; } // usuario pendiente
-                        case "405": { this.router.navigate([this._httpNotRoleUserPage]);   break; } // usuario sin rol
-                        case "401": {
-                            this.intentosFallidosInicioSesion++;
-                            this.alertService.warn(this.translate.instant('ALERTS.PASSWORD_ERROR'));
-                            break;
-                        } // contraseña incorrecta
-                        case "424": {
-                            this.alertService.error(this.translate.instant('ALERTS.ACTIVATE_EMAIL_NOT_SEND'));
-                            break;
-                        } // correo no enviado revisar bitacoras y logs
-
-                        case "500": {
-                            this.alertService.error(responseLogin.messageNoLogin);
-                            break;
-                        } // error interno del servidor
-
-                        default: { this.alertService.error(this.translate.instant('ALERTS.EXCEPTION_NOT_CONTROLLED')); break; }
+                        this.userLog.esAdmin = administrator.identification === this.userLog.idRol;
+                        this.router.navigate([this.UrlHome]);
+                        break;
                     }
 
-                // ************************
-                // http null response *****
-                } else { this.alertService.error(this.translate.instant('ALERTS.WITHOUT_RESULTS')); }
+                    case "404": {
+                        this.alertService.warn(this.translate.instant('ALERTS.USER_NOT_REGISTERED'));
+                        break; // usuario no registrado 
+                    }
 
-                this.loading    = false;
-                this.submitted  = false;
+                    case "403": {
+                        this.router.navigate([this._httpBlockedUserPage]);
+                        break; // usuario bloqueado
+                    }
+
+                    case "423": {
+                        this.router.navigate([this._httpInactiveUserPage]);
+                        break; // usuario inactivo
+                    }
+
+                    case "409": {
+                        this.router.navigate([this._httpPendingUserPage]);
+                        break; // usuario pendiente
+                    }
+
+                    case "405": {
+                        this.router.navigate([this._httpNotRoleUserPage]);
+                        break; // usuario sin rol
+                    }
+
+                    case "401": {
+                        this.intentosFallidosInicioSesion++;
+                        this.alertService.warn(
+                            this.translate.instant('ALERTS.PASSWORD_ERROR')
+                        );
+                        break; // contraseña incorrecta
+                    }
+
+                    case "424": {
+                        this.alertService.error(
+                            this.translate.instant('ALERTS.ACTIVATE_EMAIL_NOT_SEND')
+                        );
+                        break; // correo no enviado revisar bitacoras y logs
+                    }
+
+                    case "500": {
+                        this.alertService.error(responseLogin.messageNoLogin);
+                        break; // error interno del servidor
+                    }
+
+                    default: {
+                        this.alertService.error(
+                            this.translate.instant('ALERTS.EXCEPTION_NOT_CONTROLLED')
+                        );
+                        break;
+                    }
+                }
+
+            } else {
+                this.alertService.error( this.translate.instant('ALERTS.WITHOUT_RESULTS') );
+            }
+            
+        } catch (error) {
+            console.log(error);
+            this.alertService.error(
+                this.translate.instant('ALERTS.ERROR_CATCH', { ERROR: error })
+            );
+        }
+        finally {
+            this.loading   = false;
+            this.submitted = false;
+        }
+
+        // this.accountService.login(userName.trim(), password.trim())
+        //     .pipe(first())
+        //     .subscribe( responseLogin => {
+
+        //         if ( responseLogin ) {
+
+        //             this.userLog = responseLogin;
+
+        //             switch(this.userLog.codeNoLogin) {
+
+        //                 // ************************
+        //                 // grant access response **
+        //                 case "202": {
+        //                     this.userLog.esAdmin = administrator.identification === this.userLog.idRol ? true : false;
+        //                     this.router.navigate([this.UrlHome]);
+        //                     break;
+        //                 }
+
+        //                 case "404": { this.alertService.warn(
+        //                     this.translate.instant('ALERTS.USER_NOT_REGISTERED')); break; }         // usuario no registrado 
+
+        //                 case "403": { this.router.navigate([this._httpBlockedUserPage]);   break; } // usuario bloqueado
+        //                 case "423": { this.router.navigate([this._httpInactiveUserPage]);  break; } // usuario inactivo
+        //                 case "409": { this.router.navigate([this._httpPendingUserPage]);   break; } // usuario pendiente
+        //                 case "405": { this.router.navigate([this._httpNotRoleUserPage]);   break; } // usuario sin rol
+        //                 case "401": {
+        //                     this.intentosFallidosInicioSesion++;
+        //                     this.alertService.warn(this.translate.instant('ALERTS.PASSWORD_ERROR'));
+        //                     break;
+        //                 } // contraseña incorrecta
+        //                 case "424": {
+        //                     this.alertService.error(this.translate.instant('ALERTS.ACTIVATE_EMAIL_NOT_SEND'));
+        //                     break;
+        //                 } // correo no enviado revisar bitacoras y logs
+
+        //                 case "500": {
+        //                     this.alertService.error(responseLogin.messageNoLogin);
+        //                     break;
+        //                 } // error interno del servidor
+
+        //                 default: { this.alertService.error(this.translate.instant('ALERTS.EXCEPTION_NOT_CONTROLLED')); break; }
+        //             }
+
+        //         // ************************
+        //         // http null response *****
+        //         } else { this.alertService.error(this.translate.instant('ALERTS.WITHOUT_RESULTS')); }
+
+        //         this.loading    = false;
+        //         this.submitted  = false;
                 
-            }, (error) => { this.loading = false; this.submitted = false; this.alertService.error(this.translate.instant('ALERTS.ERROR_CATCH', {ERROR: error})); });
+        //     }, (error) => { this.loading = false; this.submitted = false; this.alertService.error(this.translate.instant('ALERTS.ERROR_CATCH', {ERROR: error})); });
     }
 
     visualizarContrasena() { this.mostrarContrasena = !this.mostrarContrasena; }

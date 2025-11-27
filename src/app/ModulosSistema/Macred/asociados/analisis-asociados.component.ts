@@ -39,7 +39,14 @@ export class AnalisisAsociadosComponent implements OnInit, OnDestroy {
   @ViewChild(DatosAnalisisComponent, { static: false })
   _cDatosAnalisisComponent: DatosAnalisisComponent;
 
+
+
   private nombrePantalla: string = 'analisis-asociados.html';
+
+  public updateEscenarioForm?: {
+    ponderacionLTV: number;
+    capacidadPago: number;
+  };
 
   // objetos seleccionados
   // _per: MacPersona = undefined;
@@ -194,11 +201,11 @@ export class AnalisisAsociadosComponent implements OnInit, OnDestroy {
   }
 
   // selecciona items pruebas
-  public selectItems() : void {
+  // public selectItems() : void {
 
-    this.selectPersona(this.listPersonas[0]);
-    this.seleccionarPersona();
-  }
+  //   this.selectPersona(this.listPersonas[0]);
+  //   this.seleccionarPersona();
+  // }
   //
 
   private inicializaFormularioPersona(objeto : MacPersona = null) : void {
@@ -490,9 +497,9 @@ export class AnalisisAsociadosComponent implements OnInit, OnDestroy {
             this.listInfoCreditoPersonas = response;
 
             // selecciona items pruebas
-            this.selectCredito(this.listInfoCreditoPersonas[0]);
-            this.seleccionarCredito();
-            this.test = false;
+            // this.selectCredito(this.listInfoCreditoPersonas[0]);
+            // this.seleccionarCredito();
+            // this.test = false;
           } else {
             this.habilitaListaCredito = false; this.listInfoCreditoPersonas = [];
           }
@@ -597,13 +604,16 @@ export class AnalisisAsociadosComponent implements OnInit, OnDestroy {
           this.srvDatosAnalisisService.listCondicionesLaborales = this.listCondicionesLaborales;
         }});
 
-
       // listas datos analisis
       this.macredService.getTiposFormaPagoAnalisis()
         .pipe(first())
         .subscribe({ next: (response) => { this.srvDatosAnalisisService.listTipoFormaPagoAnalisis = response; }});
 
       this.macredService.getModelosCalificacionActivos()
+        .pipe(first())
+        .subscribe({ next: (response) => { this.srvDatosAnalisisService.listModelosCalificacionAnalisis = response; }});
+
+      this.macredService.getModelosAnalisis(false)
         .pipe(first())
         .subscribe({ next: (response) => { this.srvDatosAnalisisService.listModelosAnalisis = response; }});
 
@@ -694,37 +704,22 @@ export class AnalisisAsociadosComponent implements OnInit, OnDestroy {
       this.selectModule(item);
 
     } else { this.limpiarTabs(); this.habilitarItemSubMenu(new ModuleSubMenu( 2, 'Flujo de Caja Libre')); }
-
-    // this.habilitaBtnPD = false;
   }
 
-  _analisisScoringFCL: ScoringFlujoCajaLibre = undefined;
-  handleHabilitarEscenariosFCL(inScoring: ScoringFlujoCajaLibre) {
-    this._analisisScoringFCL = inScoring;
-    this.habilitarItemSubMenu(
-      new Module(
-        10,
-        'EscenariosFCL',
-        'Escenarios FCL',
-        'Escenarios FCL',
-        'A',
-        '.png',
-        '.ico',
-        'http'
-      )
-    );
-    // this.selectModule(
-    //   new Module(
-    //     10,
-    //     'EscenariosFCL',
-    //     'Escenarios FCL',
-    //     'Escenarios FCL',
-    //     'I',
-    //     '.png',
-    //     '.ico',
-    //     'http'
-    //   )
-    // );
+  habilitaEscenariosFCL(): void {
+
+    const item = this.listSubMenu.find(x => x.id === 10);
+
+    if (item) {
+
+      this.selectModule(item);
+
+    } else { this.limpiarTabs(); this.habilitarItemSubMenu(new ModuleSubMenu( 10, 'Escenarios FCL')); }
+  }
+
+  actualizarFormAnalisis_EscenarioFCL(event: { ponderacionLTV: string, capacidadPago: number }): void {
+
+    this._cDatosAnalisisComponent.actualizarEscenarioFCL(event.ponderacionLTV, event.capacidadPago);
   }
 
   ngOnDestroy(): void {

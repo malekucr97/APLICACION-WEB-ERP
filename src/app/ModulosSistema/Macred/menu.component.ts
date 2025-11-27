@@ -94,7 +94,7 @@ const TREE_DATA: FoodNode[] = [
                           {name: 'Configuración de Modelos', link: 'mantenimientos/modeloscalificacion/configuracion-modelos.html', icon: ''},
                           {name: 'Variables Críticas', link: 'mantenimientos/modeloscalificacion/variables-criticas.html', icon: ''},
                           {name: 'Escenarios de Riesgos', link: 'mantenimientos/modeloscalificacion/escenarios-riesgos.html', icon: ''},
-                          {name: 'Niveles Capacidad Pago (Global)', link: 'mantenimientos/modeloscalificacion/niveles-capacidad-pago.html', icon: ''}]},
+                          {name: 'Niveles Capacidad Pago', link: 'mantenimientos/modeloscalificacion/niveles-capacidad-pago.html', icon: ''}]},
                 {name: 'Parámetros',
                 link: '',
                 icon: '',
@@ -105,8 +105,10 @@ const TREE_DATA: FoodNode[] = [
                 icon: '',
                 children: [{name: 'Configuración de Modelos', link: 'mantenimientos/parametrosscoring/modelos-analisis.html', icon: ''},
                           {name: 'Indicadores Relevantes', link: 'mantenimientos/parametrosscoring/indicadores-scoring.html', icon: ''},
-                          {name: 'Niveles de Riesgo', link: 'mantenimientos/parametrosscoring/niveles-riesgo.html', icon: ''},
-                          {name: 'Rangos de Puntaje', link: '/', icon: ''}]}],
+                          {name: 'Niveles de Riesgo', link: 'mantenimientos/parametrosscoring/niveles-riesgo.html', icon: ''}
+                          // ,
+                          // {name: 'Rangos de Puntaje', link: '/', icon: ''}
+                          ]}],
   },
   {
     name: 'Configuración',

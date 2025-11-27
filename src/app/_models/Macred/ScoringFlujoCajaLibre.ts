@@ -1,34 +1,39 @@
-export interface ScoringFlujoCajaLibre {
-  codScoringFlujoCaja: number,
-  codAnalisis: number,
-  codActividadEconomica?: number,
-  codPersona: number,
-  fechaCreacion: Date,
-  fechaModificacion?: Date,
-  scofclEstado?: boolean,
-  flujoEfectivoInicial: number,
-  ingresosMensualesActividad: number,
-  gastosNegocio: number,
-  gastosPersonalesFamiliares: number,
-  cuotasPrestamosSistema: number,
-  nuevaObligacion: number,
-  cuotaMonedaExtraAno1: number,
-  cuotaMonedaExtraAno2: number,
-  mesesProyectarObligaciones: number,
-  ajusteSalario: number,
-  saldoTotalDeudaAnoBase: number,
-  saldoTotalDeudaAno2: number,
-  valorPatrimonioActual: number,
-  valorPatrimonioFuturoEstimado: number,
-  ahorroNuevaObligacion: number,
-  requerimietoCapitalTrabajo: number,
-  otrosIngresosIndirectos: number,
-  mejoradorCrediticio: number,
-  aporteEfectivo: number,
-  otrosGastosIndirectos: number,
-  scodfclCodDescripcionReporte: number,
-  scofclDescripcion: string,
-  usuarioCreacion: string,
-  usuarioModificacion?: string,
-  observacionValorPatrimonio: string,
+export class ScoringFlujoCajaLibre {
+  codScoringFlujoCaja: number;
+  codAnalisis: number;
+
+  codActividadEconomica?: number;
+  codPersona: number;
+
+  idCompania: number;
+
+  scofclEstado?: boolean;
+  flujoEfectivoInicial: number;
+  ingresosMensualesActividad: number;
+  gastosNegocio: number;
+  gastosPersonalesFamiliares: number;
+  cuotasPrestamosSistema: number;
+  nuevaObligacion: number;
+  cuotaMonedaExtraAno1: number;
+  cuotaMonedaExtraAno2: number;
+  mesesProyectarObligaciones: number;
+  ajusteSalario: number;
+  saldoTotalDeudaAnoBase: number;
+  saldoTotalDeudaAno2: number;
+  valorPatrimonioActual: number;
+  valorPatrimonioFuturoEstimado: number;
+  ahorroNuevaObligacion: number;
+  requerimietoCapitalTrabajo: number;
+  otrosIngresosIndirectos: number;
+  mejoradorCrediticio: number;
+  aporteEfectivo: number;
+  otrosGastosIndirectos: number;
+  scodfclCodDescripcionReporte: number;
+  scofclDescripcion: string;
+  observacionValorPatrimonio: string;
+
+  usuarioCreacion: string;
+  usuarioModificacion?: string;
+  fechaCreacion: Date;
+  fechaModificacion?: Date;
 }

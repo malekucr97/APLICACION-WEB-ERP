@@ -61,5 +61,5 @@ export class ActivateUserPageComponent {
       });
   }
 
-  redirect() { this.accountService.logout(); }
+  redirect() { this.accountService.logotWithoutApiCall(); }
 }

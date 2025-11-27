@@ -11,5 +11,5 @@ import { User } from '@app/_models';
 export class BlockedUserPageComponent {
     user = new User();
     constructor(private accountService: AccountService) { this.user = this.accountService.userValue; }
-    redirect() { this.accountService.logout(); }
+    redirect() { this.accountService.logotWithoutApiCall(); }
 }

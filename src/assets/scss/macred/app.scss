@@ -183,33 +183,85 @@ $paddingLength:(2,5,10,15,30,45,50);
     }
 }
 
-.fcl_cards{
-  background-color: white;
-  margin: 2px;
-  padding: 4px 10px;
-  display: flex;
-  flex-direction: column;
-  border-radius: 5px;
-  border-width: 1.5px;
-  border-color: #B3B3B3;
-  border-style: solid;
+.fcl_container {
+  // Importante: dejamos que Bootstrap maneje el grid
+  margin-top: 1rem;
 
-  .encabezado{
-    border-width: 0px;
-    border-style: solid;
-    border-bottom-width: 1px;
-    border-bottom-color: #053254;
-    margin-bottom: 10px;
-    margin-top: 10px;
+  .fcl_card {
+    background: #ffffff;
+    border-radius: 10px;
+    border: 1px solid #d4d7dc;
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.05);
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    margin-bottom: 5px;
+    padding-top: 5px;
+    padding-bottom: 10px;
 
-    .titulo{
-      color: #1c1c1c;
-      font-weight: bold;
+    .fcl_header {
+      border-bottom: 2px solid #0077b6;
+      padding-bottom: 0.4rem;
+      margin-bottom: 0.8rem;
+
+      .fcl_title {
+        font-size: 1rem;
+        font-weight: 600;
+        color: #023047;
+        margin: 0;
+      }
     }
 
-  }
+    // Estilos internos para form-groups en fila
+    .row {
+      display: flex;
+      flex-wrap: wrap;
+      // gap: 0.5rem; // espacio horizontal entre inputs
+    }
 
+    .form-group {
+      display: flex;
+      flex-direction: column;
+
+      .form-label {
+        font-weight: 500;
+        color: #444;
+        font-size: 0.9rem;
+        margin-bottom: 0.3rem;
+      }
+
+      .form-control {
+        width: 100%;
+        border: 1px solid #ced4da;
+        border-radius: 6px;
+        padding: 0.55rem 0.75rem;
+        font-size: 0.95rem;
+        transition: border-color 0.2s, box-shadow 0.2s;
+
+        &:focus {
+          border-color: #0077b6;
+          box-shadow: 0 0 0 0.15rem rgba(0, 119, 182, 0.25);
+        }
+
+        &.is-invalid {
+          border-color: #e63946;
+          box-shadow: 0 0 0 0.15rem rgba(230, 57, 70, 0.2);
+        }
+      }
+
+      .invalid-feedback {
+        color: #e63946;
+        font-size: 0.85rem;
+        margin-top: 0.3rem;
+      }
+    }
+  }
 }
+
+
+
+
+
 
 // acts 2025 maleku ti
 // **
@@ -218,6 +270,7 @@ $paddingLength:(2,5,10,15,30,45,50);
 .margin-status { padding-top: 20px; }
 .margin-filter { padding-top: 30px; }
 .margin-open { padding-top: 30px; }
+// .margin-btns { padding-top: 30px; }
 
 .margin-icos-list {
     display: flex;
@@ -465,6 +518,38 @@ $paddingLength:(2,5,10,15,30,45,50);
         &__puntaje {width: 10%; text-align: center; &__td { text-align: center; } }
         &__riesgo {width: 20%; text-align: center; &__td { text-align: center; } }
     }
+    &__escenarios-fcl-historico {
+        &__detalle { width: 50%; }
+        &__anio1 { width: 10%; text-align: center; &__td { text-align: center; } }
+        &__anio2 {width: 10%; text-align: center; &__td { text-align: center; } }
+        &__anio3 {width: 10%; text-align: center; &__td { text-align: center; } }
+        &__anio4 {width: 10%; text-align: center; &__td { text-align: center; } }
+        &__anio5 {width: 10%; text-align: center; &__td { text-align: center; } }
+    }
+    &__indicadores-fcl-historico {
+        &__peso { width: 10%; text-align: center; &__td { text-align: center; } }
+        &__desc { width: 50%; text-align: center; &__td { text-align: center; } }
+        &__cpd {width: 10%; text-align: center; &__td { text-align: center; } }
+        &__scpd {width: 10%; text-align: center; &__td { text-align: center; } }
+        &__riesgo {width: 10%; text-align: center; &__td { text-align: center; } }
+        &__ponderacion {width: 10%; text-align: center; &__td { text-align: center; } }
+    }
+}
+
+.fcl-two-tables {
+  display: flex;
+  gap: 35px;        // margen entre tablas
+  width: 100%;
+  align-items: flex-start;   // 🔥 CLAVE: evita que se igualen las alturas
+
+  .fcl_container {
+    flex: 1;       // cada tabla ocupa 50% del ancho
+
+    .fcl_card {
+      width: 100%;
+      min-width: 0;
+    }
+  }
 }
 
 .center-div {

@@ -56,6 +56,9 @@ import { MacNivelesXIndicadorScoring } from '@app/_models/Macred/NivelXIndicador
 import { CodeudorFiador } from '@app/_models/Macred/CodeudorFiador';
 import { Scoring, ScoringParametros } from '@app/_models/Macred/Scoring';
 import { ScoringHistorico } from '@app/_models/Macred/ScoringHistorico';
+import { EscenariosFCLParametros } from '@app/_models/Macred/EscenariosFCLParametros';
+import { EscenariosFCLHistorico } from '@app/_models/Macred/EscenariosFCLHistorico';
+import { IndicadoresFCLHistorico } from '@app/_models/Macred/IndicadoresFCLHistorico';
 
 @Injectable({ providedIn: 'root' })
 export class MacredService {
@@ -96,9 +99,69 @@ export class MacredService {
   }
   // **********************************************************************************************
 
+  getReporteFCLHistorico(pidAnalisis: number, pidEscenario: number, pidPersona: number) {
+    return this.http.get<ResponseMessage>(
+      `${environment.apiUrl}/macred/getreportefclhistorico?pidAnalisis=${pidAnalisis}
+                                                          &pidEscenario=${pidEscenario}
+                                                          &pidPersona=${pidPersona}
+                                                          &pidCompania=${this.businessValue.id}`, 
+      { headers: this.headersValue }
+    );
+  }
+  calculoEscenariosFCL(pobj: EscenariosFCLParametros) {
+    return this.http.post<ResponseMessage>(
+      `${environment.apiUrl}/macred/calcularescenariosfcl`, pobj, { headers: this.headersValue }
+    );
+  }
+  getHistoricoEscenariosFCL(pidAnalisis: number) {
+    return this.http.get<EscenariosFCLHistorico[]>(
+      `${environment.apiUrl}/macred/getescenariosfclhistorico?pidAnalisis=${pidAnalisis}`, 
+      { headers: this.headersValue }
+    );
+  }
+  getHistoricoIndicadoresFCL(pidAnalisis: number) {
+    return this.http.get<IndicadoresFCLHistorico[]>(
+      `${environment.apiUrl}/macred/getindicadoresfclhistorico?pidAnalisis=${pidAnalisis}`, 
+      { headers: this.headersValue }
+    );
+  }
+  getCapacidadPagoAnalisis(pidAnalisis: number) {
+    return this.http.get<number>(
+      `${environment.apiUrl}/macred/getcapacidadpagoanalisis?pidAnalisis=${pidAnalisis}`, 
+      { headers: this.headersValue }
+    );
+  }
+
+  deletelujoCajaLibre(pidFCL: number) {
+    return this.http.delete<ResponseMessage>(
+      `${environment.apiUrl}/macred/deletefcl?pidFCL=${pidFCL}`, { headers: this.headersValue }
+    );
+  }
+  postFlujoCajaLibre(pobj: ScoringFlujoCajaLibre) {
+    return this.http.post<ResponseMessage>(
+      `${environment.apiUrl}/macred/postflujocajalibre`, pobj, { headers: this.headersValue }
+    );
+  }
+  putFlujoCajaLibre(pobj: ScoringFlujoCajaLibre) {
+    return this.http.put<ResponseMessage>(
+      `${environment.apiUrl}/macred/putflujocajalibre`, pobj, { headers: this.headersValue }
+    );
+  }
+  // getFlujoCajaLibre(idFlujoCapacidadPago: number) {
+  //   return this.http.get<ScoringFlujoCajaLibre>(
+  //     `${environment.apiUrl}/macred/getFlujoCajaLibre/${idFlujoCapacidadPago}`
+  //   );
+  // }
+  getFlujoCajaLibreAnalisis(pidAnalisis: number) {
+    return this.http.get<ScoringFlujoCajaLibre>(
+      `${environment.apiUrl}/macred/getflujocajalibreanalisis?pidAnalisis=${pidAnalisis}`
+    );
+  }
+
   getHistoricoScoring(pidAnalisis: number) {
     return this.http.get<ScoringHistorico[]>(
-      `${environment.apiUrl}/macred/getanalisisscoring?pidAnalisis=${pidAnalisis}`
+      `${environment.apiUrl}/macred/getanalisisscoring?pidAnalisis=${pidAnalisis}`, 
+      { headers: this.headersValue }
     );
   }
 
@@ -127,7 +190,8 @@ export class MacredService {
   }
   deleteScoring(pidScoring: number) {
     return this.http.delete<ResponseMessage>(
-      `${environment.apiUrl}/macred/deletescoring?pidScoring=${pidScoring}`
+      `${environment.apiUrl}/macred/deletescoring?pidScoring=${pidScoring}`, 
+      { headers: this.headersValue }
     );
   }
 
@@ -749,8 +813,8 @@ export class MacredService {
   getModelosAnalisis(pinactivos : boolean) {
     return this.http.get<MacModeloAnalisis[]>(
       `${environment.apiUrl}/macred/getmodelosanalisis?pidCompania=${this.businessValue.id}
-                                                          &pidModulo=${this.moduleValue.id}
-                                                          &pinactivos=${pinactivos}`,
+                                                        &pidModulo=${this.moduleValue.id}
+                                                        &pinactivos=${pinactivos}`,
       { headers: this.headersValue });
   }
   postModeloAnalisis(pobj: MacModeloAnalisis) {
@@ -807,6 +871,11 @@ export class MacredService {
   }
 
   // ESCENARIOS RIESGO
+  getEscenariosRiesgosAnalisis(pcodModeloAnalisis:number) {
+    return this.http.get<MacEscenariosRiesgos[]>(
+      `${environment.apiUrl}/macred/getescenariosriesgoanalisis?pcodModeloAnalisis=${pcodModeloAnalisis}`,
+      { headers: this.headersValue });
+  }
   getEscenariosRiesgos() {
     return this.http.get<MacEscenariosRiesgos[]>(
       `${environment.apiUrl}/macred/getescenariosriesgo?pidCompania=${this.businessValue.id}`,
@@ -1573,30 +1642,6 @@ export class MacredService {
   //#endregion
 
   //#region MODELO FCL
-
-  //#region FCL_SCORING
-
-  getFlujoCajaLibre(idFlujoCapacidadPago: number) {
-    return this.http.get<ScoringFlujoCajaLibre>(
-      `${environment.apiUrl}/macred/getFlujoCajaLibre/${idFlujoCapacidadPago}`
-    );
-  }
-
-  postFlujoCajaLibre(inScoringFlujoCaja: ScoringFlujoCajaLibre) {
-    return this.http.post<ScoringFlujoCajaLibre>(
-      `${environment.apiUrl}/macred/postFlujoCajaLibre`,
-      inScoringFlujoCaja
-    );
-  }
-
-  putFlujoCajaLibre(inScoringFlujoCaja: ScoringFlujoCajaLibre) {
-    return this.http.put<ResponseMessage>(
-      `${environment.apiUrl}/macred/putFlujoCajaLibre/${inScoringFlujoCaja.codScoringFlujoCaja}`,
-      inScoringFlujoCaja
-    );
-  }
-
-  //#endregion
 
   //#region  TIPO ACTIVIDADES ECONOMICAS
 

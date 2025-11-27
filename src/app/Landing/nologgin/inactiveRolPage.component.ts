@@ -8,5 +8,5 @@ import { AccountService } from '@app/_services';
 })
 export class InactiveRolPageComponent {
     constructor(private accountService: AccountService) {}
-    redirect() { this.accountService.logout(); }
+    redirect() { this.accountService.logotWithoutApiCall(); }
 }

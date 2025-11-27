@@ -11,9 +11,15 @@ export class MacAnalisisCapacidadPago {
     puntajeAnalisis      : number;
     calificacionCic      : string;
     puntajeFinalCic      : number;
+
+    // --
+    codModeloAnalisis       : number; // modelo de analisis
+    codigoModeloAnalisis    : number; // calificacion
+    // --
+
     codigoTipoIngresoAnalisis   : number;
     codigoTipoFormaPagoAnalisis : number;
-    codigoModeloAnalisis        : number;
+    
     codigoMoneda            : number;
     codigoTipoGenerador     : number;
     indicadorCsd            : number;
@@ -41,4 +47,7 @@ export class MacAnalisisCapacidadPago {
     fechaAdicion        : Date
     modificadoPor       : string;
     fechaModificacion   : Date
+
+    // desc
+    descModeloAnalisis : string;
 }

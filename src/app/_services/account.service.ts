@@ -217,6 +217,15 @@ export class AccountService {
     this.moduleSubject.next(null);
   }
 
+  logotWithoutApiCall(): void {
+    ['user', 'Obusiness', 'Omodule'].forEach(key => localStorage.removeItem(key));
+    this.userSubject.next(null);
+    this.businessSubject.next(null);
+    this.moduleSubject.next(null);
+
+    this.router.navigate(['account/login']);
+  }
+
   // **********************************************************************************************
   // 2024 ** ACTS SEGURIDAD ******
   // **********************************************************************************************

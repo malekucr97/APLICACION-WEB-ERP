@@ -157,12 +157,10 @@ export class ParametrosGeneralesComponent implements OnInit {
 
     guardarParametroGeneral() : void {
 
-        this.alertService.clear();
+        // this.alertService.clear();
         this.submittedParametroGeneralForm = true;
 
-        if ( this.formParametroGeneral.invalid ){
-            return;
-        }
+        if ( this.formParametroGeneral.invalid ) return;
 
         var parametroGeneral : MacParametrosGenerales;
         parametroGeneral = this.createParametroGeneralModal();
@@ -231,12 +229,12 @@ export class ParametrosGeneralesComponent implements OnInit {
     createParametroGeneralModal() : MacParametrosGenerales {
 
         var codigoParametro = this.formParametroGeneral.controls['codigoParametro'].value;
-        var encriptado      = this.formParametroGeneral.controls['encriptado'].value;
+        var encriptado      = this.formParametroGeneral.controls['encriptado'].value ?? false;
         var valor1          = this.formParametroGeneral.controls['valor1'].value;
-        var valor2          = this.formParametroGeneral.controls['valor2'].value;
-        var valor3          = this.formParametroGeneral.controls['valor3'].value;
-        var valor4          = this.formParametroGeneral.controls['valor4'].value;
-        var valor5          = this.formParametroGeneral.controls['valor5'].value;
+        var valor2          = this.formParametroGeneral.controls['valor2'].value ?? '';
+        var valor3          = this.formParametroGeneral.controls['valor3'].value ?? '';
+        var valor4          = this.formParametroGeneral.controls['valor4'].value ?? '';
+        var valor5          = this.formParametroGeneral.controls['valor5'].value ?? '';
 
 
         var parametroGeneral = this._parametroGeneralMacred;

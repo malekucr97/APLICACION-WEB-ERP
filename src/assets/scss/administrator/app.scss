@@ -696,7 +696,7 @@ td { vertical-align: middle; }
 /* #region contenido estático */
 
 .var-admin {
-    @include bg-color-maleku;
+    @include bg-color-darkest-blue;
     border-top: 1px solid rgb(202, 202, 202);
 
     &__prev-icons { width: 10%; display: inline-block; }

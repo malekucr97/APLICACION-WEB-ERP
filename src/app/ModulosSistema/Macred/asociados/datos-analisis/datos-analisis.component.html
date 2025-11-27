@@ -38,7 +38,22 @@
         <mat-datepicker #picker></mat-datepicker>
       </div>
 
-      <div class="col-sm-5"></div>
+      <div class="form-group col-md-3">
+        <label for="id_modeloCalificacion" class="form-label" >Modelo de Análisis</label>
+        <select id="id_modeloCalificacion"
+                formControlName="modeloAnalisis"
+                class="form-control"
+                name="selectModeloAnalisis"
+                [ngClass]="{ 'is-invalid': submittedAnalisisForm && g.modeloAnalisis.errors }" >
+          <option [ngValue]="objeto"
+                  *ngFor="let objeto of listModelosAnalisis" > {{objeto.id}} - {{objeto.descripcion}} </option>
+        </select>
+        <div *ngIf="submittedAnalisisForm && g.modeloAnalisis.errors" class="invalid-feedback" >
+          <div *ngIf="g.modeloAnalisis.errors.required"> El Modelo de Análisis es requerido </div>
+        </div>
+      </div>
+
+      <div class="col-sm-2"></div>
 
       <div class="form-group col-sm-2 margin-top-status" >
         <mat-checkbox formControlName="estado">Estado</mat-checkbox>
@@ -119,20 +134,21 @@
         </div>
       </div>
 
-      <div class="form-group col-md-4">
+      <div class="form-group col-md-3">
         <label for="id_modeloCalificacion" class="form-label" >Modelo de Calificación de Análisis</label>
         <select id="id_modeloCalificacion"
-                formControlName="modeloAnalisis"
+                formControlName="modeloAnalisisCalificacion"
                 class="form-control"
-                name="selectModeloAnalisis"
-                [ngClass]="{ 'is-invalid': submittedAnalisisForm && g.modeloAnalisis.errors }" >
+                name="selectModeloAnalisisCalificacion"
+                [ngClass]="{ 'is-invalid': submittedAnalisisForm && g.modeloAnalisisCalificacion.errors }" >
           <option [ngValue]="objeto"
-                  *ngFor="let objeto of listModelosAnalisis" > {{objeto.id}} - {{objeto.descripcion}} </option>
+                  *ngFor="let objeto of listModelosAnalisisCalificacion" > {{objeto.id}} - {{objeto.descripcion}} </option>
         </select>
-        <div *ngIf="submittedAnalisisForm && g.modeloAnalisis.errors" class="invalid-feedback" >
-          <div *ngIf="g.modeloAnalisis.errors.required"> El Modelo de Análisis es requerido </div>
+        <div *ngIf="submittedAnalisisForm && g.modeloAnalisisCalificacion.errors" class="invalid-feedback" >
+          <div *ngIf="g.modeloAnalisisCalificacion.errors.required"> El Modelo de Análisis es requerido </div>
         </div>
       </div>
+      
 
       <div class="form-group col-md-2">
         <label for="id_tipoMneda" class="form-label">Moneda</label>
@@ -182,11 +198,19 @@
                 class="form-control"
                 type="text"
                 id="id_ponderacionLvt"
+                readonly />
+      </div>
+      <!-- <div class="form-group col-md-4">
+        <label for="id_ponderacionLvt" class="form-label" >Ponderación LVT</label>
+        <input formControlName="ponderacionLvt"
+                class="form-control"
+                type="text"
+                id="id_ponderacionLvt"
                 [ngClass]="{ 'is-invalid': submittedAnalisisForm && g.ponderacionLvt.errors }" />
         <div *ngIf="submittedAnalisisForm && g.ponderacionLvt.errors" class="invalid-feedback" >
           <div *ngIf="g.ponderacionLvt.errors.required"> La ponderación LVT es requerida </div>
         </div>
-      </div>
+      </div> -->
 
       <div class="form-group col-md-2">
         <label for="id_numeroDependientes" class="form-label" >Número de Dependientes</label>

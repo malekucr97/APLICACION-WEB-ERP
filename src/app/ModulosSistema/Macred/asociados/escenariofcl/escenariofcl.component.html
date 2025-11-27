@@ -1,31 +1,210 @@
-<article>
-  <section>
-    <div class="contenedor__header">
-      <div class="contenedor__header__prev">
-        <h2 *ngIf="oAnalisis">
-          codigo de análisis: {{ oAnalisis.codigoAnalisis }}
-        </h2>
-      </div>
-      <div class="contenedor__header__next">
-        <h2>Escenarios FCL</h2>
-      </div>
+<div class="cont-main-analisis div-borde mat-elevation-z4"
+    [ngClass]="{'borde-success': bordeSuccessEscenarioFCL,
+                  'borde-error': bordeErrorEscenarioFCL }">
+
+  <div class="cont-main-analisis__header">
+    <div class="header-titles">
+      <h1>Escenarios del FCL para {{oPersona.nombre}} {{oPersona.primerApellido}}</h1>
+      <h2 *ngIf="oAnalisis">Análisis: {{oAnalisis.codigoAnalisis}} FCL: {{oFCL.codScoringFlujoCaja}}</h2>
     </div>
 
-    <div class="contenedor-analisis__tabletas__body">
-
+    <div>
+      <!-- <button *ngIf="habilitaBtnEditar"
+              (click)="habilitaEditarFormulario()"
+              class="btn btn-dark px-4" >
+              <i class="fas fa-file-medical"></i> Editar Scoring </button> -->
+      <!-- <button *ngIf="habilitaBtnEliminar"
+              (click)="delete()"
+              class="btn btn-danger px-4" >
+              <i class="fas fa-file-medical"></i> Eliminar Scoring </button> -->
     </div>
+  </div>
 
-    <div class="contenedor__footer">
-      <div class="contenedor__footer__prev">
-        <button
-          class="btn btn-success px-5 mx-1"
-          mat-flat-button
-          color="primary"
-        >
-          Calcular Escenarios
-        </button>
+
+  <div class="cont-analisis__tabletas__body">
+
+    <form [formGroup]="formEscenarioFCL" class="row">
+
+      <div class="row fcl_container">
+
+        <!-- SELECCION DE ESCENARIO DE ESTRÉS -->
+        <section class="fcl_card col-sm-12">
+          <aside class="fcl_header">
+            <p class="fcl_title">Seleccione el Escenario de Estrés para el Cálculo del: {{oAnalisis.descModeloAnalisis}}</p>
+          </aside>
+
+          <div class="row">
+
+            <div class="form-group col-sm-6">
+              <label for="id_escenariosEstres" class="form-label">Escenarios de Estrés</label>
+              <select id="id_escenariosEstres"
+                      formControlName="escenariosRiesgos"
+                      class="form-control"
+                      name="selectModeloAnalisisScoring"
+                      [ngClass]="{ 'is-invalid': submittedEscenarioFCLForm && j.escenariosRiesgos.errors }" >
+                <option [ngValue]="objeto"
+                        *ngFor="let objeto of listEscenariosEstres"> 
+                        {{objeto.codEscenario}} - {{objeto.descripcion}} 
+                </option>
+              </select>
+              <div *ngIf="submittedEscenarioFCLForm && j.escenariosRiesgos.errors" class="invalid-feedback" >
+                <div *ngIf="j.escenariosRiesgos.errors.required"> El campo es requerido </div>
+              </div>
+            </div>
+
+            <div class="form-group col-sm-6 d-flex align-items-end">
+              <button *ngIf="habilitaBtnCalcular"
+                      (click)="calcularEscenariosFCL()"
+                      class="btn btn-success px-5 mt-4"
+                      mat-flat-button
+                      color="primary" > 
+                      <i class="fa-solid fa-calculator"></i> Calcular Escenarios FCL </button>
+            </div>
+
+          </div>
+        </section>
       </div>
-    </div>
-  </section>
-</article>
+    </form>
 
+    <hr>
+
+    <div *ngIf="habilitaHistoricoFCL">
+
+      <div class="fcl-two-tables">
+
+        <div class="row fcl_container">
+          <section class="fcl_card col-sm-6">
+            <aside class="fcl_header">
+              <p class="fcl_title">Resultados del Cálculo del Escenario: {{descEscenarioRiesgoSelect}}</p>
+            </aside>
+
+            <table class="table table-striped">
+              <thead>
+                <tr>
+                  <th class="table__escenarios-fcl-historico__detalle">Detalle</th>
+                  <th class="table__escenarios-fcl-historico__anio1">Año 1</th>
+                  <th class="table__escenarios-fcl-historico__anio2">Año 2</th>
+                  <th class="table__escenarios-fcl-historico__anio3">Año 3</th>
+                  <th class="table__escenarios-fcl-historico__anio4">Año 4</th>
+                  <th class="table__escenarios-fcl-historico__anio5">Año 5</th>
+                </tr>
+              </thead>
+
+              <tbody>
+                <tr *ngFor="let obj of listEscenariosFCLHistorico">
+                  <td class="item-edit">{{obj.scoflhDetalleFcl}}</td>
+                  <td class="item-edit table__escenarios-fcl-historico__anio1__td">{{obj.scoflhDato1}}</td>
+                  <td class="item-edit table__escenarios-fcl-historico__anio2__td">{{obj.scoflhDato2}}</td>
+                  <td class="item-edit table__escenarios-fcl-historico__anio3__td">{{obj.scoflhDato3}}</td>
+                  <td class="item-edit table__escenarios-fcl-historico__anio4__td">{{obj.scoflhDato4}}</td>
+                  <td class="item-edit table__escenarios-fcl-historico__anio5__td">{{obj.scoflhDato5}}</td>
+                </tr>
+              </tbody>
+            </table>
+
+          </section>
+
+        </div>
+
+        <div class="row fcl_container">
+
+          <section class="fcl_card col-sm-6">
+            <aside class="fcl_header">
+              <p class="fcl_title">Resultados de Indicadores para el Modelo: {{oAnalisis.descModeloAnalisis}} </p>
+            </aside>
+
+            <table class="table table-striped">
+              <thead>
+                <tr>
+                  <th class="table__indicadores-fcl-historico__peso">Peso</th>
+                  <th class="table__indicadores-fcl-historico__desc">Descripción</th>
+                  <th class="table__indicadores-fcl-historico__cpd">CPD</th>
+                  <th class="table__indicadores-fcl-historico__scpd">SCPD</th>
+                  <th class="table__indicadores-fcl-historico__riesgo">Riesgo</th>
+                  <th class="table__indicadores-fcl-historico__ponderacion">Ponderación</th>
+                </tr>
+              </thead>
+
+              <tbody>
+                <tr *ngFor="let obj of listIndicadoresFCLHistorico">
+                  <td class="item-edit table__indicadores-fcl-historico__peso__td">{{obj.scnafclhPeso}}</td>
+                  <td class="item-edit table__indicadores-fcl-historico__desc__td">{{obj.scnafclhDescripcionIndicadores}}</td>
+                  <td class="item-edit table__indicadores-fcl-historico__cpd__td">{{obj.scnafclhCpd}}</td>
+                  <td class="item-edit table__indicadores-fcl-historico__scpd__td">{{obj.scnafclhScpd}}</td>
+                  <td class="item-edit table__indicadores-fcl-historico__riesgo__td">{{obj.descRiesgoAsignado}}</td>
+                  <td class="item-edit table__indicadores-fcl-historico__ponderacion__td">{{obj.scnafclhPonderacion}}</td>
+                </tr>
+              </tbody>
+            </table>
+
+          </section>
+
+          <section class="fcl_card col-sm-6">
+            <aside class="fcl_header">
+              <p class="fcl_title">Resultados de Análisis </p>
+            </aside>
+
+
+            <!-- <section class="fcl_card col-sm-12">
+              <aside class="fcl_header">
+                <p class="fcl_title">Seleccione el Escenario de Estrés para el Cálculo del: {{oAnalisis.descModeloAnalisis}}</p>
+              </aside> -->
+
+              <!-- <div class="row"> -->
+
+              <form [formGroup]="formResultadoFCL" class="row">
+
+                <div class="form-group col-sm-4">
+                  <label for="id_capPago" class="form-label" >Capacidad de Pago</label>
+                  <input formControlName="capacidadPagoFCL"
+                          class="form-control"
+                          type="number"
+                          id="id_capPago"
+                          readonly />
+                </div>
+
+                <div class="form-group col-sm-4">
+                  <label for="id_ltvHoy" class="form-label" >LTV Hoy</label>
+                  <input formControlName="LTVHoyFCL"
+                          class="form-control"
+                          type="number"
+                          id="id_ltvHoy"
+                          readonly />
+                </div>
+
+                <div class="form-group col-sm-4">
+                  <label for="id_ltvFuturo" class="form-label" >LTV Futuro</label>
+                  <input formControlName="LTVFuturo"
+                          class="form-control"
+                          type="number"
+                          id="id_ltvFuturo"
+                          readonly />
+                </div>
+
+              </form>
+
+              <!-- </div> -->
+            <!-- </section> -->
+            
+
+          </section>
+          
+        </div>
+
+      </div>
+      
+    </div>
+  </div>
+
+  <div class="cont-main-analisis__footer">
+    <div>
+      <button *ngIf="habilitaBtnCalcular"
+              (click)="generaReporteFCL()"
+              class="btn btn-success px-5"
+              mat-flat-button
+              color="primary" > Generar Reporte FCL </button>
+    </div>
+  </div>
+
+
+</div>
